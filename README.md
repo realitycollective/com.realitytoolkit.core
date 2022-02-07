@@ -1,13 +1,15 @@
-# Welcome to the Mixed Reality Toolkit
+# Welcome to the Reality Toolkit by the Reality Collective
+(an official fork of the XRTK - Mixed Reality Toolkit)
 
-![The Mixed Reality Toolkit](https://raw.githubusercontent.com/XRTK/XRTK-Core/development/images/Branding/XRTK_Logo_1200x250.png)
+<!-- ![The Mixed Reality Toolkit](https://raw.githubusercontent.com/XRTK/XRTK-Core/development/images/Branding/XRTK_Logo_1200x250.png)-->
 
-The Mixed Reality Toolkit's primary focus is to make it extremely easy to get started creating Mixed Reality applications and to accelerate deployment to multiple platforms from the same Unity project.
+The Toolkit's primary focus is to make it extremely easy to get started creating Mixed Reality applications and to accelerate deployment to multiple platforms from the same Unity project.
 
-[![Discord](https://img.shields.io/discord/597064584980987924.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/7DR6QJE)
+<!-- [![Discord](https://img.shields.io/discord/597064584980987924.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/7DR6QJE) -->
 
 ## Build Status
-
+tbc
+<!--
 | Modules | Build Status | OpenUpm |
 |---|---|---|
 |com.xrtk.core|[![main](https://github.com/XRTK/com.xrtk.core/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/XRTK/com.xrtk.core/actions/workflows/build.yml)|[![openupm](https://img.shields.io/npm/v/com.xrtk.core?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.xrtk.core/)|
@@ -16,6 +18,7 @@ The Mixed Reality Toolkit's primary focus is to make it extremely easy to get st
 |[com.xrtk.oculus](https://github.com/XRTK/com.xrtk.oculus)|[![main](https://github.com/XRTK/com.xrtk.oculus/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/XRTK/com.xrtk.oculus/actions/workflows/build.yml)|[![openupm](https://img.shields.io/npm/v/com.xrtk.oculus?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.xrtk.oculus/)|
 |[com.xrtk.ultraleap](https://github.com/XRTK/com.xrtk.ultraleap)|[![main](https://github.com/XRTK/com.xrtk.ultraleap/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/XRTK/com.xrtk.ultraleap/actions/workflows/build.yml)|[![openupm](https://img.shields.io/npm/v/com.xrtk.ultraleap?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.xrtk.ultraleap/)|
 |[com.xrtk.wmr](https://github.com/XRTK/com.xrtk.wmr)|[![main](https://github.com/XRTK/com.xrtk.wmr/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/XRTK/com.xrtk.wmr/actions/workflows/build.yml)|[![openupm](https://img.shields.io/npm/v/com.xrtk.wmr?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.xrtk.wmr/)|
+-->
 
 ## [Getting Started](articles/00-GettingStarted.md)
 
@@ -28,7 +31,7 @@ The Mixed Reality Toolkit's primary focus is to make it extremely easy to get st
 
 Developing Mixed Reality Applications in Unity is hard, and we know there are many [developers](./CONTRIBUTORS.md) who are frustrated with the current state of both game and general application development within the Mixed Reality ecosystem: a quickly developing market that encompasses the whole spectrum from Mobile Augmented Reality to high-end Virtual Reality.
 
-To improve this situation, the Mixed Reality Toolkit's vision is simple, to provide a complete cross-platform solution for AR/XR/VR development that supports three different developer skill levels:
+To improve this situation, the Toolkit's vision is simple, to provide a complete cross-platform solution for AR/XR/VR development that supports three different developer skill levels:
 
 - **Beginner** No Coding Required: Perfect for artists, Hackathons, and Quick Prototyping.
 
@@ -40,6 +43,7 @@ Our philosophy is to enable developers to focus on building content and structur
 
 We’d like to invite all the major hardware vendors to help guide their platform-specific implementations, from Microsoft’s Windows Mixed Reality and Magic Leap’s Lumin OS to Google’s ARCore and Apple’s ARKit.  Including any upcoming Mixed Reality capable devices that would like to be included for adoption.
 
+<!--
 ## Chat with the community
 
 We recently moved our main conversations regarding Mixed Reality Toolkit over to Discord, which allows us to do a lot more (and the chat/streaming there is awesome), but we keep a Mixed Reality Toolkit presence on Slack too, in order to retain links to our friends on there.
@@ -57,16 +61,15 @@ The XRTK is an MIT-licensed open source project with its ongoing development mad
 |<a href="https://www.vimaec.com/">![[VIM](https://www.vimaec.com/)](https://raw.githubusercontent.com/XRTK/XRTK-Core/development/images/Sponsors/vim_logo.jpg)</a>|VIM provides a universal format for fast BIM access for large and complex projects in the AEC industry.|
 
 We use the donations for continuous active development by core team members, web hosting, and licensing costs for build tools and infrastructure.
-
+-->
 ## Supported Platforms
 
-A major component of the Mixed Reality Toolkit is the Platform definitions that was employed to both accurately determine what platforms have been added to the scope of the project and also to determine when a platform is active/running.
+A major component of the Toolkit are the Platform definitions that are employed to both accurately determine what platforms have been added to the scope of the project and also to determine when a platform is active/running.
 
 ## Current Platforms
 
 - [Magic Leap (Lumin)](articles/platforms/magicleap.md)
-- [Oculus](articles/platforms/oculus.md)
-- OpenVR - Default runtime platform for Windows Standalone, no special consideration.
+- [Meta (formally Oculus)](articles/platforms/oculus.md)
 - [Ultraleap](articles/platforms/ultraleap.md)
 - [Windows Mixed Reality (UWP)](articles/platforms/windowsmixedreality.md)
 
@@ -75,5 +78,6 @@ A major component of the Mixed Reality Toolkit is the Platform definitions that 
 - [SteamVR](articles/platforms/steamvr.md)
 - [etee](articles/platforms/etee.md)
 - [WebXR](articles/platforms/webxr.md)
+- Windows XR (OpenXR for HL2)
 
 > Want to add a platform? Check out our new [Template Generator](articles/03-template-generator.md#platform-template-generation)!
