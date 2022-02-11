@@ -1,12 +1,12 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#define XRTK
+#define REALITYTOOLKIT
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersion("0.1.0")]
+[assembly: AssemblyVersion("1.0.0")]
 [assembly: AssemblyTitle("com.realitytoolkit.core")]
 [assembly: AssemblyCompany("Reality Collective")]
 [assembly: AssemblyCopyright("Copyright (c) Reality Collective. All rights reserved.")]

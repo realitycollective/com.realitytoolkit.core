@@ -4,7 +4,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersion("0.3.0")]
+[assembly: AssemblyVersion("1.0.0")]
 [assembly: AssemblyTitle("com.realitytoolkit.core.tests.services")]
 [assembly: AssemblyCompany("Reality Collective")]
 [assembly: AssemblyCopyright("Copyright (c) Reality Collective. All rights reserved.")]
