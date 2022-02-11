@@ -10,12 +10,20 @@
   ],
   "version": "0.1.0-preview",
   "unity": "2020.2",
+  "homepage": "https://github.com/realitycollective",
+  "bugs": {
+    "url": "https://github.com/realitycollective/realitytoolkit.dev/issues"
+  },  
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/realitycollective/com.realitytoolkit.core"
   },
-  "author": "Reality Collective (https://github.com/realitycollective)",
+  "author": {
+    "name": "Reality Collective",
+    "email": "realitycollectivedev@gmail.com",
+    "url": "https://github.com/realitycollective"
+  },
   "dependencies": {
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
