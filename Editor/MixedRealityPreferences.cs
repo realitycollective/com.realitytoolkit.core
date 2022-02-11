@@ -19,12 +19,12 @@ namespace XRTK.Editor
 {
     public static class MixedRealityPreferences
     {
-        private static readonly string[] XRTK_Keywords = { "XRTK", "Mixed", "Reality" };
+        private static readonly string[] Package_Keywords = { "RealityToolkit", "Mixed", "Reality" };
 
         #region Ignore startup settings prompt
 
-        private static readonly GUIContent IgnoreContent = new GUIContent("Ignore settings prompt on startup", "Prevents settings dialog popup from showing on startup.\n\nThis setting applies to all projects using XRTK.");
-        private static readonly string IgnoreKey = $"{Application.productName}_XRTK_Editor_IgnoreSettingsPrompts";
+        private static readonly GUIContent IgnoreContent = new GUIContent("Ignore settings prompt on startup", "Prevents settings dialog popup from showing on startup.\n\nThis setting applies to all projects using the RealityToolkit.");
+        private static readonly string IgnoreKey = $"{Application.productName}_RealityToolkit_Editor_IgnoreSettingsPrompts";
         private static bool ignorePrefLoaded;
         private static bool ignoreSettingsPrompt;
 
@@ -78,18 +78,18 @@ namespace XRTK.Editor
         #region Custom Profile Generation Path
 
         /// <summary>
-        /// The hidden profile path for each XRTK package.
+        /// The hidden profile path for each package.
         /// </summary>
         public const string HIDDEN_PROFILES_PATH = "Profiles~";
 
         /// <summary>
-        /// The hidden prefab path for each XRTK package.
+        /// The hidden prefab path for each package.
         /// </summary>
         public const string HIDDEN_PREFABS_PATH = "Prefabs~";
 
         private static readonly GUIContent GeneratedProfilePathContent = new GUIContent("New Generated Profiles Default Path:", "When generating new profiles, their files are saved in this location.");
-        private const string PROFILE_GENERATION_PATH_KEY = "_MixedRealityToolkit_Editor_Profile_Generation_Path";
-        private const string DEFAULT_GENERATION_PATH = "Assets/XRTK.Generated/";
+        private const string PROFILE_GENERATION_PATH_KEY = "_RealityToolkit_Editor_Profile_Generation_Path";
+        private const string DEFAULT_GENERATION_PATH = "Assets/RealityToolkit.Generated/";
         private static string profileGenerationPath;
         private static bool isProfilePathPrefLoaded;
 
@@ -258,7 +258,7 @@ namespace XRTK.Editor
         private static bool debugSymbolicInfo;
 
         /// <summary>
-        /// Enabled debugging info for the xrtk symbolic linking.
+        /// Enabled debugging info for the symbolic linking.
         /// </summary>
         public static bool DebugSymbolicInfo
         {
@@ -372,11 +372,11 @@ namespace XRTK.Editor
         [SettingsProvider]
         private static SettingsProvider Preferences()
         {
-            return new SettingsProvider("Preferences/XRTK", SettingsScope.User, XRTK_Keywords)
+            return new SettingsProvider("Preferences/RealityToolkit", SettingsScope.User, Package_Keywords)
             {
-                label = "XRTK",
+                label = "RealityToolkit",
                 guiHandler = OnPreferencesGui,
-                keywords = new HashSet<string>(XRTK_Keywords)
+                keywords = new HashSet<string>(Package_Keywords)
             };
         }
 
