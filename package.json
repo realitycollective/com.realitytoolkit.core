@@ -1,0 +1,34 @@
+{
+  "name": "com.realitytoolkit.core",
+  "displayName": "RealityToolkit.Core",
+  "description": "The core framework of the Reality Toolkit by the Reality Collective",
+  "keywords": [
+    "VR",
+    "AR",
+    "XR",
+    "Mixed Reality"
+  ],
+  "version": "1.0.0-preview.1",
+  "unity": "2020.2",
+  "homepage": "https://github.com/realitycollective",
+  "bugs": {
+    "url": "https://github.com/realitycollective/realitytoolkit.dev/issues"
+  },  
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realitycollective/com.realitytoolkit.core"
+  },
+  "author": {
+    "name": "Reality Collective",
+    "email": "realitycollectivedev@gmail.com",
+    "url": "https://github.com/realitycollective"
+  },
+  "dependencies": {
+    "com.unity.modules.vr": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.textmeshpro": "2.1.6",
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.unity.addressables": "1.18.15"
+  }
+}
