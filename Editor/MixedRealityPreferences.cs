@@ -78,14 +78,9 @@ namespace XRTK.Editor
         #region Custom Profile Generation Path
 
         /// <summary>
-        /// The hidden profile path for each package.
+        /// The hidden assets path for each package.
         /// </summary>
-        public const string HIDDEN_PROFILES_PATH = "Profiles~";
-
-        /// <summary>
-        /// The hidden prefab path for each package.
-        /// </summary>
-        public const string HIDDEN_PREFABS_PATH = "Prefabs~";
+        public const string HIDDEN_PACKAGE_ASSETS_PATH = "Assets~";
 
         private static readonly GUIContent GeneratedProfilePathContent = new GUIContent("New Generated Profiles Default Path:", "When generating new profiles, their files are saved in this location.");
         private const string PROFILE_GENERATION_PATH_KEY = "_RealityToolkit_Editor_Profile_Generation_Path";
