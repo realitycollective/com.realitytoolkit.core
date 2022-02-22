@@ -2,16 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Definitions;
 using XRTK.Extensions;
-using XRTK.Interfaces;
 
 namespace XRTK.Services
 {
     /// <summary>
     /// The base class for Mixed Reality Systems to inherit from.
     /// </summary>
-    public abstract class BaseSystem : BaseServiceWithConstructor, IMixedRealitySystem
+    public abstract class BaseSystem : RealityToolkit.ServiceFramework.Services.BaseServiceWithConstructor, IService
     {
         /// <summary>
         /// Constructor.

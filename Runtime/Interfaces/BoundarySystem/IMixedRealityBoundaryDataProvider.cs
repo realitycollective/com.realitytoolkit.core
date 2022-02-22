@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Definitions.BoundarySystem;
 
 namespace XRTK.Interfaces.BoundarySystem
@@ -11,7 +12,7 @@ namespace XRTK.Interfaces.BoundarySystem
     /// Boundary data providers provide low level data access for the <see cref="IMixedRealityBoundarySystem"/> to query
     /// platform boundary state.
     /// </summary>
-    public interface IMixedRealityBoundaryDataProvider : IMixedRealityDataProvider
+    public interface IMixedRealityBoundaryDataProvider : IServiceDataProvider
     {
         /// <summary>
         /// Gets the current boundary visibility.

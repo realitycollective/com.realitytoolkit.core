@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Interfaces;
 using XRTK.Interfaces.Events;
 using Debug = UnityEngine.Debug;
@@ -182,7 +183,7 @@ namespace XRTK.Extensions
         /// </summary>
         /// <typeparam name="T">The specific <see cref="IMixedRealityService"/> interface to check.</typeparam>
         /// <returns>True, if the project contains valid implementations of <see cref="T"/>.</returns>
-        public static bool HasValidImplementations<T>() where T : IMixedRealityService
+        public static bool HasValidImplementations<T>() where T : IService
         {
             var concreteTypes = TypeCache
                 .Select(pair => pair.Value)

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 using XRTK.Attributes;
 using XRTK.Definitions.Utilities;
@@ -13,7 +14,7 @@ namespace XRTK.Definitions
 {
     /// <inheritdoc cref="MixedRealityServiceConfiguration" />
     public class MixedRealityServiceConfiguration<T> : MixedRealityServiceConfiguration, IMixedRealityServiceConfiguration<T>
-        where T : IMixedRealityService
+        where T : IService
     {
         /// <inheritdoc />
         public MixedRealityServiceConfiguration(IMixedRealityServiceConfiguration configuration)

@@ -12,7 +12,7 @@ namespace XRTK.Services
     /// <remarks>
     /// Empty, but reserved for future use, in case additional <see cref="IMixedRealityExtensionService"/> properties or methods are assigned.
     /// </remarks>
-    public abstract class BaseExtensionService : BaseServiceWithConstructor, IMixedRealityExtensionService
+    public abstract class BaseExtensionService : RealityToolkit.ServiceFramework.Services.BaseServiceWithConstructor, IMixedRealityExtensionService
     {
         /// <summary>
         /// Constructor.

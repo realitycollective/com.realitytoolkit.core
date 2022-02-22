@@ -1,12 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 using XRTK.Interfaces;
 
 namespace XRTK.Definitions
 {
-    public interface IMixedRealityServiceProfile<out TService> where TService : IMixedRealityService
+    public interface IMixedRealityServiceProfile<out TService> where TService : IService
     {
         /// <summary>
         /// The <see cref="IMixedRealityServiceConfiguration"/>s registered for this profile.
@@ -21,7 +22,7 @@ namespace XRTK.Definitions
     /// The <see cref="IMixedRealityService"/> type to constrain all of the valid <see cref="IMixedRealityServiceConfiguration.InstancedType"/>s to.
     /// Only types that implement the <see cref="TService"/> will show up in the inspector dropdown for the <see cref="IMixedRealityServiceConfiguration.InstancedType"/>
     /// </typeparam>
-    public abstract class BaseMixedRealityServiceProfile<TService> : BaseMixedRealityProfile, IMixedRealityServiceProfile<TService> where TService : IMixedRealityService
+    public abstract class BaseMixedRealityServiceProfile<TService> : BaseMixedRealityProfile, IMixedRealityServiceProfile<TService> where TService : IService
     {
         [SerializeField]
         private MixedRealityServiceConfiguration[] configurations = new MixedRealityServiceConfiguration[0];

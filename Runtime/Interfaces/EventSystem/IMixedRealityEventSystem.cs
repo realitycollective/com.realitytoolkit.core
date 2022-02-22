@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +11,7 @@ namespace XRTK.Interfaces.Events
     /// <summary>
     /// Interface used to implement an Event System that is compatible with the Mixed Reality Toolkit.
     /// </summary>
-    public interface IMixedRealityEventSystem : IMixedRealitySystem
+    public interface IMixedRealityEventSystem : IService
     {
         /// <summary>
         /// List of event listeners that are registered to this Event System.

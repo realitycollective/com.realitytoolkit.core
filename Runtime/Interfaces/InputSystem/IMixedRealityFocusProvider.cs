@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.InputSystem.Handlers;
@@ -10,7 +11,7 @@ namespace XRTK.Interfaces.InputSystem
     /// <summary>
     /// Implements the Focus Provider for handling focus of pointers.
     /// </summary>
-    public interface IMixedRealityFocusProvider : IMixedRealitySourceStateHandler, IMixedRealityDataProvider
+    public interface IMixedRealityFocusProvider : IMixedRealitySourceStateHandler, IServiceDataProvider
     {
         /// <summary>
         /// Maximum distance at which all pointers can collide with a <see cref="GameObject"/>, unless it has an override extent.

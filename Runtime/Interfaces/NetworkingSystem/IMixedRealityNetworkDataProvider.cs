@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Interfaces.Events;
 
 namespace XRTK.Interfaces.NetworkingSystem
@@ -9,7 +10,7 @@ namespace XRTK.Interfaces.NetworkingSystem
     /// <summary>
     /// The base interface to define networking data providers, such as WebRTC, Photon, uNet, etc.
     /// </summary>
-    public interface IMixedRealityNetworkDataProvider : IMixedRealityEventSource, IMixedRealityDataProvider
+    public interface IMixedRealityNetworkDataProvider : IMixedRealityEventSource, IServiceDataProvider
     {
         /// <summary>
         /// Send this data over the wire.

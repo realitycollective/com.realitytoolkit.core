@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.PackageManager;
@@ -205,8 +206,8 @@ namespace XRTK.Editor.Profiles
         private static bool ValidateImplementationsExists()
         {
             return TypeExtensions.HasValidImplementations<IMixedRealitySystem>() &&
-                   TypeExtensions.HasValidImplementations<IMixedRealityService>() &&
-                   TypeExtensions.HasValidImplementations<IMixedRealityDataProvider>();
+                   TypeExtensions.HasValidImplementations<IService>() &&
+                   TypeExtensions.HasValidImplementations<IServiceDataProvider>();
         }
     }
 }

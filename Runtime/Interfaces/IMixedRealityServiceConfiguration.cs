@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Definitions;
 using XRTK.Definitions.Utilities;
 using XRTK.Services;
@@ -13,7 +14,7 @@ namespace XRTK.Interfaces
     /// </summary>
     /// <typeparam name="T"></typeparam>
     // ReSharper disable once UnusedTypeParameter (Used in concrete Implementations)
-    public interface IMixedRealityServiceConfiguration<out T> : IMixedRealityServiceConfiguration where T : IMixedRealityService
+    public interface IMixedRealityServiceConfiguration<out T> : IMixedRealityServiceConfiguration where T : IService
     {
     }
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using XRTK.Definitions;
@@ -14,6 +15,7 @@ using XRTK.Extensions;
 using XRTK.Interfaces;
 using XRTK.Utilities;
 using XRTK.Utilities.Async;
+using RealityToolkit.ServiceFramework.Services;
 
 namespace XRTK.Services
 {
@@ -88,46 +90,7 @@ namespace XRTK.Services
         /// <param name="profile"></param>
         public void ResetProfile(MixedRealityToolkitRootProfile profile)
         {
-            if (Application.isEditor && Application.isPlaying)
-            {
-                // The application is running in editor play mode, can't
-                // reset profiles in this state as it will cause destruction
-                // and reinitialization of services in use.
-                return;
-            }
-
-            if (isResetting)
-            {
-                Debug.LogWarning("Already attempting to reset the root profile!");
-                return;
-            }
-
-            if (isInitializing)
-            {
-                Debug.LogWarning("Already attempting to initialize the root profile!");
-                return;
-            }
-
-            isResetting = true;
-
-            if (!activeProfile.IsNull())
-            {
-                DisableAllServices();
-                DestroyAllServices();
-            }
-
-            activeProfile = profile;
-
-            if (!profile.IsNull())
-            {
-                DisableAllServices();
-                DestroyAllServices();
-            }
-
-            EnsureMixedRealityRequirements();
-            InitializeServiceLocator();
-
-            isResetting = false;
+            ServiceManager.Instance.ResetProfile(profile);
         }
 
         private static bool isResetting = false;
@@ -135,6 +98,8 @@ namespace XRTK.Services
         #endregion Mixed Reality Toolkit Profile properties
 
         #region Mixed Reality runtime service registry
+
+        private ServiceManager serviceManager;
 
         // ReSharper disable once InconsistentNaming
         private static readonly List<IMixedRealityPlatform> availablePlatforms = new List<IMixedRealityPlatform>();
@@ -151,7 +116,8 @@ namespace XRTK.Services
         /// The list of active platforms detected by the <see cref="MixedRealityToolkit"/>.
         /// </summary>
         public static IReadOnlyList<IMixedRealityPlatform> ActivePlatforms => activePlatforms;
-
+        /*
+         
         // ReSharper disable once InconsistentNaming
         private static readonly Dictionary<Type, IMixedRealitySystem> activeSystems = new Dictionary<Type, IMixedRealitySystem>();
 
@@ -173,6 +139,8 @@ namespace XRTK.Services
         /// Services can have one or more instances registered and can be executed simultaneously. Best to get them out by name or guid.
         /// </remarks>
         public static IReadOnlyList<Tuple<Type, IMixedRealityService>> RegisteredMixedRealityServices => registeredMixedRealityServices;
+
+        */
 
         #endregion Mixed Reality runtime service registry
 
@@ -365,101 +333,6 @@ namespace XRTK.Services
         }
 
         /// <summary>
-        /// Once all services are registered and properties updated, the Mixed Reality Toolkit will initialize all active services.
-        /// This ensures all services can reference each other once started.
-        /// </summary>
-        private void InitializeServiceLocator()
-        {
-            if (isInitializing)
-            {
-                Debug.LogWarning($"Already attempting to initialize the {nameof(MixedRealityToolkit)}!");
-                return;
-            }
-
-            isInitializing = true;
-
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (ActiveProfile == null)
-            {
-                Debug.LogError($"No {nameof(MixedRealityToolkitRootProfile)} found, cannot initialize the {nameof(MixedRealityToolkit)}");
-                isInitializing = false;
-                return;
-            }
-
-#if UNITY_EDITOR
-            if (ActiveSystems.Count > 0)
-            {
-                activeSystems.Clear();
-            }
-
-            if (RegisteredMixedRealityServices.Count > 0)
-            {
-                registeredMixedRealityServices.Clear();
-            }
-#endif
-
-            Debug.Assert(ActiveSystems.Count == 0);
-            Debug.Assert(RegisteredMixedRealityServices.Count == 0);
-            Debug.Assert(ActivePlatforms.Count > 0, "No Active Platforms found!");
-
-            ClearSystemCache();
-
-            foreach (var configuration in ActiveProfile.RegisteredServiceConfigurations)
-            {
-                if (configuration.Enabled)
-                {
-                    if (TryCreateAndRegisterService(configuration, out var service) && service != null)
-                    {
-                        if (configuration.Profile is IMixedRealityServiceProfile<IMixedRealityDataProvider> profile)
-                        {
-                            TryRegisterDataProviderConfigurations(profile.RegisteredServiceConfigurations, service);
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError($"Failed to start {configuration.Name}!");
-                    }
-                }
-            }
-
-            if (!ActiveProfile.RegisteredServiceProvidersProfile.IsNull())
-            {
-                TryRegisterServiceConfigurations(ActiveProfile.RegisteredServiceProvidersProfile.RegisteredServiceConfigurations);
-            }
-
-            var orderedCoreSystems = activeSystems.OrderBy(m => m.Value.Priority).ToArray();
-            activeSystems.Clear();
-
-            foreach (var system in orderedCoreSystems)
-            {
-                TryRegisterServiceInternal(system.Key, system.Value);
-            }
-
-            var orderedServices = registeredMixedRealityServices.OrderBy(service => service.Item2.Priority).ToArray();
-            registeredMixedRealityServices.Clear();
-
-            foreach (var (interfaceType, mixedRealityService) in orderedServices)
-            {
-                TryRegisterServiceInternal(interfaceType, mixedRealityService);
-            }
-
-#if UNITY_EDITOR
-            if (Application.isPlaying)
-            {
-                InitializeAllServices();
-            }
-            else
-            {
-                UnityEditor.EditorApplication.delayCall += InitializeAllServices;
-            }
-#else
-            InitializeAllServices();
-#endif
-
-            isInitializing = false;
-        }
-
-        /// <summary>
         /// Check which platforms are active and available.
         /// </summary>
         internal static void CheckPlatforms()
@@ -566,123 +439,7 @@ namespace XRTK.Services
 
         #endregion Instance Management
 
-        #region MonoBehaviour Implementation
 
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (!IsInitialized &&
-                !UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
-            {
-                ConfirmInitialized();
-            }
-        }
-#endif // UNITY_EDITOR
-
-        private void Awake()
-        {
-            if (Application.isBatchMode || !Application.isEditor)
-            {
-                Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
-            }
-
-            if (!Application.isPlaying) { return; }
-
-            if (IsInitialized && instance != this)
-            {
-                gameObject.Destroy();
-                Debug.LogWarning($"Trying to instantiate a second instance of the {nameof(MixedRealityToolkit)}. Additional Instance was destroyed");
-            }
-            else if (!IsInitialized)
-            {
-                InitializeInstance();
-            }
-        }
-
-        private void OnEnable()
-        {
-            if (Application.isPlaying)
-            {
-                EnableAllServices();
-            }
-        }
-
-        private void Update()
-        {
-            if (Application.isPlaying)
-            {
-                UpdateAllServices();
-            }
-        }
-
-        private void LateUpdate()
-        {
-            if (Application.isPlaying)
-            {
-                LateUpdateAllServices();
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (Application.isPlaying)
-            {
-                FixedUpdateAllServices();
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (Application.isPlaying)
-            {
-                DisableAllServices();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            DestroyAllServices();
-            ClearSystemCache();
-            Dispose();
-        }
-
-        private void OnApplicationFocus(bool focus)
-        {
-            if (!Application.isPlaying) { return; }
-
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            foreach (var system in activeSystems)
-            {
-                system.Value.OnApplicationFocus(focus);
-            }
-
-            foreach (var service in registeredMixedRealityServices)
-            {
-                service.Item2.OnApplicationFocus(focus);
-            }
-        }
-
-        private void OnApplicationPause(bool pause)
-        {
-            if (!Application.isPlaying) { return; }
-
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            foreach (var system in activeSystems)
-            {
-                system.Value.OnApplicationPause(pause);
-            }
-
-            foreach (var service in registeredMixedRealityServices)
-            {
-                service.Item2.OnApplicationPause(pause);
-            }
-        }
-
-        #endregion MonoBehaviour Implementation
 
         #region Service Container Management
 
@@ -694,7 +451,7 @@ namespace XRTK.Services
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="configurations">The list of <see cref="IMixedRealityServiceConfiguration{T}"/>s.</param>
         /// <returns>True, if all configurations successfully created and registered their services.</returns>
-        public static bool TryRegisterServiceConfigurations<T>(IMixedRealityServiceConfiguration<T>[] configurations) where T : IMixedRealityService
+        public static bool TryRegisterServiceConfigurations<T>(IMixedRealityServiceConfiguration<T>[] configurations) where T : IService
         {
             bool anyFailed = false;
 
@@ -704,7 +461,7 @@ namespace XRTK.Services
 
                 if (TryCreateAndRegisterService(configuration, out var serviceInstance))
                 {
-                    if (configuration.Profile is IMixedRealityServiceProfile<IMixedRealityDataProvider> profile &&
+                    if (configuration.Profile is IMixedRealityServiceProfile<IServiceDataProvider> profile &&
                         !TryRegisterDataProviderConfigurations(profile.RegisteredServiceConfigurations, serviceInstance))
                     {
                         anyFailed = true;
@@ -727,7 +484,7 @@ namespace XRTK.Services
         /// <param name="configurations">The list of <see cref="IMixedRealityServiceConfiguration{T}"/>s.</param>
         /// <param name="serviceParent">The <see cref="IMixedRealityService"/> that the <see cref="IMixedRealityDataProvider"/> will be assigned to.</param>
         /// <returns>True, if all configurations successfully created and registered their data providers.</returns>
-        public static bool TryRegisterDataProviderConfigurations<T>(IMixedRealityServiceConfiguration<T>[] configurations, IMixedRealityService serviceParent) where T : IMixedRealityDataProvider
+        public static bool TryRegisterDataProviderConfigurations<T>(IMixedRealityServiceConfiguration<T>[] configurations, IService serviceParent) where T : IServiceDataProvider
         {
             bool anyFailed = false;
 
@@ -751,7 +508,7 @@ namespace XRTK.Services
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="serviceInstance">Instance of the <see cref="IMixedRealityService"/> to register.</param>
         /// <returns>True, if the service was successfully registered.</returns>
-        public static bool TryRegisterService<T>(IMixedRealityService serviceInstance) where T : IMixedRealityService
+        public static bool TryRegisterService<T>(IService serviceInstance) where T : IService
         {
             return TryRegisterServiceInternal(typeof(T), serviceInstance);
         }
@@ -763,7 +520,7 @@ namespace XRTK.Services
         /// <param name="configuration">The <see cref="IMixedRealityServiceConfiguration{T}"/> to use to create and register the service.</param>
         /// <param name="service">If successful, then the new <see cref="IMixedRealityService"/> instance will be passed back out.</param>
         /// <returns>True, if the service was successfully created and registered.</returns>
-        public static bool TryCreateAndRegisterService<T>(IMixedRealityServiceConfiguration<T> configuration, out T service) where T : IMixedRealityService
+        public static bool TryCreateAndRegisterService<T>(IMixedRealityServiceConfiguration<T> configuration, out T service) where T : IService
         {
             return TryCreateAndRegisterServiceInternal(
                 configuration.InstancedType,
@@ -781,7 +538,7 @@ namespace XRTK.Services
         /// <param name="configuration">The <see cref="IMixedRealityServiceConfiguration{T}"/> to use to create and register the data provider.</param>
         /// <param name="serviceParent">The <see cref="IMixedRealityService"/> that the <see cref="IMixedRealityDataProvider"/> will be assigned to.</param>
         /// <returns>True, if the service was successfully created and registered.</returns>
-        public static bool TryCreateAndRegisterDataProvider<T>(IMixedRealityServiceConfiguration<T> configuration, IMixedRealityService serviceParent) where T : IMixedRealityDataProvider
+        public static bool TryCreateAndRegisterDataProvider<T>(IMixedRealityServiceConfiguration<T> configuration, IService serviceParent) where T : IServiceDataProvider
         {
             return TryCreateAndRegisterServiceInternal<T>(
                 configuration.InstancedType,
@@ -801,7 +558,7 @@ namespace XRTK.Services
         /// <param name="service">If successful, then the new <see cref="IMixedRealityService"/> instance will be passed back out.</param>
         /// <param name="args">Optional arguments used when instantiating the concrete type.</param>
         /// <returns>True, if the service was successfully created and registered.</returns>
-        public static bool TryCreateAndRegisterService<T>(Type concreteType, out T service, params object[] args) where T : IMixedRealityService
+        public static bool TryCreateAndRegisterService<T>(Type concreteType, out T service, params object[] args) where T : IService
         {
             return TryCreateAndRegisterServiceInternal(concreteType, AllPlatforms, out service, args);
         }
@@ -817,7 +574,7 @@ namespace XRTK.Services
         /// <param name="service">If successful, then the new <see cref="IMixedRealityService"/> instance will be passed back out.</param>
         /// <param name="args">Optional arguments used when instantiating the concrete type.</param>
         /// <returns>True, if the service was successfully created and registered.</returns>
-        public static bool TryCreateAndRegisterService<T>(Type concreteType, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, out T service, params object[] args) where T : IMixedRealityService
+        public static bool TryCreateAndRegisterService<T>(Type concreteType, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, out T service, params object[] args) where T : IService
         {
             return TryCreateAndRegisterServiceInternal(concreteType, runtimePlatforms, out service, args);
         }
@@ -831,7 +588,7 @@ namespace XRTK.Services
         /// <param name="service">If successful, then the new <see cref="IMixedRealityService"/> instance will be passed back out.</param>
         /// <param name="args">Optional arguments used when instantiating the concrete type.</param>
         /// <returns>True, if the service was successfully created and registered.</returns>
-        private static bool TryCreateAndRegisterServiceInternal<T>(Type concreteType, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, out T service, params object[] args) where T : IMixedRealityService
+        private static bool TryCreateAndRegisterServiceInternal<T>(Type concreteType, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, out T service, params object[] args) where T : IService
         {
             service = default;
 
@@ -896,24 +653,24 @@ namespace XRTK.Services
                 }
             }
 
-            if (!typeof(IMixedRealityService).IsAssignableFrom(concreteType))
+            if (!typeof(IService).IsAssignableFrom(concreteType))
             {
-                Debug.LogError($"Unable to register the {concreteType.Name} service. It does not implement {typeof(IMixedRealityService)}.");
+                Debug.LogError($"Unable to register the {concreteType.Name} service. It does not implement {typeof(IService)}.");
                 return false;
             }
 
-            IMixedRealityService serviceInstance;
+            IService serviceInstance;
 
             try
             {
                 if (IsSystem(typeof(T)))
                 {
                     var profile = args[2];
-                    serviceInstance = Activator.CreateInstance(concreteType, profile) as IMixedRealityService;
+                    serviceInstance = Activator.CreateInstance(concreteType, profile) as IService;
                 }
                 else
                 {
-                    serviceInstance = Activator.CreateInstance(concreteType, args) as IMixedRealityService;
+                    serviceInstance = Activator.CreateInstance(concreteType, args) as IService;
                 }
             }
             catch (System.Reflection.TargetInvocationException e)
@@ -945,72 +702,9 @@ namespace XRTK.Services
         /// <param name="interfaceType">The interface type for the <see cref="IMixedRealityService"/> to be registered.</param>
         /// <param name="serviceInstance">Instance of the <see cref="IMixedRealityService"/> to register.</param>
         /// <returns>True if registration is successful, false otherwise.</returns>
-        private static bool TryRegisterServiceInternal(Type interfaceType, IMixedRealityService serviceInstance)
+        private static bool TryRegisterServiceInternal(Type interfaceType, IService serviceInstance)
         {
-            if (serviceInstance == null)
-            {
-                Debug.LogWarning($"Unable to add a {interfaceType.Name} service with a null instance.");
-                return false;
-            }
-
-            interfaceType = serviceInstance.GetType().FindMixedRealityServiceInterfaceType(interfaceType);
-
-            if (!interfaceType.IsInstanceOfType(serviceInstance))
-            {
-                Debug.LogError($"{serviceInstance.Name} does not implement {interfaceType.Name}");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(serviceInstance.Name))
-            {
-                Debug.LogError($"{serviceInstance.GetType().Name} doesn't have a valid name!");
-                return false;
-            }
-
-            if (!CanGetService(interfaceType, serviceInstance.Name)) { return false; }
-
-            if (GetServiceByNameInternal(interfaceType, serviceInstance.Name, out var preExistingService))
-            {
-                Debug.LogError($"There's already a {interfaceType.Name}.{preExistingService.Name} registered!");
-                return false;
-            }
-
-            if (IsSystem(interfaceType))
-            {
-                try
-                {
-                    activeSystems.Add(interfaceType, serviceInstance as IMixedRealitySystem);
-                }
-                catch (ArgumentException)
-                {
-                    preExistingService = GetService(interfaceType, false);
-                    Debug.LogError($"There's already a {interfaceType.Name}.{preExistingService.Name} registered!");
-                    return false;
-                }
-            }
-            else if (typeof(IMixedRealityService).IsAssignableFrom(interfaceType))
-            {
-                registeredMixedRealityServices.Add(new Tuple<Type, IMixedRealityService>(interfaceType, serviceInstance));
-            }
-            else
-            {
-                Debug.LogError($"Unable to register {interfaceType.Name}. Concrete type does not implement an interface that derives from {nameof(IMixedRealityService)}");
-                return false;
-            }
-
-            if (!isInitializing)
-            {
-                try
-                {
-                    serviceInstance.Initialize();
-                    serviceInstance.Enable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
+            ServiceManager.TryRegisterService(interfaceType,serviceInstance);
             return true;
         }
 
@@ -1021,7 +715,7 @@ namespace XRTK.Services
         /// <summary>
         /// Remove all services from the Mixed Reality Toolkit active service registry for a given type
         /// </summary>
-        public static bool TryUnregisterServicesOfType<T>() where T : IMixedRealityService
+        public static bool TryUnregisterServicesOfType<T>() where T : IService
         {
             return TryUnregisterServiceInternal<T>(typeof(T), string.Empty);
         }
@@ -1030,7 +724,7 @@ namespace XRTK.Services
         /// Removes a specific service with the provided name.
         /// </summary>
         /// <param name="serviceInstance">The instance of the <see cref="IMixedRealityService"/> to remove.</param>
-        public static bool TryUnregisterService<T>(T serviceInstance) where T : IMixedRealityService
+        public static bool TryUnregisterService<T>(T serviceInstance) where T : IService
         {
             return TryUnregisterServiceInternal<T>(typeof(T), serviceInstance.Name);
         }
@@ -1039,7 +733,7 @@ namespace XRTK.Services
         /// Removes a specific service with the provided name.
         /// </summary>
         /// <param name="serviceName">The name of the service to be removed. (Only for runtime services) </param>
-        public static bool TryUnregisterService<T>(string serviceName) where T : IMixedRealityService
+        public static bool TryUnregisterService<T>(string serviceName) where T : IService
         {
             return TryUnregisterServiceInternal<T>(typeof(T), serviceName);
         }
@@ -1050,93 +744,9 @@ namespace XRTK.Services
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be removed.  E.G. InputSystem, BoundarySystem</param>
         /// <param name="serviceName">The name of the service to be removed. (Only for runtime services) </param>
-        private static bool TryUnregisterServiceInternal<T>(Type interfaceType, string serviceName) where T : IMixedRealityService
+        private static bool TryUnregisterServiceInternal<T>(Type interfaceType, string serviceName) where T : IService
         {
-            if (interfaceType == null)
-            {
-                Debug.LogError("Unable to remove null service type.");
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(serviceName))
-            {
-                bool result = true;
-
-                var activeServices = GetActiveServices<T>(interfaceType);
-
-                if (activeServices.Count == 0)
-                {
-                    Debug.LogWarning($"No {nameof(IMixedRealityService)}s registered that implement {typeof(T).Name}.");
-                    return false;
-                }
-
-                for (var i = 0; i < activeServices.Count; i++)
-                {
-                    result &= TryUnregisterServiceInternal<T>(interfaceType, activeServices[i].Name);
-                }
-
-                return result;
-            }
-
-            if (GetServiceByNameInternal(interfaceType, serviceName, out var serviceInstance))
-            {
-                var activeDataProviders = GetActiveServices<IMixedRealityDataProvider>();
-
-                bool result = true;
-
-                for (int i = 0; i < activeDataProviders.Count; i++)
-                {
-                    var dataProvider = activeDataProviders[i];
-
-                    if (dataProvider.ParentService.Equals(serviceInstance))
-                    {
-                        result &= TryUnregisterService(dataProvider);
-                    }
-                }
-
-                if (!result)
-                {
-                    Debug.LogError($"Failed to unregister all the {nameof(IMixedRealityDataProvider)}s for this {serviceInstance.Name}!");
-                }
-
-                try
-                {
-                    serviceInstance.Disable();
-                    serviceInstance.Destroy();
-                    serviceInstance.Dispose();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-
-                if (IsSystem(interfaceType))
-                {
-                    activeSystems.Remove(interfaceType);
-                    return true;
-                }
-
-                Tuple<Type, IMixedRealityService> registryInstance = null;
-
-                for (var i = 0; i < registeredMixedRealityServices.Count; i++)
-                {
-                    var service = registeredMixedRealityServices[i];
-
-                    if (service.Item2.Name == serviceName)
-                    {
-                        registryInstance = service;
-                        break;
-                    }
-                }
-
-                if (registeredMixedRealityServices.Contains(registryInstance))
-                {
-                    registeredMixedRealityServices.Remove(registryInstance);
-                    return true;
-                }
-
-                Debug.LogError($"Failed to find registry instance of [{interfaceType.Name}] \"{serviceInstance.Name}\"!");
-            }
+            ServiceManager.TryUnregisterService<T>(serviceName);
 
             return false;
         }
@@ -1177,7 +787,7 @@ namespace XRTK.Services
                 return;
             }
 
-            var services = new List<IMixedRealityService>();
+            var services = new List<IService>();
             GetAllServicesByNameInternal(interfaceType, serviceName, ref services);
 
             for (int i = 0; i < services?.Count; i++)
@@ -1225,7 +835,7 @@ namespace XRTK.Services
                 return;
             }
 
-            var services = new List<IMixedRealityService>();
+            var services = new List<IService>();
             GetAllServicesByNameInternal(interfaceType, serviceName, ref services);
 
             for (int i = 0; i < services?.Count; i++)
@@ -1246,7 +856,7 @@ namespace XRTK.Services
         /// </summary>
         /// <typeparam name="T">The interface type for the system to be retrieved.  E.G. InputSystem, BoundarySystem.</typeparam>
         /// <returns>An array of services that meet the search criteria</returns>
-        public static List<T> GetActiveServices<T>() where T : IMixedRealityService
+        public static List<T> GetActiveServices<T>() where T : IService
         {
             return GetActiveServices<T>(typeof(T));
         }
@@ -1256,7 +866,7 @@ namespace XRTK.Services
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be retrieved.  E.G. InputSystem, BoundarySystem</param>
         /// <returns>An array of services that meet the search criteria</returns>
-        private static List<T> GetActiveServices<T>(Type interfaceType) where T : IMixedRealityService
+        private static List<T> GetActiveServices<T>(Type interfaceType) where T : IService
         {
             return GetActiveServices<T>(interfaceType, string.Empty);
         }
@@ -1267,325 +877,9 @@ namespace XRTK.Services
         /// <param name="interfaceType">The interface type for the system to be retrieved.  E.G. InputSystem, BoundarySystem</param>
         /// <param name="serviceName">Name of the specific service</param>
         /// <returns>An array of services that meet the search criteria</returns>
-        private static List<T> GetActiveServices<T>(Type interfaceType, string serviceName) where T : IMixedRealityService
+        private static List<T> GetActiveServices<T>(Type interfaceType, string serviceName) where T : IService
         {
-            var services = new List<T>();
-
-            if (interfaceType == null)
-            {
-                Debug.LogWarning("Unable to get services with a type of null.");
-                return services;
-            }
-
-            if (IsSystem(interfaceType))
-            {
-                foreach (var system in activeSystems)
-                {
-                    if (system.Key.Name == interfaceType.Name)
-                    {
-                        services.Add((T)system.Value);
-                    }
-                }
-            }
-            else
-            {
-                // If no name provided, return all services of the same type. Else return the type/name combination.
-                if (string.IsNullOrWhiteSpace(serviceName))
-                {
-                    GetAllServicesInternal(interfaceType, ref services);
-                }
-                else
-                {
-                    GetAllServicesByNameInternal(interfaceType, serviceName, ref services);
-                }
-            }
-
-            return services;
-        }
-
-        private void InitializeAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Initialize all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Initialize();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Initialize all registered runtime services
-            foreach (var service in registeredMixedRealityServices)
-            {
-                try
-                {
-                    service.Item2.Initialize();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void ResetAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Reset all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Reset();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Reset all registered runtime services
-            foreach (var service in registeredMixedRealityServices)
-            {
-                try
-                {
-                    service.Item2.Reset();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void EnableAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Enable all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Enable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Reset all registered runtime services
-            foreach (var service in registeredMixedRealityServices)
-            {
-                try
-                {
-                    service.Item2.Enable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void UpdateAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Update all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Update();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Update all registered runtime services
-            foreach (var service in registeredMixedRealityServices)
-            {
-                try
-                {
-                    service.Item2.Update();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void LateUpdateAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Update all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.LateUpdate();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Update all registered runtime services
-            foreach (var service in registeredMixedRealityServices)
-            {
-                try
-                {
-                    service.Item2.LateUpdate();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void FixedUpdateAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Update all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.FixedUpdate();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Update all registered runtime services
-            foreach (var service in registeredMixedRealityServices)
-            {
-                try
-                {
-                    service.Item2.FixedUpdate();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void DisableAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Disable all registered runtime services in reverse priority order
-            for (var i = registeredMixedRealityServices.Count - 1; i >= 0; i--)
-            {
-                try
-                {
-                    registeredMixedRealityServices[i].Item2.Disable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Disable all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Disable();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-        }
-
-        private void DestroyAllServices()
-        {
-            // If the Mixed Reality Toolkit is not configured, stop.
-            if (activeProfile == null) { return; }
-
-            // Destroy all registered runtime services in reverse priority order
-            for (var i = registeredMixedRealityServices.Count - 1; i >= 0; i--)
-            {
-                try
-                {
-                    registeredMixedRealityServices[i].Item2.Destroy();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Destroy all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Destroy();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Dispose all registered runtime services in reverse priority order
-            for (var i = registeredMixedRealityServices.Count - 1; i >= 0; i--)
-            {
-                try
-                {
-                    registeredMixedRealityServices[i].Item2.Dispose();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            // Dispose all systems
-            foreach (var system in activeSystems)
-            {
-                try
-                {
-                    system.Value.Dispose();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
-                }
-            }
-
-            activeSystems.Clear();
-            registeredMixedRealityServices.Clear();
+            return ServiceManager.GetServices<T>();
         }
 
         #endregion Multiple Service Management
@@ -1597,7 +891,7 @@ namespace XRTK.Services
         /// </summary>
         /// <typeparam name="T">The interface type for the service to be retrieved.</typeparam>
         /// <returns>Returns true, if there is a <see cref="IMixedRealityService"/> registered, otherwise false.</returns>
-        public static bool IsServiceRegistered<T>() where T : IMixedRealityService
+        public static bool IsServiceRegistered<T>() where T : IService
             => GetService(typeof(T)) != null;
 
         /// <summary>
@@ -1606,7 +900,7 @@ namespace XRTK.Services
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <typeparam name="T">The interface type for the service to be retrieved.</typeparam>
         /// <returns>The instance of the <see cref="IMixedRealityService"/> that is registered.</returns>
-        public static T GetService<T>(bool showLogs = true) where T : IMixedRealityService
+        public static T GetService<T>(bool showLogs = true) where T : IService
             => (T)GetService(typeof(T), showLogs);
 
         /// <summary>
@@ -1615,7 +909,7 @@ namespace XRTK.Services
         /// <param name="timeout">Optional, time out in seconds to wait before giving up search.</param>
         /// <typeparam name="T">The interface type for the service to be retrieved.</typeparam>
         /// <returns>The instance of the <see cref="IMixedRealityService"/> that is registered.</returns>
-        public static async Task<T> GetServiceAsync<T>(int timeout = 10) where T : IMixedRealityService
+        public static async Task<T> GetServiceAsync<T>(int timeout = 10) where T : IService
             => await GetService<T>().WaitUntil(system => system != null, timeout);
 
         /// <summary>
@@ -1625,7 +919,7 @@ namespace XRTK.Services
         /// <param name="service">The instance of the service class that is registered.</param>
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <returns>Returns true if the <see cref="IMixedRealityService"/> was found, otherwise false.</returns>
-        public static bool TryGetService<T>(out T service, bool showLogs = true) where T : IMixedRealityService
+        public static bool TryGetService<T>(out T service, bool showLogs = true) where T : IService
         {
             service = GetService<T>(showLogs);
             return service != null;
@@ -1637,7 +931,7 @@ namespace XRTK.Services
         /// <param name="serviceName">Name of the specific service to search for.</param>
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <returns>The instance of the <see cref="IMixedRealityService"/> that is registered.</returns>
-        public static T GetService<T>(string serviceName, bool showLogs = true) where T : IMixedRealityService
+        public static T GetService<T>(string serviceName, bool showLogs = true) where T : IService
             => (T)GetService(typeof(T), serviceName, showLogs);
 
         /// <summary>
@@ -1648,7 +942,7 @@ namespace XRTK.Services
         /// <param name="service">The instance of the service class that is registered.</param>
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <returns>Returns true if the <see cref="IMixedRealityService"/> was found, otherwise false.</returns>
-        public static bool TryGetService<T>(string serviceName, out T service, bool showLogs = true) where T : IMixedRealityService
+        public static bool TryGetService<T>(string serviceName, out T service, bool showLogs = true) where T : IService
         {
             service = (T)GetService(typeof(T), serviceName, showLogs);
             return service != null;
@@ -1660,7 +954,7 @@ namespace XRTK.Services
         /// <param name="interfaceType">The interface type for the system to be retrieved.</param>
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <returns>The instance of the <see cref="IMixedRealityService"/> that is registered.</returns>
-        private static IMixedRealityService GetService(Type interfaceType, bool showLogs = true)
+        private static IService GetService(Type interfaceType, bool showLogs = true)
             => GetService(interfaceType, string.Empty, showLogs);
 
         /// <summary>
@@ -1670,7 +964,7 @@ namespace XRTK.Services
         /// <param name="serviceName">Name of the specific service.</param>
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <returns>The instance of the <see cref="IMixedRealityService"/> that is registered.</returns>
-        private static IMixedRealityService GetService(Type interfaceType, string serviceName, bool showLogs = true)
+        private static IService GetService(Type interfaceType, string serviceName, bool showLogs = true)
         {
             if (!GetServiceByNameInternal(interfaceType, serviceName, out var serviceInstance) && showLogs)
             {
@@ -1686,43 +980,24 @@ namespace XRTK.Services
         /// <param name="interfaceType">Interface type of the service being requested.</param>
         /// <param name="serviceName">Name of the specific service.</param>
         /// <param name="serviceInstance">return parameter of the function.</param>
-        private static bool GetServiceByNameInternal(Type interfaceType, string serviceName, out IMixedRealityService serviceInstance)
+        private static bool GetServiceByNameInternal(Type interfaceType, string serviceName, out IService serviceInstance)
         {
             serviceInstance = null;
 
             if (!CanGetService(interfaceType, serviceName)) { return false; }
 
-            if (IsSystem(interfaceType))
+            serviceInstance = ServiceManager.GetService(interfaceType, serviceName);
+            
+            if (serviceInstance != null)
             {
-                if (activeSystems.TryGetValue(interfaceType, out var systemInstance))
+                if (CheckServiceMatch(interfaceType, serviceName, interfaceType, serviceInstance))
                 {
-                    serviceInstance = systemInstance;
-
-                    if (CheckServiceMatch(interfaceType, serviceName, interfaceType, serviceInstance))
-                    {
-                        return true;
-                    }
-
-                    serviceInstance = null;
+                    return true;
                 }
+                
+                serviceInstance = null;
             }
-            else
-            {
-                var foundServices = GetActiveServices<IMixedRealityService>(interfaceType, serviceName);
-
-                switch (foundServices.Count)
-                {
-                    case 0:
-                        return false;
-                    case 1:
-                        serviceInstance = foundServices[0];
-                        return true;
-                    default:
-                        Debug.LogError($"Found multiple instances of {interfaceType.Name}! For better results, pass the name of the service or use GetActiveServices<T>()");
-                        return false;
-                }
-            }
-
+            
             return false;
         }
 
@@ -1731,7 +1006,7 @@ namespace XRTK.Services
         /// </summary>
         /// <param name="interfaceType">The interface type to search for.</param>
         /// <param name="services">Memory reference value of the service list to update.</param>
-        private static void GetAllServicesInternal<T>(Type interfaceType, ref List<T> services) where T : IMixedRealityService
+        private static void GetAllServicesInternal<T>(Type interfaceType, ref List<T> services) where T : IService
         {
             GetAllServicesByNameInternal(interfaceType, string.Empty, ref services);
         }
@@ -1742,27 +1017,14 @@ namespace XRTK.Services
         /// <param name="interfaceType">The interface type to search for.</param>
         /// <param name="serviceName">The name of the service to search for. If the string is empty than any matching <see cref="interfaceType"/> will be added to the <see cref="services"/> list.</param>
         /// <param name="services">Memory reference value of the service list to update.</param>
-        private static void GetAllServicesByNameInternal<T>(Type interfaceType, string serviceName, ref List<T> services) where T : IMixedRealityService
+        private static void GetAllServicesByNameInternal<T>(Type interfaceType, string serviceName, ref List<T> services) where T : IService
         {
             if (!CanGetService(interfaceType, serviceName)) { return; }
 
-            if (IsSystem(interfaceType))
+            if (GetServiceByNameInternal(interfaceType, serviceName, out var serviceInstance) &&
+                CheckServiceMatch(interfaceType, serviceName, interfaceType, serviceInstance))
             {
-                if (GetServiceByNameInternal(interfaceType, serviceName, out var serviceInstance) &&
-                    CheckServiceMatch(interfaceType, serviceName, interfaceType, serviceInstance))
-                {
-                    services.Add((T)serviceInstance);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < registeredMixedRealityServices.Count; i++)
-                {
-                    if (CheckServiceMatch(interfaceType, serviceName, registeredMixedRealityServices[i].Item1, registeredMixedRealityServices[i].Item2))
-                    {
-                        services.Add((T)registeredMixedRealityServices[i].Item2);
-                    }
-                }
+                services.Add((T)serviceInstance);
             }
         }
 
@@ -1774,7 +1036,7 @@ namespace XRTK.Services
         /// <param name="registeredInterfaceType">The registered interface type.</param>
         /// <param name="serviceInstance">The instance of the registered service.</param>
         /// <returns>True, if the registered service contains the interface type and name.</returns>
-        private static bool CheckServiceMatch(Type interfaceType, string serviceName, Type registeredInterfaceType, IMixedRealityService serviceInstance)
+        private static bool CheckServiceMatch(Type interfaceType, string serviceName, Type registeredInterfaceType, IService serviceInstance)
         {
             bool isNameValid = string.IsNullOrEmpty(serviceName) || serviceInstance.Name == serviceName;
             bool isInstanceValid = interfaceType == registeredInterfaceType || interfaceType.IsInstanceOfType(serviceInstance);
@@ -1812,16 +1074,9 @@ namespace XRTK.Services
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealitySystem"/> to be retrieved.</typeparam>
         /// <returns>Returns true, if there is a <see cref="IMixedRealitySystem"/> registered, otherwise false.</returns>
-        public static bool IsSystemRegistered<T>() where T : IMixedRealitySystem
+        public static bool IsSystemRegistered<T>() where T : IService
         {
-            try
-            {
-                return activeSystems.TryGetValue(typeof(T), out _);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return ServiceManager.IsServiceRegistered<T>();
         }
 
         /// <summary>
@@ -1830,7 +1085,7 @@ namespace XRTK.Services
         /// <typeparam name="T"><see cref="IMixedRealitySystem"/> to check.</typeparam>
         /// <param name="rootProfile">Optional root profile reference.</param>
         /// <returns>True, if the system is enabled in the <see cref="ActiveProfile"/>, otherwise false.</returns>
-        public static bool IsSystemEnabled<T>(MixedRealityToolkitRootProfile rootProfile = null) where T : IMixedRealitySystem
+        public static bool IsSystemEnabled<T>(MixedRealityToolkitRootProfile rootProfile = null) where T : IService
         {
             if (rootProfile.IsNull())
             {
@@ -1862,7 +1117,7 @@ namespace XRTK.Services
         /// <param name="rootProfile">Optional root profile reference.</param>
         /// <returns>True if a <see cref="TSystem"/> type is matched and a valid <see cref="TProfile"/> is found, otherwise false.</returns>
         public static bool TryGetSystemProfile<TSystem, TProfile>(out TProfile profile, MixedRealityToolkitRootProfile rootProfile = null)
-            where TSystem : IMixedRealitySystem
+            where TSystem : IService
             where TProfile : BaseMixedRealityProfile
         {
             if (rootProfile.IsNull())
@@ -1899,14 +1154,14 @@ namespace XRTK.Services
         }
 
         private static readonly HashSet<Type> SearchedSystemTypes = new HashSet<Type>();
-        private static readonly Dictionary<Type, IMixedRealitySystem> SystemCache = new Dictionary<Type, IMixedRealitySystem>();
+        private static readonly Dictionary<Type, IService> SystemCache = new Dictionary<Type, IService>();
 
         /// <summary>
         /// Retrieve a <see cref="IMixedRealityService"/> from the <see cref="ActiveSystems"/>.
         /// </summary>
         /// <typeparam name="T">The interface type for the system to be retrieved.</typeparam>
         /// <returns>The instance of the <see cref="IMixedRealitySystem"/> that is registered.</returns>
-        public static T GetSystem<T>() where T : IMixedRealitySystem
+        public static T GetSystem<T>() where T : IService
         {
             if (!IsInitialized ||
                 IsApplicationQuitting ||
@@ -1950,7 +1205,7 @@ namespace XRTK.Services
         /// <typeparam name="T">The interface type for the system to be retrieved.</typeparam>
         /// <param name="timeout">Optional, time out in seconds to wait before giving up search.</param>
         /// <returns>The instance of the <see cref="IMixedRealitySystem"/> that is registered.</returns>
-        public static async Task<T> GetSystemAsync<T>(int timeout = 10) where T : IMixedRealitySystem
+        public static async Task<T> GetSystemAsync<T>(int timeout = 10) where T : IService
             => await GetSystem<T>().WaitUntil(system => system != null, timeout);
 
         /// <summary>
@@ -1959,7 +1214,7 @@ namespace XRTK.Services
         /// <typeparam name="T">The interface type for the system to be retrieved.</typeparam>
         /// <param name="system">The instance of the system class that is registered.</param>
         /// <returns>Returns true if the <see cref="IMixedRealitySystem"/> was found, otherwise false.</returns>
-        public static bool TryGetSystem<T>(out T system) where T : IMixedRealitySystem
+        public static bool TryGetSystem<T>(out T system) where T : IService
         {
             system = GetSystem<T>();
             return system != null;

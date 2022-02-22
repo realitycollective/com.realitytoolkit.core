@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.Events;
 
@@ -9,7 +10,7 @@ namespace XRTK.Interfaces.Providers.SpatialObservers
     /// <summary>
     /// The Mixed Reality Spatial Observer Data Provider contract.
     /// </summary>
-    public interface IMixedRealitySpatialAwarenessDataProvider : IMixedRealityDataProvider, IMixedRealityEventSource
+    public interface IMixedRealitySpatialAwarenessDataProvider : IServiceDataProvider, IMixedRealityEventSource
     {
         /// <summary>
         /// The startup behavior of the hardware resource.
