@@ -61,5 +61,49 @@ namespace XRTK.Definitions.Controllers
             get => interactionMappingProfiles;
             internal set => interactionMappingProfiles = value;
         }
+
+        #region Fields hidden in non-debug inspector
+
+        [SerializeField]
+        private Texture2D lightThemeLeftControllerTexture = null;
+
+        public Texture2D LightThemeLeftControllerTexture => lightThemeLeftControllerTexture;
+
+        [SerializeField]
+        private Texture2D lightThemeLeftControllerTextureScaled = null;
+
+        public Texture2D LightThemeLeftControllerTextureScaled => lightThemeLeftControllerTextureScaled;
+
+        [SerializeField]
+        private Texture2D darkThemeLeftControllerTexture = null;
+
+        public Texture2D DarkThemeLeftControllerTexture => darkThemeLeftControllerTexture;
+
+        [SerializeField]
+        private Texture2D darkThemeLeftControllerTextureScaled = null;
+
+        public Texture2D DarkThemeLeftControllerTextureScaled => darkThemeLeftControllerTextureScaled;
+
+        [SerializeField]
+        private Texture2D lightThemeRightControllerTexture = null;
+
+        public Texture2D LightThemeRightControllerTexture => lightThemeRightControllerTexture;
+
+        [SerializeField]
+        private Texture2D lightThemeRightControllerTextureScaled = null;
+
+        public Texture2D LightThemeRightControllerTextureScaled => lightThemeRightControllerTextureScaled;
+
+        [SerializeField]
+        private Texture2D darkThemeRightControllerTexture = null;
+
+        public Texture2D DarkThemeRightControllerTexture => darkThemeRightControllerTexture;
+
+        [SerializeField]
+        private Texture2D darkThemeRightControllerTextureScaled = null;
+
+        public Texture2D DarkThemeRightControllerTextureScaled => darkThemeRightControllerTextureScaled;
+
+        #endregion
     }
 }
