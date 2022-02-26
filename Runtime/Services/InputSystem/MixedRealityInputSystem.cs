@@ -35,6 +35,7 @@ namespace XRTK.Services.InputSystem
                 throw new Exception($"The {nameof(IMixedRealityInputSystem)} is missing the required {nameof(profile.GazeProviderType)}!");
             }
 
+            gazeProviderBehaviour = profile.GazeProviderBehaviour;
             gazeProviderType = profile.GazeProviderType.Type;
 
             if (!MixedRealityToolkit.TryCreateAndRegisterService(profile.FocusProviderType?.Type, out focusProvider, profile.FocusProviderType?.Type.Name, 2u, profile, this))
@@ -67,6 +68,7 @@ namespace XRTK.Services.InputSystem
         /// <inheritdoc />
         public IMixedRealityGazeProvider GazeProvider { get; private set; }
 
+        private GazeProviderBehaviour gazeProviderBehaviour;
         private readonly Type gazeProviderType;
         private readonly Stack<GameObject> modalInputStack = new Stack<GameObject>();
         private readonly Stack<GameObject> fallbackInputStack = new Stack<GameObject>();
@@ -98,6 +100,19 @@ namespace XRTK.Services.InputSystem
 
         private SpeechEventData speechEventData;
         private DictationEventData dictationEventData;
+
+        #region IMixedRealityGazeProvider options
+
+        /// <inheritdoc />
+        public void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour)
+        {
+            if (this.gazeProviderBehaviour == gazeProviderBehaviour)
+            {
+                return;
+            }
+        }
+
+        #endregion
 
         #region IMixedRealityManager Implementation
 
