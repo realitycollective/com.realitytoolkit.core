@@ -46,4 +46,3 @@ jobs:
     with:
       build-target: windows
       unityversion: ${{ needs.Setup-Unity.outputs.unityeditorversion }}
-      dependencies: '{"dependancyname": "dependency repository"}'
