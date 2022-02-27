@@ -1,12 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Definitions;
+using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Controllers.UnityInput.Profiles;
 using XRTK.Definitions.Platforms;
+using XRTK.Editor.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces;
 using XRTK.Providers.Controllers.OpenVR;
@@ -23,8 +25,6 @@ namespace XRTK.Tests.Core
             TestUtilities.InitializeMixedRealityToolkitScene(false);
             MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile = ScriptableObject.CreateInstance<MixedRealityRegisteredServiceProvidersProfile>();
         }
-
-        #region Configuration Validation Tests
 
         private readonly List<IMixedRealityPlatform> testPlatforms = new List<IMixedRealityPlatform> { new EditorPlatform(), new WindowsStandalonePlatform() };
 
@@ -67,6 +67,58 @@ namespace XRTK.Tests.Core
             Assert.IsFalse(controllerDataMappingProfile.ValidateControllerProfiles(controllerTypes, false));
         }
 
-        #endregion Configuration Validation Tests
+        [Test]
+        public void Test_04_ConfirmGenereicControllerTextureExists()
+        {
+            var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
+            controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
+
+            // Right / Any hand textures
+            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
+            var controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
+            Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
+            controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
+            Assert.IsNotNull(controllerTexture);
+
+            // Left hand textures
+            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
+            controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
+            Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
+            controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
+            Assert.IsNotNull(controllerTexture);
+        }
+
+        [Test]
+        public void Test_04_ConfirmProfileControllerTextureUsed()
+        {
+            var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
+            controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
+
+            var dummyTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+            controllerMappingProfile.LightThemeLeftControllerTexture = dummyTexture;
+            controllerMappingProfile.LightThemeLeftControllerTextureScaled = dummyTexture;
+            controllerMappingProfile.LightThemeRightControllerTexture = dummyTexture;
+            controllerMappingProfile.LightThemeRightControllerTextureScaled = dummyTexture;
+            controllerMappingProfile.DarkThemeLeftControllerTexture = dummyTexture;
+            controllerMappingProfile.DarkThemeLeftControllerTextureScaled = dummyTexture;
+            controllerMappingProfile.DarkThemeRightControllerTexture = dummyTexture;
+            controllerMappingProfile.DarkThemeRightControllerTextureScaled = dummyTexture;
+
+            // Right / Any hand textures
+            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
+            var controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
+            Assert.AreSame(controllerTexture, dummyTexture);
+            controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
+            Assert.AreSame(controllerTexture, dummyTexture);
+
+            // Left hand textures
+            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
+            controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
+            Assert.AreSame(controllerTexture, dummyTexture);
+            controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
+            Assert.AreSame(controllerTexture, dummyTexture);
+
+            dummyTexture.Destroy();
+        }
     }
 }

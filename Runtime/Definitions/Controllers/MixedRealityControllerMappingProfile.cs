@@ -61,5 +61,81 @@ namespace XRTK.Definitions.Controllers
             get => interactionMappingProfiles;
             internal set => interactionMappingProfiles = value;
         }
+
+        #region Fields hidden in non-debug inspector
+
+        [SerializeField]
+        private Texture2D lightThemeLeftControllerTexture = null;
+
+        public Texture2D LightThemeLeftControllerTexture
+        {
+            get => lightThemeLeftControllerTexture;
+            internal set => lightThemeLeftControllerTexture = value;
+        }
+
+        [SerializeField]
+        private Texture2D lightThemeLeftControllerTextureScaled = null;
+
+        public Texture2D LightThemeLeftControllerTextureScaled
+        {
+            get => lightThemeLeftControllerTextureScaled;
+            internal set => lightThemeLeftControllerTextureScaled = value;
+        }
+
+        [SerializeField]
+        private Texture2D darkThemeLeftControllerTexture = null;
+
+        public Texture2D DarkThemeLeftControllerTexture
+        {
+            get => darkThemeLeftControllerTexture;
+            internal set => darkThemeLeftControllerTexture = value;
+        }
+
+        [SerializeField]
+        private Texture2D darkThemeLeftControllerTextureScaled = null;
+
+        public Texture2D DarkThemeLeftControllerTextureScaled
+        {
+            get => darkThemeLeftControllerTextureScaled;
+            internal set => darkThemeLeftControllerTextureScaled = value;
+        }
+
+        [SerializeField]
+        private Texture2D lightThemeRightControllerTexture = null;
+
+        public Texture2D LightThemeRightControllerTexture
+        {
+            get => lightThemeRightControllerTexture;
+            internal set => lightThemeRightControllerTexture = value;
+        }
+
+        [SerializeField]
+        private Texture2D lightThemeRightControllerTextureScaled = null;
+
+        public Texture2D LightThemeRightControllerTextureScaled
+        {
+            get => lightThemeRightControllerTextureScaled;
+            internal set => lightThemeRightControllerTextureScaled = value;
+        }
+
+        [SerializeField]
+        private Texture2D darkThemeRightControllerTexture = null;
+
+        public Texture2D DarkThemeRightControllerTexture
+        {
+            get => darkThemeRightControllerTexture;
+            internal set => darkThemeRightControllerTexture = value;
+        }
+
+        [SerializeField]
+        private Texture2D darkThemeRightControllerTextureScaled = null;
+
+        public Texture2D DarkThemeRightControllerTextureScaled
+        {
+            get => darkThemeRightControllerTextureScaled;
+            internal set => darkThemeRightControllerTextureScaled = value;
+        }
+
+        #endregion
     }
 }
