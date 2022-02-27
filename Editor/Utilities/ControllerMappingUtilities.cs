@@ -99,7 +99,12 @@ namespace XRTK.Editor.Utilities
             }
 
             texture = GetControllerTextureInternal(mappingProfile, scaled);
-            CachedTextures.Add(key, texture);
+
+            if (texture.IsNotNull())
+            {
+                CachedTextures.Add(key, texture);
+            }
+
             return texture;
         }
 
