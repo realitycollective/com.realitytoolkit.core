@@ -42,7 +42,11 @@ namespace XRTK.Definitions.InputSystem
         /// <summary>
         /// How should the gaze provider behave by default?
         /// </summary>
-        public GazeProviderBehaviour GazeProviderBehaviour => gazeProviderBehaviour;
+        public GazeProviderBehaviour GazeProviderBehaviour
+        {
+            get => gazeProviderBehaviour;
+            internal set => gazeProviderBehaviour = value;
+        }
 
         [SerializeField]
         [Tooltip("The concrete type of IMixedRealityGazeProvider to use.")]
