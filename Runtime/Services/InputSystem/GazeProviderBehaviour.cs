@@ -1,10 +1,6 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace XRTK.Services.InputSystem
 {
     /// <summary>
@@ -15,7 +11,7 @@ namespace XRTK.Services.InputSystem
     {
         /// <summary>
         /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> will be auto-enabled
-        /// when there is no other <see cref="Interfaces.InputSystem.IMixedRealityInputSource"/> with
+        /// when there is no other <see cref="Interfaces.Providers.Controllers.IMixedRealityController"/> with at least one
         /// <see cref="Interfaces.InputSystem.IMixedRealityPointer"/> attached available. And will auto-disable
         /// as soon as one is available.
         /// </summary>

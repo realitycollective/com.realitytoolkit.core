@@ -6,6 +6,7 @@ using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Definitions.InputSystem;
 using XRTK.EventDatum.Input;
+using XRTK.Extensions;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.InputSystem.Handlers;
@@ -379,6 +380,11 @@ namespace XRTK.Services.InputSystem
         protected void OnDestroy()
         {
             InputSystem?.Unregister(gameObject);
+
+            if (GazePointer != null && GazeCursor.GameObjectReference.IsNotNull())
+            {
+                GazeCursor.GameObjectReference.Destroy();
+            }
         }
 
         #endregion MonoBehaviour Implementation

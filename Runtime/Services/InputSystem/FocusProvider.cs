@@ -646,12 +646,15 @@ namespace XRTK.Services.InputSystem
 
             for (int i = 0; i < inputSource.Pointers.Length; i++)
             {
-                RegisterPointer(inputSource.Pointers[i]);
+                var pointer = inputSource.Pointers[i];
+                RegisterPointer(pointer);
 
                 // Special Registration for Gaze
-                if (inputSource.SourceId == InputSystem.GazeProvider.GazeInputSource.SourceId && gazeProviderPointingData == null)
+                if (InputSystem.GazeProvider != null &&
+                    inputSource.SourceId == InputSystem.GazeProvider.GazeInputSource.SourceId &&
+                    gazeProviderPointingData == null)
                 {
-                    gazeProviderPointingData = new PointerData(inputSource.Pointers[i]);
+                    gazeProviderPointingData = new PointerData(pointer);
                 }
             }
         }
