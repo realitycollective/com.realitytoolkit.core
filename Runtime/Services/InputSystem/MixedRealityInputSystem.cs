@@ -129,10 +129,10 @@ namespace XRTK.Services.InputSystem
                         EnsureGazeProvider();
                     }
                     break;
-                case GazeProviderBehaviour.Enabled:
+                case GazeProviderBehaviour.Active:
                     EnsureGazeProvider();
                     break;
-                case GazeProviderBehaviour.Disabled:
+                case GazeProviderBehaviour.Inactive:
                     RemoveGazeProvider();
                     break;
             }

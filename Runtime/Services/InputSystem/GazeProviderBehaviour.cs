@@ -19,10 +19,10 @@ namespace XRTK.Services.InputSystem
         /// <summary>
         /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> stays disabled until manually enabled.
         /// </summary>
-        Disabled,
+        Inactive,
         /// <summary>
         /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> is always enabled.
         /// </summary>
-        Enabled
+        Active
     }
 }
