@@ -10,18 +10,18 @@ namespace XRTK.Services.InputSystem
     public enum GazeProviderBehaviour
     {
         /// <summary>
-        /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> will be auto-enabled
+        /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> will be auto-activated
         /// when there is no other <see cref="Interfaces.Providers.Controllers.IMixedRealityController"/> with at least one
-        /// <see cref="Interfaces.InputSystem.IMixedRealityPointer"/> attached available. And will auto-disable
+        /// <see cref="Interfaces.InputSystem.IMixedRealityPointer"/> attached available. And will become inactive
         /// as soon as one is available.
         /// </summary>
         Auto = 0,
         /// <summary>
-        /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> stays disabled until manually enabled.
+        /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> stays inactive until manually enabled.
         /// </summary>
         Inactive,
         /// <summary>
-        /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> is always enabled.
+        /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> is always active.
         /// </summary>
         Active
     }
