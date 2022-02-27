@@ -35,6 +35,7 @@ namespace XRTK.Services.InputSystem
                 throw new Exception($"The {nameof(IMixedRealityInputSystem)} is missing the required {nameof(profile.GazeProviderType)}!");
             }
 
+            gazeProviderBehaviour = profile.GazeProviderBehaviour;
             gazeProviderType = profile.GazeProviderType.Type;
 
             if (!MixedRealityToolkit.TryCreateAndRegisterService(profile.FocusProviderType?.Type, out focusProvider, profile.FocusProviderType?.Type.Name, 2u, profile, this))
@@ -67,6 +68,7 @@ namespace XRTK.Services.InputSystem
         /// <inheritdoc />
         public IMixedRealityGazeProvider GazeProvider { get; private set; }
 
+        private GazeProviderBehaviour gazeProviderBehaviour;
         private readonly Type gazeProviderType;
         private readonly Stack<GameObject> modalInputStack = new Stack<GameObject>();
         private readonly Stack<GameObject> fallbackInputStack = new Stack<GameObject>();
@@ -98,6 +100,76 @@ namespace XRTK.Services.InputSystem
 
         private SpeechEventData speechEventData;
         private DictationEventData dictationEventData;
+
+        #region IMixedRealityGazeProvider options
+
+        /// <inheritdoc />
+        public void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour)
+        {
+            if (this.gazeProviderBehaviour == gazeProviderBehaviour)
+            {
+                return;
+            }
+
+            this.gazeProviderBehaviour = gazeProviderBehaviour;
+            UpdateGazeProvider();
+        }
+
+        private void UpdateGazeProvider()
+        {
+            switch (gazeProviderBehaviour)
+            {
+                case GazeProviderBehaviour.Auto:
+                    if (TryGetControllerWithPointersAttached(out _))
+                    {
+                        RemoveGazeProvider();
+                    }
+                    else
+                    {
+                        EnsureGazeProvider();
+                    }
+                    break;
+                case GazeProviderBehaviour.Active:
+                    EnsureGazeProvider();
+                    break;
+                case GazeProviderBehaviour.Inactive:
+                    RemoveGazeProvider();
+                    break;
+            }
+        }
+
+        private void RemoveGazeProvider()
+        {
+            var component = CameraCache.Main.GetComponent<IMixedRealityGazeProvider>() as Component;
+            if (component.IsNotNull())
+            {
+                component.Destroy();
+            }
+
+            GazeProvider = null;
+        }
+
+        private void EnsureGazeProvider() => GazeProvider = CameraCache.Main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+
+        private bool TryGetControllerWithPointersAttached(out IMixedRealityController controller)
+        {
+            if (detectedControllers != null && detectedControllers.Count > 0)
+            {
+                foreach (var detectedController in detectedControllers)
+                {
+                    if (detectedController.InputSource.Pointers != null && detectedController.InputSource.Pointers.Length > 0)
+                    {
+                        controller = detectedController;
+                        return true;
+                    }
+                }
+            }
+
+            controller = null;
+            return false;
+        }
+
+        #endregion
 
         #region IMixedRealityManager Implementation
 
@@ -148,7 +220,7 @@ namespace XRTK.Services.InputSystem
                 dictationEventData = new DictationEventData(eventSystem);
             }
 
-            GazeProvider = CameraCache.Main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+            UpdateGazeProvider();
         }
 
         private void EnsureStandaloneInputModuleSetup()
@@ -188,12 +260,7 @@ namespace XRTK.Services.InputSystem
 
             if (finalizing)
             {
-                var component = CameraCache.Main.GetComponent<IMixedRealityGazeProvider>() as Component;
-
-                if (!component.IsNull())
-                {
-                    component.Destroy();
-                }
+                RemoveGazeProvider();
 
                 var inputModule = CameraCache.Main.GetComponent<StandaloneInputModule>();
 
@@ -537,6 +604,8 @@ namespace XRTK.Services.InputSystem
 
             // Pass handler through HandleEvent to perform modal/fallback logic
             HandleEvent(sourceStateEventData, OnSourceDetectedEventHandler);
+
+            UpdateGazeProvider();
         }
 
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySourceStateHandler> OnSourceDetectedEventHandler =
@@ -565,6 +634,8 @@ namespace XRTK.Services.InputSystem
             HandleEvent(sourceStateEventData, OnSourceLostEventHandler);
 
             FocusProvider?.OnSourceLost(sourceStateEventData);
+
+            UpdateGazeProvider();
         }
 
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySourceStateHandler> OnSourceLostEventHandler =

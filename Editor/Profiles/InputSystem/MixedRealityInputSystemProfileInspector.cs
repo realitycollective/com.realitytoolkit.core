@@ -27,6 +27,7 @@ namespace XRTK.Editor.Profiles.InputSystem
         private static readonly GUIContent ShowControllerMappingsContent = new GUIContent("Controller Action Mappings");
 
         private SerializedProperty focusProviderType;
+        private SerializedProperty gazeProviderBehaviour;
         private SerializedProperty gazeProviderType;
         private SerializedProperty gazeCursorPrefab;
 
@@ -59,6 +60,7 @@ namespace XRTK.Editor.Profiles.InputSystem
             base.OnEnable();
 
             focusProviderType = serializedObject.FindProperty(nameof(focusProviderType));
+            gazeProviderBehaviour = serializedObject.FindProperty(nameof(gazeProviderBehaviour));
             gazeProviderType = serializedObject.FindProperty(nameof(gazeProviderType));
             gazeCursorPrefab = serializedObject.FindProperty(nameof(gazeCursorPrefab));
 
@@ -126,6 +128,7 @@ namespace XRTK.Editor.Profiles.InputSystem
             EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.PropertyField(focusProviderType, FocusProviderContent);
+            EditorGUILayout.PropertyField(gazeProviderBehaviour);
             EditorGUILayout.PropertyField(gazeProviderType, GazeProviderContent);
             EditorGUILayout.PropertyField(gazeCursorPrefab, GazeCursorPrefabContent);
 

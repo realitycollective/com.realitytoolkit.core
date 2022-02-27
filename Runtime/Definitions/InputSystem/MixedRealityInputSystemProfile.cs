@@ -9,6 +9,7 @@ using XRTK.Definitions.Controllers.Hands;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.Providers;
+using XRTK.Services.InputSystem;
 
 namespace XRTK.Definitions.InputSystem
 {
@@ -32,6 +33,19 @@ namespace XRTK.Definitions.InputSystem
         {
             get => focusProviderType;
             internal set => focusProviderType = value;
+        }
+
+        [SerializeField]
+        [Tooltip("How should the gaze provider behave by default?")]
+        private GazeProviderBehaviour gazeProviderBehaviour = GazeProviderBehaviour.Auto;
+
+        /// <summary>
+        /// How should the gaze provider behave by default?
+        /// </summary>
+        public GazeProviderBehaviour GazeProviderBehaviour
+        {
+            get => gazeProviderBehaviour;
+            internal set => gazeProviderBehaviour = value;
         }
 
         [SerializeField]
