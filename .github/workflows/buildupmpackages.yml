@@ -37,7 +37,7 @@ jobs:
       unityversion: ${{ needs.validate-environment.outputs.unityversion }}
 
   Install-Unity-Editor:
-    if: ${{ needs.Setup-Unity.outputs.unityeditorinstalled }}  == '1'
+    if: ${{ needs.Setup-Unity.outputs.unityeditorinstalled }}  == '0'
     needs: Setup-Unity
     uses: realitycollective/reusableworkflows/.github/workflows/installunityeditor.yml@main
     name: Install Unity Editor
