@@ -59,3 +59,6 @@ jobs:
     uses: realitycollective/reusableworkflows/.github/workflows/tagrelease.yml@main
     with:
       build-target: windows
+    secrets:
+      GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}    
+      GIT_PAT: ${{ secrets.GIT_PAT }}      
