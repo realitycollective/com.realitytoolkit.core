@@ -8,12 +8,12 @@
     "XR",
     "Mixed Reality"
   ],
-  "version": "1.0.0-preview.0",
+  "version": "1.0.0-preview.1",
   "unity": "2020.3",
   "homepage": "https://github.com/realitycollective",
   "bugs": {
     "url": "https://github.com/realitycollective/realitytoolkit.dev/issues"
-  },  
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
