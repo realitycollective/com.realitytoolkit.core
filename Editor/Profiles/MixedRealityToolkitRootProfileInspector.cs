@@ -1,11 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+
+#if UNITY_2021_1_OR_NEWER
+using UnityEditor.SceneManagement;
+#else
 using UnityEditor.Experimental.SceneManagement;
+#endif
+
 using UnityEditor.PackageManager;
 using UnityEngine;
 using XRTK.Definitions;
