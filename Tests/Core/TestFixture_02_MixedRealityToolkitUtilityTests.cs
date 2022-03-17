@@ -75,21 +75,35 @@ namespace XRTK.Tests.Core
 
             // Right / Any hand textures
             controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
-            var controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
-            Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
-            controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
+            var controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
             Assert.IsNotNull(controllerTexture);
 
             // Left hand textures
             controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
-            controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
-            Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
             controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
             Assert.IsNotNull(controllerTexture);
         }
 
         [Test]
-        public void Test_04_ConfirmProfileControllerTextureUsed()
+        public void Test_05_ConfirmGenereicControllerTextureDoesNotExist()
+        {
+            var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
+            controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
+
+            // Right / Any hand textures
+            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
+            var controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
+            Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
+
+            // Left hand textures
+            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
+            controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
+            Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
+        }
+
+
+        [Test]
+        public void Test_06_ConfirmProfileControllerTextureUsed()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
