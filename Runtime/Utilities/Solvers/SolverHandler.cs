@@ -8,7 +8,7 @@ using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Services;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// This class handles the solver components that are attached to this <see cref="GameObject"/>

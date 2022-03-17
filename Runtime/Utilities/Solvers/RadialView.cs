@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// RadialViewPoser solver locks a tag-along type object within a view cone

@@ -11,8 +11,8 @@ using XRTK.Definitions.Platforms;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces;
-using XRTK.Providers.Controllers.OpenVR;
 using XRTK.Services;
+using XRTK.Services.InputSystem.Controllers.OpenVR;
 using XRTK.Tests.Services;
 using XRTK.Utilities;
 

@@ -10,7 +10,7 @@ using XRTK.Definitions.Utilities;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.Events;
 using XRTK.Interfaces.Providers.Controllers;
-using XRTK.Services.InputSystem;
+using XRTK.Services.InputSystem.Providers;
 
 namespace XRTK.Interfaces.InputSystem
 {

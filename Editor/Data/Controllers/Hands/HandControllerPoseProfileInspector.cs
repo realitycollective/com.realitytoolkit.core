@@ -8,7 +8,7 @@ using XRTK.Definitions.Utilities;
 using XRTK.Editor.Extensions;
 using XRTK.Editor.Profiles;
 using XRTK.Extensions;
-using XRTK.Providers.Controllers.Hands;
+using XRTK.Services.InputSystem.Controllers.Hands;
 
 namespace XRTK.Editor.Data.Controllers.Hands
 {
