@@ -4,9 +4,9 @@
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Editor.PropertyDrawers;
+using XRTK.Definitions.SpatialObservers;
 using XRTK.Editor.Extensions;
-using XRTK.Providers.SpatialObservers;
+using XRTK.Editor.PropertyDrawers;
 
 namespace XRTK.Editor.Profiles.SpatialAwareness
 {

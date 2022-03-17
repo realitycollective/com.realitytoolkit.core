@@ -5,9 +5,8 @@ using UnityEngine;
 using XRTK.Definitions.Devices;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
 using XRTK.Services.InputSystem.Controllers.Simulation.Hands;
-using XRTK.Utilities;
 using XRTK.Utilities.Physics;
 
 namespace XRTK.Utilities.UX.Pointers

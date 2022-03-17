@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using XRTK.Definitions.SpatialAwarenessSystem;
+using XRTK.Definitions.SpatialObservers;
 using XRTK.Extensions;
-using XRTK.Interfaces.Providers.SpatialObservers;
 using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Services;
+using XRTK.Interfaces.SpatialObservers.Providers;
 using XRTK.Utilities.Async;
 
-namespace XRTK.Providers.SpatialObservers
+namespace XRTK.Services.SpatialAwarenessSystem.SpatialObservers
 {
     /// <summary>
     /// Base class for spatial awareness observers.

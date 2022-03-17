@@ -18,9 +18,9 @@ using XRTK.Extensions;
 using XRTK.Interfaces.BoundarySystem;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers;
-using XRTK.Interfaces.Providers.SpatialObservers;
+using XRTK.Interfaces.InputSystem.Providers;
 using XRTK.Interfaces.SpatialAwarenessSystem;
+using XRTK.Interfaces.SpatialObservers.Providers;
 using XRTK.Services;
 
 namespace XRTK.Editor

@@ -8,7 +8,8 @@ using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
 namespace XRTK.Services.InputSystem.Controllers
 {

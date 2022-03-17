@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Interfaces.Audio;
-using XRTK.Utilities;
 
-namespace XRTK.Audio.Influencers
+namespace XRTK.Utilities.Audio.Influencers
 {
     /// <summary>
     /// Class which supports components implementing <see cref="IAudioInfluencer"/> being used with audio sources.
@@ -206,7 +205,7 @@ namespace XRTK.Audio.Influencers
             Vector3 direction = (objectTransformPosition - cameraTransformPosition).normalized;
             float distance = Vector3.Distance(cameraTransformPosition, objectTransformPosition);
 
-            int count = Physics.RaycastNonAlloc(cameraTransformPosition, direction, hits, distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            int count = UnityEngine.Physics.RaycastNonAlloc(cameraTransformPosition, direction, hits, distance, UnityEngine.Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
             for (int i = 0; i < count; i++)
             {

@@ -12,7 +12,7 @@ using XRTK.EventDatum.Input;
 using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
 using XRTK.Services.InputSystem.InputSources;
 using XRTK.Services.InputSystem.Providers;
 using XRTK.Utilities;

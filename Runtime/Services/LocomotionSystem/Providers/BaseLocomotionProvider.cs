@@ -9,10 +9,9 @@ using XRTK.EventDatum.Input;
 using XRTK.Extensions;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Services;
 using XRTK.Utilities;
 
-namespace XRTK.Providers.LocomotionSystem.Providers
+namespace XRTK.Services.LocomotionSystem.Providers
 {
     public abstract class BaseLocomotionProvider : BaseDataProvider, ILocomotionProvider
     {

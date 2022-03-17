@@ -10,8 +10,9 @@ using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.Providers.Controllers;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
 
 namespace XRTK.Services.InputSystem.Controllers.Hands
 {

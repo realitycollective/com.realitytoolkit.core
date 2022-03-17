@@ -6,7 +6,7 @@ using XRTK.Definitions.LocomotionSystem;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.LocomotionSystem;
 
-namespace XRTK.Providers.LocomotionSystem.Providers
+namespace XRTK.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// A simple <see cref="IFreeLocomotionProvider"/> implementation that allows free movement

@@ -6,7 +6,7 @@ using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers;
 using XRTK.Services.InputSystem.Processors;
 
 namespace XRTK.Services.InputSystem.Controllers.OpenVR

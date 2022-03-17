@@ -3,7 +3,7 @@
 
 using XRTK.Definitions.InputSystem;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers.Speech;
+using XRTK.Interfaces.InputSystem.Providers.Speech;
 
 namespace XRTK.Services.InputSystem.Providers
 {

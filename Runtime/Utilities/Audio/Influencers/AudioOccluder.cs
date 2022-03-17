@@ -5,7 +5,7 @@ using UnityEngine;
 using XRTK.Extensions;
 using XRTK.Interfaces.Audio;
 
-namespace XRTK.Audio.Influencers
+namespace XRTK.Utilities.Audio.Influencers
 {
     /// <summary>
     /// Class that implements <see cref="IAudioInfluencer"/> to provide an audio occlusion effect, similar

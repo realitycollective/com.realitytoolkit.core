@@ -5,7 +5,7 @@ using UnityEngine;
 using XRTK.Definitions.Controllers.Hands;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
 
 namespace XRTK.Services.InputSystem.Controllers.Hands
 {

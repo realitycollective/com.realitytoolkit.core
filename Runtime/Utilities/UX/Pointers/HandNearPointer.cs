@@ -5,7 +5,7 @@ using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Definitions.Physics;
 using XRTK.Extensions;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
 
 namespace XRTK.Utilities.UX.Pointers
 {

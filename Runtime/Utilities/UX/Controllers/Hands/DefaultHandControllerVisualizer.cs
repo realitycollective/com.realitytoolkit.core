@@ -7,8 +7,9 @@ using XRTK.Definitions.Controllers.Hands;
 using XRTK.Definitions.Utilities;
 using XRTK.EventDatum.Input;
 using XRTK.Extensions;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
 using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
 using XRTK.Services.InputSystem.Utilities;
 
 namespace XRTK.Utilities.UX.Controllers.Hands

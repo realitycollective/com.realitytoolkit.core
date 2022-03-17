@@ -6,7 +6,7 @@ using XRTK.Definitions;
 using XRTK.Definitions.Utilities;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
 
 namespace XRTK.Utilities.UX.Pointers
 {

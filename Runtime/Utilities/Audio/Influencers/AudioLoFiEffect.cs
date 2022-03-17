@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XRTK.Audio.Influencers
+namespace XRTK.Utilities.Audio.Influencers
 {
     /// <summary>
     /// An audio effect that limits the frequency range of a sound to simulate being played 

@@ -13,7 +13,7 @@ using XRTK.Editor.Data;
 using XRTK.Editor.PropertyDrawers;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
 using XRTK.Services.InputSystem.Controllers.OpenVR;
 using XRTK.Services.InputSystem.Controllers.UnityInput;
 

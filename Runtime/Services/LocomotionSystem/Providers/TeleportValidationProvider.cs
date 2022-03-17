@@ -5,10 +5,9 @@ using UnityEngine;
 using XRTK.Definitions.LocomotionSystem;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Services;
 using XRTK.Utilities;
 
-namespace XRTK.Providers.LocomotionSystem.Providers
+namespace XRTK.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// The Mixed Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.

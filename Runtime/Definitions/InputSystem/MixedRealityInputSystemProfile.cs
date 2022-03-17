@@ -8,7 +8,7 @@ using XRTK.Attributes;
 using XRTK.Definitions.Controllers.Hands;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers;
+using XRTK.Interfaces.InputSystem.Providers;
 using XRTK.Services.InputSystem.Providers;
 
 namespace XRTK.Definitions.InputSystem

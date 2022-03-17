@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Definitions.SpatialAwarenessSystem;
 
-namespace XRTK.Interfaces.Providers.SpatialObservers
+namespace XRTK.Interfaces.SpatialObservers.Providers
 {
     /// <summary>
     /// The interface contract for Mixed Reality spatial observers.

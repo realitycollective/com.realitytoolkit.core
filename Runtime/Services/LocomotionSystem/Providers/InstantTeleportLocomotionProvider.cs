@@ -5,7 +5,7 @@ using UnityEngine;
 using XRTK.Definitions.LocomotionSystem;
 using XRTK.Interfaces.LocomotionSystem;
 
-namespace XRTK.Providers.LocomotionSystem.Providers
+namespace XRTK.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// A simple <see cref="ITeleportLocomotionProvider"/> implementation that teleports

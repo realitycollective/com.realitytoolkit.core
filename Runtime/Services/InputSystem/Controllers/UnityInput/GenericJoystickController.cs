@@ -6,7 +6,7 @@ using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
 namespace XRTK.Services.InputSystem.Controllers.UnityInput
 {

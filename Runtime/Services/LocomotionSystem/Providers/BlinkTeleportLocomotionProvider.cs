@@ -9,7 +9,7 @@ using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.LocomotionSystem;
 
-namespace XRTK.Providers.LocomotionSystem.Providers
+namespace XRTK.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// A <see cref="ITeleportLocomotionProvider"/> implementation that teleports the player rig

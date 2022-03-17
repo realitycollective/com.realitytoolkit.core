@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Definitions.SpatialAwarenessSystem;
+using XRTK.Definitions.SpatialObservers;
 using XRTK.Extensions;
-using XRTK.Interfaces.Providers.SpatialObservers;
 using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Services;
+using XRTK.Interfaces.SpatialObservers.Providers;
 
-namespace XRTK.Providers.SpatialObservers
+namespace XRTK.Services.SpatialAwarenessSystem.SpatialObservers
 {
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialSurfaceObserver"/> implementation.

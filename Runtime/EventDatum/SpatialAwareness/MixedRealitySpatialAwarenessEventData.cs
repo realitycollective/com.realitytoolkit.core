@@ -3,7 +3,7 @@
 
 using System;
 using UnityEngine.EventSystems;
-using XRTK.Interfaces.Providers.SpatialObservers;
+using XRTK.Interfaces.SpatialObservers.Providers;
 
 namespace XRTK.EventDatum.SpatialAwarenessSystem
 {

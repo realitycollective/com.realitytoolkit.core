@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers.Speech;
+using XRTK.Interfaces.InputSystem.Providers.Speech;
 
 namespace XRTK.Services.InputSystem.Providers
 {

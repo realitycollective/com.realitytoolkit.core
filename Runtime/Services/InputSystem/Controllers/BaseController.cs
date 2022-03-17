@@ -11,8 +11,9 @@ using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Interfaces.InputSystem;
+using XRTK.Interfaces.InputSystem.Controllers;
 using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers;
 using XRTK.Utilities;
 using Object = UnityEngine.Object;
 

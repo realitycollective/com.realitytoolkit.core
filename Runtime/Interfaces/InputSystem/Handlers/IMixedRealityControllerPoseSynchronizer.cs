@@ -4,7 +4,7 @@
 using UnityEngine;
 using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
 
 namespace XRTK.Interfaces.InputSystem.Handlers
 {

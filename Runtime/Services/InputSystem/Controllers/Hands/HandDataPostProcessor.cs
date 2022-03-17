@@ -7,7 +7,7 @@ using XRTK.Definitions.Controllers.Hands;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.Providers.Controllers.Hands;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
 using XRTK.Utilities;
 
 namespace XRTK.Services.InputSystem.Controllers.Hands

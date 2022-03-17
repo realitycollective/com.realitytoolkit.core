@@ -7,8 +7,8 @@ using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
 using XRTK.EventDatum.Input;
 using XRTK.Extensions;
+using XRTK.Interfaces.InputSystem.Controllers;
 using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.Providers.Controllers;
 using XRTK.Services.InputSystem.Listeners;
 
 namespace XRTK.Services.InputSystem.Utilities
