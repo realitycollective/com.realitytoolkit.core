@@ -19,6 +19,8 @@ namespace XRTK.Editor
 {
     public static class MixedRealityPreferences
     {
+        public const string Editor_Menu_Keyword = "Reality Toolkit";
+
         private static readonly string[] Package_Keywords = { "RealityToolkit", "Mixed", "Reality" };
 
         #region Ignore startup settings prompt
