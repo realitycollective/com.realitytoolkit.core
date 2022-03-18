@@ -23,7 +23,7 @@ namespace XRTK.Tests
         public void Test01_GazeProviderSetAuto()
         {
             var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
-            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.GazeProviderBehaviour.Auto);
+            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.Providers.GazeProviderBehaviour.Auto);
 
             if (AnyControllerWithPointersAttached(inputSystem))
             {
@@ -39,7 +39,7 @@ namespace XRTK.Tests
         public void Test02_GazeProviderSetInactive()
         {
             var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
-            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.GazeProviderBehaviour.Inactive);
+            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.Providers.GazeProviderBehaviour.Inactive);
 
             Assert.IsNull(inputSystem.GazeProvider);
         }
@@ -48,7 +48,7 @@ namespace XRTK.Tests
         public void Test03_GazeProviderSetActive()
         {
             var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
-            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.GazeProviderBehaviour.Active);
+            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.Providers.GazeProviderBehaviour.Active);
 
             Assert.IsNotNull(inputSystem.GazeProvider);
         }

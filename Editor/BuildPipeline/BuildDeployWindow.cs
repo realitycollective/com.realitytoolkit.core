@@ -59,7 +59,7 @@ namespace XRTK.Editor.BuildPipeline
             }
         }
 
-        [MenuItem("Mixed Reality Toolkit/Build Window", false, 99)]
+        [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Build Window", false, 99)]
         public static void OpenWindow()
         {
             // Dock it next to the Scene View.

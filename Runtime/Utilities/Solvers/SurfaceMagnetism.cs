@@ -6,7 +6,7 @@ using XRTK.Definitions.Physics;
 using XRTK.Extensions;
 using XRTK.Utilities.Physics;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// SurfaceMagnetism casts rays to Surfaces in the world align the object to the surface.
@@ -33,7 +33,7 @@ namespace XRTK.SDK.Utilities.Solvers
 
         [SerializeField]
         [Tooltip("LayerMask to apply Surface Magnetism to")]
-        private LayerMask[] magneticSurfaces = { Physics.DefaultRaycastLayers };
+        private LayerMask[] magneticSurfaces = { UnityEngine.Physics.DefaultRaycastLayers };
 
         [SerializeField]
         [Tooltip("Max distance to check for surfaces")]

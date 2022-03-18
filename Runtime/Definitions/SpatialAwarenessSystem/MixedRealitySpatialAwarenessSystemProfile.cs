@@ -3,9 +3,9 @@
 
 using System;
 using UnityEngine;
+using XRTK.Definitions.SpatialObservers;
 using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.Providers.SpatialObservers;
-using XRTK.Providers.SpatialObservers;
+using XRTK.Interfaces.SpatialObservers.Providers;
 
 namespace XRTK.Definitions.SpatialAwarenessSystem
 {

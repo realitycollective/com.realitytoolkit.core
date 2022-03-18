@@ -169,13 +169,14 @@ namespace XRTK.Editor
             }
         }
 
-        [MenuItem("Mixed Reality Toolkit/Configure...", true, 0)]
+        const string configureMenuItemName = MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...";
+        [MenuItem(configureMenuItemName, true, 0)]
         private static bool CreateMixedRealityToolkitGameObjectValidation()
         {
             return PrefabStageUtility.GetCurrentPrefabStage() == null;
         }
 
-        [MenuItem("Mixed Reality Toolkit/Configure...", false, 0)]
+        [MenuItem(configureMenuItemName, false, 0)]
         public static void CreateMixedRealityToolkitGameObject()
         {
             try

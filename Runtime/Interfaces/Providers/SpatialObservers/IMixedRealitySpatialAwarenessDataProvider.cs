@@ -4,7 +4,7 @@
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.Events;
 
-namespace XRTK.Interfaces.Providers.SpatialObservers
+namespace XRTK.Interfaces.SpatialObservers.Providers
 {
     /// <summary>
     /// The Mixed Reality Spatial Observer Data Provider contract.

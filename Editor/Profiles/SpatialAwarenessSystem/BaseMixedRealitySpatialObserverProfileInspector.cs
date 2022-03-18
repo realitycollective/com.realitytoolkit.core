@@ -3,8 +3,8 @@
 
 using UnityEditor;
 using UnityEngine;
+using XRTK.Definitions.SpatialObservers;
 using XRTK.Editor.Extensions;
-using XRTK.Providers.SpatialObservers;
 
 namespace XRTK.Editor.Profiles.SpatialAwareness
 {

@@ -6,7 +6,7 @@ using XRTK.Attributes;
 using XRTK.Definitions.SpatialAwarenessSystem;
 using XRTK.Definitions.Utilities;
 
-namespace XRTK.Providers.SpatialObservers
+namespace XRTK.Definitions.SpatialObservers
 {
     public class BaseMixedRealitySpatialMeshObserverProfile : BaseMixedRealitySpatialObserverProfile
     {

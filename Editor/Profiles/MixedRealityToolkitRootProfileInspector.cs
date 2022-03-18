@@ -1,16 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-
-#if UNITY_2021_1_OR_NEWER
-using UnityEditor.SceneManagement;
-#else
 using UnityEditor.Experimental.SceneManagement;
-#endif
-
 using UnityEditor.PackageManager;
 using UnityEngine;
 using XRTK.Definitions;
@@ -85,26 +80,6 @@ namespace XRTK.Editor.Profiles
 
                 if (managerSearch.Length == 0)
                 {
-                    if (!ValidateImplementationsExists())
-                    {
-                        if (EditorUtility.DisplayDialog(
-                            "Attention!",
-                            $"We were unable to find any services or data providers to configure. Would you like to install the {nameof(MixedRealityToolkit)} SDK?",
-                            "Yes",
-                            "Later",
-                            DialogOptOutDecisionType.ForThisSession,
-                            "XRTK_Prompt_Install_SDK"))
-                        {
-                            EditorApplication.delayCall += () =>
-                            {
-                                Client.Add("com.xrtk.sdk");
-                            };
-                        }
-
-                        Selection.activeObject = null;
-                        return;
-                    }
-
                     if (EditorUtility.DisplayDialog(
                         "Attention!",
                         "There is no active Mixed Reality Toolkit in your scene!\n\nWould you like to create one now?",
@@ -205,13 +180,6 @@ namespace XRTK.Editor.Profiles
             {
                 EditorApplication.delayCall += () => MixedRealityToolkit.Instance.ResetProfile(rootProfile);
             }
-        }
-
-        private static bool ValidateImplementationsExists()
-        {
-            return TypeExtensions.HasValidImplementations<IMixedRealitySystem>() &&
-                   TypeExtensions.HasValidImplementations<IMixedRealityService>() &&
-                   TypeExtensions.HasValidImplementations<IMixedRealityDataProvider>();
         }
     }
 }

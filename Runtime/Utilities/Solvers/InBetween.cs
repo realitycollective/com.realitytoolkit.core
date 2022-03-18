@@ -4,7 +4,7 @@
 using UnityEngine;
 using XRTK.Definitions.Utilities;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// InBetween solver positions an object in-between two tracked transforms.

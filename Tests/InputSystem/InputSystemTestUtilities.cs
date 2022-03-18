@@ -7,6 +7,7 @@ using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Platforms;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Services.InputSystem;
+using XRTK.Services.InputSystem.Providers;
 
 namespace XRTK.Tests.InputSystem
 {

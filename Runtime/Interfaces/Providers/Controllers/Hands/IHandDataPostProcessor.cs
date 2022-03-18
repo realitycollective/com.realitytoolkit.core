@@ -4,7 +4,7 @@
 using XRTK.Definitions.Controllers.Hands;
 using XRTK.Definitions.Utilities;
 
-namespace XRTK.Interfaces.Providers.Controllers.Hands
+namespace XRTK.Interfaces.InputSystem.Controllers.Hands
 {
     /// <summary>
     /// <see cref="HandData"/> post processor definition.

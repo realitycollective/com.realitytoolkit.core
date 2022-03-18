@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Utilities;
+using XRTK.Interfaces.InputSystem.Controllers;
 
-namespace XRTK.Interfaces.Providers.Controllers
+namespace XRTK.Interfaces.InputSystem.Providers.Controllers
 {
     /// <summary>
     /// Mixed Reality Toolkit data provider definition, used to instantiate and manage controllers and joysticks

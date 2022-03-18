@@ -1,14 +1,13 @@
 ﻿// Copyright (c) XRTK All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Threading.Tasks;
 using UnityEngine;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.InputSystem.Handlers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
-namespace XRTK.Interfaces.Providers.Controllers
+namespace XRTK.Interfaces.InputSystem.Controllers
 {
     /// <summary>
     /// Mixed Reality Toolkit controller definition, used to manage a specific controller type.
