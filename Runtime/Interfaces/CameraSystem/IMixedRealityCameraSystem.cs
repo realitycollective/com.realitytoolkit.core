@@ -1,7 +1,6 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using UnityEngine.XR;
 using XRTK.Services.CameraSystem;
 
@@ -13,9 +12,9 @@ namespace XRTK.Interfaces.CameraSystem
     public interface IMixedRealityCameraSystem : IMixedRealitySystem
     {
         /// <summary>
-        /// The list of <see cref="IMixedRealityCameraDataProvider"/>s registered and running with the system.
+        /// The active <see cref="IMixedRealityCameraDataProvider"/>.
         /// </summary>
-        IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders { get; }
+        IMixedRealityCameraDataProvider CameraDataProvider { get; }
 
         /// <summary>
         /// The reference to the <see cref="IMixedRealityCameraRig"/> attached to the Main Camera (typically this is the player's camera).

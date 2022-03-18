@@ -34,7 +34,22 @@ namespace XRTK.Services.CameraSystem
         }
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders => cameraDataProviders;
+        public IMixedRealityCameraDataProvider CameraDataProvider
+        {
+            get
+            {
+                var activeCameraRig = MainCameraRig;
+                foreach (var dataProvider in cameraDataProviders)
+                {
+                    if (dataProvider.CameraRig == activeCameraRig)
+                    {
+                        return dataProvider;
+                    }
+                }
+
+                return null;
+            }
+        }
 
         private IMixedRealityCameraRig mainCameraRig = null;
         /// <inheritdoc />
