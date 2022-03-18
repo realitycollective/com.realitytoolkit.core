@@ -1,9 +1,11 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
+using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
 namespace XRTK.Services.InputSystem.Controllers.UnityXR
@@ -21,21 +23,24 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         public UnityXRHandController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile) { }
 
+        private const string pinchInputName = "Pinch";
+        private const string pointInputName = "Point";
+        private const string gripInputName = "Grip";
+        private const string gripPressInputName = "Grip Press";
+        private const string gripPoseInputName = "Grip Pose";
+        private const string indexFingerPoseInputName = "Index Finger Pose";
+        private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
+
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
         {
-            // 6 DoF pose of the spatial pointer ("far interaction pointer").
-            new MixedRealityInteractionMapping("Spatial Pointer Pose", AxisType.SixDof, DeviceInputType.SpatialPointer),
-            // Select / pinch button press / release.
-            new MixedRealityInteractionMapping("Select", AxisType.Digital, DeviceInputType.Select),
-            // Hand in pointing pose yes/no?
-            new MixedRealityInteractionMapping("Point", AxisType.Digital, DeviceInputType.ButtonPress),
-            // Grip / grab button press / release.
-            new MixedRealityInteractionMapping("Grip", AxisType.Digital, DeviceInputType.TriggerPress),
-            // 6 DoF grip pose ("Where to put things when grabbing something?")
-            new MixedRealityInteractionMapping("Grip Pose", AxisType.SixDof, DeviceInputType.SpatialGrip),
-            // 6 DoF index finger tip pose (mainly for "near interaction pointer").
-            new MixedRealityInteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger)
+            new MixedRealityInteractionMapping(pinchInputName, AxisType.Digital, pinchInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(pointInputName, AxisType.Digital, pointInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(gripInputName, AxisType.SingleAxis, gripInputName, DeviceInputType.Trigger),
+            new MixedRealityInteractionMapping(gripPressInputName, AxisType.Digital, gripPressInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(gripPoseInputName, AxisType.SixDof, gripPoseInputName, DeviceInputType.SpatialGrip),
+            new MixedRealityInteractionMapping(indexFingerPoseInputName, AxisType.SixDof, indexFingerPoseInputName, DeviceInputType.IndexFinger),
+            new MixedRealityInteractionMapping(spatialPointerPoseInputName, AxisType.SixDof, spatialPointerPoseInputName, DeviceInputType.SpatialPointer)
         };
 
         /// <inheritdoc />
@@ -47,7 +52,38 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         /// <inheritdoc />
         protected override void UpdateInteractionMappings()
         {
-            // TODO: Implement mappings.
+            Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {ControllerHandedness}.");
+
+            if (!TryGetInputDevice(out var inputDevice))
+            {
+                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
+                return;
+            }
+
+            for (var i = 0; i < Interactions.Length; i++)
+            {
+                var interactionMapping = Interactions[i];
+                switch (interactionMapping.InputType)
+                {
+                    case DeviceInputType.Trigger:
+                        UpdateSingleAxisInteractionMapping(interactionMapping, inputDevice);
+                        break;
+                    case DeviceInputType.ButtonPress:
+                        UpdateDigitalInteractionMapping(interactionMapping, inputDevice);
+                        break;
+                    case DeviceInputType.SpatialGrip:
+                        UpdateSpatialGripPoseMapping(interactionMapping);
+                        break;
+                    case DeviceInputType.SpatialPointer:
+                        UpdateSpatialPointerPoseMapping(interactionMapping);
+                        break;
+                    default:
+                        Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                        break;
+                }
+
+                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+            }
         }
     }
 }

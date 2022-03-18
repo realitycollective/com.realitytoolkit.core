@@ -6,6 +6,7 @@ using UnityEngine.XR;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
+using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
 namespace XRTK.Services.InputSystem.Controllers.UnityXR
@@ -28,6 +29,11 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         protected MixedRealityPose ControllerPose { get; set; }
 
         /// <summary>
+        /// The controller's grip pose in world space.
+        /// </summary>
+        protected MixedRealityPose SpatialGripPose { get; set; }
+
+        /// <summary>
         /// The controller's pointer pose in world space.
         /// </summary>
         protected MixedRealityPose SpatialPointerPose { get; set; }
@@ -43,10 +49,36 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
             UpdateTrackingState();
             UpdateControllerPose();
             UpdateSpatialPointerPose();
+            UpdateSpatialGripPose();
             UpdateInteractionMappings();
         }
 
-        protected abstract void UpdateInteractionMappings();
+        /// <summary>
+        /// Reads controller input and updates mappings.
+        /// </summary>
+        protected virtual void UpdateInteractionMappings()
+        {
+            Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {ControllerHandedness}.");
+
+            for (var i = 0; i < Interactions.Length; i++)
+            {
+                var interactionMapping = Interactions[i];
+                switch (interactionMapping.InputType)
+                {
+                    case DeviceInputType.SpatialGrip:
+                        UpdateSpatialGripPoseMapping(interactionMapping);
+                        break;
+                    case DeviceInputType.SpatialPointer:
+                        UpdateSpatialPointerPoseMapping(interactionMapping);
+                        break;
+                    default:
+                        Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                        break;
+                }
+
+                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+            }
+        }
 
         /// <summary>
         /// Updates the controller's <see cref="TrackingState"/>.
@@ -111,6 +143,34 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         }
 
         /// <summary>
+        /// Updates the spatial pointer pose interaction mapping value.
+        /// </summary>
+        /// <param name="interactionMapping">The spatial pointer pose mapping.</param>
+        protected void UpdateSpatialPointerPoseMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
+            interactionMapping.PoseData = SpatialPointerPose;
+        }
+
+        /// <summary>
+        /// Updates the controller's grip pose.
+        /// </summary>
+        protected virtual void UpdateSpatialGripPose()
+        {
+            SpatialGripPose = ControllerPose;
+        }
+
+        /// <summary>
+        /// Updates the grip pose interaction mapping value.
+        /// </summary>
+        /// <param name="interactionMapping">The grip pose mapping.</param>
+        protected void UpdateSpatialGripPoseMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
+            interactionMapping.PoseData = SpatialGripPose;
+        }
+
+        /// <summary>
         /// Gets the input device for this controller.
         /// </summary>
         /// <param name="inputDevice"><see cref="InputDevice"/> providing controller data.</param>
@@ -127,8 +187,10 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
                     return inputDevice != default;
                 case Handedness.None:
                 case Handedness.Both:
-                case Handedness.Other:
                 case Handedness.Any:
+                    inputDevice = InputDevices.GetDeviceAtXRNode(XRNode.GameController);
+                    return inputDevice != default;
+                case Handedness.Other:
                 default:
                     inputDevice = default;
                     return false;
