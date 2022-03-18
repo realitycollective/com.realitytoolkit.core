@@ -118,10 +118,6 @@ namespace XRTK.Services.CameraSystem.Providers
         /// <inheritdoc />
         public override void Initialize()
         {
-            base.Initialize();
-
-            cameraSystem.RegisterCameraDataProvider(this);
-
             if (!Application.isPlaying)
             {
                 return;
@@ -248,14 +244,6 @@ namespace XRTK.Services.CameraSystem.Providers
             {
                 component.Destroy();
             }
-        }
-
-        /// <inheritdoc />
-        public override void Destroy()
-        {
-            base.Destroy();
-
-            cameraSystem.UnRegisterCameraDataProvider(this);
         }
 
         #endregion IMixedRealitySerivce Implementation

@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.XR;
 using XRTK.Definitions.CameraSystem;
 using XRTK.Interfaces.CameraSystem;
-using XRTK.Utilities;
 
 namespace XRTK.Services.CameraSystem
 {
@@ -21,68 +20,36 @@ namespace XRTK.Services.CameraSystem
             : base(profile) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        private readonly HashSet<IMixedRealityCameraDataProvider> cameraDataProviders = new HashSet<IMixedRealityCameraDataProvider>();
 
         /// <inheritdoc />
         public override uint Priority => 0;
 
-        /// <inheritdoc />
-        public override void Destroy()
-        {
-            base.Destroy();
-            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
-        }
-
+        private IMixedRealityCameraDataProvider cameraDataProvider;
         /// <inheritdoc />
         public IMixedRealityCameraDataProvider CameraDataProvider
         {
             get
             {
-                var activeCameraRig = MainCameraRig;
-                foreach (var dataProvider in cameraDataProviders)
+                if (cameraDataProvider == null && !MixedRealityToolkit.TryGetService(out cameraDataProvider))
                 {
-                    if (dataProvider.CameraRig == activeCameraRig)
-                    {
-                        return dataProvider;
-                    }
+                    Debug.LogError($"{nameof(MixedRealityCameraSystem)} requires an active {nameof(IMixedRealityCameraDataProvider)} in the configuration!");
                 }
 
-                return null;
+                return cameraDataProvider;
             }
         }
 
-        private IMixedRealityCameraRig mainCameraRig = null;
         /// <inheritdoc />
-        public IMixedRealityCameraRig MainCameraRig
-        {
-            get
-            {
-                if (mainCameraRig == null)
-                {
-                    foreach (var dataProvider in cameraDataProviders)
-                    {
-                        if (dataProvider.CameraRig.PlayerCamera == CameraCache.Main)
-                        {
-                            mainCameraRig = dataProvider.CameraRig;
-                        }
-                    }
-                }
-
-                return mainCameraRig;
-            }
-        }
+        public IMixedRealityCameraRig MainCameraRig => CameraDataProvider.CameraRig;
 
         /// <inheritdoc />
         public TrackingType TrackingType
         {
             get
             {
-                foreach (var dataProvider in cameraDataProviders)
+                if (CameraDataProvider != null)
                 {
-                    if (dataProvider.CameraRig.PlayerCamera == CameraCache.Main)
-                    {
-                        return dataProvider.TrackingType;
-                    }
+                    return CameraDataProvider.TrackingType;
                 }
 
                 // If we can't find the active camera data provider we must rely
@@ -118,11 +85,5 @@ namespace XRTK.Services.CameraSystem
                 return displaySubsystem;
             }
         }
-
-        /// <inheritdoc />
-        public void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Add(dataProvider);
-
-        /// <inheritdoc />
-        public void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Remove(dataProvider);
     }
 }

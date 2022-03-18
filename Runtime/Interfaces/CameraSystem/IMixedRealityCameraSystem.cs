@@ -32,17 +32,5 @@ namespace XRTK.Interfaces.CameraSystem
         /// </summary>
         /// <remarks>The reference is lazy loaded once on first access and then cached for future use.</remarks>
         XRDisplaySubsystem DisplaySubsystem { get; }
-
-        /// <summary>
-        /// Registers the <see cref="IMixedRealityCameraDataProvider"/> with the <see cref="IMixedRealityCameraSystem"/>.
-        /// </summary>
-        /// <param name="dataProvider"></param>
-        void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider);
-
-        /// <summary>
-        /// UnRegisters the <see cref="IMixedRealityCameraDataProvider"/> with the <see cref="IMixedRealityCameraSystem"/>.
-        /// </summary>
-        /// <param name="dataProvider"></param>
-        void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider);
     }
 }

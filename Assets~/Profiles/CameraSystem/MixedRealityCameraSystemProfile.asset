@@ -26,5 +26,4 @@ MonoBehaviour:
       - reference: a2ffb628-3ce7-4759-9c66-8f2ba8d16fc2
       - reference: 58de2d2a-db5f-4090-a949-4028b8ea3afd
     profile: {fileID: 11400000, guid: c02516a14adf1ff45b2e6feaefd1d090, type: 2}
-  globalCameraProfile: {fileID: 11400000, guid: c02516a14adf1ff45b2e6feaefd1d090,
-    type: 2}
+  globalCameraProfile: {fileID: 11400000, guid: c02516a14adf1ff45b2e6feaefd1d090, type: 2}
