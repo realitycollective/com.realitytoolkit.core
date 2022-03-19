@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1355368130211572882}
   - component: {fileID: 3076132558849983539}
-  - component: {fileID: 2079931036122055350}
   m_Layer: 0
   m_Name: DefaultLeftHandControllerVisualizer
   m_TagString: Untagged
@@ -54,15 +53,3 @@ MonoBehaviour:
     axisConstraint: 0
   jointsModePrefab: {fileID: 9173983480249558903, guid: 081f7848cfd94b34f9c774490cd7e2fb, type: 3}
   meshModePrefab: {fileID: 1887883006053652, guid: 12df5e0d0c33a444a985de4e29533a24, type: 3}
---- !u!114 &2079931036122055350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7398244499265140811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e4977a5cbb33e240afbc26dfd3f6d03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
