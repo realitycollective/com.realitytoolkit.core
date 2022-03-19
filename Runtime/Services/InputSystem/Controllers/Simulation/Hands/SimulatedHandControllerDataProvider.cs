@@ -33,35 +33,35 @@ namespace XRTK.Services.InputSystem.Controllers.Simulation.Hands
 
             HandPoseAnimationSpeed = profile.HandPoseAnimationSpeed;
 
-            RenderingMode = profile.RenderingMode != inputSystemProfile.RenderingMode
+            RenderingMode = profile.RenderingMode != inputSystemProfile.HandControllerSettings.RenderingMode
                 ? profile.RenderingMode
-                : inputSystemProfile.RenderingMode;
+                : inputSystemProfile.HandControllerSettings.RenderingMode;
 
-            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandPhysicsEnabled
+            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandControllerSettings.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
-                : inputSystemProfile.HandPhysicsEnabled;
+                : inputSystemProfile.HandControllerSettings.HandPhysicsEnabled;
 
-            UseTriggers = profile.UseTriggers != inputSystemProfile.UseTriggers
+            UseTriggers = profile.UseTriggers != inputSystemProfile.HandControllerSettings.UseTriggers
                 ? profile.UseTriggers
-                : inputSystemProfile.UseTriggers;
+                : inputSystemProfile.HandControllerSettings.UseTriggers;
 
-            BoundsMode = profile.BoundsMode != inputSystemProfile.BoundsMode
+            BoundsMode = profile.BoundsMode != inputSystemProfile.HandControllerSettings.BoundsMode
                 ? profile.BoundsMode
-                : inputSystemProfile.BoundsMode;
+                : inputSystemProfile.HandControllerSettings.BoundsMode;
 
-            var isGrippingThreshold = profile.GripThreshold != inputSystemProfile.GripThreshold
+            var isGrippingThreshold = profile.GripThreshold != inputSystemProfile.HandControllerSettings.GripThreshold
                 ? profile.GripThreshold
-                : inputSystemProfile.GripThreshold;
+                : inputSystemProfile.HandControllerSettings.GripThreshold;
 
             if (profile.TrackedPoses != null && profile.TrackedPoses.Count > 0)
             {
-                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.TrackedPoses.Count
+                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.HandControllerSettings.TrackedPoses.Count
                     ? profile.TrackedPoses
-                    : inputSystemProfile.TrackedPoses;
+                    : inputSystemProfile.HandControllerSettings.TrackedPoses;
             }
             else
             {
-                TrackedPoses = inputSystemProfile.TrackedPoses;
+                TrackedPoses = inputSystemProfile.HandControllerSettings.TrackedPoses;
             }
 
             if (TrackedPoses == null || TrackedPoses.Count == 0)

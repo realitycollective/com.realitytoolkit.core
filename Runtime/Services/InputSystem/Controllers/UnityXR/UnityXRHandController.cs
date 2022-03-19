@@ -33,7 +33,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         {
             if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
             {
-                handRenderingMode = inputSystemProfile.RenderingMode;
+                handRenderingMode = inputSystemProfile.HandControllerSettings.RenderingMode;
             }
             else
             {

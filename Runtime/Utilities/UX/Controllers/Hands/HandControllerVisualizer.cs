@@ -83,7 +83,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         {
             var renderingMode = handControllerDataProvider != null ?
                 handControllerDataProvider.RenderingMode :
-                inputSystemProfile.RenderingMode;
+                inputSystemProfile.HandControllerSettings.RenderingMode;
 
             if (renderingMode != HandRenderingMode.None)
             {
