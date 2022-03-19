@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Definitions.Controllers.Hands;
@@ -115,7 +116,7 @@ namespace XRTK.Utilities.UX.Controllers.Hands
 
         private void UpdateHandJointTransforms()
         {
-            var handController = (IMixedRealityHandController)Controller;
+            var handController = (IHandController)Controller;
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
