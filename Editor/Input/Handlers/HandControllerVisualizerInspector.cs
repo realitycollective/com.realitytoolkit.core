@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Utilities.UX.Controllers.Hands;
 using UnityEditor;
 using UnityEngine;
 using XRTK.Editor.Extensions;
 using XRTK.Editor.Input.Handlers;
-using XRTK.Utilities.UX.Controllers.Hands;
 
 namespace RealityToolkit.Editor.Input.Handlers
 {
-    [CustomEditor(typeof(DefaultHandControllerVisualizer))]
-    public class DefaultHandControllerVisualizerInspector : ControllerPoseSynchronizerInspector
+    [CustomEditor(typeof(HandControllerVisualizer))]
+    public class HandControllerVisualizerInspector : ControllerPoseSynchronizerInspector
     {
         private static readonly GUIContent renderingSettings = new GUIContent("Hand Rendering Settings");
 

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Utilities.UX.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Definitions.Controllers.Hands;
@@ -10,7 +11,7 @@ namespace XRTK.Utilities.UX.Controllers.Hands
     public class HandControllerJointsVisualizer : MonoBehaviour
     {
         private readonly Dictionary<TrackedHandJoint, GameObject> jointVisualizations = new Dictionary<TrackedHandJoint, GameObject>();
-        private DefaultHandControllerVisualizer mainVisualizer;
+        private HandControllerVisualizer mainVisualizer;
 
         [SerializeField]
         [Tooltip("The wrist prefab to use.")]
@@ -52,7 +53,7 @@ namespace XRTK.Utilities.UX.Controllers.Hands
         /// Updates the joints visuailzation.
         /// </summary>
         /// <param name="mainVisualizer">The managing visuailzer component.</param>
-        public void UpdateVisualization(DefaultHandControllerVisualizer mainVisualizer)
+        public void UpdateVisualization(HandControllerVisualizer mainVisualizer)
         {
             this.mainVisualizer = mainVisualizer;
 
