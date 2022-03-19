@@ -44,11 +44,6 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         protected virtual IReadOnlyDictionary<string, InputFeatureUsage<Vector2>> DualAxisInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<Vector2>>();
 
         /// <summary>
-        /// The controller's pose in world space.
-        /// </summary>
-        protected MixedRealityPose ControllerPose { get; set; }
-
-        /// <summary>
         /// The controller's grip pose in world space.
         /// </summary>
         protected MixedRealityPose SpatialGripPose { get; set; }

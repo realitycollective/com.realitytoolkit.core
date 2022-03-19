@@ -30,6 +30,11 @@ namespace XRTK.Interfaces.InputSystem.Controllers
         IMixedRealityControllerDataProvider ControllerDataProvider { get; }
 
         /// <summary>
+        /// The controller's pose in world space, available if <see cref="IsPositionAvailable"/>.
+        /// </summary>
+        MixedRealityPose ControllerPose { get; }
+
+        /// <summary>
         /// Outputs the current state of the Input Source, whether it is tracked or not. As defined by the SDK / Unity.
         /// </summary>
         TrackingState TrackingState { get; }

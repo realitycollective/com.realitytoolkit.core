@@ -122,6 +122,9 @@ namespace XRTK.Services.InputSystem.Controllers
         public IMixedRealityControllerDataProvider ControllerDataProvider { get; }
 
         /// <inheritdoc />
+        public MixedRealityPose ControllerPose { get; protected set; }
+
+        /// <inheritdoc />
         public TrackingState TrackingState { get; protected set; }
 
         /// <inheritdoc />
