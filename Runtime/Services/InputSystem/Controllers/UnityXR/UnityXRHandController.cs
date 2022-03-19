@@ -1,11 +1,9 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
 namespace XRTK.Services.InputSystem.Controllers.UnityXR
@@ -42,48 +40,5 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
             new MixedRealityInteractionMapping(indexFingerPoseInputName, AxisType.SixDof, indexFingerPoseInputName, DeviceInputType.IndexFinger),
             new MixedRealityInteractionMapping(spatialPointerPoseInputName, AxisType.SixDof, spatialPointerPoseInputName, DeviceInputType.SpatialPointer)
         };
-
-        /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultLeftHandedInteractions => DefaultInteractions;
-
-        /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultRightHandedInteractions => DefaultInteractions;
-
-        /// <inheritdoc />
-        protected override void UpdateInteractionMappings()
-        {
-            Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {ControllerHandedness}.");
-
-            if (!TryGetInputDevice(out var inputDevice))
-            {
-                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
-                return;
-            }
-
-            for (var i = 0; i < Interactions.Length; i++)
-            {
-                var interactionMapping = Interactions[i];
-                switch (interactionMapping.InputType)
-                {
-                    case DeviceInputType.Trigger:
-                        UpdateSingleAxisInteractionMapping(interactionMapping, inputDevice);
-                        break;
-                    case DeviceInputType.ButtonPress:
-                        UpdateDigitalInteractionMapping(interactionMapping, inputDevice);
-                        break;
-                    case DeviceInputType.SpatialGrip:
-                        UpdateSpatialGripPoseMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.SpatialPointer:
-                        UpdateSpatialPointerPoseMapping(interactionMapping);
-                        break;
-                    default:
-                        Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
-                        break;
-                }
-
-                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
-            }
-        }
     }
 }

@@ -97,12 +97,12 @@ namespace XRTK.Services.InputSystem.Controllers
         /// <summary>
         /// The Default Left Handed interactions for this controller.
         /// </summary>
-        public virtual MixedRealityInteractionMapping[] DefaultLeftHandedInteractions { get; } = new MixedRealityInteractionMapping[0];
+        public virtual MixedRealityInteractionMapping[] DefaultLeftHandedInteractions => DefaultInteractions;
 
         /// <summary>
         /// The Default Right Handed interactions for this controller.
         /// </summary>
-        public virtual MixedRealityInteractionMapping[] DefaultRightHandedInteractions { get; } = new MixedRealityInteractionMapping[0];
+        public virtual MixedRealityInteractionMapping[] DefaultRightHandedInteractions => DefaultInteractions;
 
         /// <summary>
         /// Local offset from the controller position defining where the grip pose is.
