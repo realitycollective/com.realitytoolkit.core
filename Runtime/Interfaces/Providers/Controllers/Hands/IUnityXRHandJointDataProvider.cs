@@ -1,7 +1,20 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Interfaces.InputSystem.Providers.Controllers.Hands
+using System.Collections.Generic;
+using UnityEngine.XR;
+using XRTK.Definitions.Controllers.Hands;
+using XRTK.Definitions.Utilities;
+
+namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands
 {
-    public interface IUnityXRHandJointDataProvider { }
+    public interface IUnityXRHandJointDataProvider
+    {
+        /// <summary>
+        /// Updates hand joint data and writes it into <paramref name="jointPoses"/>.
+        /// </summary>
+        /// <param name="inputDevice">The <see cref="InputDevice"/> to read hand joint data for.</param>
+        /// <param name="jointPoses">Dictionary populated with updated hand joint information.</param>
+        void UpdateHandJoints(InputDevice inputDevice, Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses);
+    }
 }

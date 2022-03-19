@@ -9,8 +9,9 @@ using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces.InputSystem.Providers.Controllers;
+using XRTK.Services.InputSystem.Controllers;
 
-namespace XRTK.Services.InputSystem.Controllers.UnityXR
+namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {
     /// <summary>
     /// Abstract base type for all controllers based on Unity's XR Plugin Management module.
@@ -57,6 +58,11 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         /// </summary>
         protected MixedRealityPose SpatialPointerPose { get; set; }
 
+        /// <summary>
+        /// The input device this controller represents.
+        /// </summary>
+        protected InputDevice InputDevice { get; set; }
+
         /// <inheritdoc />
         public override void UpdateController()
         {
@@ -64,6 +70,14 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
             {
                 return;
             }
+
+            if (!TryGetInputDevice(out var inputDevice))
+            {
+                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
+                return;
+            }
+
+            InputDevice = inputDevice;
 
             UpdateTrackingState();
             UpdateControllerPose();
@@ -79,25 +93,19 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         {
             Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {ControllerHandedness}.");
 
-            if (!TryGetInputDevice(out var inputDevice))
-            {
-                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
-                return;
-            }
-
             for (var i = 0; i < Interactions.Length; i++)
             {
                 var interactionMapping = Interactions[i];
                 switch (interactionMapping.InputType)
                 {
                     case DeviceInputType.Trigger:
-                        UpdateSingleAxisInteractionMapping(interactionMapping, inputDevice);
+                        UpdateSingleAxisInteractionMapping(interactionMapping, InputDevice);
                         break;
                     case DeviceInputType.ButtonPress:
-                        UpdateDigitalInteractionMapping(interactionMapping, inputDevice);
+                        UpdateDigitalInteractionMapping(interactionMapping, InputDevice);
                         break;
                     case DeviceInputType.ThumbStick:
-                        UpdateDualAxisInteractionMapping(interactionMapping, inputDevice);
+                        UpdateDualAxisInteractionMapping(interactionMapping, InputDevice);
                         break;
                     case DeviceInputType.SpatialGrip:
                         UpdateSpatialGripPoseMapping(interactionMapping);
@@ -179,14 +187,8 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         /// </summary>
         protected virtual void UpdateTrackingState()
         {
-            if (!TryGetInputDevice(out var inputDevice))
-            {
-                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
-                return;
-            }
-
             var currentTrackingState = TrackingState;
-            if (inputDevice.TryGetFeatureValue(CommonUsages.isTracked, out var isTracked))
+            if (InputDevice.TryGetFeatureValue(CommonUsages.isTracked, out var isTracked))
             {
                 TrackingState = isTracked ? TrackingState.Tracked : TrackingState.NotTracked;
             }
@@ -210,14 +212,8 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
                 return;
             }
 
-            if (!TryGetInputDevice(out var inputDevice))
-            {
-                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
-                return;
-            }
-
-            IsPositionAvailable = inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out var position);
-            IsRotationAvailable = inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out var rotation);
+            IsPositionAvailable = InputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out var position);
+            IsRotationAvailable = InputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out var rotation);
             IsPositionApproximate = false;
 
             var updatedControllerPose = new MixedRealityPose(position, rotation);
