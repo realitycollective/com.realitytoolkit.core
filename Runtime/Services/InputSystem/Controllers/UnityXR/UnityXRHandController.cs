@@ -5,14 +5,14 @@ using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
 
 namespace XRTK.Services.InputSystem.Controllers.UnityXR
 {
     /// <summary>
-    /// A hand controller powered by Unity's XR Plugin Management module.
+    /// A base for hand controllers powered by Unity's XR Plugin Management module.
     /// </summary>
-    [System.Runtime.InteropServices.Guid("dac6f2b1-5375-40ac-a033-7f73f0a39e1d")]
-    public class UnityXRHandController : UnityXRController
+    public abstract class UnityXRHandController : UnityXRController
     {
         /// <inheritdoc />
         public UnityXRHandController() { }
@@ -28,6 +28,9 @@ namespace XRTK.Services.InputSystem.Controllers.UnityXR
         private const string gripPoseInputName = "Grip Pose";
         private const string indexFingerPoseInputName = "Index Finger Pose";
         private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
+
+        protected IUnityXRHandJointDataProvider handJointDataProvider;
+        protected IUnityXRHandMeshDataProvider handMeshDataProvider;
 
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =

@@ -14,9 +14,13 @@ namespace XRTK.Definitions.Controllers.Hands
     public enum TrackedHandJoint
     {
         /// <summary>
+        /// An unknown hand joint.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// The hand wrist.
         /// </summary>
-        Wrist = 0,
+        Wrist,
         /// <summary>
         /// The hand palm.
         /// </summary>
