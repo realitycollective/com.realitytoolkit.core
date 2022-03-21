@@ -50,31 +50,45 @@ namespace XRTK.Services.InputSystem.Controllers
         /// <inheritdoc />
         public MixedRealityControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)
         {
+            if (TryGetControllerMappingProfile(controllerType, handedness, out var controllerMappingProfile))
+            {
+                return controllerMappingProfile;
+            }
+
+            Debug.LogError($"Failed to find a controller mapping for {controllerType.Name} with with handedness: {handedness}");
+            return null;
+        }
+
+        /// <inheritdoc />
+        public bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out MixedRealityControllerMappingProfile controllerMappingProfile)
+        {
             if (controllerType == null)
             {
                 Debug.LogError($"{nameof(controllerType)} is null!");
-                return null;
+                controllerMappingProfile = null;
+                return false;
             }
 
             if (!typeof(IMixedRealityController).IsAssignableFrom(controllerType))
             {
                 Debug.LogError($"{controllerType.Name} does not implement {nameof(IMixedRealityController)}");
-                return null;
+                controllerMappingProfile = null;
+                return false;
             }
 
             // TODO provide a way to choose profiles with additional args instead of returning the first one found.
-
             for (int i = 0; i < controllerMappingProfiles.Length; i++)
             {
                 if (handedness == controllerMappingProfiles[i].Handedness &&
                     controllerMappingProfiles[i].ControllerType?.Type == controllerType)
                 {
-                    return controllerMappingProfiles[i];
+                    controllerMappingProfile = controllerMappingProfiles[i];
+                    return true;
                 }
             }
 
-            Debug.LogError($"Failed to find a controller mapping for {controllerType.Name} with with handedness: {handedness}");
-            return null;
+            controllerMappingProfile = null;
+            return false;
         }
 
         protected void AddController(IMixedRealityController controller)

@@ -25,7 +25,12 @@ namespace XRTK.Services.InputSystem.InputSources
             {
                 SourceId = inputSystem.GenerateNewSourceId();
                 SourceName = name;
-                Pointers = pointers ?? new[] { inputSystem.GazeProvider.GazePointer };
+
+                Pointers = pointers;
+                if (Pointers == null && inputSystem.GazeProvider != null)
+                {
+                    Pointers = new[] { inputSystem.GazeProvider.GazePointer };
+                }
             }
             else
             {
