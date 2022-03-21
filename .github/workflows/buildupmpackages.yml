@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'rcdevelopment'
+      - 'development'
   pull_request:
     branches:
       - '*'
