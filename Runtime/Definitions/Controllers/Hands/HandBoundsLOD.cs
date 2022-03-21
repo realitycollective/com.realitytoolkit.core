@@ -9,10 +9,14 @@ namespace XRTK.Definitions.Controllers.Hands
     public enum HandBoundsLOD
     {
         /// <summary>
+        /// Hand bounds are not calculated.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Hand bounds mode will only calculate a single bounding
         /// box encapsulating the whole hand.
         /// </summary>
-        Low = 0,
+        Low,
         /// <summary>
         /// Fingers bounds mode will create precise bounds for each finger
         /// and the palm to allow for more precise interactions.

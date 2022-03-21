@@ -15,6 +15,14 @@ namespace RealityToolkit.Interfaces.InputSystem.Controllers.Hands
     public interface IHandController : IMixedRealityController
     {
         /// <summary>
+        /// Get the hands bounds of a given type, if they are available.
+        /// </summary>
+        /// <param name="handBounds">The requested hand bounds.</param>
+        /// <param name="bounds">The bounds if available.</param>
+        /// <returns>True, if bounds available.</returns>
+        bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] bounds);
+
+        /// <summary>
         /// Get the current pose of a joint of the hand.
         /// </summary>
         /// <remarks>
