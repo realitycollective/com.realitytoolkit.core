@@ -68,7 +68,8 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         {
             base.OnInputChanged(eventData);
 
-            if (eventData.Handedness != Controller.ControllerHandedness)
+            if (eventData.Handedness != Controller?.ControllerHandedness ||
+                eventData.SourceId != Controller?.InputSource.SourceId)
             {
                 return;
             }
