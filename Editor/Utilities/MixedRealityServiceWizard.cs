@@ -8,6 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Providers;
+using RealityToolkit.ServiceFramework.Services;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
@@ -119,20 +123,20 @@ namespace XRTK.Editor.Utilities
                     window.instanceBaseType = typeof(BaseExtensionService);
                     window.profileBaseType = typeof(BaseMixedRealityExtensionServiceProfile);
                     break;
-                case Type _ when typeof(IMixedRealityDataProvider).IsAssignableFrom(interfaceType):
+                case Type _ when typeof(IServiceDataProvider).IsAssignableFrom(interfaceType):
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProviderProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProvider.txt";
-                    window.instanceBaseType = typeof(BaseDataProvider);
-                    window.profileBaseType = typeof(BaseMixedRealityProfile);
+                    window.instanceBaseType = typeof(BaseServiceDataProvider);
+                    window.profileBaseType = typeof(BaseProfile);
                     break;
-                case Type _ when typeof(IMixedRealityService).IsAssignableFrom(interfaceType):
+                case Type _ when typeof(IService).IsAssignableFrom(interfaceType):
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}ServiceProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}Service.txt";
                     window.instanceBaseType = typeof(BaseServiceWithConstructor);
                     window.profileBaseType = typeof(BaseMixedRealityServiceProfile<>);
                     break;
                 default:
-                    Debug.LogError($"{interfaceType.Name} does not implement {nameof(IMixedRealityService)}");
+                    Debug.LogError($"{interfaceType.Name} does not implement {nameof(IService)}");
                     return;
             }
 
@@ -309,7 +313,7 @@ namespace XRTK.Editor.Utilities
                                     {
                                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                                         {
                                             profileType = parameterInfo.ParameterType;
                                             break;
@@ -329,7 +333,7 @@ namespace XRTK.Editor.Utilities
                                 if (interfaceType == typeof(IMixedRealityBoundarySystem) ||
                                     interfaceType == typeof(ILocomotionSystem))
                                 {
-                                    profileBaseTypeName = nameof(BaseMixedRealityProfile);
+                                    profileBaseTypeName = nameof(BaseProfile);
                                 }
                                 else
                                 {
@@ -362,7 +366,7 @@ namespace XRTK.Editor.Utilities
 
                         File.WriteAllText($"{outputPath}/{instanceName}.cs", instanceTemplate);
 
-                        if (profileBaseTypeName != nameof(BaseMixedRealityProfile))
+                        if (profileBaseTypeName != nameof(BaseProfile))
                         {
                             usingList.Clear();
 

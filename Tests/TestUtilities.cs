@@ -3,6 +3,7 @@
 
 using NUnit.Framework;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using XRTK.Definitions;
@@ -31,7 +32,6 @@ namespace XRTK.Tests
             CleanupScene();
             Assert.IsTrue(!MixedRealityToolkit.IsInitialized);
             Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count);
-            Assert.AreEqual(0, MixedRealityToolkit.RegisteredMixedRealityServices.Count);
             InitializeMixedRealityToolkit();
 
             // Tests
@@ -39,17 +39,17 @@ namespace XRTK.Tests
             Assert.IsNotNull(MixedRealityToolkit.Instance);
             Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
 
-            MixedRealityToolkitRootProfile configuration;
+            ServiceManagerRootProfile configuration;
 
             if (useDefaultProfile)
             {
-                configuration = GetDefaultMixedRealityProfile<MixedRealityToolkitRootProfile>();
+                configuration = GetDefaultMixedRealityProfile<ServiceManagerRootProfile>();
                 MixedRealityToolkit.TryGetSystemProfile<ILocomotionSystem, LocomotionSystemProfile>(out var locomotionSystemProfile);
                 Debug.Assert(locomotionSystemProfile != null);
             }
             else
             {
-                configuration = ScriptableObject.CreateInstance<MixedRealityToolkitRootProfile>();
+                configuration = ScriptableObject.CreateInstance<ServiceManagerRootProfile>();
             }
 
             Assert.IsTrue(configuration != null, "Failed to find the Default Mixed Reality Root Profile");
@@ -58,7 +58,7 @@ namespace XRTK.Tests
             Assert.IsTrue(MixedRealityToolkit.IsInitialized);
         }
 
-        private static T GetDefaultMixedRealityProfile<T>() where T : BaseMixedRealityProfile
+        private static T GetDefaultMixedRealityProfile<T>() where T : BaseProfile
         {
             return ScriptableObjectExtensions.GetAllInstances<T>().FirstOrDefault(profile => profile.name.Equals(typeof(T).Name));
         }

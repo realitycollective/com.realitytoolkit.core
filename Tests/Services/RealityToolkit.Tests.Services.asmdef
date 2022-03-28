@@ -2,7 +2,8 @@
     "name": "RealityToolkit.Tests.Services",
     "rootNamespace": "XRTK.Tests.Services",
     "references": [
-        "GUID:f3241d040533491e8a1e2714b27c3111"
+        "GUID:f3241d040533491e8a1e2714b27c3111",
+        "GUID:13703f41b24bb904cb2305abe6317e3d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,8 +1,9 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
+using CreateProfileMenuItemIndices = XRTK.Definitions.Utilities.CreateProfileMenuItemIndices;
 
 namespace XRTK.Definitions.Controllers.Hands
 {
@@ -11,7 +12,7 @@ namespace XRTK.Definitions.Controllers.Hands
     /// Defined hand poses can be recognized and trigger input actions.
     /// </summary>
     [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Hand Controller Pose", fileName = "HandControllerPose", order = (int)CreateProfileMenuItemIndices.Input)]
-    public class HandControllerPoseProfile : BaseMixedRealityProfile
+    public class HandControllerPoseProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("A unique ID to the pose. Can be a descriptive name, but must be unique!")]

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Providers;
 using XRTK.Definitions;
 using XRTK.Interfaces;
 
@@ -12,7 +13,7 @@ namespace XRTK.Services
     /// <remarks>
     /// Empty, but reserved for future use, in case additional <see cref="IMixedRealityExtensionDataProvider"/> properties or methods are assigned.
     /// </remarks>
-    public abstract class BaseExtensionDataProvider : BaseDataProvider, IMixedRealityExtensionDataProvider
+    public abstract class BaseExtensionDataProvider : BaseServiceDataProvider, IMixedRealityExtensionDataProvider
     {
         /// <inheritdoc />
         protected BaseExtensionDataProvider(string name, uint priority, BaseMixedRealityExtensionDataProviderProfile profile, IMixedRealityExtensionService parentService)

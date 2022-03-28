@@ -1,15 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.PackageManager;
 using UnityEngine;
-using XRTK.Definitions;
 using XRTK.Definitions.Platforms;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
@@ -19,13 +18,13 @@ using XRTK.Services;
 
 namespace XRTK.Editor.Profiles
 {
-    [CustomEditor(typeof(MixedRealityToolkitRootProfile))]
+    [CustomEditor(typeof(ServiceManagerRootProfile))]
     public class MixedRealityToolkitRootProfileInspector : MixedRealityServiceProfileInspector
     {
         // Additional registered components profile
         private SerializedProperty registeredServiceProvidersProfile;
 
-        private MixedRealityToolkitRootProfile rootProfile;
+        private ServiceManagerRootProfile rootProfile;
         private bool didPromptToConfigure = false;
 
         private readonly GUIContent profileLabel = new GUIContent("Profile");
@@ -69,7 +68,7 @@ namespace XRTK.Editor.Profiles
         {
             base.OnEnable();
 
-            rootProfile = target as MixedRealityToolkitRootProfile;
+            rootProfile = target as ServiceManagerRootProfile;
 
             var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 

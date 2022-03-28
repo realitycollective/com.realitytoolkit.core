@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Providers;
 using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Utilities;
@@ -16,7 +17,7 @@ namespace XRTK.Providers.Controllers
     /// <summary>
     /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityControllerDataProvider"/>s
     /// </summary>
-    public abstract class BaseControllerDataProvider : BaseDataProvider, IMixedRealityControllerDataProvider
+    public abstract class BaseControllerDataProvider : BaseServiceDataProvider, IMixedRealityControllerDataProvider
     {
         /// <inheritdoc />
         protected BaseControllerDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

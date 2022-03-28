@@ -61,7 +61,7 @@ namespace XRTK.Utilities
                         {
                             var subProfile = registeredConfigurations[j];
 
-                            if (subProfile.InstancedType?.Type == providerTypesToValidate[i])
+                            if (subProfile.ServiceConfiguration.InstancedType?.Type == providerTypesToValidate[i])
                             {
                                 typesValidated[i] = true;
                             }

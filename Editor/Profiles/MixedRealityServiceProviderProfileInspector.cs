@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -176,7 +177,7 @@ namespace XRTK.Editor.Profiles
                     {
                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                         {
                             profileType = parameterInfo.ParameterType;
                             break;
@@ -235,7 +236,7 @@ namespace XRTK.Editor.Profiles
                         if (GUI.Button(labelRect, nameProperty.stringValue, ButtonGuiStyle) &&
                             profile.objectReferenceValue != null)
                         {
-                            var profileInstance = profile.objectReferenceValue as BaseMixedRealityProfile;
+                            var profileInstance = profile.objectReferenceValue as BaseProfile;
 
                             Debug.Assert(profileInstance != null);
 
@@ -262,7 +263,7 @@ namespace XRTK.Editor.Profiles
                     var isValid = !type.IsAbstract &&
                                   type.GetInterfaces().Any(interfaceType => interfaceType == ServiceConstraint);
 
-                    return isValid && (!IsSystemConfiguration || MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceConfigurations.All(configuration => configuration.InstancedType.Type != type));
+                    return isValid && (!IsSystemConfiguration || MixedRealityToolkit.Instance.ActiveProfile.ServiceProvidersProfile.ServiceConfigurations.All(configuration => configuration.InstancedType.Type != type));
                 };
                 TypeReferencePropertyDrawer.CreateNewTypeOverride = ServiceConstraint;
 
@@ -308,7 +309,7 @@ namespace XRTK.Editor.Profiles
 
                 if (profile.objectReferenceValue != null)
                 {
-                    var renderedProfile = profile.objectReferenceValue as BaseMixedRealityProfile;
+                    var renderedProfile = profile.objectReferenceValue as BaseProfile;
                     Debug.Assert(renderedProfile != null);
 
                     if (renderedProfile.ParentProfile.IsNull() ||

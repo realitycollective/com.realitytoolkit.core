@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Providers;
 using UnityEngine;
 using XRTK.Services;
 using XRTK.Utilities;
@@ -15,7 +16,7 @@ using XRTK.Definitions.InputSystem;
 
 namespace XRTK.Providers.LocomotionSystem
 {
-    public abstract class BaseLocomotionProvider : BaseDataProvider, ILocomotionProvider
+    public abstract class BaseLocomotionProvider : BaseServiceDataProvider, ILocomotionProvider
     {
         /// <inheritdoc />
         public BaseLocomotionProvider(string name, uint priority, BaseLocomotionProviderProfile profile, ILocomotionSystem parentService)

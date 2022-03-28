@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
 using XRTK.Definitions;
 using XRTK.Extensions;
@@ -17,7 +18,7 @@ namespace XRTK.Services
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        protected BaseSystem(BaseMixedRealityProfile profile)
+        protected BaseSystem(BaseProfile profile)
         {
             if (profile.IsNull())
             {

@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Definitions.Utilities;
+using CreateProfileMenuItemIndices = XRTK.Definitions.Utilities.CreateProfileMenuItemIndices;
 
 namespace XRTK.Definitions.InputSystem
 {
@@ -10,7 +12,7 @@ namespace XRTK.Definitions.InputSystem
     /// Configuration profile settings for setting up and consuming Speech Commands.
     /// </summary>
     [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Speech Commands Profile", fileName = "MixedRealitySpeechCommandsProfile", order = (int)CreateProfileMenuItemIndices.SpeechCommands)]
-    public class MixedRealitySpeechCommandsProfile : BaseMixedRealityProfile
+    public class MixedRealitySpeechCommandsProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Whether the recognizer should be activated on start.")]

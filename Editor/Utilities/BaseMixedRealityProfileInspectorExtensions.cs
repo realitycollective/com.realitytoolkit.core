@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEngine;
 using XRTK.Definitions;
@@ -19,7 +20,7 @@ namespace XRTK.Editor.Utilities
         /// <param name="property"></param>
         /// <param name="profileType"></param>
         /// <param name="clone"></param>
-        public static BaseMixedRealityProfile CreateNewProfileInstance(this BaseMixedRealityProfile parentProfile, SerializedProperty property, Type profileType, bool clone = false)
+        public static BaseProfile CreateNewProfileInstance(this BaseProfile parentProfile, SerializedProperty property, Type profileType, bool clone = false)
         {
             ScriptableObject instance;
 
@@ -44,13 +45,13 @@ namespace XRTK.Editor.Utilities
             Debug.Assert(!instance.IsNull());
 
             var assetPath = !parentProfile.IsNull() ? AssetDatabase.GetAssetPath(parentProfile) : string.Empty;
-            var newProfile = instance.CreateAsset(assetPath) as BaseMixedRealityProfile;
+            var newProfile = instance.CreateAsset(assetPath) as BaseProfile;
             Debug.Assert(!newProfile.IsNull());
 
             if (clone &&
                 !property.objectReferenceValue.IsNull())
             {
-                var oldProfile = property.objectReferenceValue as BaseMixedRealityProfile;
+                var oldProfile = property.objectReferenceValue as BaseProfile;
                 newProfile.CopySerializedValues(oldProfile);
             }
 
@@ -59,7 +60,7 @@ namespace XRTK.Editor.Utilities
             return newProfile;
         }
 
-        public static void CopySerializedValues(this BaseMixedRealityProfile target, BaseMixedRealityProfile source)
+        public static void CopySerializedValues(this BaseProfile target, BaseProfile source)
         {
             Debug.Assert(!target.IsNull());
             var serializedObject = new SerializedObject(target);

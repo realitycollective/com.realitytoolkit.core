@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEngine;
 using XRTK.Definitions;
@@ -15,14 +16,14 @@ namespace XRTK.Editor.Profiles
     /// <summary>
     /// Base class for all <see cref="BaseMixedRealityProfile"/> Inspectors to inherit from.
     /// </summary>
-    [CustomEditor(typeof(BaseMixedRealityProfile), true, isFallback = true)]
+    [CustomEditor(typeof(BaseProfile), true, isFallback = true)]
     public class BaseMixedRealityProfileInspector : UnityEditor.Editor
     {
         protected static readonly string DefaultGuidString = default(Guid).ToString("N");
 
         private static SerializedObject targetProfile;
-        private static BaseMixedRealityProfile currentlySelectedProfile;
-        private static BaseMixedRealityProfile profileSource;
+        private static BaseProfile currentlySelectedProfile;
+        private static BaseProfile profileSource;
 
         /// <summary>
         /// The <see cref="Guid"/> string representation for this profile asset.
@@ -32,7 +33,7 @@ namespace XRTK.Editor.Profiles
         /// <summary>
         /// The instanced reference of the currently rendered <see cref="BaseMixedRealityProfile"/>.
         /// </summary>
-        protected BaseMixedRealityProfile ThisProfile { get; private set; }
+        protected BaseProfile ThisProfile { get; private set; }
 
         private bool isOverrideHeader = false;
 
@@ -40,7 +41,7 @@ namespace XRTK.Editor.Profiles
         {
             targetProfile = serializedObject;
 
-            currentlySelectedProfile = target as BaseMixedRealityProfile;
+            currentlySelectedProfile = target as BaseProfile;
             Debug.Assert(!currentlySelectedProfile.IsNull());
             ThisProfile = currentlySelectedProfile;
             AssetDatabase.TryGetGUIDAndLocalFileIdentifier(ThisProfile, out var guidHex, out long _);
@@ -96,7 +97,7 @@ namespace XRTK.Editor.Profiles
         {
             profileSource = currentlySelectedProfile;
             var newProfile = CreateInstance(currentlySelectedProfile.GetType().ToString());
-            currentlySelectedProfile = newProfile.CreateAsset() as BaseMixedRealityProfile;
+            currentlySelectedProfile = newProfile.CreateAsset() as BaseProfile;
             Debug.Assert(!currentlySelectedProfile.IsNull());
 
             await new WaitUntil(() => profileSource != currentlySelectedProfile);

@@ -1,10 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem;
+using CreateProfileMenuItemIndices = XRTK.Definitions.Utilities.CreateProfileMenuItemIndices;
 
 namespace XRTK.Definitions.InputSystem
 {
@@ -12,7 +13,7 @@ namespace XRTK.Definitions.InputSystem
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
     [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Pointer Profile", fileName = "MixedRealityInputPointerProfile", order = (int)CreateProfileMenuItemIndices.Pointer)]
-    public class MixedRealityPointerProfile : BaseMixedRealityProfile
+    public class MixedRealityPointerProfile : BaseProfile   
     {
         [SerializeField]
         [Prefab(typeof(IMixedRealityPointer))]

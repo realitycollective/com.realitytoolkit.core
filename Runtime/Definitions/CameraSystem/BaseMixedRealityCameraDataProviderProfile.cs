@@ -2,19 +2,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using UnityEngine.XR;
 using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Services.CameraSystem;
+using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
 namespace XRTK.Definitions.CameraSystem
 {
     /// <summary>
     /// Provides configuration options for <see cref="IMixedRealityCameraDataProvider"/>s.
     /// </summary>
-    public class BaseMixedRealityCameraDataProviderProfile : BaseMixedRealityProfile
+    public class BaseMixedRealityCameraDataProviderProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Sets the tracking type of the camera.")]

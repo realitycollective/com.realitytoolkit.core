@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;

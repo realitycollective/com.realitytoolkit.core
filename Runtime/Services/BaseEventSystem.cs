@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using XRTK.Definitions;
@@ -20,7 +21,7 @@ namespace XRTK.Services
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        protected BaseEventSystem(BaseMixedRealityProfile profile)
+        protected BaseEventSystem(BaseProfile profile)
             : base(profile)
         {
         }

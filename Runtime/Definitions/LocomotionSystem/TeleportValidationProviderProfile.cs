@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace XRTK.Definitions.LocomotionSystem
@@ -8,7 +9,7 @@ namespace XRTK.Definitions.LocomotionSystem
     /// <summary>
     /// Configuration profile for the <see cref="Providers.LocomotionSystem.TeleportValidationProvider"/>.
     /// </summary>
-    public class TeleportValidationProviderProfile : BaseMixedRealityProfile
+    public class TeleportValidationProviderProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Should teleportation only be allowed if the target is a teleport anchor?")]

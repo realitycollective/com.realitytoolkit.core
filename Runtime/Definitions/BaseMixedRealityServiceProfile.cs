@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 using XRTK.Interfaces;
@@ -22,7 +23,7 @@ namespace XRTK.Definitions
     /// The <see cref="IMixedRealityService"/> type to constrain all of the valid <see cref="IMixedRealityServiceConfiguration.InstancedType"/>s to.
     /// Only types that implement the <see cref="TService"/> will show up in the inspector dropdown for the <see cref="IMixedRealityServiceConfiguration.InstancedType"/>
     /// </typeparam>
-    public abstract class BaseMixedRealityServiceProfile<TService> : BaseMixedRealityProfile, IMixedRealityServiceProfile<TService> where TService : IService
+    public abstract class BaseMixedRealityServiceProfile<TService> : BaseProfile, IMixedRealityServiceProfile<TService> where TService : IService
     {
         [SerializeField]
         private MixedRealityServiceConfiguration[] configurations = new MixedRealityServiceConfiguration[0];
@@ -72,7 +73,7 @@ namespace XRTK.Definitions
                     {
                         var serviceConfig = serviceConfigurations[i];
                         Debug.Assert(serviceConfig != null);
-                        var newConfig = new MixedRealityServiceConfiguration(serviceConfig.InstancedType, serviceConfig.Name, serviceConfig.Priority, serviceConfig.RuntimePlatforms, serviceConfig.Profile);
+                        var newConfig = new MixedRealityServiceConfiguration(serviceConfig.ServiceConfiguration.InstancedType, serviceConfig.ServiceConfiguration.Name, serviceConfig.ServiceConfiguration.Priority, serviceConfig.RuntimePlatforms, serviceConfig.ServiceConfiguration.Profile);
                         Debug.Assert(newConfig != null);
                         configurations[i] = newConfig;
                     }

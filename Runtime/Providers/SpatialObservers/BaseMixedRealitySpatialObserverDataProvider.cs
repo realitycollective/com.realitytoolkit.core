@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using RealityToolkit.ServiceFramework.Providers;
 using UnityEngine;
 using XRTK.Definitions.SpatialAwarenessSystem;
 using XRTK.Definitions.Utilities;
@@ -16,7 +17,7 @@ namespace XRTK.Providers.SpatialObservers
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialAwarenessDataProvider"/> implementation
     /// </summary>
-    public abstract class BaseMixedRealitySpatialObserverDataProvider : BaseDataProvider, IMixedRealitySpatialAwarenessDataProvider
+    public abstract class BaseMixedRealitySpatialObserverDataProvider : BaseServiceDataProvider, IMixedRealitySpatialAwarenessDataProvider
     {
         /// <inheritdoc />
         protected BaseMixedRealitySpatialObserverDataProvider(string name, uint priority, BaseMixedRealitySpatialObserverProfile profile, IMixedRealitySpatialAwarenessSystem parentService)

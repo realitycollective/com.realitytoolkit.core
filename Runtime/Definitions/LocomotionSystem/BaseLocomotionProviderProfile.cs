@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
@@ -11,7 +12,7 @@ namespace XRTK.Definitions.LocomotionSystem
     /// Base configuration profile for <see cref="Interfaces.LocomotionSystem.ILocomotionProvider"/>s. Use the <see cref="Providers.LocomotionSystem.BaseLocomotionProvider"/>
     /// base class to get started implementing your own provider.
     /// </summary>
-    public class BaseLocomotionProviderProfile : BaseMixedRealityProfile
+    public class BaseLocomotionProviderProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Sets startup behaviour for this provider.")]

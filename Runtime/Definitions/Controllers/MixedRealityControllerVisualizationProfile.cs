@@ -1,16 +1,18 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Attributes;
 using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem.Handlers;
+using CreateProfileMenuItemIndices = XRTK.Definitions.Utilities.CreateProfileMenuItemIndices;
+using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
 namespace XRTK.Definitions.Controllers
 {
     [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Controller Visualization Profile", fileName = "MixedRealityControllerVisualizationProfile", order = (int)CreateProfileMenuItemIndices.ControllerVisualization)]
-    public class MixedRealityControllerVisualizationProfile : BaseMixedRealityProfile
+    public class MixedRealityControllerVisualizationProfile : BaseProfile
     {
         [SerializeField]
         [Implements(typeof(IMixedRealityControllerVisualizer), TypeGrouping.ByNamespaceFlat)]

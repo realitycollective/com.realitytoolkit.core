@@ -3,10 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
 using XRTK.Interfaces;
 using XRTK.Services;
 
@@ -18,21 +17,21 @@ namespace XRTK.Definitions
     {
         /// <inheritdoc />
         public MixedRealityServiceConfiguration(IMixedRealityServiceConfiguration configuration)
-            : base(configuration.InstancedType, configuration.Name, configuration.Priority, configuration.RuntimePlatforms, configuration.Profile)
+            : base(configuration.ServiceConfiguration.InstancedType, configuration.ServiceConfiguration.Name, configuration.ServiceConfiguration.Priority, configuration.RuntimePlatforms, configuration.ServiceConfiguration.Profile)
         {
         }
 
         /// <inheritdoc />
-        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, BaseMixedRealityProfile profile)
+        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, BaseProfile profile)
             : base(instancedType, name, priority, runtimePlatforms, profile)
         {
         }
 
         /// <inheritdoc />
-        public override bool Enabled
+        public bool Enabled
             => typeof(IMixedRealitySystem).IsAssignableFrom(typeof(T))
-                ? Profile != null && base.Enabled // All IMixedRealitySystems require a profile
-                : base.Enabled;
+                ? ServiceConfiguration.Profile != null && ServiceConfiguration.Enabled // All IMixedRealitySystems require a profile
+                : ServiceConfiguration.Enabled;
     }
 
     /// <summary>
@@ -49,12 +48,10 @@ namespace XRTK.Definitions
         /// <param name="priority">The priority this <see cref="IMixedRealityService"/> will be initialized in.</param>
         /// <param name="runtimePlatforms">runtimePlatform">The runtime platform(s) to run this <see cref="IMixedRealityService"/> to run on.</param>
         /// <param name="profile">The <see cref="BaseMixedRealityProfile"/> for <see cref="IMixedRealityService"/>.</param>
-        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, BaseMixedRealityProfile profile)
+        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, BaseProfile profile)
         {
-            this.instancedType = instancedType;
-            this.name = name;
-            this.priority = priority;
-
+            ServiceConfiguration = new ServiceConfiguration(instancedType, name, priority, profile);
+            
             if (runtimePlatforms != null)
             {
                 this.runtimePlatforms = new List<IMixedRealityPlatform>(runtimePlatforms.Count);
@@ -66,50 +63,16 @@ namespace XRTK.Definitions
 
                 platformEntries = new RuntimePlatformEntry(runtimePlatforms);
             }
-
-            this.profile = profile;
         }
 
-        /// <inheritdoc />
-        public virtual bool Enabled => instancedType.Type != null;
-
-        [SerializeField]
-        [Implements(typeof(IMixedRealityService), TypeGrouping.ByNamespaceFlat)]
-        private SystemType instancedType;
-
-        /// <inheritdoc />
-        public SystemType InstancedType
-        {
-            get => instancedType;
-            internal set => instancedType = value;
-        }
-
-        [SerializeField]
-        private string name;
-
-        /// <inheritdoc />
-        public string Name
-        {
-            get => name;
-            internal set => name = value;
-        }
-
-        [SerializeField]
-        private uint priority;
-
-        /// <inheritdoc />
-        public uint Priority
-        {
-            get => priority;
-            internal set => priority = value;
-        }
+        public ServiceConfiguration ServiceConfiguration { get; }
 
         [SerializeField]
         private RuntimePlatformEntry platformEntries = new RuntimePlatformEntry();
 
         [NonSerialized]
         private List<IMixedRealityPlatform> runtimePlatforms = null;
-
+        
         /// <inheritdoc />
         public IReadOnlyList<IMixedRealityPlatform> RuntimePlatforms
         {
@@ -148,16 +111,6 @@ namespace XRTK.Definitions
 
                 return runtimePlatforms;
             }
-        }
-
-        [SerializeField]
-        private BaseMixedRealityProfile profile;
-
-        /// <inheritdoc />
-        public BaseMixedRealityProfile Profile
-        {
-            get => profile;
-            internal set => profile = value;
         }
     }
 }

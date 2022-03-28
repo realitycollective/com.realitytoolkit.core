@@ -154,13 +154,13 @@ namespace XRTK.Extensions
 
                     for (int i = 0; i < types.Length; i++)
                     {
-                        if (!typeof(IMixedRealityService).IsAssignableFrom(types[i]))
+                        if (!typeof(IService).IsAssignableFrom(types[i]))
                         {
                             continue;
                         }
 
-                        if (types[i] != typeof(IMixedRealityService) &&
-                            types[i] != typeof(IMixedRealityDataProvider) &&
+                        if (types[i] != typeof(IService) &&
+                            types[i] != typeof(IServiceDataProvider) &&
                             types[i] != typeof(IMixedRealityEventSystem) &&
                             types[i] != typeof(IMixedRealitySystem))
                         {

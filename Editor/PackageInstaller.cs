@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEngine;
 using XRTK.Definitions;
@@ -151,7 +152,7 @@ namespace XRTK.Editor
 
         private static void AddConfigurations(List<string> profiles)
         {
-            MixedRealityToolkitRootProfile rootProfile;
+            ServiceManagerRootProfile rootProfile;
 
             if (MixedRealityToolkit.IsInitialized)
             {
@@ -159,7 +160,7 @@ namespace XRTK.Editor
             }
             else
             {
-                var availableRootProfiles = ScriptableObjectExtensions.GetAllInstances<MixedRealityToolkitRootProfile>();
+                var availableRootProfiles = ScriptableObjectExtensions.GetAllInstances<ServiceManagerRootProfile>();
                 rootProfile = availableRootProfiles.Length > 0 ? availableRootProfiles[0] : null;
             }
 
@@ -223,15 +224,15 @@ namespace XRTK.Editor
         /// </summary>
         /// <param name="platformConfigurationProfile">The platform configuration to install.</param>
         /// <param name="rootProfile">The root profile to install the </param>
-        public static void InstallConfiguration(MixedRealityPlatformServiceConfigurationProfile platformConfigurationProfile, MixedRealityToolkitRootProfile rootProfile)
+        public static void InstallConfiguration(MixedRealityPlatformServiceConfigurationProfile platformConfigurationProfile, ServiceManagerRootProfile rootProfile)
         {
             foreach (var configuration in platformConfigurationProfile.Configurations)
             {
-                var configurationType = configuration.InstancedType.Type;
+                var configurationType = configuration.ServiceConfiguration.InstancedType.Type;
 
                 if (configurationType == null)
                 {
-                    Debug.LogError($"Failed to find a valid {nameof(configuration.InstancedType)} for {configuration.Name}!");
+                    Debug.LogError($"Failed to find a valid {nameof(configuration.ServiceConfiguration.InstancedType)} for {configuration.ServiceConfiguration.Name}!");
                     continue;
                 }
 
@@ -242,9 +243,9 @@ namespace XRTK.Editor
                         {
                             var cameraDataProviderConfiguration = new MixedRealityServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
 
-                            if (cameraSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.InstancedType.Type))
+                            if (cameraSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.ServiceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.ServiceConfiguration.InstancedType.Type))
                             {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
+                                Debug.Log($"Added {configuration.ServiceConfiguration.Name} to {rootProfile.name}");
                                 cameraSystemProfile.RegisteredServiceConfigurations = cameraSystemProfile.RegisteredServiceConfigurations.AddItem(cameraDataProviderConfiguration);
                                 EditorUtility.SetDirty(cameraSystemProfile);
                             }
@@ -256,9 +257,9 @@ namespace XRTK.Editor
                         {
                             var inputDataProviderConfiguration = new MixedRealityServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
 
-                            if (inputSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != inputDataProviderConfiguration.InstancedType.Type))
+                            if (inputSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.ServiceConfiguration.InstancedType.Type != inputDataProviderConfiguration.ServiceConfiguration.InstancedType.Type))
                             {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
+                                Debug.Log($"Added {configuration.ServiceConfiguration.Name} to {rootProfile.name}");
                                 inputSystemProfile.RegisteredServiceConfigurations = inputSystemProfile.RegisteredServiceConfigurations.AddItem(inputDataProviderConfiguration);
                                 EditorUtility.SetDirty(inputSystemProfile);
                             }
@@ -270,9 +271,9 @@ namespace XRTK.Editor
                         {
                             var spatialObserverConfiguration = new MixedRealityServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
 
-                            if (spatialAwarenessSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != spatialObserverConfiguration.InstancedType.Type))
+                            if (spatialAwarenessSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.ServiceConfiguration.InstancedType.Type != spatialObserverConfiguration.ServiceConfiguration.InstancedType.Type))
                             {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
+                                Debug.Log($"Added {configuration.ServiceConfiguration.Name} to {rootProfile.name}");
                                 spatialAwarenessSystemProfile.RegisteredServiceConfigurations = spatialAwarenessSystemProfile.RegisteredServiceConfigurations.AddItem(spatialObserverConfiguration);
                                 EditorUtility.SetDirty(spatialAwarenessSystemProfile);
                             }
@@ -283,9 +284,9 @@ namespace XRTK.Editor
                         {
                             var boundarySystemConfiguration = new MixedRealityServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
 
-                            if (boundarySystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
+                            if (boundarySystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.ServiceConfiguration.InstancedType.Type != boundarySystemConfiguration.ServiceConfiguration.InstancedType.Type))
                             {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
+                                Debug.Log($"Added {configuration.ServiceConfiguration.Name} to {rootProfile.name}");
                                 boundarySystemProfile.RegisteredServiceConfigurations = boundarySystemProfile.RegisteredServiceConfigurations.AddItem(boundarySystemConfiguration);
                                 EditorUtility.SetDirty(boundarySystemProfile);
                             }

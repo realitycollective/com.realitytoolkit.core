@@ -5,6 +5,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Providers;
 using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Extensions;
@@ -16,7 +18,7 @@ namespace XRTK.Providers.Networking.WebRTC
     /// <summary>
     /// The Mixed Reality Toolkit's Web RTC Data provider.
     /// </summary>
-    public class MixedRealityWebRtcDataProvider : BaseDataProvider, IMixedRealityNetworkDataProvider<Guid, WebRtcPeerConnection>
+    public class MixedRealityWebRtcDataProvider : BaseServiceDataProvider, IMixedRealityNetworkDataProvider<Guid, WebRtcPeerConnection>
     {
         /// <summary>
         /// This is just an example of a single frame from a web rtc data track.
@@ -35,7 +37,7 @@ namespace XRTK.Providers.Networking.WebRTC
         }
 
         /// <inheritdoc />
-        public MixedRealityWebRtcDataProvider(string name, uint priority, BaseMixedRealityProfile profile, IMixedRealityNetworkingSystem parentService)
+        public MixedRealityWebRtcDataProvider(string name, uint priority, BaseProfile profile, IMixedRealityNetworkingSystem parentService)
             : base(name, priority, profile, parentService)
         {
             networkingSystem = parentService;

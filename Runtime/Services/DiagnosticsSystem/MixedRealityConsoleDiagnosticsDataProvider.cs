@@ -1,6 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Interfaces.DiagnosticsSystem;
@@ -15,7 +16,7 @@ namespace XRTK.Services.DiagnosticsSystem
     public class MixedRealityConsoleDiagnosticsDataProvider : BaseMixedRealityDiagnosticsDataProvider
     {
         /// <inheritdoc />
-        public MixedRealityConsoleDiagnosticsDataProvider(string name, uint priority, BaseMixedRealityProfile profile, IMixedRealityDiagnosticsSystem parentService)
+        public MixedRealityConsoleDiagnosticsDataProvider(string name, uint priority, BaseProfile profile, IMixedRealityDiagnosticsSystem parentService)
             : base(name, priority, profile, parentService)
         {
         }

@@ -3,10 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
 using XRTK.Interfaces;
+using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
 namespace XRTK.Definitions
 {

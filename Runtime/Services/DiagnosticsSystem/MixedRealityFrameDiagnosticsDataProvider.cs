@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Diagnostics;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Interfaces.DiagnosticsSystem;
@@ -16,7 +17,7 @@ namespace XRTK.Services.DiagnosticsSystem
     public class MixedRealityFrameDiagnosticsDataProvider : BaseMixedRealityDiagnosticsDataProvider, IMixedRealityFrameDiagnosticsDataProvider
     {
         /// <inheritdoc />
-        public MixedRealityFrameDiagnosticsDataProvider(string name, uint priority, BaseMixedRealityProfile profile, IMixedRealityDiagnosticsSystem parentService)
+        public MixedRealityFrameDiagnosticsDataProvider(string name, uint priority, BaseProfile profile, IMixedRealityDiagnosticsSystem parentService)
             : base(name, priority, profile, parentService)
         {
         }

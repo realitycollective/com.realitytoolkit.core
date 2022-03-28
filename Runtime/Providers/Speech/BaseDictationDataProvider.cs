@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Threading.Tasks;
+using RealityToolkit.ServiceFramework.Providers;
 using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Interfaces.InputSystem;
@@ -13,7 +14,7 @@ namespace XRTK.Providers.Speech
     /// <summary>
     /// Base dictation data provider to use when implementing <see cref="IMixedRealityDictationDataProvider"/>s
     /// </summary>
-    public abstract class BaseDictationDataProvider : BaseDataProvider, IMixedRealityDictationDataProvider
+    public abstract class BaseDictationDataProvider : BaseServiceDataProvider, IMixedRealityDictationDataProvider
     {
         /// <inheritdoc />
         protected BaseDictationDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

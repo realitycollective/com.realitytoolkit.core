@@ -2,10 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
-using XRTK.Definitions;
-using XRTK.Definitions.Utilities;
-using XRTK.Services;
 
 namespace XRTK.Interfaces
 {
@@ -23,40 +21,11 @@ namespace XRTK.Interfaces
     /// </summary>
     public interface IMixedRealityServiceConfiguration
     {
-        /// <summary>
-        /// Is this service enabled?
-        /// </summary>
-        bool Enabled { get; }
-
-        /// <summary>
-        /// The concrete type for the <see cref="IMixedRealityService"/> that will be instantiated and ran by the service locator.
-        /// </summary>
-        SystemType InstancedType { get; }
-
-        /// <summary>
-        /// The simple, human readable name for the <see cref="IMixedRealityService"/>.
-        /// </summary>
-        /// <remarks>
-        /// This name should be unique.
-        /// </remarks>
-        string Name { get; }
-
-        /// <summary>
-        /// The priority order of execution for this <see cref="IMixedRealityService"/>.
-        /// </summary>
-        /// <remarks>
-        /// Multiple <see cref="IMixedRealityService"/>s may be running at the same priority for services that are not specifically registered to the <see cref="MixedRealityToolkit.ActiveSystems"/>.
-        /// </remarks>
-        uint Priority { get; }
+        ServiceConfiguration ServiceConfiguration { get; }
 
         /// <summary>
         /// The runtime platform(s) to run this <see cref="IMixedRealityService"/> to run on.
         /// </summary>
         IReadOnlyList<IMixedRealityPlatform> RuntimePlatforms { get; }
-
-        /// <summary>
-        /// The <see cref="BaseMixedRealityProfile"/> for <see cref="IMixedRealityService"/>.
-        /// </summary>
-        BaseMixedRealityProfile Profile { get; }
     }
 }

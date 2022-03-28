@@ -2,13 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 using UnityEngine.Serialization;
 using XRTK.Attributes;
 using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.Providers;
+using CreateProfileMenuItemIndices = XRTK.Definitions.Utilities.CreateProfileMenuItemIndices;
+using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
 namespace XRTK.Definitions.InputSystem
 {

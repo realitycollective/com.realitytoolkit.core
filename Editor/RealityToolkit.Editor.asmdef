@@ -3,7 +3,8 @@
     "rootNamespace": "XRTK.Editor",
     "references": [
         "GUID:f3241d040533491e8a1e2714b27c3111",
-        "GUID:6546d7765b4165b40850b3667f981c26"
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:13703f41b24bb904cb2305abe6317e3d"
     ],
     "includePlatforms": [
         "Editor"

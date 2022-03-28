@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
@@ -69,14 +70,14 @@ namespace XRTK.Editor
             {
                 if (GUILayout.Button("Create a new root profile"))
                 {
-                    var rootProfile = CreateInstance<MixedRealityToolkitRootProfile>().GetOrCreateAsset();
+                    var rootProfile = CreateInstance<ServiceManagerRootProfile>().GetOrCreateAsset();
                     activeProfile.objectReferenceValue = rootProfile;
                 }
             }
 
             var changed = EditorGUI.EndChangeCheck();
             var commandName = Event.current.commandName;
-            var rootProfiles = ScriptableObjectExtensions.GetAllInstances<MixedRealityToolkitRootProfile>();
+            var rootProfiles = ScriptableObjectExtensions.GetAllInstances<ServiceManagerRootProfile>();
 
             if (activeProfile.objectReferenceValue.IsNull() &&
                 currentPickerWindow == -1 && checkChange)
@@ -96,7 +97,7 @@ namespace XRTK.Editor
                         EditorApplication.delayCall += () =>
                         {
                             changed = true;
-                            var rootProfile = AssetDatabase.LoadAssetAtPath<MixedRealityToolkitRootProfile>(rootProfilePath);
+                            var rootProfile = AssetDatabase.LoadAssetAtPath<ServiceManagerRootProfile>(rootProfilePath);
                             Debug.Assert(rootProfile != null);
                             activeProfile.objectReferenceValue = rootProfile;
                             EditorGUIUtility.PingObject(rootProfile);
@@ -106,7 +107,7 @@ namespace XRTK.Editor
                         break;
                     default:
                         currentPickerWindow = GUIUtility.GetControlID(FocusType.Passive);
-                        EditorGUIUtility.ShowObjectPicker<MixedRealityToolkitRootProfile>(null, false, string.Empty, currentPickerWindow);
+                        EditorGUIUtility.ShowObjectPicker<ServiceManagerRootProfile>(null, false, string.Empty, currentPickerWindow);
                         break;
                 }
 
@@ -141,7 +142,7 @@ namespace XRTK.Editor
 
             if (activeProfile.objectReferenceValue.IsNotNull())
             {
-                var rootProfile = activeProfile.objectReferenceValue as MixedRealityToolkitRootProfile;
+                var rootProfile = activeProfile.objectReferenceValue as ServiceManagerRootProfile;
 
                 if (profileInspector.IsNull())
                 {
@@ -165,7 +166,7 @@ namespace XRTK.Editor
 
             if (changed)
             {
-                EditorApplication.delayCall += () => MixedRealityToolkit.Instance.ResetProfile((MixedRealityToolkitRootProfile)activeProfile.objectReferenceValue);
+                EditorApplication.delayCall += () => MixedRealityToolkit.Instance.ResetProfile((ServiceManagerRootProfile)activeProfile.objectReferenceValue);
             }
         }
 

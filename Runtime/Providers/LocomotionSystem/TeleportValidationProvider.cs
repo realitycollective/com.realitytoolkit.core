@@ -1,12 +1,12 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Providers;
 using UnityEngine;
 using XRTK.Definitions.LocomotionSystem;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.LocomotionSystem;
 using XRTK.Services.LocomotionSystem;
-using XRTK.Services;
 using XRTK.Utilities;
 
 namespace XRTK.Providers.LocomotionSystem
@@ -15,7 +15,7 @@ namespace XRTK.Providers.LocomotionSystem
     /// The Mixed Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("14199fd8-1636-4147-bb08-6475e76ed1cd")]
-    public class TeleportValidationProvider : BaseDataProvider, ITeleportValidationProvider
+    public class TeleportValidationProvider : BaseServiceDataProvider, ITeleportValidationProvider
     {
         /// <inheritdoc />
         public TeleportValidationProvider(string name, uint priority, TeleportValidationProviderProfile profile, ILocomotionSystem parentService)

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEngine;
 using XRTK.Definitions;
@@ -11,7 +12,7 @@ using XRTK.Services;
 
 namespace XRTK.Editor.PropertyDrawers
 {
-    [CustomPropertyDrawer(typeof(BaseMixedRealityProfile), true)]
+    [CustomPropertyDrawer(typeof(BaseProfile), true)]
     public class MixedRealityProfilePropertyDrawer : PropertyDrawer
     {
         private const int BUTTON_PADDING = 4;
@@ -23,13 +24,13 @@ namespace XRTK.Editor.PropertyDrawers
 
         public static Type ProfileTypeOverride { get; set; } = null;
 
-        public static BaseMixedRealityProfile ParentProfileOverride { get; set; } = null;
+        public static BaseProfile ParentProfileOverride { get; set; } = null;
 
-        private BaseMixedRealityProfile parent = null;
+        private BaseProfile parent = null;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            BaseMixedRealityProfile profile = null;
+            BaseProfile profile = null;
 
             if (parent.IsNull())
             {
@@ -46,7 +47,7 @@ namespace XRTK.Editor.PropertyDrawers
                     }
                     else
                     {
-                        parent = Selection.activeObject as BaseMixedRealityProfile;
+                        parent = Selection.activeObject as BaseProfile;
                     }
                 }
 
@@ -55,12 +56,12 @@ namespace XRTK.Editor.PropertyDrawers
 
             if (!property.objectReferenceValue.IsNull())
             {
-                profile = property.objectReferenceValue as BaseMixedRealityProfile;
+                profile = property.objectReferenceValue as BaseProfile;
             }
 
             if (!profile.IsNull())
             {
-                if (profile is MixedRealityToolkitRootProfile &&
+                if (profile is ServiceManagerRootProfile &&
                     !parent.IsNull())
                 {
                     profile.ParentProfile = null;
@@ -80,7 +81,7 @@ namespace XRTK.Editor.PropertyDrawers
 
             EditorGUI.BeginChangeCheck();
 
-            var selectedProfile = EditorGUI.ObjectField(objectRect, propertyLabel, profile, profileType, false) as BaseMixedRealityProfile;
+            var selectedProfile = EditorGUI.ObjectField(objectRect, propertyLabel, profile, profileType, false) as BaseProfile;
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -88,7 +89,7 @@ namespace XRTK.Editor.PropertyDrawers
                 property.serializedObject.ApplyModifiedProperties();
 
                 if (!(selectedProfile is null) &&
-                    !(selectedProfile is MixedRealityToolkitRootProfile))
+                    !(selectedProfile is ServiceManagerRootProfile))
                 {
                     Debug.Assert(!parent.IsNull(), $"Failed to find a valid parent profile for {selectedProfile.name}");
                     selectedProfile.ParentProfile = parent;
@@ -108,7 +109,7 @@ namespace XRTK.Editor.PropertyDrawers
             }
 
             if (!(selectedProfile is null) &&
-                !(selectedProfile is MixedRealityToolkitRootProfile))
+                !(selectedProfile is ServiceManagerRootProfile))
             {
                 if (selectedProfile.ParentProfile.IsNull() ||
                     selectedProfile.ParentProfile != parent)

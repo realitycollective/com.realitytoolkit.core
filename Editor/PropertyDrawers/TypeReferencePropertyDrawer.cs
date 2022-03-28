@@ -4,19 +4,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
 using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
 using Assembly = System.Reflection.Assembly;
+using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
 namespace XRTK.Editor.PropertyDrawers
 {
     /// <summary>
-    /// Custom property drawer for <see cref="SystemType"/> properties.
+    /// Custom property drawer for <see cref="RealityToolkit.ServiceFramework.Definitions.SystemType"/> properties.
     /// </summary>
     [CustomPropertyDrawer(typeof(SystemType))]
     [CustomPropertyDrawer(typeof(SystemTypeAttribute), true)]

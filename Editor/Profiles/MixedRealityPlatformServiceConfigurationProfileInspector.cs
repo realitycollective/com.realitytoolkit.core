@@ -4,17 +4,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using XRTK.Attributes;
 using XRTK.Definitions;
-using XRTK.Definitions.Utilities;
 using XRTK.Editor.Data;
 using XRTK.Editor.Extensions;
 using XRTK.Editor.PropertyDrawers;
 using XRTK.Extensions;
 using XRTK.Services;
+using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
 namespace XRTK.Editor.Profiles
 {
@@ -204,7 +205,7 @@ namespace XRTK.Editor.Profiles
                     {
                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                         {
                             profileType = parameterInfo.ParameterType;
                             break;
@@ -281,7 +282,7 @@ namespace XRTK.Editor.Profiles
 
             if (profile.objectReferenceValue != null)
             {
-                var renderedProfile = profile.objectReferenceValue as BaseMixedRealityProfile;
+                var renderedProfile = profile.objectReferenceValue as BaseProfile;
                 Debug.Assert(renderedProfile != null);
 
                 if (renderedProfile.ParentProfile.IsNull() ||
