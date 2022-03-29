@@ -18,10 +18,10 @@ namespace XRTK.Tests.Core
 {
     public class TestFixture_02_MixedRealityToolkitUtilityTests
     {
-        private void SetupServiceLocator()
+        /*private void SetupServiceLocator()
         {
             TestUtilities.InitializeMixedRealityToolkitScene(false);
-            MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile = ScriptableObject.CreateInstance<MixedRealityRegisteredServiceProvidersProfile>();
+            MixedRealityToolkit.Instance.ActiveProfile.ServiceProvidersProfile = ScriptableObject.CreateInstance<MixedRealityRegisteredServiceProvidersProfile>();
         }
 
         #region Configuration Validation Tests
@@ -32,7 +32,7 @@ namespace XRTK.Tests.Core
         public void Test_01_ConfirmExtensionServiceProviderConfigurationNotPresent()
         {
             SetupServiceLocator();
-            var profile = MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile;
+            var profile = MixedRealityToolkit.Instance.ActiveProfile.ServiceProvidersProfile;
             var dataProviderTypes = new[] { typeof(TestExtensionService1) };
             IMixedRealityServiceConfiguration<IMixedRealityExtensionService>[] newConfigs =
             {
@@ -46,13 +46,13 @@ namespace XRTK.Tests.Core
         public void Test_02_ConfirmExtensionServiceProviderConfigurationPresent()
         {
             SetupServiceLocator();
-            var profile = MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile;
+            var profile = MixedRealityToolkit.Instance.ActiveProfile;
             var dataProviderTypes = new[] { typeof(TestExtensionService1) };
             var newConfig = new MixedRealityServiceConfiguration<IMixedRealityExtensionService>(typeof(TestExtensionService1), "Test Extension Service 1", 2, testPlatforms, null);
             Debug.Assert(newConfig != null);
-            var newConfigs = profile.RegisteredServiceConfigurations.AddItem(newConfig);
+            var newConfigs = profile.AddItem(newConfig);
             Debug.Assert(newConfigs != null);
-            profile.RegisteredServiceConfigurations = newConfigs;
+            profile.ServiceConfigurations = newConfigs;
             Assert.IsTrue(profile.ValidateService(dataProviderTypes, newConfigs, false));
         }
 
@@ -67,6 +67,6 @@ namespace XRTK.Tests.Core
             Assert.IsFalse(controllerDataMappingProfile.ValidateControllerProfiles(controllerTypes, false));
         }
 
-        #endregion Configuration Validation Tests
+        #endregion Configuration Validation Tests*/
     }
 }
