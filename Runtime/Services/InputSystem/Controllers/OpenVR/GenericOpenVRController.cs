@@ -189,7 +189,7 @@ namespace XRTK.Services.InputSystem.Controllers.OpenVR
         {
             var lastState = TrackingState;
 
-            LastControllerPose = CurrentControllerPose;
+            LastControllerPose = Pose;
 
             if (nodeType == XRNode.LeftHand || nodeType == XRNode.RightHand)
             {
@@ -209,8 +209,7 @@ namespace XRTK.Services.InputSystem.Controllers.OpenVR
                 TrackingState = TrackingState.NotApplicable;
             }
 
-            CurrentControllerPose.Position = CurrentControllerPosition;
-            CurrentControllerPose.Rotation = CurrentControllerRotation;
+            Pose = new MixedRealityPose(CurrentControllerPosition, CurrentControllerRotation);
 
             // Raise input system events if it is enabled.
             if (lastState != TrackingState)
@@ -218,11 +217,11 @@ namespace XRTK.Services.InputSystem.Controllers.OpenVR
                 InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
             }
 
-            if (TrackingState == TrackingState.Tracked && LastControllerPose != CurrentControllerPose)
+            if (TrackingState == TrackingState.Tracked && LastControllerPose != Pose)
             {
                 if (IsPositionAvailable && IsRotationAvailable)
                 {
-                    InputSystem?.RaiseSourcePoseChanged(InputSource, this, CurrentControllerPose);
+                    InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
                 }
                 else if (IsPositionAvailable && !IsRotationAvailable)
                 {

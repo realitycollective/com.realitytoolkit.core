@@ -35,7 +35,6 @@ namespace XRTK.Services.InputSystem.Controllers.UnityInput
         protected Quaternion CurrentControllerRotation = Quaternion.identity;
         private MixedRealityPose pointerOffsetPose = MixedRealityPose.ZeroIdentity;
         protected MixedRealityPose LastControllerPose = MixedRealityPose.ZeroIdentity;
-        protected MixedRealityPose CurrentControllerPose = MixedRealityPose.ZeroIdentity;
 
         /// <summary>
         /// Update the controller data from Unity's Input Manager
@@ -178,15 +177,15 @@ namespace XRTK.Services.InputSystem.Controllers.UnityInput
             switch (interactionMapping.InputType)
             {
                 case DeviceInputType.SpatialPointer:
-                    pointerOffsetPose.Position = CurrentControllerPose.Position;
-                    pointerOffsetPose.Rotation = CurrentControllerPose.Rotation * Quaternion.AngleAxis(PointerOffsetAngle, Vector3.left);
+                    pointerOffsetPose.Position = Pose.Position;
+                    pointerOffsetPose.Rotation = Pose.Rotation * Quaternion.AngleAxis(PointerOffsetAngle, Vector3.left);
 
                     // Update the interaction data source
                     interactionMapping.PoseData = pointerOffsetPose;
                     break;
                 case DeviceInputType.SpatialGrip:
                     // Update the interaction data source
-                    interactionMapping.PoseData = CurrentControllerPose;
+                    interactionMapping.PoseData = Pose;
                     break;
                 default:
                     Debug.LogWarning($"Unhandled Interaction {interactionMapping.Description}");
