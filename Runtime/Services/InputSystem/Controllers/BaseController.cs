@@ -146,6 +146,9 @@ namespace XRTK.Services.InputSystem.Controllers
         public MixedRealityInteractionMapping[] Interactions { get; private set; } = null;
 
         /// <inheritdoc />
+        public MixedRealityPose Pose { get; protected set; } = MixedRealityPose.ZeroIdentity;
+
+        /// <inheritdoc />
         public Vector3 AngularVelocity { get; protected set; } = Vector3.zero;
 
         /// <inheritdoc />

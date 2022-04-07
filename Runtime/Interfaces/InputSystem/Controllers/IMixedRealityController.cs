@@ -78,8 +78,12 @@ namespace XRTK.Interfaces.InputSystem.Controllers
         MixedRealityInteractionMapping[] Interactions { get; }
 
         /// <summary>
-        /// Gets how fast the controller rotates or revolves relative to its
-        /// pivot point.
+        /// Gets the current position and rotation for the controller, if available.
+        /// </summary>
+        MixedRealityPose Pose { get; }
+
+        /// <summary>
+        /// Gets how fast the controller rotates or revolves relative to its pivot point.
         /// </summary>
         Vector3 AngularVelocity { get; }
 

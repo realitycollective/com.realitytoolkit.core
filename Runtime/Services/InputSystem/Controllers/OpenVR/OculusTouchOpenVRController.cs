@@ -94,8 +94,8 @@ namespace XRTK.Services.InputSystem.Controllers.OpenVR
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
             interactionMapping.PoseData = new MixedRealityPose(
-                CurrentControllerPose.Position + CurrentControllerPose.Rotation * GripPoseOffset.Position,
-                CurrentControllerPose.Rotation * GripPoseOffset.Rotation);
+                Pose.Position + Pose.Rotation * GripPoseOffset.Position,
+                Pose.Rotation * GripPoseOffset.Rotation);
         }
     }
 }

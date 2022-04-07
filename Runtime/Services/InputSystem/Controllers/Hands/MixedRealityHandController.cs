@@ -181,7 +181,7 @@ namespace XRTK.Services.InputSystem.Controllers.Hands
                 TrackedPoseId = handData.TrackedPoseId;
                 PinchStrength = handData.PinchStrength;
                 SpatialPointerPose = handData.PointerPose;
-
+                Pose = handData.RootPose;
                 InputSystem?.RaiseSourcePoseChanged(InputSource, this, handData.RootPose);
             }
 
