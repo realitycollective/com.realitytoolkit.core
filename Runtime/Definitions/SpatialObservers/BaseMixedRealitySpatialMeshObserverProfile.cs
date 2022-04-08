@@ -7,7 +7,7 @@ using XRTK.Attributes;
 using XRTK.Definitions.SpatialAwarenessSystem;
 using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
-namespace XRTK.Providers.SpatialObservers
+namespace XRTK.Definitions.SpatialObservers
 {
     public class BaseMixedRealitySpatialMeshObserverProfile : BaseMixedRealitySpatialObserverProfile
     {

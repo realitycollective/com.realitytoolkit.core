@@ -4,7 +4,7 @@
 using RealityToolkit.ServiceFramework.Definitions;
 using XRTK.Interfaces.NetworkingSystem;
 
-namespace XRTK.Providers.Networking.Profiles
+namespace XRTK.Definitions.NetworkingSystem
 {
     /// <summary>
     /// The base profile for <see cref="IMixedRealityNetworkDataProvider"/>s

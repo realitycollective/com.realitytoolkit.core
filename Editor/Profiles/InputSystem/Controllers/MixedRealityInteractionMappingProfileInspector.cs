@@ -6,11 +6,11 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
 using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
 using XRTK.Editor.PropertyDrawers;
 using XRTK.Extensions;
+using XRTK.Services.InputSystem.Processors;
 
 namespace XRTK.Editor.Profiles.InputSystem.Controllers
 {

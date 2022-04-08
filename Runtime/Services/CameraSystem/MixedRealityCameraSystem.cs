@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using XRTK.Definitions.CameraSystem;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Utilities;
@@ -17,11 +18,10 @@ namespace XRTK.Services.CameraSystem
     {
         /// <inheritdoc />
         public MixedRealityCameraSystem(MixedRealityCameraSystemProfile profile)
-            : base(profile)
-        {
-        }
+            : base(profile) { }
 
-        #region IMixedRealityService Implementation
+        private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+        private readonly HashSet<IMixedRealityCameraDataProvider> cameraDataProviders = new HashSet<IMixedRealityCameraDataProvider>();
 
         /// <inheritdoc />
         public override uint Priority => 0;
@@ -30,21 +30,13 @@ namespace XRTK.Services.CameraSystem
         public override void Destroy()
         {
             base.Destroy();
-
             Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
         }
-
-        #endregion IMixedRealityService Implementation
-
-        #region IMixedRealityCameraSystem Impelementation
-
-        private readonly HashSet<IMixedRealityCameraDataProvider> cameraDataProviders = new HashSet<IMixedRealityCameraDataProvider>();
 
         /// <inheritdoc />
         public IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders => cameraDataProviders;
 
         private IMixedRealityCameraRig mainCameraRig = null;
-
         /// <inheritdoc />
         public IMixedRealityCameraRig MainCameraRig
         {
@@ -84,38 +76,38 @@ namespace XRTK.Services.CameraSystem
             }
         }
 
-#if XRTK_USE_LEGACYVR
+        private static XRDisplaySubsystem displaySubsystem = null;
         /// <inheritdoc />
-        public void SetHeadHeight(float value, bool setForAllCameraProviders = false)
+        public XRDisplaySubsystem DisplaySubsystem
         {
-            foreach (var dataProvider in cameraDataProviders)
+            get
             {
-                if (setForAllCameraProviders ||
-                    dataProvider.CameraRig == MainCameraRig)
+                if (displaySubsystem != null && displaySubsystem.running)
                 {
-                    dataProvider.HeadHeight = value;
+                    return displaySubsystem;
+                }
 
-                    if (!setForAllCameraProviders)
+                displaySubsystem = null;
+                SubsystemManager.GetInstances(xrDisplaySubsystems);
+
+                for (var i = 0; i < xrDisplaySubsystems.Count; i++)
+                {
+                    var xrDisplaySubsystem = xrDisplaySubsystems[i];
+                    if (xrDisplaySubsystem.running)
                     {
+                        displaySubsystem = xrDisplaySubsystem;
                         break;
                     }
                 }
+
+                return displaySubsystem;
             }
         }
-#endif
 
         /// <inheritdoc />
-        public void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider)
-        {
-            cameraDataProviders.Add(dataProvider);
-        }
+        public void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Add(dataProvider);
 
         /// <inheritdoc />
-        public void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider)
-        {
-            cameraDataProviders.Remove(dataProvider);
-        }
-
-        #endregion IMixedRealityCameraSystem Impelementation
+        public void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Remove(dataProvider);
     }
 }

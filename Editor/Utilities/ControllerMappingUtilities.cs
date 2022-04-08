@@ -8,6 +8,7 @@ using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
+using XRTK.Extensions;
 
 namespace XRTK.Editor.Utilities
 {
@@ -71,10 +72,7 @@ namespace XRTK.Editor.Utilities
         /// The file name should be formatted as:<para/>XRTK/StandardAssets/Textures/{ControllerTypeName}_{handedness}_{theme}_{scaled}.png<para/>
         /// scaled suffix is optional.<para/>
         /// </remarks>
-        public static Texture2D GetControllerTexture(MixedRealityControllerMappingProfile mappingProfile)
-        {
-            return GetControllerTextureCached(mappingProfile);
-        }
+        public static Texture2D GetControllerTexture(MixedRealityControllerMappingProfile mappingProfile) => GetControllerTextureCached(mappingProfile);
 
         /// <summary>
         /// Gets a texture based on the <see cref="MixedRealityControllerMappingProfile"/>.
@@ -84,13 +82,15 @@ namespace XRTK.Editor.Utilities
         /// <remarks>
         /// The file name should be formatted as:<para/>XRTK/StandardAssets/Textures/{ControllerName}_{handedness}_{theme}_{scaled}.png<para/>
         /// </remarks>
-        public static Texture2D GetControllerTextureScaled(MixedRealityControllerMappingProfile mappingProfile)
-        {
-            return GetControllerTextureCached(mappingProfile, true);
-        }
+        public static Texture2D GetControllerTextureScaled(MixedRealityControllerMappingProfile mappingProfile) => GetControllerTextureCached(mappingProfile, true);
 
         private static Texture2D GetControllerTextureCached(MixedRealityControllerMappingProfile mappingProfile, bool scaled = false)
         {
+            if (TryGetControllerTextureFromProfile(mappingProfile, scaled, out var profileTexture))
+            {
+                return profileTexture;
+            }
+
             var key = new Tuple<Type, Handedness, bool>(mappingProfile.ControllerType.Type, mappingProfile.Handedness, scaled);
 
             if (CachedTextures.TryGetValue(key, out var texture))
@@ -99,7 +99,12 @@ namespace XRTK.Editor.Utilities
             }
 
             texture = GetControllerTextureInternal(mappingProfile, scaled);
-            CachedTextures.Add(key, texture);
+
+            if (texture.IsNotNull())
+            {
+                CachedTextures.Add(key, texture);
+            }
+
             return texture;
         }
 
@@ -154,6 +159,47 @@ namespace XRTK.Editor.Utilities
             var themeSuffix = EditorGUIUtility.isProSkin ? "_white" : "_black";
 
             return (Texture2D)AssetDatabase.LoadAssetAtPath($"{fullTexturePath}{handednessSuffix}{themeSuffix}{(scaled ? "_scaled" : string.Empty)}.png", typeof(Texture2D));
+        }
+
+        private static bool TryGetControllerTextureFromProfile(MixedRealityControllerMappingProfile mappingProfile, bool scaled, out Texture2D texture)
+        {
+            texture = null;
+
+            if (mappingProfile.Handedness == Handedness.Left && scaled && EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.DarkThemeLeftControllerTextureScaled;
+            }
+            else if (mappingProfile.Handedness == Handedness.Left && scaled && !EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.LightThemeLeftControllerTextureScaled;
+            }
+            else if (mappingProfile.Handedness == Handedness.Left && !scaled && EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.DarkThemeLeftControllerTexture;
+            }
+            else if (mappingProfile.Handedness == Handedness.Left && !scaled && !EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.LightThemeLeftControllerTexture;
+            }
+            // We use the right controller texture for anything that is not left handedness.
+            else if (scaled && EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.DarkThemeRightControllerTextureScaled;
+            }
+            else if (scaled && !EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.LightThemeRightControllerTextureScaled;
+            }
+            else if (!scaled && EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.DarkThemeRightControllerTexture;
+            }
+            else if (!scaled && !EditorGUIUtility.isProSkin)
+            {
+                texture = mappingProfile.LightThemeRightControllerTexture;
+            }
+
+            return texture.IsNotNull();
         }
 
         #endregion Controller Texture Loading
