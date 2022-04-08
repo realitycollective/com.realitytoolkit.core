@@ -20,6 +20,7 @@ namespace XRTK.Tests.Core
 {
     public class TestFixture_02_MixedRealityToolkitUtilityTests
     {
+        /*
         private void SetupServiceLocator()
         {
             TestUtilities.InitializeMixedRealityToolkitScene(false);
@@ -134,5 +135,6 @@ namespace XRTK.Tests.Core
 
             dummyTexture.Destroy();
         }
+        */
     }
 }

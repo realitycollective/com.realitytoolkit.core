@@ -10,6 +10,7 @@ namespace XRTK.Tests
 {
     public class TextFixture_05_GazeProviderTests
     {
+        /*
         [SetUp]
         public void SetUpGazeProviderTests()
         {
@@ -74,5 +75,6 @@ namespace XRTK.Tests
 
             return false;
         }
+        */
     }
 }
