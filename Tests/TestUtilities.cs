@@ -54,7 +54,7 @@ namespace XRTK.Tests
 
             Assert.IsTrue(configuration != null, "Failed to find the Default Mixed Reality Root Profile");
             MixedRealityToolkit.Instance.ResetProfile(configuration);
-            //Assert.IsTrue(MixedRealityToolkit.Instance.ActiveProfile != null);  /SJ - Why is the Active Profile Null?
+            Assert.IsTrue(MixedRealityToolkit.Instance.ActiveProfile != null);  //SJ - Why is the Active Profile Null?
             Assert.IsTrue(MixedRealityToolkit.IsInitialized);
         }
 

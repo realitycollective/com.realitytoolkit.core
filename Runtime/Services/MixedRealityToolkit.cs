@@ -56,35 +56,9 @@ namespace XRTK.Services
         public static string DefaultXRCameraRigName = "XRCameraRig";
 
         /// <summary>
-        /// The active profile of the Mixed Reality Toolkit which controls which services are active and their initial settings.
-        /// *Note a profile is used on project initialization or replacement, changes to properties while it is running has no effect.
-        /// </summary>
-        [SerializeField]
-        [Tooltip("The current active settings for the Mixed Reality project")]
-        private ServiceManagerRootProfile activeProfile = null;
-
-        /// <summary>
         /// The public property of the Active Profile, ensuring events are raised on the change of the reference
         /// </summary>
-        public ServiceManagerRootProfile ActiveProfile
-        {
-            get
-            {
-#if UNITY_EDITOR
-                if (!Application.isPlaying &&
-                    activeProfile.IsNull() &&
-                    UnityEditor.Selection.activeObject != Instance)
-                {
-                    UnityEditor.Selection.activeObject = Instance;
-                }
-#endif // UNITY_EDITOR
-                return activeProfile;
-            }
-            set
-            {
-                ResetProfile(value);
-            }
-        }
+        public ServiceManagerRootProfile ActiveProfile { get => ServiceManager.Instance.ActiveProfile; set => ServiceManager.Instance.ActiveProfile = value; }
 
         /// <summary>
         /// When a profile is replaced with a new one, force all services to reset and read the new values
@@ -242,7 +216,7 @@ namespace XRTK.Services
                             IsApplicationQuitting = false;
                             break;
                         case UnityEditor.PlayModeStateChange.ExitingEditMode:
-                            if (activeProfile.IsNull())
+                            if (ActiveProfile.IsNull())
                             {
                                 Debug.LogError($"{nameof(MixedRealityToolkit)} has no active profile! Exiting playmode...");
                                 UnityEditor.EditorApplication.isPlaying = false;
@@ -677,10 +651,7 @@ namespace XRTK.Services
         /// <param name="interfaceType">The interface type for the <see cref="IMixedRealityService"/> to be registered.</param>
         /// <param name="serviceInstance">Instance of the <see cref="IMixedRealityService"/> to register.</param>
         /// <returns>True if registration is successful, false otherwise.</returns>
-        private static bool TryRegisterServiceInternal(Type interfaceType, IService serviceInstance)
-        {
-            return ServiceManager.TryRegisterService(interfaceType,serviceInstance);
-        }
+        private static bool TryRegisterServiceInternal(Type interfaceType, IService serviceInstance) => ServiceManager.TryRegisterService(interfaceType, serviceInstance);
 
         #endregion Registration
 
@@ -689,39 +660,20 @@ namespace XRTK.Services
         /// <summary>
         /// Remove all services from the Mixed Reality Toolkit active service registry for a given type
         /// </summary>
-        public static bool TryUnregisterServicesOfType<T>() where T : IService
-        {
-            return TryUnregisterServiceInternal<T>(typeof(T), string.Empty);
-        }
+        public static bool TryUnregisterServicesOfType<T>() where T : IService => ServiceManager.TryUnregisterServicesOfType<T>();
 
         /// <summary>
         /// Removes a specific service with the provided name.
         /// </summary>
         /// <param name="serviceInstance">The instance of the <see cref="IMixedRealityService"/> to remove.</param>
-        public static bool TryUnregisterService<T>(T serviceInstance) where T : IService
-        {
-            return TryUnregisterServiceInternal<T>(typeof(T), serviceInstance.Name);
-        }
+        public static bool TryUnregisterService<T>(T serviceInstance) where T : IService => ServiceManager.TryUnregisterService<T>(serviceInstance);
+
 
         /// <summary>
         /// Removes a specific service with the provided name.
         /// </summary>
         /// <param name="serviceName">The name of the service to be removed. (Only for runtime services) </param>
-        public static bool TryUnregisterService<T>(string serviceName) where T : IService
-        {
-            return TryUnregisterServiceInternal<T>(typeof(T), serviceName);
-        }
-
-        /// <summary>
-        /// Remove services from the Mixed Reality Toolkit active service registry for a given type and name
-        /// Name is only supported for Mixed Reality runtime services
-        /// </summary>
-        /// <param name="interfaceType">The interface type for the system to be removed.  E.G. InputSystem, BoundarySystem</param>
-        /// <param name="serviceName">The name of the service to be removed. (Only for runtime services) </param>
-        private static bool TryUnregisterServiceInternal<T>(Type interfaceType, string serviceName) where T : IService
-        {
-            return ServiceManager.TryUnregisterService<T>(serviceName);
-        }
+        public static bool TryUnregisterService<T>(string serviceName) where T : IService => ServiceManager.TryUnregisterService<T>(serviceName);
 
         #endregion Unregistration
 
@@ -1061,7 +1013,7 @@ namespace XRTK.Services
         {
             if (rootProfile.IsNull())
             {
-                rootProfile = instance.activeProfile;
+                rootProfile = instance.ActiveProfile;
             }
 
             if (!rootProfile.IsNull())
@@ -1094,7 +1046,7 @@ namespace XRTK.Services
         {
             if (rootProfile.IsNull())
             {
-                rootProfile = instance.activeProfile;
+                rootProfile = instance.ActiveProfile;
             }
 
             if (!rootProfile.IsNull())
@@ -1137,7 +1089,7 @@ namespace XRTK.Services
         {
             if (!IsInitialized ||
                 IsApplicationQuitting ||
-                instance.activeProfile.IsNull())
+                instance.ActiveProfile.IsNull())
             {
                 return default;
             }
