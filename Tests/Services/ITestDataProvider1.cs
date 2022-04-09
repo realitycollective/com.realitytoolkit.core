@@ -2,11 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.ServiceFramework.Interfaces;
-using XRTK.Interfaces;
 
 namespace XRTK.Tests.Services
 {
-    internal interface ITestDataProvider1 : IServiceDataProvider
-    {
-    }
+    internal interface ITestDataProvider1 : IServiceDataProvider { }
 }

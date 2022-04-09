@@ -3,8 +3,6 @@
 
 using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Providers;
-using XRTK.Definitions;
-using XRTK.Services;
 
 namespace XRTK.Tests.Services
 {
@@ -12,8 +10,7 @@ namespace XRTK.Tests.Services
     {
         public TestDataProvider2(ITestService parentService, string name = "Test Data Provider 2", uint priority = 2, BaseProfile profile = null)
             : base(name, priority, profile, parentService)
-        {
-        }
+        { }
 
         public bool IsEnabled { get; private set; }
 

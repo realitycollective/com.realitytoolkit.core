@@ -9,8 +9,7 @@ namespace XRTK.Tests.Services
     {
         public TestService1(string name = "Test Service 1", uint priority = 0)
             : base(name, priority)
-        {
-        }
+        { }
 
         /// <inheritdoc />
         public bool IsEnabled { get; private set; }
