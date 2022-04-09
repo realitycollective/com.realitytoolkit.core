@@ -1,12 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.Utilities;
+using XRTK.Services.InputSystem.Processors;
 using Debug = UnityEngine.Debug;
 
 namespace XRTK.Tests.InputSystem

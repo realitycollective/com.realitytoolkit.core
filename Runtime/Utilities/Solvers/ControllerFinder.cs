@@ -6,10 +6,10 @@ using XRTK.Definitions.Utilities;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.InputSystem;
 using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
 using XRTK.Services;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// ControllerFinder is a base class providing simple event handling for getting/releasing MotionController Transforms.

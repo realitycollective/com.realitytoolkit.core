@@ -1,14 +1,15 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using RealityToolkit.ServiceFramework.Definitions;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using XRTK.Attributes;
 using XRTK.Definitions.Controllers.Hands;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers;
+using XRTK.Interfaces.InputSystem.Providers;
+using XRTK.Services.InputSystem.Providers;
 using CreateProfileMenuItemIndices = XRTK.Definitions.Utilities.CreateProfileMenuItemIndices;
 using TypeGrouping = XRTK.Definitions.Utilities.TypeGrouping;
 
@@ -34,6 +35,19 @@ namespace XRTK.Definitions.InputSystem
         {
             get => focusProviderType;
             internal set => focusProviderType = value;
+        }
+
+        [SerializeField]
+        [Tooltip("How should the gaze provider behave by default?")]
+        private GazeProviderBehaviour gazeProviderBehaviour = GazeProviderBehaviour.Auto;
+
+        /// <summary>
+        /// How should the gaze provider behave by default?
+        /// </summary>
+        public GazeProviderBehaviour GazeProviderBehaviour
+        {
+            get => gazeProviderBehaviour;
+            internal set => gazeProviderBehaviour = value;
         }
 
         [SerializeField]

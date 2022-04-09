@@ -11,11 +11,11 @@ using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Utilities;
 using XRTK.Editor.Data;
 using XRTK.Editor.PropertyDrawers;
-using XRTK.Extensions;
 using XRTK.Editor.Utilities;
-using XRTK.Interfaces.Providers.Controllers.Hands;
-using XRTK.Providers.Controllers.OpenVR;
-using XRTK.Providers.Controllers.UnityInput;
+using XRTK.Extensions;
+using XRTK.Interfaces.InputSystem.Controllers.Hands;
+using XRTK.Services.InputSystem.Controllers.OpenVR;
+using XRTK.Services.InputSystem.Controllers.UnityInput;
 
 namespace XRTK.Editor
 {

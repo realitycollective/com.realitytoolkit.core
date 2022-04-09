@@ -3,7 +3,7 @@
 
 using UnityEngine.EventSystems;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
 
 namespace XRTK.EventDatum.Input
 {

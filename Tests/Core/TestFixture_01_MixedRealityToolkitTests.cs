@@ -4,6 +4,7 @@
 using NUnit.Framework;
 using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Services;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -17,7 +18,7 @@ namespace XRTK.Tests.Core
 {
     public class TestFixture_01_MixedRealityToolkitTests
     {
-        #region Service Locator Tests
+        #region Service Locater Tests
 
         [Test]
         public void Test_01_InitializeMixedRealityToolkit()
@@ -54,7 +55,7 @@ namespace XRTK.Tests.Core
             Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
             Assert.IsNull(MixedRealityToolkit.Instance.ActiveProfile);
             Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
-            LogAssert.Expect(LogType.Error, $"No {nameof(ServiceManagerRootProfile)} found, cannot initialize the {nameof(MixedRealityToolkit)}");
+            LogAssert.Expect(LogType.Error, $"No {nameof(ServiceManagerRootProfile)} found, cannot initialize the {nameof(ServiceManager)}");
         }
 
         [Test]
@@ -64,10 +65,9 @@ namespace XRTK.Tests.Core
 
             // Tests
             Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count);
-            Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count);
         }
 
-        #endregion Service Locator Tests
+        #endregion Service Locater Tests
 
         #region IMixedRealityService Tests
 

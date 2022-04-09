@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// Applies acceleration/velocity/friction to simulate momentum for an object being moved by other solvers/components

@@ -9,10 +9,10 @@ using XRTK.Definitions.SpatialAwarenessSystem;
 using XRTK.EventDatum.SpatialAwarenessSystem;
 using XRTK.Extensions;
 using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.Providers.SpatialObservers;
 using XRTK.Interfaces.SpatialAwarenessSystem;
 using XRTK.Interfaces.SpatialAwarenessSystem.Handlers;
-using XRTK.Providers.SpatialObservers;
+using XRTK.Interfaces.SpatialObservers.Providers;
+using XRTK.Services.SpatialAwarenessSystem.SpatialObservers;
 using XRTK.Utilities;
 
 namespace XRTK.Services.SpatialAwarenessSystem

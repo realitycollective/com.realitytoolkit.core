@@ -16,7 +16,7 @@ using XRTK.Editor.Extensions;
 using XRTK.Editor.PropertyDrawers;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
-using XRTK.Providers.Controllers;
+using XRTK.Services.InputSystem.Controllers;
 
 namespace XRTK.Editor.Profiles.InputSystem.Controllers
 {

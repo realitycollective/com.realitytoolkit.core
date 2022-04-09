@@ -3,9 +3,8 @@
 
 using UnityEngine;
 using XRTK.Definitions.Utilities;
-using XRTK.Providers.Networking.Profiles;
 
-namespace XRTK.Providers.Networking.WebRTC
+namespace XRTK.Definitions.NetworkingSystem.WebRTC
 {
     /// <summary>
     /// The Web RTC Network provider profile configuration.

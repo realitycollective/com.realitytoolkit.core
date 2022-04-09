@@ -7,6 +7,7 @@ using UnityEngine;
 using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
+using XRTK.Services.InputSystem.Processors;
 
 namespace XRTK.Definitions.Devices
 {

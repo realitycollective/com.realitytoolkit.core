@@ -4,7 +4,7 @@
 using UnityEngine;
 using XRTK.Extensions;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// The base abstract class for all Solvers to derive from. It provides state tracking, smoothing parameters

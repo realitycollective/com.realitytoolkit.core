@@ -28,7 +28,6 @@ namespace XRTK.Editor.Utilities
     public static class PathFinderUtility
     {
         private const string CORE_PATH_FINDER = "/Editor/Utilities/CorePathFinder.cs";
-        private const string SDK_PATH_FINDER = "/Editor/SdkPathFinder.cs";
 
         private static readonly Dictionary<Type, string> PathFinderCache = new Dictionary<Type, string>();
         private static readonly Dictionary<string, string> ResolvedFinderCache = new Dictionary<string, string>();
@@ -145,45 +144,5 @@ namespace XRTK.Editor.Utilities
         private static string coreRelativeFolderPath = string.Empty;
 
         #endregion Core Paths
-
-        #region SDK Paths
-
-        /// <summary>
-        /// The absolute folder path to the Mixed Reality Toolkit's SDK in your project.
-        /// </summary>
-        public static string XRTK_SDK_AbsoluteFolderPath
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(sdkAbsoluteFolderPath))
-                {
-                    sdkAbsoluteFolderPath = Path.GetFullPath(XRTK_SDK_RelativeFolderPath);
-                }
-
-                return sdkAbsoluteFolderPath;
-            }
-        }
-
-        private static string sdkAbsoluteFolderPath = string.Empty;
-
-        /// <summary>
-        /// The relative folder path to the Mixed Reality Toolkit "com.xrtk.sdk" folder in relation to either the "Assets" or "Packages" folders.
-        /// </summary>
-        public static string XRTK_SDK_RelativeFolderPath
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(sdkRelativeFolderPath))
-                {
-                    sdkRelativeFolderPath = ResolvePath(SDK_PATH_FINDER);
-                }
-
-                return sdkRelativeFolderPath;
-            }
-        }
-
-        private static string sdkRelativeFolderPath = string.Empty;
-
-        #endregion SDK Paths
     }
 }

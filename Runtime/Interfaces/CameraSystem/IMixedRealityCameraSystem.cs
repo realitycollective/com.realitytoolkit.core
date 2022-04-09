@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using UnityEngine.XR;
 using XRTK.Services.CameraSystem;
 
 namespace XRTK.Interfaces.CameraSystem
@@ -26,16 +27,12 @@ namespace XRTK.Interfaces.CameraSystem
         /// </summary>
         TrackingType TrackingType { get; }
 
-#if XRTK_USE_LEGACYVR
         /// <summary>
-        /// Sets the <see cref="IMixedRealityCameraDataProvider.HeadHeight"/>. If <see cref="setForAllCameraProviders"/> is true, then it's set
-        /// for all <see cref="CameraDataProviders"/>, otherwise it only sets the <see cref="MainCameraRig"/>.
+        /// Gets the active <see cref="XRDisplaySubsystem"/> for the currently loaded
+        /// XR plugin / platform.
         /// </summary>
-        /// <param name="value">The height value to set.</param>
-        /// <param name="setForAllCameraProviders">If <see cref="setForAllCameraProviders"/> is true, then it's set
-        /// for all <see cref="CameraDataProviders"/>, otherwise it only sets the <see cref="MainCameraRig"/>.</param>
-        void SetHeadHeight(float value, bool setForAllCameraProviders = false);
-#endif
+        /// <remarks>The reference is lazy loaded once on first access and then cached for future use.</remarks>
+        XRDisplaySubsystem DisplaySubsystem { get; }
 
         /// <summary>
         /// Registers the <see cref="IMixedRealityCameraDataProvider"/> with the <see cref="IMixedRealityCameraSystem"/>.

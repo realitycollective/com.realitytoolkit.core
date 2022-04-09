@@ -7,7 +7,7 @@ using XRTK.Interfaces.CameraSystem;
 using XRTK.Services;
 using XRTK.Utilities;
 
-namespace XRTK.SDK.Utilities.Solvers
+namespace XRTK.Utilities.Solvers
 {
     /// <summary>
     /// Provides a solver that follows the TrackedObject/TargetTransform in an orbital motion.

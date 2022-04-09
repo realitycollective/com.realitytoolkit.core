@@ -60,7 +60,7 @@ namespace XRTK.Editor.Utilities
         private float smoothnessUniform = DEFAULT_UNIFORM_VALUE;
         private Material standardMaterial;
 
-        [MenuItem("Mixed Reality Toolkit/Tools/Channel Packer", false, 20)]
+        [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Tools/Channel Packer", false, 20)]
         private static void ShowWindow()
         {
             var window = GetWindow<ChannelPackerWindow>();

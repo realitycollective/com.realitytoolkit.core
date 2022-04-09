@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Services.LocomotionSystem
+namespace XRTK.Definitions.LocomotionSystem
 {
     /// <summary>
     /// Possible validation outcomes by the <see cref="Interfaces.LocomotionSystem.ITeleportValidationProvider"/>.

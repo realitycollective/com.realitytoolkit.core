@@ -9,7 +9,8 @@ using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
 using XRTK.EventDatum.Input;
 using XRTK.Interfaces.Events;
-using XRTK.Interfaces.Providers.Controllers;
+using XRTK.Interfaces.InputSystem.Controllers;
+using XRTK.Services.InputSystem.Providers;
 
 namespace XRTK.Interfaces.InputSystem
 {
@@ -108,6 +109,12 @@ namespace XRTK.Interfaces.InputSystem
         /// Clear all fallback input handlers off the stack.
         /// </summary>
         void ClearFallbackInputStack();
+
+        /// <summary>
+        /// Sets and updates the behaviour of the configured <see cref="IMixedRealityGazeProvider"/>.
+        /// </summary>
+        /// <param name="gazeProviderBehaviour">The new <see cref="GazeProviderBehaviour"/>.</param>
+        void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour);
 
         #region IMixedRealityController Utilities
 
