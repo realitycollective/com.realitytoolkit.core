@@ -236,11 +236,11 @@ namespace XRTK.Services
                 }
 #endif // UNITY_EDITOR
 
-                // if the Toolit has a profile, validate toolkit requirements and initialise services
+                // if the Toolkit has a profile, validate toolkit requirements and initialize services
                 if (HasActiveProfile)
                 {
                     EnsureMixedRealityRequirements();
-                    ServiceManager.Instance.InitializeServiceManager(ActiveProfile.ServiceConfigurations,ActiveProfile.ServiceProvidersProfile.ServiceConfigurations);
+                    ServiceManager.Instance.InitializeServiceManager();
                 }
             }
         }
