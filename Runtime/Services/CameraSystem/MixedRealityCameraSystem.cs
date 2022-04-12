@@ -21,7 +21,6 @@ namespace XRTK.Services.CameraSystem
             : base(profile) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        private readonly HashSet<IMixedRealityCameraDataProvider> cameraDataProviders = new HashSet<IMixedRealityCameraDataProvider>();
 
         /// <inheritdoc />
         public override uint Priority => 0;
@@ -30,11 +29,8 @@ namespace XRTK.Services.CameraSystem
         public override void Destroy()
         {
             base.Destroy();
-            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
+            Debug.Assert(DataProviders.Count == 0, "Failed to clean up camera data provider references!");
         }
-
-        /// <inheritdoc />
-        public IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders => cameraDataProviders;
 
         private IMixedRealityCameraRig mainCameraRig = null;
         /// <inheritdoc />
@@ -44,7 +40,7 @@ namespace XRTK.Services.CameraSystem
             {
                 if (mainCameraRig == null)
                 {
-                    foreach (var dataProvider in cameraDataProviders)
+                    foreach (IMixedRealityCameraDataProvider dataProvider in DataProviders)
                     {
                         if (dataProvider.CameraRig.PlayerCamera == CameraCache.Main)
                         {
@@ -62,7 +58,7 @@ namespace XRTK.Services.CameraSystem
         {
             get
             {
-                foreach (var dataProvider in cameraDataProviders)
+                foreach (IMixedRealityCameraDataProvider dataProvider in DataProviders)
                 {
                     if (dataProvider.CameraRig.PlayerCamera == CameraCache.Main)
                     {
@@ -103,11 +99,5 @@ namespace XRTK.Services.CameraSystem
                 return displaySubsystem;
             }
         }
-
-        /// <inheritdoc />
-        public void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Add(dataProvider);
-
-        /// <inheritdoc />
-        public void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Remove(dataProvider);
     }
 }

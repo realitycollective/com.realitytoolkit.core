@@ -8,7 +8,9 @@ namespace XRTK.Tests.Services
 {
     internal class TestDataProvider2 : BaseServiceDataProvider, ITestDataProvider2
     {
-        public TestDataProvider2(ITestService parentService, string name = "Test Data Provider 2", uint priority = 2, BaseProfile profile = null)
+        public const string TestName = "Test Data Provider 1";
+
+        public TestDataProvider2(ITestService parentService, string name = TestName, uint priority = 2, BaseProfile profile = null)
             : base(name, priority, profile, parentService)
         { }
 

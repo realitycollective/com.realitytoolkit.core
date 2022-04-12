@@ -121,8 +121,6 @@ namespace XRTK.Services.CameraSystem.Providers
         {
             base.Initialize();
 
-            cameraSystem.RegisterCameraDataProvider(this);
-
             if (!Application.isPlaying)
             {
                 return;
@@ -131,7 +129,7 @@ namespace XRTK.Services.CameraSystem.Providers
             EnsureCameraRigSetup();
 
             // We attempt to initialize the camera tracking origin, which might
-            // fail at this point if the subsytems are not ready, in which case,
+            // fail at this point if the subsystems are not ready, in which case,
             // we set a flag to keep trying.
             trackingOriginInitialized = SetupTrackingOrigin();
             trackingOriginInitializing = !trackingOriginInitialized;
@@ -199,7 +197,7 @@ namespace XRTK.Services.CameraSystem.Providers
 
             // We keep trying to initialize the tracking origin,
             // until it worked, because at application launch the
-            // subsytems might not be ready yet.
+            // subsystems might not be ready yet.
             if (trackingOriginInitializing && !trackingOriginInitialized)
             {
                 trackingOriginInitialized = SetupTrackingOrigin();
@@ -249,14 +247,6 @@ namespace XRTK.Services.CameraSystem.Providers
             {
                 component.Destroy();
             }
-        }
-
-        /// <inheritdoc />
-        public override void Destroy()
-        {
-            base.Destroy();
-
-            cameraSystem.UnRegisterCameraDataProvider(this);
         }
 
         #endregion IMixedRealitySerivce Implementation

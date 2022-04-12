@@ -668,13 +668,6 @@ namespace XRTK.Services
         /// <param name="serviceInstance">The instance of the <see cref="IMixedRealityService"/> to remove.</param>
         public static bool TryUnregisterService<T>(T serviceInstance) where T : IService => ServiceManager.TryUnregisterService<T>(serviceInstance);
 
-
-        /// <summary>
-        /// Removes a specific service with the provided name.
-        /// </summary>
-        /// <param name="serviceName">The name of the service to be removed. (Only for runtime services) </param>
-        public static bool TryUnregisterService<T>(string serviceName) where T : IService => ServiceManager.TryUnregisterService<T>(serviceName);
-
         #endregion Unregistration
 
         #region Multiple Service Management
@@ -888,15 +881,7 @@ namespace XRTK.Services
         /// <param name="serviceName">Name of the specific service.</param>
         /// <param name="showLogs">Should the logs show when services cannot be found?</param>
         /// <returns>The instance of the <see cref="IMixedRealityService"/> that is registered.</returns>
-        private static IService GetService(Type interfaceType, string serviceName, bool showLogs = true)
-        {
-            if (!GetServiceByNameInternal(interfaceType, serviceName, out var serviceInstance) && showLogs)
-            {
-                Debug.LogError($"Unable to find {(string.IsNullOrWhiteSpace(serviceName) ? interfaceType.Name : serviceName)} service.");
-            }
-
-            return serviceInstance;
-        }
+        private static IService GetService(Type interfaceType, string serviceName, bool showLogs = true) => ServiceManager.GetService(interfaceType, serviceName, showLogs);
 
         /// <summary>
         /// Retrieve the first <see cref="IMixedRealityService"/> from the <see cref="RegisteredMixedRealityServices"/> that meets the selected type and name.
