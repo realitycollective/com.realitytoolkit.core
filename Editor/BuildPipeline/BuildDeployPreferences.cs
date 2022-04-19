@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
 using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Platforms;
 using XRTK.Editor.Utilities;
 
 namespace XRTK.Editor.BuildPipeline

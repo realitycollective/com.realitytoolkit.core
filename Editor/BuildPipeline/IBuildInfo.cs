@@ -1,12 +1,12 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using XRTK.Interfaces;
 
 namespace XRTK.Editor.BuildPipeline
 {
@@ -89,7 +89,7 @@ namespace XRTK.Editor.BuildPipeline
         /// <summary>
         /// The <see cref="IMixedRealityPlatform"/> to build to.
         /// </summary>
-        IMixedRealityPlatform BuildPlatform { get; }
+        IPlatform BuildPlatform { get; }
 
         /// <summary>
         /// Optional parameter to set the player's <see cref="ColorSpace"/>

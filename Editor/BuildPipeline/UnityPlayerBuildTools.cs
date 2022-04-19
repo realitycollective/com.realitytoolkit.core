@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using JetBrains.Annotations;
+using RealityToolkit.ServiceFramework.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +14,6 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using XRTK.Attributes;
 using XRTK.Editor.BuildPipeline.Logging;
 using XRTK.Editor.Extensions;
 using XRTK.Editor.Utilities;

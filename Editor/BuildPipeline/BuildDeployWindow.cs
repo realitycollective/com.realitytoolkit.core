@@ -1,6 +1,9 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,11 +12,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
-using XRTK.Definitions.Platforms;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
-using XRTK.Interfaces;
-using XRTK.Services;
 using Debug = UnityEngine.Debug;
 
 namespace XRTK.Editor.BuildPipeline
@@ -23,17 +23,17 @@ namespace XRTK.Editor.BuildPipeline
         private bool isBuilding;
         private int platformIndex = -1;
 
-        private readonly List<IMixedRealityPlatform> platforms = new List<IMixedRealityPlatform>();
+        private readonly List<IPlatform> platforms = new List<IPlatform>();
 
-        private List<IMixedRealityPlatform> Platforms
+        private List<IPlatform> Platforms
         {
             get
             {
                 if (platforms.Count == 0)
                 {
-                    for (int i = 0; i < MixedRealityToolkit.AvailablePlatforms.Count; i++)
+                    for (int i = 0; i < ServiceManager.AvailablePlatforms.Count; i++)
                     {
-                        var availablePlatform = MixedRealityToolkit.AvailablePlatforms[i];
+                        var availablePlatform = ServiceManager.AvailablePlatforms[i];
 
                         if (availablePlatform is AllPlatforms ||
                             availablePlatform is EditorPlatform ||

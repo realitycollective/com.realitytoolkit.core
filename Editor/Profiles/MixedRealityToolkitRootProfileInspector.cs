@@ -1,15 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Services;
 using System.Collections.Generic;
 using System.Linq;
-using RealityToolkit.ServiceFramework.Definitions;
-using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.PackageManager;
 using UnityEngine;
-using XRTK.Definitions.Platforms;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces;
@@ -30,15 +31,15 @@ namespace XRTK.Editor.Profiles
         private readonly GUIContent profileLabel = new GUIContent("Profile");
 
         private int platformIndex;
-        private readonly List<IMixedRealityPlatform> platforms = new List<IMixedRealityPlatform>();
+        private readonly List<IPlatform> platforms = new List<IPlatform>();
 
-        private List<IMixedRealityPlatform> Platforms
+        private List<IPlatform> Platforms
         {
             get
             {
                 if (platforms.Count == 0)
                 {
-                    foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
+                    foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
                     {
                         if (availablePlatform is AllPlatforms ||
                             availablePlatform is EditorPlatform ||

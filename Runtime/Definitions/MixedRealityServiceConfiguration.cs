@@ -17,12 +17,12 @@ namespace XRTK.Definitions
     {
         /// <inheritdoc />
         public MixedRealityServiceConfiguration(IMixedRealityServiceConfiguration configuration)
-            : base(configuration.ServiceConfiguration.InstancedType, configuration.ServiceConfiguration.Name, configuration.ServiceConfiguration.Priority, configuration.RuntimePlatforms, configuration.ServiceConfiguration.Profile)
+            : base(configuration.ServiceConfiguration.InstancedType, configuration.ServiceConfiguration.Name, configuration.ServiceConfiguration.Priority, configuration.ServiceConfiguration.RuntimePlatforms, configuration.ServiceConfiguration.Profile)
         {
         }
 
         /// <inheritdoc />
-        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, BaseProfile profile)
+        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IPlatform> runtimePlatforms, BaseProfile profile)
             : base(instancedType, name, priority, runtimePlatforms, profile)
         {
         }
@@ -48,13 +48,13 @@ namespace XRTK.Definitions
         /// <param name="priority">The priority this <see cref="IMixedRealityService"/> will be initialized in.</param>
         /// <param name="runtimePlatforms">runtimePlatform">The runtime platform(s) to run this <see cref="IMixedRealityService"/> to run on.</param>
         /// <param name="profile">The <see cref="BaseMixedRealityProfile"/> for <see cref="IMixedRealityService"/>.</param>
-        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IMixedRealityPlatform> runtimePlatforms, BaseProfile profile)
+        public MixedRealityServiceConfiguration(SystemType instancedType, string name, uint priority, IReadOnlyList<IPlatform> runtimePlatforms, BaseProfile profile)
         {
             ServiceConfiguration = new ServiceConfiguration(instancedType, name, priority, profile);
             
             if (runtimePlatforms != null)
             {
-                this.runtimePlatforms = new List<IMixedRealityPlatform>(runtimePlatforms.Count);
+                this.runtimePlatforms = new List<IPlatform>(runtimePlatforms.Count);
 
                 for (int i = 0; i < runtimePlatforms.Count; i++)
                 {
@@ -71,10 +71,10 @@ namespace XRTK.Definitions
         private RuntimePlatformEntry platformEntries = new RuntimePlatformEntry();
 
         [NonSerialized]
-        private List<IMixedRealityPlatform> runtimePlatforms = null;
+        private List<IPlatform> runtimePlatforms = null;
         
         /// <inheritdoc />
-        public IReadOnlyList<IMixedRealityPlatform> RuntimePlatforms
+        public IReadOnlyList<IPlatform> RuntimePlatforms
         {
             get
             {
@@ -82,7 +82,7 @@ namespace XRTK.Definitions
                     runtimePlatforms.Count == 0 ||
                     runtimePlatforms.Count != platformEntries?.RuntimePlatforms?.Length)
                 {
-                    runtimePlatforms = new List<IMixedRealityPlatform>();
+                    runtimePlatforms = new List<IPlatform>();
 
                     for (int i = 0; i < platformEntries?.RuntimePlatforms?.Length; i++)
                     {
@@ -93,11 +93,11 @@ namespace XRTK.Definitions
                             continue;
                         }
 
-                        IMixedRealityPlatform platformInstance;
+                        IPlatform platformInstance;
 
                         try
                         {
-                            platformInstance = Activator.CreateInstance(platformType) as IMixedRealityPlatform;
+                            platformInstance = Activator.CreateInstance(platformType) as IPlatform;
                         }
                         catch (Exception e)
                         {

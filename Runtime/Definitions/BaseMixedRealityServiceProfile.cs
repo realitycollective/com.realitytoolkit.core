@@ -73,7 +73,7 @@ namespace XRTK.Definitions
                     {
                         var serviceConfig = serviceConfigurations[i];
                         Debug.Assert(serviceConfig != null);
-                        var newConfig = new MixedRealityServiceConfiguration(serviceConfig.ServiceConfiguration.InstancedType, serviceConfig.ServiceConfiguration.Name, serviceConfig.ServiceConfiguration.Priority, serviceConfig.RuntimePlatforms, serviceConfig.ServiceConfiguration.Profile);
+                        var newConfig = new MixedRealityServiceConfiguration(serviceConfig.ServiceConfiguration.InstancedType, serviceConfig.ServiceConfiguration.Name, serviceConfig.ServiceConfiguration.Priority, serviceConfig.ServiceConfiguration.RuntimePlatforms, serviceConfig.ServiceConfiguration.Profile);
                         Debug.Assert(newConfig != null);
                         configurations[i] = newConfig;
                     }

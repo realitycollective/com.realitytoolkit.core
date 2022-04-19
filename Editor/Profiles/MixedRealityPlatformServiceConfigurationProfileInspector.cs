@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.ServiceFramework.Attributes;
+using RealityToolkit.ServiceFramework.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RealityToolkit.ServiceFramework.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Attributes;
 using XRTK.Definitions;
 using XRTK.Editor.Data;
 using XRTK.Editor.Extensions;

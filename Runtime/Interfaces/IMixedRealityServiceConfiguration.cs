@@ -22,10 +22,5 @@ namespace XRTK.Interfaces
     public interface IMixedRealityServiceConfiguration
     {
         ServiceConfiguration ServiceConfiguration { get; }
-
-        /// <summary>
-        /// The runtime platform(s) to run this <see cref="IMixedRealityService"/> to run on.
-        /// </summary>
-        IReadOnlyList<IMixedRealityPlatform> RuntimePlatforms { get; }
     }
 }

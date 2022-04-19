@@ -2,12 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Controllers.UnityInput.Profiles;
-using XRTK.Definitions.Platforms;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces;
@@ -27,7 +28,7 @@ namespace XRTK.Tests.Core
             MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile = ScriptableObject.CreateInstance<MixedRealityRegisteredServiceProvidersProfile>();
         }
 
-        private readonly List<IMixedRealityPlatform> testPlatforms = new List<IMixedRealityPlatform> { new EditorPlatform(), new WindowsStandalonePlatform() };
+        private readonly List<IPlatform> testPlatforms = new List<IPlatform> { new EditorPlatform(), new WindowsStandalonePlatform() };
 
         [Test]
         public void Test_01_ConfirmExtensionServiceProviderConfigurationNotPresent()

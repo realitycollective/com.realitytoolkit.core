@@ -1,19 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.Utilities.SymbolicLinks;
 using XRTK.Editor.Extensions;
-using XRTK.Extensions;
 using XRTK.Editor.Utilities;
-using XRTK.Interfaces;
-using XRTK.Services;
+using XRTK.Editor.Utilities.SymbolicLinks;
+using XRTK.Extensions;
 
 namespace XRTK.Editor
 {
@@ -278,12 +278,12 @@ namespace XRTK.Editor
 
         private static bool isCurrentPlatformPreferenceLoaded;
 
-        private static IMixedRealityPlatform currentPlatformTarget = null;
+        private static IPlatform currentPlatformTarget = null;
 
         /// <summary>
         /// The current <see cref="IMixedRealityPlatform"/> target.
         /// </summary>
-        public static IMixedRealityPlatform CurrentPlatformTarget
+        public static IPlatform CurrentPlatformTarget
         {
             get
             {
@@ -291,11 +291,11 @@ namespace XRTK.Editor
                 {
                     isCurrentPlatformPreferenceLoaded = true;
 
-                    MixedRealityToolkit.CheckPlatforms();
+                    ServiceManager.CheckPlatforms();
 
                     if (TypeExtensions.TryResolveType(EditorPreferences.Get(nameof(CurrentPlatformTarget), Guid.Empty.ToString()), out var platform))
                     {
-                        foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
+                        foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
                         {
                             if (availablePlatform is AllPlatforms ||
                                 availablePlatform is EditorPlatform ||
@@ -314,9 +314,9 @@ namespace XRTK.Editor
 
                     if (currentPlatformTarget == null)
                     {
-                        var possibleBuildTargets = new List<IMixedRealityPlatform>();
+                        var possibleBuildTargets = new List<IPlatform>();
 
-                        foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
+                        foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
                         {
                             if (availablePlatform is AllPlatforms ||
                                 availablePlatform is EditorPlatform ||
