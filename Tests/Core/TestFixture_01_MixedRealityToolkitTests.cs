@@ -700,9 +700,9 @@ namespace XRTK.Tests.Core
             TestUtilities.InitializeMixedRealityToolkitScene(false);
 
             // Add test 1 services
-            MixedRealityToolkit.TryRegisterService<ITestExtensionService1>(new TestExtensionService1());
-            var testService1 = MixedRealityToolkit.GetService<ITestExtensionService1>();
-            MixedRealityToolkit.TryRegisterService<ITestExtensionDataProvider1>(new TestExtensionDataProvider1(testService1));
+            MixedRealityToolkit.TryRegisterService<ITestService>(new TestService1());
+            var testService1 = MixedRealityToolkit.GetService<ITestService>();
+            MixedRealityToolkit.TryRegisterService<ITestDataProvider1>(new TestDataProvider1(testService1));
 
             // Add test 2 services
             MixedRealityToolkit.TryRegisterService<ITestExtensionService2>(new TestExtensionService2());
@@ -753,7 +753,7 @@ namespace XRTK.Tests.Core
             // Register test system 2
             var testSystem2Success = MixedRealityToolkit.TryRegisterService<ITestSystem>(new TestSystem2(testProfile));
 
-            LogAssert.Expect(LogType.Error, $"There's already a {nameof(ITestSystem)}.{nameof(TestSystem1)} registered!");
+            LogAssert.Expect(LogType.Error, $"There is already a [{nameof(ITestSystem)}.{nameof(TestSystem1)}] registered!");
             Assert.IsFalse(testSystem2Success);
         }
 
