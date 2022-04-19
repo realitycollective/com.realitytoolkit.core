@@ -15,7 +15,7 @@ namespace XRTK.Services.InputSystem.Listeners
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityInputSystem>());
 
         private bool lateInitialize = true;
 

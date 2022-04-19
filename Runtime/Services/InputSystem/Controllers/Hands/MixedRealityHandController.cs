@@ -59,7 +59,7 @@ namespace XRTK.Services.InputSystem.Controllers.Hands
         private static IMixedRealityCameraSystem cameraSystem = null;
 
         private static IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystem<IMixedRealityCameraSystem>());
+            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityCameraSystem>());
 
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =

@@ -34,7 +34,7 @@ namespace XRTK.Services.InputSystem.Handlers
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityInputSystem>());
 
         private IMixedRealityFocusProvider focusProvider = null;
 

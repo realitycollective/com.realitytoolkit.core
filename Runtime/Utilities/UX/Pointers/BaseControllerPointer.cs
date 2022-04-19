@@ -146,12 +146,12 @@ namespace XRTK.Utilities.UX.Pointers
         private ILocomotionSystem locomotionSystem = null;
 
         protected ILocomotionSystem LocomotionSystem
-            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetSystem<ILocomotionSystem>());
+            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetSystemCached<ILocomotionSystem>());
 
         private IMixedRealityCameraSystem cameraSystem = null;
 
         protected IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystem<IMixedRealityCameraSystem>());
+            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityCameraSystem>());
 
         #region MonoBehaviour Implementation
 

@@ -5,8 +5,5 @@ using RealityToolkit.ServiceFramework.Interfaces;
 
 namespace XRTK.Tests.Services
 {
-    internal interface ITestService : IService
-    {
-        bool IsEnabled { get; }
-    }
+    internal interface ITestService : IService { }
 }

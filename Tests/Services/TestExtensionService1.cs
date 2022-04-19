@@ -12,26 +12,5 @@ namespace XRTK.Tests.Services
             : base(name, priority, profile)
         {
         }
-
-        public bool IsEnabled { get; private set; }
-
-        public override void Enable()
-        {
-            base.Enable();
-
-            IsEnabled = true;
-        }
-
-        public override void Disable()
-        {
-            base.Disable();
-
-            IsEnabled = false;
-        }
-
-        public override void Destroy()
-        {
-            base.Destroy();
-        }
     }
 }

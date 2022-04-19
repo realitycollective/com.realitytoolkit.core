@@ -8,24 +8,20 @@ namespace XRTK.Tests.Services
 {
     internal class TestDataProvider2 : BaseServiceDataProvider, ITestDataProvider2
     {
-        public const string TestName = "Test Data Provider 1";
+        public const string TestName = "Test Data Provider 2";
 
         public TestDataProvider2(ITestService parentService, string name = TestName, uint priority = 2, BaseProfile profile = null)
             : base(name, priority, profile, parentService)
         { }
 
-        public bool IsEnabled { get; private set; }
-
         public override void Enable()
         {
             base.Enable();
-            IsEnabled = true;
         }
 
         public override void Disable()
         {
             base.Disable();
-            IsEnabled = false;
         }
     }
 }

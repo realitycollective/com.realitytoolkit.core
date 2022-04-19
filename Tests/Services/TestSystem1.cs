@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.ServiceFramework.Definitions;
-using XRTK.Definitions;
 using XRTK.Services;
 
 namespace XRTK.Tests.Services

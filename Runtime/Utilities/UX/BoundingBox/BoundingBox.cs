@@ -530,7 +530,7 @@ namespace XRTK.Utilities.UX
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityInputSystem>());
 
         private ManipulationHandler manipulationHandler;
 

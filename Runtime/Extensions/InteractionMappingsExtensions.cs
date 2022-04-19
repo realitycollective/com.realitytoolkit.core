@@ -16,7 +16,7 @@ namespace XRTK.Extensions
         private static IMixedRealityInputSystem inputSystem = null;
 
         private static IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityInputSystem>());
 
         /// <summary>
         /// Raise the actions to the input system.

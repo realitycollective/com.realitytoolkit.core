@@ -21,7 +21,7 @@ namespace XRTK.Services.InputSystem.Controllers.Simulation.Hands
         private static IMixedRealityCameraSystem cameraSystem = null;
 
         private static IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystem<IMixedRealityCameraSystem>());
+            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystemCached<IMixedRealityCameraSystem>());
 
         private static Camera playerCamera = null;
 

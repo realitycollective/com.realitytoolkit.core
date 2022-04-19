@@ -29,7 +29,7 @@ namespace XRTK.Services.LocomotionSystem
         /// Gets the currently active <see cref="Services.LocomotionSystem.LocomotionSystem"/> instance.
         /// </summary>
         protected LocomotionSystem LocomotionSystem
-            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetSystem<ILocomotionSystem>() as LocomotionSystem);
+            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetSystemCached<ILocomotionSystem>() as LocomotionSystem);
 
         /// <summary>
         /// This method is called just before any of the update methods is called the first time.

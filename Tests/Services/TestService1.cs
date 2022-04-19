@@ -12,18 +12,5 @@ namespace XRTK.Tests.Services
         public TestService1(string name = TestName, uint priority = 0)
             : base(name, priority)
         { }
-
-        /// <inheritdoc />
-        public bool IsEnabled { get; private set; }
-
-        public override void Enable()
-        {
-            IsEnabled = true;
-        }
-
-        public override void Disable()
-        {
-            IsEnabled = false;
-        }
     }
 }
