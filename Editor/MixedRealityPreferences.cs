@@ -14,6 +14,7 @@ using XRTK.Editor.Extensions;
 using XRTK.Editor.Utilities;
 using XRTK.Editor.Utilities.SymbolicLinks;
 using XRTK.Extensions;
+using XRTK.Services;
 
 namespace XRTK.Editor
 {
@@ -291,11 +292,11 @@ namespace XRTK.Editor
                 {
                     isCurrentPlatformPreferenceLoaded = true;
 
-                    ServiceManager.CheckPlatforms();
+                    MixedRealityToolkit.CheckPlatforms();
 
                     if (TypeExtensions.TryResolveType(EditorPreferences.Get(nameof(CurrentPlatformTarget), Guid.Empty.ToString()), out var platform))
                     {
-                        foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
+                        foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
                         {
                             if (availablePlatform is AllPlatforms ||
                                 availablePlatform is EditorPlatform ||
@@ -316,7 +317,7 @@ namespace XRTK.Editor
                     {
                         var possibleBuildTargets = new List<IPlatform>();
 
-                        foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
+                        foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
                         {
                             if (availablePlatform is AllPlatforms ||
                                 availablePlatform is EditorPlatform ||

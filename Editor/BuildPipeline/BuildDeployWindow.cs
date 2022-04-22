@@ -3,7 +3,6 @@
 
 using RealityToolkit.ServiceFramework.Definitions.Platforms;
 using RealityToolkit.ServiceFramework.Interfaces;
-using RealityToolkit.ServiceFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +13,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using XRTK.Editor.Utilities;
 using XRTK.Extensions;
+using XRTK.Services;
 using Debug = UnityEngine.Debug;
 
 namespace XRTK.Editor.BuildPipeline
@@ -31,9 +31,9 @@ namespace XRTK.Editor.BuildPipeline
             {
                 if (platforms.Count == 0)
                 {
-                    for (int i = 0; i < ServiceManager.AvailablePlatforms.Count; i++)
+                    for (int i = 0; i < MixedRealityToolkit.AvailablePlatforms.Count; i++)
                     {
-                        var availablePlatform = ServiceManager.AvailablePlatforms[i];
+                        var availablePlatform = MixedRealityToolkit.AvailablePlatforms[i];
 
                         if (availablePlatform is AllPlatforms ||
                             availablePlatform is EditorPlatform ||

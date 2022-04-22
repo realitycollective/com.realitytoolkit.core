@@ -4,10 +4,10 @@
 using RealityToolkit.ServiceFramework.Attributes;
 using RealityToolkit.ServiceFramework.Definitions.Platforms;
 using RealityToolkit.ServiceFramework.Interfaces;
-using RealityToolkit.ServiceFramework.Services;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
+using XRTK.Services;
 
 namespace XRTK.Editor.BuildPipeline
 {
@@ -26,7 +26,7 @@ namespace XRTK.Editor.BuildPipeline
         /// <inheritdoc />
         public override void OnPreProcessBuild(BuildReport report)
         {
-            if (!ServiceManager.ActivePlatforms.Contains(BuildPlatform) ||
+            if (!MixedRealityToolkit.ActivePlatforms.Contains(BuildPlatform) ||
                 EditorUserBuildSettings.activeBuildTarget != BuildTarget)
             {
                 return;
