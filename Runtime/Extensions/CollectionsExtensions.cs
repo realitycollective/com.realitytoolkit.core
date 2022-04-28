@@ -162,6 +162,7 @@ namespace XRTK.Extensions
 
             return false;
         }
+        
         /// <summary>
         /// Validate if a list contains an item and add it if not found
         /// </summary>
