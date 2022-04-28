@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Utilities;
-using XRTK.Editor.Extensions;
+using XRTK.Extensions;
 
 namespace XRTK.Editor.PropertyDrawers
 {

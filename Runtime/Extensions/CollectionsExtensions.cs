@@ -162,5 +162,18 @@ namespace XRTK.Extensions
 
             return false;
         }
+        /// <summary>
+        /// Validate if a list contains an item and add it if not found
+        /// </summary>
+        /// <typeparam name="T">Data type used in the List</typeparam>
+        /// <param name="list">The instance of the List to validate</param>
+        /// <param name="item"></param>
+        public static void EnsureListItem<T>(this IList<T> list, T item)
+        {
+            if (!list.Contains(item))
+            {
+                list.Add(item);
+            }
+        }
     }
 }
