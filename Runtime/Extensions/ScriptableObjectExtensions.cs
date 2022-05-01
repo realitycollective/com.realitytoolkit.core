@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Editor.Extensions
+namespace XRTK.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="ScriptableObject"/>s
@@ -44,14 +44,14 @@ namespace XRTK.Editor.Extensions
         /// <param name="unique">Is the new asset unique, or can we make copies?</param>
         public static T CreateAsset<T>(this T scriptableObject, string path, string fileName, bool ping, bool unique = true) where T : ScriptableObject
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentNullException("You have not supplied the path to create the asset in");
+            }
+
             var name = string.IsNullOrEmpty(fileName) ? $"{scriptableObject.GetType().Name}" : fileName;
 
             name = name.Replace(" ", string.Empty);
-
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                path = MixedRealityPreferences.ProfileGenerationPath;
-            }
 
             path = path.Replace(".asset", string.Empty);
 

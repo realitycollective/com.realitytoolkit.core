@@ -8,7 +8,7 @@ using UnityEngine;
 using XRTK.Definitions;
 using XRTK.Definitions.LocomotionSystem;
 using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Editor.Extensions;
+using XRTK.Extensions;
 using XRTK.Services;
 
 namespace XRTK.Tests
