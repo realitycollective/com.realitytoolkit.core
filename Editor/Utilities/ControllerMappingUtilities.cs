@@ -3,14 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     /// <summary>
     /// Helper utility for managing controller mappings in the editor.

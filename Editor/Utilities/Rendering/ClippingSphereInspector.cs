@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using RealityToolkit.Utilities.Rendering;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Utilities.Rendering;
 
-namespace XRTK.Editor.Rendering
+namespace RealityToolkit.Editor.Rendering
 {
     [CustomEditor(typeof(ClippingSphere))]
     public class ClippingSphereEditor : UnityEditor.Editor

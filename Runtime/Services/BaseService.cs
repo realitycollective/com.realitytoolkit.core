@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using XRTK.Interfaces;
+using RealityToolkit.Interfaces;
 
-namespace XRTK.Services
+namespace RealityToolkit.Services
 {
     /// <summary>
     /// The base service implements <see cref="IMixedRealityService"/> and provides default properties for all services.

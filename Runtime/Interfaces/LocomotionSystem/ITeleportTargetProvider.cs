@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
 
-namespace XRTK.Interfaces.LocomotionSystem
+namespace RealityToolkit.Interfaces.LocomotionSystem
 {
     /// <summary>
     /// Interface definition for components and services providing teleportation targets for

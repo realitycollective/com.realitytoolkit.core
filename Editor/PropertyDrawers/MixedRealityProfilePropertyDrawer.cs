@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Services;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.PropertyDrawers
+namespace RealityToolkit.Editor.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(BaseMixedRealityProfile), true)]
     public class MixedRealityProfilePropertyDrawer : PropertyDrawer

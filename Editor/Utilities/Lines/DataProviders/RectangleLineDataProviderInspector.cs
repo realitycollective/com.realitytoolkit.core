@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Utilities.Lines.DataProviders;
 
-namespace XRTK.Editor.Utilities.Lines.DataProviders
+namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(RectangleLineDataProvider))]
     public class RectangleLineDataProviderInspector : BaseMixedRealityLineDataProviderInspector

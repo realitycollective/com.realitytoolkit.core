@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Utilities.UX.Collections
+namespace RealityToolkit.Utilities.UX.Collections
 {
     [DisallowMultipleComponent]
     public abstract class BaseObjectCollection : MonoBehaviour

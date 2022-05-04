@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Lines.Renderers
+namespace RealityToolkit.Utilities.Lines.Renderers
 {
     /// <summary>
     /// attaches a set of particles to the line

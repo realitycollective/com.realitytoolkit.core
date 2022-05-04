@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extension methods for the .Net IEnumerable class

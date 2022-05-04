@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Interfaces.InputSystem.Controllers
+namespace RealityToolkit.Interfaces.InputSystem.Controllers
 {
     public interface IMixedRealitySimulatedController : IMixedRealityController
     {

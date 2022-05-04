@@ -30,14 +30,14 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RealityToolkit.Services;
+using RealityToolkit.Utilities.Async.AwaitYieldInstructions;
+using RealityToolkit.Utilities.Async.Internal;
 using UnityEngine;
-using XRTK.Extensions;
-using XRTK.Services;
-using XRTK.Utilities.Async.AwaitYieldInstructions;
-using XRTK.Utilities.Async.Internal;
+using RealityToolkit.Extensions;
 using Object = UnityEngine.Object;
 
-namespace XRTK.Utilities.Async
+namespace RealityToolkit.Utilities.Async
 {
     /// <summary>
     /// We could just add a generic GetAwaiter to YieldInstruction and CustomYieldInstruction

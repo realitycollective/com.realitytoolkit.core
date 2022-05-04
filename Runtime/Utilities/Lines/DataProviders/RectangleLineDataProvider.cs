@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Lines.DataProviders
+namespace RealityToolkit.Utilities.Lines.DataProviders
 {
     /// <summary>
     /// Defines a line in the shape of a rectangle.

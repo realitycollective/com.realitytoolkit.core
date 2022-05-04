@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Definitions.Controllers
+namespace RealityToolkit.Definitions.Controllers
 {
     [Serializable]
     public struct ControllerDefinition
     {
-        public ControllerDefinition(SystemType controllerType, Handedness handedness = Handedness.None, bool useCustomInteractions = false)
+        public ControllerDefinition(SystemType controllerType, Handedness handedness = this.Handedness.None, bool useCustomInteractions = false)
         {
             ControllerType = controllerType;
             Handedness = handedness;
@@ -19,7 +19,7 @@ namespace XRTK.Definitions.Controllers
 
             if (ControllerType?.Type != null)
             {
-                if (handedness == Handedness.Right || handedness == Handedness.Left)
+                if (handedness == this.Handedness.Right || handedness == this.Handedness.Left)
                 {
                     description = $"{handedness}{ControllerType.Type.Name}";
                 }
@@ -32,7 +32,7 @@ namespace XRTK.Definitions.Controllers
             Description = description;
         }
 
-        public ControllerDefinition(string description, SystemType controllerType, Handedness handedness = Handedness.None, bool useCustomInteractions = false)
+        public ControllerDefinition(string description, SystemType controllerType, Handedness handedness = this.Handedness.None, bool useCustomInteractions = false)
             : this(controllerType, handedness, useCustomInteractions)
         {
             Description = description;

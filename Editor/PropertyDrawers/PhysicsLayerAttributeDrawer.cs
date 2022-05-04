@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Attributes;
+using RealityToolkit.Editor.Utilities;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Editor.Utilities;
 
-namespace XRTK.Editor.PropertyDrawers
+namespace RealityToolkit.Editor.PropertyDrawers
 {
     /// <summary>
     /// Renders the physics layer dropdown based on the current layers set in the Tag Manager.

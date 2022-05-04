@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Definitions
+namespace RealityToolkit.Definitions
 {
     [Flags]
     public enum InteractionMode

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Utilities;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Utilities;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     [CustomEditor(typeof(HoverLight))]
     public class HoverLightInspector : UnityEditor.Editor

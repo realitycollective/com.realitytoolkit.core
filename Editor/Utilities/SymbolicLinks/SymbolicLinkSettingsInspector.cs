@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Editor.Utilities.SymbolicLinks
+namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {
     [CustomEditor(typeof(SymbolicLinkSettings))]
     public class SymbolicLinkSettingsInspector : UnityEditor.Editor

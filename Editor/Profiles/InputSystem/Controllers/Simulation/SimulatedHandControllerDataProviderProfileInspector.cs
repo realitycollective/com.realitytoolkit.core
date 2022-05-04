@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Simulation.Hands;
+using RealityToolkit.Editor.Extensions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Controllers.Simulation.Hands;
-using XRTK.Editor.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem.Controllers.Simulation
+namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers.Simulation
 {
     [CustomEditor(typeof(SimulatedHandControllerDataProviderProfile))]
     public class SimulatedHandControllerDataProviderProfileInspector : SimulatedControllerDataProviderProfileInspector

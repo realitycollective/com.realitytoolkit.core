@@ -3,18 +3,18 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.InputSystem;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Profiles.InputSystem.Controllers;
-using XRTK.Extensions;
-using XRTK.Services;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealityInputSystemProfile))]
     public class MixedRealityInputSystemProfileInspector : MixedRealityServiceProfileInspector

@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XRTK.Editor.Utilities.SymbolicLinks
+namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {
     /// <summary>
     /// Holds the current symbolic link references in the project

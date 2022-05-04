@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.Devices
+namespace RealityToolkit.Definitions.Devices
 {
     // TODO - currently not used, consider removing maybe?
     /// <summary>

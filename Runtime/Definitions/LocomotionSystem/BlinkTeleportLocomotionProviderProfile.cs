@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.LocomotionSystem
+namespace RealityToolkit.Definitions.LocomotionSystem
 {
     /// <summary>
     /// Configuration profile for the <see cref="Providers.LocomotionSystem.BlinkTeleportLocomotionProvider"/>.

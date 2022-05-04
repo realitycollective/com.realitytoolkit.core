@@ -2,16 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Providers;
+using RealityToolkit.Services.InputSystem.Providers;
 using UnityEngine;
 using UnityEngine.Serialization;
-using XRTK.Attributes;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Providers;
-using XRTK.Services.InputSystem.Providers;
 
-namespace XRTK.Definitions.InputSystem
+namespace RealityToolkit.Definitions.InputSystem
 {
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.

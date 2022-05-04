@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces;
 
-namespace XRTK.Definitions
+namespace RealityToolkit.Definitions
 {
     [Serializable]
     public class RuntimePlatformEntry

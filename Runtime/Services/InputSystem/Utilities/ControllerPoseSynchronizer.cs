@@ -1,17 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services.InputSystem.Listeners;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Services.InputSystem.Listeners;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Utilities
+namespace RealityToolkit.Services.InputSystem.Utilities
 {
     /// <summary>
     /// Waits for a controller to be initialized, then synchronizes its transform position to a specified handedness.

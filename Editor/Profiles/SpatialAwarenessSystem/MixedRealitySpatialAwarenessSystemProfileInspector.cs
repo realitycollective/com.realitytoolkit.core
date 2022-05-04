@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.Editor.Extensions;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor.Profiles.SpatialAwareness
+namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
     [CustomEditor(typeof(MixedRealitySpatialAwarenessSystemProfile))]
     public class MixedRealitySpatialAwarenessSystemProfileInspector : MixedRealityServiceProfileInspector

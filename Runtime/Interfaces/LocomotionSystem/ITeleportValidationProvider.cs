@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Interfaces.InputSystem;
 
-namespace XRTK.Interfaces.LocomotionSystem
+namespace RealityToolkit.Interfaces.LocomotionSystem
 {
     /// <summary>
     /// Interface to define teleportation validation data providers. A <see cref="ITeleportValidationProvider"/>

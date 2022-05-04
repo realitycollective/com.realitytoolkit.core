@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// Math Utilities class.

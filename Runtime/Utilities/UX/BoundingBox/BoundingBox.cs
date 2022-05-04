@@ -3,19 +3,19 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services;
+using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Services;
-using XRTK.Services.InputSystem.Handlers;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.UX
+namespace RealityToolkit.Utilities.UX
 {
     /// <summary>
     /// The bounding box is a component for easily manipulating an object using a visual wireframe and handles.

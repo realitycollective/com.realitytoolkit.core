@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Interfaces;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using XRTK.Interfaces;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     /// <summary>
     /// The Build Info defines common properties for a build.

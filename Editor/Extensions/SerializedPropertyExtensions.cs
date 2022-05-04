@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Editor.Extensions
+namespace RealityToolkit.Editor.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="SerializedProperty"/> usage.

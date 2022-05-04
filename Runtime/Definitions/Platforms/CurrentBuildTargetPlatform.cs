@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces;
 using UnityEngine;
 
 #if UNITY_EDITOR
 using System.Collections.Generic;
-using XRTK.Interfaces;
 #endif
 
-namespace XRTK.Definitions.Platforms
+namespace RealityToolkit.Definitions.Platforms
 {
     /// <summary>
     /// Used by the XRTK to signal that the feature is only available when the current built target matches the platform target.

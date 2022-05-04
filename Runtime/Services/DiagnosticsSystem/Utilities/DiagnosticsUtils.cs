@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Services.DiagnosticsSystem.Utilities
+namespace RealityToolkit.Services.DiagnosticsSystem.Utilities
 {
     /// <summary>
     /// Diagnostics utilities.

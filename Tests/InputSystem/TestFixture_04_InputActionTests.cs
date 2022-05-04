@@ -3,10 +3,10 @@
 
 using System;
 using NUnit.Framework;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Tests.InputSystem
+namespace RealityToolkit.Tests.InputSystem
 {
     public class TestFixture_04_InputActionTests
     {

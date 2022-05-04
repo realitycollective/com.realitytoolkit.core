@@ -1,16 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
-using XRTK.Services.InputSystem.Controllers.Hands;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers.Simulation.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Simulation.Hands
 {
     /// <summary>
     /// Hand controller type for simulated hand controllers.

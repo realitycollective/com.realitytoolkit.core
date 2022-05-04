@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Definitions.Utilities
+namespace RealityToolkit.Definitions.Utilities
 {
     /// <summary>
     /// Indicates how selectable classes should be collated in drop-down menu.

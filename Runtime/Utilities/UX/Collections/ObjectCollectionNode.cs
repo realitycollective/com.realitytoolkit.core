@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Utilities.UX.Collections
+namespace RealityToolkit.Utilities.UX.Collections
 {
     /// <summary>
     /// Collection node is a data storage class for individual data about an object in a collection.

@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.BuildPipeline.Logging;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.BuildPipeline.Logging;
-using XRTK.Interfaces;
-using XRTK.Services;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     [RuntimePlatform(typeof(WebGlPlatform))]
     [RuntimePlatform(typeof(WindowsStandalonePlatform))]

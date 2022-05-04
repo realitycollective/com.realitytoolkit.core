@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     public static class DebugUtilities
     {

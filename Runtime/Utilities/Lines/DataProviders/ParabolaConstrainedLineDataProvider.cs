@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Utilities.Lines.DataProviders
+namespace RealityToolkit.Utilities.Lines.DataProviders
 {
     /// <summary>
     /// Generates a parabolic line between two points.

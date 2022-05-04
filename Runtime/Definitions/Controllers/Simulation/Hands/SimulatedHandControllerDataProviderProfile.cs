@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers.Simulation.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
-using XRTK.Services.InputSystem.Controllers.Simulation.Hands;
 
-namespace XRTK.Definitions.Controllers.Simulation.Hands
+namespace RealityToolkit.Definitions.Controllers.Simulation.Hands
 {
     public class SimulatedHandControllerDataProviderProfile : SimulatedControllerDataProviderProfile
     {

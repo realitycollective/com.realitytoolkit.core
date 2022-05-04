@@ -3,9 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using XRTK.Utilities.WebRequestRest;
+using RealityToolkit.Utilities.WebRequestRest;
 
-namespace XRTK.Utilities.WindowsDevicePortal.DataStructures
+namespace RealityToolkit.Utilities.WindowsDevicePortal.DataStructures
 {
     [Serializable]
     public class DeviceInfo

@@ -1,15 +1,15 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services.InputSystem;
+using RealityToolkit.Services.InputSystem.Providers;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Platforms;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services.InputSystem;
-using XRTK.Services.InputSystem.Providers;
 
-namespace XRTK.Tests.InputSystem
+namespace RealityToolkit.Tests.InputSystem
 {
     public static class InputSystemTestUtilities
     {

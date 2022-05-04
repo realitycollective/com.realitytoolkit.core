@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.BoundarySystem;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.BoundarySystem;
 
-namespace XRTK.Definitions.BoundarySystem
+namespace RealityToolkit.Definitions.BoundarySystem
 {
     /// <summary>
     /// Configuration profile settings for setting up the <see cref="IMixedRealityBoundarySystem"/>.

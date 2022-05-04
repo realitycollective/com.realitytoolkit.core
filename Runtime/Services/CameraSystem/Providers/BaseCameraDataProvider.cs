@@ -3,14 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.CameraSystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.XR;
-using XRTK.Definitions.CameraSystem;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.CameraSystem.Providers
+namespace RealityToolkit.Services.CameraSystem.Providers
 {
     /// <summary>
     /// Base class for all <see cref="IMixedRealityCameraDataProvider"/>s can inherit from.

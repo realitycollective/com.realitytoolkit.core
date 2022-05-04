@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.EventDatum.SpatialAwarenessSystem;
 using UnityEngine.EventSystems;
-using XRTK.EventDatum.SpatialAwarenessSystem;
 
-namespace XRTK.Interfaces.SpatialAwarenessSystem.Handlers
+namespace RealityToolkit.Interfaces.SpatialAwarenessSystem.Handlers
 {
     /// <summary>
     /// The event handler for all Spatial Awareness Mesh Events.

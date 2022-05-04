@@ -2,15 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.Physics;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Physics;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.Physics;
 
-namespace XRTK.Interfaces.InputSystem
+namespace RealityToolkit.Interfaces.InputSystem
 {
     /// <summary>
     /// Interface for handling pointers.

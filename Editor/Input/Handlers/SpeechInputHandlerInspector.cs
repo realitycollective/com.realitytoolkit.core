@@ -3,13 +3,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Extensions;
+using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Extensions;
-using XRTK.Services.InputSystem.Handlers;
 
-namespace XRTK.Editor.Input.Handlers
+namespace RealityToolkit.Editor.Input.Handlers
 {
     [CustomEditor(typeof(SpeechInputHandler))]
     public class SpeechInputHandlerInspector : BaseInputHandlerInspector

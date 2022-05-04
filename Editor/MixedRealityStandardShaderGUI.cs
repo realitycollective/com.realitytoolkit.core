@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 using System;
+using RealityToolkit.Utilities;
+using RealityToolkit.Utilities.Rendering;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XRTK.Utilities;
-using XRTK.Utilities.Rendering;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     /// <summary>
     /// A custom shader inspector for the "Mixed Reality Toolkit/Standard" shader.

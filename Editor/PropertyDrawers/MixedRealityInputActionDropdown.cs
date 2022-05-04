@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
 
-namespace XRTK.Editor.PropertyDrawers
+namespace RealityToolkit.Editor.PropertyDrawers
 {
     /// <summary>
     /// Draws the <see cref="MixedRealityInputAction"/> property field in custom inspectors.

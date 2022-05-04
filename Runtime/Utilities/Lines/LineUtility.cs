@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Lines;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Lines;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Utilities.Lines
+namespace RealityToolkit.Utilities.Lines
 {
     /// <summary>
     /// Mixed Reality line utility class with helpful math functions for calculation, and other convenience methods.

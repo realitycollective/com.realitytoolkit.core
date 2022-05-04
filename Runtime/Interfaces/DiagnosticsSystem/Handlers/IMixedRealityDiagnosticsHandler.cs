@@ -3,7 +3,7 @@
 
 using UnityEngine.EventSystems;
 
-namespace XRTK.Interfaces.DiagnosticsSystem.Handlers
+namespace RealityToolkit.Interfaces.DiagnosticsSystem.Handlers
 {
     public interface IMixedRealityDiagnosticsHandler : IEventSystemHandler { }
 }

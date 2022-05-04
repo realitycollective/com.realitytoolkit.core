@@ -3,14 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Controllers.UnityInput.Profiles;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Utilities;
 
-namespace XRTK.Services.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Services.InputSystem.Controllers.UnityInput
 {
     /// <summary>
     /// Manages Touch devices using unity input system.

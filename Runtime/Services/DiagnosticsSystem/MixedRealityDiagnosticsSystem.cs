@@ -1,19 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.DiagnosticsSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.DiagnosticsSystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.DiagnosticsSystem;
+using RealityToolkit.Interfaces.DiagnosticsSystem.Handlers;
+using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.DiagnosticsSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.DiagnosticsSystem;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.DiagnosticsSystem;
-using XRTK.Interfaces.DiagnosticsSystem.Handlers;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 using Object = UnityEngine.Object;
 
-namespace XRTK.Services.DiagnosticsSystem
+namespace RealityToolkit.Services.DiagnosticsSystem
 {
     /// <summary>
     /// The default implementation of the <see cref="IMixedRealityDiagnosticsSystem"/>

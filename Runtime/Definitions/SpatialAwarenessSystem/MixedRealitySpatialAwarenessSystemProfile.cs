@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.SpatialObservers;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using UnityEngine;
-using XRTK.Definitions.SpatialObservers;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.SpatialObservers.Providers;
 
-namespace XRTK.Definitions.SpatialAwarenessSystem
+namespace RealityToolkit.Definitions.SpatialAwarenessSystem
 {
     /// <summary>
     /// Configuration profile settings for setting up the spatial awareness system.

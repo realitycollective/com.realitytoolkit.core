@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Services;
 using UnityEngine;
-using XRTK.Services;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// The purpose of this class is to provide a cached reference to the main camera. Calling Camera.main

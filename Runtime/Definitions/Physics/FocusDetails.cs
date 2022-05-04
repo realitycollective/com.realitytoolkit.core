@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace XRTK.Definitions.Physics
+namespace RealityToolkit.Definitions.Physics
 {
     /// <summary>
     /// Contains information about which game object has the focus currently.

@@ -3,24 +3,24 @@
 
 using System;
 using System.Collections;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Interfaces.Physics;
+using RealityToolkit.Services;
+using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Definitions.Physics;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Interfaces.Physics;
-using XRTK.Services;
-using XRTK.Services.InputSystem.Utilities;
-using XRTK.Utilities.Physics;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     /// <summary>
     /// Base Pointer class for pointers that exist in the scene as GameObjects.

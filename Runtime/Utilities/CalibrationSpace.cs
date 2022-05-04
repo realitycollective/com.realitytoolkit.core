@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// Sets global shader variables relating to calibration space transforms

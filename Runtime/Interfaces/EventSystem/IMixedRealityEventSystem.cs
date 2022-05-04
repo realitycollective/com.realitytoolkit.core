@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace XRTK.Interfaces.Events
+namespace RealityToolkit.Interfaces.Events
 {
     /// <summary>
     /// Interface used to implement an Event System that is compatible with the Mixed Reality Toolkit.

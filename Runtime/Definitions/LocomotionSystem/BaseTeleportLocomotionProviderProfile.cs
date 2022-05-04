@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.LocomotionSystem
+namespace RealityToolkit.Definitions.LocomotionSystem
 {
     public class BaseTeleportLocomotionProviderProfile : BaseLocomotionProviderProfile
     {

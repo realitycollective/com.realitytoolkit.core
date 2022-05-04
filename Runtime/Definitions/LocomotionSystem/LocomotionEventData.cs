@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
 using UnityEngine.EventSystems;
-using XRTK.EventDatum;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
 
-namespace XRTK.Definitions.LocomotionSystem
+namespace RealityToolkit.Definitions.LocomotionSystem
 {
     /// <summary>
     /// Describes a locomotion event raised by the <see cref="ILocomotionSystem"/>.

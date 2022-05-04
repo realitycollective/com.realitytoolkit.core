@@ -3,18 +3,18 @@
 
 using System;
 using System.Text;
-using XRTK.Definitions;
-using XRTK.Definitions.Controllers;
-using XRTK.Interfaces;
-using XRTK.Services;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 #endif
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     public static class ValidateConfiguration
     {

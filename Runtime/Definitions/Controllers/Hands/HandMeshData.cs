@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.Controllers.Hands
+namespace RealityToolkit.Definitions.Controllers.Hands
 {
     /// <summary>
     /// Snapshot of hand mesh information for use with <see cref="HandRenderingMode.Mesh"/>.

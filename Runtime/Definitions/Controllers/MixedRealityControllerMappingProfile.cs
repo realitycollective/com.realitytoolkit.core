@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem.Controllers;
 
-namespace XRTK.Definitions.Controllers
+namespace RealityToolkit.Definitions.Controllers
 {
     public class MixedRealityControllerMappingProfile : BaseMixedRealityProfile
     {

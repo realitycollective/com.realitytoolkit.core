@@ -2,17 +2,17 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Services.InputSystem.Processors;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.PropertyDrawers;
-using XRTK.Extensions;
-using XRTK.Services.InputSystem.Processors;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem.Controllers
+namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(MixedRealityInteractionMappingProfile))]
     public class MixedRealityInteractionMappingProfileInspector : BaseMixedRealityProfileInspector

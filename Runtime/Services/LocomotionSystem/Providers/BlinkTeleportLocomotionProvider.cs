@@ -1,15 +1,15 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.LocomotionSystem.Providers
+namespace RealityToolkit.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// A <see cref="ITeleportLocomotionProvider"/> implementation that teleports the player rig

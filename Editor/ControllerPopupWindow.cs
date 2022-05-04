@@ -5,19 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.Data;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
+using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Data;
-using XRTK.Editor.PropertyDrawers;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
-using XRTK.Services.InputSystem.Controllers.OpenVR;
-using XRTK.Services.InputSystem.Controllers.UnityInput;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     public class ControllerPopupWindow : EditorWindow
     {

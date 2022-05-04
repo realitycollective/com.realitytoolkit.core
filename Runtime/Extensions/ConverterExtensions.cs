@@ -5,7 +5,7 @@ using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     public static class ConverterExtensions
     {

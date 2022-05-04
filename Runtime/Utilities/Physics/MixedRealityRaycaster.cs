@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Physics;
 using UnityEngine;
-using XRTK.Definitions.Physics;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     public static class MixedRealityRaycaster
     {

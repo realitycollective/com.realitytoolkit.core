@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.Audio;
 using UnityEngine;
-using XRTK.Extensions;
-using XRTK.Interfaces.Audio;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Audio.Influencers
+namespace RealityToolkit.Utilities.Audio.Influencers
 {
     /// <summary>
     /// Class that implements <see cref="IAudioInfluencer"/> to provide an audio occlusion effect, similar

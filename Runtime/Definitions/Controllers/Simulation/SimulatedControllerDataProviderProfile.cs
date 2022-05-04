@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.Controllers.Simulation
+namespace RealityToolkit.Definitions.Controllers.Simulation
 {
     public class SimulatedControllerDataProviderProfile : BaseMixedRealityControllerDataProviderProfile
     {

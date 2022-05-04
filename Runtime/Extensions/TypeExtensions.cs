@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using XRTK.Interfaces;
-using XRTK.Interfaces.Events;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Interfaces.Events;
 using Debug = UnityEngine.Debug;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="Type"/> instances.

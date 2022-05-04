@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services.InputSystem.Listeners;
 using UnityEngine;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services.InputSystem.Listeners;
 
-namespace XRTK.Services.InputSystem.Handlers
+namespace RealityToolkit.Services.InputSystem.Handlers
 {
     /// <summary>
     /// Base class for the Mixed Reality Toolkit's SDK input handlers.

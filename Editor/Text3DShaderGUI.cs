@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     /// <summary>
     /// A custom shader inspector for the "Mixed Reality Toolkit/TextShader3D".

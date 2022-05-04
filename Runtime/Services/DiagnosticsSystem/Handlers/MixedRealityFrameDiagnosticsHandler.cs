@@ -4,14 +4,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using RealityToolkit.Attributes;
+using RealityToolkit.EventDatum.DiagnosticsSystem;
+using RealityToolkit.Interfaces.DiagnosticsSystem.Handlers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using XRTK.Attributes;
-using XRTK.EventDatum.DiagnosticsSystem;
-using XRTK.Interfaces.DiagnosticsSystem.Handlers;
 
-namespace XRTK.Services.DiagnosticsSystem.Handlers
+namespace RealityToolkit.Services.DiagnosticsSystem.Handlers
 {
     public class MixedRealityFrameDiagnosticsHandler : MonoBehaviour,
         IMixedRealityFrameDiagnosticsHandler

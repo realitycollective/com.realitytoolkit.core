@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
     /// The object cursor can switch between different game objects based on its state.

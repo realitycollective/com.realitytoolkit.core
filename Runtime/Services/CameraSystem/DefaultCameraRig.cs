@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.CameraSystem
+namespace RealityToolkit.Services.CameraSystem
 {
     /// <summary>
     /// The default <see cref="IMixedRealityCameraRig"/> for the XRTK.

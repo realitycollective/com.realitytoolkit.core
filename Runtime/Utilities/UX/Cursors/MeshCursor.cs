@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
-using XRTK.Definitions.InputSystem;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Services;
-using XRTK.Utilities;
+using RealityToolkit.Utilities;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
     /// Object that represents a cursor in 3D space controlled by gaze.

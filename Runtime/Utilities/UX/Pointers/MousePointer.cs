@@ -1,15 +1,15 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Services.InputSystem.Controllers.Simulation.Hands;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Services.InputSystem.Controllers.Simulation.Hands;
-using XRTK.Utilities.Physics;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     /// <summary>
     /// Default Mouse Pointer Implementation.

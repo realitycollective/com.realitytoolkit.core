@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.LocomotionSystem;
 using UnityEngine;
-using XRTK.Extensions;
-using XRTK.Interfaces.LocomotionSystem;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.LocomotionSystem
+namespace RealityToolkit.Services.LocomotionSystem
 {
     /// <summary>
     /// Attach this component to any <see cref="GameObject"/> to make that object's

@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Utilities.Lines.DataProviders;
+using RealityToolkit.Utilities.Lines.Renderers;
+using RealityToolkit.Utilities.Physics.Distorters;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Editor.Extensions;
-using XRTK.Utilities.Lines.DataProviders;
-using XRTK.Utilities.Lines.Renderers;
-using XRTK.Utilities.Physics.Distorters;
 
-namespace XRTK.Editor.Utilities.Lines.DataProviders
+namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(BaseMixedRealityLineDataProvider))]
     public class BaseMixedRealityLineDataProviderInspector : UnityEditor.Editor

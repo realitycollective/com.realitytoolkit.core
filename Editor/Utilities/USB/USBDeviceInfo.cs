@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Editor.Utilities.USB
+namespace RealityToolkit.Editor.Utilities.USB
 {
     [Serializable]
     public class USBDeviceInfo

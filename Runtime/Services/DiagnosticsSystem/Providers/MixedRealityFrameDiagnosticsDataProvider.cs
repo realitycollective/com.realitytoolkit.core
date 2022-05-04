@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Diagnostics;
+using RealityToolkit.Definitions;
+using RealityToolkit.Interfaces.DiagnosticsSystem;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Interfaces.DiagnosticsSystem;
 
-namespace XRTK.Services.DiagnosticsSystem.Providers
+namespace RealityToolkit.Services.DiagnosticsSystem.Providers
 {
     /// <summary>
     /// Diagnostics data provider for frame diagnostics. It provides frame rate information and missed frames

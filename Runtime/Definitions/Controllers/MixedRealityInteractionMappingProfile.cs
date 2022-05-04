@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
 
-namespace XRTK.Definitions.Controllers
+namespace RealityToolkit.Definitions.Controllers
 {
     public class MixedRealityInteractionMappingProfile : BaseMixedRealityProfile
     {

@@ -3,15 +3,15 @@
 
 using NUnit.Framework;
 using System.Linq;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Services;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Extensions;
-using XRTK.Services;
 
-namespace XRTK.Tests
+namespace RealityToolkit.Tests
 {
     public static class TestUtilities
     {
