@@ -21,7 +21,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");
         private static readonly GUIContent GazeCursorPrefabContent = new GUIContent("Gaze Cursor Prefab");
         private static readonly GUIContent GlobalPointerSettingsContent = new GUIContent("Global Pointer Settings");
-        private static readonly GUIContent GlobalHandSettingsContent = new GUIContent("Global Hand Settings");
         private static readonly GUIContent ShowControllerMappingsContent = new GUIContent("Controller Action Mappings");
 
         private SerializedProperty focusProviderType;
@@ -139,19 +138,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             EditorGUILayout.Space();
 
-            showGlobalHandOptions = EditorGUILayoutExtensions.FoldoutWithBoldLabel(showGlobalHandOptions, GlobalHandSettingsContent, true);
-
-            if (showGlobalHandOptions)
-            {
-                EditorGUILayout.HelpBox("Global hand tracking options applied to all platforms that support hand tracking. You may override these globals per platform in the platform's hand controller data provider profile.", MessageType.Info);
-                EditorGUI.indentLevel++;
-                EditorGUILayout.Space();
-                EditorGUILayout.PropertyField(handControllerSettings);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
-
+            EditorGUILayout.PropertyField(handControllerSettings);
             EditorGUILayout.PropertyField(inputActionsProfile);
             EditorGUILayout.PropertyField(speechCommandsProfile);
             EditorGUILayout.PropertyField(gesturesProfile);
