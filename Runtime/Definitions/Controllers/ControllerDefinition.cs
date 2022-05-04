@@ -9,7 +9,7 @@ namespace RealityToolkit.Definitions.Controllers
     [Serializable]
     public struct ControllerDefinition
     {
-        public ControllerDefinition(SystemType controllerType, Handedness handedness = this.Handedness.None, bool useCustomInteractions = false)
+        public ControllerDefinition(SystemType controllerType, Handedness handedness = Handedness.None, bool useCustomInteractions = false)
         {
             ControllerType = controllerType;
             Handedness = handedness;
@@ -19,7 +19,7 @@ namespace RealityToolkit.Definitions.Controllers
 
             if (ControllerType?.Type != null)
             {
-                if (handedness == this.Handedness.Right || handedness == this.Handedness.Left)
+                if (handedness == Handedness.Right || handedness == Handedness.Left)
                 {
                     description = $"{handedness}{ControllerType.Type.Name}";
                 }
@@ -32,7 +32,7 @@ namespace RealityToolkit.Definitions.Controllers
             Description = description;
         }
 
-        public ControllerDefinition(string description, SystemType controllerType, Handedness handedness = this.Handedness.None, bool useCustomInteractions = false)
+        public ControllerDefinition(string description, SystemType controllerType, Handedness handedness = Handedness.None, bool useCustomInteractions = false)
             : this(controllerType, handedness, useCustomInteractions)
         {
             Description = description;
