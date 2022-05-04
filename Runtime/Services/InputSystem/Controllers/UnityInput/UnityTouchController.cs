@@ -61,7 +61,6 @@ namespace XRTK.Services.InputSystem.Controllers.UnityInput
         private bool isTouched;
         private bool isHolding;
         private bool isManipulating;
-        private MixedRealityPose lastPose = MixedRealityPose.ZeroIdentity;
 
         /// <summary>
         /// Start the touch.
@@ -97,18 +96,17 @@ namespace XRTK.Services.InputSystem.Controllers.UnityInput
 
                 if (InputSource.Pointers[0].BaseCursor != null)
                 {
-                    lastPose.Position = InputSource.Pointers[0].BaseCursor.Position;
-                    lastPose.Rotation = InputSource.Pointers[0].BaseCursor.Rotation;
+                    Pose = new MixedRealityPose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
                 }
 
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, lastPose);
+                InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
 
-                Interactions[1].PoseData = lastPose;
+                Interactions[1].PoseData = Pose;
 
                 // If our value was updated, raise it.
                 if (Interactions[1].Updated)
                 {
-                    InputSystem?.RaisePoseInputChanged(InputSource, Interactions[1].MixedRealityInputAction, lastPose);
+                    InputSystem?.RaisePoseInputChanged(InputSource, Interactions[1].MixedRealityInputAction, Pose);
                 }
 
                 if (!isManipulating)

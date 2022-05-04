@@ -58,7 +58,6 @@ namespace XRTK.Services.InputSystem.Controllers.UnityInput
                                               Input.mousePosition.x < Screen.width ||
                                               Input.mousePosition.y < Screen.height);
 
-        private MixedRealityPose controllerPose = MixedRealityPose.ZeroIdentity;
         private Vector2 mousePosition;
 
         /// <summary>
@@ -76,21 +75,20 @@ namespace XRTK.Services.InputSystem.Controllers.UnityInput
 
             if (InputSource.Pointers[0].BaseCursor != null)
             {
-                controllerPose.Position = InputSource.Pointers[0].BaseCursor.Position;
-                controllerPose.Rotation = InputSource.Pointers[0].BaseCursor.Rotation;
+                Pose = new MixedRealityPose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
             }
 
             mousePosition.x = Input.GetAxis(Interactions[1].AxisCodeX);
             mousePosition.y = Input.GetAxis(Interactions[1].AxisCodeY);
 
             InputSystem?.RaiseSourcePositionChanged(InputSource, this, mousePosition);
-            InputSystem?.RaiseSourcePoseChanged(InputSource, this, controllerPose);
+            InputSystem?.RaiseSourcePoseChanged(InputSource, this,Pose);
 
             for (int i = 0; i < Interactions.Length; i++)
             {
                 if (Interactions[i].InputType == DeviceInputType.SpatialPointer)
                 {
-                    Interactions[i].PoseData = controllerPose;
+                    Interactions[i].PoseData = Pose;
 
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)

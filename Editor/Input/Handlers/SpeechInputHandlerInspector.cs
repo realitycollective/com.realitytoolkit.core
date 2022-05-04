@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using XRTK.Definitions.InputSystem;
-using XRTK.Editor.Extensions;
+using XRTK.Extensions;
 using XRTK.Services.InputSystem.Handlers;
 
 namespace XRTK.Editor.Input.Handlers
