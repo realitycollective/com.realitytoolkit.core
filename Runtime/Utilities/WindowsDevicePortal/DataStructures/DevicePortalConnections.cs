@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace XRTK.Utilities.WindowsDevicePortal.DataStructures
+namespace RealityToolkit.Utilities.WindowsDevicePortal.DataStructures
 {
     [Serializable]
     public class DevicePortalConnections

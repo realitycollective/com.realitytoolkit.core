@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Interfaces.Events;
 
-namespace XRTK.EventDatum
+namespace RealityToolkit.EventDatum
 {
     /// <summary>
     /// Describes placement of objects events.

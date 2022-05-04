@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services.InputSystem.Listeners;
+using RealityToolkit.Utilities.UX.Pointers;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Physics;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services.InputSystem.Listeners;
-using XRTK.Utilities.UX.Pointers;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
     /// Object that represents a cursor in 3D space controlled by gaze.

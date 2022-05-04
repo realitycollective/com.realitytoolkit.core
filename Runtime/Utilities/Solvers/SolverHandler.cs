@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Services;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Services;
 
-namespace XRTK.Utilities.Solvers
+namespace RealityToolkit.Utilities.Solvers
 {
     /// <summary>
     /// This class handles the solver components that are attached to this <see cref="GameObject"/>

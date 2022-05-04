@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.UX.ToolTips
+namespace RealityToolkit.Utilities.UX.ToolTips
 {
     /// <summary>
     /// A background with 'fake' inertia

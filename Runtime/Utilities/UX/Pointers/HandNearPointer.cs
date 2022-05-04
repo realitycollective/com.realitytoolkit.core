@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.Physics;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     /// <summary>
     /// Hand controller near interaction pointer.

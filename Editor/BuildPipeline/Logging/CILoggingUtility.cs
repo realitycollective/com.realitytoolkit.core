@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Editor.BuildPipeline.Logging
+namespace RealityToolkit.Editor.BuildPipeline.Logging
 {
     /// <summary>
     /// Logging utility designed to properly output logs to continuous integration workflow logging consoles.

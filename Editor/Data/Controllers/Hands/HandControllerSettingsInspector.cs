@@ -5,8 +5,7 @@ using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Editor.Profiles;
+using RealityToolkit.Editor.Profiles;
 
 namespace RealityToolkit.Editor.Data.Controllers.Hands
 {

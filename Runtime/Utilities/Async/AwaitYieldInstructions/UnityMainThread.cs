@@ -22,7 +22,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Async.AwaitYieldInstructions
+namespace RealityToolkit.Utilities.Async.AwaitYieldInstructions
 {
     /// <summary>
     /// This can be used as a way to return to the main unity thread 

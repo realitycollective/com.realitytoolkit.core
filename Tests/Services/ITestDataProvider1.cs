@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Interfaces;
+using RealityToolkit.Interfaces;
 
-namespace XRTK.Tests.Services
+namespace RealityToolkit.Tests.Services
 {
     internal interface ITestDataProvider1 : IMixedRealityDataProvider
     {

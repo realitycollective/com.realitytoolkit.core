@@ -3,16 +3,16 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.Events;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Services.InputSystem.Providers;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.Events;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Services.InputSystem.Providers;
 
-namespace XRTK.Interfaces.InputSystem
+namespace RealityToolkit.Interfaces.InputSystem
 {
     /// <summary>
     /// Manager interface for a Input system in the Mixed Reality Toolkit

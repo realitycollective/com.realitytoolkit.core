@@ -8,19 +8,19 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using RealityToolkit.Definitions;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Interfaces.BoundarySystem;
+using RealityToolkit.Interfaces.Events;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Extensions;
-using XRTK.Interfaces;
-using XRTK.Interfaces.BoundarySystem;
-using XRTK.Interfaces.Events;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Services;
+using RealityToolkit.Extensions;
 using Assembly = System.Reflection.Assembly;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     public class MixedRealityServiceWizard : EditorWindow
     {

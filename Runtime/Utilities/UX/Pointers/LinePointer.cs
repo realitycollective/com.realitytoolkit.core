@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Utilities.Lines.DataProviders;
+using RealityToolkit.Utilities.Lines.Renderers;
 using UnityEngine;
 using UnityEngine.Serialization;
-using XRTK.Definitions.Physics;
-using XRTK.Utilities.Lines.DataProviders;
-using XRTK.Utilities.Lines.Renderers;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     /// <summary>
     /// A simple line pointer for drawing lines from the input source origin to the current pointer position.

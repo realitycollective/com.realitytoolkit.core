@@ -2,16 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Services;
+using RealityToolkit.Utilities.UX.Pointers;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Services;
-using XRTK.Utilities.UX.Pointers;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     public class TeleportCursor : AnimatedCursor, ILocomotionSystemHandler
     {

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.ToolTips;
 using UnityEngine;
-using XRTK.Definitions.ToolTips;
 
-namespace XRTK.Utilities.UX.ToolTips
+namespace RealityToolkit.Utilities.UX.ToolTips
 {
     /// <summary>
     /// Static class providing useful functions for

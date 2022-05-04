@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Services.CameraSystem;
 using UnityEngine;
 using UnityEngine.XR;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Services.CameraSystem;
 
-namespace XRTK.Definitions.CameraSystem
+namespace RealityToolkit.Definitions.CameraSystem
 {
     /// <summary>
     /// Provides configuration options for <see cref="IMixedRealityCameraDataProvider"/>s.

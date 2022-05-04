@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Services;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
     /// Component that can be added to any <see cref="GameObject"/> with a <see cref="Collider"/> to Modifies either the <see cref="IMixedRealityCursor"/> reacts when focused by a <see cref="IMixedRealityPointer"/>.

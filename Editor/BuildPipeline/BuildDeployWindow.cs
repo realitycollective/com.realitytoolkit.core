@@ -6,17 +6,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces;
-using XRTK.Services;
+using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     public class BuildDeployWindow : EditorWindow
     {

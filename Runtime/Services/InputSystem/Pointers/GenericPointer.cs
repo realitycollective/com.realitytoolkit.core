@@ -3,15 +3,15 @@
 
 using System;
 using System.Collections;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.Physics;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.Physics;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.Physics;
 
-namespace XRTK.Services.InputSystem.Pointers
+namespace RealityToolkit.Services.InputSystem.Pointers
 {
     /// <summary>
     /// Base Class for pointers that don't inherit from MonoBehaviour.

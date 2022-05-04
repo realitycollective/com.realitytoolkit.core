@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace XRTK.Definitions.InputSystem
+namespace RealityToolkit.Definitions.InputSystem
 {
     /// <summary>
     /// Keyword/UnityEvent pair that ties voice input to UnityEvents wired up in the inspector.

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
 using UnityEngine;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem.Handlers;
 
-namespace XRTK.Interfaces.InputSystem
+namespace RealityToolkit.Interfaces.InputSystem
 {
     /// <summary>
     /// Implements the Focus Provider for handling focus of pointers.

@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.IO;
+using RealityToolkit.Editor.Utilities;
 using UnityEditor;
-using XRTK.Editor.Utilities;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     [InitializeOnLoad]
     internal static class CorePackageInstaller

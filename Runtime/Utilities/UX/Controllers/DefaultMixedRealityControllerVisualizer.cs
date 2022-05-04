@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services.InputSystem.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Services.InputSystem.Utilities;
 
-namespace XRTK.Utilities.UX.Controllers
+namespace RealityToolkit.Utilities.UX.Controllers
 {
     /// <summary>
     /// The Mixed Reality Visualization component is primarily responsible for synchronizing the user's current input with controller models.

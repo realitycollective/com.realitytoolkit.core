@@ -2,15 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Threading.Tasks;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.ToolTips;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services.InputSystem.Handlers;
+using RealityToolkit.Utilities.Async;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.ToolTips;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Services.InputSystem.Handlers;
-using XRTK.Utilities.Async;
 
-namespace XRTK.Utilities.UX.ToolTips
+namespace RealityToolkit.Utilities.UX.ToolTips
 {
     /// <summary>
     /// Add to any Object to spawn ToolTips on tap or on focus, according to preference
@@ -279,7 +279,7 @@ namespace XRTK.Utilities.UX.ToolTips
                 switch (pivotDirectionOrient)
                 {
                     case ConnectorOrientType.OrientToCamera:
-                        relativeTo = XRTK.Utilities.CameraCache.Main.transform;
+                        relativeTo = CameraCache.Main.transform;
                         break;
 
                     case ConnectorOrientType.OrientToObject:

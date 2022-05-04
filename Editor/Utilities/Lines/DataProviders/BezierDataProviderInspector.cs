@@ -1,9 +1,9 @@
-﻿using UnityEditor;
+﻿using RealityToolkit.Utilities.Lines;
+using UnityEditor;
 using UnityEngine;
-using XRTK.Editor.Extensions;
-using XRTK.Utilities.Lines;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor.Utilities.Lines.DataProviders
+namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(BezierLineDataProvider))]
     public class BezierDataProviderInspector : BaseMixedRealityLineDataProviderInspector

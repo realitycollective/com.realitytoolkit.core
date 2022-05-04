@@ -3,20 +3,20 @@
 
 using NUnit.Framework;
 using System.Collections.Generic;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
+using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
+using RealityToolkit.Tests.Services;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Controllers.UnityInput.Profiles;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces;
-using XRTK.Services;
-using XRTK.Services.InputSystem.Controllers.OpenVR;
-using XRTK.Tests.Services;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
+using RealityToolkit.Utilities;
 
-namespace XRTK.Tests.Core
+namespace RealityToolkit.Tests.Core
 {
     public class TestFixture_02_MixedRealityToolkitUtilityTests
     {

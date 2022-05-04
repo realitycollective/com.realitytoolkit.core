@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Utilities.Physics.Distorters
+namespace RealityToolkit.Utilities.Physics.Distorters
 {
     public abstract class Distorter : MonoBehaviour, IComparable<Distorter>
     {

@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Services;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Services;
-using XRTK.Utilities;
+using RealityToolkit.Utilities;
 
-namespace XRTK.Utilities.Solvers
+namespace RealityToolkit.Utilities.Solvers
 {
     /// <summary>
     /// Provides a solver that follows the TrackedObject/TargetTransform in an orbital motion.

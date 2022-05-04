@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// <see cref="Component"/> used to cache <see cref="UnityEngine.Bounds"/>s information about this <see cref="UnityEngine.GameObject"/>

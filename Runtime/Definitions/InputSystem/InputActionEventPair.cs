@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace XRTK.Definitions.InputSystem
+namespace RealityToolkit.Definitions.InputSystem
 {
     /// <summary>
     /// Data class that maps <see cref="MixedRealityInputAction"/>s to <see cref="UnityEngine.Events.UnityEvent"/>s wired up in the inspector.

@@ -2,19 +2,19 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions;
+using RealityToolkit.Editor.Profiles;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Extensions;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using XRTK.Definitions;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Profiles;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Services;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     [CustomEditor(typeof(MixedRealityToolkit))]
     public class MixedRealityToolkitInspector : UnityEditor.Editor

@@ -3,9 +3,9 @@
 
 using System;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Utilities.SymbolicLinks
+namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {
     [Serializable]
     public class SymbolicLink

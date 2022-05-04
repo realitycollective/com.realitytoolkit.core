@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem.Handlers;
 
-namespace XRTK.Interfaces.InputSystem
+namespace RealityToolkit.Interfaces.InputSystem
 {
     /// <summary>
     /// Interface for cursor modifiers that can modify a <see cref="GameObject"/>'s properties.

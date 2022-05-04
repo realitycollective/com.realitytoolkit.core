@@ -3,18 +3,18 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Utilities;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Physics;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Utilities;
-using XRTK.Utilities.Physics;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Providers
+namespace RealityToolkit.Services.InputSystem.Providers
 {
     /// <summary>
     /// The focus provider handles the focused objects per input source.

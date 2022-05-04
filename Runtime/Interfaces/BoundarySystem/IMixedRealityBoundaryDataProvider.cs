@@ -3,9 +3,9 @@
 
 using UnityEngine;
 using System.Collections.Generic;
-using XRTK.Definitions.BoundarySystem;
+using RealityToolkit.Definitions.BoundarySystem;
 
-namespace XRTK.Interfaces.BoundarySystem
+namespace RealityToolkit.Interfaces.BoundarySystem
 {
     /// <summary>
     /// Boundary data providers provide low level data access for the <see cref="IMixedRealityBoundarySystem"/> to query

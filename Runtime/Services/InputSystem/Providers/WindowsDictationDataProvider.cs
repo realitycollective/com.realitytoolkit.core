@@ -3,16 +3,16 @@
 
 using System.Text;
 using System.Threading.Tasks;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Utilities.Async;
+using RealityToolkit.Utilities.Async;
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace XRTK.Services.InputSystem.Providers
+namespace RealityToolkit.Services.InputSystem.Providers
 {
     /// <summary>
     /// Dictation data provider for Windows 10 based platforms.

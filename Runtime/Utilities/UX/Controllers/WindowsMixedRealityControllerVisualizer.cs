@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem.Controllers;
 
-namespace XRTK.Utilities.UX.Controllers
+namespace RealityToolkit.Utilities.UX.Controllers
 {
     [System.Runtime.InteropServices.Guid("66444029-7951-40BC-B488-429E178B193A")]
     public class WindowsMixedRealityControllerVisualizer : DefaultMixedRealityControllerVisualizer

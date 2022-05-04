@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
-using XRTK.EventDatum.Input;
 
-namespace XRTK.Interfaces.InputSystem.Handlers
+namespace RealityToolkit.Interfaces.InputSystem.Handlers
 {
     /// <summary>
     /// Interface to implement to react to pointer scroll input.

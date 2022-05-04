@@ -3,14 +3,14 @@
 
 using System;
 using System.Runtime.InteropServices;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Extensions;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.Platforms;
-using XRTK.Extensions;
-using XRTK.Services;
 
-namespace XRTK.Editor.PropertyDrawers
+namespace RealityToolkit.Editor.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(RuntimePlatformEntry))]
     public class PlatformEntryPropertyDrawer : PropertyDrawer

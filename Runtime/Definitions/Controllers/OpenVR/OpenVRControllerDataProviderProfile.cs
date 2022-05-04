@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.Controllers.UnityInput.Profiles;
-using XRTK.Definitions.Utilities;
-using XRTK.Services.InputSystem.Controllers.OpenVR;
+using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
 
-namespace XRTK.Definitions.Controllers.OpenVR.Profiles
+namespace RealityToolkit.Definitions.Controllers.OpenVR.Profiles
 {
     public class OpenVRControllerDataProviderProfile : UnityInputControllerDataProfile
     {

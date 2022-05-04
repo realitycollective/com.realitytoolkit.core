@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Services.InputSystem.Controllers.UnityInput
 {
     /// <summary>
     /// The <see cref="GenericJoystickController"/> attempts to be a catch-all for joysticks and controllers defined in Unity's legacy input system.

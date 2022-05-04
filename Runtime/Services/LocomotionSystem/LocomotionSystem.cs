@@ -4,16 +4,16 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using XRTK.Extensions;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Utilities;
 
-namespace XRTK.Services.LocomotionSystem
+namespace RealityToolkit.Services.LocomotionSystem
 {
     /// <summary>
     /// The Mixed Reality Toolkit's specific implementation of the <see cref="ILocomotionSystem"/>

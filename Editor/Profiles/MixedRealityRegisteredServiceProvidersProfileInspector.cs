@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Definitions;
 using UnityEditor;
-using XRTK.Definitions;
 
-namespace XRTK.Editor.Profiles
+namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityRegisteredServiceProvidersProfile))]
     public class MixedRealityRegisteredServiceProvidersProfileInspector : MixedRealityServiceProfileInspector

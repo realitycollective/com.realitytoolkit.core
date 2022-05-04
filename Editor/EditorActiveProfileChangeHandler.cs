@@ -1,15 +1,15 @@
 // Copyright (c) XRTK. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.﻿
+// Licensed under the MIT License. See LICENSE in the project root for license information. 
 
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.Editor.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Services;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     [InitializeOnLoad]
     public static class EditorActiveProfileChangeHandler

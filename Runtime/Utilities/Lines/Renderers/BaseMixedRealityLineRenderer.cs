@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Lines;
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
-using XRTK.Definitions.Lines;
-using XRTK.Utilities.Lines.DataProviders;
 
-namespace XRTK.Utilities.Lines.Renderers
+namespace RealityToolkit.Utilities.Lines.Renderers
 {
     /// <summary>
     /// Base class for Mixed Reality Line Renderers.

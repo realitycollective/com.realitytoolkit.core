@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Utilities;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Extensions;
-using XRTK.Services.InputSystem.Utilities;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor.Input.Handlers
+namespace RealityToolkit.Editor.Input.Handlers
 {
     [CustomEditor(typeof(ControllerPoseSynchronizer), true, isFallback = true)]
     public class ControllerPoseSynchronizerInspector : UnityEditor.Editor

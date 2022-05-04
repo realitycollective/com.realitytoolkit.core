@@ -6,7 +6,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extensions methods for the Unity Component class.

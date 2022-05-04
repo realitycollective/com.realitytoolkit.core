@@ -2,16 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Controllers.Simulation;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Simulation;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers.Simulation
+namespace RealityToolkit.Services.InputSystem.Controllers.Simulation
 {
     /// <summary>
     /// Base data provider implementation for controller simulation data providers.

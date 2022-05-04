@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Linq;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
-using XRTK.Attributes;
-using XRTK.Definitions.Platforms;
-using XRTK.Interfaces;
-using XRTK.Services;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     [RuntimePlatform(typeof(AndroidPlatform))]
     public class AndroidBuildInfo : BuildInfo

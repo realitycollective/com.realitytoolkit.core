@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.LocomotionSystem;
 using UnityEngine;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.LocomotionSystem;
 
-namespace XRTK.Services.LocomotionSystem
+namespace RealityToolkit.Services.LocomotionSystem
 {
     /// <summary>
     /// This component is attached to the main <see cref="Camera"/> by the <see cref="ILocomotionSystem"/>

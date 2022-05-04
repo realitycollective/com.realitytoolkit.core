@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extensions for the <see cref="MixedRealityInteractionMapping"/> to refactor the generic methods used for raising events.

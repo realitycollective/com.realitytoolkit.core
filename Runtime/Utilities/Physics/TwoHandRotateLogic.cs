@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     /// <summary>
     /// Implements common logic for rotating holograms using a handlebar metaphor. 

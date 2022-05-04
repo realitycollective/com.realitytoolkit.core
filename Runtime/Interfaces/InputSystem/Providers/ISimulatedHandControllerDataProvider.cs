@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Interfaces.InputSystem.Providers.Controllers.Hands
+namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands
 {
     public interface ISimulatedHandControllerDataProvider : ISimulatedControllerDataProvider, IMixedRealityHandControllerDataProvider
     {

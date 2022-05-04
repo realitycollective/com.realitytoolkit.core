@@ -5,15 +5,15 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using RealityToolkit.Utilities.WebRequestRest;
+using RealityToolkit.Utilities.WindowsDevicePortal.DataStructures;
 using UnityEngine;
 using UnityEngine.Networking;
-using XRTK.Extensions;
-using XRTK.Utilities.Async;
-using XRTK.Utilities.WebRequestRest;
-using XRTK.Utilities.WindowsDevicePortal.DataStructures;
+using RealityToolkit.Extensions;
+using RealityToolkit.Utilities.Async;
 using FileInfo = System.IO.FileInfo;
 
-namespace XRTK.Utilities.WindowsDevicePortal
+namespace RealityToolkit.Utilities.WindowsDevicePortal
 {
     /// <summary>
     /// Function used to communicate with Windows 10 devices through the device portal REST APIs.

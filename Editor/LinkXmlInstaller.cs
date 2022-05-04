@@ -7,7 +7,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEditor.UnityLinker;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     public class LinkXmlInstaller : IUnityLinkerProcessor
     {

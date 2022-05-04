@@ -3,7 +3,7 @@
 
 using UnityEngine.EventSystems;
 
-namespace XRTK.Definitions.Physics
+namespace RealityToolkit.Definitions.Physics
 {
     public struct ComparableRaycastResult
     {

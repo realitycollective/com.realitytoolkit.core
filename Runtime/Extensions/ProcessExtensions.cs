@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// <see cref="Process"/> Extension class.

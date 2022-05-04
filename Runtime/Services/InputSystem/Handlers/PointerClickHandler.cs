@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem.Handlers;
 
-namespace XRTK.Services.InputSystem.Handlers
+namespace RealityToolkit.Services.InputSystem.Handlers
 {
     /// <summary>
     /// This component handles pointer clicks from all types of input sources.<para/>

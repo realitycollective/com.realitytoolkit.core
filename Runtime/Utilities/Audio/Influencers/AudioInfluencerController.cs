@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Interfaces.Audio;
 using UnityEngine;
-using XRTK.Interfaces.Audio;
 
-namespace XRTK.Utilities.Audio.Influencers
+namespace RealityToolkit.Utilities.Audio.Influencers
 {
     /// <summary>
     /// Class which supports components implementing <see cref="IAudioInfluencer"/> being used with audio sources.

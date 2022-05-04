@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
-using XRTK.Interfaces.Events;
+using RealityToolkit.Interfaces.Events;
 
-namespace XRTK.Interfaces.NetworkingSystem
+namespace RealityToolkit.Interfaces.NetworkingSystem
 {
     /// <summary>
     /// The networking system contract for the Mixed Reality Toolkit.

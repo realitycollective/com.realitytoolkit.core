@@ -2,20 +2,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem;
+using RealityToolkit.Utilities;
+using RealityToolkit.Utilities.Physics;
+using RealityToolkit.Utilities.UX;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Physics;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Utilities;
-using XRTK.Utilities.Physics;
-using XRTK.Utilities.UX;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Handlers
+namespace RealityToolkit.Services.InputSystem.Handlers
 {
     /// <summary>
     /// This input handler is designed to help facilitate the physical manipulation of <see cref="GameObject"/>s across all platforms.

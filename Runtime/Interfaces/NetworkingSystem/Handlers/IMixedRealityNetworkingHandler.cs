@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.EventDatum.Networking;
 using UnityEngine.EventSystems;
-using XRTK.EventDatum.Networking;
 
-namespace XRTK.Interfaces.NetworkingSystem.Handlers
+namespace RealityToolkit.Interfaces.NetworkingSystem.Handlers
 {
     /// <summary>
     /// Generic networking data handler for consuming network data from the <see cref="IMixedRealityNetworkingSystem"/>

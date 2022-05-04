@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System.Linq;
+using RealityToolkit.Definitions.InputSystem;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealitySpeechCommandsProfile))]
     public class MixedRealitySpeechCommandsProfileInspector : BaseMixedRealityProfileInspector

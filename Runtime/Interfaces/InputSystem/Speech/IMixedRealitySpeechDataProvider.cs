@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Interfaces.InputSystem.Providers.Speech
+namespace RealityToolkit.Interfaces.InputSystem.Providers.Speech
 {
     /// <summary>
     /// Mixed Reality Toolkit controller definition, used to manage a specific controller type

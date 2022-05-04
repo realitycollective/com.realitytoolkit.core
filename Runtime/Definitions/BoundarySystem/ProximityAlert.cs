@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Definitions.BoundarySystem
+namespace RealityToolkit.Definitions.BoundarySystem
 {
     public enum ProximityAlert
     {

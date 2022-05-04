@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="ScriptableObject"/>s

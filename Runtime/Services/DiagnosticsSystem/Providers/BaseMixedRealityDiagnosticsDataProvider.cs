@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions;
-using XRTK.Interfaces.DiagnosticsSystem;
+using RealityToolkit.Definitions;
+using RealityToolkit.Interfaces.DiagnosticsSystem;
 
-namespace XRTK.Services.DiagnosticsSystem.Providers
+namespace RealityToolkit.Services.DiagnosticsSystem.Providers
 {
     /// <summary>
     /// Abstract base implementation for diagnostics data providers. Provides needed implementations to register and unregister

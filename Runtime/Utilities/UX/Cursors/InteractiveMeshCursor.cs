@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
     /// A cursor that looks and acts more like the shell cursor.

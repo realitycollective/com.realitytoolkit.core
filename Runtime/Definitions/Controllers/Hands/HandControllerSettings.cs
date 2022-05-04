@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
 
 namespace RealityToolkit.Definitions.Controllers.Hands
 {

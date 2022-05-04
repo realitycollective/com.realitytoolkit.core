@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Casts an enum to an int using pointers.

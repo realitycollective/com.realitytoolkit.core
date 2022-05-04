@@ -3,7 +3,7 @@
 
 using UnityEngine.EventSystems;
 
-namespace XRTK.EventDatum.Networking
+namespace RealityToolkit.EventDatum.Networking
 {
     /// <summary>
     /// The base networking event data for networked messages and events.

@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.Physics;
-using XRTK.Utilities.Physics;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extension methods for Unity's EventSystem

@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Definitions.Controllers.Hands
+namespace RealityToolkit.Definitions.Controllers.Hands
 {
     /// <summary>
     /// An <see cref="Interfaces.Providers.Controllers.Hands.IMixedRealityHandController"/>'s data

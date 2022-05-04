@@ -3,9 +3,9 @@
 
 using System;
 using UnityEngine.EventSystems;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.EventDatum.DiagnosticsSystem
+namespace RealityToolkit.EventDatum.DiagnosticsSystem
 {
     /// <summary>
     /// The base event class to inherit from for diagnostics events.

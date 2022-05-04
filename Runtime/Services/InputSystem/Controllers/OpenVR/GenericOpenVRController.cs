@@ -2,16 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
+using RealityToolkit.Services.InputSystem.Processors;
 using UnityEngine;
 using UnityEngine.XR;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
-using XRTK.Services.InputSystem.Controllers.UnityInput;
-using XRTK.Services.InputSystem.Processors;
 
-namespace XRTK.Services.InputSystem.Controllers.OpenVR
+namespace RealityToolkit.Services.InputSystem.Controllers.OpenVR
 {
     [System.Runtime.InteropServices.Guid("8DE3A393-71F8-47A4-89FE-7927B034DEAB")]
     public class GenericOpenVRController : GenericJoystickController
@@ -201,12 +201,12 @@ namespace XRTK.Services.InputSystem.Controllers.OpenVR
                 IsRotationAvailable = state.TryGetRotation(out CurrentControllerRotation);
 
                 // Devices are considered tracked if we receive position OR rotation data from the sensors.
-                TrackingState = (IsPositionAvailable || IsRotationAvailable) ? TrackingState.Tracked : TrackingState.NotTracked;
+                TrackingState = (IsPositionAvailable || IsRotationAvailable) ? Definitions.Devices.TrackingState.Tracked : Definitions.Devices.TrackingState.NotTracked;
             }
             else
             {
                 // The input source does not support tracking.
-                TrackingState = TrackingState.NotApplicable;
+                TrackingState = Definitions.Devices.TrackingState.NotApplicable;
             }
 
             Pose = new MixedRealityPose(CurrentControllerPosition, CurrentControllerRotation);
@@ -217,7 +217,7 @@ namespace XRTK.Services.InputSystem.Controllers.OpenVR
                 InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
             }
 
-            if (TrackingState == TrackingState.Tracked && LastControllerPose != Pose)
+            if (TrackingState == Definitions.Devices.TrackingState.Tracked && LastControllerPose != Pose)
             {
                 if (IsPositionAvailable && IsRotationAvailable)
                 {

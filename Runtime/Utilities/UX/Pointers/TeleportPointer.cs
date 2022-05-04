@@ -2,18 +2,18 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Services;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 using UnityEngine.Serialization;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Definitions.Physics;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Services;
-using XRTK.Utilities.Physics;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     public class TeleportPointer : LinePointer, ITeleportTargetProvider
     {

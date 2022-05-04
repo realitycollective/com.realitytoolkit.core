@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Controllers.OpenVR.Profiles;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 using UnityEngine;
-using XRTK.Definitions.Controllers.OpenVR.Profiles;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services.InputSystem.Controllers.UnityInput;
 
-namespace XRTK.Services.InputSystem.Controllers.OpenVR
+namespace RealityToolkit.Services.InputSystem.Controllers.OpenVR
 {
     /// <summary>
     /// Manages Open VR Devices using unity's input system.

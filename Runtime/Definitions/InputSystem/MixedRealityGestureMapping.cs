@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Devices;
 using UnityEngine;
-using XRTK.Definitions.Devices;
 
-namespace XRTK.Definitions.InputSystem
+namespace RealityToolkit.Definitions.InputSystem
 {
     /// <summary>
     /// Data structure for mapping gestures to <see cref="MixedRealityInputAction"/>s that can be raised by the Input System.

@@ -9,20 +9,20 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using RealityToolkit.Attributes;
+using RealityToolkit.Editor.BuildPipeline.Logging;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Editor.BuildPipeline.Logging;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Utilities;
-using XRTK.Editor.Utilities.SymbolicLinks;
-using XRTK.Extensions;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     /// <summary>
     /// Cross platform player build tools

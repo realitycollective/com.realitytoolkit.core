@@ -3,12 +3,12 @@
 
 using System;
 using System.IO;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Utilities;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.Utilities;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     /// <summary>
     /// Build and Deploy Specific Editor Preferences for the Build and Deploy Window.

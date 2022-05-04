@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     /// <summary>
     /// Implements a movement logic that uses the model of angular rotations along a sphere whose 

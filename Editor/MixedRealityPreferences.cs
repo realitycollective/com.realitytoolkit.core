@@ -5,17 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Editor.Utilities.SymbolicLinks;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.Utilities.SymbolicLinks;
-using XRTK.Editor.Extensions;
-using XRTK.Extensions;
-using XRTK.Editor.Utilities;
-using XRTK.Interfaces;
-using XRTK.Services;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     public static class MixedRealityPreferences
     {

@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
 
-namespace XRTK.Services.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Services.InputSystem.Controllers.UnityInput
 {
     [System.Runtime.InteropServices.Guid("98F97EDA-4418-4B4B-88E9-E4F1F0734E4E")]
     public class UnityTouchController : BaseController

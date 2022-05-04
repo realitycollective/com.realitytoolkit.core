@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     public static class UnityFileHelper
     {

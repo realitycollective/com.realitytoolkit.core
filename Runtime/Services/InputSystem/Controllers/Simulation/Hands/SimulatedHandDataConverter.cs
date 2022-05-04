@@ -3,15 +3,15 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Simulation.Hands;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Controllers.Simulation.Hands;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Utilities;
 using Random = UnityEngine.Random;
 
-namespace XRTK.Services.InputSystem.Controllers.Simulation.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Simulation.Hands
 {
     /// <summary>
     /// Hand controller type for simulated hand controllers.

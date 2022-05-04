@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using XRTK.Definitions.Physics;
-using XRTK.Extensions;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     /// <summary>
     /// Compares the Raycast Results from Unity's Graphic &amp; Physics Raycasters.

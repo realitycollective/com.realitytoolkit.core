@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Attributes
+namespace RealityToolkit.Attributes
 {
     /// <summary>
     /// Constraint that allows selection of classes that extend a specific class when

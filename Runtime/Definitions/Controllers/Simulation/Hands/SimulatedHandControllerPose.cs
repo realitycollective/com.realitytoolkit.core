@@ -4,11 +4,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Definitions.Controllers.Simulation.Hands
+namespace RealityToolkit.Definitions.Controllers.Simulation.Hands
 {
     /// <summary>
     /// Simulated pose of an hand controller defined by recorded joint poses.

@@ -3,18 +3,18 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Simulation.Hands;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
+using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Controllers.Simulation.Hands;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
-using XRTK.Services.InputSystem.Controllers.Hands;
 
-namespace XRTK.Services.InputSystem.Controllers.Simulation.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Simulation.Hands
 {
     /// <summary>
     /// Hand controller type for simulated hand controllers.

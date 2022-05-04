@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Utilities;
+using RealityToolkit.Utilities;
 
-namespace XRTK.Utilities.Solvers
+namespace RealityToolkit.Utilities.Solvers
 {
     /// <summary>
     /// ConstantViewSize solver scales to maintain a constant size relative to the view (currently tied to the Camera)

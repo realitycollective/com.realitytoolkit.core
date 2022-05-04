@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.CameraSystem;
 
-namespace XRTK.Definitions.CameraSystem
+namespace RealityToolkit.Definitions.CameraSystem
 {
     /// <summary>
     /// This <see cref="BaseMixedRealityProfile"/> to configuring your applications <see cref="IMixedRealityCameraDataProvider"/>s.

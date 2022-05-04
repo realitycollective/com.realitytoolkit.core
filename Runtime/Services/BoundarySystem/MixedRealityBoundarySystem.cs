@@ -5,14 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.Interfaces.BoundarySystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.BoundarySystem;
-using XRTK.Extensions;
-using XRTK.Interfaces.BoundarySystem;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.BoundarySystem
+namespace RealityToolkit.Services.BoundarySystem
 {
     /// <summary>
     /// The Boundary system controls the presentation and display of the users boundary in a scene.

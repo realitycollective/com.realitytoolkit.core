@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.DiagnosticsSystem;
+using RealityToolkit.Utilities.Solvers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using XRTK.Interfaces.DiagnosticsSystem;
-using XRTK.Utilities.Solvers;
-using XRTK.Services;
+using RealityToolkit.Services;
 
-namespace XRTK.Services.DiagnosticsSystem
+namespace RealityToolkit.Services.DiagnosticsSystem
 {
     [RequireComponent(typeof(SolverHandler))]
     public class MixedRealityDiagnosticsWindow : MonoBehaviour

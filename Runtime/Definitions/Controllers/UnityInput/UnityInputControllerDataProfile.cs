@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.Utilities;
-using XRTK.Services.InputSystem.Controllers.UnityInput;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 
-namespace XRTK.Definitions.Controllers.UnityInput.Profiles
+namespace RealityToolkit.Definitions.Controllers.UnityInput.Profiles
 {
     public class UnityInputControllerDataProfile : BaseMixedRealityControllerDataProviderProfile
     {

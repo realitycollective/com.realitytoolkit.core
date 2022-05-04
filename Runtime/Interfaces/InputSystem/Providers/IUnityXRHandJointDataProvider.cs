@@ -3,8 +3,8 @@
 
 using System.Collections.Generic;
 using UnityEngine.XR;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
 
 namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands
 {

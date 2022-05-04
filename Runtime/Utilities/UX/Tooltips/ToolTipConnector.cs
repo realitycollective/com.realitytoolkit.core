@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.ToolTips;
 using UnityEngine;
-using XRTK.Definitions.ToolTips;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.UX.ToolTips
+namespace RealityToolkit.Utilities.UX.ToolTips
 {
     /// <summary>
     /// Connects a ToolTip to a target

@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
-using XRTK.Utilities.Lines.DataProviders;
 
-namespace XRTK.Utilities.Lines
+namespace RealityToolkit.Utilities.Lines
 {
     public class BezierLineDataProvider : BaseMixedRealityLineDataProvider
     {

@@ -4,8 +4,8 @@
 using RealityToolkit.Utilities.UX.Controllers.Hands;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Input.Handlers;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Editor.Input.Handlers;
 
 namespace RealityToolkit.Editor.Input.Handlers
 {

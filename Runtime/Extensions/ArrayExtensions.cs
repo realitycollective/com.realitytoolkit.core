@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// <see cref="Array"/> type method extensions.

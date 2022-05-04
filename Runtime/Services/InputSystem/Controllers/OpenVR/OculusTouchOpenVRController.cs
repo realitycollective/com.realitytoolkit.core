@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers.OpenVR
+namespace RealityToolkit.Services.InputSystem.Controllers.OpenVR
 {
     [System.Runtime.InteropServices.Guid("F5779130-4990-44F7-A61A-196B34FA3AEF")]
     public class OculusTouchOpenVRController : GenericOpenVRController

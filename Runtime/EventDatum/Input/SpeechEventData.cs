@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
 
-namespace XRTK.EventDatum.Input
+namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Describes an input event that involves keyword recognition.

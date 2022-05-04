@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.Platforms
+namespace RealityToolkit.Definitions.Platforms
 {
     /// <summary>
     /// Used by the XRTK to signal that the feature is available in the Unity Editor.

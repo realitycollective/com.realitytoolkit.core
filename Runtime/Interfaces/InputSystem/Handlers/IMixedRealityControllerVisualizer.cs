@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Interfaces.InputSystem.Handlers
+namespace RealityToolkit.Interfaces.InputSystem.Handlers
 {
     /// <summary>
     /// Interface for configuring controller visualization.

@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Definitions.Physics
+namespace RealityToolkit.Definitions.Physics
 {
     /// <summary>
     /// The RayStep is a single ray cast step along the entire distance of a pointer's raycast result.

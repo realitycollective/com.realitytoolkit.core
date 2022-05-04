@@ -4,9 +4,9 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Utilities.SymbolicLinks
+namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {
     [InitializeOnLoad]
     public class SymbolicLinkerWindow : EditorWindow

@@ -2,11 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services;
-using XRTK.Tests.InputSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services;
+using RealityToolkit.Services.InputSystem.Providers;
+using RealityToolkit.Tests.InputSystem;
 
-namespace XRTK.Tests
+namespace RealityToolkit.Tests
 {
     public class TextFixture_05_GazeProviderTests
     {
@@ -23,7 +24,7 @@ namespace XRTK.Tests
         public void Test01_GazeProviderSetAuto()
         {
             var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
-            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.Providers.GazeProviderBehaviour.Auto);
+            inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Auto);
 
             if (AnyControllerWithPointersAttached(inputSystem))
             {
@@ -39,7 +40,7 @@ namespace XRTK.Tests
         public void Test02_GazeProviderSetInactive()
         {
             var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
-            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.Providers.GazeProviderBehaviour.Inactive);
+            inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Inactive);
 
             Assert.IsNull(inputSystem.GazeProvider);
         }
@@ -48,7 +49,7 @@ namespace XRTK.Tests
         public void Test03_GazeProviderSetActive()
         {
             var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
-            inputSystem.SetGazeProviderBehaviour(XRTK.Services.InputSystem.Providers.GazeProviderBehaviour.Active);
+            inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Active);
 
             Assert.IsNotNull(inputSystem.GazeProvider);
         }

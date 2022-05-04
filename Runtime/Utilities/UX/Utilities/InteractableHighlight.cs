@@ -3,11 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEngine;
-using XRTK.EventDatum.Input;
-using XRTK.Services.InputSystem.Handlers;
 
-namespace XRTK.Utilities.Utilities
+namespace RealityToolkit.Utilities.Utilities
 {
     /// <summary>
     /// Adds or removes materials to target renderer for highlighting Focused <see cref="GameObject"/>s.

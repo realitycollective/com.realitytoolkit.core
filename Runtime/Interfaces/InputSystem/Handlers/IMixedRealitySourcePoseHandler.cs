@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
 
-namespace XRTK.Interfaces.InputSystem.Handlers
+namespace RealityToolkit.Interfaces.InputSystem.Handlers
 {
     /// <summary>
     /// Interface to implement to react to source 

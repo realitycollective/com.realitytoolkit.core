@@ -3,7 +3,7 @@
 
 using UnityEditor;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     [CustomEditor(typeof(BuildInfo), true)]
     public class BuildInfoInspector : UnityEditor.Editor

@@ -3,7 +3,7 @@
 
 using UnityEditor;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     public class EditorHandsShaderGUI : ShaderGUI
     {

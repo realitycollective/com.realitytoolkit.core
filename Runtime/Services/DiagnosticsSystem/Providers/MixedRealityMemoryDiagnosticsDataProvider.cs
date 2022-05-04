@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.DiagnosticsSystem;
+using RealityToolkit.Interfaces.DiagnosticsSystem;
 using UnityEngine.Profiling;
-using XRTK.Definitions;
-using XRTK.Definitions.DiagnosticsSystem;
-using XRTK.Interfaces.DiagnosticsSystem;
 
-namespace XRTK.Services.DiagnosticsSystem.Providers
+namespace RealityToolkit.Services.DiagnosticsSystem.Providers
 {
     /// <summary>
     /// Diagnostics data provider for memory diagnostics. E.g. provides information about used application memory.

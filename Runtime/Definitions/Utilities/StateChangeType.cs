@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
 
-namespace XRTK.Definitions.Utilities
+namespace RealityToolkit.Definitions.Utilities
 {
     /// <summary>
     /// Influences how the <see cref="MixedRealityInteractionMapping"/> determines state changes that will raise the <see cref="MixedRealityInputAction"/>.

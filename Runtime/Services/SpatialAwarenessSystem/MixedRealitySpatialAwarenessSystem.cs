@@ -3,19 +3,19 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.EventDatum.SpatialAwarenessSystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem.Handlers;
+using RealityToolkit.Interfaces.SpatialObservers.Providers;
+using RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers;
+using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.EventDatum.SpatialAwarenessSystem;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Interfaces.SpatialAwarenessSystem.Handlers;
-using XRTK.Interfaces.SpatialObservers.Providers;
-using XRTK.Services.SpatialAwarenessSystem.SpatialObservers;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.SpatialAwarenessSystem
+namespace RealityToolkit.Services.SpatialAwarenessSystem
 {
     /// <summary>
     /// Class providing the default implementation of the <see cref="IMixedRealitySpatialAwarenessSystem"/> interface.

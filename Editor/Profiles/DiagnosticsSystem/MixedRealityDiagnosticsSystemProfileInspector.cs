@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Definitions.DiagnosticsSystem;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.DiagnosticsSystem;
-using XRTK.Editor.Extensions;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor.Profiles.DiagnosticsSystem
+namespace RealityToolkit.Editor.Profiles.DiagnosticsSystem
 {
     [CustomEditor(typeof(MixedRealityDiagnosticsSystemProfile))]
     public class MixedRealityDiagnosticsSystemProfileInspector : MixedRealityServiceProfileInspector

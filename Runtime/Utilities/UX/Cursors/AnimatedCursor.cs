@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
 
-namespace XRTK.Utilities.UX.Cursors
+namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
     /// Animated cursor is a cursor driven using an animator to inject state information

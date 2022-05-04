@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Extensions;
 using UnityEngine;
-using XRTK.Extensions;
 
-namespace XRTK.Definitions.Utilities
+namespace RealityToolkit.Definitions.Utilities
 {
     /// <summary>
     /// Reference to a class <see cref="System.Type"/> with support for Unity serialization.

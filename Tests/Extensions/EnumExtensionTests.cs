@@ -4,10 +4,10 @@
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 
-namespace XRTK.Tests.Extensions
+namespace RealityToolkit.Tests.Extensions
 {
     public class EnumExtensionTests
     {

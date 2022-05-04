@@ -3,21 +3,21 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services.InputSystem.InputSources;
+using RealityToolkit.Services.InputSystem.Providers;
+using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Services.InputSystem.InputSources;
-using XRTK.Services.InputSystem.Providers;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem
+namespace RealityToolkit.Services.InputSystem
 {
     /// <summary>
     /// The Mixed Reality Toolkit's specific implementation of the <see cref="IMixedRealityInputSystem"/>

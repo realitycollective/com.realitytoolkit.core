@@ -5,17 +5,17 @@ using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
-using XRTK.Services;
-using XRTK.Utilities;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Services;
+using RealityToolkit.Utilities;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {

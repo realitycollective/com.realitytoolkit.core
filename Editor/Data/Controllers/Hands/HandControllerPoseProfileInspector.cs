@@ -1,16 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Editor.Profiles;
+using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Profiles;
-using XRTK.Extensions;
-using XRTK.Services.InputSystem.Controllers.Hands;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Data.Controllers.Hands
+namespace RealityToolkit.Editor.Data.Controllers.Hands
 {
     [CustomEditor(typeof(HandControllerPoseProfile))]
     public class HandControllerPoseProfileInspector : BaseMixedRealityProfileInspector

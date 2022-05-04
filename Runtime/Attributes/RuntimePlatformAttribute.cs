@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Interfaces;
 using UnityEngine;
-using XRTK.Interfaces;
 
-namespace XRTK.Attributes
+namespace RealityToolkit.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class RuntimePlatformAttribute : PropertyAttribute

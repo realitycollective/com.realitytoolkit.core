@@ -3,18 +3,18 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 {
     /// <summary>
     /// Platform agnostic hand controller type.

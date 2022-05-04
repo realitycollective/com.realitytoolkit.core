@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Definitions.LocomotionSystem
+namespace RealityToolkit.Definitions.LocomotionSystem
 {
     /// <summary>
     /// Base configuration profile for <see cref="Interfaces.LocomotionSystem.ILocomotionProvider"/>s. Use the <see cref="Providers.LocomotionSystem.BaseLocomotionProvider"/>

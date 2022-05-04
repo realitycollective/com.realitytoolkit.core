@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace XRTK.Interfaces.InputSystem
+namespace RealityToolkit.Interfaces.InputSystem
 {
     /// <summary>
     /// Interface defining a pointer result.

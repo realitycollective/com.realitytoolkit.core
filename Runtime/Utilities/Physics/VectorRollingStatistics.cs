@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     /// <summary>
     /// Vector Statistics used in gaze stabilization.

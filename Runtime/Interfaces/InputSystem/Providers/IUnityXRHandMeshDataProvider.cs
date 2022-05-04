@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine.XR;
-using XRTK.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Hands;
 
 namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands
 {

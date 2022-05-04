@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Solvers
+namespace RealityToolkit.Utilities.Solvers
 {
     /// <summary>
     /// The base abstract class for all Solvers to derive from. It provides state tracking, smoothing parameters

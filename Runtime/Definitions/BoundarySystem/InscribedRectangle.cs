@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Extensions;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 using Random = System.Random;
 
-namespace XRTK.Definitions.BoundarySystem
+namespace RealityToolkit.Definitions.BoundarySystem
 {
     /// <summary>
     /// The InscribedRectangle class defines the largest rectangle within an

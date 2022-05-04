@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// Utility component to animate and visualize a light that can be used with 

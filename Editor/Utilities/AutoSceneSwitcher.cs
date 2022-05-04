@@ -1,14 +1,14 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Editor.Utilities.SymbolicLinks;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
-using XRTK.Editor.Utilities.SymbolicLinks;
-using XRTK.Services;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     /// <summary>
     /// Ensures that the <see cref="MixedRealityPreferences.StartSceneAsset"/> is always loaded

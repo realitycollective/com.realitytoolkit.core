@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Editor.Input.Handlers;
+using RealityToolkit.Utilities.UX.Pointers;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Input.Handlers;
-using XRTK.Extensions;
-using XRTK.Utilities.UX.Pointers;
-using InteractionMode = XRTK.Definitions.InteractionMode;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Extensions;
+using InteractionMode = RealityToolkit.Definitions.InteractionMode;
 
-namespace XRTK.Editor.UX.Pointers
+namespace RealityToolkit.Editor.UX.Pointers
 {
     [CustomEditor(typeof(BaseControllerPointer), true, isFallback = true)]
     public class BaseControllerPointerInspector : ControllerPoseSynchronizerInspector
@@ -67,14 +67,14 @@ namespace XRTK.Editor.UX.Pointers
                 EditorGUILayout.PropertyField(enablePointerOnStart);
                 EditorGUILayout.PropertyField(interactionMode);
 
-                var interactionModeValue = (InteractionMode)interactionMode.intValue;
+                var interactionModeValue = (Definitions.InteractionMode)interactionMode.intValue;
 
-                if (interactionModeValue.HasFlags(InteractionMode.Near))
+                if (interactionModeValue.HasFlags(Definitions.InteractionMode.Near))
                 {
                     EditorGUILayout.PropertyField(nearInteractionCollider);
                 }
 
-                if (interactionModeValue.HasFlags(InteractionMode.Far))
+                if (interactionModeValue.HasFlags(Definitions.InteractionMode.Far))
                 {
                     EditorGUILayout.PropertyField(raycastOrigin);
                     EditorGUILayout.PropertyField(defaultPointerExtent);

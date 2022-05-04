@@ -4,12 +4,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
-using XRTK.Services.InputSystem.Controllers;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Services.InputSystem.Controllers;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {

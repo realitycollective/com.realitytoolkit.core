@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace XRTK.Editor.BuildPipeline
+namespace RealityToolkit.Editor.BuildPipeline
 {
     /// <summary>
     /// Build profile for saving 3d app icon's path in the build settings.

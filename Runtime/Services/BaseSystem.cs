@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using XRTK.Definitions;
-using XRTK.Extensions;
-using XRTK.Interfaces;
+using RealityToolkit.Definitions;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services
+namespace RealityToolkit.Services
 {
     /// <summary>
     /// The base class for Mixed Reality Systems to inherit from.

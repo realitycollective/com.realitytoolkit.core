@@ -3,15 +3,15 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Controllers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers
+namespace RealityToolkit.Services.InputSystem.Controllers
 {
     /// <summary>
     /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityControllerDataProvider"/>s

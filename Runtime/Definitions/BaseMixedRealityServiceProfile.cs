@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces;
 using UnityEngine;
-using XRTK.Interfaces;
 
-namespace XRTK.Definitions
+namespace RealityToolkit.Definitions
 {
     public interface IMixedRealityServiceProfile<out TService> where TService : IMixedRealityService
     {

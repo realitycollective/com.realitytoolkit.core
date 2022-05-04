@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
-using XRTK.Utilities.Lines.DataProviders;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     [RequireComponent(typeof(ParabolaPhysicalLineDataProvider))]
     public class ParabolicTeleportPointer : TeleportPointer

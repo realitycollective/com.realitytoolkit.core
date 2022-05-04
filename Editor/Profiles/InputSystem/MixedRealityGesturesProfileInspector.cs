@@ -4,13 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.InputSystem;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.InputSystem;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealityGesturesProfile))]
     public class MixedRealityGesturesProfileInspector : BaseMixedRealityProfileInspector

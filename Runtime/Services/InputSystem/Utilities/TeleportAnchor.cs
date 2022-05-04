@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEngine;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Services.InputSystem.Handlers;
 
-namespace XRTK.Services.InputSystem.Utilities
+namespace RealityToolkit.Services.InputSystem.Utilities
 {
     /// <summary>
     /// Default implementation for <see cref="ITeleportAnchor"/>.

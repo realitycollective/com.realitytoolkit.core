@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers.Simulation;
+using RealityToolkit.Editor.Extensions;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Simulation;
-using XRTK.Editor.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem.Controllers.Simulation
+namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers.Simulation
 {
     [CustomEditor(typeof(SimulatedControllerDataProviderProfile))]
     public class SimulatedControllerDataProviderProfileInspector : BaseMixedRealityControllerDataProviderProfileInspector

@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Definitions.InputSystem
+namespace RealityToolkit.Definitions.InputSystem
 {
     /// <summary>
     /// Data struct for cursor state information for the Animated Cursor, which leverages the Unity animation system.

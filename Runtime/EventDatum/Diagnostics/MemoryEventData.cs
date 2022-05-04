@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.DiagnosticsSystem;
+using RealityToolkit.Interfaces.DiagnosticsSystem;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.DiagnosticsSystem;
-using XRTK.Interfaces.DiagnosticsSystem;
 
-namespace XRTK.EventDatum.DiagnosticsSystem
+namespace RealityToolkit.EventDatum.DiagnosticsSystem
 {
     /// <summary>
     /// The event data associated with memory events.

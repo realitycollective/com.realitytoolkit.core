@@ -2,16 +2,17 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
 using UnityEngine;
 using UnityEngine.Events;
-using XRTK.Definitions.InputSystem;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem.Handlers;
 
-namespace XRTK.Services.InputSystem.Handlers
+namespace RealityToolkit.Services.InputSystem.Handlers
 {
     /// <summary>
-    /// This component handles the speech input events raised form the <see cref="XRTK.Interfaces.InputSystem.IMixedRealityInputSystem"/>.
+    /// This component handles the speech input events raised form the <see cref="IMixedRealityInputSystem"/>.
     /// </summary>
     [DisallowMultipleComponent]
     public class SpeechInputHandler : BaseInputHandler, IMixedRealitySpeechHandler

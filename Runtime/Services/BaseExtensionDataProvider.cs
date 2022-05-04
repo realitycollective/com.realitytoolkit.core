@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions;
-using XRTK.Interfaces;
+using RealityToolkit.Definitions;
+using RealityToolkit.Interfaces;
 
-namespace XRTK.Services
+namespace RealityToolkit.Services
 {
     /// <summary>
     /// The base extension data provider implements <see cref="IMixedRealityExtensionDataProvider"/> and provides default properties for all extension data providers.

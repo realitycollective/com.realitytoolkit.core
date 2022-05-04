@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.UX.ToolTips
+namespace RealityToolkit.Utilities.UX.ToolTips
 {
     /// <summary>
     /// Renders meshes at the corners of a tool tip

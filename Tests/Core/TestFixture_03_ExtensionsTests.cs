@@ -3,9 +3,9 @@
 
 using NUnit.Framework;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Tests.Core
+namespace RealityToolkit.Tests.Core
 {
     public class TestFixture_03_ExtensionsTests
     {

@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Extensions;
-using XRTK.Utilities.Lines.DataProviders;
 
-namespace XRTK.Editor.Utilities.Lines.DataProviders
+namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(SplineDataProvider))]
     public class SplineDataProviderInspector : BaseMixedRealityLineDataProviderInspector

@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extension methods for Unity's <see cref="Bounds"/>

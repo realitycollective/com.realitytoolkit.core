@@ -4,11 +4,11 @@
 //
 
 using System;
+using RealityToolkit.Definitions.ToolTips;
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
-using XRTK.Definitions.ToolTips;
-using XRTK.Utilities.Lines.DataProviders;
 
-namespace XRTK.Utilities.UX.ToolTips
+namespace RealityToolkit.Utilities.UX.ToolTips
 {
     /// <summary>
     /// Class for Tooltip object

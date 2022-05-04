@@ -1,16 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Utilities.UX.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {
     /// <summary>
     /// Base hand controller visualizer implementation.

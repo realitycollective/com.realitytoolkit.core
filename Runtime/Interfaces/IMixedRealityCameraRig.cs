@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 
-namespace XRTK.Interfaces.CameraSystem
+namespace RealityToolkit.Interfaces.CameraSystem
 {
     /// <summary>
     /// This interface is to be implemented by a <see cref="MonoBehaviour"/> and attached to the rig root object.

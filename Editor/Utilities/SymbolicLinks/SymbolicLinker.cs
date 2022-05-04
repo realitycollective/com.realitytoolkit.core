@@ -9,10 +9,10 @@ using System.Threading;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 
-namespace XRTK.Editor.Utilities.SymbolicLinks
+namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {
     [InitializeOnLoad]
     public static class SymbolicLinker

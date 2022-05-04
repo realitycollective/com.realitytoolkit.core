@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.Events;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.Events;
 
-namespace XRTK.Interfaces.SpatialObservers.Providers
+namespace RealityToolkit.Interfaces.SpatialObservers.Providers
 {
     /// <summary>
     /// The Mixed Reality Spatial Observer Data Provider contract.

@@ -1,13 +1,13 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Utilities;
 
-namespace XRTK.Services.LocomotionSystem.Providers
+namespace RealityToolkit.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// The Mixed Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.

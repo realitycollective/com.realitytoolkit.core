@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Definitions.ToolTips
+namespace RealityToolkit.Definitions.ToolTips
 {
     /// <summary>
     /// How does the Tooltip rotate about the connector

@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Services.InputSystem.Handlers;
 
-namespace XRTK.Utilities.UX.Receivers
+namespace RealityToolkit.Utilities.UX.Receivers
 {
     /// <summary>
     /// An interaction receiver is simply a component that attached to a list of interactable objects and does something

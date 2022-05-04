@@ -3,11 +3,11 @@
 
 using System;
 using System.Collections.Generic;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.Events;
-using XRTK.Interfaces.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.Events;
+using RealityToolkit.Interfaces.InputSystem;
 
-namespace XRTK.Interfaces.LocomotionSystem
+namespace RealityToolkit.Interfaces.LocomotionSystem
 {
     /// <summary>
     /// System interface for a locomotion system in the Mixed Reality Toolkit.

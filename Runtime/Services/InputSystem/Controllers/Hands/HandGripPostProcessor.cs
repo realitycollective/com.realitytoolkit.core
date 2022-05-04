@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
 
-namespace XRTK.Services.InputSystem.Controllers.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 {
     /// <summary>
     /// The <see cref="HandGripPostProcessor"/> processes <see cref="HandData"/>

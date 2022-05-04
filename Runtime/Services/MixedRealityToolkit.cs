@@ -6,16 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions;
-using XRTK.Definitions.Platforms;
-using XRTK.Extensions;
-using XRTK.Interfaces;
-using XRTK.Utilities;
-using XRTK.Utilities.Async;
+using RealityToolkit.Utilities.Async;
 
-namespace XRTK.Services
+namespace RealityToolkit.Services
 {
     /// <summary>
     /// This class is responsible for coordinating the operation of the Mixed Reality Toolkit. It is the only Singleton in the entire project.

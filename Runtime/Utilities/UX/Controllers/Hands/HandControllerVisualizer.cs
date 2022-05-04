@@ -4,17 +4,17 @@
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
-using XRTK.Services;
-using XRTK.Services.InputSystem.Utilities;
-using XRTK.Utilities.UX.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
+using RealityToolkit.Services;
+using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Utilities.UX.Controllers.Hands;
 
 namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {
@@ -79,7 +79,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
             // Update the visualizers tracking state.
             TrackingState = handController.TrackingState;
 
-            if (TrackingState == XRTK.Definitions.Devices.TrackingState.Tracked)
+            if (TrackingState == RealityToolkit.Definitions.Devices.TrackingState.Tracked)
             {
                 UpdateHandJointTransforms();
                 UpdateHandColliders();

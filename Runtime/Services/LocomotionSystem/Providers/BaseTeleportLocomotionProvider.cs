@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
 using UnityEngine;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.LocomotionSystem;
 
-namespace XRTK.Services.LocomotionSystem.Providers
+namespace RealityToolkit.Services.LocomotionSystem.Providers
 {
     /// <summary>
     /// Provides a base implementation for <see cref="ITeleportLocomotionProvider"/>s with functionality

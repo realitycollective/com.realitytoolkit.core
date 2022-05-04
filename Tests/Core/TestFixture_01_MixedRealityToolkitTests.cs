@@ -2,17 +2,17 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
+using RealityToolkit.Definitions;
+using RealityToolkit.Editor.BuildPipeline.Logging;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Services;
+using RealityToolkit.Tests.Services;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
-using XRTK.Definitions;
-using XRTK.Editor.BuildPipeline.Logging;
-using XRTK.Editor.Utilities;
-using XRTK.Interfaces;
-using XRTK.Services;
-using XRTK.Tests.Services;
 
-namespace XRTK.Tests.Core
+namespace RealityToolkit.Tests.Core
 {
     public class TestFixture_01_MixedRealityToolkitTests
     {

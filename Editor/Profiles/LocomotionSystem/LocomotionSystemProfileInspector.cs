@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Services;
 using UnityEditor;
-using XRTK.Services;
-using XRTK.Definitions.LocomotionSystem;
 
-namespace XRTK.Editor.Profiles.LocomotionSystem
+namespace RealityToolkit.Editor.Profiles.LocomotionSystem
 {
     [CustomEditor(typeof(LocomotionSystemProfile))]
     public class LocomotionSystemProfileInspector : MixedRealityServiceProfileInspector

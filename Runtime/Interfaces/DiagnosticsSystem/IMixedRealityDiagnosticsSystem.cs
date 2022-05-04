@@ -1,10 +1,10 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.DiagnosticsSystem;
 using UnityEngine;
-using XRTK.Definitions.DiagnosticsSystem;
 
-namespace XRTK.Interfaces.DiagnosticsSystem
+namespace RealityToolkit.Interfaces.DiagnosticsSystem
 {
     /// <summary>
     /// The interface contract that defines the Diagnostics system in the Mixed Reality Toolkit

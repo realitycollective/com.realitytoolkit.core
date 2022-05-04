@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     /// <summary>
     /// A MonoBehaviour that interpolates a transform's position, rotation or scale.

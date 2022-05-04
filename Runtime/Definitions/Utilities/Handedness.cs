@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Definitions.Utilities
+namespace RealityToolkit.Definitions.Utilities
 {
     /// <summary>
     /// The Handedness defines which hand a controller is currently operating in.

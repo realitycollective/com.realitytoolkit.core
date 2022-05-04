@@ -3,10 +3,10 @@
 
 using RealityToolkit.Utilities.UX.Controllers.Hands;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
 
-namespace XRTK.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {
     public class HandControllerJointsVisualizer : MonoBehaviour
     {

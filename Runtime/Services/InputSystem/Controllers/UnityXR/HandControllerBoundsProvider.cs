@@ -4,8 +4,8 @@
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Utilities;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {

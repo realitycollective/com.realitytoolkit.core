@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information. 
 
+using RealityToolkit.Definitions.CameraSystem;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.CameraSystem;
-using XRTK.Editor.Extensions;
-using XRTK.Services;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor.Profiles.CameraSystem
+namespace RealityToolkit.Editor.Profiles.CameraSystem
 {
     [CustomEditor(typeof(BaseMixedRealityCameraDataProviderProfile), true, isFallback = true)]
     public class BaseMixedRealityCameraDataProviderProfileInspector : BaseMixedRealityProfileInspector

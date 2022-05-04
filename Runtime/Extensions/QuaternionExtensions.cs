@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extension methods for Unity's Quaternion struct.

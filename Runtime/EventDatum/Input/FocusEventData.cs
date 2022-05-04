@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Interfaces.InputSystem;
 
-namespace XRTK.EventDatum.Input
+namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Describes an Input Event associated with a specific pointer's focus state change.

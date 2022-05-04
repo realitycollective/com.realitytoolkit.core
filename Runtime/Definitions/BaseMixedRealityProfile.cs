@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions
+namespace RealityToolkit.Definitions
 {
     /// <summary>
     /// Base Profile for all data containers to use in the Mixed Reality Toolkit.

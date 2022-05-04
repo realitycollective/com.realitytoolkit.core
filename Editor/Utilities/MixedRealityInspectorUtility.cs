@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     /// <summary>
     /// This class has handy inspector utilities and functions.

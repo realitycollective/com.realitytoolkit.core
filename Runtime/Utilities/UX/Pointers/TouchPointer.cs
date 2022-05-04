@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Utilities;
-using XRTK.Utilities.Physics;
+using RealityToolkit.Utilities;
 
-namespace XRTK.Utilities.UX.Pointers
+namespace RealityToolkit.Utilities.UX.Pointers
 {
     /// <summary>
     /// Touch Pointer Implementation.
