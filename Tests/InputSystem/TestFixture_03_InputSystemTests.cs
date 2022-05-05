@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services;
 using UnityEngine;
 using UnityEngine.TestTools;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services;
 
-namespace XRTK.Tests.InputSystem
+namespace RealityToolkit.Tests.InputSystem
 {
     public class TestFixture_03_InputSystemTests
     {

@@ -4,7 +4,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace XRTK.Interfaces.InputSystem.Providers.Speech
+namespace RealityToolkit.Interfaces.InputSystem.Providers.Speech
 {
     /// <summary>
     /// Mixed Reality Toolkit controller definition, used to manage a specific controller type

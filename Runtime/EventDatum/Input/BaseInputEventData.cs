@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine.EventSystems;
-using XRTK.Definitions.InputSystem;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
+using RealityToolkit.Extensions;
 
-namespace XRTK.EventDatum.Input
+namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Base class of all Input Events.

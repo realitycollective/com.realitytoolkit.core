@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.PropertyDrawers;
-using XRTK.Interfaces.InputSystem.Handlers;
 
-namespace XRTK.Editor.Profiles.InputSystem.Controllers
+namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(MixedRealityControllerVisualizationProfile))]
     public class MixedRealityControllerVisualizationProfileInspector : BaseMixedRealityProfileInspector

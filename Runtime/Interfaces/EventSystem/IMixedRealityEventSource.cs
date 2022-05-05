@@ -3,7 +3,7 @@
 
 using System.Collections;
 
-namespace XRTK.Interfaces.Events
+namespace RealityToolkit.Interfaces.Events
 {
     /// <summary>
     /// Interface to implement an event source.

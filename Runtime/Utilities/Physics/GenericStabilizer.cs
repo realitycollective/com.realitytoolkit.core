@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Utilities.Physics
+namespace RealityToolkit.Utilities.Physics
 {
     /// <summary>
     /// GenericStabilizer iterates over samples of Raycast data and

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.InputSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Providers.Speech;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Providers.Speech;
 
-namespace XRTK.Services.InputSystem.Providers
+namespace RealityToolkit.Services.InputSystem.Providers
 {
     /// <summary>
     /// Base speech data provider to inherit from when implementing <see cref="IMixedRealitySpeechDataProvider"/>s

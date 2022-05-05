@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.Interfaces.Events;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem.Handlers;
+using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using UnityEngine;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.Interfaces.Events;
-using XRTK.Interfaces.SpatialAwarenessSystem.Handlers;
-using XRTK.Interfaces.SpatialObservers.Providers;
 
-namespace XRTK.Interfaces.SpatialAwarenessSystem
+namespace RealityToolkit.Interfaces.SpatialAwarenessSystem
 {
     /// <summary>
     /// The interface definition for Spatial Awareness features in the Mixed Reality Toolkit.

@@ -3,15 +3,15 @@
 
 using System;
 using System.Collections;
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.Definitions.SpatialObservers;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem;
+using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using UnityEngine;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.Definitions.SpatialObservers;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Interfaces.SpatialObservers.Providers;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.SpatialAwarenessSystem.SpatialObservers
+namespace RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers
 {
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialAwarenessDataProvider"/> implementation

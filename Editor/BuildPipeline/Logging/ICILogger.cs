@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Editor.BuildPipeline.Logging
+namespace RealityToolkit.Editor.BuildPipeline.Logging
 {
     /// <summary>
     /// CI Logging interface.

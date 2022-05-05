@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.EventDatum.Input;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Handlers;
-using XRTK.Utilities;
 
-namespace XRTK.Services.InputSystem.Handlers
+namespace RealityToolkit.Services.InputSystem.Handlers
 {
     /// <summary>
     /// Component that allows dragging a <see cref="GameObject"/>.

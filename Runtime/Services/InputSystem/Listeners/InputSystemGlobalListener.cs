@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine;
-using XRTK.Interfaces.InputSystem;
 
-namespace XRTK.Services.InputSystem.Listeners
+namespace RealityToolkit.Services.InputSystem.Listeners
 {
     /// <summary>
     /// This component ensures that all input events are forwarded to this <see cref="GameObject"/> when focus or gaze is not required.

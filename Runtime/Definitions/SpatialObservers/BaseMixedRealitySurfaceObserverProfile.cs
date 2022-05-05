@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.SpatialObservers
+namespace RealityToolkit.Definitions.SpatialObservers
 {
     // No Scriptable Object Menu constructor attributes here, as this class is meant to be inherited.
 

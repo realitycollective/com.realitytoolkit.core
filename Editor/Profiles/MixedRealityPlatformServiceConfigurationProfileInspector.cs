@@ -4,19 +4,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.Data;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Data;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.PropertyDrawers;
-using XRTK.Extensions;
-using XRTK.Services;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles
+namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityPlatformServiceConfigurationProfile))]
     public class MixedRealityPlatformServiceConfigurationProfileInspector : BaseMixedRealityProfileInspector

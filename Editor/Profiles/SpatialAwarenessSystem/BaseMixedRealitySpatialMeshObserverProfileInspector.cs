@@ -1,14 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.SpatialObservers;
+using RealityToolkit.Editor.PropertyDrawers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.SpatialObservers;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.PropertyDrawers;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor.Profiles.SpatialAwareness
+namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
     [CustomEditor(typeof(BaseMixedRealitySpatialMeshObserverProfile), true, isFallback = true)]
     public class BaseMixedRealitySpatialMeshObserverProfileInspector : BaseMixedRealitySpatialObserverProfileInspector

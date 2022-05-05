@@ -3,9 +3,9 @@
 
 using System;
 using System.Collections;
-using XRTK.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem;
 
-namespace XRTK.Services.InputSystem.InputSources
+namespace RealityToolkit.Services.InputSystem.InputSources
 {
     /// <summary>
     /// Base class for input sources that don't inherit from MonoBehaviour.

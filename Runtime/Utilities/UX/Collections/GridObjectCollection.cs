@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
 
-namespace XRTK.Utilities.UX.Collections
+namespace RealityToolkit.Utilities.UX.Collections
 {
     /// <summary>
     /// A Grid Object Collection is simply a set of child objects organized with some

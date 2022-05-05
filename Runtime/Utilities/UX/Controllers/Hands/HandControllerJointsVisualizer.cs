@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
 
-namespace XRTK.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {
     public class HandControllerJointsVisualizer : MonoBehaviour
     {

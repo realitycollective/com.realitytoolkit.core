@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Lines;
+using RealityToolkit.Utilities.Physics.Distorters;
 using UnityEngine;
-using XRTK.Definitions.Lines;
-using XRTK.Utilities.Physics.Distorters;
 
-namespace XRTK.Utilities.Lines.DataProviders
+namespace RealityToolkit.Utilities.Lines.DataProviders
 {
     /// <summary>
     /// Base class that provides data about a line.

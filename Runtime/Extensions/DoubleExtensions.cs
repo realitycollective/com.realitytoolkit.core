@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Extensions
+namespace RealityToolkit.Extensions
 {
     /// <summary>
     /// Extension methods for the .Net Double struct

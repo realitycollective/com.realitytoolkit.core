@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.BoundarySystem;
 using UnityEngine;
-using XRTK.Definitions.BoundarySystem;
 
-namespace XRTK.Interfaces.BoundarySystem
+namespace RealityToolkit.Interfaces.BoundarySystem
 {
     /// <summary>
     /// The interface for a Boundary system in the Mixed Reality Toolkit

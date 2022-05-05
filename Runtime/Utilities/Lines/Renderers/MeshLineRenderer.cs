@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XRTK.Utilities.Lines.Renderers
+namespace RealityToolkit.Utilities.Lines.Renderers
 {
     /// <summary>
     /// Creates instances of a mesh along the line

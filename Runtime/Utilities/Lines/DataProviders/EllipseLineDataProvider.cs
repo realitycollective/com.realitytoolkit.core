@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Lines.DataProviders
+namespace RealityToolkit.Utilities.Lines.DataProviders
 {
     /// <summary>
     /// Creates an elliptical line shape.

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Interfaces
+namespace RealityToolkit.Interfaces
 {
     /// <summary>
     /// Generic interface for all Mixed Reality Services

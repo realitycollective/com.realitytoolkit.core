@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Definitions.Devices
+namespace RealityToolkit.Definitions.Devices
 {
     /// <summary>
     /// Helper utility to manage all the required Axis configuration for platforms, where required

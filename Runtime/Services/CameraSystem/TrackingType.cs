@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Services.CameraSystem
+namespace RealityToolkit.Services.CameraSystem
 {
     /// <summary>
     /// Available tracking types for the camera operated by the <see cref="Interfaces.CameraSystem.IMixedRealityCameraSystem"/>.

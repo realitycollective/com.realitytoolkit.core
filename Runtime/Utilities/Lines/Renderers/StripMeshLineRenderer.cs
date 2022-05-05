@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Lines.Renderers
+namespace RealityToolkit.Utilities.Lines.Renderers
 {
     /// <summary>
     /// Draws a strip of polygons along the line

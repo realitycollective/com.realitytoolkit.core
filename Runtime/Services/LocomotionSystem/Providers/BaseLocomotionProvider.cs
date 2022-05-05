@@ -1,17 +1,17 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.LocomotionSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.LocomotionSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.EventDatum.Input;
-using XRTK.Extensions;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.LocomotionSystem;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.LocomotionSystem.Providers
+namespace RealityToolkit.Services.LocomotionSystem.Providers
 {
     public abstract class BaseLocomotionProvider : BaseDataProvider, ILocomotionProvider
     {

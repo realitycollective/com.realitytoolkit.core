@@ -3,9 +3,9 @@
 
 using System;
 using System.Linq;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Attributes
+namespace RealityToolkit.Attributes
 {
     /// <summary>
     /// Constraint that allows selection of classes that implement a specific interface

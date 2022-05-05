@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Definitions.Devices;
-using XRTK.Editor.Utilities;
 using NUnit.Framework;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Editor.Utilities;
 
-namespace XRTK.Tests.InputSystem
+namespace RealityToolkit.Tests.InputSystem
 {
     public class TestFixture_01_UnityInputManagerHelperTests
     {

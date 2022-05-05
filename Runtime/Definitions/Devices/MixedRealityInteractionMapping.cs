@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Processors;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Services.InputSystem.Processors;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Definitions.Devices
+namespace RealityToolkit.Definitions.Devices
 {
     /// <summary>
     /// Maps the capabilities of controllers, linking the Physical inputs of a controller to a Logical construct in a runtime project<para/>

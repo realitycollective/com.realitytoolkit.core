@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Attributes;
+using RealityToolkit.EventDatum.DiagnosticsSystem;
+using RealityToolkit.Interfaces.DiagnosticsSystem.Handlers;
 using TMPro;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.EventDatum.DiagnosticsSystem;
-using XRTK.Interfaces.DiagnosticsSystem.Handlers;
 
-namespace XRTK.Services.DiagnosticsSystem.Handlers
+namespace RealityToolkit.Services.DiagnosticsSystem.Handlers
 {
     public class MixedRealityConsoleDiagnosticsHandler : MonoBehaviour,
         IMixedRealityConsoleDiagnosticsHandler

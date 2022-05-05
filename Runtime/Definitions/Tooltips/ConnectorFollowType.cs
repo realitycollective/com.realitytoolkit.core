@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Definitions.ToolTips
+namespace RealityToolkit.Definitions.ToolTips
 {
     /// <summary>
     /// How does the Tooltip track with its parent object

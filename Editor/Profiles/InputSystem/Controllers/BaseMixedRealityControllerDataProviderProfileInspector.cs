@@ -5,19 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.PropertyDrawers;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Services.InputSystem.Controllers;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles.InputSystem.Controllers
+namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(BaseMixedRealityControllerDataProviderProfile), editorForChildClasses: true, isFallback = true)]
     public class BaseMixedRealityControllerDataProviderProfileInspector : BaseMixedRealityProfileInspector

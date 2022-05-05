@@ -3,7 +3,7 @@
 
 using UnityEditor;
 
-namespace XRTK.Editor.Input.Handlers
+namespace RealityToolkit.Editor.Input.Handlers
 {
     public class BaseInputHandlerInspector : UnityEditor.Editor
     {

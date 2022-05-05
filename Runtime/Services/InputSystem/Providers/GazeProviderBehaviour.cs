@@ -1,7 +1,7 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Services.InputSystem.Providers
+namespace RealityToolkit.Services.InputSystem.Providers
 {
     /// <summary>
     /// Available options for how the configured <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/>

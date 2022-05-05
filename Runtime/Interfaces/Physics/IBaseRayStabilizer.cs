@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Interfaces.Physics
+namespace RealityToolkit.Interfaces.Physics
 {
     public interface IBaseRayStabilizer
     {

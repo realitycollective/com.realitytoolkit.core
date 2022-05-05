@@ -4,16 +4,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Extensions;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
 using Assembly = System.Reflection.Assembly;
 
-namespace XRTK.Editor.PropertyDrawers
+namespace RealityToolkit.Editor.PropertyDrawers
 {
     /// <summary>
     /// Custom property drawer for <see cref="SystemType"/> properties.

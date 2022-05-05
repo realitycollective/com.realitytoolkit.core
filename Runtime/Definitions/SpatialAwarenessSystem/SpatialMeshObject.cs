@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace XRTK.Definitions.SpatialAwarenessSystem
+namespace RealityToolkit.Definitions.SpatialAwarenessSystem
 {
     /// <summary>
     /// A Spatial Mesh Object is the Spatial Awareness System's representation of a spatial object with mesh information.

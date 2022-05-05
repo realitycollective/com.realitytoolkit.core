@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.UX.Collections
+namespace RealityToolkit.Utilities.UX.Collections
 {
     /// <summary>
     /// A Scatter Object Collection is simply a set of child objects randomly laid out within a radius.

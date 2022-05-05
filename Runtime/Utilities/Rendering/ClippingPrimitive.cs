@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XRTK.Utilities.Rendering
+namespace RealityToolkit.Utilities.Rendering
 {
     /// <summary>
     /// An abstract primitive component to animate and visualize a clipping primitive that can be

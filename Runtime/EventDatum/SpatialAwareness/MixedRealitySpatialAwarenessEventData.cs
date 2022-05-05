@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using UnityEngine.EventSystems;
-using XRTK.Interfaces.SpatialObservers.Providers;
 
-namespace XRTK.EventDatum.SpatialAwarenessSystem
+namespace RealityToolkit.EventDatum.SpatialAwarenessSystem
 {
     /// <summary>
     /// Data for spatial awareness events.

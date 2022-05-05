@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Services.InputSystem.Controllers.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 {
     /// <summary>
     /// The hand pose processor uses the recorded hand pose definitions

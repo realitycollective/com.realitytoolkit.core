@@ -1,12 +1,12 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.DiagnosticsSystem;
 using UnityEngine;
-using XRTK.Attributes;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.DiagnosticsSystem;
 
-namespace XRTK.Definitions.DiagnosticsSystem
+namespace RealityToolkit.Definitions.DiagnosticsSystem
 {
     /// <summary>
     /// Configuration profile settings for setting up diagnostics.

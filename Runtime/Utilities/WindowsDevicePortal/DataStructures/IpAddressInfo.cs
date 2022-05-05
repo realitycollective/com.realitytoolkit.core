@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Utilities.WindowsDevicePortal.DataStructures
+namespace RealityToolkit.Utilities.WindowsDevicePortal.DataStructures
 {
     [Serializable]
     public class IpAddressInfo

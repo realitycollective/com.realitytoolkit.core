@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Rendering
+namespace RealityToolkit.Utilities.Rendering
 {
     /// <summary>
     /// Component to animate and visualize a box that can be used with 

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Interfaces.Audio
+namespace RealityToolkit.Interfaces.Audio
 {
     /// <summary>
     /// Interface that should be implemented by any class that wishes to influence how an audio source sounds.

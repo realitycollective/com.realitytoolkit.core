@@ -3,7 +3,7 @@
 
 using System;
 
-namespace XRTK.Definitions.Utilities
+namespace RealityToolkit.Definitions.Utilities
 {
     /// <summary>
     /// Enum which describes cardinal axes

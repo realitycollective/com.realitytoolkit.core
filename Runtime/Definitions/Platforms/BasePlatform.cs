@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using XRTK.Interfaces;
+using RealityToolkit.Interfaces;
 
 #if UNITY_EDITOR
 using System.Linq;
 #endif
 
-namespace XRTK.Definitions.Platforms
+namespace RealityToolkit.Definitions.Platforms
 {
     /// <summary>
     /// Base platform class to derive all <see cref="IMixedRealityPlatform"/>s from.

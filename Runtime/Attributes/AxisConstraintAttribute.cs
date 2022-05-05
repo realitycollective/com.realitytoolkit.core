@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Attributes
+namespace RealityToolkit.Attributes
 {
     /// <summary>
     /// Use this attribute to better define <see cref="MixedRealityInputAction"/>s.

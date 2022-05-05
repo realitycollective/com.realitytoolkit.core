@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Attributes
+namespace RealityToolkit.Attributes
 {
     /// <summary>
     /// Base class for class selection constraints that can be applied when selecting

@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.InputSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Providers.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 
-namespace XRTK.Services.InputSystem.Controllers.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 {
     /// <summary>
     /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityHandController"/>s.

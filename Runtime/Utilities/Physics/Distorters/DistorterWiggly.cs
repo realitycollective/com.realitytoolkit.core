@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Utilities.Physics.Distorters
+namespace RealityToolkit.Utilities.Physics.Distorters
 {
     public class DistorterWiggly : Distorter
     {

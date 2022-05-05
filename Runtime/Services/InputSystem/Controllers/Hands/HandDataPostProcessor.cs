@@ -2,15 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Controllers.Hands;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.InputSystem.Controllers.Hands;
-using XRTK.Utilities;
 
-namespace XRTK.Services.InputSystem.Controllers.Hands
+namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 {
     /// <summary>
     /// The hand data post processor updates <see cref="HandData"/> provided

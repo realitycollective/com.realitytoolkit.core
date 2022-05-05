@@ -5,7 +5,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     /// <summary>
     /// Popup window to help facilitate fixing broken serialized <see cref="Type"/> references.

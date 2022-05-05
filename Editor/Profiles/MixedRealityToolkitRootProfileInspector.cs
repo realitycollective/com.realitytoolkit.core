@@ -4,6 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Services;
 using UnityEditor;
 #if UNITY_2021_1_OR_NEWER
 using SceneManagement = UnityEditor.SceneManagement;
@@ -12,15 +18,9 @@ using SceneManagement = UnityEditor.Experimental.SceneManagement;
 #endif
 using UnityEditor.PackageManager;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.Platforms;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Services;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Profiles
+namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityToolkitRootProfile))]
     public class MixedRealityToolkitRootProfileInspector : MixedRealityServiceProfileInspector

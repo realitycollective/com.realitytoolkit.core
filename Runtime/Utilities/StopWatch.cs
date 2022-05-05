@@ -4,7 +4,7 @@
 using System;
 using System.Diagnostics;
 
-namespace XRTK.Utilities
+namespace RealityToolkit.Utilities
 {
     public sealed class StopWatch
     {

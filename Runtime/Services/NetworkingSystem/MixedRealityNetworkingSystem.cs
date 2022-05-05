@@ -3,10 +3,10 @@
 
 using System.Collections.Generic;
 using System.Net;
-using XRTK.Definitions.NetworkingSystem;
-using XRTK.Interfaces.NetworkingSystem;
+using RealityToolkit.Definitions.NetworkingSystem;
+using RealityToolkit.Interfaces.NetworkingSystem;
 
-namespace XRTK.Services.NetworkingSystem
+namespace RealityToolkit.Services.NetworkingSystem
 {
     /// <summary>
     /// The Mixed Reality Toolkit's default implementation of the <see cref="IMixedRealityNetworkingSystem"/>

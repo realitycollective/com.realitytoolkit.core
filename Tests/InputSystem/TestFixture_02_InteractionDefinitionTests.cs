@@ -4,13 +4,13 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Processors;
 using UnityEngine;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Services.InputSystem.Processors;
 using Debug = UnityEngine.Debug;
 
-namespace XRTK.Tests.InputSystem
+namespace RealityToolkit.Tests.InputSystem
 {
     public class TestFixture_02_InteractionDefinitionTests
     {

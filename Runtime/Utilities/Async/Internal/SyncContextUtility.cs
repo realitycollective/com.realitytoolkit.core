@@ -23,7 +23,7 @@
 using System.Threading;
 using UnityEngine;
 
-namespace XRTK.Utilities.Async.Internal
+namespace RealityToolkit.Utilities.Async.Internal
 {
     /// <summary>
     /// Utility class to assist in thread and context synchronization.

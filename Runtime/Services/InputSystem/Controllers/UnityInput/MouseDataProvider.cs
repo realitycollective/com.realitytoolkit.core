@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using XRTK.Definitions.Controllers.UnityInput.Profiles;
-using XRTK.Definitions.Devices;
-using XRTK.Definitions.Utilities;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Utilities.Physics;
 
-namespace XRTK.Services.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Services.InputSystem.Controllers.UnityInput
 {
     /// <summary>
     /// The mouse data provider.

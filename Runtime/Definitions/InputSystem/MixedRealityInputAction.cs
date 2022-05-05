@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Definitions.InputSystem
+namespace RealityToolkit.Definitions.InputSystem
 {
     /// <summary>
     /// An Input Action for mapping an action to an Input Control like a Button, Joystick, Sensor, etc.

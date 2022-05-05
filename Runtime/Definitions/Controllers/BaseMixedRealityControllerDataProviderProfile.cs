@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace XRTK.Definitions.Controllers
+namespace RealityToolkit.Definitions.Controllers
 {
     /// <summary>
     /// Provides additional configuration options for controller data providers.

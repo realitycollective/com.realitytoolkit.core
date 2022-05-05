@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using RealityToolkit.Definitions;
+using RealityToolkit.Interfaces.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using XRTK.Definitions;
-using XRTK.Interfaces.Events;
-using XRTK.Utilities.Async;
+using RealityToolkit.Utilities.Async;
 
-namespace XRTK.Services
+namespace RealityToolkit.Services
 {
     /// <summary>
     /// Base Event System that can be inherited from to give other system features event capabilities.

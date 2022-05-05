@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace XRTK.Editor.Data
+namespace RealityToolkit.Editor.Data
 {
     /// <summary>
     /// Used to aid in layout of Controller Input Actions.

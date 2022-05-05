@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Threading.Tasks;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Providers.Speech;
 using UnityEngine;
-using XRTK.Definitions.Controllers;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Providers.Speech;
 
-namespace XRTK.Services.InputSystem.Providers
+namespace RealityToolkit.Services.InputSystem.Providers
 {
     /// <summary>
     /// Base dictation data provider to use when implementing <see cref="IMixedRealityDictationDataProvider"/>s

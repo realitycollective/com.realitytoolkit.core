@@ -23,9 +23,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using XRTK.Utilities.Async.AwaitYieldInstructions;
+using RealityToolkit.Utilities.Async.AwaitYieldInstructions;
 
-namespace XRTK.Utilities.Async
+namespace RealityToolkit.Utilities.Async
 {
     /// <summary>
     /// Utility class to provide custom awaiters.

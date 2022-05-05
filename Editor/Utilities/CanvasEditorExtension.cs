@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Services;
+using RealityToolkit.Utilities;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Extensions;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Services;
-using XRTK.Utilities;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     /// <summary>
     /// Helper class to assign the UIRaycastCamera when creating a new canvas object and assigning the world space render mode.

@@ -5,25 +5,25 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RealityToolkit.Definitions;
+using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.Definitions.CameraSystem;
+using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.BoundarySystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Providers;
+using RealityToolkit.Interfaces.SpatialAwarenessSystem;
+using RealityToolkit.Interfaces.SpatialObservers.Providers;
+using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Definitions.BoundarySystem;
-using XRTK.Definitions.CameraSystem;
-using XRTK.Definitions.InputSystem;
-using XRTK.Definitions.SpatialAwarenessSystem;
-using XRTK.Editor.Extensions;
-using XRTK.Editor.Utilities;
-using XRTK.Extensions;
-using XRTK.Interfaces.BoundarySystem;
-using XRTK.Interfaces.CameraSystem;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Providers;
-using XRTK.Interfaces.SpatialAwarenessSystem;
-using XRTK.Interfaces.SpatialObservers.Providers;
-using XRTK.Services;
+using RealityToolkit.Editor.Extensions;
 
-namespace XRTK.Editor
+namespace RealityToolkit.Editor
 {
     public static class PackageInstaller
     {

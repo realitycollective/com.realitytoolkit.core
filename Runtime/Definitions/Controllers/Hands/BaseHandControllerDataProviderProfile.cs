@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
-using XRTK.Services.InputSystem.Controllers.Hands;
 
-namespace XRTK.Definitions.Controllers.Hands
+namespace RealityToolkit.Definitions.Controllers.Hands
 {
     /// <summary>
     /// Provides additional configuration options for hand data providers.

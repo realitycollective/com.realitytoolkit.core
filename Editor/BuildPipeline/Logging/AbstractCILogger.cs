@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace XRTK.Editor.BuildPipeline.Logging
+namespace RealityToolkit.Editor.BuildPipeline.Logging
 {
     /// <summary>
     /// Base abstract logger to use when creating custom loggers.

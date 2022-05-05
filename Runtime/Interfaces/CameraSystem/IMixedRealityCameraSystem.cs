@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using RealityToolkit.Services.CameraSystem;
 using UnityEngine.XR;
-using XRTK.Services.CameraSystem;
 
-namespace XRTK.Interfaces.CameraSystem
+namespace RealityToolkit.Interfaces.CameraSystem
 {
     /// <summary>
     /// The base interface for implementing a mixed reality camera system.

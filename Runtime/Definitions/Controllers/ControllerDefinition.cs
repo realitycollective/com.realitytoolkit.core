@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using XRTK.Definitions.Utilities;
+using RealityToolkit.Definitions.Utilities;
 
-namespace XRTK.Definitions.Controllers
+namespace RealityToolkit.Definitions.Controllers
 {
     [Serializable]
     public struct ControllerDefinition

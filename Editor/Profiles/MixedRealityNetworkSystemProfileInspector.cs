@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.NetworkingSystem;
 using UnityEditor;
-using XRTK.Definitions.NetworkingSystem;
 
-namespace XRTK.Editor.Profiles
+namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityNetworkSystemProfile))]
     public class MixedRealityNetworkSystemProfileInspector : MixedRealityServiceProfileInspector

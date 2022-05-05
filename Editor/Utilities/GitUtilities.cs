@@ -9,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Editor.Utilities.SymbolicLinks;
-using XRTK.Extensions;
+using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     public static class GitUtilities
     {

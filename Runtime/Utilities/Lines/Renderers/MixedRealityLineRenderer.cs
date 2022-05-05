@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XRTK.Definitions.Lines;
-using XRTK.Extensions;
-using XRTK.Utilities.Lines.DataProviders;
+using RealityToolkit.Definitions.Lines;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Utilities.Lines.Renderers
+namespace RealityToolkit.Utilities.Lines.Renderers
 {
     /// <summary>
     /// Implements Unity's built in line renderer component, and applies the line data to it.
@@ -78,7 +78,7 @@ namespace XRTK.Utilities.Lines.Renderers
             }
 
             lineRenderer.enabled = LineDataSource.enabled;
-            lineRenderer.positionCount = StepMode == StepMode.FromSource ? LineDataSource.PointCount : LineStepCount;
+            lineRenderer.positionCount = StepMode == Definitions.Lines.StepMode.FromSource ? LineDataSource.PointCount : LineStepCount;
 
             if (positions == null || positions.Length != lineRenderer.positionCount)
             {
@@ -87,7 +87,7 @@ namespace XRTK.Utilities.Lines.Renderers
 
             for (int i = 0; i < positions.Length; i++)
             {
-                if (StepMode == StepMode.FromSource)
+                if (StepMode == Definitions.Lines.StepMode.FromSource)
                 {
                     positions[i] = LineDataSource.GetPoint(i);
                 }

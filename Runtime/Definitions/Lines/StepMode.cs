@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace XRTK.Definitions.Lines
+namespace RealityToolkit.Definitions.Lines
 {
     /// <summary>
     /// Defines how to generate points in a line renderer

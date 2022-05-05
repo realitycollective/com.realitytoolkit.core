@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers;
 using UnityEngine.EventSystems;
-using XRTK.Interfaces.InputSystem;
-using XRTK.Interfaces.InputSystem.Controllers;
 
-namespace XRTK.EventDatum.Input
+namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Describes an source state event that has a source id.

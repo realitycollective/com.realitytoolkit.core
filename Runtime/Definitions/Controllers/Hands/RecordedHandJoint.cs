@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
-using XRTK.Definitions.Utilities;
 
-namespace XRTK.Definitions.Controllers.Hands
+namespace RealityToolkit.Definitions.Controllers.Hands
 {
     /// <summary>
     /// A single recorded hand joint's information that may be used to restore the joint pose.

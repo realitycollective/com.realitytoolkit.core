@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using System;
+using RealityToolkit.Definitions;
 using UnityEditor;
 using UnityEngine;
-using XRTK.Definitions;
-using XRTK.Editor.Extensions;
-using XRTK.Extensions;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.Extensions;
 
-namespace XRTK.Editor.Utilities
+namespace RealityToolkit.Editor.Utilities
 {
     public static class BaseMixedRealityProfileInspectorExtensions
     {
