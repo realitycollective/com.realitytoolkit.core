@@ -4,7 +4,7 @@
 using System;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Extensions;
+using RealityToolkit.Editor.Extensions;
 using UnityEditor;
 using UnityEngine;
 
