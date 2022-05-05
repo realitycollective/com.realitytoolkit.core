@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
@@ -270,7 +269,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
                 PoseAction == eventData.MixedRealityInputAction)
             {
                 IsTracked = true;
-                TrackingState = TrackingState.Tracked;
+                TrackingState = Definitions.Devices.TrackingState.Tracked;
 
                 if (PoseDriver != null)
                 {

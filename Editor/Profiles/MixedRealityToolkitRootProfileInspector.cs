@@ -11,7 +11,11 @@ using RealityToolkit.Interfaces;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Services;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
+#if UNITY_2021_1_OR_NEWER
+using SceneManagement = UnityEditor.SceneManagement;
+#else
+using SceneManagement = UnityEditor.Experimental.SceneManagement;
+#endif
 using UnityEditor.PackageManager;
 using UnityEngine;
 using RealityToolkit.Extensions;
@@ -70,7 +74,7 @@ namespace RealityToolkit.Editor.Profiles
 
             rootProfile = target as MixedRealityToolkitRootProfile;
 
-            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            var prefabStage = SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
 
             // Create the MixedRealityToolkit object if none exists.
             if (!MixedRealityToolkit.IsInitialized && prefabStage == null && !didPromptToConfigure)

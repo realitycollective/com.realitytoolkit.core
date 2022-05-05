@@ -6,7 +6,6 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
-using RealityToolkit.Utilities.UX.Controllers.Hands;
 using UnityEngine;
 using RealityToolkit.Extensions;
 
