@@ -18,15 +18,34 @@ namespace RealityToolkit.Extensions
     {
         private static void BuildTypeCache()
         {
-            foreach (var (type, guid) in
-                from type in AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(assembly => assembly.GetTypes())
-                    .Where(type => type.IsClass && !type.IsAbstract)
-                let guid = type.GUID
-                where !typeCache.ContainsKey(guid)
-                select (type, guid))
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
             {
-                typeCache.Add(guid, type);
+                var types = assembly.GetTypes();
+                foreach (var type in types)
+                {
+                    if (type.IsClass && !type.IsAbstract)
+                    {
+                        try
+                        {
+                            var guid = type.GUID;
+                            if (!typeCache.ContainsKey(guid))
+                            {
+                                typeCache.Add(guid, type);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // In some cases at runtime in a player build built using
+                            // IL2CPP accessing Type.GUID throws an unsupported exception crashing the application.
+                            // Tests have shown that catching the exception prevents the app from crashing
+                            // without actually breaking functionality of the application.
+                            // TODO: Why are some types causing these exceptions?
+                            Debug.LogError($"Failed to add {type.Name} to type cache.");
+                            Debug.LogException(ex);
+                        }
+                    }
+                }
             }
         }
 

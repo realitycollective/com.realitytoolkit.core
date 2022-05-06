@@ -6,7 +6,6 @@ using System.Linq;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.LocomotionSystem;
 using RealityToolkit.Editor.Extensions;
-using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.LocomotionSystem;
 using RealityToolkit.Services;
 using UnityEditor.SceneManagement;
