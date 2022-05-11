@@ -447,53 +447,53 @@ namespace RealityToolkit.Editor
 
             #endregion Script Reloading Preference
 
-            //#region Symbolic Links Preferences
+            #region Symbolic Links Preferences
 
-            //EditorGUI.BeginChangeCheck();
-            //autoLoadSymbolicLinks = EditorGUILayout.Toggle("Auto Load Symbolic Links", AutoLoadSymbolicLinks);
+            EditorGUI.BeginChangeCheck();
+            autoLoadSymbolicLinks = EditorGUILayout.Toggle("Auto Load Symbolic Links", AutoLoadSymbolicLinks);
 
-            //if (EditorGUI.EndChangeCheck())
-            //{
-            //    AutoLoadSymbolicLinks = autoLoadSymbolicLinks;
+            if (EditorGUI.EndChangeCheck())
+            {
+                AutoLoadSymbolicLinks = autoLoadSymbolicLinks;
 
-            //    if (AutoLoadSymbolicLinks)
-            //    {
-            //        EditorApplication.delayCall += () => SymbolicLinker.RunSync();
-            //    }
-            //}
+                if (AutoLoadSymbolicLinks)
+                {
+                    EditorApplication.delayCall += () => SymbolicLinker.RunSync();
+                }
+            }
 
-            //EditorGUI.BeginChangeCheck();
-            //var symbolicLinkSettings = EditorGUILayout.ObjectField("Symbolic Link Settings", SymbolicLinker.Settings, typeof(SymbolicLinkSettings), false) as SymbolicLinkSettings;
+            EditorGUI.BeginChangeCheck();
+            var symbolicLinkSettings = EditorGUILayout.ObjectField("Symbolic Link Settings", SymbolicLinker.Settings, typeof(SymbolicLinkSettings), false) as SymbolicLinkSettings;
 
-            //if (EditorGUI.EndChangeCheck())
-            //{
-            //    if (symbolicLinkSettings != null)
-            //    {
-            //        var shouldSync = string.IsNullOrEmpty(SymbolicLinkSettingsPath);
-            //        SymbolicLinkSettingsPath = AssetDatabase.GetAssetPath(symbolicLinkSettings);
-            //        SymbolicLinker.Settings = AssetDatabase.LoadAssetAtPath<SymbolicLinkSettings>(SymbolicLinkSettingsPath);
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (symbolicLinkSettings != null)
+                {
+                    var shouldSync = string.IsNullOrEmpty(SymbolicLinkSettingsPath);
+                    SymbolicLinkSettingsPath = AssetDatabase.GetAssetPath(symbolicLinkSettings);
+                    SymbolicLinker.Settings = AssetDatabase.LoadAssetAtPath<SymbolicLinkSettings>(SymbolicLinkSettingsPath);
 
-            //        if (shouldSync)
-            //        {
-            //            EditorApplication.delayCall += () => SymbolicLinker.RunSync();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        SymbolicLinkSettingsPath = string.Empty;
-            //        SymbolicLinker.Settings = null;
-            //    }
-            //}
+                    if (shouldSync)
+                    {
+                        EditorApplication.delayCall += () => SymbolicLinker.RunSync();
+                    }
+                }
+                else
+                {
+                    SymbolicLinkSettingsPath = string.Empty;
+                    SymbolicLinker.Settings = null;
+                }
+            }
 
-            //EditorGUI.BeginChangeCheck();
-            //debugSymbolicInfo = EditorGUILayout.Toggle(DebugSymbolicContent, DebugSymbolicInfo);
+            EditorGUI.BeginChangeCheck();
+            debugSymbolicInfo = EditorGUILayout.Toggle(DebugSymbolicContent, DebugSymbolicInfo);
 
-            //if (EditorGUI.EndChangeCheck())
-            //{
-            //    DebugSymbolicInfo = debugSymbolicInfo;
-            //}
+            if (EditorGUI.EndChangeCheck())
+            {
+                DebugSymbolicInfo = debugSymbolicInfo;
+            }
 
-            //#endregion Symbolic Links Preferences
+            #endregion Symbolic Links Preferences
 
             EditorGUIUtility.labelWidth = prevLabelWidth;
         }
