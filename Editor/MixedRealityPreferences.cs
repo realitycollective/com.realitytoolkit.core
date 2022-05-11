@@ -1,19 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor
 {
@@ -447,53 +447,53 @@ namespace RealityToolkit.Editor
 
             #endregion Script Reloading Preference
 
-            #region Symbolic Links Preferences
+            //#region Symbolic Links Preferences
 
-            EditorGUI.BeginChangeCheck();
-            autoLoadSymbolicLinks = EditorGUILayout.Toggle("Auto Load Symbolic Links", AutoLoadSymbolicLinks);
+            //EditorGUI.BeginChangeCheck();
+            //autoLoadSymbolicLinks = EditorGUILayout.Toggle("Auto Load Symbolic Links", AutoLoadSymbolicLinks);
 
-            if (EditorGUI.EndChangeCheck())
-            {
-                AutoLoadSymbolicLinks = autoLoadSymbolicLinks;
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    AutoLoadSymbolicLinks = autoLoadSymbolicLinks;
 
-                if (AutoLoadSymbolicLinks)
-                {
-                    EditorApplication.delayCall += () => SymbolicLinker.RunSync();
-                }
-            }
+            //    if (AutoLoadSymbolicLinks)
+            //    {
+            //        EditorApplication.delayCall += () => SymbolicLinker.RunSync();
+            //    }
+            //}
 
-            EditorGUI.BeginChangeCheck();
-            var symbolicLinkSettings = EditorGUILayout.ObjectField("Symbolic Link Settings", SymbolicLinker.Settings, typeof(SymbolicLinkSettings), false) as SymbolicLinkSettings;
+            //EditorGUI.BeginChangeCheck();
+            //var symbolicLinkSettings = EditorGUILayout.ObjectField("Symbolic Link Settings", SymbolicLinker.Settings, typeof(SymbolicLinkSettings), false) as SymbolicLinkSettings;
 
-            if (EditorGUI.EndChangeCheck())
-            {
-                if (symbolicLinkSettings != null)
-                {
-                    var shouldSync = string.IsNullOrEmpty(SymbolicLinkSettingsPath);
-                    SymbolicLinkSettingsPath = AssetDatabase.GetAssetPath(symbolicLinkSettings);
-                    SymbolicLinker.Settings = AssetDatabase.LoadAssetAtPath<SymbolicLinkSettings>(SymbolicLinkSettingsPath);
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    if (symbolicLinkSettings != null)
+            //    {
+            //        var shouldSync = string.IsNullOrEmpty(SymbolicLinkSettingsPath);
+            //        SymbolicLinkSettingsPath = AssetDatabase.GetAssetPath(symbolicLinkSettings);
+            //        SymbolicLinker.Settings = AssetDatabase.LoadAssetAtPath<SymbolicLinkSettings>(SymbolicLinkSettingsPath);
 
-                    if (shouldSync)
-                    {
-                        EditorApplication.delayCall += () => SymbolicLinker.RunSync();
-                    }
-                }
-                else
-                {
-                    SymbolicLinkSettingsPath = string.Empty;
-                    SymbolicLinker.Settings = null;
-                }
-            }
+            //        if (shouldSync)
+            //        {
+            //            EditorApplication.delayCall += () => SymbolicLinker.RunSync();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        SymbolicLinkSettingsPath = string.Empty;
+            //        SymbolicLinker.Settings = null;
+            //    }
+            //}
 
-            EditorGUI.BeginChangeCheck();
-            debugSymbolicInfo = EditorGUILayout.Toggle(DebugSymbolicContent, DebugSymbolicInfo);
+            //EditorGUI.BeginChangeCheck();
+            //debugSymbolicInfo = EditorGUILayout.Toggle(DebugSymbolicContent, DebugSymbolicInfo);
 
-            if (EditorGUI.EndChangeCheck())
-            {
-                DebugSymbolicInfo = debugSymbolicInfo;
-            }
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    DebugSymbolicInfo = debugSymbolicInfo;
+            //}
 
-            #endregion Symbolic Links Preferences
+            //#endregion Symbolic Links Preferences
 
             EditorGUIUtility.labelWidth = prevLabelWidth;
         }

@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Runtime.InteropServices;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Extensions;
 using RealityToolkit.Services;
+using System;
+using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 
@@ -396,7 +396,6 @@ namespace RealityToolkit.Editor.PropertyDrawers
                 }
 
                 if (!TypeExtensions.TryResolveType(classReference, out var selectedPlatformType)) { return; }
-
                 for (int i = 0; i < runtimePlatformsProperty.arraySize; i++)
                 {
                     var existingSystemTypeProperty = new SerializedTypeProperty(runtimePlatformsProperty.GetArrayElementAtIndex(i));
