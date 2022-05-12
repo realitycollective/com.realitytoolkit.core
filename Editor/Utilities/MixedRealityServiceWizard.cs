@@ -1,6 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces;
+using RealityToolkit.Interfaces.BoundarySystem;
+using RealityToolkit.Interfaces.Events;
+using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Providers;
+using RealityToolkit.ServiceFramework.Services;
+using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -8,16 +18,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using RealityToolkit.Definitions;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Interfaces.BoundarySystem;
-using RealityToolkit.Interfaces.Events;
-using RealityToolkit.Interfaces.LocomotionSystem;
-using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
-using RealityToolkit.Extensions;
 using Assembly = System.Reflection.Assembly;
 
 namespace RealityToolkit.Editor.Utilities
@@ -99,40 +102,28 @@ namespace RealityToolkit.Editor.Utilities
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}SystemProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}System.txt";
                     window.instanceBaseType = typeof(BaseEventSystem);
-                    window.profileBaseType = typeof(BaseMixedRealityServiceProfile<>);
+                    window.profileBaseType = typeof(BaseServiceProfile<>);
                     break;
                 case Type _ when typeof(IMixedRealitySystem).IsAssignableFrom(interfaceType):
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}SystemProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}System.txt";
                     window.instanceBaseType = typeof(BaseSystem);
-                    window.profileBaseType = typeof(BaseMixedRealityServiceProfile<>);
+                    window.profileBaseType = typeof(BaseServiceProfile<>);
                     break;
-                case Type _ when typeof(IMixedRealityExtensionDataProvider).IsAssignableFrom(interfaceType):
+                case Type _ when typeof(IServiceDataProvider).IsAssignableFrom(interfaceType):
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProviderProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProvider.txt";
-                    window.instanceBaseType = typeof(BaseExtensionDataProvider);
-                    window.profileBaseType = typeof(BaseMixedRealityExtensionDataProviderProfile);
+                    window.instanceBaseType = typeof(BaseServiceDataProvider);
+                    window.profileBaseType = typeof(BaseProfile);
                     break;
-                case Type _ when typeof(IMixedRealityExtensionService).IsAssignableFrom(interfaceType):
-                    window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}ServiceProfile.txt";
-                    window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}Service.txt";
-                    window.instanceBaseType = typeof(BaseExtensionService);
-                    window.profileBaseType = typeof(BaseMixedRealityExtensionServiceProfile);
-                    break;
-                case Type _ when typeof(IMixedRealityDataProvider).IsAssignableFrom(interfaceType):
-                    window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProviderProfile.txt";
-                    window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProvider.txt";
-                    window.instanceBaseType = typeof(BaseDataProvider);
-                    window.profileBaseType = typeof(BaseMixedRealityProfile);
-                    break;
-                case Type _ when typeof(IMixedRealityService).IsAssignableFrom(interfaceType):
+                case Type _ when typeof(IService).IsAssignableFrom(interfaceType):
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}ServiceProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}Service.txt";
                     window.instanceBaseType = typeof(BaseServiceWithConstructor);
-                    window.profileBaseType = typeof(BaseMixedRealityServiceProfile<>);
+                    window.profileBaseType = typeof(BaseServiceProfile<>);
                     break;
                 default:
-                    Debug.LogError($"{interfaceType.Name} does not implement {nameof(IMixedRealityService)}");
+                    Debug.LogError($"{interfaceType.Name} does not implement {nameof(IService)}");
                     return;
             }
 
@@ -309,7 +300,7 @@ namespace RealityToolkit.Editor.Utilities
                                     {
                                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                                         {
                                             profileType = parameterInfo.ParameterType;
                                             break;
@@ -329,7 +320,7 @@ namespace RealityToolkit.Editor.Utilities
                                 if (interfaceType == typeof(IMixedRealityBoundarySystem) ||
                                     interfaceType == typeof(ILocomotionSystem))
                                 {
-                                    profileBaseTypeName = nameof(BaseMixedRealityProfile);
+                                    profileBaseTypeName = nameof(BaseProfile);
                                 }
                                 else
                                 {
@@ -362,7 +353,7 @@ namespace RealityToolkit.Editor.Utilities
 
                         File.WriteAllText($"{outputPath}/{instanceName}.cs", instanceTemplate);
 
-                        if (profileBaseTypeName != nameof(BaseMixedRealityProfile))
+                        if (profileBaseTypeName != nameof(BaseProfile))
                         {
                             usingList.Clear();
 

@@ -3,11 +3,12 @@
 
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    public class MixedRealityInteractionMappingProfile : BaseMixedRealityProfile
+    public class MixedRealityInteractionMappingProfile : BaseProfile
     {
         [SerializeField]
         private MixedRealityInteractionMapping interactionMapping = new MixedRealityInteractionMapping();

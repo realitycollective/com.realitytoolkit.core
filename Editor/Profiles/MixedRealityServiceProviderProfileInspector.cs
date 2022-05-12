@@ -1,26 +1,28 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
+using RealityToolkit.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Profiles
 {
-    [CustomEditor(typeof(BaseMixedRealityServiceProfile<>), true, isFallback = true)]
-    public class MixedRealityServiceProfileInspector : BaseMixedRealityProfileInspector
+    [CustomEditor(typeof(BaseServiceProfile<>), true, isFallback = true)]
+    public class MixedRealityServiceProfileInspector : BaseProfileInspector
     {
         private static readonly Type AllPlatformsType = typeof(AllPlatforms);
         private static readonly Guid AllPlatformsGuid = AllPlatformsType.GUID;
@@ -176,7 +178,7 @@ namespace RealityToolkit.Editor.Profiles
                     {
                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                         {
                             profileType = parameterInfo.ParameterType;
                             break;
@@ -235,7 +237,7 @@ namespace RealityToolkit.Editor.Profiles
                         if (GUI.Button(labelRect, nameProperty.stringValue, ButtonGuiStyle) &&
                             profile.objectReferenceValue != null)
                         {
-                            var profileInstance = profile.objectReferenceValue as BaseMixedRealityProfile;
+                            var profileInstance = profile.objectReferenceValue as BaseProfile;
 
                             Debug.Assert(profileInstance != null);
 
@@ -262,7 +264,7 @@ namespace RealityToolkit.Editor.Profiles
                     var isValid = !type.IsAbstract &&
                                   type.GetInterfaces().Any(interfaceType => interfaceType == ServiceConstraint);
 
-                    return isValid && (!IsSystemConfiguration || MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceConfigurations.All(configuration => configuration.InstancedType.Type != type));
+                    return isValid && !IsSystemConfiguration;
                 };
                 TypeReferencePropertyDrawer.CreateNewTypeOverride = ServiceConstraint;
 
@@ -308,7 +310,7 @@ namespace RealityToolkit.Editor.Profiles
 
                 if (profile.objectReferenceValue != null)
                 {
-                    var renderedProfile = profile.objectReferenceValue as BaseMixedRealityProfile;
+                    var renderedProfile = profile.objectReferenceValue as BaseProfile;
                     Debug.Assert(renderedProfile != null);
 
                     if (renderedProfile.ParentProfile.IsNull() ||

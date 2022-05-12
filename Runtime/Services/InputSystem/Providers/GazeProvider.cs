@@ -154,7 +154,7 @@ namespace RealityToolkit.Services.InputSystem.Providers
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>());
 
 
         #region InternalGazePointer Class

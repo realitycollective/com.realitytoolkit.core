@@ -3,13 +3,14 @@
 
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.Events;
+using RealityToolkit.ServiceFramework.Interfaces;
 
 namespace RealityToolkit.Interfaces.SpatialObservers.Providers
 {
     /// <summary>
     /// The Mixed Reality Spatial Observer Data Provider contract.
     /// </summary>
-    public interface IMixedRealitySpatialAwarenessDataProvider : IMixedRealityDataProvider, IMixedRealityEventSource
+    public interface IMixedRealitySpatialAwarenessDataProvider : IServiceDataProvider, IMixedRealityEventSource
     {
         /// <summary>
         /// The startup behavior of the hardware resource.

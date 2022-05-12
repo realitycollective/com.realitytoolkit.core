@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.Services;
 
 namespace RealityToolkit.Tests.Services
 {
-    internal class TestSystemProfile : BaseMixedRealityProfile
+    internal class TestSystemProfile : BaseProfile
     {
     }
 

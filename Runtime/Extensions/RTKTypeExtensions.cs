@@ -3,6 +3,7 @@
 
 using RealityToolkit.Interfaces;
 using RealityToolkit.Interfaces.Events;
+using RealityToolkit.ServiceFramework.Interfaces;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,13 @@ namespace RealityToolkit.Extensions
 
                     for (int i = 0; i < types.Length; i++)
                     {
-                        if (!typeof(IMixedRealityService).IsAssignableFrom(types[i]))
+                        if (!typeof(IService).IsAssignableFrom(types[i]))
                         {
                             continue;
                         }
 
-                        if (types[i] != typeof(IMixedRealityService) &&
-                            types[i] != typeof(IMixedRealityDataProvider) &&
+                        if (types[i] != typeof(IService) &&
+                            types[i] != typeof(IServiceDataProvider) &&
                             types[i] != typeof(IMixedRealityEventSystem) &&
                             types[i] != typeof(IMixedRealitySystem))
                         {
@@ -62,7 +63,7 @@ namespace RealityToolkit.Extensions
         /// </summary>
         /// <typeparam name="T">The specific <see cref="IMixedRealityService"/> interface to check.</typeparam>
         /// <returns>True, if the project contains valid implementations of <see cref="T"/>.</returns>
-        public static bool HasValidImplementations<T>() where T : IMixedRealityService
+        public static bool HasValidImplementations<T>() where T : IService
         {
             var concreteTypes = TypeCache.Current
                 .Select(pair => pair.Value)

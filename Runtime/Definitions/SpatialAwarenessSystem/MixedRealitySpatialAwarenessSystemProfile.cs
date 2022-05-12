@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
+using RealityToolkit.ServiceFramework.Definitions;
+using System;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialAwarenessSystem
@@ -12,8 +12,8 @@ namespace RealityToolkit.Definitions.SpatialAwarenessSystem
     /// <summary>
     /// Configuration profile settings for setting up the spatial awareness system.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Spatial Awareness System Profile", fileName = "MixedRealitySpatialAwarenessSystemProfile", order = (int)CreateProfileMenuItemIndices.SpatialAwareness)]
-    public class MixedRealitySpatialAwarenessSystemProfile : BaseMixedRealityServiceProfile<IMixedRealitySpatialAwarenessDataProvider>
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Spatial Awareness System Profile", fileName = "MixedRealitySpatialAwarenessSystemProfile", order = (int)Utilities.CreateProfileMenuItemIndices.SpatialAwareness)]
+    public class MixedRealitySpatialAwarenessSystemProfile : BaseServiceProfile<IMixedRealitySpatialAwarenessDataProvider>
     {
         public static readonly Tuple<int, string>[] SpatialAwarenessLayers =
         {

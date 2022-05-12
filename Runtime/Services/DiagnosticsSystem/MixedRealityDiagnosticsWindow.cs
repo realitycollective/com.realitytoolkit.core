@@ -40,7 +40,7 @@ namespace RealityToolkit.Services.DiagnosticsSystem
         private IMixedRealityDiagnosticsSystem diagnosticsSystem;
 
         private IMixedRealityDiagnosticsSystem DiagnosticsSystem
-            => diagnosticsSystem ?? (diagnosticsSystem = MixedRealityToolkit.GetSystem<IMixedRealityDiagnosticsSystem>());
+            => diagnosticsSystem ?? (diagnosticsSystem = MixedRealityToolkit.GetService<IMixedRealityDiagnosticsSystem>());
 
         protected virtual void OnValidate()
         {

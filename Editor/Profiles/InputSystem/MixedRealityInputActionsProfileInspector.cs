@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealityInputActionsProfile))]
-    public class MixedRealityInputActionsProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityInputActionsProfileInspector : BaseProfileInspector
     {
         private ReorderableList inputActionsList;
         private int currentlySelectedInputActionElement;

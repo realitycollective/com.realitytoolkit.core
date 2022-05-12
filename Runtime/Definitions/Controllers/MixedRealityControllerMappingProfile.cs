@@ -4,11 +4,12 @@
 using RealityToolkit.Attributes;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    public class MixedRealityControllerMappingProfile : BaseMixedRealityProfile
+    public class MixedRealityControllerMappingProfile : BaseProfile
     {
         [SerializeField]
         [Implements(typeof(IMixedRealityController), TypeGrouping.ByNamespaceFlat)]

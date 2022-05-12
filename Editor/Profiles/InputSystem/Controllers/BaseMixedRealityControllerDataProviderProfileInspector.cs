@@ -1,26 +1,27 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.InteropServices;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Services.InputSystem.Controllers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(BaseMixedRealityControllerDataProviderProfile), editorForChildClasses: true, isFallback = true)]
-    public class BaseMixedRealityControllerDataProviderProfileInspector : BaseMixedRealityProfileInspector
+    public class BaseMixedRealityControllerDataProviderProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent controllerProfilesFoldoutHeader = new GUIContent("Controller Mapping Profiles");
         private static readonly string[] viewModeToolbarOptions = { "Simple", "Advanced" };

@@ -146,12 +146,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private ILocomotionSystem locomotionSystem = null;
 
         protected ILocomotionSystem LocomotionSystem
-            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetSystem<ILocomotionSystem>());
+            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetService<ILocomotionSystem>());
 
         private IMixedRealityCameraSystem cameraSystem = null;
 
         protected IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystem<IMixedRealityCameraSystem>());
+            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetService<IMixedRealityCameraSystem>());
 
         #region MonoBehaviour Implementation
 

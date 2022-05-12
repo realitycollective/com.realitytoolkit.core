@@ -1,25 +1,28 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using RealityToolkit.Attributes;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Attributes;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
+using RealityToolkit.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityPlatformServiceConfigurationProfile))]
-    public class MixedRealityPlatformServiceConfigurationProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityPlatformServiceConfigurationProfileInspector : BaseProfileInspector
     {
 
         private readonly GUIContent profileContent = new GUIContent("Profile", "The settings profile for this service.");
@@ -85,7 +88,7 @@ namespace RealityToolkit.Editor.Profiles
 
             if (GUILayout.Button("Install Platform Service Configuration"))
             {
-                EditorApplication.delayCall += () => PackageInstaller.InstallConfiguration(target as MixedRealityPlatformServiceConfigurationProfile, MixedRealityToolkit.Instance.ActiveProfile);
+                EditorApplication.delayCall += () => PackageInstaller.InstallConfiguration(target as MixedRealityPlatformServiceConfigurationProfile, MixedRealityToolkit.Instance.ActiveProfile as MixedRealityToolkitRootProfile);
             }
 
             EditorGUILayout.Space();
@@ -204,7 +207,7 @@ namespace RealityToolkit.Editor.Profiles
                     {
                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                         {
                             profileType = parameterInfo.ParameterType;
                             break;
@@ -281,7 +284,7 @@ namespace RealityToolkit.Editor.Profiles
 
             if (profile.objectReferenceValue != null)
             {
-                var renderedProfile = profile.objectReferenceValue as BaseMixedRealityProfile;
+                var renderedProfile = profile.objectReferenceValue as BaseProfile;
                 Debug.Assert(renderedProfile != null);
 
                 if (renderedProfile.ParentProfile.IsNull() ||

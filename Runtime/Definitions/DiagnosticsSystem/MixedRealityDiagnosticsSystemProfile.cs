@@ -4,6 +4,7 @@
 using RealityToolkit.Attributes;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.DiagnosticsSystem;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.DiagnosticsSystem
@@ -11,8 +12,8 @@ namespace RealityToolkit.Definitions.DiagnosticsSystem
     /// <summary>
     /// Configuration profile settings for setting up diagnostics.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Diagnostics System Profile", fileName = "MixedRealityDiagnosticsSystemProfile", order = (int)CreateProfileMenuItemIndices.Diagnostics)]
-    public class MixedRealityDiagnosticsSystemProfile : BaseMixedRealityServiceProfile<IMixedRealityDiagnosticsDataProvider>
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Diagnostics System Profile", fileName = "MixedRealityDiagnosticsSystemProfile", order = (int)Utilities.CreateProfileMenuItemIndices.Diagnostics)]
+    public class MixedRealityDiagnosticsSystemProfile : BaseServiceProfile<IMixedRealityDiagnosticsDataProvider>
     {
         [Prefab]
         [SerializeField]

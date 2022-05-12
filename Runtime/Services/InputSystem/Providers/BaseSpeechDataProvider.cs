@@ -4,13 +4,14 @@
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Providers.Speech;
+using RealityToolkit.ServiceFramework.Providers;
 
 namespace RealityToolkit.Services.InputSystem.Providers
 {
     /// <summary>
     /// Base speech data provider to inherit from when implementing <see cref="IMixedRealitySpeechDataProvider"/>s
     /// </summary>
-    public abstract class BaseSpeechDataProvider : BaseDataProvider, IMixedRealitySpeechDataProvider
+    public abstract class BaseSpeechDataProvider : BaseServiceDataProvider, IMixedRealitySpeechDataProvider
     {
         /// <inheritdoc />
         protected BaseSpeechDataProvider(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IMixedRealityInputSystem parentService)

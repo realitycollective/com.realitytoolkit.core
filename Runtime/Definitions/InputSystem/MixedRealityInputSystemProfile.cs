@@ -1,13 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using RealityToolkit.Attributes;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Providers;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.Services.InputSystem.Providers;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,8 +17,8 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System Profile", fileName = "MixedRealityInputSystemProfile", order = (int)CreateProfileMenuItemIndices.Input)]
-    public class MixedRealityInputSystemProfile : BaseMixedRealityServiceProfile<IMixedRealityInputDataProvider>
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System Profile", fileName = "MixedRealityInputSystemProfile", order = (int)Utilities.CreateProfileMenuItemIndices.Input)]
+    public class MixedRealityInputSystemProfile : BaseServiceProfile<IMixedRealityInputDataProvider>
     {
         #region Global Input System Options
 

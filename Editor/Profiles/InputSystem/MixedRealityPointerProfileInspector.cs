@@ -2,12 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using UnityEditor;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealityPointerProfile))]
-    public class MixedRealityPointerProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityPointerProfileInspector : BaseProfileInspector
     {
         private SerializedProperty pointerPrefab;
         private SerializedProperty pointingExtent;

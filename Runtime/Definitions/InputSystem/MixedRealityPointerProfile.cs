@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.InputSystem
@@ -11,8 +11,8 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Pointer Profile", fileName = "MixedRealityInputPointerProfile", order = (int)CreateProfileMenuItemIndices.Pointer)]
-    public class MixedRealityPointerProfile : BaseMixedRealityProfile
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Pointer Profile", fileName = "MixedRealityInputPointerProfile", order = (int)Utilities.CreateProfileMenuItemIndices.Pointer)]
+    public class MixedRealityPointerProfile : BaseProfile
     {
         [SerializeField]
         [Prefab(typeof(IMixedRealityPointer))]

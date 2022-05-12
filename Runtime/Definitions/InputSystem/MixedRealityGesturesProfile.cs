@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.InputSystem
@@ -10,8 +10,8 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up and consuming gesture based input actions.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Gestures Profile", fileName = "MixedRealityGesturesProfile", order = (int)CreateProfileMenuItemIndices.Gestures)]
-    public class MixedRealityGesturesProfile : BaseMixedRealityProfile
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Gestures Profile", fileName = "MixedRealityGesturesProfile", order = (int)Utilities.CreateProfileMenuItemIndices.Gestures)]
+    public class MixedRealityGesturesProfile : BaseProfile
     {
         [SerializeField]
         private MixedRealityGestureMapping[] gestures =

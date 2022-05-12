@@ -2,19 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using System.Collections.Generic;
-using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
-using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Services;
-using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
-using RealityToolkit.Tests.Services;
-using UnityEngine;
 using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
 using RealityToolkit.Utilities;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.Tests.Core
 {
@@ -23,37 +20,14 @@ namespace RealityToolkit.Tests.Core
         private void SetupServiceLocator()
         {
             TestUtilities.InitializeMixedRealityToolkitScene(false);
-            MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile = ScriptableObject.CreateInstance<MixedRealityRegisteredServiceProvidersProfile>();
         }
 
-        private readonly List<IMixedRealityPlatform> testPlatforms = new List<IMixedRealityPlatform> { new EditorPlatform(), new WindowsStandalonePlatform() };
+        private readonly List<IPlatform> testPlatforms = new List<IPlatform> { new EditorPlatform(), new WindowsStandalonePlatform() };
 
         [Test]
         public void Test_01_ConfirmExtensionServiceProviderConfigurationNotPresent()
         {
             SetupServiceLocator();
-            var profile = MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile;
-            var dataProviderTypes = new[] { typeof(TestExtensionService1) };
-            IMixedRealityServiceConfiguration<IMixedRealityExtensionService>[] newConfigs =
-            {
-                new MixedRealityServiceConfiguration<IMixedRealityExtensionService>(typeof(TestExtensionService1), "Test Extension Service 1", 2, testPlatforms, null)
-            };
-
-            Assert.IsFalse(profile.ValidateService(dataProviderTypes, newConfigs, false));
-        }
-
-        [Test]
-        public void Test_02_ConfirmExtensionServiceProviderConfigurationPresent()
-        {
-            SetupServiceLocator();
-            var profile = MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile;
-            var dataProviderTypes = new[] { typeof(TestExtensionService1) };
-            var newConfig = new MixedRealityServiceConfiguration<IMixedRealityExtensionService>(typeof(TestExtensionService1), "Test Extension Service 1", 2, testPlatforms, null);
-            Debug.Assert(newConfig != null);
-            var newConfigs = profile.RegisteredServiceConfigurations.AddItem(newConfig);
-            Debug.Assert(newConfigs != null);
-            profile.RegisteredServiceConfigurations = newConfigs;
-            Assert.IsTrue(profile.ValidateService(dataProviderTypes, newConfigs, false));
         }
 
         [Test]

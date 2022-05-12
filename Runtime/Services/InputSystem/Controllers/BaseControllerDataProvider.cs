@@ -1,22 +1,23 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
+using RealityToolkit.ServiceFramework.Providers;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Controllers
 {
     /// <summary>
     /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityControllerDataProvider"/>s
     /// </summary>
-    public abstract class BaseControllerDataProvider : BaseDataProvider, IMixedRealityControllerDataProvider
+    public abstract class BaseControllerDataProvider : BaseServiceDataProvider, IMixedRealityControllerDataProvider
     {
         /// <inheritdoc />
         protected BaseControllerDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

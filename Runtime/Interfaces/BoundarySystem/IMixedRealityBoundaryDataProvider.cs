@@ -1,9 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using UnityEngine;
-using System.Collections.Generic;
 using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.ServiceFramework.Interfaces;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.Interfaces.BoundarySystem
 {
@@ -11,7 +12,7 @@ namespace RealityToolkit.Interfaces.BoundarySystem
     /// Boundary data providers provide low level data access for the <see cref="IMixedRealityBoundarySystem"/> to query
     /// platform boundary state.
     /// </summary>
-    public interface IMixedRealityBoundaryDataProvider : IMixedRealityDataProvider
+    public interface IMixedRealityBoundaryDataProvider : IServiceDataProvider
     {
         /// <summary>
         /// Gets the current boundary visibility.

@@ -1,21 +1,22 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Services.InputSystem.Processors;
+using System;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(MixedRealityInteractionMappingProfile))]
-    public class MixedRealityInteractionMappingProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityInteractionMappingProfileInspector : BaseProfileInspector
     {
         private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
 

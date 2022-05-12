@@ -4,6 +4,7 @@
 using RealityToolkit.Attributes;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.BoundarySystem;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.BoundarySystem
@@ -11,8 +12,8 @@ namespace RealityToolkit.Definitions.BoundarySystem
     /// <summary>
     /// Configuration profile settings for setting up the <see cref="IMixedRealityBoundarySystem"/>.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Boundary Profile", fileName = "MixedRealityBoundaryProfile", order = (int)CreateProfileMenuItemIndices.Boundary)]
-    public class MixedRealityBoundaryProfile : BaseMixedRealityServiceProfile<IMixedRealityBoundaryDataProvider>
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Boundary Profile", fileName = "MixedRealityBoundaryProfile", order = (int)Utilities.CreateProfileMenuItemIndices.Boundary)]
+    public class MixedRealityBoundaryProfile : BaseServiceProfile<IMixedRealityBoundaryDataProvider>
     {
         #region General Settings
 

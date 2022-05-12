@@ -4,6 +4,7 @@
 using RealityToolkit.Definitions.LocomotionSystem;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.ServiceFramework.Providers;
 using RealityToolkit.Utilities;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace RealityToolkit.Services.LocomotionSystem.Providers
     /// The Mixed Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("14199fd8-1636-4147-bb08-6475e76ed1cd")]
-    public class TeleportValidationProvider : BaseDataProvider, ITeleportValidationProvider
+    public class TeleportValidationProvider : BaseServiceDataProvider, ITeleportValidationProvider
     {
         /// <inheritdoc />
         public TeleportValidationProvider(string name, uint priority, TeleportValidationProviderProfile profile, ILocomotionSystem parentService)

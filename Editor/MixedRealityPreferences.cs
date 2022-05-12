@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using RealityToolkit.Extensions;
-using RealityToolkit.Interfaces;
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
+using RealityToolkit.ServiceFramework.Interfaces;
 using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
@@ -278,12 +278,12 @@ namespace RealityToolkit.Editor
 
         private static bool isCurrentPlatformPreferenceLoaded;
 
-        private static IMixedRealityPlatform currentPlatformTarget = null;
+        private static IPlatform currentPlatformTarget = null;
 
         /// <summary>
-        /// The current <see cref="IMixedRealityPlatform"/> target.
+        /// The current <see cref="IPlatform"/> target.
         /// </summary>
-        public static IMixedRealityPlatform CurrentPlatformTarget
+        public static IPlatform CurrentPlatformTarget
         {
             get
             {
@@ -314,7 +314,7 @@ namespace RealityToolkit.Editor
 
                     if (currentPlatformTarget == null)
                     {
-                        var possibleBuildTargets = new List<IMixedRealityPlatform>();
+                        var possibleBuildTargets = new List<IPlatform>();
 
                         foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
                         {

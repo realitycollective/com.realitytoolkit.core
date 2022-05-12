@@ -3,6 +3,7 @@
 
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.LocomotionSystem
@@ -11,7 +12,7 @@ namespace RealityToolkit.Definitions.LocomotionSystem
     /// Base configuration profile for <see cref="Interfaces.LocomotionSystem.ILocomotionProvider"/>s. Use the <see cref="Providers.LocomotionSystem.BaseLocomotionProvider"/>
     /// base class to get started implementing your own provider.
     /// </summary>
-    public class BaseLocomotionProviderProfile : BaseMixedRealityProfile
+    public class BaseLocomotionProviderProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Sets startup behaviour for this provider.")]

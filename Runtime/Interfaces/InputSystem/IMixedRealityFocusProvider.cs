@@ -3,6 +3,7 @@
 
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.ServiceFramework.Interfaces;
 using UnityEngine;
 
 namespace RealityToolkit.Interfaces.InputSystem
@@ -10,7 +11,7 @@ namespace RealityToolkit.Interfaces.InputSystem
     /// <summary>
     /// Implements the Focus Provider for handling focus of pointers.
     /// </summary>
-    public interface IMixedRealityFocusProvider : IMixedRealitySourceStateHandler, IMixedRealityDataProvider
+    public interface IMixedRealityFocusProvider : IMixedRealitySourceStateHandler, IServiceDataProvider
     {
         /// <summary>
         /// Maximum distance at which all pointers can collide with a <see cref="GameObject"/>, unless it has an override extent.

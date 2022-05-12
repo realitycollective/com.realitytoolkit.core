@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.InputSystem
@@ -9,8 +9,8 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up and consuming Input Actions.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Input Actions Profile", fileName = "MixedRealityInputActionsProfile", order = (int)CreateProfileMenuItemIndices.InputActions)]
-    public class MixedRealityInputActionsProfile : BaseMixedRealityProfile
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Input Actions Profile", fileName = "MixedRealityInputActionsProfile", order = (int)Utilities.CreateProfileMenuItemIndices.InputActions)]
+    public class MixedRealityInputActionsProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("The list of actions users can do in your application.")]

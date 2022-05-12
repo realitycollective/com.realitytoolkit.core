@@ -1,14 +1,15 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.CameraSystem;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.ServiceFramework.Providers;
+using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
-using RealityToolkit.Definitions.CameraSystem;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.XR;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.CameraSystem.Providers
 {
@@ -16,7 +17,7 @@ namespace RealityToolkit.Services.CameraSystem.Providers
     /// Base class for all <see cref="IMixedRealityCameraDataProvider"/>s can inherit from.
     /// </summary>
     [System.Runtime.InteropServices.Guid("EA4C0C19-E533-4AE8-91A2-6998CB8905BB")]
-    public class BaseCameraDataProvider : BaseDataProvider, IMixedRealityCameraDataProvider
+    public class BaseCameraDataProvider : BaseServiceDataProvider, IMixedRealityCameraDataProvider
     {
         /// <inheritdoc />
         public BaseCameraDataProvider(string name, uint priority, BaseMixedRealityCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)

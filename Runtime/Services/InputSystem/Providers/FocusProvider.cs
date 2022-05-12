@@ -1,18 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.ServiceFramework.Providers;
 using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Providers
 {
@@ -21,10 +22,10 @@ namespace RealityToolkit.Services.InputSystem.Providers
     /// </summary>
     /// <remarks>There are convenience properties for getting only Gaze Pointer if needed.</remarks>
     [System.Runtime.InteropServices.Guid("249D4D78-CADD-45BA-9438-DB9FC2509213")]
-    public class FocusProvider : BaseDataProvider, IMixedRealityFocusProvider
+    public class FocusProvider : BaseServiceDataProvider, IMixedRealityFocusProvider
     {
         /// <inheritdoc />
-        public FocusProvider(string name, uint priority, BaseMixedRealityProfile profile, IMixedRealityInputSystem parentService) : base(name, priority, profile, parentService)
+        public FocusProvider(string name, uint priority, BaseProfile profile, IMixedRealityInputSystem parentService) : base(name, priority, profile, parentService)
         {
             inputSystem = parentService;
 
@@ -50,7 +51,7 @@ namespace RealityToolkit.Services.InputSystem.Providers
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>());
 
         #region IFocusProvider Properties
 

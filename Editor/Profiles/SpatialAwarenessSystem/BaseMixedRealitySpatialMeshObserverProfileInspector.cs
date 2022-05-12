@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.ServiceFramework.Editor.PropertyDrawers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {

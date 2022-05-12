@@ -1,25 +1,25 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
-using RealityToolkit.Definitions;
-using UnityEditor;
-using UnityEngine;
 using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Definitions;
+using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace RealityToolkit.Editor.Utilities
 {
     public static class BaseMixedRealityProfileInspectorExtensions
     {
         /// <summary>
-        /// Creates a new <see cref="BaseMixedRealityProfile"/> instance and sets it to the <see cref="SerializedProperty"/>.
+        /// Creates a new <see cref="BaseProfile"/> instance and sets it to the <see cref="SerializedProperty"/>.
         /// </summary>
         /// <param name="parentProfile"></param>
         /// <param name="property"></param>
         /// <param name="profileType"></param>
         /// <param name="clone"></param>
-        public static BaseMixedRealityProfile CreateNewProfileInstance(this BaseMixedRealityProfile parentProfile, SerializedProperty property, Type profileType, bool clone = false)
+        public static BaseProfile CreateNewProfileInstance(this BaseProfile parentProfile, SerializedProperty property, Type profileType, bool clone = false)
         {
             ScriptableObject instance;
 
@@ -44,13 +44,13 @@ namespace RealityToolkit.Editor.Utilities
             Debug.Assert(!instance.IsNull());
 
             var assetPath = !parentProfile.IsNull() ? AssetDatabase.GetAssetPath(parentProfile) : string.Empty;
-            var newProfile = instance.CreateAsset(assetPath) as BaseMixedRealityProfile;
+            var newProfile = instance.CreateAsset(assetPath) as BaseProfile;
             Debug.Assert(!newProfile.IsNull());
 
             if (clone &&
                 !property.objectReferenceValue.IsNull())
             {
-                var oldProfile = property.objectReferenceValue as BaseMixedRealityProfile;
+                var oldProfile = property.objectReferenceValue as BaseProfile;
                 newProfile.CopySerializedValues(oldProfile);
             }
 
@@ -59,7 +59,7 @@ namespace RealityToolkit.Editor.Utilities
             return newProfile;
         }
 
-        public static void CopySerializedValues(this BaseMixedRealityProfile target, BaseMixedRealityProfile source)
+        public static void CopySerializedValues(this BaseProfile target, BaseProfile source)
         {
             Debug.Assert(!target.IsNull());
             var serializedObject = new SerializedObject(target);

@@ -5,13 +5,14 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(MixedRealityControllerVisualizationProfile))]
-    public class MixedRealityControllerVisualizationProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityControllerVisualizationProfileInspector : BaseProfileInspector
     {
         private SerializedProperty controllerVisualizationType;
         private SerializedProperty useDefaultModels;

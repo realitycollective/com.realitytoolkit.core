@@ -1,15 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.Definitions.CameraSystem;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.BoundarySystem;
@@ -18,10 +15,14 @@ using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Providers;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor
 {
@@ -155,7 +156,7 @@ namespace RealityToolkit.Editor
 
             if (MixedRealityToolkit.IsInitialized)
             {
-                rootProfile = MixedRealityToolkit.Instance.ActiveProfile;
+                rootProfile = MixedRealityToolkit.Instance.ActiveProfile as MixedRealityToolkitRootProfile;
             }
             else
             {
@@ -240,55 +241,27 @@ namespace RealityToolkit.Editor
                     case Type _ when typeof(IMixedRealityCameraDataProvider).IsAssignableFrom(configurationType):
                         if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
                         {
-                            var cameraDataProviderConfiguration = new MixedRealityServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
-
-                            if (cameraSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.InstancedType.Type))
-                            {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                cameraSystemProfile.RegisteredServiceConfigurations = cameraSystemProfile.RegisteredServiceConfigurations.AddItem(cameraDataProviderConfiguration);
-                                EditorUtility.SetDirty(cameraSystemProfile);
-                            }
+                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
                         }
                         break;
 
                     case Type _ when typeof(IMixedRealityInputDataProvider).IsAssignableFrom(configurationType):
                         if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile, rootProfile))
                         {
-                            var inputDataProviderConfiguration = new MixedRealityServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
-
-                            if (inputSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != inputDataProviderConfiguration.InstancedType.Type))
-                            {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                inputSystemProfile.RegisteredServiceConfigurations = inputSystemProfile.RegisteredServiceConfigurations.AddItem(inputDataProviderConfiguration);
-                                EditorUtility.SetDirty(inputSystemProfile);
-                            }
+                            var inputDataProviderConfiguration = new ServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
                         }
                         break;
 
                     case Type _ when typeof(IMixedRealitySpatialAwarenessDataProvider).IsAssignableFrom(configurationType):
                         if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile, rootProfile))
                         {
-                            var spatialObserverConfiguration = new MixedRealityServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
-
-                            if (spatialAwarenessSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != spatialObserverConfiguration.InstancedType.Type))
-                            {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                spatialAwarenessSystemProfile.RegisteredServiceConfigurations = spatialAwarenessSystemProfile.RegisteredServiceConfigurations.AddItem(spatialObserverConfiguration);
-                                EditorUtility.SetDirty(spatialAwarenessSystemProfile);
-                            }
+                            var spatialObserverConfiguration = new ServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
                         }
                         break;
                     case Type _ when typeof(IMixedRealityBoundaryDataProvider).IsAssignableFrom(configurationType):
                         if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityBoundarySystem, MixedRealityBoundaryProfile>(out var boundarySystemProfile, rootProfile))
                         {
-                            var boundarySystemConfiguration = new MixedRealityServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
-
-                            if (boundarySystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
-                            {
-                                Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                boundarySystemProfile.RegisteredServiceConfigurations = boundarySystemProfile.RegisteredServiceConfigurations.AddItem(boundarySystemConfiguration);
-                                EditorUtility.SetDirty(boundarySystemProfile);
-                            }
+                            var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
                         }
                         break;
                 }

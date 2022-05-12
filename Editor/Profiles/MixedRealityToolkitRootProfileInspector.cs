@@ -1,13 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Interfaces;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Services;
 using UnityEditor;
@@ -16,27 +13,24 @@ using SceneManagement = UnityEditor.SceneManagement;
 #else
 using SceneManagement = UnityEditor.Experimental.SceneManagement;
 #endif
-using UnityEditor.PackageManager;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Definitions.Platforms;
 
 namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityToolkitRootProfile))]
     public class MixedRealityToolkitRootProfileInspector : MixedRealityServiceProfileInspector
     {
-        // Additional registered components profile
-        private SerializedProperty registeredServiceProvidersProfile;
-
         private MixedRealityToolkitRootProfile rootProfile;
         private bool didPromptToConfigure = false;
 
         private readonly GUIContent profileLabel = new GUIContent("Profile");
 
         private int platformIndex;
-        private readonly List<IMixedRealityPlatform> platforms = new List<IMixedRealityPlatform>();
+        private readonly List<IPlatform> platforms = new List<IPlatform>();
 
-        private List<IMixedRealityPlatform> Platforms
+        private List<IPlatform> Platforms
         {
             get
             {
@@ -108,9 +102,6 @@ namespace RealityToolkit.Editor.Profiles
                 }
             }
 
-            // Additional registered components configuration
-            registeredServiceProvidersProfile = serializedObject.FindProperty(nameof(registeredServiceProvidersProfile));
-
             platforms.Clear();
         }
 
@@ -168,13 +159,6 @@ namespace RealityToolkit.Editor.Profiles
             serializedObject.Update();
 
             EditorGUI.BeginChangeCheck();
-
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Additional Service Providers", EditorStyles.boldLabel);
-            EditorGUI.indentLevel++;
-            profileLabel.tooltip = registeredServiceProvidersProfile.tooltip;
-            EditorGUILayout.PropertyField(registeredServiceProvidersProfile, profileLabel);
-            EditorGUI.indentLevel--;
 
             serializedObject.ApplyModifiedProperties();
 

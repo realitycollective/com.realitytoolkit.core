@@ -4,16 +4,16 @@
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.Extensions;
-using RealityToolkit.Editor.Profiles;
+using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Data.Controllers.Hands
 {
     [CustomEditor(typeof(HandControllerPoseProfile))]
-    public class HandControllerPoseProfileInspector : BaseMixedRealityProfileInspector
+    public class HandControllerPoseProfileInspector : BaseProfileInspector
     {
         private SerializedProperty id;
         private SerializedProperty description;

@@ -2,14 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.SpatialObservers;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
     [CustomEditor(typeof(BaseMixedRealitySpatialObserverProfile), true, isFallback = true)]
-    public abstract class BaseMixedRealitySpatialObserverProfileInspector : BaseMixedRealityProfileInspector
+    public abstract class BaseMixedRealitySpatialObserverProfileInspector : BaseProfileInspector
     {
         private SerializedProperty startupBehavior;
         private SerializedProperty observationExtents;

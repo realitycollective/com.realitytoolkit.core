@@ -5,15 +5,16 @@ using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.LocomotionSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.ServiceFramework.Providers;
 using RealityToolkit.Utilities;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.LocomotionSystem.Providers
 {
-    public abstract class BaseLocomotionProvider : BaseDataProvider, ILocomotionProvider
+    public abstract class BaseLocomotionProvider : BaseServiceDataProvider, ILocomotionProvider
     {
         /// <inheritdoc />
         public BaseLocomotionProvider(string name, uint priority, BaseLocomotionProviderProfile profile, ILocomotionSystem parentService)
@@ -28,9 +29,6 @@ namespace RealityToolkit.Services.LocomotionSystem.Providers
 
         /// <inheritdoc />
         public MixedRealityInputAction InputAction { get; }
-
-        /// <inheritdoc />
-        public bool IsEnabled { get; private set; }
 
         /// <summary>
         /// Gets the active <see cref="Services.LocomotionSystem.LocomotionSystem"/> instance.

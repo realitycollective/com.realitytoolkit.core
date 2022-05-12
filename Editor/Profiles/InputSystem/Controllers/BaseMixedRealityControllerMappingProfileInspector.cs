@@ -3,6 +3,7 @@
 
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(MixedRealityControllerMappingProfile))]
-    public class BaseMixedRealityControllerMappingProfileInspector : BaseMixedRealityProfileInspector
+    public class BaseMixedRealityControllerMappingProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent EditButtonContent = new GUIContent("Edit Button Mappings");
 

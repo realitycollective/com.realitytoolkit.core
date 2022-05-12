@@ -530,7 +530,7 @@ namespace RealityToolkit.Utilities.UX
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>());
 
         private ManipulationHandler manipulationHandler;
 

@@ -2,15 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information. 
 
 using RealityToolkit.Definitions.CameraSystem;
+using RealityToolkit.Editor.Extensions;
+using RealityToolkit.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.CameraSystem
 {
     [CustomEditor(typeof(BaseMixedRealityCameraDataProviderProfile), true, isFallback = true)]
-    public class BaseMixedRealityCameraDataProviderProfileInspector : BaseMixedRealityProfileInspector
+    public class BaseMixedRealityCameraDataProviderProfileInspector : BaseProfileInspector
     {
         private SerializedProperty trackingType;
         private SerializedProperty trackingOriginMode;

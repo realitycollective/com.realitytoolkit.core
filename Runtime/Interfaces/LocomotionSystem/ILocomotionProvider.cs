@@ -20,10 +20,5 @@ namespace RealityToolkit.Interfaces.LocomotionSystem
         /// The input action used to perform locomotion using this provider.
         /// </summary>
         MixedRealityInputAction InputAction { get; }
-
-        /// <summary>
-        /// Gets whether this locomotion provider is enabled and handling locomotion requests.
-        /// </summary>
-        bool IsEnabled { get; }
     }
 }

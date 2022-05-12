@@ -2,12 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using System.Linq;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.LocomotionSystem;
 using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.Services;
+using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -31,7 +32,6 @@ namespace RealityToolkit.Tests
             CleanupScene();
             Assert.IsTrue(!MixedRealityToolkit.IsInitialized);
             Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count);
-            Assert.AreEqual(0, MixedRealityToolkit.RegisteredMixedRealityServices.Count);
             InitializeMixedRealityToolkit();
 
             // Tests
@@ -58,7 +58,7 @@ namespace RealityToolkit.Tests
             Assert.IsTrue(MixedRealityToolkit.IsInitialized);
         }
 
-        private static T GetDefaultMixedRealityProfile<T>() where T : BaseMixedRealityProfile
+        private static T GetDefaultMixedRealityProfile<T>() where T : BaseProfile
         {
             return ScriptableObjectExtensions.GetAllInstances<T>().FirstOrDefault(profile => profile.name.Equals(typeof(T).Name));
         }

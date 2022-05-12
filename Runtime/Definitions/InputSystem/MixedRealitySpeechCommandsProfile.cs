@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.InputSystem
@@ -9,8 +10,8 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up and consuming Speech Commands.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Speech Commands Profile", fileName = "MixedRealitySpeechCommandsProfile", order = (int)CreateProfileMenuItemIndices.SpeechCommands)]
-    public class MixedRealitySpeechCommandsProfile : BaseMixedRealityProfile
+    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Speech Commands Profile", fileName = "MixedRealitySpeechCommandsProfile", order = (int)Utilities.CreateProfileMenuItemIndices.SpeechCommands)]
+    public class MixedRealitySpeechCommandsProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Whether the recognizer should be activated on start.")]

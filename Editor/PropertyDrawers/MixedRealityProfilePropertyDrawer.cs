@@ -1,17 +1,18 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
 using RealityToolkit.Definitions;
-using RealityToolkit.Services;
-using UnityEditor;
-using UnityEngine;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Extensions;
+using RealityToolkit.ServiceFramework.Definitions;
+using RealityToolkit.Services;
+using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace RealityToolkit.Editor.PropertyDrawers
 {
-    [CustomPropertyDrawer(typeof(BaseMixedRealityProfile), true)]
+    [CustomPropertyDrawer(typeof(BaseProfile), true)]
     public class MixedRealityProfilePropertyDrawer : PropertyDrawer
     {
         private const int BUTTON_PADDING = 4;
@@ -23,13 +24,13 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
         public static Type ProfileTypeOverride { get; set; } = null;
 
-        public static BaseMixedRealityProfile ParentProfileOverride { get; set; } = null;
+        public static BaseProfile ParentProfileOverride { get; set; } = null;
 
-        private BaseMixedRealityProfile parent = null;
+        private BaseProfile parent = null;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            BaseMixedRealityProfile profile = null;
+            BaseProfile profile = null;
 
             if (parent.IsNull())
             {
@@ -46,7 +47,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
                     }
                     else
                     {
-                        parent = Selection.activeObject as BaseMixedRealityProfile;
+                        parent = Selection.activeObject as BaseProfile;
                     }
                 }
 
@@ -55,7 +56,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
             if (!property.objectReferenceValue.IsNull())
             {
-                profile = property.objectReferenceValue as BaseMixedRealityProfile;
+                profile = property.objectReferenceValue as BaseProfile;
             }
 
             if (!profile.IsNull())
@@ -80,7 +81,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
             EditorGUI.BeginChangeCheck();
 
-            var selectedProfile = EditorGUI.ObjectField(objectRect, propertyLabel, profile, profileType, false) as BaseMixedRealityProfile;
+            var selectedProfile = EditorGUI.ObjectField(objectRect, propertyLabel, profile, profileType, false) as BaseProfile;
 
             if (EditorGUI.EndChangeCheck())
             {

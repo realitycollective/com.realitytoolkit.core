@@ -1,22 +1,23 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections;
 using RealityToolkit.Definitions.SpatialAwarenessSystem;
 using RealityToolkit.Definitions.SpatialObservers;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
+using RealityToolkit.ServiceFramework.Providers;
+using System;
+using System.Collections;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers
 {
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialAwarenessDataProvider"/> implementation
     /// </summary>
-    public abstract class BaseMixedRealitySpatialObserverDataProvider : BaseDataProvider, IMixedRealitySpatialAwarenessDataProvider
+    public abstract class BaseMixedRealitySpatialObserverDataProvider : BaseServiceDataProvider, IMixedRealitySpatialAwarenessDataProvider
     {
         /// <inheritdoc />
         protected BaseMixedRealitySpatialObserverDataProvider(string name, uint priority, BaseMixedRealitySpatialObserverProfile profile, IMixedRealitySpatialAwarenessSystem parentService)
