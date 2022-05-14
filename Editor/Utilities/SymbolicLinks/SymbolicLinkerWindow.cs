@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Extensions;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {

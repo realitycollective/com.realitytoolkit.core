@@ -1,6 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Extensions;
+using RealityToolkit.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +11,6 @@ using System.Threading;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
-using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 
 namespace RealityToolkit.Editor.Utilities.SymbolicLinks
@@ -49,8 +50,8 @@ namespace RealityToolkit.Editor.Utilities.SymbolicLinks
         /// </summary>
         private static bool DebugEnabled
         {
-            get => MixedRealityPreferences.DebugSymbolicInfo;
-            set => MixedRealityPreferences.DebugSymbolicInfo = value;
+            get => ToolkitPreferences.DebugSymbolicInfo;
+            set => ToolkitPreferences.DebugSymbolicInfo = value;
         }
 
         /// <summary>

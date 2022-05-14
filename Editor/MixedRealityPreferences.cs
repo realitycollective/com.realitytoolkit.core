@@ -1,19 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using RealityToolkit.Definitions.Platforms;
+using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor
 {
