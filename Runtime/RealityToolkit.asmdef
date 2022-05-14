@@ -1,6 +1,6 @@
 {
     "name": "RealityToolkit",
-    "rootNamespace": "XRTK",
+    "rootNamespace": "RealityToolkit",
     "references": [
         "GUID:ba171b3dd2a51234ab864770f99741a5",
         "GUID:478a2357cc57436488a56e564b08d223",
