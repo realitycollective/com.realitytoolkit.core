@@ -20,10 +20,9 @@ namespace RealityToolkit.Services
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        protected BaseEventSystem(BaseProfile profile)
-            : base(profile)
-        {
-        }
+        protected BaseEventSystem(string name, uint priority, BaseProfile profile)
+            : base(name, priority, profile)
+        { }
 
         #region IMixedRealityEventSystem Implementation
 

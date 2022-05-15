@@ -1,21 +1,21 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Services.InputSystem.InputSources;
 using RealityToolkit.Services.InputSystem.Providers;
 using RealityToolkit.Utilities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.InputSystem
 {
@@ -29,7 +29,8 @@ namespace RealityToolkit.Services.InputSystem
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        public MixedRealityInputSystem(MixedRealityInputSystemProfile profile) : base(profile)
+        public MixedRealityInputSystem(string name, uint priority, MixedRealityInputSystemProfile profile)
+            : base(name, priority, profile)
         {
             if (profile.GazeProviderType?.Type == null)
             {

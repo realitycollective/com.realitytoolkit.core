@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using RealityToolkit.Definitions.CameraSystem;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -17,8 +17,8 @@ namespace RealityToolkit.Services.CameraSystem
     public class MixedRealityCameraSystem : BaseSystem, IMixedRealityCameraSystem
     {
         /// <inheritdoc />
-        public MixedRealityCameraSystem(MixedRealityCameraSystemProfile profile)
-            : base(profile) { }
+        public MixedRealityCameraSystem(string name, uint priority, MixedRealityCameraSystemProfile profile)
+            : base(name, priority, profile) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
         private readonly HashSet<IMixedRealityCameraDataProvider> cameraDataProviders = new HashSet<IMixedRealityCameraDataProvider>();

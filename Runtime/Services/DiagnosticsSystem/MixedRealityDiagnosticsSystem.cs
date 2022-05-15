@@ -4,13 +4,13 @@
 using RealityToolkit.Definitions.DiagnosticsSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.DiagnosticsSystem;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.DiagnosticsSystem;
 using RealityToolkit.Interfaces.DiagnosticsSystem.Handlers;
 using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
 using Object = UnityEngine.Object;
 
 namespace RealityToolkit.Services.DiagnosticsSystem
@@ -25,8 +25,8 @@ namespace RealityToolkit.Services.DiagnosticsSystem
         /// Constructor.
         /// </summary>
         /// <param name="profile">Diagnostics system configuration profile.</param>
-        public MixedRealityDiagnosticsSystem(MixedRealityDiagnosticsSystemProfile profile)
-            : base(profile)
+        public MixedRealityDiagnosticsSystem(string name, uint priority, MixedRealityDiagnosticsSystemProfile profile)
+            : base(name, priority, profile)
         {
             this.profile = profile;
         }

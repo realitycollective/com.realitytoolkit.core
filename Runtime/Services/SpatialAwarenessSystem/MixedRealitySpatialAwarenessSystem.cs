@@ -1,19 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
 using RealityToolkit.Definitions.SpatialAwarenessSystem;
 using RealityToolkit.EventDatum.SpatialAwarenessSystem;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem.Handlers;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers;
 using RealityToolkit.Utilities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.SpatialAwarenessSystem
 {
@@ -27,7 +27,8 @@ namespace RealityToolkit.Services.SpatialAwarenessSystem
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        public MixedRealitySpatialAwarenessSystem(MixedRealitySpatialAwarenessSystemProfile profile) : base(profile)
+        public MixedRealitySpatialAwarenessSystem(string name, uint priority, MixedRealitySpatialAwarenessSystemProfile profile)
+            : base(name, priority, profile)
         {
             spatialMeshVisibility = profile.MeshDisplayOption;
         }

@@ -13,7 +13,7 @@ namespace RealityToolkit.Tests.Services
     internal class TestSystem1 : BaseSystem, ITestSystem
     {
         /// <inheritdoc />
-        public TestSystem1(TestSystemProfile profile) : base(profile)
+        public TestSystem1(string name = "Test System 1", uint priority = 0, TestSystemProfile profile = null) : base(name, priority, profile)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace RealityToolkit.Tests.Services
     internal class TestSystem2 : BaseSystem, ITestSystem
     {
         /// <inheritdoc />
-        public TestSystem2(TestSystemProfile profile) : base(profile)
+        public TestSystem2(string name = "Test System 2", uint priority = 0, TestSystemProfile profile = null) : base(name, priority, profile)
         {
         }
     }

@@ -5,7 +5,6 @@ using NUnit.Framework;
 using RealityToolkit.Definitions;
 using RealityToolkit.Editor.BuildPipeline.Logging;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Interfaces;
 using RealityToolkit.ServiceFramework.Interfaces;
 using RealityToolkit.Services;
 using RealityToolkit.Tests.Services;
@@ -471,7 +470,7 @@ namespace RealityToolkit.Tests.Core
             var testProfile = ScriptableObject.CreateInstance<TestSystemProfile>();
 
             // Register test system 1
-            var testSystem1Success = MixedRealityToolkit.TryRegisterService<ITestSystem>(new TestSystem1(testProfile));
+            var testSystem1Success = MixedRealityToolkit.TryRegisterService<ITestSystem>(new TestSystem1(profile: testProfile));
             var testGetSystem1Success = MixedRealityToolkit.TryGetSystem<ITestSystem>(out var testSystem1);
 
             Assert.IsTrue(testSystem1 != null);
@@ -479,7 +478,7 @@ namespace RealityToolkit.Tests.Core
             Assert.IsTrue(testGetSystem1Success);
 
             // Register test system 2
-            var testSystem2Success = MixedRealityToolkit.TryRegisterService<ITestSystem>(new TestSystem2(testProfile));
+            var testSystem2Success = MixedRealityToolkit.TryRegisterService<ITestSystem>(new TestSystem2(profile: testProfile));
 
             LogAssert.Expect(LogType.Error, $"There's already a {nameof(ITestSystem)}.{nameof(TestSystem1)} registered!");
             Assert.IsFalse(testSystem2Success);

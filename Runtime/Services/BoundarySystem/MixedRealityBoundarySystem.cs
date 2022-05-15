@@ -1,16 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.Extensions;
+using RealityToolkit.Interfaces.BoundarySystem;
+using RealityToolkit.Interfaces.CameraSystem;
+using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using RealityToolkit.Definitions.BoundarySystem;
-using RealityToolkit.Interfaces.BoundarySystem;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Utilities;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.BoundarySystem
 {
@@ -24,8 +24,8 @@ namespace RealityToolkit.Services.BoundarySystem
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        public MixedRealityBoundarySystem(MixedRealityBoundaryProfile profile)
-            : base(profile)
+        public MixedRealityBoundarySystem(string name, uint priority, MixedRealityBoundaryProfile profile)
+            : base(name, priority, profile)
         {
             showBoundary = profile.ShowBoundary;
             BoundaryHeight = profile.BoundaryHeight;

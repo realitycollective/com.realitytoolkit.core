@@ -3,6 +3,7 @@
 
 using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces;
+using RealityToolkit.Interfaces.Events;
 using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
 using RealityToolkit.ServiceFramework.Services;
@@ -27,6 +28,8 @@ namespace RealityToolkit.Services
     [DisallowMultipleComponent]
     public sealed class MixedRealityToolkit : MonoBehaviour, IDisposable
     {
+        private static Type[] serviceInterfaceTypes = new[] { typeof(IMixedRealityEventSystem), typeof(IMixedRealitySystem) };
+
         private static ServiceManager serviceManagerInstance;
 
         internal static ServiceManager ServiceManagerInstance
@@ -35,7 +38,7 @@ namespace RealityToolkit.Services
             {
                 if (serviceManagerInstance == null)
                 {
-                    serviceManagerInstance = new ServiceManager();
+                    serviceManagerInstance = new ServiceManager(additionalBaseServiceTypes: serviceInterfaceTypes);
                     serviceManagerInstance.Initialize(Instance.gameObject);
                 }
                 return serviceManagerInstance;

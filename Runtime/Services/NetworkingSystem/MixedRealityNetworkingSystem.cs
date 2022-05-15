@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
-using System.Net;
 using RealityToolkit.Definitions.NetworkingSystem;
 using RealityToolkit.Interfaces.NetworkingSystem;
+using System.Collections.Generic;
+using System.Net;
 
 namespace RealityToolkit.Services.NetworkingSystem
 {
@@ -18,10 +18,9 @@ namespace RealityToolkit.Services.NetworkingSystem
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        public MixedRealityNetworkingSystem(MixedRealityNetworkSystemProfile profile)
-            : base(profile)
-        {
-        }
+        public MixedRealityNetworkingSystem(string name, uint priority, MixedRealityNetworkSystemProfile profile)
+            : base(name, priority, profile)
+        { }
 
         #region IMixedRealityNetworkingSystem Implementation
 

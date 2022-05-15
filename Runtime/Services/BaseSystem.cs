@@ -18,7 +18,8 @@ namespace RealityToolkit.Services
         /// Constructor.
         /// </summary>
         /// <param name="profile"></param>
-        protected BaseSystem(BaseProfile profile)
+        protected BaseSystem(string name, uint priority, BaseProfile profile)
+            : base(name, priority)
         {
             if (profile.IsNull())
             {
