@@ -87,7 +87,7 @@ namespace RealityToolkit.Editor.Utilities
                 return;
             }
 
-            var templatePath = $"{PathFinderUtility.XRTK_Core_AbsoluteFolderPath}{Path.DirectorySeparatorChar}Editor{Path.DirectorySeparatorChar}Templates~"; ;
+            var templatePath = $"{PathFinderUtility.RealityToolkit_Core_AbsoluteFolderPath}{Path.DirectorySeparatorChar}Editor{Path.DirectorySeparatorChar}Templates~"; ;
 
             window = CreateInstance<MixedRealityServiceWizard>();
             window.minSize = new Vector2(MIN_HORIZONTAL_SIZE, MIN_VERTICAL_SIZE);
