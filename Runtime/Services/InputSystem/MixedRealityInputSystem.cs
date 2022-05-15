@@ -273,6 +273,9 @@ namespace RealityToolkit.Services.InputSystem
             }
         }
 
+        /// <inheritdoc />
+        public override bool RegisterDataProviders => false;
+
         #endregion IMixedRealityManager Implementation
 
         #region IEventSystemManager Implementation

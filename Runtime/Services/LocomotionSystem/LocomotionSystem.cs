@@ -99,6 +99,9 @@ namespace RealityToolkit.Services.LocomotionSystem
         }
 
         /// <inheritdoc />
+        public override bool RegisterDataProviders => false;
+
+        /// <inheritdoc />
         public void EnableLocomotionProvider<T>() where T : ILocomotionProvider
         {
             var provider = MixedRealityToolkit.GetService<T>();

@@ -115,6 +115,9 @@ namespace RealityToolkit.Services.DiagnosticsSystem
             }
         }
 
+        /// <inheritdoc />
+        public override bool RegisterDataProviders => false;
+
         #endregion IMixedRealityService Implementation
 
         #region IMixedRealityDiagnosticsSystem Implementation
