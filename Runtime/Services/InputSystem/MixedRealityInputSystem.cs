@@ -32,6 +32,8 @@ namespace RealityToolkit.Services.InputSystem
         public MixedRealityInputSystem(string name, uint priority, MixedRealityInputSystemProfile profile)
             : base(name, priority, profile)
         {
+            this.profile = profile;
+
             if (profile.GazeProviderType?.Type == null)
             {
                 throw new Exception($"The {nameof(IMixedRealityInputSystem)} is missing the required {nameof(profile.GazeProviderType)}!");
@@ -39,12 +41,9 @@ namespace RealityToolkit.Services.InputSystem
 
             gazeProviderBehaviour = profile.GazeProviderBehaviour;
             gazeProviderType = profile.GazeProviderType.Type;
-
-            if (!MixedRealityToolkit.TryCreateAndRegisterService(profile.FocusProviderType?.Type, out focusProvider, profile.FocusProviderType?.Type.Name, 2u, profile, this))
-            {
-                throw new Exception($"The {nameof(IMixedRealityInputSystem)} failed to start the {nameof(IMixedRealityFocusProvider)}!");
-            }
         }
+
+        private MixedRealityInputSystemProfile profile;
 
         /// <inheritdoc />
         public event Action InputEnabled;
@@ -62,7 +61,7 @@ namespace RealityToolkit.Services.InputSystem
         /// <inheritdoc />
         public IReadOnlyCollection<IMixedRealityController> DetectedControllers => detectedControllers;
 
-        private readonly IMixedRealityFocusProvider focusProvider = null;
+        private IMixedRealityFocusProvider focusProvider = null;
 
         /// <inheritdoc />
         public IMixedRealityFocusProvider FocusProvider => focusProvider;
@@ -223,6 +222,11 @@ namespace RealityToolkit.Services.InputSystem
             }
 
             UpdateGazeProvider();
+
+            if (!MixedRealityToolkit.TryCreateAndRegisterService(profile.FocusProviderType?.Type, out focusProvider, profile.FocusProviderType?.Type.Name, 2u, profile, this))
+            {
+                throw new Exception($"The {nameof(IMixedRealityInputSystem)} failed to start the {nameof(IMixedRealityFocusProvider)}!");
+            }
         }
 
         private void EnsureStandaloneInputModuleSetup()
