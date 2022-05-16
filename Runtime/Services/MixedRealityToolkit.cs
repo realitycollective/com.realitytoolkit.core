@@ -104,7 +104,7 @@ namespace RealityToolkit.Services
         /// <param name="profile"></param>
         public void ResetProfile(ServiceProvidersProfile profile)
         {
-            ServiceManagerInstance.ResetProfile(profile);
+            ServiceManagerInstance.ResetProfile(profile, instance.gameObject);
         }
 
         private static bool isResetting = false;

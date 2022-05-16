@@ -30,14 +30,15 @@ namespace RealityToolkit.Tests
         {
             // Setup
             CleanupScene();
-            Assert.IsTrue(!MixedRealityToolkit.IsInitialized);
-            Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count);
+            Assert.IsTrue(!MixedRealityToolkit.IsInitialized, "Toolkit was initialised when it was not meant to be");
+            Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count, "There were services registered with the toolkit when there should be none");
+            var instance = MixedRealityToolkit.Instance;
             InitializeMixedRealityToolkit();
 
             // Tests
-            Assert.IsTrue(MixedRealityToolkit.IsInitialized);
-            Assert.IsNotNull(MixedRealityToolkit.Instance);
-            Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
+            Assert.IsTrue(MixedRealityToolkit.IsInitialized, "Toolkit was NOT initialised when it should be");
+            Assert.IsNotNull(MixedRealityToolkit.Instance, "No instance of the toolkit found");
+            Assert.IsFalse(MixedRealityToolkit.HasActiveProfile, "A profile was found registered to the toolkit when none should be");
 
             MixedRealityToolkitRootProfile configuration;
 
@@ -54,8 +55,8 @@ namespace RealityToolkit.Tests
 
             Assert.IsTrue(configuration != null, "Failed to find the Default Mixed Reality Root Profile");
             MixedRealityToolkit.Instance.ResetProfile(configuration);
-            Assert.IsTrue(MixedRealityToolkit.Instance.ActiveProfile != null);
-            Assert.IsTrue(MixedRealityToolkit.IsInitialized);
+            Assert.IsTrue(MixedRealityToolkit.Instance.ActiveProfile != null, "No profile was found after the toolkit was reset with a profile");
+            Assert.IsTrue(MixedRealityToolkit.IsInitialized, "Toolkit was NOT initialised when it should be after receiving configuration");
         }
 
         private static T GetDefaultMixedRealityProfile<T>() where T : BaseProfile

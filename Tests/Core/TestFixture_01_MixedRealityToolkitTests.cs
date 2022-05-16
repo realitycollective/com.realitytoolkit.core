@@ -2,10 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using RealityToolkit.Definitions;
 using RealityToolkit.Editor.BuildPipeline.Logging;
 using RealityToolkit.Editor.Utilities;
+using RealityToolkit.ServiceFramework.Definitions;
 using RealityToolkit.ServiceFramework.Interfaces;
+using RealityToolkit.ServiceFramework.Services;
 using RealityToolkit.Services;
 using RealityToolkit.Tests.Services;
 using UnityEditor.SceneManagement;
@@ -25,14 +26,15 @@ namespace RealityToolkit.Tests.Core
             CILoggingUtility.LoggingEnabled = false;
 
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var toolkit = MixedRealityToolkit.Instance;
             MixedRealityToolkit.ConfirmInitialized();
 
-            Debug.Log(PathFinderUtility.XRTK_Core_AbsoluteFolderPath);
-            Debug.Log(PathFinderUtility.XRTK_Core_RelativeFolderPath);
+            Debug.Log(PathFinderUtility.RealityToolkit_Core_AbsoluteFolderPath);
+            Debug.Log(PathFinderUtility.RealityToolkit_Core_RelativeFolderPath);
 
             // Tests
             var gameObject = GameObject.Find(nameof(MixedRealityToolkit));
-            Assert.AreEqual(nameof(MixedRealityToolkit), gameObject.name);
+            Assert.AreEqual(nameof(MixedRealityToolkit), gameObject.name, $"Toolkit Game object {nameof(MixedRealityToolkit)} not found, {gameObject.name} was found instead.");
         }
 
         [Test]
@@ -52,7 +54,7 @@ namespace RealityToolkit.Tests.Core
             Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
             Assert.IsNull(MixedRealityToolkit.Instance.ActiveProfile);
             Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
-            LogAssert.Expect(LogType.Error, $"No {nameof(MixedRealityToolkitRootProfile)} found, cannot initialize the {nameof(MixedRealityToolkit)}");
+            LogAssert.Expect(LogType.Error, $"No {nameof(ServiceProvidersProfile)} found, cannot initialize the {nameof(ServiceManager)}");
         }
 
         [Test]
