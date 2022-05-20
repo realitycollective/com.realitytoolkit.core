@@ -29,21 +29,19 @@ namespace RealityToolkit.Extensions
             {
                 if (!ServiceInterfaceCache.TryGetValue(serviceType, out returnType))
                 {
+                    if (IsValidServiceType(interfaceType, out returnType))
+                    {
+                        // If the interface we pass in is a Valid Service Type, cache it and move on.
+                        ServiceInterfaceCache.Add(serviceType, returnType);
+                        return returnType;
+                    }
+
                     var types = serviceType.GetInterfaces();
 
                     for (int i = 0; i < types.Length; i++)
                     {
-                        if (!typeof(IMixedRealityService).IsAssignableFrom(types[i]))
+                        if (IsValidServiceType(types[i], out returnType))
                         {
-                            continue;
-                        }
-
-                        if (types[i] != typeof(IMixedRealityService) &&
-                            types[i] != typeof(IMixedRealityDataProvider) &&
-                            types[i] != typeof(IMixedRealityEventSystem) &&
-                            types[i] != typeof(IMixedRealitySystem))
-                        {
-                            returnType = types[i];
                             break;
                         }
                     }
@@ -76,6 +74,26 @@ namespace RealityToolkit.Extensions
             }
 
             return isValid;
+        }
+
+        private static bool IsValidServiceType(Type inputType, out Type returnType)
+        {
+            returnType = null;
+
+            if (!typeof(IMixedRealitySystem).IsAssignableFrom(inputType))
+            {
+                return false;
+            }
+
+            if (inputType != typeof(IMixedRealityService) &&
+                inputType != typeof(IMixedRealityDataProvider) &&
+                inputType != typeof(IMixedRealityEventSystem) &&
+                inputType != typeof(IMixedRealitySystem))
+            {
+                returnType = inputType;
+                return true;
+            }
+            return false;
         }
     }
 }
