@@ -31,6 +31,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         public UnityXRHandController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
+            handJointDataProvider = new UnityXRHandJointDataProvider();
+
             if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
             {
                 handRenderingMode = inputSystemProfile.HandControllerSettings.RenderingMode;
