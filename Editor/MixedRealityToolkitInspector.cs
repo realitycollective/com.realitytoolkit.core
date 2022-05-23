@@ -1,18 +1,23 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
 using RealityToolkit.Definitions;
+using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Editor.Profiles;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Extensions;
 using RealityToolkit.Services;
+using System;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using RealityToolkit.Editor.Extensions;
+
+#if UNITY_EDITOR && !UNITY_2021_1_OR_NEWER
+using SceneManagement = UnityEditor.Experimental.SceneManagement;
+#elif UNITY_EDITOR
+using SceneManagement = UnityEditor.SceneManagement;
+#endif
 
 namespace RealityToolkit.Editor
 {
@@ -173,7 +178,7 @@ namespace RealityToolkit.Editor
         [MenuItem(configureMenuItemName, true, 0)]
         private static bool CreateMixedRealityToolkitGameObjectValidation()
         {
-            return PrefabStageUtility.GetCurrentPrefabStage() == null;
+            return SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() == null;
         }
 
         [MenuItem(configureMenuItemName, false, 0)]
