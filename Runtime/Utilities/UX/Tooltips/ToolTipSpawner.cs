@@ -7,7 +7,7 @@ using RealityToolkit.Definitions.ToolTips;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Services.InputSystem.Handlers;
-using RealityToolkit.Utilities.Async;
+using RealityCollective.Utilities.Async;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.ToolTips

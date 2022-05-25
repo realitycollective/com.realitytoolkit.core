@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Utilities;
 using UnityEngine;

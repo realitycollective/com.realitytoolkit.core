@@ -1,19 +1,20 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+using RealityCollective.Extensions;
+using RealityCollective.Utilities.Async;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces;
 using RealityToolkit.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Utilities.Async;
 
 namespace RealityToolkit.Services
 {

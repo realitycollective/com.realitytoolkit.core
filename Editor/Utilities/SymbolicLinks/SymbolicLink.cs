@@ -3,7 +3,7 @@
 
 using System;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 {

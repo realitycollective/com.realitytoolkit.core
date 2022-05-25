@@ -7,7 +7,7 @@ using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Controllers.Simulation.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;

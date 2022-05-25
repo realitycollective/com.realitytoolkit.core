@@ -18,7 +18,7 @@ using RealityToolkit.Services;
 using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.UX.Pointers
 {

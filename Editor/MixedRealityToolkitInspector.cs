@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions;
-using RealityToolkit.Editor.Extensions;
+using RealityCollective.Editor.Extensions;
 using RealityToolkit.Editor.Profiles;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using RealityToolkit.Services;
 using System;
 using UnityEditor;

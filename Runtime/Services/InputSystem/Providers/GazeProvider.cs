@@ -14,7 +14,7 @@ using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 using RealityToolkit.Definitions;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Providers
 {

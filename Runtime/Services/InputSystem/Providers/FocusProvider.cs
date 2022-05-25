@@ -1,18 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Providers
 {

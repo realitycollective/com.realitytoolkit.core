@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.LocomotionSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.LocomotionSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.LocomotionSystem.Providers
 {

@@ -1,17 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using RealityCollective.Editor.Extensions;
+using RealityCollective.Editor.Utilities;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.Definitions.CameraSystem;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.SpatialAwarenessSystem;
-using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.BoundarySystem;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.InputSystem;
@@ -19,9 +16,12 @@ using RealityToolkit.Interfaces.InputSystem.Providers;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor
 {

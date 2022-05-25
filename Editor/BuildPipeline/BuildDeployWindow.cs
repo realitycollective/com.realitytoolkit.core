@@ -13,7 +13,7 @@ using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using Debug = UnityEngine.Debug;
 
 namespace RealityToolkit.Editor.BuildPipeline

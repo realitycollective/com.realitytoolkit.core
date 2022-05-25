@@ -3,7 +3,7 @@
 
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Platforms;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using RealityToolkit.Services;
 using System;
 using System.Runtime.InteropServices;

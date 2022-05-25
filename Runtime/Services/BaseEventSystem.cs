@@ -7,7 +7,7 @@ using RealityToolkit.Definitions;
 using RealityToolkit.Interfaces.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Utilities.Async;
+using RealityCollective.Utilities.Async;
 
 namespace RealityToolkit.Services
 {

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Attributes;
+using RealityCollective.Attributes;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 using UnityEngine;
-using RealityToolkit.Definitions.Devices;
 
 namespace RealityToolkit.Utilities.UX.Controllers
 {

@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Editor.Extensions;
 using RealityToolkit.Definitions.SpatialObservers;
 using RealityToolkit.Editor.PropertyDrawers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {

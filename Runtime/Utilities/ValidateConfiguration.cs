@@ -11,7 +11,7 @@ using RealityToolkit.Services;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 #endif
 
 namespace RealityToolkit.Utilities

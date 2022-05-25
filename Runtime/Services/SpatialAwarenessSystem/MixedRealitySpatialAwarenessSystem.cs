@@ -13,7 +13,7 @@ using RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers;
 using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.SpatialAwarenessSystem
 {

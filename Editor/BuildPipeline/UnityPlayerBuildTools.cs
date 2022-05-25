@@ -2,6 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using JetBrains.Annotations;
+using RealityCollective.Editor.Extensions;
+using RealityCollective.Editor.Utilities;
+using RealityCollective.Extensions;
+using RealityToolkit.Attributes;
+using RealityToolkit.Editor.BuildPipeline.Logging;
+using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,16 +15,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using RealityToolkit.Attributes;
-using RealityToolkit.Editor.BuildPipeline.Logging;
-using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
-using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 

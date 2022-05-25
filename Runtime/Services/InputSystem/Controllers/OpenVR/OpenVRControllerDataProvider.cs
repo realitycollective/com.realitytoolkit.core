@@ -4,7 +4,7 @@
 using System;
 using RealityToolkit.Definitions.Controllers.OpenVR.Profiles;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 using UnityEngine;
