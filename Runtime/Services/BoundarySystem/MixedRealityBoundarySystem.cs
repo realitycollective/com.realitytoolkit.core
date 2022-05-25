@@ -10,7 +10,7 @@ using RealityToolkit.Interfaces.BoundarySystem;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Utilities;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.BoundarySystem
 {

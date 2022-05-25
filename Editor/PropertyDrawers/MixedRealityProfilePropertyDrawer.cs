@@ -7,7 +7,7 @@ using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.PropertyDrawers
 {

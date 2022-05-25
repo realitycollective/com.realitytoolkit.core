@@ -3,13 +3,13 @@
 
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.LocomotionSystem;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.LocomotionSystem;
 using RealityToolkit.Utilities;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.LocomotionSystem.Providers
 {

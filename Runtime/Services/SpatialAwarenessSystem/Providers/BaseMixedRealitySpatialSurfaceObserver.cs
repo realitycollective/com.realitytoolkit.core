@@ -8,7 +8,7 @@ using RealityToolkit.Definitions.SpatialObservers;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers
 {

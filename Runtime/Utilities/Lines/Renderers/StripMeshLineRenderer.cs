@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Lines.Renderers
 {

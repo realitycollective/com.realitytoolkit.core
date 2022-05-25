@@ -5,11 +5,11 @@ using System;
 using System.Collections;
 using RealityToolkit.Definitions.SpatialAwarenessSystem;
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.SpatialAwarenessSystem;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.SpatialAwarenessSystem.SpatialObservers
 {

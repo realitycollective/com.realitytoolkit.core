@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Attributes;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Services.CameraSystem;
+using System;
 using UnityEngine;
 using UnityEngine.XR;
 

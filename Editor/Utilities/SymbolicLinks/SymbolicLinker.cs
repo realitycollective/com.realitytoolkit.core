@@ -1,8 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Extensions;
-using RealityToolkit.Utilities.Editor;
+using RealityCollective.Extensions;
+using RealityCollective.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

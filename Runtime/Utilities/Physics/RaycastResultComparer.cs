@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using RealityToolkit.Definitions.Physics;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Physics
 {

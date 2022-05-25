@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
+using RealityCollective.Utilities.Async;
+using RealityCollective.Utilities.WebRequestRest;
+using RealityToolkit.Utilities.WindowsDevicePortal.DataStructures;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using RealityToolkit.Utilities.WebRequestRest;
-using RealityToolkit.Utilities.WindowsDevicePortal.DataStructures;
 using UnityEngine;
 using UnityEngine.Networking;
-using RealityToolkit.Extensions;
-using RealityToolkit.Utilities.Async;
 using FileInfo = System.IO.FileInfo;
 
 namespace RealityToolkit.Utilities.WindowsDevicePortal

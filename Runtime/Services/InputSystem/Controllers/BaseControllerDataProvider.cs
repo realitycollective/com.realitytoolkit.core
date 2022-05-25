@@ -4,12 +4,12 @@
 using System;
 using System.Collections.Generic;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Controllers
 {

@@ -2,11 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Diagnostics;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Services.InputSystem.Processors;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 

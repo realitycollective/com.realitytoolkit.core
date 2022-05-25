@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityCollective.Editor.Extensions;
+using RealityCollective.Extensions;
 using RealityToolkit.Editor.Input.Handlers;
 using RealityToolkit.Utilities.UX.Pointers;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
-using RealityToolkit.Extensions;
-using InteractionMode = RealityToolkit.Definitions.InteractionMode;
 
 namespace RealityToolkit.Editor.UX.Pointers
 {

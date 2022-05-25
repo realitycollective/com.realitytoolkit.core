@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine;
-using RealityToolkit.Utilities.Async;
+using RealityCollective.Utilities.Async;
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 using UnityEngine.Windows.Speech;

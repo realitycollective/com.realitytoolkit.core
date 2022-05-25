@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
@@ -9,8 +9,8 @@ using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Services.InputSystem.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {

@@ -5,7 +5,7 @@ using System;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.EventDatum.Input
 {
