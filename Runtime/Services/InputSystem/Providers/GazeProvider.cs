@@ -29,6 +29,8 @@ namespace RealityToolkit.Services.InputSystem.Providers
 
         private const float MovementThreshold = 0.01f;
 
+        private bool sourceRaised = false;
+
         [SerializeField]
         [Tooltip("Maximum distance at which the gaze can hit a GameObject.")]
         private float maxGazeCollisionDistance = 10.0f;
@@ -374,7 +376,10 @@ namespace RealityToolkit.Services.InputSystem.Providers
         {
             InputSystem?.Unregister(gameObject);
             GazePointer?.BaseCursor?.SetVisibility(false);
-            InputSystem?.RaiseSourceLost(GazeInputSource);
+            if (sourceRaised)
+            {
+                InputSystem?.RaiseSourceLost(GazeInputSource);
+            }
         }
 
         protected void OnDestroy()
@@ -475,6 +480,7 @@ namespace RealityToolkit.Services.InputSystem.Providers
 
             InputSystem.RaiseSourceDetected(GazeInputSource);
             GazePointer.BaseCursor?.SetVisibility(true);
+            sourceRaised = true;
         }
 
         /// <summary>
