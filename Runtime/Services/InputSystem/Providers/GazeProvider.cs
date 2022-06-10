@@ -381,7 +381,7 @@ namespace RealityToolkit.Services.InputSystem.Providers
         {
             InputSystem?.Unregister(gameObject);
 
-            if (GazePointer != null && GazeCursor.GameObjectReference.IsNotNull())
+            if (GazePointer != null && !GazeCursor.Equals(null) && GazeCursor.GameObjectReference.IsNotNull())
             {
                 GazeCursor.GameObjectReference.Destroy();
             }
