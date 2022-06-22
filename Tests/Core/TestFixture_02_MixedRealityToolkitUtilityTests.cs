@@ -13,8 +13,9 @@ using RealityToolkit.Services;
 using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
 using RealityToolkit.Tests.Services;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using RealityToolkit.Utilities;
+using RealityCollective.Definitions.Utilities;
 
 namespace RealityToolkit.Tests.Core
 {
@@ -74,12 +75,12 @@ namespace RealityToolkit.Tests.Core
             controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
 
             // Right / Any hand textures
-            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
+            controllerMappingProfile.Handedness = Handedness.Right;
             var controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
             Assert.IsNotNull(controllerTexture);
 
             // Left hand textures
-            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
+            controllerMappingProfile.Handedness = Handedness.Left;
             controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
             Assert.IsNotNull(controllerTexture);
         }
@@ -91,12 +92,12 @@ namespace RealityToolkit.Tests.Core
             controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
 
             // Right / Any hand textures
-            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
+            controllerMappingProfile.Handedness = Handedness.Right;
             var controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
             Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
 
             // Left hand textures
-            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
+            controllerMappingProfile.Handedness = Handedness.Left;
             controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
             Assert.IsNull(controllerTexture); // For generic controllers we expect non-scaled texture to not exist.
         }
@@ -119,14 +120,14 @@ namespace RealityToolkit.Tests.Core
             controllerMappingProfile.DarkThemeRightControllerTextureScaled = dummyTexture;
 
             // Right / Any hand textures
-            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Right;
+            controllerMappingProfile.Handedness = Handedness.Right;
             var controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
             Assert.AreSame(controllerTexture, dummyTexture);
             controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);
             Assert.AreSame(controllerTexture, dummyTexture);
 
             // Left hand textures
-            controllerMappingProfile.Handedness = Definitions.Utilities.Handedness.Left;
+            controllerMappingProfile.Handedness = Handedness.Left;
             controllerTexture = ControllerMappingUtilities.GetControllerTexture(controllerMappingProfile);
             Assert.AreSame(controllerTexture, dummyTexture);
             controllerTexture = ControllerMappingUtilities.GetControllerTextureScaled(controllerMappingProfile);

@@ -4,7 +4,7 @@
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using Debug = UnityEngine.Debug;
 
 namespace RealityToolkit.Tests.Extensions

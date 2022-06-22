@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Attributes;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;

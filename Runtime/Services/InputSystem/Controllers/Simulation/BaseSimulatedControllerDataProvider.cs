@@ -3,13 +3,13 @@
 
 using System;
 using RealityToolkit.Definitions.Controllers.Simulation;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using RealityToolkit.Utilities;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.Simulation
 {

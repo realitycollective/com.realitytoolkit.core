@@ -1,8 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
@@ -13,8 +13,9 @@ using RealityToolkit.Interfaces.InputSystem.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using RealityToolkit.Utilities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using RealityToolkit.Extensions;
 using Object = UnityEngine.Object;
 
 namespace RealityToolkit.Services.InputSystem.Controllers

@@ -4,7 +4,7 @@
 using System;
 using RealityToolkit.Interfaces.Events;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.EventDatum
 {

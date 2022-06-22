@@ -1,6 +1,9 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Editor.Utilities;
+using RealityCollective.Extensions;
+using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,10 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
 using Debug = UnityEngine.Debug;
 
 namespace RealityToolkit.Editor.Utilities

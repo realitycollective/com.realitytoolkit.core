@@ -3,7 +3,7 @@
 
 using RealityToolkit.Definitions.ToolTips;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.UX.ToolTips
 {

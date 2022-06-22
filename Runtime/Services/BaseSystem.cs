@@ -4,7 +4,7 @@
 using System;
 using RealityToolkit.Definitions;
 using RealityToolkit.Interfaces;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services
 {

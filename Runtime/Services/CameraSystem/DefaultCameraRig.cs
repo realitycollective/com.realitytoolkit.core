@@ -5,7 +5,7 @@ using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.CameraSystem
 {

@@ -8,7 +8,7 @@
     "XR",
     "Mixed Reality"
   ],
-  "version": "1.0.0-preview.3",
+  "version": "1.0.0-preview.5",
   "unity": "2020.3",
   "homepage": "https://github.com/realitycollective",
   "bugs": {
@@ -29,6 +29,7 @@
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.textmeshpro": "2.1.6",
     "com.unity.editorcoroutines": "1.0.0",
-    "com.unity.addressables": "1.18.15"
+    "com.unity.addressables": "1.18.15",
+    "com.realitycollective.utilities": "1.0.0-preview.1"
   }
 }

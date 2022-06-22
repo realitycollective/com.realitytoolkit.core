@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem.Controllers;
 
 namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers

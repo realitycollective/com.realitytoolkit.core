@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Attributes;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces;
 using RealityToolkit.Services;
 using UnityEngine;

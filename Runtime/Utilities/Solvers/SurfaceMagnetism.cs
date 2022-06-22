@@ -4,7 +4,7 @@
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Solvers
 {

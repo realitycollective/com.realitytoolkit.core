@@ -1,7 +1,7 @@
-﻿using RealityToolkit.Utilities.Lines;
+﻿using RealityCollective.Editor.Extensions;
+using RealityToolkit.Utilities.Lines;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {

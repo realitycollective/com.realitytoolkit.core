@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Services.InputSystem.Listeners;

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Editor.Utilities;
+using RealityToolkit.Definitions.Platforms;
 using System;
 using System.IO;
-using RealityToolkit.Definitions.Platforms;
-using RealityToolkit.Editor.Utilities;
 using UnityEditor;
 using UnityEngine;
 

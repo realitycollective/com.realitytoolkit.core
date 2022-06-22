@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Utilities
 {

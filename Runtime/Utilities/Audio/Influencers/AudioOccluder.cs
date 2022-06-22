@@ -3,7 +3,7 @@
 
 using RealityToolkit.Interfaces.Audio;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Audio.Influencers
 {

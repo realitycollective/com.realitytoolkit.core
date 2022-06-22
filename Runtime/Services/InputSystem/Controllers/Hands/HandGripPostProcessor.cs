@@ -3,7 +3,7 @@
 
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using UnityEngine;
 

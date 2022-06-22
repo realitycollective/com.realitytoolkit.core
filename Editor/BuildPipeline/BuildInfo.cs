@@ -1,15 +1,15 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using RealityToolkit.Attributes;
 using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Editor.BuildPipeline.Logging;
 using RealityToolkit.Interfaces;
 using RealityToolkit.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;

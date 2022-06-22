@@ -8,7 +8,7 @@ using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {

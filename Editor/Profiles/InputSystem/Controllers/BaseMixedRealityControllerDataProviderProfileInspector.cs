@@ -1,21 +1,21 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Editor.Extensions;
+using RealityCollective.Extensions;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Editor.Extensions;
-using RealityToolkit.Editor.PropertyDrawers;
-using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Services.InputSystem.Controllers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {

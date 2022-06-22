@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Attributes;
+using RealityCollective.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialObservers

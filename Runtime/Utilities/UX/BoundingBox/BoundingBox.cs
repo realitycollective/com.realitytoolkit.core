@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Attributes;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
@@ -13,7 +13,7 @@ using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.UX
 {

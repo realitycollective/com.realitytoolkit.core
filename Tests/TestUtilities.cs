@@ -2,12 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using System.Linq;
+using RealityCollective.Editor.Extensions;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.LocomotionSystem;
-using RealityToolkit.Editor.Extensions;
 using RealityToolkit.Interfaces.LocomotionSystem;
 using RealityToolkit.Services;
+using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 

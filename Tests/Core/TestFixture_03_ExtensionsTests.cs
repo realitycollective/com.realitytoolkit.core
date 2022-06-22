@@ -3,7 +3,7 @@
 
 using NUnit.Framework;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Tests.Core
 {

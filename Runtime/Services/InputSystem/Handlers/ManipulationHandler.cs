@@ -13,7 +13,7 @@ using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
 using RealityToolkit.Utilities.UX;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Handlers
 {

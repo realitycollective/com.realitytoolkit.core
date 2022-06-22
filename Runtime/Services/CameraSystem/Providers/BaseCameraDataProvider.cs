@@ -8,7 +8,7 @@ using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.XR;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Services.CameraSystem.Providers
 {

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Editor.Extensions;
 using RealityToolkit.Services.InputSystem.Utilities;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Extensions;
 
 namespace RealityToolkit.Editor.Input.Handlers
 {

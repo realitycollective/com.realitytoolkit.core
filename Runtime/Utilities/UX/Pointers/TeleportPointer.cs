@@ -1,7 +1,6 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
 using RealityToolkit.Definitions.LocomotionSystem;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.Definitions.Utilities;
@@ -10,6 +9,7 @@ using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.LocomotionSystem;
 using RealityToolkit.Services;
 using RealityToolkit.Utilities.Physics;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 

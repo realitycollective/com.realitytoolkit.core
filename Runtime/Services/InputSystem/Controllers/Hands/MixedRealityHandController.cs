@@ -1,18 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 {

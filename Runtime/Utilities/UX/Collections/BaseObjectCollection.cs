@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Collections

@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Utilities
 {

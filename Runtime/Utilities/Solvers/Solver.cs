@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Solvers
 {
@@ -202,6 +202,15 @@ namespace RealityToolkit.Utilities.Solvers
             WorkingRotation = rotation;
         }
 
+        public virtual void SnapTo(Vector3 position, Quaternion rotation, Vector3 scale)
+        {
+            SnapGoalTo(position,rotation,scale);
+            
+            WorkingPosition = position;
+            WorkingRotation = rotation;
+            WorkingScale = scale;
+        }
+
         /// <summary>
         /// SnapGoalTo only sets the goal orientation.  Not really useful.
         /// </summary>
@@ -211,6 +220,13 @@ namespace RealityToolkit.Utilities.Solvers
         {
             GoalPosition = position;
             GoalRotation = rotation;
+        }
+
+        public virtual void SnapGoalTo(Vector3 position, Quaternion rotation, Vector3 scale)
+        {
+            GoalPosition = position;
+            GoalRotation = rotation;
+            GoalScale = scale;
         }
 
         /// <summary>

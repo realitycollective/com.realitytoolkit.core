@@ -5,7 +5,7 @@ using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
 using UnityEngine.Rendering;
 using RealityToolkit.Definitions.Lines;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Lines.Renderers
 {

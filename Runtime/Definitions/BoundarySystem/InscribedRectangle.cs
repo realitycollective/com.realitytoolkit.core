@@ -4,7 +4,7 @@
 using System;
 using RealityToolkit.Utilities;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using Random = System.Random;
 
 namespace RealityToolkit.Definitions.BoundarySystem

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
@@ -15,7 +15,7 @@ using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
 using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor
 {

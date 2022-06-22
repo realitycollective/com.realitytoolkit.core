@@ -5,7 +5,6 @@ using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Services;
 using UnityEngine;
-using RealityToolkit.Utilities;
 
 namespace RealityToolkit.Utilities.Solvers
 {

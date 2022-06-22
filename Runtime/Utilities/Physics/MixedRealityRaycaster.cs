@@ -3,7 +3,7 @@
 
 using RealityToolkit.Definitions.Physics;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Physics
 {

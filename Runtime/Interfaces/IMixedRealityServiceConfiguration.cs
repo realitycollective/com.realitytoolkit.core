@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Services;
 
 namespace RealityToolkit.Interfaces

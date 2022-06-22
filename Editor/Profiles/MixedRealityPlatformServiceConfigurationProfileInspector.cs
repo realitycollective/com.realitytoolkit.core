@@ -1,20 +1,20 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Editor.Extensions;
+using RealityCollective.Extensions;
+using RealityToolkit.Attributes;
+using RealityToolkit.Definitions;
+using RealityToolkit.Editor.Data;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Editor.Data;
-using RealityToolkit.Editor.Extensions;
-using RealityToolkit.Editor.PropertyDrawers;
-using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Editor.Profiles
 {

@@ -1,13 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Services.InputSystem.Processors;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Definitions.Devices
 {

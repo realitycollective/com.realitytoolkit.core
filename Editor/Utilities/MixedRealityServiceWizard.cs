@@ -17,7 +17,7 @@ using RealityToolkit.Services;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
-using RealityToolkit.Extensions;
+using RealityCollective.Extensions;
 using Assembly = System.Reflection.Assembly;
 
 namespace RealityToolkit.Editor.Utilities

@@ -3,7 +3,7 @@
 
 using System;
 using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine.EventSystems;
 

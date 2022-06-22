@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
 using RealityToolkit.Definitions.SpatialObservers;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Interfaces.SpatialObservers.Providers;
+using System;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialAwarenessSystem

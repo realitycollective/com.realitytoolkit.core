@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
@@ -13,9 +13,10 @@ using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Services.InputSystem.InputSources;
 using RealityToolkit.Services.InputSystem.Providers;
 using RealityToolkit.Utilities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Extensions;
 
 namespace RealityToolkit.Services.InputSystem
 {

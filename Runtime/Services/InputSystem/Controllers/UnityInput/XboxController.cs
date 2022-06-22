@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using RealityToolkit.Services.InputSystem.Processors;
 using UnityEngine;

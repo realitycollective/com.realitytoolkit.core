@@ -1,9 +1,9 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using UnityEngine.Rendering;
-using RealityToolkit.Extensions;
-using RenderPipeline = RealityToolkit.Definitions.Utilities.RenderPipeline;
+using RenderPipeline = RealityCollective.Definitions.Utilities.RenderPipeline;
 
 namespace RealityToolkit.Utilities
 {
@@ -16,23 +16,23 @@ namespace RealityToolkit.Utilities
         /// Gets the <see cref="Definitions.Utilities.RenderPipeline"/> used by the project.
         /// </summary>
         /// <returns>The <see cref="Definitions.Utilities.RenderPipeline"/> used by the project.</returns>
-        public static Definitions.Utilities.RenderPipeline GetActiveRenderingPipeline()
+        public static RenderPipeline GetActiveRenderingPipeline()
         {
             var renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
             if (renderPipelineAsset.IsNull())
             {
-                return Definitions.Utilities.RenderPipeline.Legacy;
+                return RenderPipeline.Legacy;
             }
 
             switch (renderPipelineAsset.GetType().Name)
             {
                 case urpAssetTypeName:
-                    return Definitions.Utilities.RenderPipeline.UniversalRenderPipeline;
+                    return RenderPipeline.UniversalRenderPipeline;
                 case hdrpAssetTypeName:
-                    return Definitions.Utilities.RenderPipeline.HighDefinitionRenderPipeline;
+                    return RenderPipeline.HighDefinitionRenderPipeline;
             }
 
-            return Definitions.Utilities.RenderPipeline.Custom;
+            return RenderPipeline.Custom;
         }
     }
 }

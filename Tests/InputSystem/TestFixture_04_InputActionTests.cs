@@ -4,7 +4,7 @@
 using System;
 using NUnit.Framework;
 using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.Definitions.Utilities;
 
 namespace RealityToolkit.Tests.InputSystem
 {
