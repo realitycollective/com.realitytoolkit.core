@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Interfaces.InputSystem;
 using UnityEngine;
-using RealityToolkit.Utilities.Async;
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 using UnityEngine.Windows.Speech;

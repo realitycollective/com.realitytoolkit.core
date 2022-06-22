@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
+using RealityCollective.Utilities.Async;
 using RealityToolkit.Definitions;
 using RealityToolkit.Interfaces.Events;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RealityToolkit.Utilities.Async;
 
 namespace RealityToolkit.Services
 {
