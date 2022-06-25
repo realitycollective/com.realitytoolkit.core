@@ -219,15 +219,15 @@ namespace RealityToolkit.Utilities.UX.Pointers
             float cursorOffsetWorldLength = BaseCursor?.SurfaceCursorDistance ?? 0f;
 
             // If we hit something
-            if (Result.CurrentPointerTarget != null)
+            if (Result?.CurrentPointerTarget != null)
             {
                 clearWorldLength = Result.RayDistance;
-                lineColor = IsSelectPressed ? lineColorSelected : lineColorValid;
+                lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorValid;
             }
             else
             {
                 clearWorldLength = PointerExtent;
-                lineColor = IsSelectPressed ? lineColorSelected : lineColorNoTarget;
+                lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorNoTarget;
             }
 
             if (IsFocusLocked)

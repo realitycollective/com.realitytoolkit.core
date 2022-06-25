@@ -21,6 +21,16 @@ namespace RealityToolkit.Utilities
         {
             get
             {
+                if (cachedCamera != null)
+                {
+                    if (cachedCamera.gameObject.activeInHierarchy)
+                    {   // If the cached camera is active, return it
+                        // Otherwise, our playspace may have been disabled
+                        // We'll have to search for the next available
+                        return cachedCamera;
+                    }
+                }
+
                 var mainCamera = Camera.main;
 
                 if (mainCamera == null)
