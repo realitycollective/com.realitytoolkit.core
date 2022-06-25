@@ -1,20 +1,19 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
-using System.Collections.Generic;
-using UnityEngine;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Services;
 using RealityToolkit.Services.InputSystem.Utilities;
-using RealityToolkit.Utilities.UX.Controllers.Hands;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {

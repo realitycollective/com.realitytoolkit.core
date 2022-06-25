@@ -1,21 +1,21 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
-using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
-using System.Collections.Generic;
-using UnityEngine;
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
-using RealityToolkit.Services;
+using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Utilities;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {
