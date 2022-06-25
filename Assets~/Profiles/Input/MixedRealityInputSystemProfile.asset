@@ -63,13 +63,13 @@ MonoBehaviour:
   - instancedType:
       reference: 12e24f3d-7689-4863-a403-dd7a80da3c25
     name: Windows Speech Data Provider
-    priority: 4
+    priority: 3
     platformEntries:
       runtimePlatforms:
       - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
       - reference: 7dc72b4e-34f6-4b26-afd7-cde0c51f83a3
       - reference: 58de2d2a-db5f-4090-a949-4028b8ea3afd
-    profile: {fileID: 0}
+    profile: {fileID: 11400000, guid: 89759c8b9c98420794a5d650ce3b2f90, type: 2}
   - instancedType:
       reference: 9d96d660-cb10-48b8-b2a7-3262adb2ab14
     name: Windows Dictation Data Provider
@@ -80,12 +80,38 @@ MonoBehaviour:
       - reference: 7dc72b4e-34f6-4b26-afd7-cde0c51f83a3
       - reference: 58de2d2a-db5f-4090-a949-4028b8ea3afd
     profile: {fileID: 0}
+  - instancedType:
+      reference: 0de5da40-feb8-4891-b9b2-942eafd041b9
+    name: Meta Controller Data Provider
+    priority: 1
+    platformEntries:
+      runtimePlatforms:
+      - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
+      - reference: db1acc26-ec8d-4bc6-afca-c51351b2da2e
+    profile: {fileID: 11400000, guid: b849f3a28dc36b84a92d2ec4d8239cd6, type: 2}
+  - instancedType:
+      reference: ea666456-baef-4412-a829-a4c7132e98c3
+    name: Meta Hand Controller Data Provider
+    priority: 6
+    platformEntries:
+      runtimePlatforms:
+      - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
+      - reference: db1acc26-ec8d-4bc6-afca-c51351b2da2e
+    profile: {fileID: 11400000, guid: d9b3b9f611dffee4883c089dc35e0ce7, type: 2}
+  - instancedType:
+      reference: 067ce7d4-8277-4e18-834e-3dc712074b72
+    name: Mouse Data Provider
+    priority: 7
+    platformEntries:
+      runtimePlatforms:
+      - reference: c6bf6315-2e9c-4602-827d-2d4871d29422
+    profile: {fileID: 11400000, guid: a2a4350cf0bc6a84cb524749c3c95eae, type: 2}
   focusProviderType:
     reference: 249d4d78-cadd-45ba-9438-db9fc2509213
+  gazeProviderBehaviour: 0
   gazeProviderType:
     reference: bed2c9a4-48c5-49d2-bca4-3d351153ba75
-  gazeCursorPrefab: {fileID: 1000012072213228, guid: 79f96834fcc44889b558cc13518979a0,
-    type: 3}
+  gazeCursorPrefab: {fileID: 1000012072213228, guid: 79f96834fcc44889b558cc13518979a0, type: 3}
   pointingExtent: 10
   pointerRaycastLayerMasks:
   - serializedVersion: 2
@@ -93,7 +119,8 @@ MonoBehaviour:
   drawDebugPointingRays: 1
   debugPointingRayColors:
   - {r: 0, g: 1, b: 0, a: 1}
-  handMeshingEnabled: 1
+  gripThreshold: 0.8
+  renderingMode: 1
   handPhysicsEnabled: 0
   useTriggers: 0
   boundsMode: 0
@@ -106,8 +133,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1251200226ad995498472e45aaf12178, type: 2}
   - {fileID: 11400000, guid: 5e6bcc3863bdc634d82a8a59598a070b, type: 2}
   - {fileID: 11400000, guid: 2f6c29c72cd30c74f9717c932bd87a4a, type: 2}
-  inputActionsProfile: {fileID: 11400000, guid: 399335ccc89c4d12b79f3539ca7771db,
-    type: 2}
-  speechCommandsProfile: {fileID: 11400000, guid: 89759c8b9c98420794a5d650ce3b2f90,
-    type: 2}
+  inputActionsProfile: {fileID: 11400000, guid: 399335ccc89c4d12b79f3539ca7771db, type: 2}
+  speechCommandsProfile: {fileID: 11400000, guid: 89759c8b9c98420794a5d650ce3b2f90, type: 2}
   gesturesProfile: {fileID: 11400000, guid: 47280a6380eb40d5952dc5a5da00a89e, type: 2}
