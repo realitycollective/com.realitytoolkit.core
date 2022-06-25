@@ -685,8 +685,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public override void OnInputUp(InputEventData eventData)
         {
-//            if (!IsInteractionEnabled) { return; }
- 
             base.OnInputUp(eventData);
 
             if (eventData.SourceId == InputSourceParent.SourceId &&
@@ -718,8 +716,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public override void OnInputDown(InputEventData eventData)
         {
-//            if (!IsInteractionEnabled) { return; }
-
             base.OnInputDown(eventData);
 
             if (eventData.SourceId == InputSourceParent.SourceId &&

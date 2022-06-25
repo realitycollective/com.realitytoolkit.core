@@ -197,16 +197,16 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public override void OnPostRaycast()
         {
-            base.OnPostRaycast();
-
-            Gradient lineColor;
-
             if (!IsInteractionEnabled)
             {
                 lineBase.enabled = false;
                 BaseCursor?.SetVisibility(false);
                 return;
             }
+
+            base.OnPostRaycast();
+
+            Gradient lineColor;
 
             lineBase.enabled = true;
             BaseCursor?.SetVisibility(true);
