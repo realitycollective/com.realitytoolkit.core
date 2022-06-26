@@ -56,7 +56,7 @@ namespace RealityToolkit.Editor.Utilities
                 }
             }
 
-            var message = "The Mixed Reality Toolkit needs to apply the following settings to your project:\n\n";
+            var message = "The Reality Toolkit needs to apply the following settings to your project:\n\n";
 
             var forceTextSerialization = EditorSettings.serializationMode == SerializationMode.ForceText;
 

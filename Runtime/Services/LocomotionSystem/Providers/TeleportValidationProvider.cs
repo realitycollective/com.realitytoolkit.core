@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Services.LocomotionSystem.Providers
 {
     /// <summary>
-    /// The Mixed Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.
+    /// The Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("14199fd8-1636-4147-bb08-6475e76ed1cd")]
     public class TeleportValidationProvider : BaseDataProvider, ITeleportValidationProvider

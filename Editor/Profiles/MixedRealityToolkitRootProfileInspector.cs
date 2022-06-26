@@ -115,7 +115,7 @@ namespace RealityToolkit.Editor.Profiles
         public override void OnInspectorGUI()
         {
             MixedRealityInspectorUtility.RenderMixedRealityToolkitLogo();
-            EditorGUILayout.LabelField("The Mixed Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
+            EditorGUILayout.LabelField("Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             RenderSystemFields();
