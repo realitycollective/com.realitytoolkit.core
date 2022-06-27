@@ -530,8 +530,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public virtual void OnPostRaycast() 
         {
-            if (grabAction != MixedRealityInputAction.None)// && InputSourceParent..SourceType == InputSourceType.Controller) <- revisit if there are issues
-            {
+            if (grabAction != MixedRealityInputAction.None)
                 if (IsGrabPressed)
 {
                     DragHandler(grabAction);
@@ -551,7 +550,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             if (IsDragging)
             {
-                var currentPointerPosition = pointerPosition;
+                var currentPointerPosition = PointerPosition;
                 var delta = currentPointerPosition - lastPointerPosition;
                 InputSystem.RaisePointerDrag(this, action, delta);
                 lastPointerPosition = currentPointerPosition;
@@ -559,7 +558,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             else
             {
                 IsDragging = true;
-                var currentPointerPosition = pointerPosition;
+                var currentPointerPosition = PointerPosition;
                 InputSystem.RaisePointerDragBegin(this, action, currentPointerPosition);
                 lastPointerPosition = currentPointerPosition;
             }
@@ -572,7 +571,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             return true;
         }
 
-        private Vector3 pointerPosition
+        private Vector3 PointerPosition
         { 
             get
             {
