@@ -528,11 +528,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public virtual void OnPreRaycast() { }
 
         /// <inheritdoc />
-        public virtual void OnPostRaycast() 
+        public virtual void OnPostRaycast()
         {
             if (grabAction != MixedRealityInputAction.None)
+            {
                 if (IsGrabPressed)
-{
+                {
                     DragHandler(grabAction);
                 }
             }
