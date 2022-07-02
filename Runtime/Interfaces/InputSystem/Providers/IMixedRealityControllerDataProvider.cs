@@ -10,7 +10,7 @@ using RealityToolkit.Interfaces.InputSystem.Controllers;
 namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers
 {
     /// <summary>
-    /// Mixed Reality Toolkit data provider definition, used to instantiate and manage controllers and joysticks
+    /// Reality Toolkit data provider definition, used to instantiate and manage controllers and joysticks
     /// </summary>
     public interface IMixedRealityControllerDataProvider : IMixedRealityInputDataProvider
     {

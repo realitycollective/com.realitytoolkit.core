@@ -98,7 +98,7 @@ namespace RealityToolkit.Editor.BuildPipeline
             EditorGUILayout.Space();
             EditorGUILayout.BeginVertical();
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("The Mixed Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
+            EditorGUILayout.LabelField("The Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
             EditorGUILayout.LabelField($"{MixedRealityPreferences.CurrentPlatformTarget.Name} Build Window", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();

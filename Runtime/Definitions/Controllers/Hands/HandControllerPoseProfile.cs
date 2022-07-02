@@ -10,7 +10,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
     /// A hand controller pose definition with recorded hand joint data.
     /// Defined hand poses can be recognized and trigger input actions.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Hand Controller Pose", fileName = "HandControllerPose", order = (int)CreateProfileMenuItemIndices.Input)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Hand Controller Pose", fileName = "HandControllerPose", order = (int)CreateProfileMenuItemIndices.Input)]
     public class HandControllerPoseProfile : BaseMixedRealityProfile
     {
         [SerializeField]

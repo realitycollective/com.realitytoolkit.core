@@ -118,7 +118,7 @@ namespace RealityToolkit.Editor.Utilities
             {
                 if (darkThemeLogo == null)
                 {
-                    darkThemeLogo = (Texture2D)AssetDatabase.LoadAssetAtPath($"{PathFinderUtility.XRTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/XRTK_Logo.png", typeof(Texture2D));
+                    darkThemeLogo = (Texture2D)AssetDatabase.LoadAssetAtPath($"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/RealityCollective_InspectorLogo.png", typeof(Texture2D));
                 }
 
                 return darkThemeLogo;
@@ -133,7 +133,7 @@ namespace RealityToolkit.Editor.Utilities
             {
                 if (lightThemeLogo == null)
                 {
-                    lightThemeLogo = (Texture2D)AssetDatabase.LoadAssetAtPath($"{PathFinderUtility.XRTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/XRTK_Logo.png", typeof(Texture2D));
+                    lightThemeLogo = (Texture2D)AssetDatabase.LoadAssetAtPath($"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/RealityCollective_InspectorLogo.png", typeof(Texture2D));
                 }
 
                 return lightThemeLogo;
@@ -147,7 +147,7 @@ namespace RealityToolkit.Editor.Utilities
         private static GUIStyle CenteredGuiStyle => centeredGuiStyle ?? (centeredGuiStyle = new GUIStyle { alignment = TextAnchor.MiddleCenter });
 
         /// <summary>
-        /// Render the Mixed Reality Toolkit Logo.
+        /// Render the Reality Toolkit Logo.
         /// </summary>
         public static void RenderMixedRealityToolkitLogo()
         {

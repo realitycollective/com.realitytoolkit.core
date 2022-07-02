@@ -108,7 +108,7 @@ namespace RealityToolkit.Editor.Utilities
             return texture;
         }
 
-        private static readonly string RootTexturePath = $"{PathFinderUtility.XRTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/";
+        private static readonly string RootTexturePath = $"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/";
 
         private static Texture2D GetControllerTextureInternal(MixedRealityControllerMappingProfile mappingProfile, bool scaled)
         {

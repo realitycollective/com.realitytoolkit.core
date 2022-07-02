@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Definitions
 {
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Registered Service Providers Profile", fileName = "MixedRealityRegisteredServiceProvidersProfile", order = (int)CreateProfileMenuItemIndices.RegisteredServiceProviders)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Registered Service Providers Profile", fileName = "MixedRealityRegisteredServiceProvidersProfile", order = (int)CreateProfileMenuItemIndices.RegisteredServiceProviders)]
     public class MixedRealityRegisteredServiceProvidersProfile : BaseMixedRealityServiceProfile<IMixedRealityExtensionService>
     {
     }

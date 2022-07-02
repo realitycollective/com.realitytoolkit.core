@@ -9,7 +9,7 @@ using UnityEngine;
 namespace RealityToolkit.Interfaces.BoundarySystem
 {
     /// <summary>
-    /// The interface for a Boundary system in the Mixed Reality Toolkit
+    /// The interface for a Boundary system in the Reality Toolkit
     /// All systems for providing Boundary functionality should derive from this interface
     /// </summary>
     public interface IMixedRealityBoundarySystem : IMixedRealitySystem

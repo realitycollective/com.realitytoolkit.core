@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Definitions
 {
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Platform Service Configurations", fileName = "MixedRealityPlatformServiceConfigurationProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Platform Service Configurations", fileName = "MixedRealityPlatformServiceConfigurationProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
     public class MixedRealityPlatformServiceConfigurationProfile : BaseMixedRealityProfile
     {
         [SerializeField]

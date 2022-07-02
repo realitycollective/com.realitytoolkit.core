@@ -84,7 +84,7 @@ namespace RealityToolkit.Editor.Profiles
                 {
                     if (EditorUtility.DisplayDialog(
                         "Attention!",
-                        "There is no active Mixed Reality Toolkit in your scene!\n\nWould you like to create one now?",
+                        "There is no active Reality Toolkit in your scene!\n\nWould you like to create one now?",
                         "Yes",
                         "Later",
                         DialogOptOutDecisionType.ForThisSession,
@@ -100,7 +100,7 @@ namespace RealityToolkit.Editor.Profiles
                     }
                     else
                     {
-                        Debug.LogWarning("No Mixed Reality Toolkit in your scene.");
+                        Debug.LogWarning("No Reality Toolkit in your scene.");
                         didPromptToConfigure = true;
                     }
                 }
@@ -115,7 +115,7 @@ namespace RealityToolkit.Editor.Profiles
         public override void OnInspectorGUI()
         {
             MixedRealityInspectorUtility.RenderMixedRealityToolkitLogo();
-            EditorGUILayout.LabelField("The Mixed Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
+            EditorGUILayout.LabelField("The Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             RenderSystemFields();

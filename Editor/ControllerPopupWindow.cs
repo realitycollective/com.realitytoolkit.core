@@ -95,7 +95,7 @@ namespace RealityToolkit.Editor
                                            ControllerType == typeof(GenericJoystickController) ||
                                            ControllerType == typeof(IMixedRealityHandController);
 
-        private static string EditorWindowOptionsPath => $"{PathFinderUtility.XRTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
+        private static string EditorWindowOptionsPath => $"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
 
         private void OnFocus()
         {

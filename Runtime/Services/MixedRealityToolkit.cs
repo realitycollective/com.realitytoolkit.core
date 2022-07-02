@@ -19,7 +19,7 @@ using UnityEngine.EventSystems;
 namespace RealityToolkit.Services
 {
     /// <summary>
-    /// This class is responsible for coordinating the operation of the Mixed Reality Toolkit. It is the only Singleton in the entire project.
+    /// This class is responsible for coordinating the operation of the Reality Toolkit. It is the only Singleton in the entire project.
     /// It provides a service registry for all active services that are used within a project as well as providing the active profile for the project.
     /// The <see cref="ActiveProfile"/> can be swapped out at any time to meet the needs of your project.
     /// </summary>
@@ -27,7 +27,7 @@ namespace RealityToolkit.Services
     [DisallowMultipleComponent]
     public sealed class MixedRealityToolkit : MonoBehaviour, IDisposable
     {
-        #region Mixed Reality Toolkit Profile properties
+        #region Reality Toolkit Profile properties
 
         /// <summary>
         /// Checks if there is a valid instance of the MixedRealityToolkit, then checks if there is there a valid Active Profile.
@@ -53,7 +53,7 @@ namespace RealityToolkit.Services
         public static string DefaultXRCameraRigName = "XRCameraRig";
 
         /// <summary>
-        /// The active profile of the Mixed Reality Toolkit which controls which services are active and their initial settings.
+        /// The active profile of the Reality Toolkit which controls which services are active and their initial settings.
         /// *Note a profile is used on project initialization or replacement, changes to properties while it is running has no effect.
         /// </summary>
         [SerializeField]
@@ -133,7 +133,7 @@ namespace RealityToolkit.Services
 
         private static bool isResetting = false;
 
-        #endregion Mixed Reality Toolkit Profile properties
+        #endregion Reality Toolkit Profile properties
 
         #region Mixed Reality runtime service registry
 
@@ -168,7 +168,7 @@ namespace RealityToolkit.Services
         private static readonly List<Tuple<Type, IMixedRealityService>> registeredMixedRealityServices = new List<Tuple<Type, IMixedRealityService>>();
 
         /// <summary>
-        /// Local service registry for the Mixed Reality Toolkit, to allow runtime use of the <see cref="IMixedRealityService"/>.
+        /// Local service registry for the Reality Toolkit, to allow runtime use of the <see cref="IMixedRealityService"/>.
         /// </summary>
         /// <remarks>
         /// Services can have one or more instances registered and can be executed simultaneously. Best to get them out by name or guid.
@@ -254,7 +254,7 @@ namespace RealityToolkit.Services
         private static MixedRealityToolkit instance;
 
         /// <summary>
-        /// Lock property for the Mixed Reality Toolkit to prevent reinitialization
+        /// Lock property for the Reality Toolkit to prevent reinitialization
         /// </summary>
         private static readonly object InitializedLock = new object();
 
@@ -366,7 +366,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Once all services are registered and properties updated, the Mixed Reality Toolkit will initialize all active services.
+        /// Once all services are registered and properties updated, the Reality Toolkit will initialize all active services.
         /// This ensures all services can reference each other once started.
         /// </summary>
         private void InitializeServiceLocator()
@@ -379,7 +379,7 @@ namespace RealityToolkit.Services
 
             isInitializing = true;
 
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (ActiveProfile == null)
             {
                 Debug.LogError($"No {nameof(MixedRealityToolkitRootProfile)} found, cannot initialize the {nameof(MixedRealityToolkit)}");
@@ -651,7 +651,7 @@ namespace RealityToolkit.Services
         {
             if (!Application.isPlaying) { return; }
 
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             foreach (var system in activeSystems)
@@ -669,7 +669,7 @@ namespace RealityToolkit.Services
         {
             if (!Application.isPlaying) { return; }
 
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             foreach (var system in activeSystems)
@@ -747,7 +747,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Add a service instance to the Mixed Reality Toolkit active service registry.
+        /// Add a service instance to the Reality Toolkit active service registry.
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="serviceInstance">Instance of the <see cref="IMixedRealityService"/> to register.</param>
@@ -758,7 +758,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Creates a new instance of a service and registers it to the Mixed Reality Toolkit service registry for the specified platform.
+        /// Creates a new instance of a service and registers it to the Reality Toolkit service registry for the specified platform.
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="configuration">The <see cref="IMixedRealityServiceConfiguration{T}"/> to use to create and register the service.</param>
@@ -776,7 +776,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Creates a new instance of a data provider and registers it to the Mixed Reality Toolkit service registry for the specified platform.
+        /// Creates a new instance of a data provider and registers it to the Reality Toolkit service registry for the specified platform.
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="configuration">The <see cref="IMixedRealityServiceConfiguration{T}"/> to use to create and register the data provider.</param>
@@ -795,7 +795,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Creates a new instance of a service and registers it to the Mixed Reality Toolkit service registry for the specified platform.
+        /// Creates a new instance of a service and registers it to the Reality Toolkit service registry for the specified platform.
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="concreteType">The concrete class type to instantiate.</param>
@@ -810,7 +810,7 @@ namespace RealityToolkit.Services
         private static readonly IMixedRealityPlatform[] AllPlatforms = { new AllPlatforms() };
 
         /// <summary>
-        /// Creates a new instance of a service and registers it to the Mixed Reality Toolkit service registry for the specified platform.
+        /// Creates a new instance of a service and registers it to the Reality Toolkit service registry for the specified platform.
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="concreteType">The concrete class type to instantiate.</param>
@@ -824,7 +824,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Creates a new instance of a service and registers it to the Mixed Reality Toolkit service registry for the specified platform.
+        /// Creates a new instance of a service and registers it to the Reality Toolkit service registry for the specified platform.
         /// </summary>
         /// <typeparam name="T">The interface type for the <see cref="IMixedRealityService"/> to be registered.</typeparam>
         /// <param name="concreteType">The concrete class type to instantiate.</param>
@@ -1020,7 +1020,7 @@ namespace RealityToolkit.Services
         #region Unregistration
 
         /// <summary>
-        /// Remove all services from the Mixed Reality Toolkit active service registry for a given type
+        /// Remove all services from the Reality Toolkit active service registry for a given type
         /// </summary>
         public static bool TryUnregisterServicesOfType<T>() where T : IMixedRealityService
         {
@@ -1046,7 +1046,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Remove services from the Mixed Reality Toolkit active service registry for a given type and name
+        /// Remove services from the Reality Toolkit active service registry for a given type and name
         /// Name is only supported for Mixed Reality runtime services
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be removed.  E.G. InputSystem, BoundarySystem</param>
@@ -1147,7 +1147,7 @@ namespace RealityToolkit.Services
         #region Multiple Service Management
 
         /// <summary>
-        /// Enable all services in the Mixed Reality Toolkit active service registry for a given type
+        /// Enable all services in the Reality Toolkit active service registry for a given type
         /// </summary>
         /// <typeparam name="T">The interface type for the system to be enabled.  E.G. InputSystem, BoundarySystem</typeparam>
         public static void EnableAllServicesOfType<T>() where T : IMixedRealityService
@@ -1166,7 +1166,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Enable all services in the Mixed Reality Toolkit active service registry for a given type and name
+        /// Enable all services in the Reality Toolkit active service registry for a given type and name
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be enabled.  E.G. InputSystem, BoundarySystem</param>
         /// <param name="serviceName">Name of the specific service</param>
@@ -1195,7 +1195,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Disable all services in the Mixed Reality Toolkit active service registry for a given type
+        /// Disable all services in the Reality Toolkit active service registry for a given type
         /// </summary>
         /// <typeparam name="T">The interface type for the system to be enabled.  E.G. InputSystem, BoundarySystem</typeparam>
         public static void DisableAllServiceOfType<T>() where T : IMixedRealityService
@@ -1214,7 +1214,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Disable all services in the Mixed Reality Toolkit active service registry for a given type and name
+        /// Disable all services in the Reality Toolkit active service registry for a given type and name
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be disabled.  E.G. InputSystem, BoundarySystem</param>
         /// <param name="serviceName">Name of the specific service</param>
@@ -1243,7 +1243,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Retrieve all services from the Mixed Reality Toolkit active service registry for a given type and an optional name
+        /// Retrieve all services from the Reality Toolkit active service registry for a given type and an optional name
         /// </summary>
         /// <typeparam name="T">The interface type for the system to be retrieved.  E.G. InputSystem, BoundarySystem.</typeparam>
         /// <returns>An array of services that meet the search criteria</returns>
@@ -1253,7 +1253,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Retrieve all services from the Mixed Reality Toolkit active service registry for a given type and an optional name
+        /// Retrieve all services from the Reality Toolkit active service registry for a given type and an optional name
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be retrieved.  E.G. InputSystem, BoundarySystem</param>
         /// <returns>An array of services that meet the search criteria</returns>
@@ -1263,7 +1263,7 @@ namespace RealityToolkit.Services
         }
 
         /// <summary>
-        /// Retrieve all services from the Mixed Reality Toolkit active service registry for a given type and name
+        /// Retrieve all services from the Reality Toolkit active service registry for a given type and name
         /// </summary>
         /// <param name="interfaceType">The interface type for the system to be retrieved.  E.G. InputSystem, BoundarySystem</param>
         /// <param name="serviceName">Name of the specific service</param>
@@ -1306,7 +1306,7 @@ namespace RealityToolkit.Services
 
         private void InitializeAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Initialize all systems
@@ -1338,7 +1338,7 @@ namespace RealityToolkit.Services
 
         private void ResetAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Reset all systems
@@ -1370,7 +1370,7 @@ namespace RealityToolkit.Services
 
         private void EnableAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Enable all systems
@@ -1402,7 +1402,7 @@ namespace RealityToolkit.Services
 
         private void UpdateAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Update all systems
@@ -1434,7 +1434,7 @@ namespace RealityToolkit.Services
 
         private void LateUpdateAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Update all systems
@@ -1466,7 +1466,7 @@ namespace RealityToolkit.Services
 
         private void FixedUpdateAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Update all systems
@@ -1498,7 +1498,7 @@ namespace RealityToolkit.Services
 
         private void DisableAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Disable all registered runtime services in reverse priority order
@@ -1530,7 +1530,7 @@ namespace RealityToolkit.Services
 
         private void DestroyAllServices()
         {
-            // If the Mixed Reality Toolkit is not configured, stop.
+            // If the Reality Toolkit is not configured, stop.
             if (activeProfile == null) { return; }
 
             // Destroy all registered runtime services in reverse priority order
