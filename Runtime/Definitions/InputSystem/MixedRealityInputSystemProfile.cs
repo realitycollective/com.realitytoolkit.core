@@ -17,7 +17,7 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System Profile", fileName = "MixedRealityInputSystemProfile", order = (int)CreateProfileMenuItemIndices.Input)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Input System Profile", fileName = "MixedRealityInputSystemProfile", order = (int)CreateProfileMenuItemIndices.Input)]
     public class MixedRealityInputSystemProfile : BaseMixedRealityServiceProfile<IMixedRealityInputDataProvider>
     {
         #region Global Input System Options

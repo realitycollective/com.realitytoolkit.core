@@ -4,7 +4,7 @@
 namespace RealityToolkit.Definitions.Utilities
 {
     /// <summary>
-    /// Defines the display order of the Assets > Create > Mixed Reality Toolkit > Profiles menu items.
+    /// Defines the display order of the Assets > Create > Reality Toolkit > Profiles menu items.
     /// </summary>
     public enum CreateProfileMenuItemIndices
     {

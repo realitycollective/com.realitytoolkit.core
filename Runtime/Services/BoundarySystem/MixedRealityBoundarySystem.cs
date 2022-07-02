@@ -544,7 +544,7 @@ namespace RealityToolkit.Services.BoundarySystem
 
                 BoundaryBounds = boundaryEdges.ToArray();
                 // We always use the same seed so that from run to run, the inscribed bounds are consistent.
-                rectangularBounds = new InscribedRectangle(BoundaryBounds, Mathf.Abs("Mixed Reality Toolkit".GetHashCode()));
+                rectangularBounds = new InscribedRectangle(BoundaryBounds, Mathf.Abs("Reality Toolkit".GetHashCode()));
             }
             else
             {

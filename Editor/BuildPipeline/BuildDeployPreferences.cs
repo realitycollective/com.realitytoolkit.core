@@ -23,7 +23,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         private const string EDITOR_PREF_BUILD_DIR = "BuildDeployWindow_BuildDir";
 
         /// <summary>
-        /// The Build Directory that the Mixed Reality Toolkit will build to.
+        /// The Build Directory that the Reality Toolkit will build to.
         /// </summary>
         /// <remarks>
         /// This is a root build folder path. Each platform build will be put into a child directory with the name of the current active build target.

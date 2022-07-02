@@ -10,7 +10,7 @@ namespace RealityToolkit.Definitions.InputSystem
     /// <summary>
     /// Configuration profile settings for setting up and consuming gesture based input actions.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Gestures Profile", fileName = "MixedRealityGesturesProfile", order = (int)CreateProfileMenuItemIndices.Gestures)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Gestures Profile", fileName = "MixedRealityGesturesProfile", order = (int)CreateProfileMenuItemIndices.Gestures)]
     public class MixedRealityGesturesProfile : BaseMixedRealityProfile
     {
         [SerializeField]

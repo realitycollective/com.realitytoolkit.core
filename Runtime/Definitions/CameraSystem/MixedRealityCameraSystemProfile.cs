@@ -10,7 +10,7 @@ namespace RealityToolkit.Definitions.CameraSystem
     /// <summary>
     /// This <see cref="BaseMixedRealityProfile"/> to configuring your applications <see cref="IMixedRealityCameraDataProvider"/>s.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Camera System Profile", fileName = "MixedRealityCameraSystemProfile", order = (int)CreateProfileMenuItemIndices.Camera)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Camera System Profile", fileName = "MixedRealityCameraSystemProfile", order = (int)CreateProfileMenuItemIndices.Camera)]
     public class MixedRealityCameraSystemProfile : BaseMixedRealityServiceProfile<IMixedRealityCameraDataProvider>
     {
         [SerializeField]

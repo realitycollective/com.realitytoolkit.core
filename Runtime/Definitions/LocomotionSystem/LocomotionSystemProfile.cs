@@ -10,7 +10,7 @@ namespace RealityToolkit.Definitions.LocomotionSystem
     /// <summary>
     /// Configuration profile settings for <see cref="Services.LocomotionSystem.LocomotionSystem"/>.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Locomotion System Profile", fileName = "MixedRealityLocomotionSystemProfile", order = (int)CreateProfileMenuItemIndices.Input)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Locomotion System Profile", fileName = "MixedRealityLocomotionSystemProfile", order = (int)CreateProfileMenuItemIndices.Input)]
     public class LocomotionSystemProfile : BaseMixedRealityServiceProfile<ILocomotionSystemDataProvider>
     {
         [SerializeField]

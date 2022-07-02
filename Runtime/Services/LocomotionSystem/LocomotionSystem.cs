@@ -16,7 +16,7 @@ using UnityEngine.EventSystems;
 namespace RealityToolkit.Services.LocomotionSystem
 {
     /// <summary>
-    /// The Mixed Reality Toolkit's specific implementation of the <see cref="ILocomotionSystem"/>
+    /// The Reality Toolkit's specific implementation of the <see cref="ILocomotionSystem"/>
     /// </summary>
     [System.Runtime.InteropServices.Guid("9453c088-285e-47aa-bfbb-dafd9109fdd5")]
     public class LocomotionSystem : BaseEventSystem, ILocomotionSystem

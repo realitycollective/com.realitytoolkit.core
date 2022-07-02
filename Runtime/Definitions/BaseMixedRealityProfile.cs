@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RealityToolkit.Definitions
 {
     /// <summary>
-    /// Base Profile for all data containers to use in the Mixed Reality Toolkit.
+    /// Base Profile for all data containers to use in the Reality Toolkit.
     /// </summary>
     public abstract class BaseMixedRealityProfile : ScriptableObject
     {

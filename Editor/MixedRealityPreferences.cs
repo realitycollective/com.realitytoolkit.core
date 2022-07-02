@@ -19,9 +19,9 @@ namespace RealityToolkit.Editor
 {
     public static class MixedRealityPreferences
     {
-        public const string Editor_Menu_Keyword = "Reality Toolkit";
+        public const string Editor_Menu_Keyword = "Reality Collective/Reality Toolkit";
 
-        private static readonly string[] Package_Keywords = { "RealityToolkit", "Mixed", "Reality" };
+        private static readonly string[] Package_Keywords = { "Reality", "Toolkit", "Mixed", "Augmented", "Virtual" };
 
         #region Ignore startup settings prompt
 

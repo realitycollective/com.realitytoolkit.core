@@ -26,6 +26,7 @@ namespace RealityToolkit.Editor
     {
         private const string ObjectSelectorClosed = "ObjectSelectorClosed";
         private const string ObjectSelectorUpdated = "ObjectSelectorUpdated";
+        private const string toolkitObjectName = "RealityToolkit";
 
         private SerializedProperty activeProfile;
 
@@ -36,9 +37,9 @@ namespace RealityToolkit.Editor
 
         private void Awake()
         {
-            if (target.name != nameof(MixedRealityToolkit))
+            if (!string.Equals(target.name, toolkitObjectName))
             {
-                target.name = nameof(MixedRealityToolkit);
+                target.name = toolkitObjectName;
             }
         }
 
@@ -66,7 +67,7 @@ namespace RealityToolkit.Editor
 
             serializedObject.Update();
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.LabelField(new GUIContent("Mixed Reality Toolkit Root Profile", "This profile is the main root configuration for the entire XRTK."));
+            EditorGUILayout.LabelField(new GUIContent("Reality Toolkit Root Profile", "This profile is the main root configuration for the entire XRTK."));
 
             EditorGUILayout.PropertyField(activeProfile, GUIContent.none);
 
@@ -92,7 +93,7 @@ namespace RealityToolkit.Editor
                         EditorGUIUtility.PingObject(target);
                         EditorApplication.delayCall += () =>
                         {
-                            EditorUtility.DisplayDialog("Attention!", "No root profile for the Mixed Reality Toolkit was found.\n\nYou'll need to create a new one.", "OK");
+                            EditorUtility.DisplayDialog("Attention!", "No root profile for the Reality Toolkit was found.\n\nYou'll need to create a new one.", "OK");
                         };
                         break;
                     case 1:
@@ -216,7 +217,7 @@ namespace RealityToolkit.Editor
                     }
                     else
                     {
-                        Debug.LogError("You must save this scene and assign it to the Start Scene in the XRTK preferences for the Mixed Reality Toolkit to function correctly.");
+                        Debug.LogError("You must save this scene and assign it to the Start Scene in the toolkit preferences for the Reality Toolkit to function correctly.");
                     }
                 }
                 else

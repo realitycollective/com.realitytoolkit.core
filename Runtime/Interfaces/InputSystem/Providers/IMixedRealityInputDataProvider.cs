@@ -4,7 +4,7 @@
 namespace RealityToolkit.Interfaces.InputSystem.Providers
 {
     /// <summary>
-    /// Mixed Reality Toolkit data provider definition, used to instantiate and manage devices, controllers and input for specific SDKs and libraries.
+    /// Reality Toolkit data provider definition, used to instantiate and manage devices, controllers and input for specific SDKs and libraries.
     /// </summary>
     public interface IMixedRealityInputDataProvider : IMixedRealityDataProvider
     {

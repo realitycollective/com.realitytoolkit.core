@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 namespace RealityToolkit.Interfaces.Events
 {
     /// <summary>
-    /// Interface used to implement an Event System that is compatible with the Mixed Reality Toolkit.
+    /// Interface used to implement an Event System that is compatible with the Reality Toolkit.
     /// </summary>
     public interface IMixedRealityEventSystem : IMixedRealitySystem
     {

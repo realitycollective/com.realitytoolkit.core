@@ -11,7 +11,7 @@ using UnityEngine.XR;
 namespace RealityToolkit.Services.CameraSystem
 {
     /// <summary>
-    /// The Mixed Reality Toolkit's default implementation of the <see cref="IMixedRealityCameraSystem"/>.
+    /// The Reality Toolkit's default implementation of the <see cref="IMixedRealityCameraSystem"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("5C656EE3-FE7C-4FB3-B3EE-DF3FC0D0973D")]
     public class MixedRealityCameraSystem : BaseSystem, IMixedRealityCameraSystem
