@@ -16,6 +16,7 @@ using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {
@@ -47,7 +48,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             FindCameraRig();
         }
 
-        private const string pinchInputName = "Pinch";
+        private const string pinchPressInputName = "Pinch";
         private const string pointInputName = "Point";
         private const string gripInputName = "Grip";
         private const string gripPressInputName = "Grip Press";
@@ -55,7 +56,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private const string indexFingerPoseInputName = "Index Finger Pose";
         private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
 
-        private Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses = new Dictionary<TrackedHandJoint, MixedRealityPose>();
+        private Dictionary<XRHandJoint, MixedRealityPose> jointPoses = new Dictionary<XRHandJoint, MixedRealityPose>();
         private HandMeshData handMeshData;
         private readonly HandRenderingMode handRenderingMode;
         protected IUnityXRHandJointDataProvider handJointDataProvider;
@@ -66,7 +67,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
         {
-            new MixedRealityInteractionMapping(pinchInputName, AxisType.Digital, pinchInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(pinchPressInputName, AxisType.Digital, pinchPressInputName, DeviceInputType.ButtonPress),
             new MixedRealityInteractionMapping(pointInputName, AxisType.Digital, pointInputName, DeviceInputType.ButtonPress),
             new MixedRealityInteractionMapping(gripInputName, AxisType.SingleAxis, gripInputName, DeviceInputType.Trigger),
             new MixedRealityInteractionMapping(gripPressInputName, AxisType.Digital, gripPressInputName, DeviceInputType.ButtonPress),
@@ -76,10 +77,21 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         };
 
         /// <inheritdoc />
+        protected override IReadOnlyDictionary<string, InputFeatureUsage<bool>> DigitalInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<bool>>
+        {
+            { pinchPressInputName, CommonUsages.triggerButton },
+            { gripPressInputName, CommonUsages.gripButton }
+        };
+
+        /// <inheritdoc />
+        protected override IReadOnlyDictionary<string, InputFeatureUsage<float>> SingleAxisInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<float>>
+        {
+            { gripInputName, CommonUsages.trigger }
+        };
+
+        /// <inheritdoc />
         public override void UpdateController()
         {
-            base.UpdateController();
-
             // We want to update hand joints data no matter what the rendering mode is. Even if hand
             // rendering is fully disabled, we need to know where joints are for physics and other features to work
             // correctly. It is up to the controller visualizer to not visuaize the data then.
@@ -92,9 +104,33 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 UpdateHandMesh();
             }
 
+            base.UpdateController();
+
             if (TrackingState == TrackingState.Tracked)
             {
                 bounds.UpdateBounds(ref jointPoses);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void UpdateControllerPose()
+        {
+            if (TrackingState != TrackingState.Tracked)
+            {
+                IsPositionAvailable = false;
+                IsPositionApproximate = false;
+                IsRotationAvailable = false;
+                return;
+            }
+
+            IsPositionAvailable = TryGetJointPose(XRHandJoint.Wrist, out var wristPose);
+            IsRotationAvailable = IsPositionAvailable;
+            IsPositionApproximate = false;
+
+            if (wristPose != ControllerPose)
+            {
+                ControllerPose = wristPose;
+                InputSystem?.RaiseSourcePoseChanged(InputSource, this, ControllerPose);
             }
         }
 
@@ -120,7 +156,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => bounds.TryGetBounds(handBounds, out newBounds);
 
         /// <inheritdoc />
-        public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
+        public bool TryGetJointPose(XRHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
         {
             if (relativeTo == Space.Self)
             {

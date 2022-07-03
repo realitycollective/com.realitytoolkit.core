@@ -24,7 +24,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private readonly List<Bone> fingerBones = new List<Bone>();
         private Transform cameraRigTransform;
 
-        public void UpdateHandJoints(InputDevice inputDevice, Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses)
+        public void UpdateHandJoints(InputDevice inputDevice, Dictionary<XRHandJoint, MixedRealityPose> jointPoses)
         {
             if (cameraRigTransform.IsNull())
             {
@@ -37,7 +37,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 {
                     if (hand.TryGetRootBone(out Bone rootBone) && TryReadHandJoint(rootBone, out MixedRealityPose rootPose))
                     {
-                        jointPoses[TrackedHandJoint.Palm] = rootPose;
+                        jointPoses[XRHandJoint.Palm] = rootPose;
                     }
 
                     if (hand.TryGetFingerBones(finger, fingerBones))
@@ -75,21 +75,21 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         }
 
         /// <summary>
-        /// Converts a Unity finger bone into a <see cref="TrackedHandJoint"/>.
+        /// Converts a Unity finger bone into a <see cref="XRHandJoint"/>.
         /// </summary>
         /// <param name="finger">The Unity classification of the current finger.</param>
         /// <param name="index">The Unity index of the current finger bone.</param>
-        /// <returns>The current Unity finger bone converted into a <see cref="TrackedHandJoint"/>.</returns>
-        private TrackedHandJoint ConvertToTrackedHandJoint(HandFinger finger, int index)
+        /// <returns>The current Unity finger bone converted into a <see cref="XRHandJoint"/>.</returns>
+        private XRHandJoint ConvertToTrackedHandJoint(HandFinger finger, int index)
         {
             switch (finger)
             {
-                case HandFinger.Thumb: return (index == 0) ? TrackedHandJoint.Wrist : TrackedHandJoint.ThumbMetacarpal + index - 1;
-                case HandFinger.Index: return TrackedHandJoint.IndexMetacarpal + index;
-                case HandFinger.Middle: return TrackedHandJoint.MiddleMetacarpal + index;
-                case HandFinger.Ring: return TrackedHandJoint.RingMetacarpal + index;
-                case HandFinger.Pinky: return TrackedHandJoint.LittleMetacarpal + index;
-                default: return TrackedHandJoint.None;
+                case HandFinger.Thumb: return (index == 0) ? XRHandJoint.Wrist : XRHandJoint.ThumbMetacarpal + index - 1;
+                case HandFinger.Index: return XRHandJoint.IndexMetacarpal + index;
+                case HandFinger.Middle: return XRHandJoint.MiddleMetacarpal + index;
+                case HandFinger.Ring: return XRHandJoint.RingMetacarpal + index;
+                case HandFinger.Pinky: return XRHandJoint.LittleMetacarpal + index;
+                default: return XRHandJoint.Unknown;
             }
         }
 

@@ -47,7 +47,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
-                jointPoses[i] = new RecordedHandJoint((TrackedHandJoint)i, eventData.InputData.Joints[i]);
+                jointPoses[i] = new RecordedHandJoint((XRHandJoint)i, eventData.InputData.Joints[i]);
             }
 
             recordedHandJoints.Joints = jointPoses;

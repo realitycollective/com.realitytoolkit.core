@@ -46,7 +46,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// <summary>
         /// Gets the total count of joints the XRTK hand controller supports.
         /// </summary>
-        public static readonly int JointCount = Enum.GetNames(typeof(TrackedHandJoint)).Length;
+        public static readonly int JointCount = Enum.GetNames(typeof(XRHandJoint)).Length;
 
         /// <summary>
         /// Timestamp of hand data, as FileTime, e.g. <see cref="DateTime.UtcNow"/>

@@ -106,8 +106,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         {
             if (handData.TrackingState == TrackingState.Tracked)
             {
-                var thumbTipPose = handData.Joints[(int)TrackedHandJoint.ThumbTip];
-                var indexTipPose = handData.Joints[(int)TrackedHandJoint.IndexTip];
+                var thumbTipPose = handData.Joints[(int)XRHandJoint.ThumbTip];
+                var indexTipPose = handData.Joints[(int)XRHandJoint.IndexTip];
 
                 if (!PlatformProvidesIsPinching)
                 {
@@ -140,7 +140,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
                 var rigTransform = CameraSystem != null
                     ? CameraSystem.MainCameraRig.RigTransform
                     : CameraCache.Main.transform.parent;
-                var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
+                var localPalmPose = handData.Joints[(int)XRHandJoint.Palm];
                 var worldPalmPose = new MixedRealityPose
                 {
                     Position = handData.RootPose.Position + handData.RootPose.Rotation * localPalmPose.Position,
@@ -167,11 +167,11 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         {
             if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesPointerPose)
             {
-                var palmPose = handData.Joints[(int)TrackedHandJoint.Palm];
+                var palmPose = handData.Joints[(int)XRHandJoint.Palm];
                 palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
 
-                var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
-                var indexDistalPose = handData.Joints[(int)TrackedHandJoint.IndexDistal];
+                var thumbProximalPose = handData.Joints[(int)XRHandJoint.ThumbProximal];
+                var indexDistalPose = handData.Joints[(int)XRHandJoint.IndexDistal];
                 var pointerPosition = handData.RootPose.Position + Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
                 var pointerEndPosition = pointerPosition + palmPose.Forward * 10f;
                 var pointerDirection = pointerEndPosition - pointerPosition;

@@ -38,7 +38,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// <summary>
         /// Updates hand bounds.
         /// </summary>
-        public void UpdateBounds(ref Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses)
+        public void UpdateBounds(ref Dictionary<XRHandJoint, MixedRealityPose> jointPoses)
         {
             if (handBoundsLOD == HandBoundsLOD.Low)
             {
@@ -75,14 +75,14 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdatePalmBounds()
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.LittleMetacarpal, out var pinkyMetacarpalPose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.LittleProximal, out var pinkyKnucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.RingMetacarpal, out var ringMetacarpalPose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.RingProximal, out var ringKnucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.MiddleMetacarpal, out var middleMetacarpalPose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.MiddleProximal, out var middleKnucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.IndexMetacarpal, out var indexMetacarpalPose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.IndexProximal, out var indexKnucklePose, Space.World))
+            if (handController.TryGetJointPose(XRHandJoint.LittleMetacarpal, out var pinkyMetacarpalPose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.LittleProximal, out var pinkyKnucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.RingMetacarpal, out var ringMetacarpalPose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.RingProximal, out var ringKnucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.MiddleMetacarpal, out var middleMetacarpalPose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.MiddleProximal, out var middleKnucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.IndexMetacarpal, out var indexMetacarpalPose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.IndexProximal, out var indexKnucklePose, Space.World))
             {
                 // Palm bounds are a composite of each finger's metacarpal -> knuckle joint bounds.
                 // Excluding the thumb here.
@@ -119,15 +119,15 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             }
         }
 
-        private void UpdateHandBounds(ref Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses)
+        private void UpdateHandBounds(ref Dictionary<XRHandJoint, MixedRealityPose> jointPoses)
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.Palm, out var palmPose))
+            if (handController.TryGetJointPose(XRHandJoint.Palm, out var palmPose))
             {
                 var newHandBounds = new Bounds(palmPose.Position, Vector3.zero);
 
                 foreach (var kvp in jointPoses)
                 {
-                    if (kvp.Key == TrackedHandJoint.Palm)
+                    if (kvp.Key == XRHandJoint.Palm)
                     {
                         continue;
                     }
@@ -148,9 +148,9 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateThumbBounds()
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.ThumbMetacarpal, out var knucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.ThumbProximal, out var middlePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.ThumbTip, out var tipPose, Space.World))
+            if (handController.TryGetJointPose(XRHandJoint.ThumbMetacarpal, out var knucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.ThumbProximal, out var middlePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.ThumbTip, out var tipPose, Space.World))
             {
                 // Thumb bounds include metacarpal -> proximal and proximal -> tip bounds.
 
@@ -178,9 +178,9 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateIndexFingerBounds()
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.IndexProximal, out var knucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.IndexIntermediate, out var middlePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.IndexTip, out var tipPose, Space.World))
+            if (handController.TryGetJointPose(XRHandJoint.IndexProximal, out var knucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.IndexIntermediate, out var middlePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.IndexTip, out var tipPose, Space.World))
             {
                 // Index finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -208,9 +208,9 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateMiddleFingerBounds()
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.MiddleProximal, out var knucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.MiddleIntermediate, out var middlePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.MiddleTip, out var tipPose, Space.World))
+            if (handController.TryGetJointPose(XRHandJoint.MiddleProximal, out var knucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.MiddleIntermediate, out var middlePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.MiddleTip, out var tipPose, Space.World))
             {
                 // Middle finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -238,9 +238,9 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateRingFingerBounds()
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.RingProximal, out var knucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.RingIntermediate, out var middlePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.RingTip, out var tipPose, Space.World))
+            if (handController.TryGetJointPose(XRHandJoint.RingProximal, out var knucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.RingIntermediate, out var middlePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.RingTip, out var tipPose, Space.World))
             {
                 // Ring finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -268,9 +268,9 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateLittleFingerBounds()
         {
-            if (handController.TryGetJointPose(TrackedHandJoint.LittleProximal, out var knucklePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.LittleIntermediate, out var middlePose, Space.World) &&
-                handController.TryGetJointPose(TrackedHandJoint.LittleTip, out var tipPose, Space.World))
+            if (handController.TryGetJointPose(XRHandJoint.LittleProximal, out var knucklePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.LittleIntermediate, out var middlePose, Space.World) &&
+                handController.TryGetJointPose(XRHandJoint.LittleTip, out var tipPose, Space.World))
             {
                 // Pinky finger bounds include knuckle -> middle and middle -> tip bounds.
 

@@ -33,7 +33,7 @@ namespace RealityToolkit.Interfaces.InputSystem.Controllers.Hands
         /// <param name="pose">Pose output parameter containing the pose if found.</param>
         /// <param name="relativeTo">Optional coordinate space to get the pose in. Defaults to <see cref="Space.Self"/>.</param>
         /// <returns>True, if the pose is available.</returns>
-        bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self);
+        bool TryGetJointPose(XRHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self);
 
         /// <summary>
         /// Get the hand controllers current <see cref="HandMeshData"/>, if available.

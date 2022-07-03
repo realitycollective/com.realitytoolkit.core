@@ -18,19 +18,19 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// </summary>
         /// <param name="joint">The joint that was recorded.</param>
         /// <param name="pose">The joint pose that was recorded.</param>
-        public RecordedHandJoint(TrackedHandJoint joint, MixedRealityPose pose)
+        public RecordedHandJoint(XRHandJoint joint, MixedRealityPose pose)
         {
             this.joint = joint;
             this.pose = pose;
         }
 
         [SerializeField]
-        private TrackedHandJoint joint;
+        private XRHandJoint joint;
 
         /// <summary>
         /// Joint this pose represents.
         /// </summary>
-        public TrackedHandJoint Joint => joint;
+        public XRHandJoint Joint => joint;
 
         [SerializeField]
         private MixedRealityPose pose;

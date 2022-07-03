@@ -15,6 +15,6 @@ namespace RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands
         /// </summary>
         /// <param name="inputDevice">The <see cref="InputDevice"/> to read hand joint data for.</param>
         /// <param name="jointPoses">Dictionary populated with updated hand joint information.</param>
-        void UpdateHandJoints(InputDevice inputDevice, Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses);
+        void UpdateHandJoints(InputDevice inputDevice, Dictionary<XRHandJoint, MixedRealityPose> jointPoses);
     }
 }
