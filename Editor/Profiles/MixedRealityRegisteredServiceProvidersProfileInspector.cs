@@ -11,7 +11,7 @@ namespace RealityToolkit.Editor.Profiles
     {
         public override void OnInspectorGUI()
         {
-            RenderHeader("This profile defines any additional Services like systems, features, and managers to register with the Mixed Reality Toolkit.\n\nNote: The order of the list determines the order these services get created and the priority they get events such as Enable, Update, and Disable.");
+            RenderHeader("This profile defines any additional Services like systems, features, and managers to register with the Reality Toolkit.\n\nNote: The order of the list determines the order these services get created and the priority they get events such as Enable, Update, and Disable.");
 
             base.OnInspectorGUI();
         }

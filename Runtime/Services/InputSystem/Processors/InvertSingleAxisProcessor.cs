@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Services.InputSystem.Processors
 {
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Processors/Invert Single Axis", fileName = "InvertSingleAxisProcessor", order = (int)CreateProfileMenuItemIndices.InputProcessors)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Processors/Invert Single Axis", fileName = "InvertSingleAxisProcessor", order = (int)CreateProfileMenuItemIndices.InputProcessors)]
     public class InvertSingleAxisProcessor : InputProcessor<float>
     {
         [SerializeField]

@@ -12,7 +12,7 @@ namespace RealityToolkit.Definitions.SpatialAwarenessSystem
     /// <summary>
     /// Configuration profile settings for setting up the spatial awareness system.
     /// </summary>
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Spatial Awareness System Profile", fileName = "MixedRealitySpatialAwarenessSystemProfile", order = (int)CreateProfileMenuItemIndices.SpatialAwareness)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Spatial Awareness System Profile", fileName = "MixedRealitySpatialAwarenessSystemProfile", order = (int)CreateProfileMenuItemIndices.SpatialAwareness)]
     public class MixedRealitySpatialAwarenessSystemProfile : BaseMixedRealityServiceProfile<IMixedRealitySpatialAwarenessDataProvider>
     {
         public static readonly Tuple<int, string>[] SpatialAwarenessLayers =

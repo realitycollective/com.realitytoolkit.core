@@ -4,7 +4,7 @@
 namespace RealityToolkit.Interfaces.InputSystem.Providers.Speech
 {
     /// <summary>
-    /// Mixed Reality Toolkit controller definition, used to manage a specific controller type
+    /// Reality Toolkit controller definition, used to manage a specific controller type
     /// </summary>
     public interface IMixedRealitySpeechDataProvider : IMixedRealityInputDataProvider
     {

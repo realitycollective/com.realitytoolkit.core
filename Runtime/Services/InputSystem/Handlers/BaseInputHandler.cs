@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RealityToolkit.Services.InputSystem.Handlers
 {
     /// <summary>
-    /// Base class for the Mixed Reality Toolkit's SDK input handlers.
+    /// Base class for the Reality Toolkit's SDK input handlers.
     /// </summary>
     public abstract class BaseInputHandler : InputSystemGlobalListener
     {

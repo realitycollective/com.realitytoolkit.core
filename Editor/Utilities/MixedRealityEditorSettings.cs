@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Utilities
 {
     /// <summary>
-    /// Sets Force Text Serialization and visible meta files in all projects that use the Mixed Reality Toolkit.
+    /// Sets Force Text Serialization and visible meta files in all projects that use the Reality Toolkit.
     /// </summary>
     [InitializeOnLoad]
     public class MixedRealityEditorSettings : IActiveBuildTargetChanged
@@ -31,7 +31,7 @@ namespace RealityToolkit.Editor.Utilities
         }
 
         /// <summary>
-        /// Check the Mixed Reality Toolkit's settings.
+        /// Check the Reality Toolkit's settings.
         /// </summary>
         public static void CheckSettings()
         {
@@ -85,7 +85,7 @@ namespace RealityToolkit.Editor.Utilities
 
             if (!forceTextSerialization || !visibleMetaFiles)
             {
-                var choice = EditorUtility.DisplayDialogComplex("Apply Mixed Reality Toolkit Default Settings?", message, "Apply", "Ignore", "Later");
+                var choice = EditorUtility.DisplayDialogComplex("Apply Reality Toolkit Default Settings?", message, "Apply", "Ignore", "Later");
 
                 switch (choice)
                 {

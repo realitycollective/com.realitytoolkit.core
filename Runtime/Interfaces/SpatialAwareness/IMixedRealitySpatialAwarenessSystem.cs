@@ -12,7 +12,7 @@ using UnityEngine;
 namespace RealityToolkit.Interfaces.SpatialAwarenessSystem
 {
     /// <summary>
-    /// The interface definition for Spatial Awareness features in the Mixed Reality Toolkit.
+    /// The interface definition for Spatial Awareness features in the Reality Toolkit.
     /// </summary>
     public interface IMixedRealitySpatialAwarenessSystem : IMixedRealityEventSystem
     {

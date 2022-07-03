@@ -40,7 +40,7 @@ namespace RealityToolkit.Editor.Input.Handlers
 
             if (registeredKeywords == null || registeredKeywords.Length == 0)
             {
-                EditorGUILayout.HelpBox("No speech commands found.\n\nKeywords can be registered via Speech Commands Profile on the Mixed Reality Toolkit's Configuration Profile.", MessageType.Error);
+                EditorGUILayout.HelpBox("No speech commands found.\n\nKeywords can be registered via Speech Commands Profile on the Reality Toolkit's Configuration Profile.", MessageType.Error);
                 return;
             }
 

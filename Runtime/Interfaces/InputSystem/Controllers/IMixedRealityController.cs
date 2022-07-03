@@ -11,7 +11,7 @@ using UnityEngine;
 namespace RealityToolkit.Interfaces.InputSystem.Controllers
 {
     /// <summary>
-    /// Mixed Reality Toolkit controller definition, used to manage a specific controller type.
+    /// Reality Toolkit controller definition, used to manage a specific controller type.
     /// </summary>
     public interface IMixedRealityController
     {

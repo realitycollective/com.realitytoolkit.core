@@ -107,15 +107,15 @@ namespace RealityToolkit.Editor.Utilities
         #region Core Paths
 
         /// <summary>
-        /// The absolute folder path to the Mixed Reality Toolkit in your project.
+        /// The absolute folder path to the Reality Toolkit in your project.
         /// </summary>
-        public static string XRTK_Core_AbsoluteFolderPath
+        public static string RTK_Core_AbsoluteFolderPath
         {
             get
             {
                 if (string.IsNullOrWhiteSpace(coreAbsoluteFolderPath))
                 {
-                    coreAbsoluteFolderPath = Path.GetFullPath(XRTK_Core_RelativeFolderPath);
+                    coreAbsoluteFolderPath = Path.GetFullPath(RTK_Core_RelativeFolderPath);
                 }
 
                 return coreAbsoluteFolderPath.BackSlashes();
@@ -125,9 +125,9 @@ namespace RealityToolkit.Editor.Utilities
         private static string coreAbsoluteFolderPath = string.Empty;
 
         /// <summary>
-        /// The relative folder path to the Mixed Reality Toolkit "com.xrtk.core" folder in relation to either the "Assets" or "Packages" folders.
+        /// The relative folder path to the Reality Toolkit Core module folder in relation to either the "Assets" or "Packages" folders.
         /// </summary>
-        public static string XRTK_Core_RelativeFolderPath
+        public static string RTK_Core_RelativeFolderPath
         {
             get
             {

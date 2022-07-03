@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    [CreateAssetMenu(menuName = "Mixed Reality Toolkit/Input System/Controller Visualization Profile", fileName = "MixedRealityControllerVisualizationProfile", order = (int)CreateProfileMenuItemIndices.ControllerVisualization)]
+    [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Controller Visualization Profile", fileName = "MixedRealityControllerVisualizationProfile", order = (int)CreateProfileMenuItemIndices.ControllerVisualization)]
     public class MixedRealityControllerVisualizationProfile : BaseMixedRealityProfile
     {
         [SerializeField]

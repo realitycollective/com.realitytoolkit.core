@@ -22,7 +22,7 @@ namespace RealityToolkit.Interfaces
 
         /// <summary>
         /// The initialize function is used to setup the service once created.
-        /// This method is called once all services have been registered in the Mixed Reality Toolkit.
+        /// This method is called once all services have been registered in the Reality Toolkit.
         /// </summary>
         void Initialize();
 
@@ -57,7 +57,7 @@ namespace RealityToolkit.Interfaces
         void Disable();
 
         /// <summary>
-        /// Optional Destroy function to perform cleanup of the service before the Mixed Reality Toolkit is destroyed.
+        /// Optional Destroy function to perform cleanup of the service before the Reality Toolkit is destroyed.
         /// </summary>
         void Destroy();
 

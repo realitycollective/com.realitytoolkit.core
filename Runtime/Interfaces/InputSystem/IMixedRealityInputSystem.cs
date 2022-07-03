@@ -16,7 +16,7 @@ using UnityEngine;
 namespace RealityToolkit.Interfaces.InputSystem
 {
     /// <summary>
-    /// Manager interface for a Input system in the Mixed Reality Toolkit
+    /// Manager interface for a Input system in the Reality Toolkit
     /// All replacement systems for providing Input System functionality should derive from this interface
     /// </summary>
     public interface IMixedRealityInputSystem : IMixedRealityEventSystem

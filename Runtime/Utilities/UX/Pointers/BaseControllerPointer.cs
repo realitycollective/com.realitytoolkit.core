@@ -19,6 +19,7 @@ using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 using RealityCollective.Extensions;
+using UnityEngine.EventSystems;
 
 namespace RealityToolkit.Utilities.UX.Pointers
 {
@@ -63,6 +64,20 @@ namespace RealityToolkit.Utilities.UX.Pointers
         [SerializeField]
         [Tooltip("The action that will enable the raise the input event for this pointer.")]
         private MixedRealityInputAction pointerAction = MixedRealityInputAction.None;
+
+        [SerializeField]
+        [Tooltip("The action that will enable the raise the input grab event for this pointer.")]
+        protected MixedRealityInputAction grabAction = MixedRealityInputAction.None;
+
+        /// <summary>
+        /// True if grab is pressed right now
+        /// </summary>
+        protected bool IsGrabPressed = false;
+
+        /// <summary>
+        /// True if grab is pressed right now
+        /// </summary>
+        protected bool IsDragging = false;
 
         [SerializeField]
         [Tooltip("Does the interaction require hold?")]
@@ -153,6 +168,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
         protected IMixedRealityCameraSystem CameraSystem
             => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystem<IMixedRealityCameraSystem>());
 
+        private Vector3 lastPointerPosition = Vector3.zero;
+
         #region MonoBehaviour Implementation
 
         protected override void OnEnable()
@@ -241,16 +258,22 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         protected override void OnDisable()
         {
+            if (IsSelectPressed || IsGrabPressed)
+            {
+                InputSystem.RaisePointerUp(this, pointerAction);
+            }
+
             base.OnDisable();
             LocomotionSystem?.Unregister(gameObject);
 
             IsHoldPressed = false;
             IsSelectPressed = false;
+            IsGrabPressed = false;
             HasSelectPressedOnce = false;
             BaseCursor?.SetVisibility(false);
         }
 
-        #endregion  MonoBehaviour Implementation
+        #endregion MonoBehaviour Implementation
 
         #region IMixedRealityPointer Implementation
 
@@ -344,7 +367,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     return true;
                 }
 
-                if (IsSelectPressed)
+                if (IsSelectPressed || IsGrabPressed)
                 {
                     return true;
                 }
@@ -505,13 +528,60 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public virtual void OnPreRaycast() { }
 
         /// <inheritdoc />
-        public virtual void OnPostRaycast() { }
+        public virtual void OnPostRaycast()
+        {
+            if (grabAction != MixedRealityInputAction.None)
+            {
+                if (IsGrabPressed)
+                {
+                    DragHandler(grabAction);
+                }
+            }
+            else
+            {
+                if (IsSelectPressed)
+                {
+                    DragHandler(pointerAction);
+
+                }
+            }
+        }
+
+        private void DragHandler(MixedRealityInputAction action)
+        {
+            if (IsDragging)
+            {
+                var currentPointerPosition = PointerPosition;
+                var delta = currentPointerPosition - lastPointerPosition;
+                InputSystem.RaisePointerDrag(this, action, delta);
+                lastPointerPosition = currentPointerPosition;
+            }
+            else
+            {
+                IsDragging = true;
+                var currentPointerPosition = PointerPosition;
+                InputSystem.RaisePointerDragBegin(this, action, currentPointerPosition);
+                lastPointerPosition = currentPointerPosition;
+            }
+        }
 
         /// <inheritdoc />
         public virtual bool TryGetPointerPosition(out Vector3 position)
         {
             position = raycastOrigin != null ? raycastOrigin.position : transform.position;
             return true;
+        }
+
+        private Vector3 PointerPosition
+        { 
+            get
+            {
+                if(TryGetPointerPosition(out var pos))
+                {
+                    return pos;
+                }
+                return Vector3.zero;
+            }
         }
 
         /// <inheritdoc />
@@ -598,7 +668,13 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     InputSystem.RaisePointerUp(this, pointerAction);
                 }
 
+                if (IsGrabPressed)
+                {
+                    InputSystem.RaisePointerUp(this, grabAction);
+                }
+
                 IsSelectPressed = false;
+                IsGrabPressed = false;
             }
         }
 
@@ -617,6 +693,15 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 if (requiresHoldAction && eventData.MixedRealityInputAction == activeHoldAction)
                 {
                     IsHoldPressed = false;
+                }
+
+                if (grabAction != MixedRealityInputAction.None &&
+                    eventData.MixedRealityInputAction == grabAction)
+                {
+                    IsGrabPressed = false;
+
+                    InputSystem.RaisePointerClicked(this, grabAction);
+                    InputSystem.RaisePointerUp(this, grabAction);
                 }
 
                 if (eventData.MixedRealityInputAction == pointerAction)
@@ -639,6 +724,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 if (requiresHoldAction && eventData.MixedRealityInputAction == activeHoldAction)
                 {
                     IsHoldPressed = true;
+                }
+
+                if (grabAction != MixedRealityInputAction.None &&
+                    eventData.MixedRealityInputAction == grabAction)
+                {
+                    IsGrabPressed = true;
+
+                    InputSystem.RaisePointerDown(this, grabAction);
                 }
 
                 if (eventData.MixedRealityInputAction == pointerAction)

@@ -81,7 +81,7 @@ namespace RealityToolkit.Editor.Utilities
             {
                 var dialogResult = EditorUtility.DisplayDialogComplex(
                         title: "Missing the MixedRealityToolkit",
-                        message: "Would you like to configure the Mixed Reality Toolkit now?",
+                        message: "Would you like to configure the Reality Toolkit now?",
                         "No, play anyway",
                         "Configure, then play",
                         "Cancel");

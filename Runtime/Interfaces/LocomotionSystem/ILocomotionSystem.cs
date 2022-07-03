@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace RealityToolkit.Interfaces.LocomotionSystem
 {
     /// <summary>
-    /// System interface for a locomotion system in the Mixed Reality Toolkit.
+    /// System interface for a locomotion system in the Reality Toolkit.
     /// All replacement systems for providing locomotion functionality should derive from this interface.
     /// </summary>
     public interface ILocomotionSystem : IMixedRealityEventSystem

@@ -22,6 +22,7 @@ namespace RealityToolkit.Editor.UX.Pointers
         private SerializedProperty defaultPointerExtent;
         private SerializedProperty activeHoldAction;
         private SerializedProperty pointerAction;
+        private SerializedProperty grabAction;
         private SerializedProperty pointerOrientation;
         private SerializedProperty requiresHoldAction;
         private SerializedProperty enablePointerOnStart;
@@ -41,6 +42,7 @@ namespace RealityToolkit.Editor.UX.Pointers
             defaultPointerExtent = serializedObject.FindProperty(nameof(defaultPointerExtent));
             activeHoldAction = serializedObject.FindProperty(nameof(activeHoldAction));
             pointerAction = serializedObject.FindProperty(nameof(pointerAction));
+            grabAction = serializedObject.FindProperty(nameof(grabAction));
             pointerOrientation = serializedObject.FindProperty(nameof(pointerOrientation));
             requiresHoldAction = serializedObject.FindProperty(nameof(requiresHoldAction));
             enablePointerOnStart = serializedObject.FindProperty(nameof(enablePointerOnStart));
@@ -81,6 +83,7 @@ namespace RealityToolkit.Editor.UX.Pointers
 
                 EditorGUILayout.PropertyField(pointerOrientation);
                 EditorGUILayout.PropertyField(pointerAction);
+                EditorGUILayout.PropertyField(grabAction);
 
                 if (DrawBasePointerActions)
                 {
