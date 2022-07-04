@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
@@ -19,20 +19,22 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
     /// and attempts to recognize a hand's current pose during runtime to provide for
     /// <see cref="HandData.TrackedPoseId"/>.
     /// </summary>
-    public sealed class HandTrackedPosePostProcessor : IHandDataPostProcessor
+    public sealed class HandTrackedPosePostProcessor : BaseHandPostProcessor
     {
         /// <summary>
-        /// Creates a new recognizer instance to work on the provided list of poses.
+        /// Constructor.
         /// </summary>
-        /// <param name="recognizablePoses">Recognizable poses by this recognizer.</param>
-        public HandTrackedPosePostProcessor(IReadOnlyList<HandControllerPoseProfile> recognizablePoses)
+        /// <param name="handController">The <see cref="IHandController"/> to post process <see cref="HandData"/> for.</param>
+        /// <param name="handControllerSettings">Configuration to use when post processing information for the <see cref="IHandController"/>.</param>
+        public HandTrackedPosePostProcessor(IHandController handController, HandControllerSettings handControllerSettings)
+            : base(handController, handControllerSettings)
         {
-            bakedHandDatas = new HandData[recognizablePoses.Count];
+            bakedHandDatas = new HandData[handControllerSettings.TrackedPoses.Count];
             definitions = new Dictionary<int, HandControllerPoseProfile>();
 
-            for (int i = 0; i < recognizablePoses.Count; i++)
+            for (int i = 0; i < handControllerSettings.TrackedPoses.Count; i++)
             {
-                var item = recognizablePoses[i];
+                var item = handControllerSettings.TrackedPoses[i];
                 if (item.DidBake)
                 {
                     bakedHandDatas[i] = item.ToHandData();
@@ -65,19 +67,19 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         private string LastTrackedPoseIdRightHand { get; set; }
 
         /// <inheritdoc />
-        public HandData PostProcess(Handedness handedness, HandData handData)
+        public override HandData PostProcess(HandData handData)
         {
             if (handData.TrackingState == TrackingState.Tracked)
             {
                 // Recognition is pretty expensive so we don't want to
                 // do it every frame.
-                if (handedness == Handedness.Right && passedFramesSinceRecognitionRightHand < RECOGNITION_FRAME_DELIMITER)
+                if (Hand.ControllerHandedness == Handedness.Right && passedFramesSinceRecognitionRightHand < RECOGNITION_FRAME_DELIMITER)
                 {
                     passedFramesSinceRecognitionRightHand++;
                     handData.TrackedPoseId = LastTrackedPoseIdRightHand;
                     return handData;
                 }
-                else if (handedness == Handedness.Left && passedFramesSinceRecognitionLeftHand < RECOGNITION_FRAME_DELIMITER)
+                else if (Hand.ControllerHandedness == Handedness.Left && passedFramesSinceRecognitionLeftHand < RECOGNITION_FRAME_DELIMITER)
                 {
                     passedFramesSinceRecognitionLeftHand++;
                     handData.TrackedPoseId = LastTrackedPoseIdLeftHand;
@@ -100,7 +102,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
                 }
 
                 handData.TrackedPoseId = recognizedPose.IsNull() ? null : recognizedPose.Id;
-                if (handedness == Handedness.Right)
+                if (Hand.ControllerHandedness == Handedness.Right)
                 {
                     LastTrackedPoseIdRightHand = handData.TrackedPoseId;
                     passedFramesSinceRecognitionRightHand = 0;
@@ -116,7 +118,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
                 // Easy game when hand is not tracked, there is no pose.
                 handData.TrackedPoseId = null;
 
-                if (handedness == Handedness.Right)
+                if (Hand.ControllerHandedness == Handedness.Right)
                 {
                     LastTrackedPoseIdRightHand = null;
                     passedFramesSinceRecognitionRightHand = 0;

@@ -9,7 +9,6 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Handlers;
-using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Services;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System.Collections.Generic;
@@ -35,7 +34,6 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         private HandControllerJointsVisualizer jointsVisualizer;
         private HandControllerMeshVisualizer meshVisualizer;
         private MixedRealityInputSystemProfile inputSystemProfile;
-        private IMixedRealityHandControllerDataProvider handControllerDataProvider;
         private BoxCollider handBoundsModeCollider;
         private readonly Dictionary<XRHandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<XRHandJoint, CapsuleCollider>();
         private const float fingerColliderRadius = .007f;

@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
@@ -13,7 +12,7 @@ using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
-using RealityToolkit.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -32,20 +31,34 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         public UnityXRHandController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
+            if (!MixedRealityToolkit.TryGetService(out cameraSystem))
+            {
+                Debug.LogError($"The {nameof(UnityXRHandController)} requires the {nameof(IMixedRealityCameraSystem)} to work.");
+                return;
+            }
+
+            if (!MixedRealityToolkit.TryGetService<IMixedRealityInputSystem>(out _))
+            {
+                Debug.LogError($"The {nameof(UnityXRHandController)} requires the {nameof(IMixedRealityInputSystem)} to work.");
+                return;
+            }
+
+            if (!MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            {
+                Debug.LogError($"The {nameof(UnityXRHandController)} requires a valid {nameof(MixedRealityInputSystemProfile)} to work.");
+                return;
+            }
+
             handJointDataProvider = new UnityXRHandJointDataProvider();
+            handRenderingMode = inputSystemProfile.HandControllerSettings.RenderingMode;
 
-            if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            postProcessors = new IHandDataPostProcessor[]
             {
-                handRenderingMode = inputSystemProfile.HandControllerSettings.RenderingMode;
-                bounds = new HandControllerBoundsProvider(this, inputSystemProfile.HandControllerSettings.BoundsMode);
-            }
-            else
-            {
-                handRenderingMode = HandRenderingMode.None;
-                bounds = new HandControllerBoundsProvider(this, HandBoundsLOD.None);
-            }
-
-            FindCameraRig();
+                new HandDataPostProcessor(this, inputSystemProfile.HandControllerSettings),
+                new HandGripPostProcessor(this, inputSystemProfile.HandControllerSettings),
+                new HandTrackedPosePostProcessor(this, inputSystemProfile.HandControllerSettings),
+                new HandBoundsPostProcessor(this, inputSystemProfile.HandControllerSettings)
+            };
         }
 
         private const string pinchPressInputName = "Pinch";
@@ -56,13 +69,13 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private const string indexFingerPoseInputName = "Index Finger Pose";
         private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
 
+        private HandData handData;
         private Dictionary<XRHandJoint, MixedRealityPose> jointPoses = new Dictionary<XRHandJoint, MixedRealityPose>();
-        private HandMeshData handMeshData;
-        private readonly HandRenderingMode handRenderingMode;
         protected IUnityXRHandJointDataProvider handJointDataProvider;
         protected IUnityXRHandMeshDataProvider handMeshDataProvider;
-        private Transform cameraRigTransform;
-        private readonly HandControllerBoundsProvider bounds;
+        protected IMixedRealityCameraSystem cameraSystem;
+        private readonly HandRenderingMode handRenderingMode;
+        private readonly IHandDataPostProcessor[] postProcessors;
 
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
@@ -97,6 +110,12 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             // correctly. It is up to the controller visualizer to not visuaize the data then.
             UpdateHandJoints();
 
+            // Apply post processing to calculate additional hand pose properties.
+            for (var i = 0; i < postProcessors.Length; i++)
+            {
+                handData = postProcessors[i].PostProcess(handData);
+            }
+
             // Some platforms may not have a hand mesh provider so only if one is available in the platform
             // implementation and hand mesh rendering is requested, we update mesh data.
             if (handMeshDataProvider != null && handRenderingMode == HandRenderingMode.Mesh)
@@ -105,11 +124,6 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             }
 
             base.UpdateController();
-
-            if (TrackingState == TrackingState.Tracked)
-            {
-                bounds.UpdateBounds(ref jointPoses);
-            }
         }
 
         /// <inheritdoc />
@@ -149,11 +163,11 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         protected virtual void UpdateHandMesh()
         {
             Debug.Assert(handMeshDataProvider != null, $"{GetType().Name} has no {nameof(IUnityXRHandMeshDataProvider)} to work with.");
-            handMeshData = handMeshDataProvider.UpdateHandMesh(InputDevice);
+            handData.Mesh = handMeshDataProvider.UpdateHandMesh(InputDevice);
         }
 
         /// <inheritdoc />
-        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => bounds.TryGetBounds(handBounds, out newBounds);
+        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => handData.Bounds.TryGetValue(handBounds, out newBounds);
 
         /// <inheritdoc />
         public bool TryGetJointPose(XRHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
@@ -174,11 +188,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 };
 
                 // Translate to world space.
-                if (cameraRigTransform.IsNotNull())
-                {
-                    pose.Position = cameraRigTransform.TransformPoint(pose.Position);
-                    pose.Rotation = cameraRigTransform.rotation * pose.Rotation;
-                }
+                pose.Position = cameraSystem.MainCameraRig.RigTransform.TransformPoint(pose.Position);
+                pose.Rotation = cameraSystem.MainCameraRig.RigTransform.rotation * pose.Rotation;
 
                 return true;
             }
@@ -190,28 +201,14 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// <inheritdoc />
         public bool TryGetHandMeshData(out HandMeshData handMeshData)
         {
-            if (!this.handMeshData.IsEmpty)
+            if (!handData.Mesh.IsEmpty)
             {
-                handMeshData = this.handMeshData;
+                handMeshData = handData.Mesh;
                 return true;
             }
 
             handMeshData = HandMeshData.Empty;
             return false;
-        }
-
-        private void FindCameraRig()
-        {
-            if (MixedRealityToolkit.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem))
-            {
-                cameraRigTransform = cameraSystem.MainCameraRig.RigTransform;
-            }
-            else
-            {
-                var cameraTransform = CameraCache.Main.transform;
-                Debug.Assert(cameraTransform.parent.IsNotNull(), "The camera must be parented.");
-                cameraRigTransform = CameraCache.Main.transform.parent;
-            }
         }
     }
 }

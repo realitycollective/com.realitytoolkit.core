@@ -1,9 +1,8 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using UnityEngine;
 
@@ -14,16 +13,15 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
     /// retrieved from platform APIs and calculates needed information for <see cref="HandData.GripStrength"/>
     /// and <see cref="HandData.IsGripping"/> as well as <see cref="HandData.FingerCurlStrengths"/>.
     /// </summary>
-    public sealed class HandGripPostProcessor : IHandDataPostProcessor
+    public sealed class HandGripPostProcessor : BaseHandPostProcessor
     {
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="isGrippingThreshold">Threshold in range [0, 1] that defines when a hand is considered to be grabing.</param>
-        public HandGripPostProcessor(float isGrippingThreshold)
-        {
-            this.isGrippingThreshold = isGrippingThreshold;
-        }
+        /// <param name="handController">The <see cref="IHandController"/> to post process <see cref="HandData"/> for.</param>
+        /// <param name="handControllerSettings">Configuration to use when post processing information for the <see cref="IHandController"/>.</param>
+        public HandGripPostProcessor(IHandController handController, HandControllerSettings handControllerSettings)
+            : base(handController, handControllerSettings) { }
 
         private const float CURL_THUMB_METACARPAL_LOW_END_ANGLE = 70f;
         private const float CURL_THUMB_METACARPAL_HIGH_END_ANGLE = 100f;
@@ -64,10 +62,17 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
 
         private const bool DEBUG_LOG_VALUES_TO_CONSOLE = false;
 
-        private readonly float isGrippingThreshold;
-
         /// <inheritdoc />
-        public HandData PostProcess(Handedness handedness, HandData handData)
+        public override HandData PostProcess(HandData handData) => PostProcessStatic(handData, Settings.GripThreshold);
+
+        /// <summary>
+        /// Static post processing interface. This is a workaround to maintain the legacy
+        /// baked hand pose implementation feature until it has been fully replaced.
+        /// </summary>
+        /// <param name="handData">Input <see cref="HandData"/></param>
+        /// <param name="isGrippingThreshold">Threshold value to consider the hand gripping.</param>
+        /// <returns><see cref="HandData"/> with grip information.</returns>
+        public static HandData PostProcessStatic(HandData handData, float isGrippingThreshold)
         {
             if (handData.TrackingState == TrackingState.Tracked)
             {

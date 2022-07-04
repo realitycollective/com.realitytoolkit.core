@@ -21,7 +21,6 @@ namespace RealityToolkit.Extensions
         /// <returns><see cref="HandData"/> object for the pose.</returns>
         public static HandData ToHandData(this HandControllerPoseProfile pose)
         {
-            var rootPose = new MixedRealityPose(Vector3.zero, Quaternion.identity);
             var recordedHandJoints = JsonUtility.FromJson<RecordedHandJoints>(pose.Data.text);
             var jointPoses = new MixedRealityPose[HandData.JointCount];
 
@@ -31,10 +30,13 @@ namespace RealityToolkit.Extensions
                 jointPoses[(int)jointRecord.Joint] = jointRecord.Pose;
             }
 
-            var handData = new HandData(rootPose, jointPoses);
-            handData.IsGripping = pose.IsGripping;
-            handData.GripStrength = pose.GripStrength;
-            handData.FingerCurlStrengths = new float[pose.FingerCurlStrengths.Length];
+            var handData = new HandData(jointPoses)
+            {
+                IsGripping = pose.IsGripping,
+                GripStrength = pose.GripStrength,
+                FingerCurlStrengths = new float[pose.FingerCurlStrengths.Length]
+            };
+
             Array.Copy(pose.FingerCurlStrengths, handData.FingerCurlStrengths, pose.FingerCurlStrengths.Length);
 
             return handData;

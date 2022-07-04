@@ -4,6 +4,8 @@
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers.Hands
 {
@@ -19,14 +21,13 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// </summary>
         /// <param name="rootPose">The hands root pose.</param>
         /// <param name="jointPoses">Joint pose values.</param>
-        public HandData(MixedRealityPose rootPose, MixedRealityPose[] jointPoses)
+        public HandData(MixedRealityPose[] jointPoses)
         {
             if (jointPoses.Length != JointCount)
             {
                 throw new ArgumentException($"{nameof(HandData)} expects {JointCount} joint poses.");
             }
 
-            RootPose = rootPose;
             Joints = new MixedRealityPose[JointCount];
             Array.Copy(jointPoses, Joints, JointCount);
 
@@ -41,6 +42,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
             TrackedPoseId = null;
             Mesh = new HandMeshData();
             FingerCurlStrengths = new float[] { 0, 0, 0, 0, 0 };
+            Bounds = new Dictionary<TrackedHandBounds, Bounds[]>();
         }
 
         /// <summary>
@@ -101,13 +103,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         public string TrackedPoseId { get; set; }
 
         /// <summary>
-        /// The hands root pose. <see cref="Joints"/> poses are relative to the root pose.
-        /// The root pose itself is relative to <see cref="Interfaces.CameraSystem.IMixedRealityCameraRig.RigTransform"/>.
-        /// </summary>
-        public MixedRealityPose RootPose { get; set; }
-
-        /// <summary>
-        /// Pose information for each hand joint, relative to <see cref="RootPose"/>.
+        /// Pose information for each hand joint.
         /// </summary>
         public MixedRealityPose[] Joints { get; set; }
 
@@ -115,5 +111,10 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// Mesh information of the hand.
         /// </summary>
         public HandMeshData Mesh { get; set; }
+
+        /// <summary>
+        /// Available hand bounds.
+        /// </summary>
+        public Dictionary<TrackedHandBounds, Bounds[]> Bounds { get; set; }
     }
 }
