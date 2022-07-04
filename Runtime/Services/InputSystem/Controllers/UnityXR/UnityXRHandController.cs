@@ -77,6 +77,18 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private readonly HandRenderingMode handRenderingMode;
         private readonly IHandDataPostProcessor[] postProcessors;
 
+        public bool IsPinching => throw new System.NotImplementedException();
+
+        public float PinchStrength => throw new System.NotImplementedException();
+
+        public bool IsPointing => throw new System.NotImplementedException();
+
+        public bool IsGripping => throw new System.NotImplementedException();
+
+        public float GripStrength => throw new System.NotImplementedException();
+
+        public string TrackedPoseId => throw new System.NotImplementedException();
+
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
         {
@@ -209,6 +221,12 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             handMeshData = HandMeshData.Empty;
             return false;
+        }
+
+        /// <inheritdoc />
+        public bool TryGetFingerCurlStrength(Definitions.Controllers.Hands.HandFinger handFinger, out float curlStrength)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
