@@ -1,21 +1,20 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
+using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Editor.Data;
+using RealityToolkit.Editor.PropertyDrawers;
+using RealityToolkit.Editor.Utilities;
+using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
+using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using RealityToolkit.Definitions.Controllers;
-using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Editor.Data;
-using RealityToolkit.Editor.PropertyDrawers;
-using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
-using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
-using RealityToolkit.Services.InputSystem.Controllers.UnityInput;
 using UnityEditor;
 using UnityEngine;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor
 {
@@ -92,8 +91,7 @@ namespace RealityToolkit.Editor
         private Handedness Handedness => controllerDataProviderProfile.Handedness;
 
         private bool IsCustomController => ControllerType == typeof(GenericOpenVRController) ||
-                                           ControllerType == typeof(GenericJoystickController) ||
-                                           ControllerType == typeof(IMixedRealityHandController);
+                                           ControllerType == typeof(GenericJoystickController);
 
         private static string EditorWindowOptionsPath => $"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
 
