@@ -95,8 +95,8 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                 if (handController.TryGetJointPose(handJoint, out var jointPose))
                 {
                     var jointTransform = GetOrCreateJointTransform(handJoint);
-                    jointTransform.localPosition = jointPose.Position;
-                    jointTransform.localRotation = jointPose.Rotation;
+                    jointTransform.position = jointPose.Position;
+                    jointTransform.rotation = jointPose.Rotation;
                 }
             }
         }
