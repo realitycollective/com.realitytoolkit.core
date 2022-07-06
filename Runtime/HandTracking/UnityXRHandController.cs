@@ -13,6 +13,7 @@ using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers;
 using RealityToolkit.Interfaces.InputSystem.Providers.Controllers.Hands;
 using RealityToolkit.Services.InputSystem.Controllers.Hands;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -51,6 +52,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             handJointDataProvider = new UnityXRHandJointDataProvider();
             handRenderingMode = inputSystemProfile.HandControllerSettings.RenderingMode;
+            jointPoses = new MixedRealityPose[Enum.GetNames(typeof(XRHandJoint)).Length - 1];
+            jointPosesDict = new Dictionary<XRHandJoint, MixedRealityPose>();
 
             postProcessors = new IHandDataPostProcessor[]
             {
@@ -70,7 +73,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
 
         private HandData handData;
-        private Dictionary<XRHandJoint, MixedRealityPose> jointPoses = new Dictionary<XRHandJoint, MixedRealityPose>();
+        private MixedRealityPose[] jointPoses;
+        private Dictionary<XRHandJoint, MixedRealityPose> jointPosesDict;
         protected IUnityXRHandJointDataProvider handJointDataProvider;
         protected IUnityXRHandMeshDataProvider handMeshDataProvider;
         protected IMixedRealityCameraSystem cameraSystem;
@@ -166,7 +170,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         protected virtual void UpdateHandJoints()
         {
             Debug.Assert(handJointDataProvider != null, $"{GetType().Name} has no {nameof(IUnityXRHandJointDataProvider)} to work with.");
-            handJointDataProvider.UpdateHandJoints(InputDevice, jointPoses);
+            handJointDataProvider.UpdateHandJoints(InputDevice, ref jointPoses, ref jointPosesDict);
+            handData = new HandData(jointPoses);
         }
 
         /// <summary>
@@ -187,10 +192,10 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             if (relativeTo == Space.Self)
             {
                 // Return joint pose relative to hand root.
-                return jointPoses.TryGetValue(joint, out pose);
+                return jointPosesDict.TryGetValue(joint, out pose);
             }
 
-            if (jointPoses.TryGetValue(joint, out var localPose))
+            if (jointPosesDict.TryGetValue(joint, out var localPose))
             {
                 pose = new MixedRealityPose
                 {

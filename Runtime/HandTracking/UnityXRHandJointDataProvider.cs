@@ -24,7 +24,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private readonly List<Bone> fingerBones = new List<Bone>();
         private Transform cameraRigTransform;
 
-        public void UpdateHandJoints(InputDevice inputDevice, Dictionary<XRHandJoint, MixedRealityPose> jointPoses)
+        public void UpdateHandJoints(InputDevice inputDevice, ref MixedRealityPose[] jointPoses, ref Dictionary<XRHandJoint, MixedRealityPose> jointPosesDictionary)
         {
             if (cameraRigTransform.IsNull())
             {
@@ -37,7 +37,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 {
                     if (hand.TryGetRootBone(out Bone rootBone) && TryReadHandJoint(rootBone, out MixedRealityPose rootPose))
                     {
-                        jointPoses[XRHandJoint.Palm] = rootPose;
+                        jointPosesDictionary[XRHandJoint.Palm] = rootPose;
                     }
 
                     if (hand.TryGetFingerBones(finger, fingerBones))
@@ -46,7 +46,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                         {
                             if (TryReadHandJoint(fingerBones[i], out MixedRealityPose pose))
                             {
-                                jointPoses[ConvertToTrackedHandJoint(finger, i)] = pose;
+                                jointPosesDictionary[ConvertToTrackedHandJoint(finger, i)] = pose;
                             }
                         }
                     }

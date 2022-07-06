@@ -34,7 +34,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
             {
                 if (Settings.BoundsMode == HandBoundsLOD.Low)
                 {
-                    UpdateHandBounds();
+                    UpdateHandBounds(handData);
                 }
                 else if (Settings.BoundsMode == HandBoundsLOD.High)
                 {
@@ -97,13 +97,13 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
             }
         }
 
-        private void UpdateHandBounds()
+        private void UpdateHandBounds(HandData handData)
         {
             if (Hand.TryGetJointPose(XRHandJoint.Palm, out var palmPose))
             {
                 var newHandBounds = new Bounds(palmPose.Position, Vector3.zero);
 
-                foreach (var kvp in jointPoses)
+                foreach (var kvp in handData.JointsDict)
                 {
                     if (kvp.Key == XRHandJoint.Palm)
                     {

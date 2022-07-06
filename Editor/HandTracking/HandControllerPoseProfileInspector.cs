@@ -1,7 +1,6 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Editor.Profiles;
@@ -10,7 +9,7 @@ using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using UnityEditor;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Data.Controllers.Hands
+namespace RealityToolkit.Editor.HandTracking
 {
     [CustomEditor(typeof(HandControllerPoseProfile))]
     public class HandControllerPoseProfileInspector : BaseMixedRealityProfileInspector

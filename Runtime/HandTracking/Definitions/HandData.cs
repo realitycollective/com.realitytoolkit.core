@@ -31,6 +31,14 @@ namespace RealityToolkit.Definitions.Controllers.Hands
             Joints = new MixedRealityPose[JointCount];
             Array.Copy(jointPoses, Joints, JointCount);
 
+            JointsDict = new Dictionary<XRHandJoint, MixedRealityPose>();
+            for (var i = 0; i < Joints.Length; i++)
+            {
+                JointsDict.Add((XRHandJoint)i, Joints[i]);
+            }
+
+            JointsDict = new Dictionary<XRHandJoint, MixedRealityPose>();
+
             UpdatedAt = long.MinValue;
             TrackingState = TrackingState.NotTracked;
             PinchStrength = 0;
@@ -48,7 +56,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// <summary>
         /// Gets the total count of joints the XRTK hand controller supports.
         /// </summary>
-        public static readonly int JointCount = Enum.GetNames(typeof(XRHandJoint)).Length;
+        public static readonly int JointCount = Enum.GetNames(typeof(XRHandJoint)).Length - 1;
 
         /// <summary>
         /// Timestamp of hand data, as FileTime, e.g. <see cref="DateTime.UtcNow"/>
@@ -106,6 +114,11 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// Pose information for each hand joint.
         /// </summary>
         public MixedRealityPose[] Joints { get; set; }
+
+        /// <summary>
+        /// Pose information for each hand joint in a dictionary.
+        /// </summary>
+        public Dictionary<XRHandJoint, MixedRealityPose> JointsDict { get; set; }
 
         /// <summary>
         /// Mesh information of the hand.

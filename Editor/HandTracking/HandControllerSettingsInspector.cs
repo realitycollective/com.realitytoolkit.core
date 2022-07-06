@@ -1,27 +1,23 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Editor.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using RealityToolkit.Editor.Profiles;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
+namespace RealityToolkit.Editor.HandTracking
 {
-    [CustomEditor(typeof(BaseHandControllerDataProviderProfile), true, isFallback = true)]
-    public class BaseMixedRealityHandControllerDataProviderProfileInspector : BaseMixedRealityControllerDataProviderProfileInspector
+    [CustomEditor(typeof(HandControllerSettings))]
+    public class HandControllerSettingsInspector : BaseMixedRealityProfileInspector
     {
-        private static readonly GUIContent handTrackingSettingsFoldoutHeader = new GUIContent("Hand Tracking Settings");
-
         private SerializedProperty gripThreshold;
         private SerializedProperty renderingMode;
         private SerializedProperty handPhysicsEnabled;
         private SerializedProperty useTriggers;
         private SerializedProperty boundsMode;
         private SerializedProperty trackedPoses;
-
-        private bool showHandTrackingSettings = true;
 
         private ReorderableList poseProfilesList;
         private int currentlySelectedPoseElement;
@@ -49,41 +45,21 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
         public override void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
+            RenderHeader("This profile defines a hand pose that can be recognized at runtime and trigger input events.");
 
             serializedObject.Update();
 
-            showHandTrackingSettings = EditorGUILayoutExtensions.FoldoutWithBoldLabel(showHandTrackingSettings, handTrackingSettingsFoldoutHeader);
-
-            if (showHandTrackingSettings)
-            {
-                EditorGUI.indentLevel++;
-
-                EditorGUILayout.LabelField("General Hand Settings", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(gripThreshold);
-                EditorGUILayout.Space();
-
-                EditorGUILayout.LabelField("Hand Rendering Settings", EditorStyles.boldLabel);
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(renderingMode);
-                EditorGUILayout.Space();
-                EditorGUI.indentLevel--;
-
-                EditorGUILayout.LabelField("Hand Physics Settings", EditorStyles.boldLabel);
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(handPhysicsEnabled);
-                EditorGUILayout.PropertyField(useTriggers);
-                EditorGUILayout.PropertyField(boundsMode);
-                EditorGUILayout.Space();
-                EditorGUI.indentLevel--;
-
-                EditorGUI.indentLevel++;
-                poseProfilesList.DoLayoutList();
-                EditorGUILayout.Space();
-                EditorGUI.indentLevel--;
-
-                EditorGUI.indentLevel--;
-            }
+            EditorGUILayout.LabelField("General Hand Settings", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(gripThreshold);
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Hand Rendering Settings", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(renderingMode);
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Hand Physics Settings", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(handPhysicsEnabled);
+            EditorGUILayout.PropertyField(useTriggers);
+            EditorGUILayout.PropertyField(boundsMode);
+            poseProfilesList.DoLayoutList();
 
             serializedObject.ApplyModifiedProperties();
         }

@@ -2,11 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
+using RealityToolkit.Editor.UX.Pointers;
 using RealityToolkit.Utilities.UX.Pointers;
 using UnityEditor;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.UX.Pointers
+namespace RealityToolkit.Editor.HandTracking
 {
     [CustomEditor(typeof(HandSpatialPointer))]
     public class HandSpatialPointerInspector : LinePointerInspector
