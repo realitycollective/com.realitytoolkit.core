@@ -36,8 +36,6 @@ namespace RealityToolkit.Definitions.Controllers.Hands
                 JointsDict.Add((XRHandJoint)i, Joints[i]);
             }
 
-            JointsDict = new Dictionary<XRHandJoint, MixedRealityPose>();
-
             UpdatedAt = long.MinValue;
             PinchStrength = 0;
             GripStrength = 0;

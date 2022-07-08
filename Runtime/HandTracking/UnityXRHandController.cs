@@ -180,6 +180,14 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             }
         }
 
+        /// <inheritdoc />
+        protected override void UpdateSpatialPointerPose()
+        {
+            // This is a workaround until the pointer pose has been implemented by Unity
+            // for OpenXR hands.
+            SpatialPointerPose = handData.PointerPose;
+        }
+
         /// <summary>
         /// Updates the controller's hand joint information.
         /// </summary>
@@ -303,6 +311,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateIsPointingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
+            Debug.Assert(string.Equals(interactionMapping.InputName, pointInputName));
+
             if (TrackingState == TrackingState.Tracked)
             {
                 var isPointingThisFrame = handData.IsPointing;
@@ -343,6 +353,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateIsPinchingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
+            Debug.Assert(string.Equals(interactionMapping.InputName, pinchPressInputName));
+
             if (TrackingState == TrackingState.Tracked)
             {
                 var isPinchingThisFrame = handData.IsPinching;
@@ -383,6 +395,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateIsGrippingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
+            Debug.Assert(string.Equals(interactionMapping.InputName, gripPressInputName));
+
             if (TrackingState == TrackingState.Tracked)
             {
                 var isGrippingThisFrame = handData.IsGripping;
@@ -423,11 +437,14 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
         private void UpdateGripStrengthInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
+            Debug.Assert(string.Equals(interactionMapping.InputName, gripInputName));
             interactionMapping.FloatData = GripStrength;
         }
 
         private void UpdateIndexFingerPoseInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
+            Debug.Assert(string.Equals(interactionMapping.InputName, indexFingerPoseInputName));
+
             if (TryGetJointPose(XRHandJoint.IndexTip, out var indexTipPose))
             {
                 interactionMapping.PoseData = indexTipPose;

@@ -50,11 +50,6 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
             }
         }
 
-        /// <summary>
-        /// Is <see cref="HandData.PointerPose"/> provided by the platform?
-        /// </summary>
-        public bool PlatformProvidesPointerPose { get; set; }
-
         /// <inheritdoc />
         public override HandData PostProcess(HandData handData)
         {
@@ -112,21 +107,23 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.PointerPose"/> for.</param>
         private HandData UpdatePointerPose(HandData handData)
         {
-            if (!PlatformProvidesPointerPose)
-            {
-                var palmPose = handData.Joints[(int)XRHandJoint.Palm];
-                palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
+            var palmPose = handData.JointsDict[XRHandJoint.Palm];
+            var wristPose = handData.JointsDict[XRHandJoint.Wrist];
 
-                var thumbProximalPose = handData.Joints[(int)XRHandJoint.ThumbProximal];
-                var indexDistalPose = handData.Joints[(int)XRHandJoint.IndexDistal];
-                var pointerPosition = Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
-                var pointerEndPosition = pointerPosition + palmPose.Forward * 10f;
-                var pointerDirection = pointerEndPosition - pointerPosition;
-                var pointerRotation = Quaternion.LookRotation(pointerDirection, PlayerCamera.transform.up);
+            palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
 
-                pointerRotation = PlayerCamera.transform.rotation * pointerRotation;
-                handData.PointerPose = new MixedRealityPose(pointerPosition, pointerRotation);
-            }
+            var thumbProximalPose = handData.Joints[(int)XRHandJoint.ThumbProximal];
+            var indexDistalPose = handData.Joints[(int)XRHandJoint.IndexDistal];
+            var pointerPosition = Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
+
+            var forward = wristPose.Forward;
+            forward.y = palmPose.Forward.y;
+            var pointerEndPosition = pointerPosition + forward;
+            var pointerDirection = (pointerEndPosition - pointerPosition).normalized;
+            var pointerRotation = Quaternion.LookRotation(pointerDirection);
+
+            pointerRotation = PlayerCamera.transform.rotation * pointerRotation;
+            handData.PointerPose = new MixedRealityPose(pointerPosition, pointerRotation);
 
             return handData;
         }

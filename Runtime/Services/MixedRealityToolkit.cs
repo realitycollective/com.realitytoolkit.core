@@ -1006,9 +1006,9 @@ namespace RealityToolkit.Services
                     serviceInstance.Initialize();
                     serviceInstance.Enable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1106,9 +1106,9 @@ namespace RealityToolkit.Services
                     serviceInstance.Destroy();
                     serviceInstance.Dispose();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
 
                 if (IsSystem(interfaceType))
@@ -1187,9 +1187,9 @@ namespace RealityToolkit.Services
                 {
                     services[i].Enable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1235,9 +1235,9 @@ namespace RealityToolkit.Services
                 {
                     services[i].Disable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1316,9 +1316,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Initialize();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1329,9 +1329,9 @@ namespace RealityToolkit.Services
                 {
                     service.Item2.Initialize();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1348,9 +1348,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Reset();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1361,9 +1361,9 @@ namespace RealityToolkit.Services
                 {
                     service.Item2.Reset();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1380,9 +1380,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Enable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1393,9 +1393,9 @@ namespace RealityToolkit.Services
                 {
                     service.Item2.Enable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1412,9 +1412,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Update();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1425,9 +1425,9 @@ namespace RealityToolkit.Services
                 {
                     service.Item2.Update();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1444,9 +1444,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.LateUpdate();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1457,9 +1457,9 @@ namespace RealityToolkit.Services
                 {
                     service.Item2.LateUpdate();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1476,9 +1476,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.FixedUpdate();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1489,9 +1489,9 @@ namespace RealityToolkit.Services
                 {
                     service.Item2.FixedUpdate();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1508,9 +1508,9 @@ namespace RealityToolkit.Services
                 {
                     registeredMixedRealityServices[i].Item2.Disable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1521,9 +1521,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Disable();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
         }
@@ -1540,9 +1540,9 @@ namespace RealityToolkit.Services
                 {
                     registeredMixedRealityServices[i].Item2.Destroy();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1553,9 +1553,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Destroy();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1566,9 +1566,9 @@ namespace RealityToolkit.Services
                 {
                     registeredMixedRealityServices[i].Item2.Dispose();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
@@ -1579,9 +1579,9 @@ namespace RealityToolkit.Services
                 {
                     system.Value.Dispose();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Debug.LogError($"{e.Message}\n{e.StackTrace}");
+                    Debug.LogException(ex);
                 }
             }
 
