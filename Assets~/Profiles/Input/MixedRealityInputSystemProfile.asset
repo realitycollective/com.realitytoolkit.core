@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configurations:
   - instancedType:
-      reference: 07512ffc-5128-434c-b7bf-5cd7ca8ef853
-    name: Simulated Hand Controller Data Provider
+      reference: 80764933-e115-4d1e-beda-26383c32c327
+    name: WindowsXR Controller Data Provider
     priority: 0
     platformEntries:
       runtimePlatforms:
-      - reference: 3324b4a2-30f0-4145-bb06-cd65b8945487
-    profile: {fileID: 11400000, guid: 6bd4ff02967a9b24197b8cd2593ddfa4, type: 2}
+      - reference: 575619ae-25e7-4f73-af33-c1604e1dd858
+      - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
+    profile: {fileID: 11400000, guid: 3c059e07440748d4d872c6ef21cd8877, type: 2}
   focusProviderType:
     reference: 249d4d78-cadd-45ba-9438-db9fc2509213
   gazeProviderBehaviour: 0
@@ -34,20 +35,7 @@ MonoBehaviour:
   drawDebugPointingRays: 1
   debugPointingRayColors:
   - {r: 0, g: 1, b: 0, a: 1}
-  gripThreshold: 0.8
-  renderingMode: 1
-  handPhysicsEnabled: 0
-  useTriggers: 0
-  boundsMode: 0
-  trackedPoses:
-  - {fileID: 11400000, guid: 287ec39181134fc4eaee0a3a5e47ab9f, type: 2}
-  - {fileID: 11400000, guid: d3d67de686d952849b6771a111518e0d, type: 2}
-  - {fileID: 11400000, guid: 5269abf28f233044d9ec71f10b94552d, type: 2}
-  - {fileID: 11400000, guid: 0ece078ec16cbbd44bb7eba974dca862, type: 2}
-  - {fileID: 11400000, guid: 9fba060de129a9d4ea929a0d74fdc3fa, type: 2}
-  - {fileID: 11400000, guid: 1251200226ad995498472e45aaf12178, type: 2}
-  - {fileID: 11400000, guid: 5e6bcc3863bdc634d82a8a59598a070b, type: 2}
-  - {fileID: 11400000, guid: 2f6c29c72cd30c74f9717c932bd87a4a, type: 2}
+  handControllerSettings: {fileID: 11400000, guid: fb03e5cf88933544380214ef041078f0, type: 2}
   inputActionsProfile: {fileID: 11400000, guid: 399335ccc89c4d12b79f3539ca7771db, type: 2}
   speechCommandsProfile: {fileID: 11400000, guid: 89759c8b9c98420794a5d650ce3b2f90, type: 2}
   gesturesProfile: {fileID: 11400000, guid: 47280a6380eb40d5952dc5a5da00a89e, type: 2}
