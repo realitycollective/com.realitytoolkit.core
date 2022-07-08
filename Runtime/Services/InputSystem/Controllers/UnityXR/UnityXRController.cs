@@ -91,22 +91,32 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             for (var i = 0; i < Interactions.Length; i++)
             {
                 var interactionMapping = Interactions[i];
-                switch (interactionMapping.InputType)
+                switch (interactionMapping.AxisType)
                 {
-                    case DeviceInputType.Trigger:
-                        UpdateSingleAxisInteractionMapping(interactionMapping, InputDevice);
+                    case AxisType.SingleAxis:
+                        UpdateSingleAxisInteractionMapping(interactionMapping);
                         break;
-                    case DeviceInputType.ButtonPress:
-                        UpdateDigitalInteractionMapping(interactionMapping, InputDevice);
+                    case AxisType.Digital:
+                        UpdateDigitalInteractionMapping(interactionMapping);
                         break;
-                    case DeviceInputType.ThumbStick:
-                        UpdateDualAxisInteractionMapping(interactionMapping, InputDevice);
+                    case AxisType.DualAxis:
+                        UpdateDualAxisInteractionMapping(interactionMapping);
                         break;
-                    case DeviceInputType.SpatialGrip:
-                        UpdateSpatialGripPoseMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.SpatialPointer:
-                        UpdateSpatialPointerPoseMapping(interactionMapping);
+                    case AxisType.SixDof:
+                        {
+                            if (interactionMapping.InputType == DeviceInputType.SpatialGrip)
+                            {
+                                UpdateSpatialGripPoseMapping(interactionMapping);
+                            }
+                            else if (interactionMapping.InputType == DeviceInputType.SpatialPointer)
+                            {
+                                UpdateSpatialPointerPoseMapping(interactionMapping);
+                            }
+                            else
+                            {
+                                UpdateSixDofInteractionMapping(interactionMapping);
+                            }
+                        }
                         break;
                     default:
                         Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
@@ -122,7 +132,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// </summary>
         /// <param name="interactionMapping">The <see cref="MixedRealityInteractionMapping"/> to update.</param>
         /// <param name="inputDevice">The <see cref="InputDevice"/> data is read from.</param>
-        protected virtual void UpdateDigitalInteractionMapping(MixedRealityInteractionMapping interactionMapping, InputDevice inputDevice)
+        protected virtual void UpdateDigitalInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
 
@@ -132,15 +142,23 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 return;
             }
 
-            interactionMapping.BoolData = inputDevice.TryGetFeatureValue(DigitalInputFeatureUsageMap[interactionMapping.InputName], out bool value) && value;
+            interactionMapping.BoolData = InputDevice.TryGetFeatureValue(DigitalInputFeatureUsageMap[interactionMapping.InputName], out bool value) && value;
+        }
+
+        /// <summary>
+        /// Updates the controller's <see cref="AxisType.SixDof"/> mappings.
+        /// </summary>
+        /// <param name="interactionMapping">The <see cref="MixedRealityInteractionMapping"/> to update.</param>
+        protected virtual void UpdateSixDofInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
         }
 
         /// <summary>
         /// Updates the controller's <see cref="AxisType.SingleAxis"/> mappings.
         /// </summary>
         /// <param name="interactionMapping">The <see cref="MixedRealityInteractionMapping"/> to update.</param>
-        /// <param name="inputDevice">The <see cref="InputDevice"/> data is read from.</param>
-        protected virtual void UpdateSingleAxisInteractionMapping(MixedRealityInteractionMapping interactionMapping, InputDevice inputDevice)
+        protected virtual void UpdateSingleAxisInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.SingleAxis);
 
@@ -150,7 +168,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 return;
             }
 
-            if (inputDevice.TryGetFeatureValue(SingleAxisInputFeatureUsageMap[interactionMapping.InputName], out float value))
+            if (InputDevice.TryGetFeatureValue(SingleAxisInputFeatureUsageMap[interactionMapping.InputName], out float value))
             {
                 interactionMapping.FloatData = value;
             }
@@ -160,8 +178,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// Updates the controller's <see cref="AxisType.DualAxis"/> mappings.
         /// </summary>
         /// <param name="interactionMapping">The <see cref="MixedRealityInteractionMapping"/> to update.</param>
-        /// <param name="inputDevice">The <see cref="InputDevice"/> data is read from.</param>
-        protected virtual void UpdateDualAxisInteractionMapping(MixedRealityInteractionMapping interactionMapping, InputDevice inputDevice)
+        protected virtual void UpdateDualAxisInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.DualAxis);
 
@@ -171,7 +188,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 return;
             }
 
-            if (inputDevice.TryGetFeatureValue(DualAxisInputFeatureUsageMap[interactionMapping.InputName], out Vector2 value))
+            if (InputDevice.TryGetFeatureValue(DualAxisInputFeatureUsageMap[interactionMapping.InputName], out Vector2 value))
             {
                 interactionMapping.Vector2Data = value;
             }

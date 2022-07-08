@@ -7,6 +7,7 @@ using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.Extensions;
 using RealityToolkit.Interfaces.CameraSystem;
 using RealityToolkit.Interfaces.InputSystem;
 using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
@@ -71,6 +72,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private const string gripPoseInputName = "Grip Pose";
         private const string indexFingerPoseInputName = "Index Finger Pose";
         private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
+        private const int poseFrameBufferSize = 5;
 
         private HandData handData;
         private MixedRealityPose[] jointPoses;
@@ -80,18 +82,27 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         protected IMixedRealityCameraSystem cameraSystem;
         private readonly HandRenderingMode handRenderingMode;
         private readonly IHandDataPostProcessor[] postProcessors;
+        private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(poseFrameBufferSize);
+        private readonly Queue<bool> isGrippingBuffer = new Queue<bool>(poseFrameBufferSize);
+        private readonly Queue<bool> isPointingBuffer = new Queue<bool>(poseFrameBufferSize);
 
-        public bool IsPinching => throw new System.NotImplementedException();
+        /// <inheritdoc />
+        public bool IsPinching { get; private set; }
 
-        public float PinchStrength => throw new System.NotImplementedException();
+        /// <inheritdoc />
+        public float PinchStrength { get; private set; }
 
-        public bool IsPointing => throw new System.NotImplementedException();
+        /// <inheritdoc />
+        public bool IsPointing { get; private set; }
 
-        public bool IsGripping => throw new System.NotImplementedException();
+        /// <inheritdoc />
+        public bool IsGripping { get; private set; }
 
-        public float GripStrength => throw new System.NotImplementedException();
+        /// <inheritdoc />
+        public float GripStrength { get; private set; }
 
-        public string TrackedPoseId => throw new System.NotImplementedException();
+        /// <inheritdoc />
+        public string TrackedPoseId { get; private set; }
 
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
@@ -106,27 +117,29 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         };
 
         /// <inheritdoc />
-        protected override IReadOnlyDictionary<string, InputFeatureUsage<bool>> DigitalInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<bool>>
-        {
-            { pinchPressInputName, CommonUsages.triggerButton },
-            { gripPressInputName, CommonUsages.gripButton }
-        };
-
-        /// <inheritdoc />
-        protected override IReadOnlyDictionary<string, InputFeatureUsage<float>> SingleAxisInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<float>>
-        {
-            { gripInputName, CommonUsages.trigger }
-        };
-
-        /// <inheritdoc />
         public override void UpdateController()
         {
-            // We want to update hand joints data no matter what the rendering mode is. Even if hand
-            // rendering is fully disabled, we need to know where joints are for physics and other features to work
-            // correctly. It is up to the controller visualizer to not visuaize the data then.
+            if (!Enabled)
+            {
+                return;
+            }
+
+            if (!TryGetInputDevice(out var inputDevice))
+            {
+                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
+                return;
+            }
+
+            UpdateTrackingState();
+
+            if (TrackingState != TrackingState.Tracked)
+            {
+                UpdateInteractionMappings();
+                return;
+            }
+
             UpdateHandJoints();
 
-            // Apply post processing to calculate additional hand pose properties.
             for (var i = 0; i < postProcessors.Length; i++)
             {
                 handData = postProcessors[i].PostProcess(handData);
@@ -139,7 +152,10 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 UpdateHandMesh();
             }
 
-            base.UpdateController();
+            UpdateControllerPose();
+            UpdateSpatialPointerPose();
+            UpdateSpatialGripPose();
+            UpdateInteractionMappings();
         }
 
         /// <inheritdoc />
@@ -181,6 +197,14 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         {
             Debug.Assert(handMeshDataProvider != null, $"{GetType().Name} has no {nameof(IUnityXRHandMeshDataProvider)} to work with.");
             handData.Mesh = handMeshDataProvider.UpdateHandMesh(InputDevice);
+        }
+
+        /// <inheritdoc />
+        protected override void UpdateTrackingState()
+        {
+            // This is a workaround until the tracking state has been implemented by Unity
+            // for OpenXR hands.
+            TrackingState = TrackingState.Tracked;
         }
 
         /// <inheritdoc />
@@ -229,9 +253,187 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         }
 
         /// <inheritdoc />
-        public bool TryGetFingerCurlStrength(Definitions.Controllers.Hands.HandFinger handFinger, out float curlStrength)
+        public bool TryGetCurlStrength(Definitions.Controllers.Hands.HandFinger handFinger, out float curlStrength)
         {
-            throw new System.NotImplementedException();
+            if (handData.FingerCurlStrengths == null)
+            {
+                curlStrength = 0f;
+                return false;
+            }
+
+            curlStrength = handData.FingerCurlStrengths[(int)handFinger];
+            return true;
         }
+
+        #region Interaction Mappings
+
+        /// <inheritdoc />
+        protected override void UpdateSingleAxisInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SingleAxis);
+            switch (interactionMapping.InputName)
+            {
+                case gripInputName: UpdateGripStrengthInteractionMapping(interactionMapping); break;
+            }
+
+            interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+        }
+
+        /// <inheritdoc />
+        protected override void UpdateSixDofInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
+            switch (interactionMapping.InputName)
+            {
+                case indexFingerPoseInputName: UpdateIndexFingerPoseInteractionMapping(interactionMapping); break;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void UpdateDigitalInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
+            switch (interactionMapping.InputName)
+            {
+                case pointInputName: UpdateIsPointingInteractionMapping(interactionMapping); break;
+                case pinchPressInputName: UpdateIsPinchingInteractionMapping(interactionMapping); break;
+                case gripPressInputName: UpdateIsGrippingInteractionMapping(interactionMapping); break;
+            }
+        }
+
+        private void UpdateIsPointingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            if (TrackingState == TrackingState.Tracked)
+            {
+                var isPointingThisFrame = handData.IsPointing;
+                if (isPointingBuffer.Count < poseFrameBufferSize)
+                {
+                    isPointingBuffer.Enqueue(isPointingThisFrame);
+                    IsPointing = false;
+                }
+                else
+                {
+                    isPointingBuffer.Dequeue();
+                    isPointingBuffer.Enqueue(isPointingThisFrame);
+
+                    isPointingThisFrame = true;
+                    for (int i = 0; i < isPointingBuffer.Count; i++)
+                    {
+                        var value = isPointingBuffer.Dequeue();
+
+                        if (!value)
+                        {
+                            isPointingThisFrame = false;
+                        }
+
+                        isPointingBuffer.Enqueue(value);
+                    }
+
+                    IsPointing = isPointingThisFrame;
+                }
+            }
+            else
+            {
+                isPointingBuffer.Clear();
+                IsPointing = false;
+            }
+
+            interactionMapping.BoolData = IsPointing;
+        }
+
+        private void UpdateIsPinchingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            if (TrackingState == TrackingState.Tracked)
+            {
+                var isPinchingThisFrame = handData.IsPinching;
+                if (isPinchingBuffer.Count < poseFrameBufferSize)
+                {
+                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
+                    IsPinching = false;
+                }
+                else
+                {
+                    isPinchingBuffer.Dequeue();
+                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
+
+                    isPinchingThisFrame = true;
+                    for (int i = 0; i < isPinchingBuffer.Count; i++)
+                    {
+                        var value = isPinchingBuffer.Dequeue();
+
+                        if (!value)
+                        {
+                            isPinchingThisFrame = false;
+                        }
+
+                        isPinchingBuffer.Enqueue(value);
+                    }
+
+                    IsPinching = isPinchingThisFrame;
+                }
+            }
+            else
+            {
+                isPinchingBuffer.Clear();
+                IsPinching = false;
+            }
+
+            interactionMapping.BoolData = IsPinching;
+        }
+
+        private void UpdateIsGrippingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            if (TrackingState == TrackingState.Tracked)
+            {
+                var isGrippingThisFrame = handData.IsGripping;
+                if (isGrippingBuffer.Count < poseFrameBufferSize)
+                {
+                    isGrippingBuffer.Enqueue(isGrippingThisFrame);
+                    IsGripping = false;
+                }
+                else
+                {
+                    isGrippingBuffer.Dequeue();
+                    isGrippingBuffer.Enqueue(isGrippingThisFrame);
+
+                    isGrippingThisFrame = true;
+                    for (int i = 0; i < isGrippingBuffer.Count; i++)
+                    {
+                        var value = isGrippingBuffer.Dequeue();
+
+                        if (!value)
+                        {
+                            isGrippingThisFrame = false;
+                        }
+
+                        isGrippingBuffer.Enqueue(value);
+                    }
+
+                    IsGripping = isGrippingThisFrame;
+                }
+            }
+            else
+            {
+                isGrippingBuffer.Clear();
+                IsGripping = false;
+            }
+
+            interactionMapping.BoolData = IsGripping;
+        }
+
+        private void UpdateGripStrengthInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            interactionMapping.FloatData = GripStrength;
+        }
+
+        private void UpdateIndexFingerPoseInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            if (TryGetJointPose(XRHandJoint.IndexTip, out var indexTipPose))
+            {
+                interactionMapping.PoseData = indexTipPose;
+            }
+        }
+
+        #endregion
     }
 }

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using System;
 using System.Collections.Generic;
@@ -40,7 +39,6 @@ namespace RealityToolkit.Definitions.Controllers.Hands
             JointsDict = new Dictionary<XRHandJoint, MixedRealityPose>();
 
             UpdatedAt = long.MinValue;
-            TrackingState = TrackingState.NotTracked;
             PinchStrength = 0;
             GripStrength = 0;
             PointerPose = MixedRealityPose.ZeroIdentity;
@@ -62,11 +60,6 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// Timestamp of hand data, as FileTime, e.g. <see cref="DateTime.UtcNow"/>
         /// </summary>
         public long UpdatedAt { get; set; }
-
-        /// <summary>
-        /// The hand controller's tracking state.
-        /// </summary>
-        public TrackingState TrackingState { get; set; }
 
         /// <summary>
         /// Is the hand currently in a pinch pose?

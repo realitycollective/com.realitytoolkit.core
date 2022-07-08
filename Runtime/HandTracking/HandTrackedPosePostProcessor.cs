@@ -69,65 +69,46 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         /// <inheritdoc />
         public override HandData PostProcess(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked)
+            // Recognition is pretty expensive so we don't want to
+            // do it every frame.
+            if (Hand.ControllerHandedness == Handedness.Right && passedFramesSinceRecognitionRightHand < RECOGNITION_FRAME_DELIMITER)
             {
-                // Recognition is pretty expensive so we don't want to
-                // do it every frame.
-                if (Hand.ControllerHandedness == Handedness.Right && passedFramesSinceRecognitionRightHand < RECOGNITION_FRAME_DELIMITER)
-                {
-                    passedFramesSinceRecognitionRightHand++;
-                    handData.TrackedPoseId = LastTrackedPoseIdRightHand;
-                    return handData;
-                }
-                else if (Hand.ControllerHandedness == Handedness.Left && passedFramesSinceRecognitionLeftHand < RECOGNITION_FRAME_DELIMITER)
-                {
-                    passedFramesSinceRecognitionLeftHand++;
-                    handData.TrackedPoseId = LastTrackedPoseIdLeftHand;
-                    return handData;
-                }
+                passedFramesSinceRecognitionRightHand++;
+                handData.TrackedPoseId = LastTrackedPoseIdRightHand;
+                return handData;
+            }
+            else if (Hand.ControllerHandedness == Handedness.Left && passedFramesSinceRecognitionLeftHand < RECOGNITION_FRAME_DELIMITER)
+            {
+                passedFramesSinceRecognitionLeftHand++;
+                handData.TrackedPoseId = LastTrackedPoseIdLeftHand;
+                return handData;
+            }
 
-                var currentHighestProbability = 0f;
-                HandControllerPoseProfile recognizedPose = null;
+            var currentHighestProbability = 0f;
+            HandControllerPoseProfile recognizedPose = null;
 
-                for (int i = 0; i < bakedHandDatas.Length; i++)
-                {
-                    var bakedHandData = bakedHandDatas[i];
-                    var probability = Compare(handData, bakedHandData);
+            for (int i = 0; i < bakedHandDatas.Length; i++)
+            {
+                var bakedHandData = bakedHandDatas[i];
+                var probability = Compare(handData, bakedHandData);
 
-                    if (probability > currentHighestProbability)
-                    {
-                        currentHighestProbability = probability;
-                        recognizedPose = definitions[i];
-                    }
+                if (probability > currentHighestProbability)
+                {
+                    currentHighestProbability = probability;
+                    recognizedPose = definitions[i];
                 }
+            }
 
-                handData.TrackedPoseId = recognizedPose.IsNull() ? null : recognizedPose.Id;
-                if (Hand.ControllerHandedness == Handedness.Right)
-                {
-                    LastTrackedPoseIdRightHand = handData.TrackedPoseId;
-                    passedFramesSinceRecognitionRightHand = 0;
-                }
-                else
-                {
-                    LastTrackedPoseIdLeftHand = handData.TrackedPoseId;
-                    passedFramesSinceRecognitionLeftHand = 0;
-                }
+            handData.TrackedPoseId = recognizedPose.IsNull() ? null : recognizedPose.Id;
+            if (Hand.ControllerHandedness == Handedness.Right)
+            {
+                LastTrackedPoseIdRightHand = handData.TrackedPoseId;
+                passedFramesSinceRecognitionRightHand = 0;
             }
             else
             {
-                // Easy game when hand is not tracked, there is no pose.
-                handData.TrackedPoseId = null;
-
-                if (Hand.ControllerHandedness == Handedness.Right)
-                {
-                    LastTrackedPoseIdRightHand = null;
-                    passedFramesSinceRecognitionRightHand = 0;
-                }
-                else
-                {
-                    LastTrackedPoseIdLeftHand = null;
-                    passedFramesSinceRecognitionLeftHand = 0;
-                }
+                LastTrackedPoseIdLeftHand = handData.TrackedPoseId;
+                passedFramesSinceRecognitionLeftHand = 0;
             }
 
             return handData;

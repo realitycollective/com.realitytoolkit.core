@@ -72,21 +72,13 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.IsPinching"/> and <see cref="HandData.PinchStrength"/> for.</param>
         private HandData UpdateIsPinchingAndStrength(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked)
-            {
-                var thumbTipPose = handData.Joints[(int)XRHandJoint.ThumbTip];
-                var indexTipPose = handData.Joints[(int)XRHandJoint.IndexTip];
+            var thumbTipPose = handData.Joints[(int)XRHandJoint.ThumbTip];
+            var indexTipPose = handData.Joints[(int)XRHandJoint.IndexTip];
 
-                handData.IsPinching = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude < TWO_CENTIMETER_SQUARE_MAGNITUDE;
+            handData.IsPinching = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude < TWO_CENTIMETER_SQUARE_MAGNITUDE;
 
-                var distanceSquareMagnitude = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude - TWO_CENTIMETER_SQUARE_MAGNITUDE;
-                handData.PinchStrength = 1 - Mathf.Clamp(distanceSquareMagnitude / PINCH_STRENGTH_DISTANCE, 0f, 1f);
-            }
-            else
-            {
-                handData.IsPinching = false;
-                handData.PinchStrength = 0f;
-            }
+            var distanceSquareMagnitude = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude - TWO_CENTIMETER_SQUARE_MAGNITUDE;
+            handData.PinchStrength = 1 - Mathf.Clamp(distanceSquareMagnitude / PINCH_STRENGTH_DISTANCE, 0f, 1f);
 
             return handData;
         }
@@ -97,26 +89,19 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.IsPointing"/> for.</param>
         private HandData UpdateIsPointing(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked)
+            var rigTransform = CameraSystem != null
+                ? CameraSystem.MainCameraRig.RigTransform
+                : CameraCache.Main.transform.parent;
+            var localPalmPose = handData.Joints[(int)XRHandJoint.Palm];
+            var worldPalmPose = new MixedRealityPose
             {
-                var rigTransform = CameraSystem != null
-                    ? CameraSystem.MainCameraRig.RigTransform
-                    : CameraCache.Main.transform.parent;
-                var localPalmPose = handData.Joints[(int)XRHandJoint.Palm];
-                var worldPalmPose = new MixedRealityPose
-                {
-                    Position = localPalmPose.Position,
-                    Rotation = rigTransform.rotation * localPalmPose.Rotation
-                };
+                Position = localPalmPose.Position,
+                Rotation = rigTransform.rotation * localPalmPose.Rotation
+            };
 
-                // We check if the palm forward is roughly in line with the camera lookAt.
-                var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.Up, PlayerCamera.transform.up);
-                handData.IsPointing = Vector3.Dot(PlayerCamera.transform.forward, projectedPalmUp) > IS_POINTING_DOTP_THRESHOLD;
-            }
-            else
-            {
-                handData.IsPointing = false;
-            }
+            // We check if the palm forward is roughly in line with the camera lookAt.
+            var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.Up, PlayerCamera.transform.up);
+            handData.IsPointing = Vector3.Dot(PlayerCamera.transform.forward, projectedPalmUp) > IS_POINTING_DOTP_THRESHOLD;
 
             return handData;
         }
@@ -127,7 +112,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.PointerPose"/> for.</param>
         private HandData UpdatePointerPose(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesPointerPose)
+            if (!PlatformProvidesPointerPose)
             {
                 var palmPose = handData.Joints[(int)XRHandJoint.Palm];
                 palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;

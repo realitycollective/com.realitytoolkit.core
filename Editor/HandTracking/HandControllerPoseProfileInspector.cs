@@ -136,9 +136,7 @@ namespace RealityToolkit.Editor.HandTracking
             // Process the hand data, most hand data processors
             // will ignore the hand data if it is not tracked, so we
             // have to temporarily fake it's tracking state and then reset it.
-            handData.TrackingState = Definitions.Devices.TrackingState.Tracked;
             handData = HandGripPostProcessor.PostProcessStatic(handData, .8f);
-            handData.TrackingState = Definitions.Devices.TrackingState.NotTracked;
 
             isGripping.boolValue = handData.IsGripping;
             gripStrength.floatValue = handData.GripStrength;

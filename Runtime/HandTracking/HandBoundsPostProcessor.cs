@@ -30,21 +30,18 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         /// <inheritdoc />
         public override HandData PostProcess(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked)
+            if (Settings.BoundsMode == HandBoundsLOD.Low)
             {
-                if (Settings.BoundsMode == HandBoundsLOD.Low)
-                {
-                    UpdateHandBounds(handData);
-                }
-                else if (Settings.BoundsMode == HandBoundsLOD.High)
-                {
-                    UpdatePalmBounds();
-                    UpdateThumbBounds();
-                    UpdateIndexFingerBounds();
-                    UpdateMiddleFingerBounds();
-                    UpdateRingFingerBounds();
-                    UpdateLittleFingerBounds();
-                }
+                UpdateHandBounds(handData);
+            }
+            else if (Settings.BoundsMode == HandBoundsLOD.High)
+            {
+                UpdatePalmBounds();
+                UpdateThumbBounds();
+                UpdateIndexFingerBounds();
+                UpdateMiddleFingerBounds();
+                UpdateRingFingerBounds();
+                UpdateLittleFingerBounds();
             }
 
             handData.Bounds = bounds;
