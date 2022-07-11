@@ -17,7 +17,6 @@ using RealityToolkit.Services.InputSystem.Controllers.Hands;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 {
@@ -33,18 +32,6 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         public UnityXRHandController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
-            if (!MixedRealityToolkit.TryGetService(out cameraSystem))
-            {
-                Debug.LogError($"The {nameof(UnityXRHandController)} requires the {nameof(IMixedRealityCameraSystem)} to work.");
-                return;
-            }
-
-            if (!MixedRealityToolkit.TryGetService<IMixedRealityInputSystem>(out _))
-            {
-                Debug.LogError($"The {nameof(UnityXRHandController)} requires the {nameof(IMixedRealityInputSystem)} to work.");
-                return;
-            }
-
             if (!MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
             {
                 Debug.LogError($"The {nameof(UnityXRHandController)} requires a valid {nameof(MixedRealityInputSystemProfile)} to work.");
@@ -63,6 +50,15 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 new HandTrackedPosePostProcessor(this, inputSystemProfile.HandControllerSettings),
                 new HandBoundsPostProcessor(this, inputSystemProfile.HandControllerSettings)
             };
+
+            if (!MixedRealityToolkit.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem))
+            {
+                cameraRigTransform = Camera.main.transform.parent;
+            }
+            else
+            {
+                cameraRigTransform = cameraSystem.MainCameraRig.RigTransform;
+            }
         }
 
         private const string pinchPressInputName = "Pinch";
@@ -79,7 +75,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         private Dictionary<XRHandJoint, MixedRealityPose> jointPosesDict;
         protected IUnityXRHandJointDataProvider handJointDataProvider;
         protected IUnityXRHandMeshDataProvider handMeshDataProvider;
-        protected IMixedRealityCameraSystem cameraSystem;
+        protected Transform cameraRigTransform;
         private readonly HandRenderingMode handRenderingMode;
         private readonly IHandDataPostProcessor[] postProcessors;
         private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(poseFrameBufferSize);
@@ -180,14 +176,6 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             }
         }
 
-        /// <inheritdoc />
-        protected override void UpdateSpatialPointerPose()
-        {
-            // This is a workaround until the pointer pose has been implemented by Unity
-            // for OpenXR hands.
-            SpatialPointerPose = handData.PointerPose;
-        }
-
         /// <summary>
         /// Updates the controller's hand joint information.
         /// </summary>
@@ -237,8 +225,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 };
 
                 // Translate to world space.
-                pose.Position = cameraSystem.MainCameraRig.RigTransform.TransformPoint(pose.Position);
-                pose.Rotation = cameraSystem.MainCameraRig.RigTransform.rotation * pose.Rotation;
+                pose.Position = cameraRigTransform.TransformPoint(pose.Position);
+                pose.Rotation = cameraRigTransform.rotation * pose.Rotation;
 
                 return true;
             }
@@ -261,7 +249,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         }
 
         /// <inheritdoc />
-        public bool TryGetCurlStrength(Definitions.Controllers.Hands.HandFinger handFinger, out float curlStrength)
+        public bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength)
         {
             if (handData.FingerCurlStrengths == null)
             {
