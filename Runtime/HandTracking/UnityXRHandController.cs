@@ -126,6 +126,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 return;
             }
 
+            InputDevice = inputDevice;
             UpdateTrackingState();
 
             if (TrackingState != TrackingState.Tracked)
