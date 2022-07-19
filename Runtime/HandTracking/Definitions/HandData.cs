@@ -36,7 +36,6 @@ namespace RealityToolkit.Definitions.Controllers.Hands
                 JointsDict.Add((XRHandJoint)i, Joints[i]);
             }
 
-            UpdatedAt = long.MinValue;
             PinchStrength = 0;
             GripStrength = 0;
             PointerPose = MixedRealityPose.ZeroIdentity;
@@ -53,11 +52,6 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// Gets the total count of joints the XRTK hand controller supports.
         /// </summary>
         public static readonly int JointCount = Enum.GetNames(typeof(XRHandJoint)).Length - 1;
-
-        /// <summary>
-        /// Timestamp of hand data, as FileTime, e.g. <see cref="DateTime.UtcNow"/>
-        /// </summary>
-        public long UpdatedAt { get; set; }
 
         /// <summary>
         /// Is the hand currently in a pinch pose?
