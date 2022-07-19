@@ -84,7 +84,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.OpenVR
                     {
                         case DeviceInputType.SpatialGrip:
                             UpdateSpatialGripData(interactionMapping);
-                            interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+                            interactionMapping.RaiseInputAction(InputSource, Handedness);
                             break;
                     }
                 }

@@ -122,7 +122,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             if (!TryGetInputDevice(out var inputDevice))
             {
-                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
+                Debug.LogError($"Cannot find input device for {GetType().Name} - {Handedness}");
                 return;
             }
 
@@ -170,10 +170,10 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             IsRotationAvailable = IsPositionAvailable;
             IsPositionApproximate = false;
 
-            if (wristPose != ControllerPose)
+            if (wristPose != Pose)
             {
-                ControllerPose = wristPose;
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, ControllerPose);
+                Pose = wristPose;
+                InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
             }
         }
 
@@ -221,8 +221,8 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 pose = new MixedRealityPose
                 {
                     // Combine root pose with local joint pose.
-                    Position = ControllerPose.Position + ControllerPose.Rotation * localPose.Position,
-                    Rotation = ControllerPose.Rotation * localPose.Rotation
+                    Position = Pose.Position + Pose.Rotation * localPose.Position,
+                    Rotation = Pose.Rotation * localPose.Rotation
                 };
 
                 // Translate to world space.
@@ -273,7 +273,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                 case gripInputName: UpdateGripStrengthInteractionMapping(interactionMapping); break;
             }
 
-            interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+            interactionMapping.RaiseInputAction(InputSource, Handedness);
         }
 
         /// <inheritdoc />

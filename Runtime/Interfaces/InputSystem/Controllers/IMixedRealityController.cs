@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
@@ -11,7 +11,8 @@ using UnityEngine;
 namespace RealityToolkit.Interfaces.InputSystem.Controllers
 {
     /// <summary>
-    /// Reality Toolkit controller definition, used to manage a specific controller type.
+    /// Main controller interface. A <see cref="IMixedRealityController"/> is a e.g. a hand-held device,
+    /// or anything really that is used to provide input to the application.
     /// </summary>
     public interface IMixedRealityController
     {
@@ -23,44 +24,19 @@ namespace RealityToolkit.Interfaces.InputSystem.Controllers
         /// <summary>
         /// Is the controller enabled?
         /// </summary>
-        bool Enabled { get; set; }
+        bool Enabled { get; }
 
         /// <summary>
         /// The data provider service this controller belongs to.
         /// </summary>
-        IMixedRealityControllerDataProvider ControllerDataProvider { get; }
-
-        /// <summary>
-        /// The controller's pose in world space, available if <see cref="IsPositionAvailable"/>.
-        /// </summary>
-        MixedRealityPose ControllerPose { get; }
-
-        /// <summary>
-        /// Outputs the current state of the Input Source, whether it is tracked or not. As defined by the SDK / Unity.
-        /// </summary>
-        TrackingState TrackingState { get; }
-
-        /// <summary>
-        /// The designated hand that the Input Source is managing, as defined by the SDK / Unity.
-        /// </summary>
-        Handedness ControllerHandedness { get; }
-
-        /// <summary>
-        /// The registered Input Source for this controller
-        /// </summary>
-        IMixedRealityInputSource InputSource { get; }
-
-        /// <summary>
-        /// The controller's "Visual" <see cref="Component"/> in the scene.
-        /// </summary>
-        IMixedRealityControllerVisualizer Visualizer { get; }
+        IMixedRealityControllerDataProvider DataProvider { get; }
 
         /// <summary>
         /// Indicates that this controller is currently providing position data.
         /// </summary>
         /// <remarks>
         /// This value may change during usage for some controllers. As a best practice,
-        /// be sure to check this value before using position data.
+        /// be sure to check this value before using <see cref="Pose"/>.
         /// </remarks>
         bool IsPositionAvailable { get; }
 
@@ -74,19 +50,43 @@ namespace RealityToolkit.Interfaces.InputSystem.Controllers
         /// </summary>
         /// <remarks>
         /// This value may change during usage for some controllers. As a best practice,
-        /// be sure to check this value before using rotation data.
+        /// be sure to check this value before using <see cref="Pose"/>.
         /// </remarks>
         bool IsRotationAvailable { get; }
+
+        /// <summary>
+        /// The controller's pose in world space.
+        /// </summary>
+        /// <remarks>
+        /// Check <see cref="IsPositionAvailable"/>, <see cref="IsRotationAvailable"/> and <see cref="IsPositionApproximate"/>
+        /// to determine quality of pose data.
+        /// </remarks>
+        MixedRealityPose Pose { get; }
+
+        /// <summary>
+        /// Outputs the current state of the Input Source, whether it is tracked or not.
+        /// </summary>
+        TrackingState TrackingState { get; }
+
+        /// <summary>
+        /// The designated hand that the controller is mapped to.
+        /// </summary>
+        Handedness Handedness { get; }
+
+        /// <summary>
+        /// The registered Input Source for this controller.
+        /// </summary>
+        IMixedRealityInputSource InputSource { get; }
+
+        /// <summary>
+        /// The controller's "Visual" <see cref="Component"/> in the scene.
+        /// </summary>
+        IMixedRealityControllerVisualizer Visualizer { get; }
 
         /// <summary>
         /// Mapping definition for this controller, linking the Physical inputs to logical Input System Actions
         /// </summary>
         MixedRealityInteractionMapping[] Interactions { get; }
-
-        /// <summary>
-        /// Gets the current position and rotation for the controller, if available.
-        /// </summary>
-        MixedRealityPose Pose { get; }
 
         /// <summary>
         /// Gets how fast the controller rotates or revolves relative to its pivot point.
@@ -109,6 +109,9 @@ namespace RealityToolkit.Interfaces.InputSystem.Controllers
         /// <summary>
         /// Updates the controller's state.
         /// </summary>
+        /// <remarks>
+        /// This API is for use by the controller's <see cref="DataProvider"/> only!
+        /// </remarks>
         void UpdateController();
     }
 }

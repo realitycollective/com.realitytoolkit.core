@@ -133,18 +133,18 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityInput
                         // Raise input system Event if it enabled
                         if (Interactions[i].BoolData)
                         {
-                            InputSystem?.RaiseOnInputDown(InputSource, ControllerHandedness, Interactions[i].MixedRealityInputAction);
+                            InputSystem?.RaiseOnInputDown(InputSource, Handedness, Interactions[i].MixedRealityInputAction);
                         }
                         else
                         {
-                            InputSystem?.RaiseOnInputUp(InputSource, ControllerHandedness, Interactions[i].MixedRealityInputAction);
+                            InputSystem?.RaiseOnInputUp(InputSource, Handedness, Interactions[i].MixedRealityInputAction);
                         }
                     }
 
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaiseOnInputPressed(InputSource, ControllerHandedness, Interactions[i].MixedRealityInputAction);
+                        InputSystem?.RaiseOnInputPressed(InputSource, Handedness, Interactions[i].MixedRealityInputAction);
                     }
                 }
             }

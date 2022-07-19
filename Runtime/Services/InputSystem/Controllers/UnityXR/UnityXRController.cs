@@ -68,7 +68,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             if (!TryGetInputDevice(out var inputDevice))
             {
-                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
+                Debug.LogError($"Cannot find input device for {GetType().Name} - {Handedness}");
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// </summary>
         protected virtual void UpdateInteractionMappings()
         {
-            Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {ControllerHandedness}.");
+            Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {Handedness}.");
 
             for (var i = 0; i < Interactions.Length; i++)
             {
@@ -119,11 +119,11 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
                         }
                         break;
                     default:
-                        Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                        Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {Handedness}.");
                         break;
                 }
 
-                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+                interactionMapping.RaiseInputAction(InputSource, Handedness);
             }
         }
 
@@ -138,7 +138,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             if (!DigitalInputFeatureUsageMap.ContainsKey(interactionMapping.InputName))
             {
-                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {Handedness}.");
                 return;
             }
 
@@ -164,7 +164,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             if (!SingleAxisInputFeatureUsageMap.ContainsKey(interactionMapping.InputName))
             {
-                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {Handedness}.");
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
 
             if (!DualAxisInputFeatureUsageMap.ContainsKey(interactionMapping.InputName))
             {
-                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {Handedness}.");
                 return;
             }
 
@@ -229,10 +229,10 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
             IsPositionApproximate = false;
 
             var updatedControllerPose = new MixedRealityPose(position, rotation);
-            if (updatedControllerPose != ControllerPose)
+            if (updatedControllerPose != Pose)
             {
-                ControllerPose = updatedControllerPose;
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, ControllerPose);
+                Pose = updatedControllerPose;
+                InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
             }
         }
 
@@ -241,7 +241,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// </summary>
         protected virtual void UpdateSpatialPointerPose()
         {
-            SpatialPointerPose = ControllerPose;
+            SpatialPointerPose = Pose;
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// </summary>
         protected virtual void UpdateSpatialGripPose()
         {
-            SpatialGripPose = ControllerPose;
+            SpatialGripPose = Pose;
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityXR
         /// <returns><c>True</c>, if device found.</returns>
         protected bool TryGetInputDevice(out InputDevice inputDevice)
         {
-            switch (ControllerHandedness)
+            switch (Handedness)
             {
                 case Handedness.Left:
                     inputDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);

@@ -80,7 +80,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.UnityInput
                         break;
                 }
 
-                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+                interactionMapping.RaiseInputAction(InputSource, Handedness);
             }
         }
 

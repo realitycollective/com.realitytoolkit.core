@@ -1307,7 +1307,7 @@ namespace RealityToolkit.Services.InputSystem
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
 
-            inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
+            inputEventData.Initialize(controller.InputSource, controller.Handedness, action);
             HandleEvent(inputEventData, OnGestureStarted);
         }
 
@@ -1322,7 +1322,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
+            inputEventData.Initialize(controller.InputSource, controller.Handedness, action);
             HandleEvent(inputEventData, OnGestureUpdated);
         }
 
@@ -1337,7 +1337,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Vector2 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            vector2InputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            vector2InputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(vector2InputEventData, OnGestureVector2PositionUpdated);
         }
 
@@ -1352,7 +1352,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Vector3 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            positionInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            positionInputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(positionInputEventData, OnGesturePositionUpdated);
         }
 
@@ -1367,7 +1367,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Quaternion inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            rotationInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            rotationInputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(rotationInputEventData, OnGestureRotationUpdated);
         }
 
@@ -1382,7 +1382,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            poseInputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(poseInputEventData, OnGesturePoseUpdated);
         }
 
@@ -1397,7 +1397,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
+            inputEventData.Initialize(controller.InputSource, controller.Handedness, action);
             HandleEvent(inputEventData, OnGestureCompleted);
         }
 
@@ -1412,7 +1412,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Vector2 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            vector2InputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            vector2InputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(vector2InputEventData, OnGestureVector2PositionCompleted);
         }
 
@@ -1427,7 +1427,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Vector3 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            positionInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            positionInputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(positionInputEventData, OnGesturePositionCompleted);
         }
 
@@ -1442,7 +1442,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Quaternion inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            rotationInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            rotationInputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(rotationInputEventData, OnGestureRotationCompleted);
         }
 
@@ -1457,7 +1457,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
+            poseInputEventData.Initialize(controller.InputSource, controller.Handedness, action, inputData);
             HandleEvent(poseInputEventData, OnGesturePoseCompleted);
         }
 
@@ -1472,7 +1472,7 @@ namespace RealityToolkit.Services.InputSystem
         public void RaiseGestureCanceled(IMixedRealityController controller, MixedRealityInputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
-            inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
+            inputEventData.Initialize(controller.InputSource, controller.Handedness, action);
             HandleEvent(inputEventData, OnGestureCanceled);
         }
 

@@ -77,7 +77,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 RaycastOrigin = CameraSystem != null
                     ? CameraSystem.MainCameraRig.CameraTransform
                     : CameraCache.Main.transform;
-                Handedness = value.ControllerHandedness;
+                Handedness = value.Handedness;
                 gameObject.name = "Spatial Mouse Pointer";
                 TrackingState = TrackingState.NotApplicable;
             }

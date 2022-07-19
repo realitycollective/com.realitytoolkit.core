@@ -56,7 +56,7 @@ namespace RealityToolkit.Utilities.Solvers
 
         public void OnSourceDetected(SourceStateEventData eventData)
         {
-            if (eventData.Controller?.ControllerHandedness == handedness)
+            if (eventData.Controller?.Handedness == handedness)
             {
                 AddControllerTransform(eventData.Controller);
             }
@@ -64,7 +64,7 @@ namespace RealityToolkit.Utilities.Solvers
 
         public void OnSourceLost(SourceStateEventData eventData)
         {
-            if (eventData.Controller?.ControllerHandedness == handedness)
+            if (eventData.Controller?.Handedness == handedness)
             {
                 RemoveControllerTransform();
             }
@@ -87,7 +87,7 @@ namespace RealityToolkit.Utilities.Solvers
 
             foreach (var controller in inputSystem.DetectedControllers)
             {
-                if (controller.ControllerHandedness == handedness)
+                if (controller.Handedness == handedness)
                 {
                     AddControllerTransform(controller);
                     return;
@@ -101,7 +101,7 @@ namespace RealityToolkit.Utilities.Solvers
         /// <param name="newController">The new controller to be tracked.</param>
         protected virtual void AddControllerTransform(IMixedRealityController newController)
         {
-            if (newController.ControllerHandedness == handedness && newController.Visualizer != null && newController.Visualizer.GameObject.transform != null && !newController.Visualizer.GameObject.transform.Equals(ControllerTransform))
+            if (newController.Handedness == handedness && newController.Visualizer != null && newController.Visualizer.GameObject.transform != null && !newController.Visualizer.GameObject.transform.Equals(ControllerTransform))
             {
                 ControllerTransform = newController.Visualizer.GameObject.transform;
 

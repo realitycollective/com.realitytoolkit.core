@@ -71,13 +71,13 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
         {
             // Recognition is pretty expensive so we don't want to
             // do it every frame.
-            if (Hand.ControllerHandedness == Handedness.Right && passedFramesSinceRecognitionRightHand < RECOGNITION_FRAME_DELIMITER)
+            if (Hand.Handedness == Handedness.Right && passedFramesSinceRecognitionRightHand < RECOGNITION_FRAME_DELIMITER)
             {
                 passedFramesSinceRecognitionRightHand++;
                 handData.TrackedPoseId = LastTrackedPoseIdRightHand;
                 return handData;
             }
-            else if (Hand.ControllerHandedness == Handedness.Left && passedFramesSinceRecognitionLeftHand < RECOGNITION_FRAME_DELIMITER)
+            else if (Hand.Handedness == Handedness.Left && passedFramesSinceRecognitionLeftHand < RECOGNITION_FRAME_DELIMITER)
             {
                 passedFramesSinceRecognitionLeftHand++;
                 handData.TrackedPoseId = LastTrackedPoseIdLeftHand;
@@ -100,7 +100,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers.Hands
             }
 
             handData.TrackedPoseId = recognizedPose.IsNull() ? null : recognizedPose.Id;
-            if (Hand.ControllerHandedness == Handedness.Right)
+            if (Hand.Handedness == Handedness.Right)
             {
                 LastTrackedPoseIdRightHand = handData.TrackedPoseId;
                 passedFramesSinceRecognitionRightHand = 0;

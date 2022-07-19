@@ -81,7 +81,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
             get => controller;
             set
             {
-                handedness = value.ControllerHandedness;
+                handedness = value.Handedness;
                 controller = value;
                 gameObject.name = $"{handedness}_{gameObject.name}";
 
@@ -125,7 +125,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
         public virtual void OnSourceLost(SourceStateEventData eventData)
         {
             if (eventData.SourceId == Controller?.InputSource.SourceId &&
-                eventData.Controller.ControllerHandedness == Handedness)
+                eventData.Controller.Handedness == Handedness)
             {
                 IsTracked = false;
                 TrackingState = TrackingState.NotTracked;

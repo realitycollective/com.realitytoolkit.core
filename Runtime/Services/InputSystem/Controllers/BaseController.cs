@@ -39,19 +39,9 @@ namespace RealityToolkit.Services.InputSystem.Controllers
         /// <param name="controllerMappingProfile"></param>
         protected BaseController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
         {
-            ControllerDataProvider = controllerDataProvider;
+            DataProvider = controllerDataProvider;
             TrackingState = trackingState;
-            ControllerHandedness = controllerHandedness;
-
-            var handednessPrefix = string.Empty;
-
-            if (controllerHandedness == Handedness.Left ||
-                controllerHandedness == Handedness.Right)
-            {
-                handednessPrefix = $"{controllerHandedness} ";
-            }
-
-            Name = $"{handednessPrefix}{GetType().Name}";
+            Handedness = controllerHandedness;
 
             if (controllerMappingProfile.IsNull())
             {
@@ -86,7 +76,10 @@ namespace RealityToolkit.Services.InputSystem.Controllers
             Enabled = true;
         }
 
-        protected readonly IMixedRealityInputSystem InputSystem;
+        /// <summary>
+        /// Cached reference to the <see cref="IMixedRealityInputSystem"/>.
+        /// </summary>
+        protected IMixedRealityInputSystem InputSystem { get; private set; }
 
         private readonly MixedRealityControllerVisualizationProfile visualizationProfile;
 
@@ -114,22 +107,19 @@ namespace RealityToolkit.Services.InputSystem.Controllers
         #region IMixedRealityController Implementation
 
         /// <inheritdoc />
-        public string Name { get; }
+        public string Name => ToString();
 
         /// <inheritdoc />
-        public bool Enabled { get; set; }
+        public bool Enabled { get; protected set; }
 
         /// <inheritdoc />
-        public IMixedRealityControllerDataProvider ControllerDataProvider { get; }
-
-        /// <inheritdoc />
-        public MixedRealityPose ControllerPose { get; protected set; }
+        public IMixedRealityControllerDataProvider DataProvider { get; }
 
         /// <inheritdoc />
         public TrackingState TrackingState { get; protected set; }
 
         /// <inheritdoc />
-        public Handedness ControllerHandedness { get; }
+        public Handedness Handedness { get; }
 
         /// <inheritdoc />
         public IMixedRealityInputSource InputSource { get; private set; }
@@ -194,7 +184,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers
                     }
                     else
                     {
-                        Debug.LogWarning($"Failed to attach {pointerProfile.PointerPrefab.name} to {GetType().Name} {ControllerHandedness}.");
+                        Debug.LogWarning($"Failed to attach {pointerProfile.PointerPrefab.name} to {GetType().Name} {Handedness}.");
                     }
                 }
 
@@ -221,7 +211,7 @@ namespace RealityToolkit.Services.InputSystem.Controllers
             // then get the global controller model for each hand.
             //if (controllerModel.IsNull())
             {
-                switch (ControllerHandedness)
+                switch (Handedness)
                 {
                     case Handedness.Left when !visualizationProfile.LeftHandModel.IsNull():
                         controllerModel = visualizationProfile.LeftHandModel;
@@ -274,6 +264,18 @@ namespace RealityToolkit.Services.InputSystem.Controllers
                     visualizer.PoseAction = visualizationProfile.PointerPose;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            var handednessPrefix = string.Empty;
+            if (Handedness == Handedness.Left ||
+                Handedness == Handedness.Right)
+            {
+                handednessPrefix = $"{Handedness} ";
+            }
+
+            return $"{handednessPrefix}{GetType().Name}";
         }
     }
 }
