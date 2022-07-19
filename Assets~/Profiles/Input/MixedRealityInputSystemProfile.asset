@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configurations:
   - instancedType:
-      reference: 80764933-e115-4d1e-beda-26383c32c327
-    name: WindowsXR Controller Data Provider
+      reference: 0de5da40-feb8-4891-b9b2-942eafd041b9
+    name: Meta Controller Data Provider
     priority: 0
     platformEntries:
       runtimePlatforms:
-      - reference: 575619ae-25e7-4f73-af33-c1604e1dd858
       - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
-    profile: {fileID: 11400000, guid: 3c059e07440748d4d872c6ef21cd8877, type: 2}
+      - reference: db1acc26-ec8d-4bc6-afca-c51351b2da2e
+    profile: {fileID: 11400000, guid: b849f3a28dc36b84a92d2ec4d8239cd6, type: 2}
   focusProviderType:
     reference: 249d4d78-cadd-45ba-9438-db9fc2509213
   gazeProviderBehaviour: 0

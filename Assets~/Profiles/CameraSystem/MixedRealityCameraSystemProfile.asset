@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configurations:
   - instancedType:
-      reference: b332b5fb-c7ed-4348-9261-ad563eb621c6
-    name: WindowsXR Camera Data Provider
+      reference: 83eff552-adf4-47c8-ad53-df7406856d3f
+    name: Meta Camera Data Provider
     priority: 0
     platformEntries:
       runtimePlatforms:
-      - reference: 575619ae-25e7-4f73-af33-c1604e1dd858
+      - reference: db1acc26-ec8d-4bc6-afca-c51351b2da2e
       - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
-    profile: {fileID: 11400000, guid: 1800d99a7efe62344825f48e690fcdb1, type: 2}
+    profile: {fileID: 11400000, guid: 69601914bd8789b49bc45cc0a9220b4d, type: 2}
   globalCameraProfile: {fileID: 11400000, guid: c02516a14adf1ff45b2e6feaefd1d090, type: 2}
