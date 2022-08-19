@@ -1,11 +1,11 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Interfaces;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.BuildPipeline.Logging;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -68,7 +68,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         public virtual BuildTarget BuildTarget => EditorUserBuildSettings.activeBuildTarget;
 
         /// <inheritdoc />
-        public virtual IMixedRealityPlatform BuildPlatform => MixedRealityPreferences.CurrentPlatformTarget;
+        public virtual IPlatform BuildPlatform => MixedRealityPreferences.CurrentPlatformTarget;
 
         /// <inheritdoc />
         public bool IsCommandLine { get; private set; }
@@ -262,7 +262,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         /// <inheritdoc />
         public virtual void OnPreProcessBuild(BuildReport report)
         {
-            if (MixedRealityToolkit.ActivePlatforms.Contains(BuildPlatform))
+            if (ServiceManager.ActivePlatforms.Contains(BuildPlatform))
             {
                 // Do a thing.
             }
@@ -271,7 +271,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         /// <inheritdoc />
         public virtual void OnPostProcessBuild(BuildReport report)
         {
-            if (MixedRealityToolkit.ActivePlatforms.Contains(BuildPlatform))
+            if (ServiceManager.ActivePlatforms.Contains(BuildPlatform))
             {
                 // Do a thing.
             }

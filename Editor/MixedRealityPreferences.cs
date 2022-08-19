@@ -4,10 +4,10 @@
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Editor.Utilities;
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Interfaces;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -278,12 +278,12 @@ namespace RealityToolkit.Editor
 
         private static bool isCurrentPlatformPreferenceLoaded;
 
-        private static IMixedRealityPlatform currentPlatformTarget = null;
+        private static IPlatform currentPlatformTarget = null;
 
         /// <summary>
         /// The current <see cref="IMixedRealityPlatform"/> target.
         /// </summary>
-        public static IMixedRealityPlatform CurrentPlatformTarget
+        public static IPlatform CurrentPlatformTarget
         {
             get
             {
@@ -291,11 +291,9 @@ namespace RealityToolkit.Editor
                 {
                     isCurrentPlatformPreferenceLoaded = true;
 
-                    MixedRealityToolkit.CheckPlatforms();
-
                     if (TypeExtensions.TryResolveType(EditorPreferences.Get(nameof(CurrentPlatformTarget), Guid.Empty.ToString()), out var platform))
                     {
-                        foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
+                        foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
                         {
                             if (availablePlatform is AllPlatforms ||
                                 availablePlatform is EditorPlatform ||
@@ -314,9 +312,9 @@ namespace RealityToolkit.Editor
 
                     if (currentPlatformTarget == null)
                     {
-                        var possibleBuildTargets = new List<IMixedRealityPlatform>();
+                        var possibleBuildTargets = new List<IPlatform>();
 
-                        foreach (var availablePlatform in MixedRealityToolkit.AvailablePlatforms)
+                        foreach (var availablePlatform in ServiceManager.AvailablePlatforms)
                         {
                             if (availablePlatform is AllPlatforms ||
                                 availablePlatform is EditorPlatform ||

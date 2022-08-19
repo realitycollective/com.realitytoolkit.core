@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.InputSystem;
+using RealityToolkit.InputSystem.Definitions;
 using UnityEditor;
 using UnityEngine;
 

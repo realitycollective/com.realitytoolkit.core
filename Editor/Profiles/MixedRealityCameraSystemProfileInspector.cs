@@ -2,15 +2,16 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information. 
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions.CameraSystem;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.CameraSystem.Definitions;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.CameraSystem
 {
     [CustomEditor(typeof(MixedRealityCameraSystemProfile))]
-    public class MixedRealityCameraSystemProfileInspector : MixedRealityServiceProfileInspector
+    public class MixedRealityCameraSystemProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty globalCameraProfile;
 
@@ -39,9 +40,10 @@ namespace RealityToolkit.Editor.Profiles.CameraSystem
 
             serializedObject.ApplyModifiedProperties();
 
-            if (MixedRealityToolkit.IsInitialized && EditorGUI.EndChangeCheck())
+            if (ServiceManager.Instance != null &&
+                ServiceManager.Instance.IsInitialized && EditorGUI.EndChangeCheck())
             {
-                EditorApplication.delayCall += () => MixedRealityToolkit.Instance.ResetProfile(MixedRealityToolkit.Instance.ActiveProfile);
+                EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
         }
     }

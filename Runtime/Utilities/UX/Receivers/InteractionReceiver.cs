@@ -3,8 +3,8 @@
 
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem.Handlers;
-using RealityToolkit.Services.InputSystem.Handlers;
+using RealityToolkit.InputSystem.Handlers;
+using RealityToolkit.InputSystem.Interfaces.Handlers;
 using System.Collections.Generic;
 using UnityEngine;
 

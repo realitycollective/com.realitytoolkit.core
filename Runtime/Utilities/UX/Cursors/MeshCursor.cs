@@ -1,13 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.InputSystem.Definitions;
 using System;
-using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
-using RealityToolkit.Utilities;
 
 namespace RealityToolkit.Utilities.UX.Cursors
 {
@@ -65,7 +64,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             if (targetRenderer == null) { return; }
 
             var targetTransform = targetRenderer.transform;
-            var targetCamera = MixedRealityToolkit.TryGetSystem<IMixedRealityCameraSystem>(out var cameraSystem)
+            var targetCamera = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
                 ? cameraSystem.MainCameraRig.PlayerCamera
                 : CameraCache.Main;
 

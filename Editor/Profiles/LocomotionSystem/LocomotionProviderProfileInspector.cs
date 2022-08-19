@@ -2,14 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions.LocomotionSystem;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityToolkit.LocomotionSystem.Definitions;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.LocomotionSystem
 {
     [CustomEditor(typeof(BaseLocomotionProviderProfile))]
-    public class LocomotionProviderProfileInspector : BaseMixedRealityProfileInspector
+    public class LocomotionProviderProfileInspector : BaseProfileInspector
     {
         private SerializedProperty startupBehaviour;
         private SerializedProperty inputAction;

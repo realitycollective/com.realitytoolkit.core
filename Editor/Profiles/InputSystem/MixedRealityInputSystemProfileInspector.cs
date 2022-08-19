@@ -3,11 +3,12 @@
 
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Definitions;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -17,7 +18,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealityInputSystemProfile))]
-    public class MixedRealityInputSystemProfileInspector : MixedRealityServiceProfileInspector
+    public class MixedRealityInputSystemProfileInspector : ServiceProfileInspector
     {
         private static readonly GUIContent FocusProviderContent = new GUIContent("Focus Provider");
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");
@@ -26,7 +27,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private static readonly GUIContent GlobalHandSettingsContent = new GUIContent("Global Hand Settings");
         private static readonly GUIContent ShowControllerMappingsContent = new GUIContent("Controller Action Mappings");
 
-        private SerializedProperty focusProviderType;
         private SerializedProperty gazeProviderBehaviour;
         private SerializedProperty gazeProviderType;
         private SerializedProperty gazeCursorPrefab;
@@ -59,7 +59,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         {
             base.OnEnable();
 
-            focusProviderType = serializedObject.FindProperty(nameof(focusProviderType));
             gazeProviderBehaviour = serializedObject.FindProperty(nameof(gazeProviderBehaviour));
             gazeProviderType = serializedObject.FindProperty(nameof(gazeProviderType));
             gazeCursorPrefab = serializedObject.FindProperty(nameof(gazeCursorPrefab));
@@ -127,8 +126,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             serializedObject.Update();
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PropertyField(focusProviderType, FocusProviderContent);
-            EditorGUILayout.PropertyField(gazeProviderBehaviour);
+            EditorGUILayout.PropertyField(gazeProviderBehaviour, FocusProviderContent);
             EditorGUILayout.PropertyField(gazeProviderType, GazeProviderContent);
             EditorGUILayout.PropertyField(gazeCursorPrefab, GazeCursorPrefabContent);
 
@@ -212,9 +210,10 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             serializedObject.ApplyModifiedProperties();
 
             if (EditorGUI.EndChangeCheck() &&
-                MixedRealityToolkit.IsInitialized)
+                ServiceManager.Instance != null &&
+                ServiceManager.Instance.IsInitialized)
             {
-                EditorApplication.delayCall += () => MixedRealityToolkit.Instance.ResetProfile(MixedRealityToolkit.Instance.ActiveProfile);
+                EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
 
             base.OnInspectorGUI();

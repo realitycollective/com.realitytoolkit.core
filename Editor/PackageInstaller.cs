@@ -4,18 +4,19 @@
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Editor.Utilities;
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.BoundarySystem.Interfaces;
+using RealityToolkit.CameraSystem.Definitions;
+using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.BoundarySystem;
-using RealityToolkit.Definitions.CameraSystem;
-using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.SpatialAwarenessSystem;
-using RealityToolkit.Interfaces.BoundarySystem;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.InputSystem.Providers;
-using RealityToolkit.Interfaces.SpatialAwarenessSystem;
-using RealityToolkit.Interfaces.SpatialObservers.Providers;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.SpatialAwarenessSystem.Definitions;
+using RealityToolkit.SpatialAwarenessSystem.Interfaces;
+using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -151,15 +152,15 @@ namespace RealityToolkit.Editor
 
         private static void AddConfigurations(List<string> profiles)
         {
-            MixedRealityToolkitRootProfile rootProfile;
+            ServiceProvidersProfile rootProfile;
 
-            if (MixedRealityToolkit.IsInitialized)
+            if (ServiceManager.Instance.IsInitialized)
             {
-                rootProfile = MixedRealityToolkit.Instance.ActiveProfile;
+                rootProfile = ServiceManager.Instance.ActiveProfile;
             }
             else
             {
-                var availableRootProfiles = ScriptableObjectExtensions.GetAllInstances<MixedRealityToolkitRootProfile>();
+                var availableRootProfiles = ScriptableObjectExtensions.GetAllInstances<ServiceProvidersProfile>();
                 rootProfile = availableRootProfiles.Length > 0 ? availableRootProfiles[0] : null;
             }
 
@@ -223,7 +224,7 @@ namespace RealityToolkit.Editor
         /// </summary>
         /// <param name="platformConfigurationProfile">The platform configuration to install.</param>
         /// <param name="rootProfile">The root profile to install the </param>
-        public static void InstallConfiguration(MixedRealityPlatformServiceConfigurationProfile platformConfigurationProfile, MixedRealityToolkitRootProfile rootProfile)
+        public static void InstallConfiguration(MixedRealityPlatformServiceConfigurationProfile platformConfigurationProfile, ServiceProvidersProfile rootProfile)
         {
             foreach (var configuration in platformConfigurationProfile.Configurations)
             {
@@ -238,55 +239,55 @@ namespace RealityToolkit.Editor
                 switch (configurationType)
                 {
                     case Type _ when typeof(IMixedRealityCameraDataProvider).IsAssignableFrom(configurationType):
-                        if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
+                        if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
                         {
-                            var cameraDataProviderConfiguration = new MixedRealityServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
+                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
 
-                            if (cameraSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.InstancedType.Type))
+                            if (cameraSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                cameraSystemProfile.RegisteredServiceConfigurations = cameraSystemProfile.RegisteredServiceConfigurations.AddItem(cameraDataProviderConfiguration);
+                                cameraSystemProfile.AddConfiguration(cameraDataProviderConfiguration);
                                 EditorUtility.SetDirty(cameraSystemProfile);
                             }
                         }
                         break;
 
                     case Type _ when typeof(IMixedRealityInputDataProvider).IsAssignableFrom(configurationType):
-                        if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile, rootProfile))
+                        if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile, rootProfile))
                         {
-                            var inputDataProviderConfiguration = new MixedRealityServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
+                            var inputDataProviderConfiguration = new ServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
 
-                            if (inputSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != inputDataProviderConfiguration.InstancedType.Type))
+                            if (inputSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != inputDataProviderConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                inputSystemProfile.RegisteredServiceConfigurations = inputSystemProfile.RegisteredServiceConfigurations.AddItem(inputDataProviderConfiguration);
+                                inputSystemProfile.AddConfiguration(inputDataProviderConfiguration);
                                 EditorUtility.SetDirty(inputSystemProfile);
                             }
                         }
                         break;
 
                     case Type _ when typeof(IMixedRealitySpatialAwarenessDataProvider).IsAssignableFrom(configurationType):
-                        if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile, rootProfile))
+                        if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile, rootProfile))
                         {
-                            var spatialObserverConfiguration = new MixedRealityServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
+                            var spatialObserverConfiguration = new ServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
 
-                            if (spatialAwarenessSystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != spatialObserverConfiguration.InstancedType.Type))
+                            if (spatialAwarenessSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != spatialObserverConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                spatialAwarenessSystemProfile.RegisteredServiceConfigurations = spatialAwarenessSystemProfile.RegisteredServiceConfigurations.AddItem(spatialObserverConfiguration);
+                                spatialAwarenessSystemProfile.AddConfiguration(spatialObserverConfiguration);
                                 EditorUtility.SetDirty(spatialAwarenessSystemProfile);
                             }
                         }
                         break;
                     case Type _ when typeof(IMixedRealityBoundaryDataProvider).IsAssignableFrom(configurationType):
-                        if (MixedRealityToolkit.TryGetSystemProfile<IMixedRealityBoundarySystem, MixedRealityBoundaryProfile>(out var boundarySystemProfile, rootProfile))
+                        if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityBoundarySystem, MixedRealityBoundaryProfile>(out var boundarySystemProfile, rootProfile))
                         {
-                            var boundarySystemConfiguration = new MixedRealityServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
+                            var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
 
-                            if (boundarySystemProfile.RegisteredServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
+                            if (boundarySystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
-                                boundarySystemProfile.RegisteredServiceConfigurations = boundarySystemProfile.RegisteredServiceConfigurations.AddItem(boundarySystemConfiguration);
+                                boundarySystemProfile.AddConfiguration(boundarySystemConfiguration);
                                 EditorUtility.SetDirty(boundarySystemProfile);
                             }
                         }

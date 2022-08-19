@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions
 {
     [CreateAssetMenu(menuName = "Reality Toolkit/Platform Service Configurations", fileName = "MixedRealityPlatformServiceConfigurationProfile", order = (int)CreateProfileMenuItemIndices.Configuration)]
-    public class MixedRealityPlatformServiceConfigurationProfile : BaseMixedRealityProfile
+    public class MixedRealityPlatformServiceConfigurationProfile : BaseProfile
     {
         [SerializeField]
         private RuntimePlatformEntry platformEntries = new RuntimePlatformEntry();
@@ -15,8 +15,8 @@ namespace RealityToolkit.Definitions
         public RuntimePlatformEntry PlatformEntries => platformEntries;
 
         [SerializeField]
-        private MixedRealityServiceConfiguration[] configurations = new MixedRealityServiceConfiguration[0];
+        private ServiceConfiguration[] configurations = new ServiceConfiguration[0];
 
-        public MixedRealityServiceConfiguration[] Configurations => configurations;
+        public ServiceConfiguration[] Configurations => configurations;
     }
 }

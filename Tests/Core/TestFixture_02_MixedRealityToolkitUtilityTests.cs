@@ -2,20 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using System.Collections.Generic;
-using RealityToolkit.Definitions;
+using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
-using RealityToolkit.Definitions.Platforms;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Services;
-using RealityToolkit.Services.InputSystem.Controllers.OpenVR;
-using RealityToolkit.Tests.Services;
-using UnityEngine;
-using RealityCollective.Extensions;
+using RealityToolkit.InputSystem.Controllers.UnityInput;
 using RealityToolkit.Utilities;
-using RealityCollective.Definitions.Utilities;
+using UnityEngine;
 
 namespace RealityToolkit.Tests.Core
 {
@@ -24,44 +18,13 @@ namespace RealityToolkit.Tests.Core
         private void SetupServiceLocator()
         {
             TestUtilities.InitializeMixedRealityToolkitScene(false);
-            MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile = ScriptableObject.CreateInstance<MixedRealityRegisteredServiceProvidersProfile>();
-        }
-
-        private readonly List<IMixedRealityPlatform> testPlatforms = new List<IMixedRealityPlatform> { new EditorPlatform(), new WindowsStandalonePlatform() };
-
-        [Test]
-        public void Test_01_ConfirmExtensionServiceProviderConfigurationNotPresent()
-        {
-            SetupServiceLocator();
-            var profile = MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile;
-            var dataProviderTypes = new[] { typeof(TestExtensionService1) };
-            IMixedRealityServiceConfiguration<IMixedRealityExtensionService>[] newConfigs =
-            {
-                new MixedRealityServiceConfiguration<IMixedRealityExtensionService>(typeof(TestExtensionService1), "Test Extension Service 1", 2, testPlatforms, null)
-            };
-
-            Assert.IsFalse(profile.ValidateService(dataProviderTypes, newConfigs, false));
-        }
-
-        [Test]
-        public void Test_02_ConfirmExtensionServiceProviderConfigurationPresent()
-        {
-            SetupServiceLocator();
-            var profile = MixedRealityToolkit.Instance.ActiveProfile.RegisteredServiceProvidersProfile;
-            var dataProviderTypes = new[] { typeof(TestExtensionService1) };
-            var newConfig = new MixedRealityServiceConfiguration<IMixedRealityExtensionService>(typeof(TestExtensionService1), "Test Extension Service 1", 2, testPlatforms, null);
-            Debug.Assert(newConfig != null);
-            var newConfigs = profile.RegisteredServiceConfigurations.AddItem(newConfig);
-            Debug.Assert(newConfigs != null);
-            profile.RegisteredServiceConfigurations = newConfigs;
-            Assert.IsTrue(profile.ValidateService(dataProviderTypes, newConfigs, false));
         }
 
         [Test]
         public void Test_03_ConfirmControllerMappingConfigurationNotPresent()
         {
             SetupServiceLocator();
-            var controllerTypes = new[] { typeof(GenericOpenVRController) };
+            var controllerTypes = new[] { typeof(GenericJoystickController) };
 
             var controllerDataMappingProfile = ScriptableObject.CreateInstance<UnityInputControllerDataProfile>();
 
@@ -72,7 +35,7 @@ namespace RealityToolkit.Tests.Core
         public void Test_04_ConfirmGenereicControllerTextureExists()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
-            controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
+            controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             // Right / Any hand textures
             controllerMappingProfile.Handedness = Handedness.Right;
@@ -89,7 +52,7 @@ namespace RealityToolkit.Tests.Core
         public void Test_05_ConfirmGenereicControllerTextureDoesNotExist()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
-            controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
+            controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             // Right / Any hand textures
             controllerMappingProfile.Handedness = Handedness.Right;
@@ -107,7 +70,7 @@ namespace RealityToolkit.Tests.Core
         public void Test_06_ConfirmProfileControllerTextureUsed()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
-            controllerMappingProfile.ControllerType = typeof(GenericOpenVRController);
+            controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             var dummyTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
             controllerMappingProfile.LightThemeLeftControllerTexture = dummyTexture;

@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input

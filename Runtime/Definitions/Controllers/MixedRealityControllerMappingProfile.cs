@@ -1,14 +1,15 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    public class MixedRealityControllerMappingProfile : BaseMixedRealityProfile
+    public class MixedRealityControllerMappingProfile : BaseProfile
     {
         [SerializeField]
         [Implements(typeof(IMixedRealityController), TypeGrouping.ByNamespaceFlat)]

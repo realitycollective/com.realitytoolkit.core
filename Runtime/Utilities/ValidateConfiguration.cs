@@ -3,15 +3,14 @@
 
 using System;
 using System.Text;
-using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Interfaces;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Services;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using RealityCollective.Extensions;
 #endif
 
 namespace RealityToolkit.Utilities
@@ -27,7 +26,7 @@ namespace RealityToolkit.Utilities
         /// <param name="providerDefaultConfiguration">Array of Data Provider default configurations to add if missing</param>
         /// <param name="prompt">Unit Test helper, to control whether the UI prompt is offered or not</param>
         /// <returns></returns>
-        public static bool ValidateService<T>(this BaseMixedRealityServiceProfile<T> profile, Type[] providerTypesToValidate, IMixedRealityServiceConfiguration<T>[] providerDefaultConfiguration, bool prompt = true) where T : IMixedRealityService
+        public static bool ValidateService<T>(this BaseServiceProfile<T> profile, Type[] providerTypesToValidate, IServiceConfiguration<T>[] providerDefaultConfiguration, bool prompt = true) where T : IService
         {
 #if UNITY_EDITOR
             if (Application.isPlaying || EditorPrefs.GetBool(IgnoreKey, false))
@@ -36,7 +35,7 @@ namespace RealityToolkit.Utilities
             }
 #endif //UNITY_EDITOR
 
-            if (MixedRealityToolkit.HasActiveProfile)
+            if (ServiceManager.Instance != null && ServiceManager.Instance.HasActiveProfile)
             {
                 var errorsFound = false;
 
@@ -45,7 +44,7 @@ namespace RealityToolkit.Utilities
                     return false;
                 }
 
-                var registeredConfigurations = profile.RegisteredServiceConfigurations;
+                var registeredConfigurations = profile.ServiceConfigurations;
 
                 if (providerTypesToValidate != null &&
                     providerTypesToValidate.Length > 0)
@@ -102,7 +101,7 @@ namespace RealityToolkit.Utilities
                                 {
                                     if (!typesValidated[i])
                                     {
-                                        profile.RegisteredServiceConfigurations = registeredConfigurations.AddItem(providerDefaultConfiguration[i]);
+                                        profile.AddConfiguration(providerDefaultConfiguration[i]);
                                     }
                                 }
 
@@ -141,7 +140,7 @@ namespace RealityToolkit.Utilities
             }
 #endif //UNITY_EDITOR
 
-            if (MixedRealityToolkit.HasActiveProfile)
+            if (ServiceManager.Instance != null && ServiceManager.Instance.HasActiveProfile)
             {
                 var errorsFound = false;
                 var mappingConfigurationSource = profile.ControllerMappingProfiles;

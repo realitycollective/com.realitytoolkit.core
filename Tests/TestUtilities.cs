@@ -3,10 +3,10 @@
 
 using NUnit.Framework;
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.LocomotionSystem;
-using RealityToolkit.Interfaces.LocomotionSystem;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.LocomotionSystem.Definitions;
+using RealityToolkit.LocomotionSystem.Interfaces;
 using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -17,7 +17,7 @@ namespace RealityToolkit.Tests
     {
         public static void InitializeMixedRealityToolkit()
         {
-            MixedRealityToolkit.ConfirmInitialized();
+            ServiceManager.Instance.ConfirmInitialized();
         }
 
         public static void CleanupScene()
@@ -29,36 +29,35 @@ namespace RealityToolkit.Tests
         {
             // Setup
             CleanupScene();
-            Assert.IsTrue(!MixedRealityToolkit.IsInitialized);
-            Assert.AreEqual(0, MixedRealityToolkit.ActiveSystems.Count);
-            Assert.AreEqual(0, MixedRealityToolkit.RegisteredMixedRealityServices.Count);
+            Assert.IsTrue(!ServiceManager.Instance.IsInitialized);
+            Assert.AreEqual(0, ServiceManager.Instance.ActiveServices.Count);
             InitializeMixedRealityToolkit();
 
             // Tests
-            Assert.IsTrue(MixedRealityToolkit.IsInitialized);
-            Assert.IsNotNull(MixedRealityToolkit.Instance);
-            Assert.IsFalse(MixedRealityToolkit.HasActiveProfile);
+            Assert.IsTrue(ServiceManager.Instance.IsInitialized);
+            Assert.IsNotNull(ServiceManager.Instance);
+            Assert.IsFalse(ServiceManager.Instance.HasActiveProfile);
 
-            MixedRealityToolkitRootProfile configuration;
+            ServiceProvidersProfile configuration;
 
             if (useDefaultProfile)
             {
-                configuration = GetDefaultMixedRealityProfile<MixedRealityToolkitRootProfile>();
-                MixedRealityToolkit.TryGetSystemProfile<ILocomotionSystem, LocomotionSystemProfile>(out var locomotionSystemProfile);
+                configuration = GetDefaultMixedRealityProfile<ServiceProvidersProfile>();
+                ServiceManager.Instance.TryGetServiceProfile<ILocomotionSystem, LocomotionSystemProfile>(out var locomotionSystemProfile);
                 Debug.Assert(locomotionSystemProfile != null);
             }
             else
             {
-                configuration = ScriptableObject.CreateInstance<MixedRealityToolkitRootProfile>();
+                configuration = ScriptableObject.CreateInstance<ServiceProvidersProfile>();
             }
 
             Assert.IsTrue(configuration != null, "Failed to find the Default Mixed Reality Root Profile");
-            MixedRealityToolkit.Instance.ResetProfile(configuration);
-            Assert.IsTrue(MixedRealityToolkit.Instance.ActiveProfile != null);
-            Assert.IsTrue(MixedRealityToolkit.IsInitialized);
+            ServiceManager.Instance.ResetProfile(configuration);
+            Assert.IsTrue(ServiceManager.Instance.ActiveProfile != null);
+            Assert.IsTrue(ServiceManager.Instance.IsInitialized);
         }
 
-        private static T GetDefaultMixedRealityProfile<T>() where T : BaseMixedRealityProfile
+        private static T GetDefaultMixedRealityProfile<T>() where T : BaseProfile
         {
             return ScriptableObjectExtensions.GetAllInstances<T>().FirstOrDefault(profile => profile.name.Equals(typeof(T).Name));
         }

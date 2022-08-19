@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers.Hands
@@ -10,8 +10,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
     /// A hand controller pose definition with recorded hand joint data.
     /// Defined hand poses can be recognized and trigger input actions.
     /// </summary>
-    [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Hand Controller Pose", fileName = "HandControllerPose", order = (int)CreateProfileMenuItemIndices.Input)]
-    public class HandControllerPoseProfile : BaseMixedRealityProfile
+    public class HandControllerPoseProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("A unique ID to the pose. Can be a descriptive name, but must be unique!")]

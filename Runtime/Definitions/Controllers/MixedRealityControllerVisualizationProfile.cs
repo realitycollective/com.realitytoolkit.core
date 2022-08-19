@@ -3,15 +3,14 @@
 
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Interfaces.InputSystem.Handlers;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Controller Visualization Profile", fileName = "MixedRealityControllerVisualizationProfile", order = (int)CreateProfileMenuItemIndices.ControllerVisualization)]
-    public class MixedRealityControllerVisualizationProfile : BaseMixedRealityProfile
+    public class MixedRealityControllerVisualizationProfile : BaseProfile
     {
         [SerializeField]
         [Implements(typeof(IMixedRealityControllerVisualizer), TypeGrouping.ByNamespaceFlat)]

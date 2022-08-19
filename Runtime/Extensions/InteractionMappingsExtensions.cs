@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Interfaces;
 
 namespace RealityToolkit.Extensions
 {
@@ -16,7 +16,7 @@ namespace RealityToolkit.Extensions
         private static IMixedRealityInputSystem inputSystem = null;
 
         private static IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
 
         /// <summary>
         /// Raise the actions to the input system.
@@ -91,6 +91,42 @@ namespace RealityToolkit.Extensions
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Overload extension to enable getting of an InteractionDefinition of a specific type
+        /// </summary>
+        /// <param name="input">The InteractionDefinition array reference</param>
+        /// <param name="key">The specific DeviceInputType value to query</param>
+        public static MixedRealityInteractionMapping GetInteractionByType(this MixedRealityInteractionMapping[] input, DeviceInputType key)
+        {
+            for (int i = 0; i < input?.Length; i++)
+            {
+                if (input[i].InputType == key)
+                {
+                    return input[i];
+                }
+            }
+
+            return default;
+        }
+
+        /// <summary>
+        /// Overload extension to enable getting of an InteractionDefinition of a specific type
+        /// </summary>
+        /// <param name="input">The InteractionDefinition array reference</param>
+        /// <param name="key">The specific DeviceInputType value to query</param>
+        public static bool SupportsInputType(this MixedRealityInteractionMapping[] input, DeviceInputType key)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i].InputType == key)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

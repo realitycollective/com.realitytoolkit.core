@@ -68,14 +68,14 @@ namespace RealityToolkit.Editor.UX.Pointers
                 EditorGUILayout.PropertyField(enablePointerOnStart);
                 EditorGUILayout.PropertyField(interactionMode);
 
-                var interactionModeValue = (Definitions.InteractionMode)interactionMode.intValue;
+                var interactionModeValue = (InputSystem.Definitions.InteractionMode)interactionMode.intValue;
 
-                if (interactionModeValue.HasFlags(Definitions.InteractionMode.Near))
+                if (interactionModeValue.HasFlags(InputSystem.Definitions.InteractionMode.Near))
                 {
                     EditorGUILayout.PropertyField(nearInteractionCollider);
                 }
 
-                if (interactionModeValue.HasFlags(Definitions.InteractionMode.Far))
+                if (interactionModeValue.HasFlags(InputSystem.Definitions.InteractionMode.Far))
                 {
                     EditorGUILayout.PropertyField(raycastOrigin);
                     EditorGUILayout.PropertyField(defaultPointerExtent);

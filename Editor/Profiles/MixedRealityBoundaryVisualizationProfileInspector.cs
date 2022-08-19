@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Editor.Extensions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Definitions.BoundarySystem;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityBoundaryProfile))]
-    public class MixedRealityBoundaryVisualizationProfileInspector : MixedRealityServiceProfileInspector
+    public class MixedRealityBoundaryVisualizationProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty showBoundary;
         private SerializedProperty boundaryHeight;

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.Physics;
-using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
-using UnityEngine;
 using RealityCollective.Extensions;
+using RealityToolkit.Definitions.Physics;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers
 {

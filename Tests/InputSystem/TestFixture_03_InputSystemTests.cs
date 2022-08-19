@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.InputSystem.Interfaces;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -15,18 +15,16 @@ namespace RealityToolkit.Tests.InputSystem
         public void Test01_CreateMixedRealityInputSystem()
         {
             TestUtilities.InitializeMixedRealityToolkitScene(false);
-            var activeSystemCount = MixedRealityToolkit.ActiveSystems.Count;
-            var activeServiceCount = MixedRealityToolkit.RegisteredMixedRealityServices.Count;
+            var activeSystemCount = ServiceManager.Instance.ActiveServices.Count;
 
             // Add Input System
-            MixedRealityToolkit.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            MixedRealityToolkit.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var inputSystem);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var inputSystem);
 
             // Tests
-            Assert.IsNotEmpty(MixedRealityToolkit.ActiveSystems);
+            Assert.IsNotEmpty(ServiceManager.Instance.ActiveServices);
             Assert.IsNotNull(inputSystem);
-            Assert.AreEqual(activeSystemCount + 1, MixedRealityToolkit.ActiveSystems.Count);
-            Assert.AreEqual(activeServiceCount + 1, MixedRealityToolkit.RegisteredMixedRealityServices.Count);
+            Assert.AreEqual(activeSystemCount + 1, ServiceManager.Instance.ActiveServices.Count);
         }
 
         [Test]
@@ -35,13 +33,13 @@ namespace RealityToolkit.Tests.InputSystem
             TestUtilities.InitializeMixedRealityToolkitScene(false);
 
             // Add Input System
-            MixedRealityToolkit.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            MixedRealityToolkit.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
 
-            Assert.IsNotEmpty(MixedRealityToolkit.ActiveSystems);
+            Assert.IsNotEmpty(ServiceManager.Instance.ActiveServices);
 
             // Retrieve Input System
-            var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
 
             // Tests
             Assert.IsNotNull(service);
@@ -56,7 +54,7 @@ namespace RealityToolkit.Tests.InputSystem
             TestUtilities.InitializeMixedRealityToolkitScene(false);
 
             // Check for Input System
-            var inputSystemExists = MixedRealityToolkit.IsServiceRegistered<IMixedRealityInputSystem>();
+            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IMixedRealityInputSystem>();
 
             // Tests
             Assert.IsFalse(inputSystemExists);
@@ -70,11 +68,11 @@ namespace RealityToolkit.Tests.InputSystem
             TestUtilities.InitializeMixedRealityToolkitScene(false);
 
             // Add Input System
-            MixedRealityToolkit.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            MixedRealityToolkit.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out _);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out _);
 
             // Check for Input System
-            var inputSystemExists = MixedRealityToolkit.IsServiceRegistered<IMixedRealityInputSystem>();
+            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IMixedRealityInputSystem>();
 
             // Tests
             Assert.IsTrue(inputSystemExists);

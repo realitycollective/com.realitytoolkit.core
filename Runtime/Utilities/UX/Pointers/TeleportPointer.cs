@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.LocomotionSystem;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.LocomotionSystem;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.LocomotionSystem.Definitions;
+using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using System;
 using UnityEngine;
@@ -32,7 +32,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         }
 
         private ITeleportValidationProvider validationDataProvider;
-        private ITeleportValidationProvider ValidationDataProvider => validationDataProvider ?? (validationDataProvider = MixedRealityToolkit.GetService<ITeleportValidationProvider>());
+        private ITeleportValidationProvider ValidationDataProvider => validationDataProvider ?? (validationDataProvider = ServiceManager.Instance.GetService<ITeleportValidationProvider>());
 
         /// <inheritdoc />
         public ILocomotionProvider RequestingLocomotionProvider { get; private set; }

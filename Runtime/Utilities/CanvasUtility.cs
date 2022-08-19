@@ -1,8 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.InputSystem.Interfaces;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities
@@ -38,7 +38,7 @@ namespace RealityToolkit.Utilities
         {
             Debug.Assert(Canvas != null);
 
-            if (MixedRealityToolkit.TryGetSystem<IMixedRealityInputSystem>(out var inputSystem) &&
+            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
                 Canvas.isRootCanvas && Canvas.renderMode == RenderMode.WorldSpace)
             {
                 Canvas.worldCamera = inputSystem.FocusProvider.UIRaycastCamera;

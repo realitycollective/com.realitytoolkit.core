@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.InputSystem;
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.InputSystem.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors

@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.InputSystem.Handlers;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Interfaces.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors
@@ -129,7 +129,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
                 return Vector3.zero;
             }
 
-            if (MixedRealityToolkit.TryGetSystem<IMixedRealityInputSystem>(out var inputSystem) &&
+            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
                 inputSystem.FocusProvider.TryGetFocusDetails(cursor.Pointer, out var focusDetails))
             {
                 // Else, consider the modifiers on the cursor modifier, but don't snap
@@ -200,7 +200,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
         private void OnDisable()
         {
-            if (MixedRealityToolkit.TryGetSystem<IMixedRealityInputSystem>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
             {
                 foreach (var inputSource in inputSystem.DetectedInputSources)
                 {

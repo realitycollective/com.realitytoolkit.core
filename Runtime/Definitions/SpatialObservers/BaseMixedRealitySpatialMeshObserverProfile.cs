@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
-using RealityToolkit.Definitions.SpatialAwarenessSystem;
 using RealityCollective.Definitions.Utilities;
+using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialObservers

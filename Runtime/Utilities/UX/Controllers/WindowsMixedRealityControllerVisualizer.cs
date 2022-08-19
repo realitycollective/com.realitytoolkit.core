@@ -4,7 +4,7 @@
 using RealityCollective.Attributes;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem.Controllers;
+using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Controllers

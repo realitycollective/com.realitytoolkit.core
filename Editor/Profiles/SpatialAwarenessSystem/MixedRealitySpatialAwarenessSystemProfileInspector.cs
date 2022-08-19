@@ -2,14 +2,15 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
     [CustomEditor(typeof(MixedRealitySpatialAwarenessSystemProfile))]
-    public class MixedRealitySpatialAwarenessSystemProfileInspector : MixedRealityServiceProfileInspector
+    public class MixedRealitySpatialAwarenessSystemProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty meshDisplayOption;
         private SerializedProperty globalMeshObserverProfile;

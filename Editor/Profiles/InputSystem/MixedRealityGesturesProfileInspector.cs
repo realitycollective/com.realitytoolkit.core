@@ -1,19 +1,20 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityToolkit.Definitions.Devices;
+using RealityToolkit.InputSystem.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.InputSystem;
 using UnityEditor;
 using UnityEngine;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealityGesturesProfile))]
-    public class MixedRealityGesturesProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityGesturesProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent MinusButtonContent = new GUIContent("-", "Remove defined Gesture");
         private static readonly GUIContent AddButtonContent = new GUIContent("+ Add a New defined Gesture");

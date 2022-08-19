@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
 using NUnit.Framework;
-using RealityToolkit.Definitions.InputSystem;
 using RealityCollective.Definitions.Utilities;
+using RealityToolkit.InputSystem.Definitions;
+using System;
 
 namespace RealityToolkit.Tests.InputSystem
 {

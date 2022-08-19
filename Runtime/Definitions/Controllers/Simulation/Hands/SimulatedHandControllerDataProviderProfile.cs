@@ -1,10 +1,10 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Services.InputSystem.Controllers.Simulation.Hands;
+using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.InputSystem.Controllers.Simulation.Hands;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers.Simulation.Hands

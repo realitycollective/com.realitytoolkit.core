@@ -3,6 +3,7 @@
 
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialObservers
@@ -12,7 +13,7 @@ namespace RealityToolkit.Definitions.SpatialObservers
     /// <summary>
     /// Base Mixed Reality Observer Profile.
     /// </summary>
-    public abstract class BaseMixedRealitySpatialObserverProfile : BaseMixedRealityProfile
+    public abstract class BaseMixedRealitySpatialObserverProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("How should the spatial awareness observer behave at startup?")]

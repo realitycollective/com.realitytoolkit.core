@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Editor.Utilities;
 using RealityCollective.Extensions;
-using RealityToolkit.Attributes;
+using RealityCollective.ServiceFramework.Attributes;
 using RealityToolkit.Editor.BuildPipeline.Logging;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using System;
