@@ -122,14 +122,13 @@ namespace RealityToolkit.CameraSystem.Providers
         {
             base.Initialize();
 
+            EnsureCameraRigSetup(true);
             cameraSystem.RegisterCameraDataProvider(this);
 
             if (!Application.isPlaying)
             {
                 return;
             }
-
-            EnsureCameraRigSetup();
 
             // We attempt to initialize the camera tracking origin, which might
             // fail at this point if the subsytems are not ready, in which case,
@@ -162,7 +161,7 @@ namespace RealityToolkit.CameraSystem.Providers
         {
             base.Enable();
 
-            EnsureCameraRigSetup();
+            EnsureCameraRigSetup(false);
 
             if (Application.isPlaying &&
                 isCameraPersistent)
@@ -262,7 +261,7 @@ namespace RealityToolkit.CameraSystem.Providers
 
         #endregion IMixedRealitySerivce Implementation
 
-        private void EnsureCameraRigSetup()
+        private void EnsureCameraRigSetup(bool resetCameraToOrigin)
         {
             if (CameraRig == null)
             {
@@ -274,6 +273,20 @@ namespace RealityToolkit.CameraSystem.Providers
 
                 CameraRig = CameraCache.Main.transform.parent.gameObject.EnsureComponent(cameraRigType) as IMixedRealityCameraRig;
                 Debug.Assert(CameraRig != null);
+                Debug.Log($"There was no {MixedRealityCameraSystem.DefaultXRCameraRigName} in the scene. The {GetType().Name} requires one and added it, as well as making the main camera a child of the rig.");
+            }
+
+            if (!string.Equals(CameraRig.RigTransform.name, MixedRealityCameraSystem.DefaultXRCameraRigName))
+            {
+                var previousName = CameraRig.RigTransform.name;
+                CameraRig.RigTransform.name = MixedRealityCameraSystem.DefaultXRCameraRigName;
+                Debug.Log($"Rig object {previousName} was renamed to {MixedRealityCameraSystem.DefaultXRCameraRigName} by {GetType().Name}.");
+            }
+
+            if (resetCameraToOrigin)
+            {
+                CameraRig.RigTransform.position = Vector3.zero;
+                CameraRig.CameraTransform.position = Vector3.zero;
             }
         }
 

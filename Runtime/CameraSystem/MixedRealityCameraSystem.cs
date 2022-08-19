@@ -35,13 +35,6 @@ namespace RealityToolkit.CameraSystem
         public override uint Priority => 0;
 
         /// <inheritdoc />
-        public override void Destroy()
-        {
-            base.Destroy();
-            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
-        }
-
-        /// <inheritdoc />
         public IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders => cameraDataProviders;
 
         private IMixedRealityCameraRig mainCameraRig = null;
@@ -110,6 +103,13 @@ namespace RealityToolkit.CameraSystem
 
                 return displaySubsystem;
             }
+        }
+
+        /// <inheritdoc />
+        public override void Destroy()
+        {
+            base.Destroy();
+            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
         }
 
         /// <inheritdoc />

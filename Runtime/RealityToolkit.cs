@@ -21,12 +21,14 @@ namespace RealityToolkit
         public RealityToolkit(string name, uint priority, RealityToolkitProfile profile)
             : base(name, priority) { }
 
-        private static void EnsureMixedRealityRequirements()
+        /// <inheritdoc />
+        public override void Initialize()
         {
-            // There's lots of documented cases that if the camera doesn't start at 0,0,0, things break in XR experiences.
-            // We'll enforce that here, then tracking can update it to the appropriate position later.
-            CameraCache.Main.transform.position = Vector3.zero;
+            EnsureToolkitRequirements();
+        }
 
+        private static void EnsureToolkitRequirements()
+        {
             // We need at least one instance of the event system to be active.
             EnsureEventSystemSetup();
         }
