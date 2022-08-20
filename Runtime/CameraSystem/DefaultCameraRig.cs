@@ -220,7 +220,8 @@ namespace RealityToolkit.CameraSystem
 
         private void Start()
         {
-            if (ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+            if (ServiceManager.Instance != null &&
+                ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
                 && CameraPoseDriver.IsNotNull())
             {
                 switch (cameraSystem.TrackingType)
