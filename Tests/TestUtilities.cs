@@ -17,7 +17,14 @@ namespace RealityToolkit.Tests
         /// <summary>
         /// Resets the active scene to a single default scene with a camera and a directional light.
         /// </summary>
-        public static void CleanupScene() => EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        public static void CleanupScene()
+        {
+            EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+            if (ServiceManager.Instance != null)
+            {
+                ServiceManager.Instance.Dispose();
+            }
+        }
 
         /// <summary>
         /// Performs a clean up by loading a new empty scene and initializes the toolkit in that scene
