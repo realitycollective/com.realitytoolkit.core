@@ -13,7 +13,7 @@ namespace RealityToolkit.Tests.InputSystem
         [SetUp]
         public void SetupTests()
         {
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
         }
 
         [Test]
@@ -37,9 +37,6 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         [TearDown]
-        public void Teardown()
-        {
-            TestUtilities.CleanupScene();
-        }
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
     }
 }

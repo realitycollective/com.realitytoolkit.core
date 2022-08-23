@@ -5,16 +5,15 @@ using NUnit.Framework;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.Tests.InputSystem;
 
-namespace RealityToolkit.Tests
+namespace RealityToolkit.Tests.InputSystem
 {
     public class TextFixture_05_GazeProviderTests
     {
         [SetUp]
         public void SetUpGazeProviderTests()
         {
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
 
             ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
             ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
@@ -55,10 +54,7 @@ namespace RealityToolkit.Tests
         }
 
         [TearDown]
-        public void CleanupMixedRealityToolkitTests()
-        {
-            TestUtilities.CleanupScene();
-        }
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
 
         private bool AnyControllerWithPointersAttached(IMixedRealityInputSystem inputSystem)
         {

@@ -1,65 +1,48 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.LocomotionSystem.Definitions;
-using RealityToolkit.LocomotionSystem.Interfaces;
-using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace RealityToolkit.Tests
 {
+    /// <summary>
+    /// Unit testing utilities for the toolkit.
+    /// </summary>
     public static class TestUtilities
     {
-        public static void InitializeMixedRealityToolkit()
-        {
-            ServiceManager.Instance.ConfirmInitialized();
-        }
+        /// <summary>
+        /// Resets the active scene to a single default scene with a camera and a directional light.
+        /// </summary>
+        public static void CleanupScene() => EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
-        public static void CleanupScene()
-        {
-            EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
-        }
-
-        public static void InitializeMixedRealityToolkitScene(bool useDefaultProfile)
+        /// <summary>
+        /// Performs a clean up by loading a new empty scene and initializes the toolkit in that scene
+        /// for further tests.
+        /// </summary>
+        public static void InitializeRealityToolkit()
         {
             // Setup
             CleanupScene();
-            Assert.IsTrue(!ServiceManager.Instance.IsInitialized);
-            Assert.AreEqual(0, ServiceManager.Instance.ActiveServices.Count);
-            InitializeMixedRealityToolkit();
+            Assert.IsTrue(ServiceManager.Instance == null);
+            var managerGameObject = new GameObject(nameof(ServiceManager));
+            new ServiceManager(managerGameObject);
+            ServiceManager.Instance.ConfirmInitialized();
 
             // Tests
             Assert.IsTrue(ServiceManager.Instance.IsInitialized);
             Assert.IsNotNull(ServiceManager.Instance);
             Assert.IsFalse(ServiceManager.Instance.HasActiveProfile);
 
-            ServiceProvidersProfile configuration;
+            ServiceProvidersProfile configuration = ScriptableObject.CreateInstance<ServiceProvidersProfile>();
+            Assert.IsTrue(configuration != null, "Failed to create the Default Reality Toolkit Profile");
 
-            if (useDefaultProfile)
-            {
-                configuration = GetDefaultMixedRealityProfile<ServiceProvidersProfile>();
-                ServiceManager.Instance.TryGetServiceProfile<ILocomotionSystem, LocomotionSystemProfile>(out var locomotionSystemProfile);
-                Debug.Assert(locomotionSystemProfile != null);
-            }
-            else
-            {
-                configuration = ScriptableObject.CreateInstance<ServiceProvidersProfile>();
-            }
-
-            Assert.IsTrue(configuration != null, "Failed to find the Default Mixed Reality Root Profile");
             ServiceManager.Instance.ResetProfile(configuration);
             Assert.IsTrue(ServiceManager.Instance.ActiveProfile != null);
             Assert.IsTrue(ServiceManager.Instance.IsInitialized);
-        }
-
-        private static T GetDefaultMixedRealityProfile<T>() where T : BaseProfile
-        {
-            return ScriptableObjectExtensions.GetAllInstances<T>().FirstOrDefault(profile => profile.name.Equals(typeof(T).Name));
         }
     }
 }

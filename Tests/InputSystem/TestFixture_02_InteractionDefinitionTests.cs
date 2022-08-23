@@ -1151,9 +1151,6 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         [TearDown]
-        public void CleanupMixedRealityToolkitTests()
-        {
-            TestUtilities.CleanupScene();
-        }
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
     }
 }

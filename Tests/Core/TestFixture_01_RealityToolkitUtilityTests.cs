@@ -13,26 +13,21 @@ using UnityEngine;
 
 namespace RealityToolkit.Tests.Core
 {
-    public class TestFixture_02_MixedRealityToolkitUtilityTests
+    public class TestFixture_01_RealityToolkitUtilityTests
     {
-        private void SetupServiceLocator()
-        {
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
-        }
-
         [Test]
-        public void Test_03_ConfirmControllerMappingConfigurationNotPresent()
+        public void Test_01_ConfirmControllerMappingConfigurationNotPresent()
         {
-            SetupServiceLocator();
-            var controllerTypes = new[] { typeof(GenericJoystickController) };
+            TestUtilities.InitializeRealityToolkit();
 
+            var controllerTypes = new[] { typeof(GenericJoystickController) };
             var controllerDataMappingProfile = ScriptableObject.CreateInstance<UnityInputControllerDataProfile>();
 
             Assert.IsFalse(controllerDataMappingProfile.ValidateControllerProfiles(controllerTypes, false));
         }
 
         [Test]
-        public void Test_04_ConfirmGenereicControllerTextureExists()
+        public void Test_02_ConfirmGenereicControllerTextureExists()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
@@ -49,7 +44,7 @@ namespace RealityToolkit.Tests.Core
         }
 
         [Test]
-        public void Test_05_ConfirmGenereicControllerTextureDoesNotExist()
+        public void Test_03_ConfirmGenereicControllerTextureDoesNotExist()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
@@ -67,7 +62,7 @@ namespace RealityToolkit.Tests.Core
 
 
         [Test]
-        public void Test_06_ConfirmProfileControllerTextureUsed()
+        public void Test_04_ConfirmProfileControllerTextureUsed()
         {
             var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
@@ -98,5 +93,8 @@ namespace RealityToolkit.Tests.Core
 
             dummyTexture.Destroy();
         }
+
+        [TearDown]
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
     }
 }

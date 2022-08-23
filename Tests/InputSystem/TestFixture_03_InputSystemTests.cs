@@ -4,17 +4,15 @@
 using NUnit.Framework;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.InputSystem.Interfaces;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace RealityToolkit.Tests.InputSystem
 {
     public class TestFixture_03_InputSystemTests
     {
         [Test]
-        public void Test01_CreateMixedRealityInputSystem()
+        public void Test01_CreateInputSystem()
         {
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
             var activeSystemCount = ServiceManager.Instance.ActiveServices.Count;
 
             // Add Input System
@@ -28,9 +26,9 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         [Test]
-        public void Test02_TestGetMixedRealityInputSystem()
+        public void Test02_TestGetInputSystem()
         {
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
 
             // Add Input System
             ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
@@ -48,24 +46,23 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         [Test]
-        public void Test03_TestMixedRealityInputSystemDoesNotExist()
+        public void Test03_TestInputSystemDoesNotExist()
         {
             // Initialize without the default profile configuration
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
 
             // Check for Input System
             var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IMixedRealityInputSystem>();
 
             // Tests
             Assert.IsFalse(inputSystemExists);
-            LogAssert.Expect(LogType.Error, $"Unable to find {nameof(IMixedRealityInputSystem)} service.");
         }
 
         [Test]
-        public void Test04_TestMixedRealityInputSystemExists()
+        public void Test04_TestInputSystemExists()
         {
             // Initialize with the default profile configuration
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
 
             // Add Input System
             ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
@@ -79,9 +76,6 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         [TearDown]
-        public void CleanupMixedRealityToolkitTests()
-        {
-            TestUtilities.CleanupScene();
-        }
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
     }
 }
