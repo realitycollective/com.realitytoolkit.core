@@ -14,6 +14,8 @@ using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.Interfaces;
+using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
@@ -226,6 +228,14 @@ namespace RealityToolkit.Editor
         /// <param name="rootProfile">The root profile to install the </param>
         public static void InstallConfiguration(MixedRealityPlatformServiceConfigurationProfile platformConfigurationProfile, ServiceProvidersProfile rootProfile)
         {
+            if (ServiceManager.Instance == null ||
+                ServiceManager.Instance.ActiveProfile.IsNull())
+            {
+                Debug.LogError($"Cannot install service configurations. There is no active {nameof(ServiceManager)} or it does not have a valid profile.");
+                return;
+            }
+
+            var didInstallConfigurations = false;
             foreach (var configuration in platformConfigurationProfile.Configurations)
             {
                 var configurationType = configuration.InstancedType.Type;
@@ -238,6 +248,51 @@ namespace RealityToolkit.Editor
 
                 switch (configurationType)
                 {
+                    case Type _ when typeof(IMixedRealityCameraSystem).IsAssignableFrom(configurationType):
+                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        {
+                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityCameraSystem>(configuration));
+                            EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
+                            didInstallConfigurations = true;
+                        }
+                        break;
+
+                    case Type _ when typeof(IMixedRealityInputSystem).IsAssignableFrom(configurationType):
+                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        {
+                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityInputSystem>(configuration));
+                            EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
+                            didInstallConfigurations = true;
+                        }
+                        break;
+
+                    case Type _ when typeof(ILocomotionSystem).IsAssignableFrom(configurationType):
+                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        {
+                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<ILocomotionSystem>(configuration));
+                            EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
+                            didInstallConfigurations = true;
+                        }
+                        break;
+
+                    case Type _ when typeof(IMixedRealityBoundarySystem).IsAssignableFrom(configurationType):
+                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        {
+                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityBoundarySystem>(configuration));
+                            EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
+                            didInstallConfigurations = true;
+                        }
+                        break;
+
+                    case Type _ when typeof(IMixedRealitySpatialAwarenessSystem).IsAssignableFrom(configurationType):
+                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        {
+                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealitySpatialAwarenessSystem>(configuration));
+                            EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
+                            didInstallConfigurations = true;
+                        }
+                        break;
+
                     case Type _ when typeof(IMixedRealityCameraDataProvider).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
                         {
@@ -248,6 +303,7 @@ namespace RealityToolkit.Editor
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 cameraSystemProfile.AddConfiguration(cameraDataProviderConfiguration);
                                 EditorUtility.SetDirty(cameraSystemProfile);
+                                didInstallConfigurations = true;
                             }
                         }
                         break;
@@ -262,6 +318,7 @@ namespace RealityToolkit.Editor
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 inputSystemProfile.AddConfiguration(inputDataProviderConfiguration);
                                 EditorUtility.SetDirty(inputSystemProfile);
+                                didInstallConfigurations = true;
                             }
                         }
                         break;
@@ -276,6 +333,7 @@ namespace RealityToolkit.Editor
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 spatialAwarenessSystemProfile.AddConfiguration(spatialObserverConfiguration);
                                 EditorUtility.SetDirty(spatialAwarenessSystemProfile);
+                                didInstallConfigurations = true;
                             }
                         }
                         break;
@@ -289,6 +347,7 @@ namespace RealityToolkit.Editor
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 boundarySystemProfile.AddConfiguration(boundarySystemConfiguration);
                                 EditorUtility.SetDirty(boundarySystemProfile);
+                                didInstallConfigurations = true;
                             }
                         }
                         break;
@@ -297,6 +356,11 @@ namespace RealityToolkit.Editor
 
             AssetDatabase.SaveAssets();
             EditorApplication.delayCall += () => AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+            if (didInstallConfigurations)
+            {
+                ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
+            }
         }
     }
 }

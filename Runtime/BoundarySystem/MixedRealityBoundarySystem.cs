@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.BoundarySystem.Definitions;
 using RealityToolkit.BoundarySystem.Interfaces;
@@ -11,7 +13,6 @@ using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace RealityToolkit.BoundarySystem
@@ -19,7 +20,8 @@ namespace RealityToolkit.BoundarySystem
     /// <summary>
     /// The Boundary system controls the presentation and display of the users boundary in a scene.
     /// </summary>
-    [Guid("FE458876-CC0F-4B6F-9459-544DDF6A9263")]
+    [RuntimePlatform(typeof(AllPlatforms))]
+    [System.Runtime.InteropServices.Guid("FE458876-CC0F-4B6F-9459-544DDF6A9263")]
     public class MixedRealityBoundarySystem : BaseServiceWithConstructor, IMixedRealityBoundarySystem
     {
         /// <summary>

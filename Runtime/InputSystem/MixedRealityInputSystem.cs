@@ -3,6 +3,8 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
@@ -23,6 +25,7 @@ namespace RealityToolkit.InputSystem
     /// <summary>
     /// The Reality Toolkit's specific implementation of the <see cref="IMixedRealityInputSystem"/>
     /// </summary>
+    [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("18C9CAF0-8D36-4ADD-BB49-CDF7561CF793")]
     public class MixedRealityInputSystem : BaseEventService, IMixedRealityInputSystem
     {
@@ -229,8 +232,17 @@ namespace RealityToolkit.InputSystem
             var standaloneInputModules = UnityEngine.Object.FindObjectsOfType<StandaloneInputModule>();
             if (standaloneInputModules.Length == 0)
             {
-                CameraCache.Main.gameObject.EnsureComponent<StandaloneInputModule>();
-                Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<EventSystem>();
+                if (eventSystemGameObject.IsNotNull())
+                {
+                    eventSystemGameObject.gameObject.EnsureComponent<StandaloneInputModule>();
+                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
+                }
+                else
+                {
+                    CameraCache.Main.gameObject.EnsureComponent<StandaloneInputModule>();
+                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                }
             }
             else if (standaloneInputModules.Length > 1)
             {

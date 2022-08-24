@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces;
@@ -19,6 +21,7 @@ namespace RealityToolkit.LocomotionSystem
     /// <summary>
     /// The Reality Toolkit's specific implementation of the <see cref="ILocomotionSystem"/>
     /// </summary>
+    [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("9453c088-285e-47aa-bfbb-dafd9109fdd5")]
     public class LocomotionSystem : BaseEventService, ILocomotionSystem
     {

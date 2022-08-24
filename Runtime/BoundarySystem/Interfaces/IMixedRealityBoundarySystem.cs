@@ -3,7 +3,6 @@
 
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.BoundarySystem.Definitions;
-using RealityToolkit.Definitions.BoundarySystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

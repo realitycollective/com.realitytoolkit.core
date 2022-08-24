@@ -6,7 +6,7 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Interfaces;
 
-namespace RealityToolkit.Extensions
+namespace RealityToolkit.InputSystem.Extensions
 {
     /// <summary>
     /// Extensions for the <see cref="MixedRealityInteractionMapping"/> to refactor the generic methods used for raising events.

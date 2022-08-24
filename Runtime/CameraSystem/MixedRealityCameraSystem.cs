@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Definitions;
 using RealityToolkit.CameraSystem.Interfaces;
@@ -14,6 +16,7 @@ namespace RealityToolkit.CameraSystem
     /// <summary>
     /// The Reality Toolkit's default implementation of the <see cref="IMixedRealityCameraSystem"/>.
     /// </summary>
+    [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("5C656EE3-FE7C-4FB3-B3EE-DF3FC0D0973D")]
     public class MixedRealityCameraSystem : BaseServiceWithConstructor, IMixedRealityCameraSystem
     {

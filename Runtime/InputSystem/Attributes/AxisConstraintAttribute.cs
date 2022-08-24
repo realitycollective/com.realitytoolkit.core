@@ -4,7 +4,7 @@
 using RealityCollective.Definitions.Utilities;
 using UnityEngine;
 
-namespace RealityToolkit.Attributes
+namespace RealityToolkit.InputSystem.Attributes
 {
     /// <summary>
     /// Use this attribute to better define <see cref="MixedRealityInputAction"/>s.

@@ -6,7 +6,7 @@ using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Extensions;
+using RealityToolkit.InputSystem.Extensions;
 using RealityToolkit.InputSystem.Interfaces.Providers;
 using UnityEngine;
 

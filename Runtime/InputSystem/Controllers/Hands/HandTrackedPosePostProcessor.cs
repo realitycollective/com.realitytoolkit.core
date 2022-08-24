@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Extensions;
+using RealityToolkit.InputSystem.Extensions;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using System;
 using System.Collections.Generic;

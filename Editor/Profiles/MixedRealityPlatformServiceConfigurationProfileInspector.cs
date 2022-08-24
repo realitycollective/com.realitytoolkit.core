@@ -293,7 +293,8 @@ namespace RealityToolkit.Editor.Profiles
                 }
             }
 
-            if (ServiceManager.Instance.IsInitialized && hasChanged)
+            if (ServiceManager.Instance != null &&
+                ServiceManager.Instance.IsInitialized && hasChanged)
             {
                 ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }

@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.EventDatum.SpatialAwarenessSystem;
@@ -21,6 +23,7 @@ namespace RealityToolkit.SpatialAwarenessSystem
     /// <summary>
     /// Class providing the default implementation of the <see cref="IMixedRealitySpatialAwarenessSystem"/> interface.
     /// </summary>
+    [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("05EF9DDC-13C2-47D4-84C5-1C9CB6CC5C1C")]
     public class MixedRealitySpatialAwarenessSystem : BaseEventService, IMixedRealitySpatialAwarenessSystem
     {

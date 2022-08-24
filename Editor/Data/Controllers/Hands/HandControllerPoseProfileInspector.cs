@@ -5,9 +5,8 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Editor.Profiles;
-using RealityToolkit.Extensions;
 using RealityToolkit.InputSystem.Controllers.Hands;
+using RealityToolkit.InputSystem.Extensions;
 using UnityEditor;
 using UnityEngine;
 
