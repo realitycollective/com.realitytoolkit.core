@@ -7,6 +7,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityCollective.ServiceFramework.Services;
+using RealityCollective.Utilities.Editor;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace RealityToolkit.Editor
 {
     public static class MixedRealityPreferences
     {
-        public const string Editor_Menu_Keyword = "Reality Collective/Reality Toolkit";
+        public const string Editor_Menu_Keyword = ToolkitPreferences.Editor_Menu_Keyword + "/Reality Toolkit";
 
         private static readonly string[] Package_Keywords = { "Reality", "Toolkit", "Mixed", "Augmented", "Virtual" };
 
@@ -86,7 +87,7 @@ namespace RealityToolkit.Editor
 
         private static readonly GUIContent GeneratedProfilePathContent = new GUIContent("New Generated Profiles Default Path:", "When generating new profiles, their files are saved in this location.");
         private const string PROFILE_GENERATION_PATH_KEY = "_RealityToolkit_Editor_Profile_Generation_Path";
-        private const string DEFAULT_GENERATION_PATH = "Assets/RealityToolkit.Generated/";
+        public const string DEFAULT_GENERATION_PATH = "Assets/RealityToolkit.Generated/";
         private static string profileGenerationPath;
         private static bool isProfilePathPrefLoaded;
 
