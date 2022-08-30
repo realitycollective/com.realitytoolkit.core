@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
@@ -14,7 +14,6 @@ using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Providers;
-using RealityToolkit.Interfaces;
 using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces;
@@ -38,17 +37,19 @@ namespace RealityToolkit.Editor
         /// <param name="sourcePath">The source path of the assets to be installed. This should typically be from a hidden upm package folder marked with a "~".</param>
         /// <param name="destinationPath">The destination path, typically inside the projects "Assets" directory.</param>
         /// <param name="regenerateGuids">Should the guids for the copied assets be regenerated?</param>
+        /// <param name="skipDialog">If set, assets and configuration is installed without prompting the user.</param>
         /// <returns>Returns true if the profiles were successfully copies, installed, and added to the <see cref="MixedRealityToolkitRootProfile"/>.</returns>
-        public static bool TryInstallAssets(string sourcePath, string destinationPath, bool regenerateGuids = false)
-            => TryInstallAssets(new Dictionary<string, string> { { sourcePath, destinationPath } }, regenerateGuids);
+        public static bool TryInstallAssets(string sourcePath, string destinationPath, bool regenerateGuids = false, bool skipDialog = false)
+            => TryInstallAssets(new Dictionary<string, string> { { sourcePath, destinationPath } }, regenerateGuids, skipDialog);
 
         /// <summary>
         /// Attempt to copy any assets found in the source path into the project.
         /// </summary>
         /// <param name="installationPaths">The assets paths to be installed. Key is the source path of the assets to be installed. This should typically be from a hidden upm package folder marked with a "~". Value is the destination.</param>
         /// <param name="regenerateGuids">Should the guids for the copied assets be regenerated?</param>
+        /// <param name="skipDialog">If set, assets and configuration is installed without prompting the user.</param>
         /// <returns>Returns true if the profiles were successfully copies, installed, and added to the <see cref="MixedRealityToolkitRootProfile"/>.</returns>
-        public static bool TryInstallAssets(Dictionary<string, string> installationPaths, bool regenerateGuids = false)
+        public static bool TryInstallAssets(Dictionary<string, string> installationPaths, bool regenerateGuids = false, bool skipDialog = false)
         {
             var anyFail = false;
             var newInstall = true;
@@ -144,7 +145,7 @@ namespace RealityToolkit.Editor
                 {
                     AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
                     EditorApplication.delayCall += () =>
-                        AddConfigurations(installedAssets);
+                        AddConfigurations(installedAssets, skipDialog);
                 };
             }
 
@@ -152,7 +153,7 @@ namespace RealityToolkit.Editor
             return true;
         }
 
-        private static void AddConfigurations(List<string> profiles)
+        private static void AddConfigurations(List<string> profiles, bool skipDialog = false)
         {
             ServiceProvidersProfile rootProfile;
 
@@ -183,8 +184,7 @@ namespace RealityToolkit.Editor
 
                 if (platformConfigurationProfile.IsNull()) { continue; }
 
-                if (EditorUtility.DisplayDialog("We found a new Platform Configuration",
-                    // ReSharper disable once PossibleNullReferenceException
+                if (skipDialog || EditorUtility.DisplayDialog("We found a new Platform Configuration",
                     $"We found the {platformConfigurationProfile.name.ToProperCase()}. Would you like to add this platform configuration to your {rootProfile.name}?",
                     "Yes, Absolutely!",
                     "later"))
@@ -249,7 +249,7 @@ namespace RealityToolkit.Editor
                 switch (configurationType)
                 {
                     case Type _ when typeof(IMixedRealityCameraSystem).IsAssignableFrom(configurationType):
-                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        if (!ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out _))
                         {
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityCameraSystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
@@ -258,7 +258,7 @@ namespace RealityToolkit.Editor
                         break;
 
                     case Type _ when typeof(IMixedRealityInputSystem).IsAssignableFrom(configurationType):
-                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        if (!ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out _))
                         {
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityInputSystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
@@ -267,7 +267,7 @@ namespace RealityToolkit.Editor
                         break;
 
                     case Type _ when typeof(ILocomotionSystem).IsAssignableFrom(configurationType):
-                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        if (!ServiceManager.Instance.TryGetService<ILocomotionSystem>(out _))
                         {
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<ILocomotionSystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
@@ -276,7 +276,7 @@ namespace RealityToolkit.Editor
                         break;
 
                     case Type _ when typeof(IMixedRealityBoundarySystem).IsAssignableFrom(configurationType):
-                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        if (!ServiceManager.Instance.TryGetService<IMixedRealityBoundarySystem>(out _))
                         {
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityBoundarySystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
@@ -285,7 +285,7 @@ namespace RealityToolkit.Editor
                         break;
 
                     case Type _ when typeof(IMixedRealitySpatialAwarenessSystem).IsAssignableFrom(configurationType):
-                        if (!ServiceManager.Instance.TryGetService(configurationType, string.Empty, out _))
+                        if (!ServiceManager.Instance.TryGetService<IMixedRealitySpatialAwarenessSystem>(out _))
                         {
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealitySpatialAwarenessSystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
