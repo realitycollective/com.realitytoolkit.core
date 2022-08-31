@@ -9,9 +9,15 @@ using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+
+#if UNITY_EDITOR && !UNITY_2021_1_OR_NEWER
+using SceneManagement = UnityEditor.Experimental.SceneManagement;
+#elif UNITY_EDITOR
+using SceneManagement = UnityEditor.SceneManagement;
+#endif
 
 namespace RealityToolkit.Editor
 {
@@ -23,66 +29,90 @@ namespace RealityToolkit.Editor
     {
         private static readonly string defaultPath = $"{MixedRealityPreferences.ProfileGenerationPath}Core";
         private static readonly string hiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(CorePathFinder))}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
+        const string configureMenuItemPath = MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...";
 
         static CorePackageInstaller()
         {
             EditorApplication.delayCall += CheckPackage;
         }
 
+        [MenuItem(configureMenuItemPath, true, 0)]
+        private static bool CreateMixedRealityToolkitGameObjectValidation()
+        {
+            return SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() == null;
+        }
+
         /// <summary>
-        /// Adds the Reality Toolkit to the active <see cref="RealityCollective.ServiceFramework.Services.ServiceManager"/> configuration.
+        /// Adds the Reality Toolkit to the active <see cref="ServiceManager"/> configuration.
         /// </summary>
         [MenuItem(
-            itemName: MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...",
-            menuItem = MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...",
+            itemName: configureMenuItemPath,
+            menuItem = configureMenuItemPath,
             priority = 0,
             validate = false)]
-        public static void ConfigureToolkit()
+        public async static void ConfigureToolkitAsync()
         {
-            // When configuring the toolkit, we have to assume first the core assets have not
-            // been installed to the project yet.
-            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", false);
+            if (Application.isPlaying)
+            {
+                return;
+            }
 
+            var serviceManagerInstance = SetupServiceManager();
+            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
+
+            // Why is this here you wonder? Well, I have no idea but for some reason we need to give Unity
+            // a bit of time after initializing the manager object and potentially copying over assets etc.
+            // Attemping to select the manager right after creating it, causes a bunch of issues with the inspector.
+            await Task.Delay(500);
+
+            EditorApplication.delayCall += () =>
+            {
+                Selection.activeObject = serviceManagerInstance;
+            };
+        }
+
+        private static ServiceManagerInstance SetupServiceManager()
+        {
             var serviceManagerInstance = Object.FindObjectOfType<ServiceManagerInstance>();
+            if (serviceManagerInstance.IsNotNull() &&
+                serviceManagerInstance.Manager != null &&
+                serviceManagerInstance.Manager.ActiveProfile.IsNotNull() &&
+                serviceManagerInstance.Manager.IsInitialized)
+            {
+                Selection.activeObject = serviceManagerInstance;
+                return serviceManagerInstance;
+            }
+
             if (serviceManagerInstance.IsNull())
             {
-                serviceManagerInstance = SetupServiceManagerInstance();
+                serviceManagerInstance = new GameObject(nameof(ServiceManagerInstance)).AddComponent<ServiceManagerInstance>();
             }
 
-            var serviceProvidersProfile = serviceManagerInstance.ServiceProvidersProfile;
-            if (serviceProvidersProfile.IsNull())
+            if (serviceManagerInstance.Manager == null)
             {
-                serviceProvidersProfile = SetupNewServiceProvidersProfile();
-                serviceManagerInstance.Manager.ActiveProfile = serviceProvidersProfile;
+                serviceManagerInstance.InitialiseServiceManager();
             }
 
-            // Now that the service framework is in place, we simply install the core package.
-            CheckPackageWithoutDialog();
+            if (serviceManagerInstance.Manager.ActiveProfile.IsNull())
+            {
+                var availableRootProfiles = ScriptableObjectExtensions.GetAllInstances<ServiceProvidersProfile>();
+                if (availableRootProfiles == null || availableRootProfiles.Length == 0)
+                {
+                    var newProfile = ScriptableObject.CreateInstance<ServiceProvidersProfile>().GetOrCreateAsset(
+                        MixedRealityPreferences.DEFAULT_GENERATION_PATH,
+                        $"RealityToolkit{nameof(ServiceProvidersProfile)}", false);
+                    serviceManagerInstance.Manager.ResetProfile(newProfile);
+                }
+                else
+                {
+                    serviceManagerInstance.Manager.ResetProfile(availableRootProfiles[0]);
+                }
+            }
 
-            // Ping the service manager instance object to trigger initialization
-            // and mark the scene it is in as dirty to indicate there's changes to be saved.
-            EditorApplication.delayCall += RefreshScene;
-        }
+            serviceManagerInstance.Manager.InitializeServiceManager();
+            Debug.Assert(serviceManagerInstance.Manager.IsInitialized);
 
-        private static ServiceManagerInstance SetupServiceManagerInstance()
-        {
-            var gameObject = new GameObject(nameof(ServiceManagerInstance));
-            return gameObject.AddComponent<ServiceManagerInstance>();
-        }
-
-        private static ServiceProvidersProfile SetupNewServiceProvidersProfile()
-        {
-            return ScriptableObject.CreateInstance<ServiceProvidersProfile>().GetOrCreateAsset(
-                MixedRealityPreferences.DEFAULT_GENERATION_PATH,
-                nameof(ServiceProvidersProfile), true);
-        }
-
-        private static void RefreshScene()
-        {
-            EditorApplication.delayCall -= RefreshScene;
-            ServiceManager.Instance.InitializeServiceManager();
-            Selection.activeGameObject = Object.FindObjectOfType<ServiceManagerInstance>().gameObject;
-            EditorSceneManager.MarkSceneDirty(Selection.activeGameObject.scene);
+            return serviceManagerInstance;
         }
 
         [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", true, -1)]
@@ -96,14 +126,6 @@ namespace RealityToolkit.Editor
         {
             EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", false);
             EditorApplication.delayCall += CheckPackage;
-        }
-
-        private static void CheckPackageWithoutDialog()
-        {
-            if (!EditorPreferences.Get($"{nameof(CorePackageInstaller)}.Assets", false))
-            {
-                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
-            }
         }
 
         private static void CheckPackage()
