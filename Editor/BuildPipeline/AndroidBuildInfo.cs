@@ -1,10 +1,10 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Attributes;
-using RealityToolkit.Definitions.Platforms;
-using RealityToolkit.Interfaces;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Interfaces;
+using RealityCollective.ServiceFramework.Services;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
@@ -18,7 +18,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         public override BuildTarget BuildTarget => BuildTarget.Android;
 
         /// <inheritdoc />
-        public override IMixedRealityPlatform BuildPlatform => new AndroidPlatform();
+        public override IPlatform BuildPlatform => new AndroidPlatform();
 
         /// <inheritdoc />
         public override string ExecutableFileExtension => ".apk";
@@ -26,7 +26,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         /// <inheritdoc />
         public override void OnPreProcessBuild(BuildReport report)
         {
-            if (!MixedRealityToolkit.ActivePlatforms.Contains(BuildPlatform) ||
+            if (!ServiceManager.ActivePlatforms.Contains(BuildPlatform) ||
                 EditorUserBuildSettings.activeBuildTarget != BuildTarget)
             {
                 return;

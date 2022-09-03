@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Utilities;
-using RealityToolkit.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using System;
 using System.IO;
 using UnityEditor;

@@ -1,13 +1,14 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
-using RealityToolkit.Definitions.LocomotionSystem;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityToolkit.LocomotionSystem.Definitions;
 using UnityEditor;
 
 namespace RealityToolkit.Editor.Profiles.LocomotionSystem
 {
     [CustomEditor(typeof(TeleportValidationProviderProfile))]
-    public class TeleportValidationProviderProfileInspector : BaseMixedRealityProfileInspector
+    public class TeleportValidationProviderProfileInspector : BaseProfileInspector
     {
         private SerializedProperty anchorsOnly;
         private SerializedProperty validLayers;

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Definitions.SpatialObservers;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
     [CustomEditor(typeof(BaseMixedRealitySpatialObserverProfile), true, isFallback = true)]
-    public abstract class BaseMixedRealitySpatialObserverProfileInspector : BaseMixedRealityProfileInspector
+    public abstract class BaseMixedRealitySpatialObserverProfileInspector : BaseProfileInspector
     {
         private SerializedProperty startupBehavior;
         private SerializedProperty observationExtents;

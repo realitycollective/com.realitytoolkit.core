@@ -1,28 +1,124 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Editor.Extensions;
 using RealityCollective.Editor.Utilities;
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEditor;
+using UnityEngine;
+
+#if UNITY_EDITOR && !UNITY_2021_1_OR_NEWER
+using SceneManagement = UnityEditor.Experimental.SceneManagement;
+#elif UNITY_EDITOR
+using SceneManagement = UnityEditor.SceneManagement;
+#endif
 
 namespace RealityToolkit.Editor
 {
+    /// <summary>
+    /// Reality Toolkit core package installer.
+    /// </summary>
     [InitializeOnLoad]
     internal static class CorePackageInstaller
     {
-        private static readonly string DefaultPath = $"{MixedRealityPreferences.ProfileGenerationPath}Core";
-        private static readonly string HiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(CorePathFinder))}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
+        private static readonly string defaultPath = $"{MixedRealityPreferences.ProfileGenerationPath}Core";
+        private static readonly string hiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(CorePathFinder))}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
+        const string configureMenuItemPath = MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...";
 
         static CorePackageInstaller()
         {
             EditorApplication.delayCall += CheckPackage;
         }
 
+        [MenuItem(configureMenuItemPath, true, 0)]
+        private static bool CreateMixedRealityToolkitGameObjectValidation()
+        {
+            return SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() == null;
+        }
+
+        /// <summary>
+        /// Adds the Reality Toolkit to the active <see cref="ServiceManager"/> configuration.
+        /// </summary>
+        [MenuItem(
+            itemName: configureMenuItemPath,
+            menuItem = configureMenuItemPath,
+            priority = 0,
+            validate = false)]
+        public async static void ConfigureToolkitAsync()
+        {
+            if (Application.isPlaying)
+            {
+                return;
+            }
+
+            var serviceManagerInstance = SetupServiceManager();
+            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
+
+            // Why is this here you wonder? Well, I have no idea but for some reason we need to give Unity
+            // a bit of time after initializing the manager object and potentially copying over assets etc.
+            // Attemping to select the manager right after creating it, causes a bunch of issues with the inspector.
+            await Task.Delay(500);
+
+            EditorApplication.delayCall += () =>
+            {
+                Selection.activeObject = serviceManagerInstance;
+            };
+        }
+
+        private static ServiceManagerInstance SetupServiceManager()
+        {
+            var serviceManagerInstance = Object.FindObjectOfType<ServiceManagerInstance>();
+            if (serviceManagerInstance.IsNotNull() &&
+                serviceManagerInstance.Manager != null &&
+                serviceManagerInstance.Manager.ActiveProfile.IsNotNull() &&
+                serviceManagerInstance.Manager.IsInitialized)
+            {
+                Selection.activeObject = serviceManagerInstance;
+                return serviceManagerInstance;
+            }
+
+            if (serviceManagerInstance.IsNull())
+            {
+                serviceManagerInstance = new GameObject(nameof(ServiceManagerInstance)).AddComponent<ServiceManagerInstance>();
+            }
+
+            if (serviceManagerInstance.Manager == null)
+            {
+                serviceManagerInstance.InitialiseServiceManager();
+            }
+
+            if (serviceManagerInstance.Manager.ActiveProfile.IsNull())
+            {
+                var availableRootProfiles = ScriptableObjectExtensions.GetAllInstances<ServiceProvidersProfile>();
+                if (availableRootProfiles == null || availableRootProfiles.Length == 0)
+                {
+                    var newProfile = ScriptableObject.CreateInstance<ServiceProvidersProfile>().GetOrCreateAsset(
+                        MixedRealityPreferences.DEFAULT_GENERATION_PATH,
+                        $"RealityToolkit{nameof(ServiceProvidersProfile)}", false);
+                    serviceManagerInstance.Manager.ResetProfile(newProfile);
+                }
+                else
+                {
+                    serviceManagerInstance.Manager.ResetProfile(availableRootProfiles[0]);
+                }
+            }
+
+            serviceManagerInstance.Manager.InitializeServiceManager();
+            Debug.Assert(serviceManagerInstance.Manager.IsInitialized);
+
+            return serviceManagerInstance;
+        }
+
         [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", true, -1)]
         private static bool ImportPackageAssetsValidation()
         {
-            return !Directory.Exists($"{DefaultPath}{Path.DirectorySeparatorChar}");
+            return !Directory.Exists($"{defaultPath}{Path.DirectorySeparatorChar}");
         }
 
         [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", false, -1)]
@@ -36,7 +132,7 @@ namespace RealityToolkit.Editor
         {
             if (!EditorPreferences.Get($"{nameof(CorePackageInstaller)}.Assets", false))
             {
-                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(HiddenPath, DefaultPath));
+                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath));
             }
         }
     }

@@ -3,9 +3,9 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.InputSystem;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Services.InputSystem.Processors;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Processors;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

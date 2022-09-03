@@ -1,11 +1,11 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.InputSystem.Controllers.Hands;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers
@@ -59,7 +59,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             // This pointer type must only be used with hand controllers.
             if (!(Controller is IMixedRealityHandController controller))
             {
-                Debug.LogError($"{nameof(HandSpatialPointer)} is only for use with {nameof(IMixedRealityHandController)} controllers!", this);
+                Debug.LogError($"{nameof(HandSpatialPointer)} is only for use with {nameof(IMixedRealityHandController)} controllers!");
                 return null;
             }
 

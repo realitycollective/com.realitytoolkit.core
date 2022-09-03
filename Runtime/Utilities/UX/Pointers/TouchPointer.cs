@@ -2,10 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
-using RealityToolkit.Utilities;
 
 namespace RealityToolkit.Utilities.UX.Pointers
 {

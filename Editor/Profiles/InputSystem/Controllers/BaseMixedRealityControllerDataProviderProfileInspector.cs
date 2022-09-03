@@ -4,11 +4,12 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Services.InputSystem.Controllers;
+using RealityToolkit.InputSystem.Controllers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(BaseMixedRealityControllerDataProviderProfile), editorForChildClasses: true, isFallback = true)]
-    public class BaseMixedRealityControllerDataProviderProfileInspector : BaseMixedRealityProfileInspector
+    public class BaseMixedRealityControllerDataProviderProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent controllerProfilesFoldoutHeader = new GUIContent("Controller Mapping Profiles");
         private static readonly string[] viewModeToolbarOptions = { "Simple", "Advanced" };

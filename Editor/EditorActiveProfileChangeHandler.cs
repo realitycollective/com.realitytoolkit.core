@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information. 
 
 using RealityCollective.Editor.Utilities;
-using RealityToolkit.Definitions.SpatialAwarenessSystem;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.SpatialAwarenessSystem;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.SpatialAwarenessSystem.Definitions;
+using RealityToolkit.SpatialAwarenessSystem.Interfaces;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,25 +22,25 @@ namespace RealityToolkit.Editor
 
         private static void EditorApplication_hierarchyChanged()
         {
-            if (MixedRealityToolkit.HasActiveProfile)
+            if (ServiceManager.Instance != null && ServiceManager.Instance.HasActiveProfile)
             {
-                if (MixedRealityToolkit.IsSystemEnabled<IMixedRealityInputSystem>() &&
+                if (ServiceManager.Instance.IsServiceEnabled<IMixedRealityInputSystem>() &&
                     InputMappingAxisUtility.CheckUnityInputManagerMappings(ControllerMappingUtilities.UnityInputManagerAxes))
                 {
                     Debug.Log($"{nameof(IMixedRealityInputSystem)} was enabled, updated input axis mappings.");
                 }
-                else if (!MixedRealityToolkit.IsSystemEnabled<IMixedRealityInputSystem>() &&
+                else if (!ServiceManager.Instance.IsServiceEnabled<IMixedRealityInputSystem>() &&
                          InputMappingAxisUtility.RemoveMappings(ControllerMappingUtilities.UnityInputManagerAxes))
                 {
                     Debug.Log($"{nameof(IMixedRealityInputSystem)} was disabled, removed input axis mappings.");
                 }
 
-                if (MixedRealityToolkit.IsSystemEnabled<IMixedRealitySpatialAwarenessSystem>() &&
+                if (ServiceManager.Instance.IsServiceEnabled<IMixedRealitySpatialAwarenessSystem>() &&
                     LayerUtilities.CheckLayers(MixedRealitySpatialAwarenessSystemProfile.SpatialAwarenessLayers))
                 {
                     Debug.Log($"{nameof(IMixedRealitySpatialAwarenessSystem)} was enabled, spatial mapping layers added to project.");
                 }
-                else if (!MixedRealityToolkit.IsSystemEnabled<IMixedRealitySpatialAwarenessSystem>() &&
+                else if (!ServiceManager.Instance.IsServiceEnabled<IMixedRealitySpatialAwarenessSystem>() &&
                          LayerUtilities.RemoveLayers(MixedRealitySpatialAwarenessSystemProfile.SpatialAwarenessLayers))
                 {
                     Debug.Log($"{nameof(IMixedRealitySpatialAwarenessSystem)} was disabled, spatial mapping layers removed to project.");

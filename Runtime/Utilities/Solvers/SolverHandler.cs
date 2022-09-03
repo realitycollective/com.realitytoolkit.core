@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -214,7 +214,7 @@ namespace RealityToolkit.Utilities.Solvers
         {
             Handedness = Handedness.None;
 
-            if (!MixedRealityToolkit.TryGetSystem<IMixedRealityCameraSystem>(out var cameraSystem))
+            if (!ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem))
             {
                 Debug.LogError($"Failed to find the {nameof(IMixedRealityCameraSystem)}!");
                 return;

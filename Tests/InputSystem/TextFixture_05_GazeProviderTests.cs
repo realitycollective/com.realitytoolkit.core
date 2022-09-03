@@ -2,28 +2,27 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Services;
-using RealityToolkit.Services.InputSystem.Providers;
-using RealityToolkit.Tests.InputSystem;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
 
-namespace RealityToolkit.Tests
+namespace RealityToolkit.Tests.InputSystem
 {
     public class TextFixture_05_GazeProviderTests
     {
         [SetUp]
         public void SetUpGazeProviderTests()
         {
-            TestUtilities.InitializeMixedRealityToolkitScene(false);
+            TestUtilities.InitializeRealityToolkit();
 
-            MixedRealityToolkit.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            MixedRealityToolkit.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
         }
 
         [Test]
         public void Test01_GazeProviderSetAuto()
         {
-            var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
             inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Auto);
 
             if (AnyControllerWithPointersAttached(inputSystem))
@@ -39,7 +38,7 @@ namespace RealityToolkit.Tests
         [Test]
         public void Test02_GazeProviderSetInactive()
         {
-            var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
             inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Inactive);
 
             Assert.IsNull(inputSystem.GazeProvider);
@@ -48,17 +47,14 @@ namespace RealityToolkit.Tests
         [Test]
         public void Test03_GazeProviderSetActive()
         {
-            var inputSystem = MixedRealityToolkit.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
             inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Active);
 
             Assert.IsNotNull(inputSystem.GazeProvider);
         }
 
         [TearDown]
-        public void CleanupMixedRealityToolkitTests()
-        {
-            TestUtilities.CleanupScene();
-        }
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
 
         private bool AnyControllerWithPointersAttached(IMixedRealityInputSystem inputSystem)
         {

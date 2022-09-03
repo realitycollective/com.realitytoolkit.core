@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.EventDatum.Input;
+using RealityToolkit.InputSystem.Handlers;
 using System;
 using System.Collections.Generic;
-using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Services.InputSystem.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Utilities

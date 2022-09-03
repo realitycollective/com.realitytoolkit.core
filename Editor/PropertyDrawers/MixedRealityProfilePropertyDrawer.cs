@@ -1,17 +1,16 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Editor.Utilities;
 using System;
-using RealityToolkit.Definitions;
-using RealityToolkit.Services;
 using UnityEditor;
 using UnityEngine;
-using RealityToolkit.Editor.Utilities;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.PropertyDrawers
 {
-    [CustomPropertyDrawer(typeof(BaseMixedRealityProfile), true)]
+    [CustomPropertyDrawer(typeof(BaseProfile), true)]
     public class MixedRealityProfilePropertyDrawer : PropertyDrawer
     {
         private const int BUTTON_PADDING = 4;
@@ -23,13 +22,13 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
         public static Type ProfileTypeOverride { get; set; } = null;
 
-        public static BaseMixedRealityProfile ParentProfileOverride { get; set; } = null;
+        public static BaseProfile ParentProfileOverride { get; set; } = null;
 
-        private BaseMixedRealityProfile parent = null;
+        private BaseProfile parent = null;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            BaseMixedRealityProfile profile = null;
+            BaseProfile profile = null;
 
             if (parent.IsNull())
             {
@@ -37,17 +36,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
                 if (parent.IsNull() && Selection.activeObject.IsNotNull())
                 {
-                    if (Selection.activeObject.name.Equals(nameof(MixedRealityToolkit)))
-                    {
-                        if (!MixedRealityToolkit.Instance.IsNull())
-                        {
-                            parent = MixedRealityToolkit.Instance.ActiveProfile;
-                        }
-                    }
-                    else
-                    {
-                        parent = Selection.activeObject as BaseMixedRealityProfile;
-                    }
+                    parent = Selection.activeObject as BaseProfile;
                 }
 
                 ParentProfileOverride = null;
@@ -55,16 +44,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
             if (!property.objectReferenceValue.IsNull())
             {
-                profile = property.objectReferenceValue as BaseMixedRealityProfile;
-            }
-
-            if (!profile.IsNull())
-            {
-                if (profile is MixedRealityToolkitRootProfile &&
-                    !parent.IsNull())
-                {
-                    profile.ParentProfile = null;
-                }
+                profile = property.objectReferenceValue as BaseProfile;
             }
 
             var propertyLabel = EditorGUI.BeginProperty(position, label, property);
@@ -80,17 +60,15 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
             EditorGUI.BeginChangeCheck();
 
-            var selectedProfile = EditorGUI.ObjectField(objectRect, propertyLabel, profile, profileType, false) as BaseMixedRealityProfile;
+            var selectedProfile = EditorGUI.ObjectField(objectRect, propertyLabel, profile, profileType, false) as BaseProfile;
 
             if (EditorGUI.EndChangeCheck())
             {
                 property.objectReferenceValue = selectedProfile;
                 property.serializedObject.ApplyModifiedProperties();
 
-                if (!(selectedProfile is null) &&
-                    !(selectedProfile is MixedRealityToolkitRootProfile))
+                if (!(selectedProfile is null) && parent.IsNotNull())
                 {
-                    Debug.Assert(!parent.IsNull(), $"Failed to find a valid parent profile for {selectedProfile.name}");
                     selectedProfile.ParentProfile = parent;
                 }
             }
@@ -107,8 +85,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
                 }
             }
 
-            if (!(selectedProfile is null) &&
-                !(selectedProfile is MixedRealityToolkitRootProfile))
+            if (!(selectedProfile is null))
             {
                 if (selectedProfile.ParentProfile.IsNull() ||
                     selectedProfile.ParentProfile != parent)

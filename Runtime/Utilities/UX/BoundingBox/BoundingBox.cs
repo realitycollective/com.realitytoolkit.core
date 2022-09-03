@@ -1,19 +1,19 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.InputSystem.Handlers;
-using RealityToolkit.Services;
-using RealityToolkit.Services.InputSystem.Handlers;
+using RealityToolkit.InputSystem.Handlers;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Interfaces.Handlers;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.UX
 {
@@ -530,7 +530,7 @@ namespace RealityToolkit.Utilities.UX
         private IMixedRealityInputSystem inputSystem = null;
 
         protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = MixedRealityToolkit.GetSystem<IMixedRealityInputSystem>());
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
 
         private ManipulationHandler manipulationHandler;
 

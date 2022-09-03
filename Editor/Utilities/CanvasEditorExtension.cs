@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Services;
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.Utilities;
 using UnityEditor;
 using UnityEngine;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Utilities
 {
@@ -25,15 +25,15 @@ namespace RealityToolkit.Editor.Utilities
         private bool hasUtility = false;
 
         private static bool IsUtilityValid =>
-            MixedRealityToolkit.Instance != null &&
-            MixedRealityToolkit.HasActiveProfile &&
-            MixedRealityToolkit.GetService<IMixedRealityInputSystem>(false) != null;
+            ServiceManager.Instance != null &&
+            ServiceManager.Instance.HasActiveProfile &&
+            ServiceManager.Instance.GetService<IMixedRealityInputSystem>(false) != null;
 
         private bool CanUpdateSettings
         {
             get
             {
-                if (!MixedRealityToolkit.IsInitialized ||
+                if (!ServiceManager.Instance.IsInitialized ||
                     !MixedRealityPreferences.ShowCanvasUtilityPrompt)
                 {
                     return false;
@@ -73,7 +73,7 @@ namespace RealityToolkit.Editor.Utilities
         {
             bool removeUtility = false;
 
-            if (!MixedRealityToolkit.TryGetSystem<IMixedRealityInputSystem>(out var inputSystem))
+            if (!ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
             {
                 return;
             }

@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.InputSystem.Controllers;
-using RealityToolkit.Interfaces.InputSystem.Handlers;
-using RealityToolkit.Services;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.InputSystem.Interfaces.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Solvers
@@ -79,7 +79,7 @@ namespace RealityToolkit.Utilities.Solvers
         {
             // Look if the controller was already loaded. This could happen if the
             // GameObject was instantiated at runtime and the model loaded event has already fired.
-            if (!MixedRealityToolkit.TryGetSystem<IMixedRealityInputSystem>(out var inputSystem))
+            if (!ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
             {
                 // The InputSystem could not be found.
                 return;

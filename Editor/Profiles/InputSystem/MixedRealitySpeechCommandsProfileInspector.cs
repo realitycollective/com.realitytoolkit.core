@@ -1,16 +1,17 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityToolkit.InputSystem.Definitions;
 using System.Linq;
-using RealityToolkit.Definitions.InputSystem;
 using UnityEditor;
 using UnityEngine;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(MixedRealitySpeechCommandsProfile))]
-    public class MixedRealitySpeechCommandsProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealitySpeechCommandsProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent MinusButtonContent = new GUIContent("-", "Remove Speech Command");
         private static readonly GUIContent AddButtonContent = new GUIContent("+ Add a New Speech Command", "Add Speech Command");

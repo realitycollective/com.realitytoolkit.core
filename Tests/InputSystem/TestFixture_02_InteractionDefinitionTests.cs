@@ -5,7 +5,7 @@ using NUnit.Framework;
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.Services.InputSystem.Processors;
+using RealityToolkit.InputSystem.Processors;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -1151,9 +1151,6 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         [TearDown]
-        public void CleanupMixedRealityToolkitTests()
-        {
-            TestUtilities.CleanupScene();
-        }
+        public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
     }
 }

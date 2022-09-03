@@ -4,11 +4,13 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Extensions;
-using RealityToolkit.Attributes;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
-using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(MixedRealityPlatformServiceConfigurationProfile))]
-    public class MixedRealityPlatformServiceConfigurationProfileInspector : BaseMixedRealityProfileInspector
+    public class MixedRealityPlatformServiceConfigurationProfileInspector : BaseProfileInspector
     {
 
         private readonly GUIContent profileContent = new GUIContent("Profile", "The settings profile for this service.");
@@ -85,7 +87,14 @@ namespace RealityToolkit.Editor.Profiles
 
             if (GUILayout.Button("Install Platform Service Configuration"))
             {
-                EditorApplication.delayCall += () => PackageInstaller.InstallConfiguration(target as MixedRealityPlatformServiceConfigurationProfile, MixedRealityToolkit.Instance.ActiveProfile);
+                if (!(ServiceManager.Instance is null) && ServiceManager.Instance.HasActiveProfile)
+                {
+                    EditorApplication.delayCall += () => PackageInstaller.InstallConfiguration(target as MixedRealityPlatformServiceConfigurationProfile, ServiceManager.Instance.ActiveProfile);
+                }
+                else
+                {
+                    Debug.LogError("Unable to install profile as the Service Framework could not be found.\nIs there a Service Framework instance in the scene and the Reality Toolkit configured?");
+                }
             }
 
             EditorGUILayout.Space();
@@ -204,7 +213,7 @@ namespace RealityToolkit.Editor.Profiles
                     {
                         if (parameterInfo.ParameterType.IsAbstract) { continue; }
 
-                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseMixedRealityProfile)))
+                        if (parameterInfo.ParameterType.IsSubclassOf(typeof(BaseProfile)))
                         {
                             profileType = parameterInfo.ParameterType;
                             break;
@@ -281,7 +290,7 @@ namespace RealityToolkit.Editor.Profiles
 
             if (profile.objectReferenceValue != null)
             {
-                var renderedProfile = profile.objectReferenceValue as BaseMixedRealityProfile;
+                var renderedProfile = profile.objectReferenceValue as BaseProfile;
                 Debug.Assert(renderedProfile != null);
 
                 if (renderedProfile.ParentProfile.IsNull() ||
@@ -291,9 +300,10 @@ namespace RealityToolkit.Editor.Profiles
                 }
             }
 
-            if (MixedRealityToolkit.IsInitialized && hasChanged)
+            if (ServiceManager.Instance != null &&
+                ServiceManager.Instance.IsInitialized && hasChanged)
             {
-                MixedRealityToolkit.Instance.ResetProfile(MixedRealityToolkit.Instance.ActiveProfile);
+                ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
 
             EditorGUIUtility.wideMode = lastMode;
@@ -345,9 +355,10 @@ namespace RealityToolkit.Editor.Profiles
 
             serializedObject.ApplyModifiedProperties();
 
-            if (MixedRealityToolkit.IsInitialized)
+            if (ServiceManager.Instance != null &&
+                ServiceManager.Instance.IsInitialized)
             {
-                EditorApplication.delayCall += () => MixedRealityToolkit.Instance.ResetProfile(MixedRealityToolkit.Instance.ActiveProfile);
+                EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
         }
     }

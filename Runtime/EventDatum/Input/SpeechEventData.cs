@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using RealityToolkit.Definitions.InputSystem;
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Interfaces.InputSystem;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
+using System;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input

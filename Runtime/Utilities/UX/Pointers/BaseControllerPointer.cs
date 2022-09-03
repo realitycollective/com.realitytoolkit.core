@@ -1,25 +1,23 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections;
-using RealityToolkit.Definitions;
-using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.LocomotionSystem;
+using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.InputSystem.Controllers;
-using RealityToolkit.Interfaces.InputSystem.Handlers;
-using RealityToolkit.Interfaces.LocomotionSystem;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
-using RealityToolkit.Services;
+using RealityToolkit.LocomotionSystem.Definitions;
+using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities.Physics;
+using System;
+using System.Collections;
 using UnityEngine;
-using RealityCollective.Extensions;
-using UnityEngine.EventSystems;
 
 namespace RealityToolkit.Utilities.UX.Pointers
 {
@@ -153,7 +151,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 }
                 else
                 {
-                    Debug.LogError($"No IMixedRealityCursor component found on {cursorInstance.name}");
+                    Debug.LogError($"No IMixedRealityCursor component found on {cursorInstance.name}", this);
                 }
             }
         }
@@ -161,12 +159,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private ILocomotionSystem locomotionSystem = null;
 
         protected ILocomotionSystem LocomotionSystem
-            => locomotionSystem ?? (locomotionSystem = MixedRealityToolkit.GetSystem<ILocomotionSystem>());
+            => locomotionSystem ?? (locomotionSystem = ServiceManager.Instance.GetService<ILocomotionSystem>());
 
         private IMixedRealityCameraSystem cameraSystem = null;
 
         protected IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = MixedRealityToolkit.GetSystem<IMixedRealityCameraSystem>());
+            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<IMixedRealityCameraSystem>());
 
         private Vector3 lastPointerPosition = Vector3.zero;
 
@@ -177,7 +175,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             base.OnEnable();
 
             if (!lateRegisterTeleport &&
-                MixedRealityToolkit.TryGetSystem(out locomotionSystem))
+                ServiceManager.Instance.TryGetService(out locomotionSystem))
             {
                 locomotionSystem.Register(gameObject);
             }
@@ -193,7 +191,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             {
                 try
                 {
-                    locomotionSystem = await MixedRealityToolkit.GetSystemAsync<ILocomotionSystem>();
+                    locomotionSystem = await ServiceManager.Instance.GetServiceAsync<ILocomotionSystem>();
                     LocomotionSystem?.Register(gameObject);
                 }
                 catch

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Services;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities
@@ -35,7 +35,7 @@ namespace RealityToolkit.Utilities
 
                 if (mainCamera == null)
                 {
-                    if (MixedRealityToolkit.IsApplicationQuitting)
+                    if (ServiceManager.Instance.IsApplicationQuitting)
                     {
                         return null;
                     }

@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using RealityToolkit.Definitions.InputSystem;
-using RealityToolkit.Definitions.LocomotionSystem;
-using RealityToolkit.Interfaces.CameraSystem;
-using RealityToolkit.Interfaces.InputSystem;
-using RealityToolkit.Interfaces.LocomotionSystem;
-using RealityToolkit.Services;
+using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.LocomotionSystem.Definitions;
+using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.Utilities.UX.Pointers;
+using System;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors
@@ -104,7 +104,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
             transform.position = focusDetails.EndPoint;
 
-            var cameraTransform = MixedRealityToolkit.TryGetSystem<IMixedRealityCameraSystem>(out var cameraSystem)
+            var cameraTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
                 ? cameraSystem.MainCameraRig.CameraTransform
                 : CameraCache.Main.transform;
             var forward = cameraTransform.forward;
