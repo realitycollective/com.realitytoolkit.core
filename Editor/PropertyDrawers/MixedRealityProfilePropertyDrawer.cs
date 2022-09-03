@@ -67,9 +67,8 @@ namespace RealityToolkit.Editor.PropertyDrawers
                 property.objectReferenceValue = selectedProfile;
                 property.serializedObject.ApplyModifiedProperties();
 
-                if (!(selectedProfile is null))
+                if (!(selectedProfile is null) && parent.IsNotNull())
                 {
-                    Debug.Assert(!parent.IsNull(), $"Failed to find a valid parent profile for {selectedProfile.name}");
                     selectedProfile.ParentProfile = parent;
                 }
             }

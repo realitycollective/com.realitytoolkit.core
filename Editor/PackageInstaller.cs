@@ -361,6 +361,10 @@ namespace RealityToolkit.Editor
             {
                 ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
+            else
+            {
+                Debug.LogError("Unable to install configuration as the corresponding services were not available\nIf the Toolkit configured?");
+            }
         }
     }
 }
