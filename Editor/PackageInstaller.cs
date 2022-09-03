@@ -236,6 +236,7 @@ namespace RealityToolkit.Editor
             }
 
             var didInstallConfigurations = false;
+            var configurationsAlreadyInstalled = false;
             foreach (var configuration in platformConfigurationProfile.Configurations)
             {
                 var configurationType = configuration.InstancedType.Type;
@@ -298,7 +299,11 @@ namespace RealityToolkit.Editor
                         {
                             var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
 
-                            if (cameraSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.InstancedType.Type))
+                            if (cameraSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == cameraDataProviderConfiguration.InstancedType.Type))
+                            {
+                                configurationsAlreadyInstalled = true;
+                            }
+                            else if (cameraSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != cameraDataProviderConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 cameraSystemProfile.AddConfiguration(cameraDataProviderConfiguration);
@@ -313,7 +318,11 @@ namespace RealityToolkit.Editor
                         {
                             var inputDataProviderConfiguration = new ServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
 
-                            if (inputSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != inputDataProviderConfiguration.InstancedType.Type))
+                            if (inputSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == inputDataProviderConfiguration.InstancedType.Type))
+                            {
+                                configurationsAlreadyInstalled = true;
+                            }
+                            else if (inputSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != inputDataProviderConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 inputSystemProfile.AddConfiguration(inputDataProviderConfiguration);
@@ -328,7 +337,11 @@ namespace RealityToolkit.Editor
                         {
                             var spatialObserverConfiguration = new ServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
 
-                            if (spatialAwarenessSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != spatialObserverConfiguration.InstancedType.Type))
+                            if (spatialAwarenessSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == spatialObserverConfiguration.InstancedType.Type))
+                            {
+                                configurationsAlreadyInstalled = true;
+                            }
+                            else if (spatialAwarenessSystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != spatialObserverConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 spatialAwarenessSystemProfile.AddConfiguration(spatialObserverConfiguration);
@@ -342,7 +355,11 @@ namespace RealityToolkit.Editor
                         {
                             var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
 
-                            if (boundarySystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
+                            if (boundarySystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
+                            {
+                                configurationsAlreadyInstalled = true;
+                            }
+                            else if (boundarySystemProfile.ServiceConfigurations.All(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
                             {
                                 Debug.Log($"Added {configuration.Name} to {rootProfile.name}");
                                 boundarySystemProfile.AddConfiguration(boundarySystemConfiguration);
@@ -357,7 +374,7 @@ namespace RealityToolkit.Editor
             AssetDatabase.SaveAssets();
             EditorApplication.delayCall += () => AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
-            if (didInstallConfigurations)
+            if (didInstallConfigurations || configurationsAlreadyInstalled)
             {
                 ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }

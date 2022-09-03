@@ -273,7 +273,9 @@ namespace RealityToolkit.CameraSystem.Providers
 
                 CameraRig = CameraCache.Main.transform.parent.gameObject.EnsureComponent(cameraRigType) as IMixedRealityCameraRig;
                 Debug.Assert(CameraRig != null);
+#if !UNITY_EDITOR
                 Debug.Log($"There was no {MixedRealityCameraSystem.DefaultXRCameraRigName} in the scene. The {GetType().Name} requires one and added it, as well as making the main camera a child of the rig.");
+#endif
             }
 
             if (!string.Equals(CameraRig.RigTransform.name, MixedRealityCameraSystem.DefaultXRCameraRigName))

@@ -87,7 +87,14 @@ namespace RealityToolkit.Editor.Profiles
 
             if (GUILayout.Button("Install Platform Service Configuration"))
             {
-                EditorApplication.delayCall += () => PackageInstaller.InstallConfiguration(target as MixedRealityPlatformServiceConfigurationProfile, ServiceManager.Instance.ActiveProfile);
+                if (!(ServiceManager.Instance is null) && ServiceManager.Instance.HasActiveProfile)
+                {
+                    EditorApplication.delayCall += () => PackageInstaller.InstallConfiguration(target as MixedRealityPlatformServiceConfigurationProfile, ServiceManager.Instance.ActiveProfile);
+                }
+                else
+                {
+                    Debug.LogError("Unable to install profile as the Service Framework could not be found.\nIs there a Service Framework instance in the scene and the Reality Toolkit configured?");
+                }
             }
 
             EditorGUILayout.Space();
