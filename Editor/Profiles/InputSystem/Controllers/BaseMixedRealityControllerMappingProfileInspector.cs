@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Editor.PropertyDrawers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -82,7 +82,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             position.y += 3;
             position.xMin += 8;
             var mappingProfileProperty = interactionMappingProfiles.GetArrayElementAtIndex(index);
-            MixedRealityProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityInteractionMappingProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityInteractionMappingProfile);
             EditorGUI.PropertyField(position, mappingProfileProperty, GUIContent.none);
         }
 

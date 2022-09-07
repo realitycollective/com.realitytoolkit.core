@@ -5,9 +5,9 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.InputSystem.Controllers;
 using System;
@@ -314,7 +314,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             position.height = EditorGUIUtility.singleLineHeight;
             position.y += 3;
             var mappingProfileProperty = controllerMappingProfiles.GetArrayElementAtIndex(index);
-            MixedRealityProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityControllerMappingProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityControllerMappingProfile);
             EditorGUI.PropertyField(position, mappingProfileProperty, GUIContent.none);
         }
 

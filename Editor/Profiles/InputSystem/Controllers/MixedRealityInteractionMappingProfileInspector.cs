@@ -4,6 +4,7 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.PropertyDrawers;
@@ -217,7 +218,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             rect.height = EditorGUIUtility.singleLineHeight;
             rect.y += 3;
             var mappingProfileProperty = pointerProfiles.GetArrayElementAtIndex(index);
-            MixedRealityProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityPointerProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityPointerProfile);
             EditorGUI.PropertyField(rect, mappingProfileProperty, GUIContent.none);
         }
 
