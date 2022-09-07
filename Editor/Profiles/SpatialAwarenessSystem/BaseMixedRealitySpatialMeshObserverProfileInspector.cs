@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
+using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.Editor.PropertyDrawers;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
