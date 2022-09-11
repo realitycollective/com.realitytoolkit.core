@@ -157,7 +157,7 @@ namespace RealityToolkit.Editor
         {
             ServiceProvidersProfile rootProfile;
 
-            if (ServiceManager.Instance.IsInitialized)
+            if (!(ServiceManager.Instance is null) && ServiceManager.Instance.IsInitialized)
             {
                 rootProfile = ServiceManager.Instance.ActiveProfile;
             }
@@ -172,7 +172,7 @@ namespace RealityToolkit.Editor
             // for whatever reason, there is nothing we can do here.
             if (rootProfile.IsNull())
             {
-                EditorUtility.DisplayDialog("Attention!", "Each data provider will need to be manually registered in each service configuration.", "OK");
+                EditorUtility.DisplayDialog("Attention!", "Each service and data provider in the platform configuration will need to be manually registered as no existing Service Framework Instance was found.\nUse the Platform Installer in the Profiles folder for the package once a Service Manager has been configured.", "OK");
                 return;
             }
 
