@@ -1,10 +1,6 @@
 name: Build UPM
 
 on:
-  push:
-    branches:
-      - 'main'
-      - 'development'
   pull_request:
     branches:
       - '*'
@@ -55,4 +51,4 @@ jobs:
       dependencies: '[{"development": "github.com/realitycollective/com.realitycollective.buildtools.git"},{"development": "github.com/realitycollective/com.realitycollective.utilities.git"},{"development": "github.com/realitycollective/com.realitytoolkit.service-framework.git"}]'
     secrets:
       GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
-      GIT_PAT: ${{ secrets.GIT_PAT }}
+      GIT_PAT: ${{ secrets.GIT_PAT }}   
