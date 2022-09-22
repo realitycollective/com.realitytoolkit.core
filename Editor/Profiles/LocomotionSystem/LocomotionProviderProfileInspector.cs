@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.LocomotionSystem
 {
     [CustomEditor(typeof(BaseLocomotionProviderProfile))]
-    public class LocomotionProviderProfileInspector : BaseProfileInspector
+    public class LocomotionProviderProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty startupBehaviour;
         private SerializedProperty inputAction;
@@ -22,10 +22,11 @@ namespace RealityToolkit.Editor.Profiles.LocomotionSystem
             base.OnEnable();
 
             startupBehaviour = serializedObject.FindProperty(nameof(startupBehaviour));
+            startupBehaviour.isExpanded = true;
             inputAction = serializedObject.FindProperty(nameof(inputAction));
         }
 
-        public override void OnInspectorGUI()
+        protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
             RenderHeader("This profile defines behaviour for the locomotion provider.");
 
@@ -39,6 +40,8 @@ namespace RealityToolkit.Editor.Profiles.LocomotionSystem
             }
 
             EditorGUILayout.Space();
+
+            base.DrawDataProviderPropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }
