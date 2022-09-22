@@ -38,6 +38,7 @@ namespace RealityToolkit.Editor.Profiles
             base.OnEnable();
 
             showBoundary = serializedObject.FindProperty(nameof(showBoundary));
+            showBoundary.isExpanded = true;
             boundaryHeight = serializedObject.FindProperty(nameof(boundaryHeight));
             boundaryMaterial = serializedObject.FindProperty(nameof(boundaryMaterial));
             physicsLayer = serializedObject.FindProperty(nameof(physicsLayer));
@@ -52,7 +53,7 @@ namespace RealityToolkit.Editor.Profiles
             ceilingMaterial = serializedObject.FindProperty(nameof(ceilingMaterial));
         }
 
-        public override void OnInspectorGUI()
+        protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
             RenderHeader("Boundary visualizations can help users stay oriented and comfortable in the experience.");
 
@@ -99,9 +100,9 @@ namespace RealityToolkit.Editor.Profiles
 
             EditorGUILayout.Space();
 
-            serializedObject.ApplyModifiedProperties();
+            base.DrawDataProviderPropertyDrawer();
 
-            base.OnInspectorGUI();
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

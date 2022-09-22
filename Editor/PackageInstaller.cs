@@ -256,6 +256,10 @@ namespace RealityToolkit.Editor
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
                             didInstallConfigurations = true;
                         }
+                        else 
+                        {
+                            configurationsAlreadyInstalled = true;
+                        }
                         break;
 
                     case Type _ when typeof(IMixedRealityInputSystem).IsAssignableFrom(configurationType):
@@ -264,6 +268,10 @@ namespace RealityToolkit.Editor
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityInputSystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
                             didInstallConfigurations = true;
+                        }
+                        else
+                        {
+                            configurationsAlreadyInstalled = true;
                         }
                         break;
 
@@ -274,6 +282,10 @@ namespace RealityToolkit.Editor
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
                             didInstallConfigurations = true;
                         }
+                        else
+                        {
+                            configurationsAlreadyInstalled = true;
+                        }
                         break;
 
                     case Type _ when typeof(IMixedRealityBoundarySystem).IsAssignableFrom(configurationType):
@@ -283,6 +295,10 @@ namespace RealityToolkit.Editor
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
                             didInstallConfigurations = true;
                         }
+                        else
+                        {
+                            configurationsAlreadyInstalled = true;
+                        }
                         break;
 
                     case Type _ when typeof(IMixedRealitySpatialAwarenessSystem).IsAssignableFrom(configurationType):
@@ -291,6 +307,10 @@ namespace RealityToolkit.Editor
                             ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealitySpatialAwarenessSystem>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
                             didInstallConfigurations = true;
+                        }
+                        else
+                        {
+                            configurationsAlreadyInstalled = true;
                         }
                         break;
 
@@ -380,7 +400,7 @@ namespace RealityToolkit.Editor
             }
             else
             {
-                Debug.LogError("Unable to install configuration as the corresponding services were not available\nIf the Toolkit configured?");
+                Debug.LogError("Unable to install configuration as the corresponding services were not available\nIs the Toolkit configured?");
             }
         }
     }

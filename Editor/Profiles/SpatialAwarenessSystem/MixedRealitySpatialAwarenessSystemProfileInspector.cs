@@ -24,12 +24,13 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
             base.OnEnable();
 
             meshDisplayOption = serializedObject.FindProperty(nameof(meshDisplayOption));
+            meshDisplayOption.isExpanded = true;
             globalMeshObserverProfile = serializedObject.FindProperty(nameof(globalMeshObserverProfile));
             globalSurfaceObserverProfile = serializedObject.FindProperty(nameof(globalSurfaceObserverProfile));
         }
 
         /// <inheritdoc />
-        public override void OnInspectorGUI()
+        protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
             RenderHeader("Spatial Awareness can enhance your experience by enabling objects to interact with the real world.\n\nBelow is a list of registered Spatial Observers that can gather data about your environment.");
 
@@ -44,9 +45,9 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
                 EditorGUI.indentLevel--;
             }
 
-            serializedObject.ApplyModifiedProperties();
+            base.DrawDataProviderPropertyDrawer();
 
-            base.OnInspectorGUI();
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

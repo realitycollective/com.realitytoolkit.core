@@ -119,7 +119,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             poseProfilesList.onRemoveCallback += PoseProfilesList_OnConfigurationOptionRemoved;
         }
 
-        public override void OnInspectorGUI()
+        protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
             RenderHeader("The Input System Profile helps developers configure input no matter what platform you're building for.");
 
@@ -207,6 +207,8 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                 }
             }
 
+            base.DrawDataProviderPropertyDrawer();
+
             serializedObject.ApplyModifiedProperties();
 
             if (EditorGUI.EndChangeCheck() &&
@@ -215,8 +217,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             {
                 EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
-
-            base.OnInspectorGUI();
         }
 
         private void PoseProfilesList_DrawHeaderCallback(Rect rect)

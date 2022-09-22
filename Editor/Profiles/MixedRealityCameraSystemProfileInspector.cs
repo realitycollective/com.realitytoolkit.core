@@ -22,9 +22,10 @@ namespace RealityToolkit.Editor.Profiles.CameraSystem
             base.OnEnable();
 
             globalCameraProfile = serializedObject.FindProperty(nameof(globalCameraProfile));
+            globalCameraProfile.isExpanded = true;
         }
 
-        public override void OnInspectorGUI()
+        protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
             RenderHeader("The Camera Profile helps tweak camera settings no matter what platform you're building for.");
 
@@ -36,7 +37,7 @@ namespace RealityToolkit.Editor.Profiles.CameraSystem
 
             EditorGUILayout.Space();
 
-            base.OnInspectorGUI();
+            base.DrawDataProviderPropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
 

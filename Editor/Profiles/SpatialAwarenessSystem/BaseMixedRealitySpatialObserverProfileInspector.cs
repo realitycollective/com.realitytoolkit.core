@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
     [CustomEditor(typeof(BaseMixedRealitySpatialObserverProfile), true, isFallback = true)]
-    public abstract class BaseMixedRealitySpatialObserverProfileInspector : BaseProfileInspector
+    public abstract class BaseMixedRealitySpatialObserverProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty startupBehavior;
         private SerializedProperty observationExtents;
@@ -26,6 +26,7 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
             base.OnEnable();
 
             startupBehavior = serializedObject.FindProperty(nameof(startupBehavior));
+            startupBehavior.isExpanded = true;
             observationExtents = serializedObject.FindProperty(nameof(observationExtents));
             isStationaryObserver = serializedObject.FindProperty(nameof(isStationaryObserver));
             updateInterval = serializedObject.FindProperty(nameof(updateInterval));
@@ -33,7 +34,7 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
         }
 
         /// <inheritdoc />
-        public override void OnInspectorGUI()
+        protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
             RenderHeader("The Spatial Awareness Observer Data Provider supplies the Spatial Awareness System with all the data it needs to understand the world around you.");
 
@@ -50,6 +51,8 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
             }
 
             EditorGUILayout.Space();
+
+            base.DrawDataProviderPropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }
