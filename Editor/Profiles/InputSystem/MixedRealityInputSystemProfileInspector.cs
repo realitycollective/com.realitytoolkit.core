@@ -20,7 +20,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
     [CustomEditor(typeof(MixedRealityInputSystemProfile))]
     public class MixedRealityInputSystemProfileInspector : ServiceProfileInspector
     {
-        private static readonly GUIContent FocusProviderContent = new GUIContent("Focus Provider");
+        private static readonly GUIContent GazeProviderBehaviourContent = new GUIContent("Gaze Provider Mode");
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");
         private static readonly GUIContent GazeCursorPrefabContent = new GUIContent("Gaze Cursor Prefab");
         private static readonly GUIContent GlobalPointerSettingsContent = new GUIContent("Global Pointer Settings");
@@ -126,7 +126,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             serializedObject.Update();
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PropertyField(gazeProviderBehaviour, FocusProviderContent);
+            EditorGUILayout.PropertyField(gazeProviderBehaviour, GazeProviderBehaviourContent);
             EditorGUILayout.PropertyField(gazeProviderType, GazeProviderContent);
             EditorGUILayout.PropertyField(gazeCursorPrefab, GazeCursorPrefabContent);
 
