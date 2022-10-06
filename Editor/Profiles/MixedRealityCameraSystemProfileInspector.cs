@@ -41,8 +41,7 @@ namespace RealityToolkit.Editor.Profiles.CameraSystem
 
             serializedObject.ApplyModifiedProperties();
 
-            if (ServiceManager.Instance != null &&
-                ServiceManager.Instance.IsInitialized && EditorGUI.EndChangeCheck())
+            if (ServiceManager.IsActiveAndInitialized && EditorGUI.EndChangeCheck())
             {
                 EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }

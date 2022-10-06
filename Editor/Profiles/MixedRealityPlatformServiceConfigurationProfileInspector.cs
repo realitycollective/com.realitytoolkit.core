@@ -301,8 +301,7 @@ namespace RealityToolkit.Editor.Profiles
                 }
             }
 
-            if (ServiceManager.Instance != null &&
-                ServiceManager.Instance.IsInitialized && hasChanged)
+            if (ServiceManager.IsActiveAndInitialized && hasChanged)
             {
                 ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
@@ -356,8 +355,7 @@ namespace RealityToolkit.Editor.Profiles
 
             serializedObject.ApplyModifiedProperties();
 
-            if (ServiceManager.Instance != null &&
-                ServiceManager.Instance.IsInitialized)
+            if (ServiceManager.IsActiveAndInitialized)
             {
                 EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }

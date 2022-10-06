@@ -157,7 +157,7 @@ namespace RealityToolkit.Editor
         {
             ServiceProvidersProfile rootProfile;
 
-            if (!(ServiceManager.Instance is null) && ServiceManager.Instance.IsInitialized)
+            if (ServiceManager.IsActiveAndInitialized)
             {
                 rootProfile = ServiceManager.Instance.ActiveProfile;
             }
