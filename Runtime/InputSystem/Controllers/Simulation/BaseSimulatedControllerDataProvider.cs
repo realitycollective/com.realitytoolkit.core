@@ -16,7 +16,7 @@ namespace RealityToolkit.InputSystem.Controllers.Simulation
     /// <summary>
     /// Base data provider implementation for controller simulation data providers.
     /// </summary>
-    public abstract class BaseSimulatedControllerDataProvider : BaseControllerDataProvider, ISimulatedControllerDataProvider
+    public abstract class BaseSimulatedControllerDataProvider : BaseControllerServiceModule, ISimulatedControllerDataProvider
     {
         /// <inheritdoc />
         protected BaseSimulatedControllerDataProvider(string name, uint priority, SimulatedControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

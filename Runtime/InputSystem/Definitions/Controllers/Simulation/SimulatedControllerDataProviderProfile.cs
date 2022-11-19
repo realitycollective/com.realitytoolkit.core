@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers.Simulation
 {
-    public class SimulatedControllerDataProviderProfile : BaseMixedRealityControllerDataProviderProfile
+    public class SimulatedControllerDataProviderProfile : BaseMixedRealityControllerServiceModuleProfile
     {
         #region General Settings
 

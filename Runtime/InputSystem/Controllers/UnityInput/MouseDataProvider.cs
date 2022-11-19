@@ -15,7 +15,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
     /// The mouse data provider.
     /// </summary>
     [System.Runtime.InteropServices.Guid("067CE7D4-8277-4E18-834E-3DC712074B72")]
-    public class MouseDataProvider : BaseControllerDataProvider
+    public class MouseDataProvider : BaseControllerServiceModule
     {
         /// <inheritdoc />
         public MouseDataProvider(string name, uint priority, MouseControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

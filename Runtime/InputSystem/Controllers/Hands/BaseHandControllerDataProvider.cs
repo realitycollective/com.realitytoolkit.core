@@ -14,10 +14,10 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
     /// <summary>
     /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityHandController"/>s.
     /// </summary>
-    public abstract class BaseHandControllerDataProvider : BaseControllerDataProvider, IMixedRealityHandControllerDataProvider
+    public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IMixedRealityHandControllerServiceModule
     {
         /// <inheritdoc />
-        protected BaseHandControllerDataProvider(string name, uint priority, BaseHandControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
             if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))

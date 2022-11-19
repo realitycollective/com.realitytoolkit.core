@@ -15,13 +15,13 @@ using UnityEngine.XR;
 namespace RealityToolkit.CameraSystem.Providers
 {
     /// <summary>
-    /// Base class for all <see cref="IMixedRealityCameraDataProvider"/>s can inherit from.
+    /// Base class for all <see cref="IMixedRealityCameraServiceModule"/>s can inherit from.
     /// </summary>
     [System.Runtime.InteropServices.Guid("EA4C0C19-E533-4AE8-91A2-6998CB8905BB")]
-    public class BaseCameraDataProvider : BaseServiceModule, IMixedRealityCameraDataProvider
+    public class BaseCameraServiceModule : BaseServiceModule, IMixedRealityCameraServiceModule
     {
         /// <inheritdoc />
-        public BaseCameraDataProvider(string name, uint priority, BaseMixedRealityCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)
+        public BaseCameraServiceModule(string name, uint priority, BaseMixedRealityCameraServiceModuleProfile profile, IMixedRealityCameraSystem parentService)
             : base(name, priority, profile, parentService)
         {
             cameraSystem = parentService;

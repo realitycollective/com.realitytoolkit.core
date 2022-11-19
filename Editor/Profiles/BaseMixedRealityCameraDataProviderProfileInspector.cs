@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.CameraSystem
 {
-    [CustomEditor(typeof(BaseMixedRealityCameraDataProviderProfile), true, isFallback = true)]
+    [CustomEditor(typeof(BaseMixedRealityCameraServiceModuleProfile), true, isFallback = true)]
     public class BaseMixedRealityCameraDataProviderProfileInspector : BaseProfileInspector
     {
         private SerializedProperty trackingType;

@@ -16,7 +16,7 @@ namespace RealityToolkit.InputSystem.Providers
     public abstract class BaseDictationDataProvider : BaseServiceModule, IMixedRealityDictationDataProvider
     {
         /// <inheritdoc />
-        protected BaseDictationDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseDictationDataProvider(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
             InputSystem = parentService;

@@ -26,12 +26,12 @@ namespace RealityToolkit.BoundarySystem.Interfaces
         IReadOnlyList<GameObject> TrackedObjects { get; }
 
         /// <summary>
-        /// The <see cref="IMixedRealityBoundaryDataProvider"/> assigned to this system.
+        /// The <see cref="IMixedRealityBoundaryServiceModule"/> assigned to this system.
         /// </summary>
         /// <remarks>
         /// Typically with systems, there can be multiple data providers, but in this case there should only ever be one.
         /// </remarks>
-        IMixedRealityBoundaryDataProvider BoundaryDataProvider { get; }
+        IMixedRealityBoundaryServiceModule BoundaryDataProvider { get; }
 
         /// <summary>
         /// Is the platform or the boundary system's rendered boundary geometry visible?
@@ -89,13 +89,13 @@ namespace RealityToolkit.BoundarySystem.Interfaces
         Edge[] BoundaryBounds { get; }
 
         /// <summary>
-        /// Sets up the boundary using the <see cref="IMixedRealityBoundaryDataProvider"/> specified.
+        /// Sets up the boundary using the <see cref="IMixedRealityBoundaryServiceModule"/> specified.
         /// </summary>
         /// <param name="dataProvider"></param>
         /// <remarks>
         /// This method should usually be called from the <see cref="IMixedRealityService.Enable"/> method of the data provider itself.
         /// </remarks>
-        void SetupBoundary(IMixedRealityBoundaryDataProvider dataProvider);
+        void SetupBoundary(IMixedRealityBoundaryServiceModule dataProvider);
 
         /// <summary>
         /// Determines if a <see cref="position"/> is within the area of the boundary space.

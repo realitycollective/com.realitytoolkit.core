@@ -43,7 +43,7 @@ namespace RealityToolkit.CameraSystem.Interfaces
         /// </summary>
         /// <remarks>
         /// This <see cref="Transform"/> is synced to the player's head camera X &amp; Z values.
-        /// Y value is set using current <see cref="IMixedRealityCameraDataProvider.HeadHeight"/>.
+        /// Y value is set using current <see cref="IMixedRealityCameraServiceModule.HeadHeight"/>.
         /// </remarks>
         Transform BodyTransform { get; }
     }

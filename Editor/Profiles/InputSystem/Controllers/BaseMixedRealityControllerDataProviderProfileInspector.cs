@@ -20,7 +20,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
-    [CustomEditor(typeof(BaseMixedRealityControllerDataProviderProfile), editorForChildClasses: true, isFallback = true)]
+    [CustomEditor(typeof(BaseMixedRealityControllerServiceModuleProfile), editorForChildClasses: true, isFallback = true)]
     public class BaseMixedRealityControllerDataProviderProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent controllerProfilesFoldoutHeader = new GUIContent("Controller Mapping Profiles");
@@ -30,7 +30,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
         private SerializedProperty hasSetupDefaults;
         private SerializedProperty controllerMappingProfiles;
 
-        private BaseMixedRealityControllerDataProviderProfile dataProviderProfile;
+        private BaseMixedRealityControllerServiceModuleProfile dataProviderProfile;
         private bool showMappingProfiles = true;
 
         private ReorderableList mappingProfileList;
@@ -58,7 +58,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             hasSetupDefaults = serializedObject.FindProperty(nameof(hasSetupDefaults));
             controllerMappingProfiles = serializedObject.FindProperty(nameof(controllerMappingProfiles));
 
-            dataProviderProfile = (BaseMixedRealityControllerDataProviderProfile)serializedObject.targetObject;
+            dataProviderProfile = (BaseMixedRealityControllerServiceModuleProfile)serializedObject.targetObject;
 
             if (!hasSetupDefaults.boolValue)
             {

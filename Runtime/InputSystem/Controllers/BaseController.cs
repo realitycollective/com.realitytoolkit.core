@@ -34,11 +34,11 @@ namespace RealityToolkit.InputSystem.Controllers
         /// <summary>
         /// Creates a new instance of a controller.
         /// </summary>
-        /// <param name="controllerDataProvider">The <see cref="IMixedRealityControllerDataProvider"/> this controller belongs to.</param>
+        /// <param name="controllerDataProvider">The <see cref="IMixedRealityControllerServiceModule"/> this controller belongs to.</param>
         /// <param name="trackingState">The initial tracking state of this controller.</param>
         /// <param name="controllerHandedness">The controller's handedness.</param>
         /// <param name="controllerMappingProfile"></param>
-        protected BaseController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        protected BaseController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
         {
             ControllerDataProvider = controllerDataProvider;
             TrackingState = trackingState;
@@ -121,7 +121,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public bool Enabled { get; set; }
 
         /// <inheritdoc />
-        public IMixedRealityControllerDataProvider ControllerDataProvider { get; }
+        public IMixedRealityControllerServiceModule ControllerDataProvider { get; }
 
         /// <inheritdoc />
         public TrackingState TrackingState { get; protected set; }

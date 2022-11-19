@@ -27,7 +27,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         public MixedRealityHandController() : base() { }
 
         /// <inheritdoc />
-        public MixedRealityHandController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public MixedRealityHandController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
@@ -206,7 +206,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
 
         private void UpdateBounds()
         {
-            var handControllerDataProvider = (IMixedRealityHandControllerDataProvider)ControllerDataProvider;
+            var handControllerDataProvider = (IMixedRealityHandControllerServiceModule)ControllerDataProvider;
 
             if (handControllerDataProvider.HandPhysicsEnabled && handControllerDataProvider.BoundsMode == HandBoundsLOD.Low)
             {

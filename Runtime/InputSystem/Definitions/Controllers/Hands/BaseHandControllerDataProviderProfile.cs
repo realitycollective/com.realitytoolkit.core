@@ -11,7 +11,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
     /// <summary>
     /// Provides additional configuration options for hand data providers.
     /// </summary>
-    public abstract class BaseHandControllerDataProviderProfile : BaseMixedRealityControllerDataProviderProfile
+    public abstract class BaseHandControllerDataProviderProfile : BaseMixedRealityControllerServiceModuleProfile
     {
         [SerializeField]
         [Range(.5f, 1f)]

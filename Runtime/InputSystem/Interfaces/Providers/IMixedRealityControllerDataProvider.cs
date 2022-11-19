@@ -12,7 +12,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Providers
     /// <summary>
     /// Reality Toolkit data provider definition, used to instantiate and manage controllers and joysticks
     /// </summary>
-    public interface IMixedRealityControllerDataProvider : IMixedRealityInputDataProvider
+    public interface IMixedRealityControllerServiceModule : IMixedRealityInputDataProvider
     {
         /// <summary>
         /// Retrieve all controllers currently registered with this device at runtime (if direct access is required).
@@ -27,7 +27,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Providers
         /// <returns><see cref="MixedRealityControllerMappingProfile"/> or <c>null</c>.</returns>
         /// <remarks>
         /// Currently you can register more than one controller type and handedness into the
-        /// <see cref="BaseMixedRealityControllerDataProviderProfile"/>, but this method will only return the first one found.
+        /// <see cref="BaseMixedRealityControllerServiceModuleProfile"/>, but this method will only return the first one found.
         /// </remarks>
         MixedRealityControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness);
 

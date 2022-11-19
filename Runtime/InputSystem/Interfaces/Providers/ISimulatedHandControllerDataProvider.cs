@@ -3,7 +3,7 @@
 
 namespace RealityToolkit.InputSystem.Interfaces.Providers
 {
-    public interface ISimulatedHandControllerDataProvider : ISimulatedControllerDataProvider, IMixedRealityHandControllerDataProvider
+    public interface ISimulatedHandControllerDataProvider : ISimulatedControllerDataProvider, IMixedRealityHandControllerServiceModule
     {
         /// <summary>
         /// Gets the simulated hand controller pose animation speed controlling

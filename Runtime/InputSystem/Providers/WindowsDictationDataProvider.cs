@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Providers
     public class WindowsDictationDataProvider : BaseDictationDataProvider
     {
         /// <inheritdoc />
-        public WindowsDictationDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
+        public WindowsDictationDataProvider(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN

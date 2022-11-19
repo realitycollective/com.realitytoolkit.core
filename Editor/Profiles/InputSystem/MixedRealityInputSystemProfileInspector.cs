@@ -53,7 +53,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private ReorderableList poseProfilesList;
         private int currentlySelectedPoseElement;
 
-        private Dictionary<string, Tuple<BaseMixedRealityControllerDataProviderProfile, MixedRealityControllerMappingProfile>> controllerMappingProfiles;
+        private Dictionary<string, Tuple<BaseMixedRealityControllerServiceModuleProfile, MixedRealityControllerMappingProfile>> controllerMappingProfiles;
 
         protected override void OnEnable()
         {
@@ -79,7 +79,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             gesturesProfile = serializedObject.FindProperty(nameof(gesturesProfile));
             speechCommandsProfile = serializedObject.FindProperty(nameof(speechCommandsProfile));
 
-            controllerMappingProfiles = new Dictionary<string, Tuple<BaseMixedRealityControllerDataProviderProfile, MixedRealityControllerMappingProfile>>();
+            controllerMappingProfiles = new Dictionary<string, Tuple<BaseMixedRealityControllerServiceModuleProfile, MixedRealityControllerMappingProfile>>();
 
             for (int i = 0; i < Configurations?.arraySize; i++)
             {
@@ -87,7 +87,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                 var configurationProfileProperty = configurationProperty.FindPropertyRelative("profile");
 
                 if (configurationProfileProperty != null &&
-                    configurationProfileProperty.objectReferenceValue is BaseMixedRealityControllerDataProviderProfile controllerDataProviderProfile)
+                    configurationProfileProperty.objectReferenceValue is BaseMixedRealityControllerServiceModuleProfile controllerDataProviderProfile)
                 {
                     if (controllerDataProviderProfile.IsNull() ||
                         controllerDataProviderProfile.ControllerMappingProfiles == null)
@@ -103,7 +103,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
                         if (!controllerMappingProfiles.ContainsKey(guid))
                         {
-                            controllerMappingProfiles.Add(guid, new Tuple<BaseMixedRealityControllerDataProviderProfile, MixedRealityControllerMappingProfile>(controllerDataProviderProfile, mappingProfile));
+                            controllerMappingProfiles.Add(guid, new Tuple<BaseMixedRealityControllerServiceModuleProfile, MixedRealityControllerMappingProfile>(controllerDataProviderProfile, mappingProfile));
                         }
                     }
                 }

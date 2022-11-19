@@ -9,7 +9,7 @@ namespace RealityToolkit.Definitions.Controllers
     /// <summary>
     /// Provides additional configuration options for controller data providers.
     /// </summary>
-    public abstract class BaseMixedRealityControllerDataProviderProfile : BaseProfile
+    public abstract class BaseMixedRealityControllerServiceModuleProfile : BaseProfile
     {
         [SerializeField]
         private bool hasSetupDefaults = false;

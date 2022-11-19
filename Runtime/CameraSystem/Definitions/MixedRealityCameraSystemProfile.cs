@@ -10,15 +10,15 @@ namespace RealityToolkit.CameraSystem.Definitions
     /// <summary>
     /// Configuration profile for the <see cref="MixedRealityCameraSystem"/>.
     /// </summary>
-    public class MixedRealityCameraSystemProfile : BaseServiceProfile<IMixedRealityCameraDataProvider>
+    public class MixedRealityCameraSystemProfile : BaseServiceProfile<IMixedRealityCameraServiceModule>
     {
         [SerializeField]
         [Tooltip("The Global Camera Profile Settings.")]
-        private BaseMixedRealityCameraDataProviderProfile globalCameraProfile = null;
+        private BaseMixedRealityCameraServiceModuleProfile globalCameraProfile = null;
 
         /// <summary>
-        /// The default camera data provider profile <see cref="IMixedRealityCameraDataProvider"/>s will use if no profile is assigned.
+        /// The default camera data provider profile <see cref="IMixedRealityCameraServiceModule"/>s will use if no profile is assigned.
         /// </summary>
-        public BaseMixedRealityCameraDataProviderProfile GlobalCameraProfile => globalCameraProfile;
+        public BaseMixedRealityCameraServiceModuleProfile GlobalCameraProfile => globalCameraProfile;
     }
 }

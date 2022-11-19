@@ -66,12 +66,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         /// </summary>
         public GameObject HandVisualizationGameObject => HandControllerDataProvider.HandPhysicsEnabled ? PhysicsCompanionGameObject : GameObject;
 
-        private IMixedRealityHandControllerDataProvider handControllerDataProvider;
+        private IMixedRealityHandControllerServiceModule handControllerDataProvider;
 
         /// <summary>
         /// The active hand controller data provider.
         /// </summary>
-        protected IMixedRealityHandControllerDataProvider HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IMixedRealityHandControllerDataProvider)Controller.ControllerDataProvider);
+        protected IMixedRealityHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IMixedRealityHandControllerServiceModule)Controller.ControllerDataProvider);
 
         /// <inheritdoc />
         protected override void OnDestroy()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Interfaces.Providers
 {
-    public interface ISimulatedControllerDataProvider : IMixedRealityControllerDataProvider
+    public interface ISimulatedControllerDataProvider : IMixedRealityControllerServiceModule
     {
         /// <summary>
         /// The simulated update frequency in milliseconds mimics the hardware's ability to

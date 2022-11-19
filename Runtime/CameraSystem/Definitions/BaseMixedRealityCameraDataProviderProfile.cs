@@ -12,9 +12,9 @@ using UnityEngine.XR;
 namespace RealityToolkit.CameraSystem.Definitions
 {
     /// <summary>
-    /// Provides configuration options for <see cref="IMixedRealityCameraDataProvider"/>s.
+    /// Provides configuration options for <see cref="IMixedRealityCameraServiceModule"/>s.
     /// </summary>
-    public class BaseMixedRealityCameraDataProviderProfile : BaseProfile
+    public class BaseMixedRealityCameraServiceModuleProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Sets the tracking type of the camera.")]

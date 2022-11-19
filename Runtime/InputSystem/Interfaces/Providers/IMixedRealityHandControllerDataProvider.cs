@@ -5,7 +5,7 @@ using RealityToolkit.Definitions.Controllers.Hands;
 
 namespace RealityToolkit.InputSystem.Interfaces.Providers
 {
-    public interface IMixedRealityHandControllerDataProvider : IMixedRealityControllerDataProvider
+    public interface IMixedRealityHandControllerServiceModule : IMixedRealityControllerServiceModule
     {
         /// <summary>
         /// Gets the current rendering mode for hand controllers.

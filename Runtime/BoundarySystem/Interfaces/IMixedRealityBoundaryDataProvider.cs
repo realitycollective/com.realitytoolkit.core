@@ -12,7 +12,7 @@ namespace RealityToolkit.BoundarySystem.Interfaces
     /// Boundary data providers provide low level data access for the <see cref="IMixedRealityBoundarySystem"/> to query
     /// platform boundary state.
     /// </summary>
-    public interface IMixedRealityBoundaryDataProvider : IServiceModule
+    public interface IMixedRealityBoundaryServiceModule : IServiceModule
     {
         /// <summary>
         /// Gets the current boundary visibility.

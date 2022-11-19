@@ -314,10 +314,10 @@ namespace RealityToolkit.Editor
                         }
                         break;
 
-                    case Type _ when typeof(IMixedRealityCameraDataProvider).IsAssignableFrom(configurationType):
+                    case Type _ when typeof(IMixedRealityCameraServiceModule).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
                         {
-                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
+                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraServiceModule>(configuration);
 
                             if (cameraSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == cameraDataProviderConfiguration.InstancedType.Type))
                             {
@@ -370,10 +370,10 @@ namespace RealityToolkit.Editor
                             }
                         }
                         break;
-                    case Type _ when typeof(IMixedRealityBoundaryDataProvider).IsAssignableFrom(configurationType):
+                    case Type _ when typeof(IMixedRealityBoundaryServiceModule).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityBoundarySystem, MixedRealityBoundaryProfile>(out var boundarySystemProfile, rootProfile))
                         {
-                            var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
+                            var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryServiceModule>(configuration);
 
                             if (boundarySystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
                             {

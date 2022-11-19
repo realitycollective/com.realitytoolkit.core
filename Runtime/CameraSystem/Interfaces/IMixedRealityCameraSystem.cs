@@ -14,9 +14,9 @@ namespace RealityToolkit.CameraSystem.Interfaces
     public interface IMixedRealityCameraSystem : IService
     {
         /// <summary>
-        /// The list of <see cref="IMixedRealityCameraDataProvider"/>s registered and running with the system.
+        /// The list of <see cref="IMixedRealityCameraServiceModule"/>s registered and running with the system.
         /// </summary>
-        IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders { get; }
+        IReadOnlyCollection<IMixedRealityCameraServiceModule> CameraDataProviders { get; }
 
         /// <summary>
         /// The reference to the <see cref="IMixedRealityCameraRig"/> attached to the Main Camera (typically this is the player's camera).
@@ -36,15 +36,15 @@ namespace RealityToolkit.CameraSystem.Interfaces
         XRDisplaySubsystem DisplaySubsystem { get; }
 
         /// <summary>
-        /// Registers the <see cref="IMixedRealityCameraDataProvider"/> with the <see cref="IMixedRealityCameraSystem"/>.
+        /// Registers the <see cref="IMixedRealityCameraServiceModule"/> with the <see cref="IMixedRealityCameraSystem"/>.
         /// </summary>
         /// <param name="dataProvider"></param>
-        void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider);
+        void RegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider);
 
         /// <summary>
-        /// UnRegisters the <see cref="IMixedRealityCameraDataProvider"/> with the <see cref="IMixedRealityCameraSystem"/>.
+        /// UnRegisters the <see cref="IMixedRealityCameraServiceModule"/> with the <see cref="IMixedRealityCameraSystem"/>.
         /// </summary>
         /// <param name="dataProvider"></param>
-        void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider);
+        void UnRegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider);
     }
 }

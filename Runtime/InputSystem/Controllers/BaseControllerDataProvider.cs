@@ -15,12 +15,12 @@ using UnityEngine;
 namespace RealityToolkit.InputSystem.Controllers
 {
     /// <summary>
-    /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityControllerDataProvider"/>s
+    /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityControllerServiceModule"/>s
     /// </summary>
-    public abstract class BaseControllerDataProvider : BaseServiceModule, IMixedRealityControllerDataProvider
+    public abstract class BaseControllerServiceModule : BaseServiceModule, IMixedRealityControllerServiceModule
     {
         /// <inheritdoc />
-        protected BaseControllerDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseControllerServiceModule(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())

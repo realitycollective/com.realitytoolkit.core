@@ -28,7 +28,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         /// <summary>
         /// The data provider service this controller belongs to.
         /// </summary>
-        IMixedRealityControllerDataProvider ControllerDataProvider { get; }
+        IMixedRealityControllerServiceModule ControllerDataProvider { get; }
 
         /// <summary>
         /// Outputs the current state of the Input Source, whether it is tracked or not. As defined by the SDK / Unity.
