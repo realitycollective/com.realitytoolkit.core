@@ -45,7 +45,7 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
                 EditorGUI.indentLevel--;
             }
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }

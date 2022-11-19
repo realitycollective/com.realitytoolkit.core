@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.SpatialObservers;
 using RealityToolkit.SpatialAwarenessSystem.Definitions;
@@ -18,7 +18,7 @@ namespace RealityToolkit.SpatialAwarenessSystem.Providers
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialAwarenessDataProvider"/> implementation
     /// </summary>
-    public abstract class BaseMixedRealitySpatialObserverDataProvider : BaseServiceDataProvider, IMixedRealitySpatialAwarenessDataProvider
+    public abstract class BaseMixedRealitySpatialObserverDataProvider : BaseServiceModule, IMixedRealitySpatialAwarenessDataProvider
     {
         /// <inheritdoc />
         protected BaseMixedRealitySpatialObserverDataProvider(string name, uint priority, BaseMixedRealitySpatialObserverProfile profile, IMixedRealitySpatialAwarenessSystem parentService)

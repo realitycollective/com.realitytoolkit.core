@@ -1,7 +1,7 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.LocomotionSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Interfaces;
@@ -14,7 +14,7 @@ namespace RealityToolkit.Services.LocomotionSystem.Providers
     /// The Reality Toolkit's specific implementation of the <see cref="ITeleportValidationProvider"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("14199fd8-1636-4147-bb08-6475e76ed1cd")]
-    public class TeleportValidationProvider : BaseServiceDataProvider, ITeleportValidationProvider
+    public class TeleportValidationProvider : BaseServiceModule, ITeleportValidationProvider
     {
         /// <inheritdoc />
         public TeleportValidationProvider(string name, uint priority, TeleportValidationProviderProfile profile, ILocomotionSystem parentService)

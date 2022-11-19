@@ -9,7 +9,7 @@ namespace RealityToolkit.CameraSystem.Interfaces
     /// <summary>
     /// Base interface for implementing camera data providers to be registered with the <see cref="IMixedRealityCameraSystem"/>
     /// </summary>
-    public interface IMixedRealityCameraDataProvider : IServiceDataProvider
+    public interface IMixedRealityCameraDataProvider : IServiceModule
     {
         /// <summary>
         /// Is the current camera displaying on an Opaque (AR) device or a VR / immersive device

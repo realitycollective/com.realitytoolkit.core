@@ -207,7 +207,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                 }
             }
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
 

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Speech;
@@ -11,7 +11,7 @@ namespace RealityToolkit.InputSystem.Providers
     /// <summary>
     /// Base speech data provider to inherit from when implementing <see cref="IMixedRealitySpeechDataProvider"/>s
     /// </summary>
-    public abstract class BaseSpeechDataProvider : BaseServiceDataProvider, IMixedRealitySpeechDataProvider
+    public abstract class BaseSpeechDataProvider : BaseServiceModule, IMixedRealitySpeechDataProvider
     {
         /// <inheritdoc />
         protected BaseSpeechDataProvider(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IMixedRealityInputSystem parentService)

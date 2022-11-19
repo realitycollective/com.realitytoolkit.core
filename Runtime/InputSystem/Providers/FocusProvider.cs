@@ -3,7 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
@@ -24,7 +24,7 @@ namespace RealityToolkit.InputSystem.Providers
     /// </summary>
     /// <remarks>There are convenience properties for getting only Gaze Pointer if needed.</remarks>
     [System.Runtime.InteropServices.Guid("249D4D78-CADD-45BA-9438-DB9FC2509213")]
-    public class FocusProvider : BaseServiceDataProvider, IMixedRealityFocusProvider
+    public class FocusProvider : BaseServiceModule, IMixedRealityFocusProvider
     {
         /// <inheritdoc />
         public FocusProvider(string name, uint priority, BaseProfile profile, IMixedRealityInputSystem parentService) : base(name, priority, profile, parentService)

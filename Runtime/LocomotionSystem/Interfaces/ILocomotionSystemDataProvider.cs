@@ -8,5 +8,5 @@ namespace RealityToolkit.LocomotionSystem.Interfaces
     /// <summary>
     /// The base interface to define providers for the <see cref="LocomotionSystem"/>.
     /// </summary>
-    public interface ILocomotionSystemDataProvider : IServiceDataProvider { }
+    public interface ILocomotionSystemDataProvider : IServiceModule { }
 }

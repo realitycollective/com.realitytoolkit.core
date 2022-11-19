@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
@@ -17,7 +17,7 @@ namespace RealityToolkit.InputSystem.Controllers
     /// <summary>
     /// Base controller data provider to inherit from when implementing <see cref="IMixedRealityControllerDataProvider"/>s
     /// </summary>
-    public abstract class BaseControllerDataProvider : BaseServiceDataProvider, IMixedRealityControllerDataProvider
+    public abstract class BaseControllerDataProvider : BaseServiceModule, IMixedRealityControllerDataProvider
     {
         /// <inheritdoc />
         protected BaseControllerDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

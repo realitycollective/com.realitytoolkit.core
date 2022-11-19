@@ -52,7 +52,7 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 
             EditorGUILayout.Space();
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }

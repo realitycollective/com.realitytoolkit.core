@@ -1,7 +1,7 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Speech;
@@ -13,7 +13,7 @@ namespace RealityToolkit.InputSystem.Providers
     /// <summary>
     /// Base dictation data provider to use when implementing <see cref="IMixedRealityDictationDataProvider"/>s
     /// </summary>
-    public abstract class BaseDictationDataProvider : BaseServiceDataProvider, IMixedRealityDictationDataProvider
+    public abstract class BaseDictationDataProvider : BaseServiceModule, IMixedRealityDictationDataProvider
     {
         /// <inheritdoc />
         protected BaseDictationDataProvider(string name, uint priority, BaseMixedRealityControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)

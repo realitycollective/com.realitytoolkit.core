@@ -37,7 +37,7 @@ namespace RealityToolkit.Editor.Profiles.CameraSystem
 
             EditorGUILayout.Space();
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
 

@@ -41,7 +41,7 @@ namespace RealityToolkit.Editor.Profiles.LocomotionSystem
 
             EditorGUILayout.Space();
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }

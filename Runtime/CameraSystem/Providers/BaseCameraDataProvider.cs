@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Definitions;
 using RealityToolkit.CameraSystem.Interfaces;
@@ -18,7 +18,7 @@ namespace RealityToolkit.CameraSystem.Providers
     /// Base class for all <see cref="IMixedRealityCameraDataProvider"/>s can inherit from.
     /// </summary>
     [System.Runtime.InteropServices.Guid("EA4C0C19-E533-4AE8-91A2-6998CB8905BB")]
-    public class BaseCameraDataProvider : BaseServiceDataProvider, IMixedRealityCameraDataProvider
+    public class BaseCameraDataProvider : BaseServiceModule, IMixedRealityCameraDataProvider
     {
         /// <inheritdoc />
         public BaseCameraDataProvider(string name, uint priority, BaseMixedRealityCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)

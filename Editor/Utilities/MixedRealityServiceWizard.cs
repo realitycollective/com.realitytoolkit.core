@@ -4,12 +4,10 @@
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.BoundarySystem.Interfaces;
-using RealityToolkit.Interfaces.Events;
 using RealityToolkit.LocomotionSystem.Interfaces;
-using RealityToolkit.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -103,10 +101,10 @@ namespace RealityToolkit.Editor.Utilities
                     window.instanceBaseType = typeof(BaseEventService);
                     window.profileBaseType = typeof(BaseServiceProfile<>);
                     break;
-                case Type _ when typeof(IServiceDataProvider).IsAssignableFrom(interfaceType):
+                case Type _ when typeof(IServiceModule).IsAssignableFrom(interfaceType):
                     window.profileTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProviderProfile.txt";
                     window.instanceTemplatePath = $"{templatePath}{Path.DirectorySeparatorChar}DataProvider.txt";
-                    window.instanceBaseType = typeof(BaseServiceDataProvider);
+                    window.instanceBaseType = typeof(BaseServiceModule);
                     window.profileBaseType = typeof(BaseProfile);
                     break;
                 case Type _ when typeof(IService).IsAssignableFrom(interfaceType):

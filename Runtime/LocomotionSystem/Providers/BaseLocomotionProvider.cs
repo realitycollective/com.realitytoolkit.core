@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Providers;
+using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.EventDatum.Input;
@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace RealityToolkit.LocomotionSystem.Providers
 {
-    public abstract class BaseLocomotionProvider : BaseServiceDataProvider, ILocomotionProvider
+    public abstract class BaseLocomotionProvider : BaseServiceModule, ILocomotionProvider
     {
         /// <inheritdoc />
         public BaseLocomotionProvider(string name, uint priority, BaseLocomotionProviderProfile profile, ILocomotionSystem parentService)
