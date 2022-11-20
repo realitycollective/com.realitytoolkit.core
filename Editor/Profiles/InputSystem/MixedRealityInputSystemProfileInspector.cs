@@ -198,7 +198,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                     var (dataProviderProfile, mappingProfile) = controllerMappingProfile.Value;
                     var profileEditor = CreateEditor(dataProviderProfile);
 
-                    if (profileEditor is BaseMixedRealityControllerDataProviderProfileInspector inspector)
+                    if (profileEditor is BaseMixedRealityControllerServiceModuleProfileInspector inspector)
                     {
                         inspector.RenderControllerMappingButton(mappingProfile);
                     }

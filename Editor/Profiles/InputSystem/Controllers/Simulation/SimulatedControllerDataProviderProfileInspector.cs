@@ -9,7 +9,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers.Simulation
 {
     [CustomEditor(typeof(SimulatedControllerDataProviderProfile))]
-    public class SimulatedControllerDataProviderProfileInspector : BaseMixedRealityControllerDataProviderProfileInspector
+    public class SimulatedControllerDataProviderProfileInspector : BaseMixedRealityControllerServiceModuleProfileInspector
     {
         private static readonly GUIContent SimulationSettingsFoldoutHeader = new GUIContent("Simulation Settings");
 
