@@ -212,8 +212,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             serializedObject.ApplyModifiedProperties();
 
             if (EditorGUI.EndChangeCheck() &&
-                ServiceManager.Instance != null &&
-                ServiceManager.Instance.IsInitialized)
+                ServiceManager.IsActiveAndInitialized)
             {
                 EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }

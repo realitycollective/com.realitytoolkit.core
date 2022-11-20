@@ -33,7 +33,7 @@ namespace RealityToolkit.Editor.Utilities
         {
             get
             {
-                if (!ServiceManager.Instance.IsInitialized ||
+                if (!ServiceManager.IsActiveAndInitialized ||
                     !MixedRealityPreferences.ShowCanvasUtilityPrompt)
                 {
                     return false;
