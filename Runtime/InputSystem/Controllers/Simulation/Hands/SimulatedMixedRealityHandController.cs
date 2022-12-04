@@ -7,7 +7,7 @@ using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Controllers.Hands;
 using RealityToolkit.InputSystem.Extensions;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Controllers.Simulation.Hands

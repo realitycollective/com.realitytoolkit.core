@@ -10,7 +10,7 @@ namespace RealityToolkit.LocomotionSystem.Interfaces
     /// <summary>
     /// The base interface to define locomotion providers for the <see cref="ILocomotionSystem"/>.
     /// </summary>
-    public interface ILocomotionProvider : ILocomotionSystemDataProvider,
+    public interface ILocomotionProvider : ILocomotionServiceModule,
         ILocomotionSystemHandler,
         IMixedRealityInputHandler,
         IMixedRealityInputHandler<float>,

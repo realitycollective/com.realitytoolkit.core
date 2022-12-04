@@ -31,8 +31,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
             set => lineColorAnchor = value;
         }
 
-        private ITeleportValidationProvider validationDataProvider;
-        private ITeleportValidationProvider ValidationDataProvider => validationDataProvider ?? (validationDataProvider = ServiceManager.Instance.GetService<ITeleportValidationProvider>());
+        private ITeleportValidationServiceModule validationDataProvider;
+        private ITeleportValidationServiceModule ValidationDataProvider => validationDataProvider ?? (validationDataProvider = ServiceManager.Instance.GetService<ITeleportValidationServiceModule>());
 
         /// <inheritdoc />
         public ILocomotionProvider RequestingLocomotionProvider { get; private set; }

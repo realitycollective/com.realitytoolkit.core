@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Interfaces.Controllers
@@ -26,7 +26,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         bool Enabled { get; set; }
 
         /// <summary>
-        /// The data provider service this controller belongs to.
+        /// The <see cref="IMixedRealityControllerServiceModule"/> this controller belongs to.
         /// </summary>
         IMixedRealityControllerServiceModule ControllerDataProvider { get; }
 

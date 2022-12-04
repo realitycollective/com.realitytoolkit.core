@@ -164,7 +164,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             if (showGlobalHandOptions)
             {
-                EditorGUILayout.HelpBox("Global hand tracking options applied to all platforms that support hand tracking. You may override these globals per platform in the platform's hand controller data provider profile.", MessageType.Info);
+                EditorGUILayout.HelpBox("Global hand tracking options applied to all platforms that support hand tracking. You may override these globals per platform in the platform's hand controller service module profile.", MessageType.Info);
                 EditorGUI.indentLevel++;
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("General Hand Settings", EditorStyles.boldLabel);

@@ -74,7 +74,7 @@ namespace RealityToolkit.CameraSystem
                     }
                 }
 
-                // If we can't find the active camera data provider we must rely
+                // If we can't find the active camera service module we must rely
                 // on whatever the platform default is.
                 return TrackingType.Auto;
             }
@@ -112,7 +112,7 @@ namespace RealityToolkit.CameraSystem
         public override void Destroy()
         {
             base.Destroy();
-            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
+            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera service module references!");
         }
 
         /// <inheritdoc />

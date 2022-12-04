@@ -17,7 +17,7 @@ namespace RealityToolkit.CameraSystem.Definitions
         private BaseMixedRealityCameraServiceModuleProfile globalCameraProfile = null;
 
         /// <summary>
-        /// The default camera data provider profile <see cref="IMixedRealityCameraServiceModule"/>s will use if no profile is assigned.
+        /// The default camera service module profile <see cref="IMixedRealityCameraServiceModule"/>s will use if no profile is assigned.
         /// </summary>
         public BaseMixedRealityCameraServiceModuleProfile GlobalCameraProfile => globalCameraProfile;
     }

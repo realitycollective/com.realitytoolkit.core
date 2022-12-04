@@ -29,7 +29,7 @@ namespace RealityToolkit.BoundarySystem.Interfaces
         /// The <see cref="IMixedRealityBoundaryServiceModule"/> assigned to this system.
         /// </summary>
         /// <remarks>
-        /// Typically with systems, there can be multiple data providers, but in this case there should only ever be one.
+        /// Typically with systems, there can be multiple service modules, but in this case there should only ever be one.
         /// </remarks>
         IMixedRealityBoundaryServiceModule BoundaryDataProvider { get; }
 
@@ -93,7 +93,7 @@ namespace RealityToolkit.BoundarySystem.Interfaces
         /// </summary>
         /// <param name="dataProvider"></param>
         /// <remarks>
-        /// This method should usually be called from the <see cref="IMixedRealityService.Enable"/> method of the data provider itself.
+        /// This method should usually be called from the <see cref="IMixedRealityService.Enable"/> method of the service module itself.
         /// </remarks>
         void SetupBoundary(IMixedRealityBoundaryServiceModule dataProvider);
 

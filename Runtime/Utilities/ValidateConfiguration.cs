@@ -77,7 +77,7 @@ namespace RealityToolkit.Utilities
                     if (errorsFound)
                     {
                         var errorDescription = new StringBuilder();
-                        errorDescription.AppendLine("The following Data Providers were not found in the current Mixed Reality Configuration profile:\n");
+                        errorDescription.AppendLine("The following service modules were not found in the current Reality Toolkit Configuration profile:\n");
 
                         for (int i = 0; i < typesValidated.Length; i++)
                         {
@@ -87,7 +87,7 @@ namespace RealityToolkit.Utilities
                             }
                         }
 
-                        errorDescription.AppendLine($"\nYou can either add this manually in\nInput Profile ->  Controller Data providers\n or click 'App Provider' to add this automatically");
+                        errorDescription.AppendLine($"\nYou can either add this manually in\nInput Profile ->  Controller service modules\n or click 'App Provider' to add this automatically");
 #if UNITY_EDITOR
                         if (prompt)
                         {

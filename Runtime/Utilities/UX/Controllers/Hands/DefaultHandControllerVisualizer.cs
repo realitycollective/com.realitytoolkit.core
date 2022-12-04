@@ -7,7 +7,7 @@ using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,7 +69,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         private IMixedRealityHandControllerServiceModule handControllerDataProvider;
 
         /// <summary>
-        /// The active hand controller data provider.
+        /// The active <see cref="IMixedRealityHandControllerServiceModule"/>.
         /// </summary>
         protected IMixedRealityHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IMixedRealityHandControllerServiceModule)Controller.ControllerDataProvider);
 
