@@ -3,7 +3,6 @@
 
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Controllers.Simulation.Hands;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.Utilities.Physics;
@@ -157,12 +156,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
                 isInteractionEnabled = true;
             }
-
-            if (eventData.Controller is SimulatedMixedRealityHandController)
-            {
-                isInteractionEnabled = false;
-                BaseCursor?.SetVisibility(false);
-            }
         }
 
         /// <inheritdoc />
@@ -173,12 +166,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 isInteractionEnabled = false;
-            }
-
-            if (eventData.Controller is SimulatedMixedRealityHandController)
-            {
-                isInteractionEnabled = true;
-                BaseCursor?.SetVisibility(true);
             }
         }
 

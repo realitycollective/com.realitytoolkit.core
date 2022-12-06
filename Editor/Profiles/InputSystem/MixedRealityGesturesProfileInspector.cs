@@ -3,6 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Definitions;
 using System;
@@ -41,17 +42,20 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             gesturesProfile = target as MixedRealityGesturesProfile;
             Debug.Assert(gesturesProfile != null);
 
-            inputSystemProfile = gesturesProfile.ParentProfile as MixedRealityInputSystemProfile;
-            Debug.Assert(inputSystemProfile != null);
-
-            if (inputSystemProfile.InputActionsProfile != null)
+            if (ServiceManager.IsActiveAndInitialized)
             {
-                actionLabels = inputSystemProfile.InputActionsProfile.InputActions
-                    .Select(action => new GUIContent(action.Description))
-                    .Prepend(new GUIContent("None")).ToArray();
-                actionIds = inputSystemProfile.InputActionsProfile.InputActions
-                    .Select(action => (int)action.Id)
-                    .Prepend(0).ToArray();
+                inputSystemProfile = gesturesProfile.ParentProfile as MixedRealityInputSystemProfile;
+                Debug.Assert(inputSystemProfile != null);
+
+                if (inputSystemProfile.InputActionsProfile != null)
+                {
+                    actionLabels = inputSystemProfile.InputActionsProfile.InputActions
+                        .Select(action => new GUIContent(action.Description))
+                        .Prepend(new GUIContent("None")).ToArray();
+                    actionIds = inputSystemProfile.InputActionsProfile.InputActions
+                        .Select(action => (int)action.Id)
+                        .Prepend(0).ToArray();
+                }
             }
 
             UpdateGestureLabels();
