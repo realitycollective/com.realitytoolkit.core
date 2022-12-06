@@ -10,7 +10,7 @@ namespace RealityToolkit.LocomotionSystem.Definitions
     /// <summary>
     /// Configuration profile settings for <see cref="Services.LocomotionSystem.LocomotionSystem"/>.
     /// </summary>
-    public class LocomotionSystemProfile : BaseServiceProfile<ILocomotionSystemDataProvider>
+    public class LocomotionSystemProfile : BaseServiceProfile<ILocomotionServiceModule>
     {
         [SerializeField]
         [Tooltip("The teleportation cooldown defines the time that needs to pass after a successful teleportation for another one to be possible.")]

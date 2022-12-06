@@ -13,7 +13,7 @@ using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces;
@@ -172,7 +172,7 @@ namespace RealityToolkit.Editor
             // for whatever reason, there is nothing we can do here.
             if (rootProfile.IsNull())
             {
-                EditorUtility.DisplayDialog("Attention!", "Each service and data provider in the platform configuration will need to be manually registered as no existing Service Framework Instance was found.\nUse the Platform Installer in the Profiles folder for the package once a Service Manager has been configured.", "OK");
+                EditorUtility.DisplayDialog("Attention!", "Each service and service module in the platform configuration will need to be manually registered as no existing Service Framework Instance was found.\nUse the Platform Installer in the Profiles folder for the package once a Service Manager has been configured.", "OK");
                 return;
             }
 
@@ -314,10 +314,10 @@ namespace RealityToolkit.Editor
                         }
                         break;
 
-                    case Type _ when typeof(IMixedRealityCameraDataProvider).IsAssignableFrom(configurationType):
+                    case Type _ when typeof(IMixedRealityCameraServiceModule).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
                         {
-                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraDataProvider>(configuration);
+                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraServiceModule>(configuration);
 
                             if (cameraSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == cameraDataProviderConfiguration.InstancedType.Type))
                             {
@@ -333,10 +333,10 @@ namespace RealityToolkit.Editor
                         }
                         break;
 
-                    case Type _ when typeof(IMixedRealityInputDataProvider).IsAssignableFrom(configurationType):
+                    case Type _ when typeof(IMixedRealityInputServiceModule).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile, rootProfile))
                         {
-                            var inputDataProviderConfiguration = new ServiceConfiguration<IMixedRealityInputDataProvider>(configuration);
+                            var inputDataProviderConfiguration = new ServiceConfiguration<IMixedRealityInputServiceModule>(configuration);
 
                             if (inputSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == inputDataProviderConfiguration.InstancedType.Type))
                             {
@@ -352,10 +352,10 @@ namespace RealityToolkit.Editor
                         }
                         break;
 
-                    case Type _ when typeof(IMixedRealitySpatialAwarenessDataProvider).IsAssignableFrom(configurationType):
+                    case Type _ when typeof(IMixedRealitySpatialAwarenessServiceModule).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile, rootProfile))
                         {
-                            var spatialObserverConfiguration = new ServiceConfiguration<IMixedRealitySpatialAwarenessDataProvider>(configuration);
+                            var spatialObserverConfiguration = new ServiceConfiguration<IMixedRealitySpatialAwarenessServiceModule>(configuration);
 
                             if (spatialAwarenessSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == spatialObserverConfiguration.InstancedType.Type))
                             {
@@ -370,10 +370,10 @@ namespace RealityToolkit.Editor
                             }
                         }
                         break;
-                    case Type _ when typeof(IMixedRealityBoundaryDataProvider).IsAssignableFrom(configurationType):
+                    case Type _ when typeof(IMixedRealityBoundaryServiceModule).IsAssignableFrom(configurationType):
                         if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityBoundarySystem, MixedRealityBoundaryProfile>(out var boundarySystemProfile, rootProfile))
                         {
-                            var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryDataProvider>(configuration);
+                            var boundarySystemConfiguration = new ServiceConfiguration<IMixedRealityBoundaryServiceModule>(configuration);
 
                             if (boundarySystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type != boundarySystemConfiguration.InstancedType.Type))
                             {

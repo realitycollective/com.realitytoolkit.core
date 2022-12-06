@@ -51,7 +51,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
         public override void OnInspectorGUI()
         {
-            RenderHeader("This profile defines the type of controller that is valid for this data provider, which hand it belongs to, and how to visualize this controller in the scene, and binds each interactions on every physical control mechanism or sensor on the device.");
+            RenderHeader("This profile defines the type of controller that is valid for this service module, which hand it belongs to, and how to visualize this controller in the scene, and binds each interactions on every physical control mechanism or sensor on the device.");
 
             serializedObject.Update();
 

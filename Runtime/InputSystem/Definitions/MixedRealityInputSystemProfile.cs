@@ -6,7 +6,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,7 +16,7 @@ namespace RealityToolkit.InputSystem.Definitions
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
-    public class MixedRealityInputSystemProfile : BaseServiceProfile<IMixedRealityInputDataProvider>
+    public class MixedRealityInputSystemProfile : BaseServiceProfile<IMixedRealityInputServiceModule>
     {
         #region Global Input System Options
 

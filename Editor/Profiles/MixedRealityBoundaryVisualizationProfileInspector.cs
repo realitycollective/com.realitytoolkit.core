@@ -100,7 +100,7 @@ namespace RealityToolkit.Editor.Profiles
 
             EditorGUILayout.Space();
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }

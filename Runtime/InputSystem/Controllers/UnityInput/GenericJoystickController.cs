@@ -7,7 +7,7 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Extensions;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Controllers.UnityInput
@@ -22,7 +22,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public GenericJoystickController() { }
 
         /// <inheritdoc />
-        public GenericJoystickController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public GenericJoystickController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
                 : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

@@ -30,7 +30,7 @@ namespace RealityToolkit.CameraSystem
             : base(name, priority) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        private readonly HashSet<IMixedRealityCameraDataProvider> cameraDataProviders = new HashSet<IMixedRealityCameraDataProvider>();
+        private readonly HashSet<IMixedRealityCameraServiceModule> cameraDataProviders = new HashSet<IMixedRealityCameraServiceModule>();
 
         public const string DefaultXRCameraRigName = "XRCameraRig";
 
@@ -38,7 +38,7 @@ namespace RealityToolkit.CameraSystem
         public override uint Priority => 0;
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IMixedRealityCameraDataProvider> CameraDataProviders => cameraDataProviders;
+        public IReadOnlyCollection<IMixedRealityCameraServiceModule> CameraDataProviders => cameraDataProviders;
 
         private IMixedRealityCameraRig mainCameraRig = null;
         /// <inheritdoc />
@@ -74,7 +74,7 @@ namespace RealityToolkit.CameraSystem
                     }
                 }
 
-                // If we can't find the active camera data provider we must rely
+                // If we can't find the active camera service module we must rely
                 // on whatever the platform default is.
                 return TrackingType.Auto;
             }
@@ -112,13 +112,13 @@ namespace RealityToolkit.CameraSystem
         public override void Destroy()
         {
             base.Destroy();
-            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera data provider references!");
+            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera service module references!");
         }
 
         /// <inheritdoc />
-        public void RegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Add(dataProvider);
+        public void RegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider) => cameraDataProviders.Add(dataProvider);
 
         /// <inheritdoc />
-        public void UnRegisterCameraDataProvider(IMixedRealityCameraDataProvider dataProvider) => cameraDataProviders.Remove(dataProvider);
+        public void UnRegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider) => cameraDataProviders.Remove(dataProvider);
     }
 }

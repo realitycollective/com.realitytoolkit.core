@@ -43,12 +43,12 @@ namespace RealityToolkit.SpatialAwarenessSystem.Interfaces
         /// <summary>
         /// Indicates the current running state of the spatial awareness observer.
         /// </summary>
-        bool IsObserverRunning(IMixedRealitySpatialAwarenessDataProvider observer);
+        bool IsObserverRunning(IMixedRealitySpatialAwarenessServiceModule observer);
 
         /// <summary>
         /// Generates a new unique observer id.<para/>
         /// </summary>
-        /// <remarks>All <see cref="IMixedRealitySpatialAwarenessDataProvider"/>s are required to call this method in their initialization.</remarks>
+        /// <remarks>All <see cref="IMixedRealitySpatialAwarenessServiceModule"/>s are required to call this method in their initialization.</remarks>
         /// <returns>a new unique Id for the observer.</returns>
         uint GenerateNewObserverId();
 
@@ -56,32 +56,32 @@ namespace RealityToolkit.SpatialAwarenessSystem.Interfaces
         /// Starts / restarts the spatial observer.
         /// </summary>
         /// <remarks>This will cause spatial awareness events to resume.</remarks>
-        void StartObserver(IMixedRealitySpatialAwarenessDataProvider observer);
+        void StartObserver(IMixedRealitySpatialAwarenessServiceModule observer);
 
         /// <summary>
         /// Stops / pauses the spatial observer.
         /// </summary>
         /// <remarks>This will cause spatial awareness events to be suspended until ResumeObserver is called.</remarks>
-        void SuspendObserver(IMixedRealitySpatialAwarenessDataProvider observer);
+        void SuspendObserver(IMixedRealitySpatialAwarenessServiceModule observer);
 
         /// <summary>
         /// List of the spatial observers as detected by the spatial awareness system.
         /// </summary>
-        HashSet<IMixedRealitySpatialAwarenessDataProvider> DetectedSpatialObservers { get; }
+        HashSet<IMixedRealitySpatialAwarenessServiceModule> DetectedSpatialObservers { get; }
 
         #endregion Observer Utilities
 
         #region Observer Events
 
         /// <summary>
-        /// Raise the event that a <see cref="IMixedRealitySpatialAwarenessDataProvider"/> has been detected.
+        /// Raise the event that a <see cref="IMixedRealitySpatialAwarenessServiceModule"/> has been detected.
         /// </summary>
-        void RaiseSpatialAwarenessObserverDetected(IMixedRealitySpatialAwarenessDataProvider observer);
+        void RaiseSpatialAwarenessObserverDetected(IMixedRealitySpatialAwarenessServiceModule observer);
 
         /// <summary>
-        /// Raise the event that a <see cref="IMixedRealitySpatialAwarenessDataProvider"/> has been lost.
+        /// Raise the event that a <see cref="IMixedRealitySpatialAwarenessServiceModule"/> has been lost.
         /// </summary>
-        void RaiseSpatialAwarenessObserverLost(IMixedRealitySpatialAwarenessDataProvider observer);
+        void RaiseSpatialAwarenessObserverLost(IMixedRealitySpatialAwarenessServiceModule observer);
 
         #endregion Observer Events
 

@@ -36,7 +36,7 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
         /// <inheritdoc />
         protected override void RenderConfigurationOptions(bool forceExpanded = false)
         {
-            RenderHeader("The Spatial Awareness Observer Data Provider supplies the Spatial Awareness System with all the data it needs to understand the world around you.");
+            RenderHeader("The Spatial Awareness Observer service module supplies the Spatial Awareness System with all the data it needs to understand the world around you.");
 
             serializedObject.Update();
 
@@ -52,7 +52,7 @@ namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 
             EditorGUILayout.Space();
 
-            base.DrawDataProviderPropertyDrawer();
+            DrawServiceModulePropertyDrawer();
 
             serializedObject.ApplyModifiedProperties();
         }

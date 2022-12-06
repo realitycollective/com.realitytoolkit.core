@@ -1,6 +1,7 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.InputSystem.Interfaces;
 using UnityEngine;
@@ -26,19 +27,17 @@ namespace RealityToolkit.Utilities
             set => canvas = value;
         }
 
-        private void Awake()
+        private void OnEnable()
         {
-            if (Canvas == null)
+            if (Canvas.IsNull())
             {
                 Canvas = GetComponent<Canvas>();
             }
-        }
 
-        private void Start()
-        {
-            Debug.Assert(Canvas != null);
+            Debug.Assert(Canvas != null, $"The {nameof(CanvasUtility)} requires a {nameof(Canvas)} component on the game object.");
 
-            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
+            if (ServiceManager.IsActiveAndInitialized &&
+                ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
                 Canvas.isRootCanvas && Canvas.renderMode == RenderMode.WorldSpace)
             {
                 Canvas.worldCamera = inputSystem.FocusProvider.UIRaycastCamera;

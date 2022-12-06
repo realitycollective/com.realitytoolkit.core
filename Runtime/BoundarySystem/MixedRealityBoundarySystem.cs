@@ -410,12 +410,12 @@ namespace RealityToolkit.BoundarySystem
         /// <inheritdoc />
         public IReadOnlyList<GameObject> TrackedObjects => trackedObjects.Keys.Select(cache => cache.gameObject).ToList();
 
-        private IMixedRealityBoundaryDataProvider boundaryDataProvider = null;
+        private IMixedRealityBoundaryServiceModule boundaryDataProvider = null;
 
         /// <inheritdoc />
-        public IMixedRealityBoundaryDataProvider BoundaryDataProvider
+        public IMixedRealityBoundaryServiceModule BoundaryDataProvider
         {
-            get => boundaryDataProvider ?? (boundaryDataProvider = ServiceManager.Instance.GetService<IMixedRealityBoundaryDataProvider>());
+            get => boundaryDataProvider ?? (boundaryDataProvider = ServiceManager.Instance.GetService<IMixedRealityBoundaryServiceModule>());
             private set => boundaryDataProvider = value;
         }
 
@@ -525,7 +525,7 @@ namespace RealityToolkit.BoundarySystem
         public Edge[] BoundaryBounds { get; private set; } = new Edge[0];
 
         /// <inheritdoc />
-        public void SetupBoundary(IMixedRealityBoundaryDataProvider dataProvider)
+        public void SetupBoundary(IMixedRealityBoundaryServiceModule dataProvider)
         {
             BoundaryDataProvider = dataProvider;
 

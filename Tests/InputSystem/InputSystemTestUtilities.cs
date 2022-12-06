@@ -6,7 +6,7 @@ using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityToolkit.InputSystem;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Providers;
+using RealityToolkit.InputSystem.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.Tests.InputSystem

@@ -11,7 +11,7 @@ using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.Handlers;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
-using RealityToolkit.SpatialAwarenessSystem.Providers;
+using RealityToolkit.SpatialAwarenessSystem.Modules;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
@@ -111,10 +111,10 @@ namespace RealityToolkit.SpatialAwarenessSystem
         #region IMixedRealitySpatialAwarenessSystem Implementation
 
         /// <inheritdoc />
-        public HashSet<IMixedRealitySpatialAwarenessDataProvider> DetectedSpatialObservers { get; } = new HashSet<IMixedRealitySpatialAwarenessDataProvider>();
+        public HashSet<IMixedRealitySpatialAwarenessServiceModule> DetectedSpatialObservers { get; } = new HashSet<IMixedRealitySpatialAwarenessServiceModule>();
 
         /// <inheritdoc />
-        public bool IsObserverRunning(IMixedRealitySpatialAwarenessDataProvider observer)
+        public bool IsObserverRunning(IMixedRealitySpatialAwarenessServiceModule observer)
         {
             foreach (var detectedObserver in DetectedSpatialObservers)
             {
@@ -144,7 +144,7 @@ namespace RealityToolkit.SpatialAwarenessSystem
         }
 
         /// <inheritdoc />
-        public void StartObserver(IMixedRealitySpatialAwarenessDataProvider observer)
+        public void StartObserver(IMixedRealitySpatialAwarenessServiceModule observer)
         {
             foreach (var spatialObserver in DetectedSpatialObservers)
             {
@@ -157,7 +157,7 @@ namespace RealityToolkit.SpatialAwarenessSystem
         }
 
         /// <inheritdoc />
-        public void SuspendObserver(IMixedRealitySpatialAwarenessDataProvider observer)
+        public void SuspendObserver(IMixedRealitySpatialAwarenessServiceModule observer)
         {
             foreach (var spatialObserver in DetectedSpatialObservers)
             {
@@ -170,13 +170,13 @@ namespace RealityToolkit.SpatialAwarenessSystem
         }
 
         /// <inheritdoc />
-        public void RaiseSpatialAwarenessObserverDetected(IMixedRealitySpatialAwarenessDataProvider observer)
+        public void RaiseSpatialAwarenessObserverDetected(IMixedRealitySpatialAwarenessServiceModule observer)
         {
             DetectedSpatialObservers.Add(observer);
         }
 
         /// <inheritdoc />
-        public void RaiseSpatialAwarenessObserverLost(IMixedRealitySpatialAwarenessDataProvider observer)
+        public void RaiseSpatialAwarenessObserverLost(IMixedRealitySpatialAwarenessServiceModule observer)
         {
             DetectedSpatialObservers.Remove(observer);
         }

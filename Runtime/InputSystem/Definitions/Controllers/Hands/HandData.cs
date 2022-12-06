@@ -95,7 +95,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
 
         /// <summary>
         /// Recognized hand pose, if any.
-        /// Recognizable hand poses are defined in <see cref="BaseHandControllerDataProviderProfile.TrackedPoses"/>
+        /// Recognizable hand poses are defined in <see cref="BaseHandControllerServiceModuleProfile.TrackedPoses"/>
         /// or <see cref="InputSystem.MixedRealityInputSystemProfile.TrackedPoses"/>.
         /// </summary>
         public string TrackedPoseId { get; set; }

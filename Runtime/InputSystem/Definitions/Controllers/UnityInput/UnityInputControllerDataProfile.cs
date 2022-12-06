@@ -6,7 +6,7 @@ using RealityToolkit.InputSystem.Controllers.UnityInput;
 
 namespace RealityToolkit.Definitions.Controllers.UnityInput.Profiles
 {
-    public class UnityInputControllerDataProfile : BaseMixedRealityControllerDataProviderProfile
+    public class UnityInputControllerDataProfile : BaseMixedRealityControllerServiceModuleProfile
     {
         public override ControllerDefinition[] GetDefaultControllerOptions()
         {

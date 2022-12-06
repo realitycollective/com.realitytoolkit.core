@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Controllers.UnityInput
@@ -17,7 +17,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public UnityTouchController() { }
 
         /// <inheritdoc />
-        public UnityTouchController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public UnityTouchController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

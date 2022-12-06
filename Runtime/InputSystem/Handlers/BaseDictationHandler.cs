@@ -11,7 +11,7 @@ namespace RealityToolkit.InputSystem.Handlers
 {
     /// <summary>
     /// Script used to start and stop recording sessions in the current dictation system.
-    /// For this script to work, a dictation system like 'Windows Dictation Data Provider' must be added to the Data Providers in the Input System profile.
+    /// For this script to work, a dictation system like 'Windows Dictation Service Module' must be added to the service modules in the Input System profile.
     /// </summary>
     public class BaseDictationHandler : BaseInputHandler, IMixedRealityDictationHandler
     {
@@ -31,7 +31,7 @@ namespace RealityToolkit.InputSystem.Handlers
         [Tooltip("Whether recording should start automatically on start")]
         private bool startRecordingOnStart = false;
 
-        private IMixedRealityDictationDataProvider dictationSystem;
+        private IMixedRealityDictationServiceModule dictationSystem;
 
         /// <summary>
         /// Start a recording session in the dictation system.
@@ -55,8 +55,8 @@ namespace RealityToolkit.InputSystem.Handlers
         {
             base.Start();
 
-            dictationSystem = ServiceManager.Instance.GetService<IMixedRealityDictationDataProvider>();
-            Debug.Assert(dictationSystem != null, "No dictation system found. In order to use dictation, add a dictation system like 'Windows Dictation Input Provider' to the Data Providers in the Input System profile");
+            dictationSystem = ServiceManager.Instance.GetService<IMixedRealityDictationServiceModule>();
+            Debug.Assert(dictationSystem != null, "No dictation system found. In order to use dictation, add a dictation system like 'Windows Dictation Input Provider' to the service modules in the Input System profile");
 
             if (startRecordingOnStart)
             {

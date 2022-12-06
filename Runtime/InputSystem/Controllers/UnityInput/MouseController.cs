@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.InputSystem.Processors;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +22,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public MouseController() { }
 
         /// <inheritdoc />
-        public MouseController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public MouseController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

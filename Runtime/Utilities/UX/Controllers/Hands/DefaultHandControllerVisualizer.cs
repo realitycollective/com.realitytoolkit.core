@@ -7,7 +7,7 @@ using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,12 +66,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         /// </summary>
         public GameObject HandVisualizationGameObject => HandControllerDataProvider.HandPhysicsEnabled ? PhysicsCompanionGameObject : GameObject;
 
-        private IMixedRealityHandControllerDataProvider handControllerDataProvider;
+        private IMixedRealityHandControllerServiceModule handControllerDataProvider;
 
         /// <summary>
-        /// The active hand controller data provider.
+        /// The active <see cref="IMixedRealityHandControllerServiceModule"/>.
         /// </summary>
-        protected IMixedRealityHandControllerDataProvider HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IMixedRealityHandControllerDataProvider)Controller.ControllerDataProvider);
+        protected IMixedRealityHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IMixedRealityHandControllerServiceModule)Controller.ControllerDataProvider);
 
         /// <inheritdoc />
         protected override void OnDestroy()

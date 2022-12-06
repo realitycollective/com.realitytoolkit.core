@@ -12,7 +12,7 @@ namespace RealityToolkit.SpatialAwarenessSystem.Definitions
     /// <summary>
     /// Configuration profile settings for setting up the spatial awareness system.
     /// </summary>
-    public class MixedRealitySpatialAwarenessSystemProfile : BaseServiceProfile<IMixedRealitySpatialAwarenessDataProvider>
+    public class MixedRealitySpatialAwarenessSystemProfile : BaseServiceProfile<IMixedRealitySpatialAwarenessServiceModule>
     {
         public static readonly Tuple<int, string>[] SpatialAwarenessLayers =
         {
@@ -40,7 +40,7 @@ namespace RealityToolkit.SpatialAwarenessSystem.Definitions
         public SpatialMeshDisplayOptions MeshDisplayOption => meshDisplayOption;
 
         [SerializeField]
-        [Tooltip("The global mesh observer profile settings to use for the mesh observer data provider if no profile is provided.")]
+        [Tooltip("The global mesh observer profile settings to use for the mesh observer service module if no profile is provided.")]
         private BaseMixedRealitySpatialMeshObserverProfile globalMeshObserverProfile = null;
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace RealityToolkit.SpatialAwarenessSystem.Definitions
         public BaseMixedRealitySpatialMeshObserverProfile GlobalMeshObserverProfile => globalMeshObserverProfile;
 
         [SerializeField]
-        [Tooltip("The global mesh observer profile settings to use for the mesh observer data provider if no profile is provided.")]
+        [Tooltip("The global mesh observer profile settings to use for the mesh observer service module if no profile is provided.")]
         private BaseMixedRealitySurfaceObserverProfile globalSurfaceObserverProfile = null;
 
         /// <summary>

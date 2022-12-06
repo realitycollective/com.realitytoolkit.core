@@ -4,7 +4,7 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces.Providers;
+using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.InputSystem.Processors;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public XboxController() { }
 
         /// <inheritdoc />
-        public XboxController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public XboxController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

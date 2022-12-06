@@ -34,7 +34,7 @@ namespace RealityToolkit.EventDatum.SpatialAwarenessSystem
         /// <param name="spatialAwarenessObserver"></param>
         /// <param name="id"></param>
         /// <param name="spatialObject"></param>
-        public void Initialize(IMixedRealitySpatialAwarenessDataProvider spatialAwarenessObserver, Guid id, T spatialObject)
+        public void Initialize(IMixedRealitySpatialAwarenessServiceModule spatialAwarenessObserver, Guid id, T spatialObject)
         {
             BaseInitialize(spatialAwarenessObserver);
             Id = id;
