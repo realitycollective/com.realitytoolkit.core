@@ -4,7 +4,7 @@
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.InputSystem.Hands;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using System.Collections.Generic;

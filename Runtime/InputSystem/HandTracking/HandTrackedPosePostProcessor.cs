@@ -1,16 +1,14 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Extensions;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using System;
 using System.Collections.Generic;
 
-namespace RealityToolkit.InputSystem.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// The hand pose processor uses the recorded hand pose definitions

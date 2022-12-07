@@ -1,10 +1,9 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands.Visualizers
 {
     public class HandControllerMeshVisualizer : MonoBehaviour
     {

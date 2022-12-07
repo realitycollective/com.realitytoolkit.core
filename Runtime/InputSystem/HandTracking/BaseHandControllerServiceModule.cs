@@ -1,15 +1,14 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.InputSystem.Controllers;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 
-namespace RealityToolkit.InputSystem.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// Base controller service module to inherit from when implementing <see cref="IMixedRealityHandController"/>s.

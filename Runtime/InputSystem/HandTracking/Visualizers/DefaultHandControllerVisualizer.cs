@@ -1,18 +1,15 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands.Visualizers
 {
     /// <summary>
     /// Base hand controller visualizer implementation.
@@ -101,7 +98,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
             // Update the visualizers tracking state.
             TrackingState = handController.TrackingState;
 
-            if (TrackingState == Definitions.Devices.TrackingState.Tracked)
+            if (TrackingState == RealityToolkit.Definitions.Devices.TrackingState.Tracked)
             {
                 // It's important to update physics
                 // configuration first.

@@ -1,12 +1,12 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Controllers.Hands;
+using RealityToolkit.Definitions.Controllers;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// Provides additional configuration options for hand service modules.

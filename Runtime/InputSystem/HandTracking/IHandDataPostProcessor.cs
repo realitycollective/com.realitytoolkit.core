@@ -1,10 +1,9 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Definitions.Controllers.Hands;
 
-namespace RealityToolkit.InputSystem.Interfaces.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// <see cref="HandData"/> post processor definition.

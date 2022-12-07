@@ -1,10 +1,10 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// A hand controller pose definition with recorded hand joint data.

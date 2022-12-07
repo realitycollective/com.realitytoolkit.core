@@ -1,11 +1,11 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// Controller definition, used to manage a hand controller.

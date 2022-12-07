@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.InputSystem.Hands;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;

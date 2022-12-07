@@ -1,14 +1,14 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Utilities.UX.Pointers;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Pointers
+namespace RealityToolkit.InputSystem.Hands.Pointers
 {
     /// <summary>
     /// Extends the simple line pointer for drawing lines from the input source origin to the current pointer position,

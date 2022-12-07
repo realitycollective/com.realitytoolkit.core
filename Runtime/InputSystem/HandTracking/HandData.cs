@@ -1,11 +1,11 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using System;
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
     /// An <see cref="Interfaces.Providers.Controllers.Hands.IMixedRealityHandController"/>'s data
