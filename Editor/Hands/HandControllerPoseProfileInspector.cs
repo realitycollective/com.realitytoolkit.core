@@ -9,7 +9,7 @@ using RealityToolkit.InputSystem.Hands;
 using UnityEditor;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Data.Controllers.Hands
+namespace RealityToolkit.Editor.Hands
 {
     [CustomEditor(typeof(HandControllerPoseProfile))]
     public class HandControllerPoseProfileInspector : BaseProfileInspector

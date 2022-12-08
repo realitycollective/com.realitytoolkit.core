@@ -2,12 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
+using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
 using RealityToolkit.InputSystem.Hands;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
+namespace RealityToolkit.Editor.Hands
 {
     [CustomEditor(typeof(BaseHandControllerServiceModuleProfile), true, isFallback = true)]
     public class BaseMixedRealityHandControllerServiceModuleProfileInspector : BaseMixedRealityControllerServiceModuleProfileInspector
