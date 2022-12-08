@@ -8,9 +8,10 @@ using UnityEngine;
 namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
-    /// Controller definition, used to manage a hand controller.
+    /// A <see cref="IHandController"/> is an input device that is driven by hand tracking sensors
+    /// providing the user's hand joint poses to the application.
     /// </summary>
-    public interface IMixedRealityHandController : IMixedRealityController
+    public interface IHandController : IMixedRealityController
     {
         /// <summary>
         /// Gets whether the hand is currently in input down pose

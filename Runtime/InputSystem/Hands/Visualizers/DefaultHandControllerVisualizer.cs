@@ -63,12 +63,12 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         /// </summary>
         public GameObject HandVisualizationGameObject => HandControllerDataProvider.HandPhysicsEnabled ? PhysicsCompanionGameObject : GameObject;
 
-        private IMixedRealityHandControllerServiceModule handControllerDataProvider;
+        private IHandControllerServiceModule handControllerDataProvider;
 
         /// <summary>
-        /// The active <see cref="IMixedRealityHandControllerServiceModule"/>.
+        /// The active <see cref="IHandControllerServiceModule"/>.
         /// </summary>
-        protected IMixedRealityHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IMixedRealityHandControllerServiceModule)Controller.ControllerDataProvider);
+        protected IHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IHandControllerServiceModule)Controller.ControllerDataProvider);
 
         /// <inheritdoc />
         protected override void OnDestroy()
@@ -93,7 +93,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                 return;
             }
 
-            var handController = (IMixedRealityHandController)Controller;
+            var handController = (IHandController)Controller;
 
             // Update the visualizers tracking state.
             TrackingState = handController.TrackingState;
@@ -112,7 +112,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
 
         private void UpdateHandJointTransforms()
         {
-            var handController = (IMixedRealityHandController)Controller;
+            var handController = (IHandController)Controller;
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
@@ -174,7 +174,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         {
             if (HandControllerDataProvider.HandPhysicsEnabled)
             {
-                var handController = (IMixedRealityHandController)Controller;
+                var handController = (IHandController)Controller;
 
                 if (HandControllerDataProvider.BoundsMode == HandBoundsLOD.High)
                 {
@@ -371,7 +371,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
             var renderingMode = HandControllerDataProvider.RenderingMode;
             if (renderingMode != HandRenderingMode.None)
             {
-                var handController = (IMixedRealityHandController)Controller;
+                var handController = (IHandController)Controller;
                 HandMeshData handMeshData = HandMeshData.Empty;
 
                 // Fallback to joints rendering if mesh data is not available.

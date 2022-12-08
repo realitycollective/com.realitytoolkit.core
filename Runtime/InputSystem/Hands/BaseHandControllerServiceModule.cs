@@ -5,15 +5,15 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.InputSystem.Controllers;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
-    /// Base controller service module to inherit from when implementing <see cref="IMixedRealityHandController"/>s.
+    /// Base implementation for <see cref="IHandControllerServiceModule"/>s.
     /// </summary>
-    public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IMixedRealityHandControllerServiceModule
+    public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IHandControllerServiceModule
     {
         /// <inheritdoc />
         protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
@@ -21,35 +21,36 @@ namespace RealityToolkit.InputSystem.Hands
         {
             if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
             {
-                throw new ArgumentException($"Unable to get a valid {nameof(MixedRealityInputSystemProfile)}!");
+                Debug.LogError($"The {GetType().Name} requires a valid {nameof(MixedRealityInputSystemProfile)} to work.");
+                return;
             }
 
-            RenderingMode = profile.RenderingMode != inputSystemProfile.RenderingMode
+            RenderingMode = profile.RenderingMode != inputSystemProfile.HandControllerSettings.RenderingMode
                 ? profile.RenderingMode
-                : inputSystemProfile.RenderingMode;
+                : inputSystemProfile.HandControllerSettings.RenderingMode;
 
-            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandPhysicsEnabled
+            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandControllerSettings.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
-                : inputSystemProfile.HandPhysicsEnabled;
+                : inputSystemProfile.HandControllerSettings.HandPhysicsEnabled;
 
-            UseTriggers = profile.UseTriggers != inputSystemProfile.UseTriggers
+            UseTriggers = profile.UseTriggers != inputSystemProfile.HandControllerSettings.UseTriggers
                 ? profile.UseTriggers
-                : inputSystemProfile.UseTriggers;
+                : inputSystemProfile.HandControllerSettings.UseTriggers;
 
-            BoundsMode = profile.BoundsMode != inputSystemProfile.BoundsMode
+            BoundsMode = profile.BoundsMode != inputSystemProfile.HandControllerSettings.BoundsMode
                 ? profile.BoundsMode
-                : inputSystemProfile.BoundsMode;
+                : inputSystemProfile.HandControllerSettings.BoundsMode;
 
             if (profile.TrackedPoses != null &&
                 profile.TrackedPoses.Count > 0)
             {
-                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.TrackedPoses.Count
+                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.HandControllerSettings.TrackedPoses.Count
                     ? profile.TrackedPoses
-                    : inputSystemProfile.TrackedPoses;
+                    : inputSystemProfile.HandControllerSettings.TrackedPoses;
             }
             else
             {
-                TrackedPoses = inputSystemProfile.TrackedPoses;
+                TrackedPoses = inputSystemProfile.HandControllerSettings.TrackedPoses;
             }
         }
 

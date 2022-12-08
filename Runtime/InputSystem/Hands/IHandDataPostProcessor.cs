@@ -9,7 +9,7 @@ namespace RealityToolkit.InputSystem.Hands
     /// <see cref="HandData"/> post processor definition.
     /// A post processor may recieve <see cref="HandData"/>
     /// from a <see cref="IMixedRealityHandControllerDataProvider"/> just before the actual
-    /// <see cref="IMixedRealityHandController"/> is updated with it to perform last minute
+    /// <see cref="IHandController"/> is updated with it to perform last minute
     /// processing on it.
     /// </summary>
     public interface IHandDataPostProcessor
@@ -17,7 +17,7 @@ namespace RealityToolkit.InputSystem.Hands
         /// <summary>
         /// Performs post processing on the provided <see cref="HandData"/>.
         /// </summary>
-        /// <param name="handedness">The <see cref="Handedness"/> of the <see cref="IMixedRealityHandController"/> the
+        /// <param name="handedness">The <see cref="Handedness"/> of the <see cref="IHandController"/> the
         /// data is being prepared for.</param>
         /// <param name="handData">The <see cref="HandData"/> provided by the <see cref="IMixedRealityHandControllerDataProvider"/>.</param>
         /// <returns>Returns modified <see cref="HandData"/> after post processing was applied.</returns>

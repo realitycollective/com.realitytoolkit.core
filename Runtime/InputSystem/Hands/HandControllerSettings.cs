@@ -1,17 +1,12 @@
-﻿// Copyright (c) Reality Collective. All rights reserved.
+// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Definitions.Controllers;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
 {
-    /// <summary>
-    /// Provides additional configuration options for hand service modules.
-    /// </summary>
-    public abstract class BaseHandControllerServiceModuleProfile : BaseMixedRealityControllerServiceModuleProfile
+    public class HandControllerSettings : MonoBehaviour
     {
         [SerializeField]
         [Range(.5f, 1f)]
@@ -19,7 +14,7 @@ namespace RealityToolkit.InputSystem.Hands
         private float gripThreshold = .8f;
 
         /// <summary>
-        /// Threshold in range [0, 1] that defines when a hand is considered to be grabbing.
+        /// Threshold in range [0, 1] that defines when a hand is considered to be grabing.
         /// </summary>
         public float GripThreshold => gripThreshold;
 
@@ -60,21 +55,12 @@ namespace RealityToolkit.InputSystem.Hands
         public HandBoundsLOD BoundsMode => boundsMode;
 
         [SerializeField]
-        [Tooltip("Tracked hand poses for pose detection.")]
-        private HandControllerPoseProfile[] trackedPoses = new HandControllerPoseProfile[0];
+        [Tooltip("Hand controller poses tracked.")]
+        private HandControllerPoseProfile[] trackedPoses = null;
 
         /// <summary>
-        /// Tracked hand poses for pose detection.
+        /// Hand controller poses tracked.
         /// </summary>
         public IReadOnlyList<HandControllerPoseProfile> TrackedPoses => trackedPoses;
-
-        public override ControllerDefinition[] GetDefaultControllerOptions()
-        {
-            return new[]
-            {
-                new ControllerDefinition(typeof(HandController), Handedness.Left),
-                new ControllerDefinition(typeof(HandController), Handedness.Right),
-            };
-        }
     }
 }

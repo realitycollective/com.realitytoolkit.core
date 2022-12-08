@@ -91,7 +91,7 @@ namespace RealityToolkit.Editor
         private Handedness Handedness => controllerDataProviderProfile.Handedness;
 
         private bool IsCustomController => ControllerType == typeof(GenericJoystickController) ||
-                                           ControllerType == typeof(IMixedRealityHandController);
+                                           ControllerType == typeof(IHandController);
 
         private static string EditorWindowOptionsPath => $"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
 

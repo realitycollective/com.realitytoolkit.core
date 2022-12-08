@@ -17,16 +17,16 @@ using UnityEngine;
 namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
-    /// Platform agnostic hand controller type.
+    /// Default controller implementation for <see cref="IHandController"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("B18A9A6C-E5FD-40AE-89E9-9822415EC62B")]
-    public class MixedRealityHandController : BaseController, IMixedRealityHandController
+    public class HandController : BaseController, IHandController
     {
         /// <inheritdoc />
-        public MixedRealityHandController() : base() { }
+        public HandController() : base() { }
 
         /// <inheritdoc />
-        public MixedRealityHandController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public HandController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
@@ -205,7 +205,7 @@ namespace RealityToolkit.InputSystem.Hands
 
         private void UpdateBounds()
         {
-            var handControllerDataProvider = (IMixedRealityHandControllerServiceModule)ControllerDataProvider;
+            var handControllerDataProvider = (IHandControllerServiceModule)ControllerDataProvider;
 
             if (handControllerDataProvider.HandPhysicsEnabled && handControllerDataProvider.BoundsMode == HandBoundsLOD.Low)
             {

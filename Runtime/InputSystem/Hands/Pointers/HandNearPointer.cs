@@ -14,7 +14,7 @@ namespace RealityToolkit.InputSystem.Hands.Pointers
     /// </summary>
     public class HandNearPointer : BaseControllerPointer
     {
-        private IMixedRealityHandController handController;
+        private IHandController handController;
 
         /// <inheritdoc />
         public override bool IsInteractionEnabled => base.IsInteractionEnabled && !HandController.IsPinching;
@@ -25,14 +25,14 @@ namespace RealityToolkit.InputSystem.Hands.Pointers
         /// <summary>
         /// Casted reference to the hand controller driving the pointer.
         /// </summary>
-        private IMixedRealityHandController HandController => handController ?? (handController = InitializeHandControllerReference());
+        private IHandController HandController => handController ?? (handController = InitializeHandControllerReference());
 
-        private IMixedRealityHandController InitializeHandControllerReference()
+        private IHandController InitializeHandControllerReference()
         {
             // This pointer type must only be used with hand controllers.
-            if (!(Controller is IMixedRealityHandController controller))
+            if (!(Controller is IHandController controller))
             {
-                Debug.LogError($"{nameof(HandNearPointer)} is only for use with {nameof(IMixedRealityHandController)} controllers!", this);
+                Debug.LogError($"{nameof(HandNearPointer)} is only for use with {nameof(IHandController)} controllers!", this);
                 return null;
             }
 
