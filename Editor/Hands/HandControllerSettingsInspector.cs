@@ -13,7 +13,6 @@ namespace RealityToolkit.Editor.Hands
     public class HandControllerSettingsInspector : BaseProfileInspector
     {
         private SerializedProperty gripThreshold;
-        private SerializedProperty renderingMode;
         private SerializedProperty handPhysicsEnabled;
         private SerializedProperty useTriggers;
         private SerializedProperty boundsMode;
@@ -27,7 +26,6 @@ namespace RealityToolkit.Editor.Hands
             base.OnEnable();
 
             gripThreshold = serializedObject.FindProperty(nameof(gripThreshold));
-            renderingMode = serializedObject.FindProperty(nameof(renderingMode));
             handPhysicsEnabled = serializedObject.FindProperty(nameof(handPhysicsEnabled));
             useTriggers = serializedObject.FindProperty(nameof(useTriggers));
             boundsMode = serializedObject.FindProperty(nameof(boundsMode));
@@ -51,9 +49,6 @@ namespace RealityToolkit.Editor.Hands
 
             EditorGUILayout.LabelField("General Hand Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(gripThreshold);
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Hand Rendering Settings", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(renderingMode);
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Hand Physics Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(handPhysicsEnabled);

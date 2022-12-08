@@ -31,7 +31,7 @@ namespace RealityToolkit.InputSystem.Extensions
                 jointPoses[(int)jointRecord.Joint] = jointRecord.Pose;
             }
 
-            var handData = new HandData(rootPose, jointPoses);
+            var handData = new HandData(jointPoses);
             handData.IsGripping = pose.IsGripping;
             handData.GripStrength = pose.GripStrength;
             handData.FingerCurlStrengths = new float[pose.FingerCurlStrengths.Length];

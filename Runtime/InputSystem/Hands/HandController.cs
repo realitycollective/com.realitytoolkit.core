@@ -7,12 +7,14 @@ using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Controllers;
+using RealityToolkit.InputSystem.Controllers.UnityInput;
+using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Extensions;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.InputSystem.Interfaces;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace RealityToolkit.InputSystem.Hands
 {
@@ -20,90 +22,66 @@ namespace RealityToolkit.InputSystem.Hands
     /// Default controller implementation for <see cref="IHandController"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("B18A9A6C-E5FD-40AE-89E9-9822415EC62B")]
-    public class HandController : BaseController, IHandController
+    public class HandController : UnityXRController, IHandController
     {
         /// <inheritdoc />
-        public HandController() : base() { }
+        public HandController() { }
 
         /// <inheritdoc />
-        public HandController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
-            : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
+        public HandController(IHandControllerServiceModule serviceModule, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+            : base(serviceModule, trackingState, controllerHandedness, controllerMappingProfile)
         {
+            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            {
+                Debug.LogError($"The {GetType().Name} requires a valid {nameof(MixedRealityInputSystemProfile)} to work.");
+                return;
+            }
+
+            trackedHandJointPoseProvider = new TrackedHandJointPoseProvider();
+            jointPoses = new MixedRealityPose[Enum.GetNames(typeof(TrackedHandJoint)).Length - 1];
+            jointPosesDict = new Dictionary<TrackedHandJoint, MixedRealityPose>();
+
+            postProcessors = new IHandDataPostProcessor[]
+            {
+                new HandDataPostProcessor(this, inputSystemProfile.HandControllerSettings),
+                new HandGripPostProcessor(this, inputSystemProfile.HandControllerSettings),
+                new HandTrackedPosePostProcessor(this, inputSystemProfile.HandControllerSettings),
+                new HandBoundsPostProcessor(this, inputSystemProfile.HandControllerSettings)
+            };
+
+            if (!ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem))
+            {
+                Debug.LogError($"The {GetType().Name} requires a valid {nameof(IMixedRealityCameraSystem)} to work.");
+                return;
+            }
+
+            cameraRig = cameraSystem.MainCameraRig;
         }
 
-        private const int POSE_FRAME_BUFFER_SIZE = 5;
-        private const float NEW_VELOCITY_WEIGHT = .2f;
-        private const float CURRENT_VELOCITY_WEIGHT = .8f;
+        private const string pinchPressInputName = "Pinch";
+        private const string pointInputName = "Point";
+        private const string gripInputName = "Grip";
+        private const string gripPressInputName = "Grip Press";
+        private const string gripPoseInputName = "Grip Pose";
+        private const string indexFingerPoseInputName = "Index Finger Pose";
+        private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
+        private const int poseFrameBufferSize = 5;
 
-        private readonly int velocityUpdateFrameInterval = 9;
-        private readonly Bounds[] cachedPalmBounds = new Bounds[4];
-        private readonly Bounds[] cachedThumbBounds = new Bounds[2];
-        private readonly Bounds[] cachedIndexFingerBounds = new Bounds[2];
-        private readonly Bounds[] cachedMiddleFingerBounds = new Bounds[2];
-        private readonly Bounds[] cachedRingFingerBounds = new Bounds[2];
-        private readonly Bounds[] cachedLittleFingerBounds = new Bounds[2];
-        private readonly Dictionary<TrackedHandBounds, Bounds[]> bounds = new Dictionary<TrackedHandBounds, Bounds[]>();
-        private readonly Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses = new Dictionary<TrackedHandJoint, MixedRealityPose>();
-        private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
-        private readonly Queue<bool> isGrippingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
-        private readonly Queue<bool> isPointingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
-
-        private int velocityUpdateFrame = 0;
-        private float deltaTimeStart = 0;
-
-        private HandMeshData lastHandMeshData = HandMeshData.Empty;
-        private MixedRealityPose lastHandRootPose;
-        private Vector3 lastPalmNormal = Vector3.zero;
-        private Vector3 lastPalmPosition = Vector3.zero;
-
-        private static IMixedRealityCameraSystem cameraSystem = null;
-
-        private static IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<IMixedRealityCameraSystem>());
-
-        /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
-        {
-            // 6 DoF pose of the spatial pointer ("far interaction pointer").
-            new MixedRealityInteractionMapping("Spatial Pointer Pose", AxisType.SixDof, DeviceInputType.SpatialPointer),
-            // Select / pinch button press / release.
-            new MixedRealityInteractionMapping("Select", AxisType.Digital, DeviceInputType.Select),
-            // Hand in pointing pose yes/no?
-            new MixedRealityInteractionMapping("Point", AxisType.Digital, DeviceInputType.ButtonPress),
-            // Grip / grab button press / release.
-            new MixedRealityInteractionMapping("Grip", AxisType.Digital, DeviceInputType.TriggerPress),
-            // 6 DoF grip pose ("Where to put things when grabbing something?")
-            new MixedRealityInteractionMapping("Grip Pose", AxisType.SixDof, DeviceInputType.SpatialGrip),
-            // 6 DoF index finger tip pose (mainly for "near interaction pointer").
-            new MixedRealityInteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger)
-        };
-
-        /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultLeftHandedInteractions => DefaultInteractions;
-
-        /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultRightHandedInteractions => DefaultInteractions;
-
-        /// <summary>
-        /// Gets the current palm normal of the hand controller.
-        /// </summary>
-        private Vector3 PalmNormal => TryGetJointPose(TrackedHandJoint.Palm, out var pose) ? -pose.Up : Vector3.zero;
-
-        /// <summary>
-        /// Is pinching state from the previous update frame.
-        /// </summary>
-        private bool LastIsPinching { get; set; }
+        private HandData handData;
+        private MixedRealityPose[] jointPoses;
+        private Dictionary<TrackedHandJoint, MixedRealityPose> jointPosesDict;
+        protected ITrackedHandJointPoseProvider trackedHandJointPoseProvider;
+        protected IMixedRealityCameraRig cameraRig;
+        private readonly IHandDataPostProcessor[] postProcessors;
+        private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(poseFrameBufferSize);
+        private readonly Queue<bool> isGrippingBuffer = new Queue<bool>(poseFrameBufferSize);
+        private readonly Queue<bool> isPointingBuffer = new Queue<bool>(poseFrameBufferSize);
 
         /// <inheritdoc />
         public bool IsPinching { get; private set; }
 
         /// <inheritdoc />
         public float PinchStrength { get; private set; }
-
-        /// <summary>
-        /// Is pointing state from the previous update frame.
-        /// </summary>
-        private bool LastIsPointing { get; set; }
 
         /// <inheritdoc />
         public bool IsPointing { get; private set; }
@@ -115,593 +93,188 @@ namespace RealityToolkit.InputSystem.Hands
         public float GripStrength { get; private set; }
 
         /// <inheritdoc />
-        public float[] FingerCurlStrengths { get; set; } = new float[] { };
-
-        /// <summary>
-        /// Is gripping state from the previous update frame.
-        /// </summary>
-        private bool LastIsGripping { get; set; }
-
-        /// <inheritdoc />
         public string TrackedPoseId { get; private set; }
 
-        /// <summary>
-        /// The hand's pointer pose in the camera rig's local coordinate space.
-        /// </summary>
-        private MixedRealityPose SpatialPointerPose { get; set; }
-
-        /// <summary>
-        /// The hand's index finger tip pose in the camera rig's local coordinate space.
-        /// </summary>
-        private MixedRealityPose IndexFingerTipPose { get; set; }
-
-        /// <summary>
-        /// The hand's grip pose in the camera rig's local coordinate space.
-        /// </summary>
-        private MixedRealityPose GripPose { get; set; }
-
-        /// <summary>
-        /// Updates the hand controller with new hand data input.
-        /// </summary>
-        /// <param name="handData">Updated hand data.</param>
-        public void UpdateController(HandData handData)
+        /// <inheritdoc />
+        public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
         {
-            if (!Enabled) { return; }
+            new MixedRealityInteractionMapping(pinchPressInputName, AxisType.Digital, pinchPressInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(pointInputName, AxisType.Digital, pointInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(gripInputName, AxisType.SingleAxis, gripInputName, DeviceInputType.Trigger),
+            new MixedRealityInteractionMapping(gripPressInputName, AxisType.Digital, gripPressInputName, DeviceInputType.ButtonPress),
+            new MixedRealityInteractionMapping(gripPoseInputName, AxisType.SixDof, gripPoseInputName, DeviceInputType.SpatialGrip),
+            new MixedRealityInteractionMapping(indexFingerPoseInputName, AxisType.SixDof, indexFingerPoseInputName, DeviceInputType.IndexFinger),
+            new MixedRealityInteractionMapping(spatialPointerPoseInputName, AxisType.SixDof, spatialPointerPoseInputName, DeviceInputType.SpatialPointer)
+        };
 
-            var lastTrackingState = TrackingState;
-            TrackingState = handData.TrackingState;
-
-            if (lastTrackingState != TrackingState)
+        /// <inheritdoc />
+        public override void UpdateController()
+        {
+            if (!Enabled)
             {
-                InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
+                return;
             }
 
-            if (TrackingState == TrackingState.Tracked)
+            if (!TryGetInputDevice(out var inputDevice))
             {
-                IsPositionAvailable = true;
-                IsPositionApproximate = false;
-                IsRotationAvailable = true;
-
-                lastHandRootPose = handData.RootPose;
-                lastHandMeshData = handData.Mesh;
-                LastIsPinching = IsPinching;
-                LastIsGripping = IsGripping;
-                LastIsPointing = IsPointing;
-
-                UpdateJoints(handData);
-                UpdateIsPinching(handData);
-                UpdateIsIsPointing(handData);
-                UpdateIsIsGripping(handData);
-                UpdateIndexFingerTipPose();
-                UpdateGripPose();
-                UpdateFingerCurlStrength(handData);
-                UpdateBounds();
-                UpdateVelocity();
-
-                TrackedPoseId = handData.TrackedPoseId;
-                PinchStrength = handData.PinchStrength;
-                SpatialPointerPose = handData.PointerPose;
-                Pose = handData.RootPose;
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, handData.RootPose);
+                Debug.LogError($"Cannot find input device for {GetType().Name} - {ControllerHandedness}");
+                return;
             }
 
+            InputDevice = inputDevice;
+            UpdateTrackingState();
+
+            if (TrackingState != TrackingState.Tracked)
+            {
+                UpdateInteractionMappings();
+                return;
+            }
+
+            UpdateHandJoints();
+            ApplyPostProcessingToHandData();
+            UpdateControllerPose();
+            UpdateSpatialPointerPose();
+            UpdateSpatialGripPose();
             UpdateInteractionMappings();
         }
 
-        #region Hand Bounds Implementation
+        protected void ApplyPostProcessingToHandData()
+        {
+            for (var i = 0; i < postProcessors.Length; i++)
+            {
+                handData = postProcessors[i].PostProcess(handData);
+            }
+        }
 
         /// <inheritdoc />
-        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds)
+        protected override void UpdateControllerPose()
         {
-            if (bounds.ContainsKey(handBounds))
+            if (TrackingState != TrackingState.Tracked)
             {
-                newBounds = bounds[handBounds];
+                IsPositionAvailable = false;
+                IsPositionApproximate = false;
+                IsRotationAvailable = false;
+                return;
+            }
+
+            IsPositionAvailable = TryGetJointPose(TrackedHandJoint.Wrist, out var wristPose);
+            IsRotationAvailable = IsPositionAvailable;
+            IsPositionApproximate = false;
+
+            if (wristPose != Pose)
+            {
+                Pose = wristPose;
+                InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
+            }
+        }
+
+        /// <summary>
+        /// Updates the controller's hand joint information.
+        /// </summary>
+        protected virtual void UpdateHandJoints()
+        {
+            Debug.Assert(trackedHandJointPoseProvider != null, $"{GetType().Name} has no {nameof(ITrackedHandJointPoseProvider)} to work with.");
+            trackedHandJointPoseProvider.UpdateHandJoints(InputDevice, ref jointPoses, ref jointPosesDict);
+            handData = new HandData(jointPoses);
+        }
+
+        /// <inheritdoc />
+        protected override void UpdateTrackingState()
+        {
+            // This is a workaround until the tracking state has been implemented by Unity
+            // for OpenXR hands.
+            TrackingState = TrackingState.Tracked;
+        }
+
+        /// <inheritdoc />
+        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => handData.Bounds.TryGetValue(handBounds, out newBounds);
+
+        /// <inheritdoc />
+        public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
+        {
+            if (relativeTo == Space.Self)
+            {
+                // Return joint pose relative to hand root.
+                return jointPosesDict.TryGetValue(joint, out pose);
+            }
+
+            if (jointPosesDict.TryGetValue(joint, out var localPose))
+            {
+                pose = new MixedRealityPose
+                {
+                    // Combine root pose with local joint pose.
+                    Position = Pose.Position + Pose.Rotation * localPose.Position,
+                    Rotation = Pose.Rotation * localPose.Rotation
+                };
+
+                // Translate to world space.
+                pose.Position = cameraRig.RigTransform.TransformPoint(pose.Position);
+                pose.Rotation = cameraRig.RigTransform.rotation * pose.Rotation;
+
                 return true;
             }
 
-            newBounds = null;
+            pose = MixedRealityPose.ZeroIdentity;
             return false;
         }
 
-        private void UpdateBounds()
+        /// <inheritdoc />
+        public bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength)
         {
-            var handControllerDataProvider = (IHandControllerServiceModule)ControllerDataProvider;
+            if (handData.FingerCurlStrengths == null)
+            {
+                curlStrength = 0f;
+                return false;
+            }
 
-            if (handControllerDataProvider.HandPhysicsEnabled && handControllerDataProvider.BoundsMode == HandBoundsLOD.Low)
-            {
-                UpdateHandBounds();
-            }
-            else if (handControllerDataProvider.HandPhysicsEnabled && handControllerDataProvider.BoundsMode == HandBoundsLOD.High)
-            {
-                UpdatePalmBounds();
-                UpdateThumbBounds();
-                UpdateIndexFingerBounds();
-                UpdateMiddleFingerBounds();
-                UpdateRingFingerBounds();
-                UpdateLittleFingerBounds();
-            }
+            curlStrength = handData.FingerCurlStrengths[(int)handFinger];
+            return true;
         }
-
-        private void UpdatePalmBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.LittleMetacarpal, out var pinkyMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.LittleProximal, out var pinkyKnucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingMetacarpal, out var ringMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingProximal, out var ringKnucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleMetacarpal, out var middleMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleProximal, out var middleKnucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexMetacarpal, out var indexMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexProximal, out var indexKnucklePose, Space.World))
-            {
-                // Palm bounds are a composite of each finger's metacarpal -> knuckle joint bounds.
-                // Excluding the thumb here.
-
-                // Index
-                var indexPalmBounds = new Bounds(indexMetacarpalPose.Position, Vector3.zero);
-                indexPalmBounds.Encapsulate(indexKnucklePose.Position);
-                cachedPalmBounds[0] = indexPalmBounds;
-
-                // Middle
-                var middlePalmBounds = new Bounds(middleMetacarpalPose.Position, Vector3.zero);
-                middlePalmBounds.Encapsulate(middleKnucklePose.Position);
-                cachedPalmBounds[1] = middlePalmBounds;
-
-                // Ring
-                var ringPalmBounds = new Bounds(ringMetacarpalPose.Position, Vector3.zero);
-                ringPalmBounds.Encapsulate(ringKnucklePose.Position);
-                cachedPalmBounds[2] = ringPalmBounds;
-
-                // Pinky
-                var pinkyPalmBounds = new Bounds(pinkyMetacarpalPose.Position, Vector3.zero);
-                pinkyPalmBounds.Encapsulate(pinkyKnucklePose.Position);
-                cachedPalmBounds[3] = pinkyPalmBounds;
-
-                // Update cached bounds entry.
-                if (bounds.ContainsKey(TrackedHandBounds.Palm))
-                {
-                    bounds[TrackedHandBounds.Palm] = cachedPalmBounds;
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.Palm, cachedPalmBounds);
-                }
-            }
-        }
-
-        private void UpdateHandBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose))
-            {
-                var newHandBounds = new Bounds(palmPose.Position, Vector3.zero);
-
-                foreach (var kvp in jointPoses)
-                {
-                    if (kvp.Key == TrackedHandJoint.Palm)
-                    {
-                        continue;
-                    }
-
-                    newHandBounds.Encapsulate(kvp.Value.Position);
-                }
-
-                if (bounds.ContainsKey(TrackedHandBounds.Hand))
-                {
-                    bounds[TrackedHandBounds.Hand] = new[] { newHandBounds };
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.Hand, new[] { newHandBounds });
-                }
-            }
-        }
-
-        private void UpdateThumbBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.ThumbMetacarpal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.ThumbProximal, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.ThumbTip, out var tipPose, Space.World))
-            {
-                // Thumb bounds include metacarpal -> proximal and proximal -> tip bounds.
-
-                // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
-                cachedThumbBounds[0] = knuckleToMiddleBounds;
-
-                // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
-                cachedThumbBounds[1] = middleToTipBounds;
-
-                // Update cached bounds entry.
-                if (bounds.ContainsKey(TrackedHandBounds.Thumb))
-                {
-                    bounds[TrackedHandBounds.Thumb] = cachedThumbBounds;
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.Thumb, cachedThumbBounds);
-                }
-            }
-        }
-
-        private void UpdateIndexFingerBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.IndexProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexTip, out var tipPose, Space.World))
-            {
-                // Index finger bounds include knuckle -> middle and middle -> tip bounds.
-
-                // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
-                cachedIndexFingerBounds[0] = knuckleToMiddleBounds;
-
-                // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
-                cachedIndexFingerBounds[1] = middleToTipBounds;
-
-                // Update cached bounds entry.
-                if (bounds.ContainsKey(TrackedHandBounds.IndexFinger))
-                {
-                    bounds[TrackedHandBounds.IndexFinger] = cachedIndexFingerBounds;
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.IndexFinger, cachedIndexFingerBounds);
-                }
-            }
-        }
-
-        private void UpdateMiddleFingerBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.MiddleProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleTip, out var tipPose, Space.World))
-            {
-                // Middle finger bounds include knuckle -> middle and middle -> tip bounds.
-
-                // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
-                cachedMiddleFingerBounds[0] = knuckleToMiddleBounds;
-
-                // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
-                cachedMiddleFingerBounds[1] = middleToTipBounds;
-
-                // Update cached bounds entry.
-                if (bounds.ContainsKey(TrackedHandBounds.MiddleFinger))
-                {
-                    bounds[TrackedHandBounds.MiddleFinger] = cachedMiddleFingerBounds;
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.MiddleFinger, cachedMiddleFingerBounds);
-                }
-            }
-        }
-
-        private void UpdateRingFingerBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.RingProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingTip, out var tipPose, Space.World))
-            {
-                // Ring finger bounds include knuckle -> middle and middle -> tip bounds.
-
-                // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
-                cachedRingFingerBounds[0] = knuckleToMiddleBounds;
-
-                // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
-                cachedRingFingerBounds[1] = middleToTipBounds;
-
-                // Update cached bounds entry.
-                if (bounds.ContainsKey(TrackedHandBounds.RingFinger))
-                {
-                    bounds[TrackedHandBounds.RingFinger] = cachedRingFingerBounds;
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.RingFinger, cachedRingFingerBounds);
-                }
-            }
-        }
-
-        private void UpdateLittleFingerBounds()
-        {
-            if (TryGetJointPose(TrackedHandJoint.LittleProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.LittleIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.LittleTip, out var tipPose, Space.World))
-            {
-                // Pinky finger bounds include knuckle -> middle and middle -> tip bounds.
-
-                // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
-                cachedLittleFingerBounds[0] = knuckleToMiddleBounds;
-
-                // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
-                cachedLittleFingerBounds[1] = middleToTipBounds;
-
-                // Update cached bounds entry.
-                if (bounds.ContainsKey(TrackedHandBounds.Pinky))
-                {
-                    bounds[TrackedHandBounds.Pinky] = cachedLittleFingerBounds;
-                }
-                else
-                {
-                    bounds.Add(TrackedHandBounds.Pinky, cachedLittleFingerBounds);
-                }
-            }
-        }
-
-        #endregion Hand Bounds Implementation
 
         #region Interaction Mappings
 
-        protected virtual void UpdateInteractionMappings()
+        /// <inheritdoc />
+        protected override void UpdateSingleAxisInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
-            for (int i = 0; i < Interactions.Length; i++)
+            Debug.Assert(interactionMapping.AxisType == AxisType.SingleAxis);
+            switch (interactionMapping.InputName)
             {
-                var interactionMapping = Interactions[i];
-                switch (interactionMapping.InputType)
-                {
-                    case DeviceInputType.SpatialPointer:
-                        UpdateSpatialPointerMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.Select:
-                        UpdateSelectMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.ButtonPress:
-                        UpdatePointingMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.TriggerPress:
-                        UpdateGripMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.SpatialGrip:
-                        UpdateGripPoseMapping(interactionMapping);
-                        break;
-                    case DeviceInputType.IndexFinger:
-                        UpdateIndexFingerMapping(interactionMapping);
-                        break;
-                }
-
-                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+                case gripInputName: UpdateGripStrengthInteractionMapping(interactionMapping); break;
             }
+
+            interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
         }
 
-        private void UpdateGripPoseMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <inheritdoc />
+        protected override void UpdateSixDofInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
-            interactionMapping.PoseData = GripPose;
+            switch (interactionMapping.InputName)
+            {
+                case indexFingerPoseInputName: UpdateIndexFingerPoseInteractionMapping(interactionMapping); break;
+            }
         }
 
-        private void UpdateSpatialPointerMapping(MixedRealityInteractionMapping interactionMapping)
-        {
-            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
-            interactionMapping.PoseData = SpatialPointerPose;
-        }
-
-        private void UpdateSelectMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <inheritdoc />
+        protected override void UpdateDigitalInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
-
-            if (!LastIsPinching && IsPinching)
+            switch (interactionMapping.InputName)
             {
-                interactionMapping.BoolData = true;
-            }
-            else if (LastIsPinching && !IsPinching)
-            {
-                interactionMapping.BoolData = false;
-            }
-            else if (IsPinching)
-            {
-                interactionMapping.BoolData = LastIsPinching;
+                case pointInputName: UpdateIsPointingInteractionMapping(interactionMapping); break;
+                case pinchPressInputName: UpdateIsPinchingInteractionMapping(interactionMapping); break;
+                case gripPressInputName: UpdateIsGrippingInteractionMapping(interactionMapping); break;
             }
         }
 
-        private void UpdateGripMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdateIsPointingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
-            Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
+            Debug.Assert(string.Equals(interactionMapping.InputName, pointInputName));
 
-            if (!LastIsGripping && IsGripping)
-            {
-                interactionMapping.BoolData = true;
-            }
-            else if (LastIsGripping && !IsGripping)
-            {
-                interactionMapping.BoolData = false;
-            }
-            else if (IsGripping)
-            {
-                interactionMapping.BoolData = LastIsGripping;
-            }
-        }
-
-        private void UpdatePointingMapping(MixedRealityInteractionMapping interactionMapping)
-        {
-            Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
-
-            if (!LastIsPointing && IsPointing)
-            {
-                interactionMapping.BoolData = true;
-            }
-            else if (LastIsPointing && !IsPointing)
-            {
-                interactionMapping.BoolData = false;
-            }
-            else if (IsPointing)
-            {
-                interactionMapping.BoolData = LastIsPointing;
-            }
-        }
-
-        private void UpdateIndexFingerMapping(MixedRealityInteractionMapping interactionMapping)
-        {
-            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
-            interactionMapping.PoseData = IndexFingerTipPose;
-        }
-
-        #endregion Interaction Mappings
-
-        /// <summary>
-        /// Updates the controller's velocity / angular velocity.
-        /// </summary>
-        private void UpdateVelocity()
-        {
-            Vector3 palmPosition = Vector3.zero;
-            if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose, Space.World))
-            {
-                palmPosition = palmPose.Position;
-            }
-
-            if (velocityUpdateFrame == 0)
-            {
-                deltaTimeStart = Time.unscaledTime;
-                lastPalmPosition = palmPosition;
-                lastPalmNormal = PalmNormal;
-            }
-            else if (velocityUpdateFrame == velocityUpdateFrameInterval)
-            {
-                // Update linear velocity.
-                var deltaTime = Time.unscaledTime - deltaTimeStart;
-                var newVelocity = (palmPosition - lastPalmPosition) / deltaTime;
-                Velocity = (Velocity * CURRENT_VELOCITY_WEIGHT) + (newVelocity * NEW_VELOCITY_WEIGHT);
-
-                // Update angular velocity.
-                var currentPalmNormal = PalmNormal;
-                var rotation = Quaternion.FromToRotation(lastPalmNormal, currentPalmNormal);
-                var rotationRate = rotation.eulerAngles * Mathf.Deg2Rad;
-                AngularVelocity = rotationRate / deltaTime;
-            }
-
-            velocityUpdateFrame++;
-            velocityUpdateFrame = velocityUpdateFrame > velocityUpdateFrameInterval ? 0 : velocityUpdateFrame;
-        }
-
-        /// <summary>
-        /// Updates the controller's joint poses using provided hand data.
-        /// </summary>
-        /// <param name="handData">The updated hand data for this controller.</param>
-        private void UpdateJoints(HandData handData)
-        {
-            for (int i = 0; i < HandData.JointCount; i++)
-            {
-                var handJoint = (TrackedHandJoint)i;
-
-                if (TryGetJointPose(handJoint, out _))
-                {
-                    jointPoses[handJoint] = handData.Joints[i];
-                }
-                else
-                {
-                    jointPoses.Add(handJoint, handData.Joints[i]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Updates the index finger tip pose value for the hand controller.
-        /// </summary>
-        private void UpdateIndexFingerTipPose()
-        {
-            if (TryGetJointPose(TrackedHandJoint.IndexTip, out var indexTipPose, Space.World))
-            {
-                IndexFingerTipPose = indexTipPose;
-            }
-        }
-
-        /// <summary>
-        /// Updates the grip pose value for the hand controller.
-        /// </summary>
-        private void UpdateGripPose()
-        {
-            if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose, Space.World))
-            {
-                GripPose = palmPose;
-            }
-        }
-
-        /// <summary>
-        /// Updates the finger curl values for the controller.
-        /// </summary>
-        /// <param name="handData">Updated hand data.</param>
-        private void UpdateFingerCurlStrength(HandData handData)
-        {
-            if (FingerCurlStrengths == null)
-            {
-                FingerCurlStrengths = new float[handData.FingerCurlStrengths.Length];
-            }
-
-            Array.Copy(handData.FingerCurlStrengths, FingerCurlStrengths, FingerCurlStrengths.Length);
-        }
-
-        /// <summary>
-        /// Updates the hand controller's internal is pinching state.
-        /// Instead of updating the value for each frame, is pinching state
-        /// is buffered for a few frames to stabilize and avoid false positives.
-        /// </summary>
-        /// <param name="handData">The hand data received for the current hand update frame.</param>
-        private void UpdateIsPinching(HandData handData)
-        {
-            if (handData.TrackingState == TrackingState.Tracked)
-            {
-                var isPinchingThisFrame = handData.IsPinching;
-                if (isPinchingBuffer.Count < POSE_FRAME_BUFFER_SIZE)
-                {
-                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
-                    IsPinching = false;
-                }
-                else
-                {
-                    isPinchingBuffer.Dequeue();
-                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
-
-                    isPinchingThisFrame = true;
-                    for (int i = 0; i < isPinchingBuffer.Count; i++)
-                    {
-                        var value = isPinchingBuffer.Dequeue();
-
-                        if (!value)
-                        {
-                            isPinchingThisFrame = false;
-                        }
-
-                        isPinchingBuffer.Enqueue(value);
-                    }
-
-                    IsPinching = isPinchingThisFrame;
-                }
-            }
-            else
-            {
-                isPinchingBuffer.Clear();
-                IsPinching = false;
-            }
-        }
-
-        /// <summary>
-        /// Updates the hand controller's internal is pointing state.
-        /// Instead of updating the value for each frame, is pointing state
-        /// is buffered for a few frames to stabilize and avoid false positives.
-        /// </summary>
-        /// <param name="handData">The hand data received for the current hand update frame.</param>
-        private void UpdateIsIsPointing(HandData handData)
-        {
-            if (handData.TrackingState == TrackingState.Tracked)
+            if (TrackingState == TrackingState.Tracked)
             {
                 var isPointingThisFrame = handData.IsPointing;
-                if (isPointingBuffer.Count < POSE_FRAME_BUFFER_SIZE)
+                if (isPointingBuffer.Count < poseFrameBufferSize)
                 {
                     isPointingBuffer.Enqueue(isPointingThisFrame);
                     IsPointing = false;
@@ -732,20 +305,60 @@ namespace RealityToolkit.InputSystem.Hands
                 isPointingBuffer.Clear();
                 IsPointing = false;
             }
+
+            interactionMapping.BoolData = IsPointing;
         }
 
-        /// <summary>
-        /// Updates the hand controller's internal is gripping state.
-        /// Instead of updating the value for each frame, is gripping state
-        /// is buffered for a few frames to stabilize and avoid false positives.
-        /// </summary>
-        /// <param name="handData">The hand data received for the current hand update frame.</param>
-        private void UpdateIsIsGripping(HandData handData)
+        private void UpdateIsPinchingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
-            if (handData.TrackingState == TrackingState.Tracked)
+            Debug.Assert(string.Equals(interactionMapping.InputName, pinchPressInputName));
+
+            if (TrackingState == TrackingState.Tracked)
+            {
+                var isPinchingThisFrame = handData.IsPinching;
+                if (isPinchingBuffer.Count < poseFrameBufferSize)
+                {
+                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
+                    IsPinching = false;
+                }
+                else
+                {
+                    isPinchingBuffer.Dequeue();
+                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
+
+                    isPinchingThisFrame = true;
+                    for (int i = 0; i < isPinchingBuffer.Count; i++)
+                    {
+                        var value = isPinchingBuffer.Dequeue();
+
+                        if (!value)
+                        {
+                            isPinchingThisFrame = false;
+                        }
+
+                        isPinchingBuffer.Enqueue(value);
+                    }
+
+                    IsPinching = isPinchingThisFrame;
+                }
+            }
+            else
+            {
+                isPinchingBuffer.Clear();
+                IsPinching = false;
+            }
+
+            interactionMapping.BoolData = IsPinching;
+        }
+
+        private void UpdateIsGrippingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        {
+            Debug.Assert(string.Equals(interactionMapping.InputName, gripPressInputName));
+
+            if (TrackingState == TrackingState.Tracked)
             {
                 var isGrippingThisFrame = handData.IsGripping;
-                if (isGrippingBuffer.Count < POSE_FRAME_BUFFER_SIZE)
+                if (isGrippingBuffer.Count < poseFrameBufferSize)
                 {
                     isGrippingBuffer.Enqueue(isGrippingThisFrame);
                     IsGripping = false;
@@ -776,65 +389,26 @@ namespace RealityToolkit.InputSystem.Hands
                 isGrippingBuffer.Clear();
                 IsGripping = false;
             }
+
+            interactionMapping.BoolData = IsGripping;
         }
 
-        /// <inheritdoc />
-        public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
+        private void UpdateGripStrengthInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
-            if (relativeTo == Space.Self)
-            {
-                // Return joint pose relative to hand root.
-                return jointPoses.TryGetValue(joint, out pose);
-            }
-
-            if (jointPoses.TryGetValue(joint, out var localPose))
-            {
-                pose = new MixedRealityPose
-                {
-                    // Combine root pose with local joint pose.
-                    Position = lastHandRootPose.Position + lastHandRootPose.Rotation * localPose.Position,
-                    Rotation = lastHandRootPose.Rotation * localPose.Rotation
-                };
-
-                // Translate to world space.
-                if (CameraSystem != null)
-                {
-                    pose.Position = CameraSystem.MainCameraRig.RigTransform.TransformPoint(pose.Position);
-                    pose.Rotation = CameraSystem.MainCameraRig.RigTransform.rotation * pose.Rotation;
-                }
-
-                return lastHandRootPose != MixedRealityPose.ZeroIdentity;
-            }
-
-            pose = MixedRealityPose.ZeroIdentity;
-            return false;
+            Debug.Assert(string.Equals(interactionMapping.InputName, gripInputName));
+            interactionMapping.FloatData = GripStrength;
         }
 
-        /// <inheritdoc />
-        public bool TryGetFingerCurlStrength(HandFinger handFinger, out float curlStrength)
+        private void UpdateIndexFingerPoseInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
-            var index = (int)handFinger;
-            if (FingerCurlStrengths != null && FingerCurlStrengths.Length >= index)
-            {
-                curlStrength = FingerCurlStrengths[index];
-                return true;
-            }
+            Debug.Assert(string.Equals(interactionMapping.InputName, indexFingerPoseInputName));
 
-            curlStrength = 0f;
-            return false;
+            if (TryGetJointPose(TrackedHandJoint.IndexTip, out var indexTipPose))
+            {
+                interactionMapping.PoseData = indexTipPose;
+            }
         }
 
-        /// <inheritdoc />
-        public bool TryGetHandMeshData(out HandMeshData handMeshData)
-        {
-            if (!lastHandMeshData.IsEmpty)
-            {
-                handMeshData = lastHandMeshData;
-                return true;
-            }
-
-            handMeshData = HandMeshData.Empty;
-            return false;
-        }
+        #endregion
     }
 }

@@ -1,13 +1,10 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Interfaces;
-using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Utilities;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
@@ -16,18 +13,15 @@ namespace RealityToolkit.InputSystem.Hands
     /// The hand data post processor updates <see cref="HandData"/> provided
     /// by a platform and enriches it with potentially missing information.
     /// </summary>
-    public sealed class HandDataPostProcessor : IHandDataPostProcessor
+    public sealed class HandDataPostProcessor : BaseHandPostProcessor
     {
         /// <summary>
-        /// Creates a new instance of the hand data post processor.
+        /// Constructor.
         /// </summary>
-        /// <param name="trackedPoses">Pose recognizer instance to use for pose recognition.</param>
-        /// <param name="isGrippingThreshold">Threshold in range [0, 1] that defines when a hand is considered to be grabing.</param>
-        public HandDataPostProcessor(IReadOnlyList<HandControllerPoseProfile> trackedPoses, float isGrippingThreshold)
-        {
-            TrackedPoseProcessor = new HandTrackedPosePostProcessor(trackedPoses);
-            GripPostProcessor = new HandGripPostProcessor(isGrippingThreshold);
-        }
+        /// <param name="handController">The <see cref="IHandController"/> to post process <see cref="HandData"/> for.</param>
+        /// <param name="handControllerSettings">Configuration to use when post processing information for the <see cref="IHandController"/>.</param>
+        public HandDataPostProcessor(IHandController handController, HandControllerSettings handControllerSettings)
+            : base(handController, handControllerSettings) { }
 
         private const float IS_POINTING_DOTP_THRESHOLD = .1f;
         private const float TWO_CENTIMETER_SQUARE_MAGNITUDE = 0.0004f;
@@ -54,44 +48,12 @@ namespace RealityToolkit.InputSystem.Hands
             }
         }
 
-        /// <summary>
-        /// Processor instance used for pose recognition.
-        /// </summary>
-        private HandTrackedPosePostProcessor TrackedPoseProcessor { get; }
-
-        /// <summary>
-        /// Grip post processor instance used for grip estimation.
-        /// </summary>
-        private HandGripPostProcessor GripPostProcessor { get; }
-
-        /// <summary>
-        /// Is <see cref="HandData.PointerPose"/> provided by the platform?
-        /// </summary>
-        public bool PlatformProvidesPointerPose { get; set; }
-
-        /// <summary>
-        /// Is <see cref="HandData.IsPinching"/> provided by the platform?
-        /// </summary>
-        public bool PlatformProvidesIsPinching { get; set; }
-
-        /// <summary>
-        /// Is <see cref="HandData.PinchStrength"/> provided by the platform?
-        /// </summary>
-        public bool PlatformProvidesPinchStrength { get; set; }
-
-        /// <summary>
-        /// Is <see cref="HandData.IsPointing"/> provided by the platform?
-        /// </summary>
-        public bool PlatformProvidesIsPointing { get; set; }
-
         /// <inheritdoc />
-        public HandData PostProcess(Handedness handedness, HandData handData)
+        public override HandData PostProcess(HandData handData)
         {
             handData = UpdateIsPinchingAndStrength(handData);
             handData = UpdateIsPointing(handData);
             handData = UpdatePointerPose(handData);
-            handData = GripPostProcessor.PostProcess(handedness, handData);
-            handData = TrackedPoseProcessor.PostProcess(handedness, handData);
 
             return handData;
         }
@@ -103,27 +65,13 @@ namespace RealityToolkit.InputSystem.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.IsPinching"/> and <see cref="HandData.PinchStrength"/> for.</param>
         private HandData UpdateIsPinchingAndStrength(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked)
-            {
-                var thumbTipPose = handData.Joints[(int)TrackedHandJoint.ThumbTip];
-                var indexTipPose = handData.Joints[(int)TrackedHandJoint.IndexTip];
+            var thumbTipPose = handData.Joints[(int)TrackedHandJoint.ThumbTip];
+            var indexTipPose = handData.Joints[(int)TrackedHandJoint.IndexTip];
 
-                if (!PlatformProvidesIsPinching)
-                {
-                    handData.IsPinching = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude < TWO_CENTIMETER_SQUARE_MAGNITUDE;
-                }
+            handData.IsPinching = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude < TWO_CENTIMETER_SQUARE_MAGNITUDE;
 
-                if (!PlatformProvidesPinchStrength)
-                {
-                    var distanceSquareMagnitude = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude - TWO_CENTIMETER_SQUARE_MAGNITUDE;
-                    handData.PinchStrength = 1 - Mathf.Clamp(distanceSquareMagnitude / PINCH_STRENGTH_DISTANCE, 0f, 1f);
-                }
-            }
-            else
-            {
-                handData.IsPinching = false;
-                handData.PinchStrength = 0f;
-            }
+            var distanceSquareMagnitude = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude - TWO_CENTIMETER_SQUARE_MAGNITUDE;
+            handData.PinchStrength = 1 - Mathf.Clamp(distanceSquareMagnitude / PINCH_STRENGTH_DISTANCE, 0f, 1f);
 
             return handData;
         }
@@ -134,26 +82,19 @@ namespace RealityToolkit.InputSystem.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.IsPointing"/> for.</param>
         private HandData UpdateIsPointing(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesIsPointing)
+            var rigTransform = CameraSystem != null
+                ? CameraSystem.MainCameraRig.RigTransform
+                : CameraCache.Main.transform.parent;
+            var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
+            var worldPalmPose = new MixedRealityPose
             {
-                var rigTransform = CameraSystem != null
-                    ? CameraSystem.MainCameraRig.RigTransform
-                    : CameraCache.Main.transform.parent;
-                var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
-                var worldPalmPose = new MixedRealityPose
-                {
-                    Position = handData.RootPose.Position + handData.RootPose.Rotation * localPalmPose.Position,
-                    Rotation = rigTransform.rotation * handData.RootPose.Rotation * localPalmPose.Rotation
-                };
+                Position = localPalmPose.Position,
+                Rotation = rigTransform.rotation * localPalmPose.Rotation
+            };
 
-                // We check if the palm forward is roughly in line with the camera lookAt.
-                var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.Up, PlayerCamera.transform.up);
-                handData.IsPointing = Vector3.Dot(PlayerCamera.transform.forward, projectedPalmUp) > IS_POINTING_DOTP_THRESHOLD;
-            }
-            else
-            {
-                handData.IsPointing = false;
-            }
+            // We check if the palm forward is roughly in line with the camera lookAt.
+            var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.Up, PlayerCamera.transform.up);
+            handData.IsPointing = Vector3.Dot(PlayerCamera.transform.forward, projectedPalmUp) > IS_POINTING_DOTP_THRESHOLD;
 
             return handData;
         }
@@ -164,21 +105,23 @@ namespace RealityToolkit.InputSystem.Hands
         /// <param name="handData">The hand data to update <see cref="HandData.PointerPose"/> for.</param>
         private HandData UpdatePointerPose(HandData handData)
         {
-            if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesPointerPose)
-            {
-                var palmPose = handData.Joints[(int)TrackedHandJoint.Palm];
-                palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
+            var palmPose = handData.JointsDict[TrackedHandJoint.Palm];
+            var wristPose = handData.JointsDict[TrackedHandJoint.Wrist];
 
-                var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
-                var indexDistalPose = handData.Joints[(int)TrackedHandJoint.IndexDistal];
-                var pointerPosition = handData.RootPose.Position + Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
-                var pointerEndPosition = pointerPosition + palmPose.Forward * 10f;
-                var pointerDirection = pointerEndPosition - pointerPosition;
-                var pointerRotation = Quaternion.LookRotation(pointerDirection, PlayerCamera.transform.up) * handData.RootPose.Rotation;
+            palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
 
-                pointerRotation = PlayerCamera.transform.rotation * pointerRotation;
-                handData.PointerPose = new MixedRealityPose(pointerPosition, pointerRotation);
-            }
+            var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
+            var indexDistalPose = handData.Joints[(int)TrackedHandJoint.IndexDistal];
+            var pointerPosition = Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
+
+            var forward = wristPose.Forward;
+            forward.y = palmPose.Forward.y;
+            var pointerEndPosition = pointerPosition + forward;
+            var pointerDirection = (pointerEndPosition - pointerPosition).normalized;
+            var pointerRotation = Quaternion.LookRotation(pointerDirection);
+
+            pointerRotation = PlayerCamera.transform.rotation * pointerRotation;
+            handData.PointerPose = new MixedRealityPose(pointerPosition, pointerRotation);
 
             return handData;
         }

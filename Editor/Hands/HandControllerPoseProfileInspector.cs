@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.InputSystem.Extensions;
 using RealityToolkit.InputSystem.Hands;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace RealityToolkit.Editor.Hands
 {
@@ -114,7 +114,7 @@ namespace RealityToolkit.Editor.Hands
                     EditorGUILayout.LabelField($"Baked Index Curl:\t\t{fingerCurlStrengths.GetArrayElementAtIndex((int)HandFinger.Index).floatValue}");
                     EditorGUILayout.LabelField($"Baked Middle Curl:\t\t{fingerCurlStrengths.GetArrayElementAtIndex((int)HandFinger.Middle).floatValue}");
                     EditorGUILayout.LabelField($"Baked Ring Curl:\t\t{fingerCurlStrengths.GetArrayElementAtIndex((int)HandFinger.Ring).floatValue}");
-                    EditorGUILayout.LabelField($"Baked Little Curl:\t\t{fingerCurlStrengths.GetArrayElementAtIndex((int)HandFinger.Little).floatValue}");
+                    EditorGUILayout.LabelField($"Baked Pinky Curl:\t\t{fingerCurlStrengths.GetArrayElementAtIndex((int)HandFinger.Pinky).floatValue}");
                 }
                 else
                 {
@@ -133,15 +133,10 @@ namespace RealityToolkit.Editor.Hands
             var poseDefinition = target as HandControllerPoseProfile;
             var handData = poseDefinition.ToHandData();
 
-            // Intialize processors needed.
-            var gripPostProcessor = new HandGripPostProcessor(.8f);
-
             // Process the hand data, most hand data processors
             // will ignore the hand data if it is not tracked, so we
             // have to temporarily fake it's tracking state and then reset it.
-            handData.TrackingState = Definitions.Devices.TrackingState.Tracked;
-            handData = gripPostProcessor.PostProcess(Handedness.Right, handData);
-            handData.TrackingState = Definitions.Devices.TrackingState.NotTracked;
+            handData = HandGripPostProcessor.PostProcessStatic(handData, .8f);
 
             isGripping.boolValue = handData.IsGripping;
             gripStrength.floatValue = handData.GripStrength;

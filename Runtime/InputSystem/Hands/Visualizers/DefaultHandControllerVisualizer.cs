@@ -23,15 +23,10 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         private const float fingerColliderRadius = .007f;
         private const int capsuleColliderZAxis = 2;
         private HandControllerJointsVisualizer jointsVisualizer;
-        private HandControllerMeshVisualizer meshVisualizer;
 
         [SerializeField]
         [Tooltip("Visualization prefab instantiated once joint rendering mode is enabled for the first time.")]
         private GameObject jointsModePrefab = null;
-
-        [SerializeField]
-        [Tooltip("Visualization prefab instantiated once mesh rendering mode is enabled for the first time.")]
-        private GameObject meshModePrefab = null;
 
         /// <inheritdoc />
         public GameObject GameObject
@@ -368,62 +363,13 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
 
         private void UpdateRendering()
         {
-            var renderingMode = HandControllerDataProvider.RenderingMode;
-            if (renderingMode != HandRenderingMode.None)
+            if (jointsVisualizer == null)
             {
-                var handController = (IHandController)Controller;
-                HandMeshData handMeshData = HandMeshData.Empty;
-
-                // Fallback to joints rendering if mesh data is not available.
-                if (renderingMode == HandRenderingMode.Mesh &&
-                    !handController.TryGetHandMeshData(out handMeshData))
-                {
-                    renderingMode = HandRenderingMode.Joints;
-                }
-
-                if (renderingMode == HandRenderingMode.Joints)
-                {
-                    if (meshVisualizer != null)
-                    {
-                        meshVisualizer.gameObject.SetActive(false);
-                    }
-
-                    if (jointsVisualizer == null)
-                    {
-                        jointsVisualizer = Instantiate(jointsModePrefab, HandVisualizationGameObject.transform).GetComponent<HandControllerJointsVisualizer>();
-                    }
-
-                    jointsVisualizer.gameObject.SetActive(true);
-                    jointsVisualizer.UpdateVisualization(this);
-                }
-                else if (renderingMode == HandRenderingMode.Mesh)
-                {
-                    if (jointsVisualizer != null)
-                    {
-                        jointsVisualizer.gameObject.SetActive(false);
-                    }
-
-                    if (meshVisualizer == null)
-                    {
-                        meshVisualizer = Instantiate(meshModePrefab, HandVisualizationGameObject.transform).GetComponent<HandControllerMeshVisualizer>();
-                    }
-
-                    meshVisualizer.gameObject.SetActive(true);
-                    meshVisualizer.UpdateVisualization(handMeshData);
-                }
+                jointsVisualizer = Instantiate(jointsModePrefab, HandVisualizationGameObject.transform).GetComponent<HandControllerJointsVisualizer>();
             }
-            else
-            {
-                if (jointsVisualizer != null)
-                {
-                    jointsVisualizer.gameObject.SetActive(false);
-                }
 
-                if (meshVisualizer != null)
-                {
-                    meshVisualizer.gameObject.SetActive(false);
-                }
-            }
+            jointsVisualizer.gameObject.SetActive(true);
+            jointsVisualizer.UpdateVisualization(this);
         }
     }
 }

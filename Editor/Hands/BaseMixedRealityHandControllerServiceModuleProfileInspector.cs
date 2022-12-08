@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
@@ -16,7 +16,6 @@ namespace RealityToolkit.Editor.Hands
         private static readonly GUIContent handTrackingSettingsFoldoutHeader = new GUIContent("Hand Tracking Settings");
 
         private SerializedProperty gripThreshold;
-        private SerializedProperty renderingMode;
         private SerializedProperty handPhysicsEnabled;
         private SerializedProperty useTriggers;
         private SerializedProperty boundsMode;
@@ -32,7 +31,6 @@ namespace RealityToolkit.Editor.Hands
             base.OnEnable();
 
             gripThreshold = serializedObject.FindProperty(nameof(gripThreshold));
-            renderingMode = serializedObject.FindProperty(nameof(renderingMode));
             handPhysicsEnabled = serializedObject.FindProperty(nameof(handPhysicsEnabled));
             useTriggers = serializedObject.FindProperty(nameof(useTriggers));
             boundsMode = serializedObject.FindProperty(nameof(boundsMode));
@@ -63,12 +61,6 @@ namespace RealityToolkit.Editor.Hands
                 EditorGUILayout.LabelField("General Hand Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(gripThreshold);
                 EditorGUILayout.Space();
-
-                EditorGUILayout.LabelField("Hand Rendering Settings", EditorStyles.boldLabel);
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(renderingMode);
-                EditorGUILayout.Space();
-                EditorGUI.indentLevel--;
 
                 EditorGUILayout.LabelField("Hand Physics Settings", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;

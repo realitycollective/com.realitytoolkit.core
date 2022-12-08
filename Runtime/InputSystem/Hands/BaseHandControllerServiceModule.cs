@@ -25,10 +25,6 @@ namespace RealityToolkit.InputSystem.Hands
                 return;
             }
 
-            RenderingMode = profile.RenderingMode != inputSystemProfile.HandControllerSettings.RenderingMode
-                ? profile.RenderingMode
-                : inputSystemProfile.HandControllerSettings.RenderingMode;
-
             HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandControllerSettings.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
                 : inputSystemProfile.HandControllerSettings.HandPhysicsEnabled;
@@ -53,9 +49,6 @@ namespace RealityToolkit.InputSystem.Hands
                 TrackedPoses = inputSystemProfile.HandControllerSettings.TrackedPoses;
             }
         }
-
-        /// <inheritdoc />
-        public HandRenderingMode RenderingMode { get; set; }
 
         /// <inheritdoc />
         public bool HandPhysicsEnabled { get; set; }

@@ -4,6 +4,7 @@
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace RealityToolkit.InputSystem.Hands
 {
@@ -40,11 +41,6 @@ namespace RealityToolkit.InputSystem.Hands
         float GripStrength { get; }
 
         /// <summary>
-        /// Gets the curl strength per finger.
-        /// </summary>
-        float[] FingerCurlStrengths { get; }
-
-        /// <summary>
         /// Gets the hands current pose.
         /// </summary>
         string TrackedPoseId { get; }
@@ -54,7 +50,7 @@ namespace RealityToolkit.InputSystem.Hands
         /// </summary>
         /// <param name="handBounds">The requested hand bounds.</param>
         /// <param name="bounds">The bounds if available.</param>
-        /// <returns>True, if bounds available.</returns>
+        /// <returns><c>true</c>, if bounds available.</returns>
         bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] bounds);
 
         /// <summary>
@@ -67,22 +63,15 @@ namespace RealityToolkit.InputSystem.Hands
         /// <param name="joint">The joint to get the pose for.</param>
         /// <param name="pose">Pose output parameter containing the pose if found.</param>
         /// <param name="relativeTo">Optional coordinate space to get the pose in. Defaults to <see cref="Space.Self"/>.</param>
-        /// <returns>True, if the pose is available.</returns>
+        /// <returns><c>true</c>, if the pose is available.</returns>
         bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self);
 
         /// <summary>
-        /// Gets the curl strength for a finger, if available.
+        /// Gets the curl strength for a <see cref="HandFinger"/>, if available.
         /// </summary>
         /// <param name="handFinger">The <see cref="HandFinger"/> to lookup strength for.</param>
         /// <param name="curlStrength">The finger's curl strength is a value from 0 to 1.</param>
-        /// <returns>True, if success.</returns>
-        bool TryGetFingerCurlStrength(HandFinger handFinger, out float curlStrength);
-
-        /// <summary>
-        /// Get the hand controllers current <see cref="HandMeshData"/>, if available.
-        /// </summary>
-        /// <param name="handMeshData">Hand mesh data for rendering the hand as a mesh.</param>
-        /// <returns>True, if mesh data available and not <see cref="HandMeshData.Empty"/>.</returns>
-        bool TryGetHandMeshData(out HandMeshData handMeshData);
+        /// <returns><c>true</c>, if success.</returns>
+        bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength);
     }
 }

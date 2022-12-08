@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
 {
@@ -17,21 +18,24 @@ namespace RealityToolkit.InputSystem.Hands
         /// <summary>
         /// Creates a new hand data from joint poses.
         /// </summary>
-        /// <param name="rootPose">The hands root pose.</param>
         /// <param name="jointPoses">Joint pose values.</param>
-        public HandData(MixedRealityPose rootPose, MixedRealityPose[] jointPoses)
+        public HandData(MixedRealityPose[] jointPoses)
         {
             if (jointPoses.Length != JointCount)
             {
                 throw new ArgumentException($"{nameof(HandData)} expects {JointCount} joint poses.");
             }
 
-            RootPose = rootPose;
+            RootPose = jointPoses[0];
             Joints = new MixedRealityPose[JointCount];
             Array.Copy(jointPoses, Joints, JointCount);
 
-            UpdatedAt = long.MinValue;
-            TrackingState = TrackingState.NotTracked;
+            JointsDict = new Dictionary<TrackedHandJoint, MixedRealityPose>();
+            for (var i = 0; i < Joints.Length; i++)
+            {
+                JointsDict.Add((TrackedHandJoint)i, Joints[i]);
+            }
+
             PinchStrength = 0;
             GripStrength = 0;
             PointerPose = MixedRealityPose.ZeroIdentity;
@@ -39,24 +43,14 @@ namespace RealityToolkit.InputSystem.Hands
             IsPointing = false;
             IsGripping = false;
             TrackedPoseId = null;
-            Mesh = new HandMeshData();
             FingerCurlStrengths = new float[] { 0, 0, 0, 0, 0 };
+            Bounds = new Dictionary<TrackedHandBounds, Bounds[]>();
         }
 
         /// <summary>
         /// Gets the total count of joints the XRTK hand controller supports.
         /// </summary>
         public static readonly int JointCount = Enum.GetNames(typeof(TrackedHandJoint)).Length;
-
-        /// <summary>
-        /// Timestamp of hand data, as FileTime, e.g. <see cref="DateTime.UtcNow"/>
-        /// </summary>
-        public long UpdatedAt { get; set; }
-
-        /// <summary>
-        /// The hand controller's tracking state.
-        /// </summary>
-        public TrackingState TrackingState { get; set; }
 
         /// <summary>
         /// Is the hand currently in a pinch pose?
@@ -89,7 +83,7 @@ namespace RealityToolkit.InputSystem.Hands
         public float GripStrength { get; set; }
 
         /// <summary>
-        /// The hand's pointer pose, relative to <see cref="Interfaces.CameraSystem.IMixedRealityCameraRig.RigTransform"/>.
+        /// The hand's pointer pose, relative to <see cref="CameraSystem.Interfaces.IMixedRealityCameraRig.RigTransform"/>.
         /// </summary>
         public MixedRealityPose PointerPose { get; set; }
 
@@ -112,8 +106,13 @@ namespace RealityToolkit.InputSystem.Hands
         public MixedRealityPose[] Joints { get; set; }
 
         /// <summary>
-        /// Mesh information of the hand.
+        /// Pose information for each hand joint in a dictionary.
         /// </summary>
-        public HandMeshData Mesh { get; set; }
+        public Dictionary<TrackedHandJoint, MixedRealityPose> JointsDict { get; set; }
+
+        /// <summary>
+        /// Available hand bounds.
+        /// </summary>
+        public Dictionary<TrackedHandBounds, Bounds[]> Bounds { get; set; }
     }
 }
