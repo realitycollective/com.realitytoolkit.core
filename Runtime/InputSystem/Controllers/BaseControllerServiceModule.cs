@@ -46,7 +46,7 @@ namespace RealityToolkit.InputSystem.Controllers
         private readonly List<IMixedRealityController> activeControllers = new List<IMixedRealityController>();
 
         /// <inheritdoc />
-        public IReadOnlyList<IMixedRealityController> ActiveControllers => activeControllers;
+        public virtual IReadOnlyList<IMixedRealityController> ActiveControllers => activeControllers;
 
         /// <inheritdoc />
         public MixedRealityControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)

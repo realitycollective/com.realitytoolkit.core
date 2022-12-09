@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.InputSystem.Controllers;
 using RealityToolkit.InputSystem.Definitions;
@@ -16,7 +17,7 @@ namespace RealityToolkit.InputSystem.Hands
     public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IHandControllerServiceModule
     {
         /// <inheritdoc />
-        protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseHandControllerServiceModule(string name, uint priority, HandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
             if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
@@ -25,29 +26,21 @@ namespace RealityToolkit.InputSystem.Hands
                 return;
             }
 
-            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandControllerSettings.HandPhysicsEnabled
-                ? profile.HandPhysicsEnabled
+            HandPhysicsEnabled = profile.HandControllerSettings.IsNotNull()
+                ? profile.HandControllerSettings.HandPhysicsEnabled
                 : inputSystemProfile.HandControllerSettings.HandPhysicsEnabled;
 
-            UseTriggers = profile.UseTriggers != inputSystemProfile.HandControllerSettings.UseTriggers
-                ? profile.UseTriggers
+            UseTriggers = profile.HandControllerSettings.IsNotNull()
+                ? profile.HandControllerSettings.UseTriggers
                 : inputSystemProfile.HandControllerSettings.UseTriggers;
 
-            BoundsMode = profile.BoundsMode != inputSystemProfile.HandControllerSettings.BoundsMode
-                ? profile.BoundsMode
+            BoundsMode = profile.HandControllerSettings.IsNotNull()
+                ? profile.HandControllerSettings.BoundsMode
                 : inputSystemProfile.HandControllerSettings.BoundsMode;
 
-            if (profile.TrackedPoses != null &&
-                profile.TrackedPoses.Count > 0)
-            {
-                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.HandControllerSettings.TrackedPoses.Count
-                    ? profile.TrackedPoses
+            TrackedPoses = profile.HandControllerSettings.IsNotNull()
+                    ? profile.HandControllerSettings.TrackedPoses
                     : inputSystemProfile.HandControllerSettings.TrackedPoses;
-            }
-            else
-            {
-                TrackedPoses = inputSystemProfile.HandControllerSettings.TrackedPoses;
-            }
         }
 
         /// <inheritdoc />
