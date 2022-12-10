@@ -10,7 +10,8 @@ namespace RealityToolkit.InputSystem.Hands
     /// <summary>
     /// Configuration options for <see cref="IHandControllerServiceModule"/>
     /// </summary>
-    public abstract class HandControllerServiceModuleProfile : BaseMixedRealityControllerServiceModuleProfile
+    public abstract class HandControllerServiceModuleProfile<T> : BaseMixedRealityControllerServiceModuleProfile
+        where T : HandController
     {
         [SerializeField]
         [Tooltip("Gloabl settings for hand controllers.")]
@@ -29,8 +30,8 @@ namespace RealityToolkit.InputSystem.Hands
         {
             return new[]
             {
-                new ControllerDefinition(typeof(HandController), Handedness.Left),
-                new ControllerDefinition(typeof(HandController), Handedness.Right),
+                new ControllerDefinition(typeof(T), Handedness.Left),
+                new ControllerDefinition(typeof(T), Handedness.Right),
             };
         }
     }

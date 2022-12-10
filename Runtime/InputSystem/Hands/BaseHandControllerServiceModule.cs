@@ -14,10 +14,11 @@ namespace RealityToolkit.InputSystem.Hands
     /// <summary>
     /// Base implementation for <see cref="IHandControllerServiceModule"/>s.
     /// </summary>
-    public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IHandControllerServiceModule
+    public abstract class BaseHandControllerServiceModule<T> : BaseControllerServiceModule, IHandControllerServiceModule
+        where T : HandController
     {
         /// <inheritdoc />
-        protected BaseHandControllerServiceModule(string name, uint priority, HandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseHandControllerServiceModule(string name, uint priority, HandControllerServiceModuleProfile<T> profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
             if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))

@@ -4,13 +4,15 @@
 using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
 using RealityToolkit.InputSystem.Hands;
 using UnityEditor;
+using UnityEngine;
 
 namespace RealityToolkit.Editor.Hands
 {
-    [CustomEditor(typeof(HandControllerServiceModuleProfile), true, isFallback = true)]
+    [CustomEditor(typeof(HandControllerServiceModuleProfile<>), true, isFallback = true)]
     public class HandControllerServiceModuleProfileInspector : BaseMixedRealityControllerServiceModuleProfileInspector
     {
         private SerializedProperty handControllerSettings;
+        private static readonly GUIContent handControllerSettingsLabel = new GUIContent("Hand Tracking Overrides");
 
         protected override void OnEnable()
         {
@@ -24,8 +26,9 @@ namespace RealityToolkit.Editor.Hands
 
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(handControllerSettings);
             EditorGUILayout.Space();
+            EditorGUILayout.PropertyField(handControllerSettings, handControllerSettingsLabel);
+            EditorGUILayout.HelpBox("Assign an optional hand controler settings profile to override the global settings in the input service profile.", MessageType.Info);
 
             serializedObject.ApplyModifiedProperties();
         }
