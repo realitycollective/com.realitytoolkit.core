@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using System;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
@@ -179,16 +178,6 @@ namespace RealityToolkit.InputSystem.Hands
                 littleIntermediate.IsNotNull() &&
                 littleDistal.IsNotNull() &&
                 littleTip.IsNotNull();
-
-        private void Awake()
-        {
-            name = nameof(HandSkeleton);
-        }
-
-        private void OnValidate()
-        {
-            name = nameof(HandSkeleton);
-        }
 
         /// <summary>
         /// Attempts to find all bones / <see cref="Transform"/>s in the hierarchy using <see cref="jointNames"/>,

@@ -6,6 +6,7 @@ using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.Services.InputSystem.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,16 +18,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
     [System.Runtime.InteropServices.Guid("5d844e0b-f913-46b8-bc3b-fa6429e62c60")]
     public class DefaultHandControllerVisualizer : ControllerPoseSynchronizer, IMixedRealityControllerVisualizer
     {
-        private readonly Dictionary<TrackedHandJoint, Transform> jointTransforms = new Dictionary<TrackedHandJoint, Transform>();
+        private HandSkeleton skeleton;
         private readonly Dictionary<TrackedHandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<TrackedHandJoint, CapsuleCollider>();
         private BoxCollider handBoundsModeCollider;
         private const float fingerColliderRadius = .007f;
         private const int capsuleColliderZAxis = 2;
-        private HandControllerJointsVisualizer jointsVisualizer;
-
-        [SerializeField]
-        [Tooltip("Visualization prefab instantiated once joint rendering mode is enabled for the first time.")]
-        private GameObject jointsModePrefab = null;
 
         /// <inheritdoc />
         public GameObject GameObject
@@ -95,13 +91,18 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
 
             if (TrackingState == RealityToolkit.Definitions.Devices.TrackingState.Tracked)
             {
+                if (skeleton.IsNull())
+                {
+                    skeleton = GameObject.EnsureComponent<HandSkeleton>();
+                    skeleton.Create();
+                }
+
                 // It's important to update physics
                 // configuration first.
                 UpdatePhysicsConfiguration();
 
                 UpdateHandJointTransforms();
                 UpdateHandColliders();
-                UpdateRendering();
             }
         }
 
@@ -114,11 +115,107 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                 var handJoint = (TrackedHandJoint)i;
                 if (handController.TryGetJointPose(handJoint, out var jointPose))
                 {
-                    var jointTransform = GetOrCreateJointTransform(handJoint);
-                    jointTransform.localPosition = jointPose.Position;
-                    jointTransform.localRotation = jointPose.Rotation;
+                    UpdateJointPose(handJoint, jointPose);
                 }
             }
+        }
+
+        /// <summary>
+        /// Updates the <paramref name="pose"/> of the <see cref="Transform"/> representing
+        /// <paramref name="trackedHandJoint"/>.
+        /// </summary>
+        /// <param name="trackedHandJoint">The <see cref="TrackedHandJoint"/> to target.</param>
+        /// <param name="pose">The new <see cref="MixedRealityPose"/> of the <paramref name="trackedHandJoint"/>.</param>
+        /// <exception cref="ArgumentOutOfRangeException">In case of unknown <see cref="TrackedHandJoint"/>.</exception>
+        private void UpdateJointPose(TrackedHandJoint trackedHandJoint, MixedRealityPose pose)
+        {
+            Transform target = null;
+            switch (trackedHandJoint)
+            {
+                case TrackedHandJoint.Wrist:
+                    target = skeleton.Wrist;
+                    break;
+                case TrackedHandJoint.Palm:
+                    target = skeleton.Palm;
+                    break;
+                case TrackedHandJoint.ThumbMetacarpal:
+                    target = skeleton.ThumbMetacarpal;
+                    break;
+                case TrackedHandJoint.ThumbProximal:
+                    target = skeleton.ThumbProximal;
+                    break;
+                case TrackedHandJoint.ThumbDistal:
+                    target = skeleton.ThumbDistal;
+                    break;
+                case TrackedHandJoint.ThumbTip:
+                    target = skeleton.ThumbTip;
+                    break;
+                case TrackedHandJoint.IndexMetacarpal:
+                    target = skeleton.IndexMetacarpal;
+                    break;
+                case TrackedHandJoint.IndexProximal:
+                    target = skeleton.IndexProximal;
+                    break;
+                case TrackedHandJoint.IndexIntermediate:
+                    target = skeleton.IndexIntermediate;
+                    break;
+                case TrackedHandJoint.IndexDistal:
+                    target = skeleton.IndexDistal;
+                    break;
+                case TrackedHandJoint.IndexTip:
+                    target = skeleton.IndexTip;
+                    break;
+                case TrackedHandJoint.MiddleMetacarpal:
+                    target = skeleton.MiddleMetacarpal;
+                    break;
+                case TrackedHandJoint.MiddleProximal:
+                    target = skeleton.MiddleProximal;
+                    break;
+                case TrackedHandJoint.MiddleIntermediate:
+                    target = skeleton.MiddleIntermediate;
+                    break;
+                case TrackedHandJoint.MiddleDistal:
+                    target = skeleton.MiddleDistal;
+                    break;
+                case TrackedHandJoint.MiddleTip:
+                    target = skeleton.MiddleTip;
+                    break;
+                case TrackedHandJoint.RingMetacarpal:
+                    target = skeleton.RingMetacarpal;
+                    break;
+                case TrackedHandJoint.RingProximal:
+                    target = skeleton.RingProximal;
+                    break;
+                case TrackedHandJoint.RingIntermediate:
+                    target = skeleton.RingIntermediate;
+                    break;
+                case TrackedHandJoint.RingDistal:
+                    target = skeleton.RingDistal;
+                    break;
+                case TrackedHandJoint.RingTip:
+                    target = skeleton.RingTip;
+                    break;
+                case TrackedHandJoint.LittleMetacarpal:
+                    target = skeleton.LittleMetacarpal;
+                    break;
+                case TrackedHandJoint.LittleProximal:
+                    target = skeleton.LittleProximal;
+                    break;
+                case TrackedHandJoint.LittleIntermediate:
+                    target = skeleton.LittleIntermediate;
+                    break;
+                case TrackedHandJoint.LittleDistal:
+                    target = skeleton.LittleDistal;
+                    break;
+                case TrackedHandJoint.LittleTip:
+                    target = skeleton.LittleTip;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"Unknown {nameof(TrackedHandJoint)}.{trackedHandJoint} does not exist in the {nameof(HandSkeleton)}");
+            }
+
+            target.localPosition = pose.Position;
+            target.localRotation = pose.Rotation;
         }
 
         #region Hand Colliders / Physics
@@ -182,11 +279,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                         Bounds knuckleToMiddle = thumbBounds[0];
                         Bounds middleToTip = thumbBounds[1];
 
-                        var thumbKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.ThumbMetacarpal).gameObject;
+                        var thumbKnuckleGameObject = skeleton.ThumbMetacarpal.gameObject;
                         var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.ThumbMetacarpal, thumbKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, thumbKnuckleGameObject.transform);
 
-                        var thumbMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.ThumbProximal).gameObject;
+                        var thumbMiddleGameObject = skeleton.ThumbProximal.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.ThumbProximal, thumbMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, thumbMiddleGameObject.transform);
                     }
@@ -197,11 +294,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                         Bounds knuckleToMiddle = indexFingerBounds[0];
                         Bounds middleToTip = indexFingerBounds[1];
 
-                        var indexKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.IndexProximal).gameObject;
+                        var indexKnuckleGameObject = skeleton.IndexProximal.gameObject;
                         var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.IndexProximal, indexKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, indexKnuckleGameObject.transform);
 
-                        var indexMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.IndexIntermediate).gameObject;
+                        var indexMiddleGameObject = skeleton.IndexIntermediate.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.IndexIntermediate, indexMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, indexMiddleGameObject.transform);
                     }
@@ -212,11 +309,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                         Bounds knuckleToMiddle = middleFingerBounds[0];
                         Bounds middleToTip = middleFingerBounds[1];
 
-                        var middleKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.MiddleProximal).gameObject;
+                        var middleKnuckleGameObject = skeleton.MiddleProximal.gameObject;
                         var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.MiddleProximal, middleKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, middleKnuckleGameObject.transform);
 
-                        var middleMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.MiddleIntermediate).gameObject;
+                        var middleMiddleGameObject = skeleton.MiddleIntermediate.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.MiddleIntermediate, middleMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, middleMiddleGameObject.transform);
                     }
@@ -227,11 +324,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                         Bounds knuckleToMiddle = ringFingerBounds[0];
                         Bounds middleToTip = ringFingerBounds[1];
 
-                        var ringKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.RingProximal).gameObject;
+                        var ringKnuckleGameObject = skeleton.RingProximal.gameObject;
                         var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.RingProximal, ringKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, ringKnuckleGameObject.transform);
 
-                        var ringMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.RingIntermediate).gameObject;
+                        var ringMiddleGameObject = skeleton.RingIntermediate.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.RingIntermediate, ringMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, ringMiddleGameObject.transform);
                     }
@@ -242,11 +339,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                         Bounds knuckleToMiddle = pinkyFingerBounds[0];
                         Bounds middleToTip = pinkyFingerBounds[1];
 
-                        var pinkyKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.LittleProximal).gameObject;
+                        var pinkyKnuckleGameObject = skeleton.LittleProximal.gameObject;
                         var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.LittleProximal, pinkyKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, pinkyKnuckleGameObject.transform);
 
-                        var pinkyMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.LittleIntermediate).gameObject;
+                        var pinkyMiddleGameObject = skeleton.LittleIntermediate.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.LittleIntermediate, pinkyMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, pinkyMiddleGameObject.transform);
                     }
@@ -256,22 +353,22 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                         // For the palm we create a composite collider using a capsule collider per
                         // finger for the area metacarpal <-> knuckle.
                         Bounds indexPalmBounds = palmBounds[0];
-                        var indexMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.IndexMetacarpal).gameObject;
+                        var indexMetacarpalGameObject = skeleton.IndexMetacarpal.gameObject;
                         var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.IndexMetacarpal, indexMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, indexPalmBounds, indexMetacarpalGameObject.transform);
 
                         Bounds middlePalmBounds = palmBounds[1];
-                        var middleMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.MiddleMetacarpal).gameObject;
+                        var middleMetacarpalGameObject = skeleton.MiddleMetacarpal.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.MiddleMetacarpal, middleMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middlePalmBounds, middleMetacarpalGameObject.transform);
 
                         Bounds ringPalmBounds = palmBounds[2];
-                        var ringMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.RingMetacarpal).gameObject;
+                        var ringMetacarpalGameObject = skeleton.RingMetacarpal.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.RingMetacarpal, ringMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, ringPalmBounds, ringMetacarpalGameObject.transform);
 
                         Bounds pinkyPalmBounds = palmBounds[3];
-                        var pinkyMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.LittleMetacarpal).gameObject;
+                        var pinkyMetacarpalGameObject = skeleton.LittleMetacarpal.gameObject;
                         capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.LittleMetacarpal, pinkyMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, pinkyPalmBounds, pinkyMetacarpalGameObject.transform);
                     }
@@ -338,38 +435,5 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets the proxy transform for a given tracked hand joint or creates
-        /// it if it does not exist yet.
-        /// </summary>
-        /// <param name="handJoint">The hand joint a transform should be returned for.</param>
-        /// <returns>Joint transform.</returns>
-        public Transform GetOrCreateJointTransform(TrackedHandJoint handJoint)
-        {
-            if (jointTransforms.TryGetValue(handJoint, out Transform existingJointTransform))
-            {
-                existingJointTransform.parent = HandVisualizationGameObject.transform;
-                existingJointTransform.gameObject.SetActive(true);
-                return existingJointTransform;
-            }
-
-            Transform jointTransform = new GameObject($"{handJoint}").transform;
-            jointTransform.parent = HandVisualizationGameObject.transform;
-            jointTransforms.Add(handJoint, jointTransform.transform);
-
-            return jointTransform;
-        }
-
-        private void UpdateRendering()
-        {
-            if (jointsVisualizer == null)
-            {
-                jointsVisualizer = Instantiate(jointsModePrefab, HandVisualizationGameObject.transform).GetComponent<HandControllerJointsVisualizer>();
-            }
-
-            jointsVisualizer.gameObject.SetActive(true);
-            jointsVisualizer.UpdateVisualization(this);
-        }
     }
 }
