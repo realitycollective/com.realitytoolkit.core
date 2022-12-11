@@ -38,7 +38,7 @@ namespace RealityToolkit.InputSystem.Hands
             }
 
             trackedHandJointPoseProvider = new TrackedHandJointPoseProvider();
-            jointPoses = new MixedRealityPose[Enum.GetNames(typeof(TrackedHandJoint)).Length - 1];
+            jointPoses = new MixedRealityPose[Enum.GetNames(typeof(TrackedHandJoint)).Length];
             jointPosesDict = new Dictionary<TrackedHandJoint, MixedRealityPose>();
 
             postProcessors = new IHandDataPostProcessor[]
