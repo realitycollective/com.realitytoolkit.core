@@ -26,24 +26,14 @@ namespace RealityToolkit.Definitions.Controllers
             private set => controllerVisualizationType = value;
         }
 
-        [SerializeField]
-        [Tooltip("Use the platform SDK to load the default controller models.")]
-        private bool useDefaultModels = false;
-
-        /// <summary>
-        /// User the controller model loader provided by the SDK, or provide override models.
-        /// </summary>
-        public bool UseDefaultModels
-        {
-            get => useDefaultModels;
-            private set => useDefaultModels = value;
-        }
-
         [Prefab]
-        [SerializeField]
+        [SerializeField, Tooltip("The controller model prefab instantiated at runtime.")]
         private GameObject model = null;
 
-        public GameObject LeftHandModel
+        /// <summary>
+        /// The controller model prefab instantiated at runtime.
+        /// </summary>
+        public GameObject Model
         {
             get => model;
             private set => model = value;

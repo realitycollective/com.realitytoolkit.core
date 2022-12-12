@@ -213,23 +213,8 @@ namespace RealityToolkit.InputSystem.Controllers
                 return;
             }
 
-            GameObject controllerModel = null;
-
-            // If we didn't get an override model, and we didn't load the driver model,
-            // then get the global controller model for each hand.
-            //if (controllerModel.IsNull())
-            {
-                switch (ControllerHandedness)
-                {
-                    case Handedness.Left when !visualizationProfile.LeftHandModel.IsNull():
-                        controllerModel = visualizationProfile.LeftHandModel;
-                        break;
-                    case Handedness.Right when !visualizationProfile.LeftHandModel.IsNull():
-                        controllerModel = visualizationProfile.LeftHandModel;
-                        break;
-                }
-            }
-
+            var controllerModel = visualizationProfile.Model;
+            
             // If we've got a controller model, then place it in the scene and get/attach the visualizer.
             if (!controllerModel.IsNull())
             {

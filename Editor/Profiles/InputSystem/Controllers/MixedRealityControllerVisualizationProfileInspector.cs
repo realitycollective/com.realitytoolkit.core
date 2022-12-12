@@ -15,7 +15,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
     public class MixedRealityControllerVisualizationProfileInspector : BaseProfileInspector
     {
         private SerializedProperty controllerVisualizationType;
-        private SerializedProperty useDefaultModels;
         private SerializedProperty model;
         private SerializedProperty pointerPose;
         private SerializedProperty alternatePointerPose;
@@ -36,7 +35,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             controllerVisualizationProfile = target as MixedRealityControllerVisualizationProfile;
 
             controllerVisualizationType = serializedObject.FindProperty(nameof(controllerVisualizationType));
-            useDefaultModels = serializedObject.FindProperty(nameof(useDefaultModels));
             model = serializedObject.FindProperty(nameof(model));
             pointerPose = serializedObject.FindProperty(nameof(pointerPose));
             alternatePointerPose = serializedObject.FindProperty(nameof(alternatePointerPose));
@@ -51,7 +49,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
             EditorGUIUtility.labelWidth = 168f;
 
-            var leftHandModelPrefab = model.objectReferenceValue as GameObject;
+            var modelPrefab = model.objectReferenceValue as GameObject;
 
             EditorGUILayout.PropertyField(controllerVisualizationType);
 
@@ -61,19 +59,12 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
                 EditorGUILayout.HelpBox("A controller visualization type must be defined!", MessageType.Error);
             }
 
-            EditorGUILayout.PropertyField(useDefaultModels);
-
-            if (useDefaultModels.boolValue && leftHandModelPrefab != null)
-            {
-                EditorGUILayout.HelpBox("When default models are used, the global left and right hand models will only be used if the default models cannot be loaded from the driver.", MessageType.Warning);
-            }
-
             EditorGUI.BeginChangeCheck();
-            leftHandModelPrefab = EditorGUILayout.ObjectField(new GUIContent(model.displayName, "Note: If the default model is not found, the fallback is the global left hand model."), leftHandModelPrefab, typeof(GameObject), false) as GameObject;
+            modelPrefab = EditorGUILayout.ObjectField(new GUIContent(model.displayName, "Note: If the default model is not found, the fallback is the global left hand model."), modelPrefab, typeof(GameObject), false) as GameObject;
 
-            if (EditorGUI.EndChangeCheck() && CheckVisualizer(leftHandModelPrefab))
+            if (EditorGUI.EndChangeCheck() && CheckVisualizer(modelPrefab))
             {
-                model.objectReferenceValue = leftHandModelPrefab;
+                model.objectReferenceValue = modelPrefab;
             }
 
             inputActionDropdown.OnGui(new GUIContent(pointerPose.displayName, pointerPose.tooltip), pointerPose, AxisType.SixDof);
