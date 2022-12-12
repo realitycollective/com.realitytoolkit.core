@@ -6,7 +6,6 @@ using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.Services.InputSystem.Utilities;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -95,6 +94,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                 {
                     skeleton = GameObject.EnsureComponent<HandSkeleton>();
                     skeleton.Create();
+                    CreatePrimitives();
                 }
 
                 // It's important to update physics
@@ -115,107 +115,116 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                 var handJoint = (TrackedHandJoint)i;
                 if (handController.TryGetJointPose(handJoint, out var jointPose))
                 {
-                    UpdateJointPose(handJoint, jointPose);
+                    skeleton.Set(handJoint, jointPose);
                 }
             }
         }
 
-        /// <summary>
-        /// Updates the <paramref name="pose"/> of the <see cref="Transform"/> representing
-        /// <paramref name="trackedHandJoint"/>.
-        /// </summary>
-        /// <param name="trackedHandJoint">The <see cref="TrackedHandJoint"/> to target.</param>
-        /// <param name="pose">The new <see cref="MixedRealityPose"/> of the <paramref name="trackedHandJoint"/>.</param>
-        /// <exception cref="ArgumentOutOfRangeException">In case of unknown <see cref="TrackedHandJoint"/>.</exception>
-        private void UpdateJointPose(TrackedHandJoint trackedHandJoint, MixedRealityPose pose)
+        private void CreatePrimitives()
         {
-            Transform target = null;
-            switch (trackedHandJoint)
-            {
-                case TrackedHandJoint.Wrist:
-                    target = skeleton.Wrist;
-                    break;
-                case TrackedHandJoint.Palm:
-                    target = skeleton.Palm;
-                    break;
-                case TrackedHandJoint.ThumbMetacarpal:
-                    target = skeleton.ThumbMetacarpal;
-                    break;
-                case TrackedHandJoint.ThumbProximal:
-                    target = skeleton.ThumbProximal;
-                    break;
-                case TrackedHandJoint.ThumbDistal:
-                    target = skeleton.ThumbDistal;
-                    break;
-                case TrackedHandJoint.ThumbTip:
-                    target = skeleton.ThumbTip;
-                    break;
-                case TrackedHandJoint.IndexMetacarpal:
-                    target = skeleton.IndexMetacarpal;
-                    break;
-                case TrackedHandJoint.IndexProximal:
-                    target = skeleton.IndexProximal;
-                    break;
-                case TrackedHandJoint.IndexIntermediate:
-                    target = skeleton.IndexIntermediate;
-                    break;
-                case TrackedHandJoint.IndexDistal:
-                    target = skeleton.IndexDistal;
-                    break;
-                case TrackedHandJoint.IndexTip:
-                    target = skeleton.IndexTip;
-                    break;
-                case TrackedHandJoint.MiddleMetacarpal:
-                    target = skeleton.MiddleMetacarpal;
-                    break;
-                case TrackedHandJoint.MiddleProximal:
-                    target = skeleton.MiddleProximal;
-                    break;
-                case TrackedHandJoint.MiddleIntermediate:
-                    target = skeleton.MiddleIntermediate;
-                    break;
-                case TrackedHandJoint.MiddleDistal:
-                    target = skeleton.MiddleDistal;
-                    break;
-                case TrackedHandJoint.MiddleTip:
-                    target = skeleton.MiddleTip;
-                    break;
-                case TrackedHandJoint.RingMetacarpal:
-                    target = skeleton.RingMetacarpal;
-                    break;
-                case TrackedHandJoint.RingProximal:
-                    target = skeleton.RingProximal;
-                    break;
-                case TrackedHandJoint.RingIntermediate:
-                    target = skeleton.RingIntermediate;
-                    break;
-                case TrackedHandJoint.RingDistal:
-                    target = skeleton.RingDistal;
-                    break;
-                case TrackedHandJoint.RingTip:
-                    target = skeleton.RingTip;
-                    break;
-                case TrackedHandJoint.LittleMetacarpal:
-                    target = skeleton.LittleMetacarpal;
-                    break;
-                case TrackedHandJoint.LittleProximal:
-                    target = skeleton.LittleProximal;
-                    break;
-                case TrackedHandJoint.LittleIntermediate:
-                    target = skeleton.LittleIntermediate;
-                    break;
-                case TrackedHandJoint.LittleDistal:
-                    target = skeleton.LittleDistal;
-                    break;
-                case TrackedHandJoint.LittleTip:
-                    target = skeleton.LittleTip;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException($"Unknown {nameof(TrackedHandJoint)}.{trackedHandJoint} does not exist in the {nameof(HandSkeleton)}");
-            }
+            var wrist = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            wrist.transform.SetParent(skeleton.Wrist.transform);
+            wrist.transform.localScale = new Vector3(.01f, .01f, .01f);
 
-            target.localPosition = pose.Position;
-            target.localRotation = pose.Rotation;
+            var palm = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            palm.transform.SetParent(skeleton.Palm.transform);
+            palm.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var thumbMetacarpal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            thumbMetacarpal.transform.SetParent(skeleton.ThumbMetacarpal.transform);
+            thumbMetacarpal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var thumbProximal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            thumbProximal.transform.SetParent(skeleton.ThumbProximal.transform);
+            thumbProximal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var thumbDistal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            thumbDistal.transform.SetParent(skeleton.ThumbDistal.transform);
+            thumbDistal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var thumbTip = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            thumbTip.transform.SetParent(skeleton.ThumbTip.transform);
+            thumbTip.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var indexMetacarpal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            indexMetacarpal.transform.SetParent(skeleton.IndexMetacarpal.transform);
+            indexMetacarpal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var indexDistal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            indexDistal.transform.SetParent(skeleton.IndexDistal.transform);
+            indexDistal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var indexProximal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            indexProximal.transform.SetParent(skeleton.IndexProximal.transform);
+            indexProximal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var indexIntermediate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            indexIntermediate.transform.SetParent(skeleton.IndexIntermediate.transform);
+            indexIntermediate.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var indexTip = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            indexTip.transform.SetParent(skeleton.IndexTip.transform);
+            indexTip.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var middleMetacarpal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            middleMetacarpal.transform.SetParent(skeleton.MiddleMetacarpal.transform);
+            middleMetacarpal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var middleDistal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            middleDistal.transform.SetParent(skeleton.MiddleProximal.transform);
+            middleDistal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var middleProximal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            middleProximal.transform.SetParent(skeleton.MiddleIntermediate.transform);
+            middleProximal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var middleIntermediate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            middleIntermediate.transform.SetParent(skeleton.MiddleDistal.transform);
+            middleIntermediate.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var middleTip = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            middleTip.transform.SetParent(skeleton.MiddleTip.transform);
+            middleTip.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var ringMetacarpal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ringMetacarpal.transform.SetParent(skeleton.RingMetacarpal.transform);
+            ringMetacarpal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var ringDistal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ringDistal.transform.SetParent(skeleton.RingDistal.transform);
+            ringDistal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var ringProximal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ringProximal.transform.SetParent(skeleton.RingProximal.transform);
+            ringProximal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var ringIntermediate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ringIntermediate.transform.SetParent(skeleton.RingIntermediate.transform);
+            ringIntermediate.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var ringTip = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ringTip.transform.SetParent(skeleton.RingTip.transform);
+            ringTip.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var littleMetacarpal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            littleMetacarpal.transform.SetParent(skeleton.LittleMetacarpal.transform);
+            littleMetacarpal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var littleDistal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            littleDistal.transform.SetParent(skeleton.LittleDistal.transform);
+            littleDistal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var littleProximal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            littleProximal.transform.SetParent(skeleton.LittleProximal.transform);
+            littleProximal.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var littleIntermediate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            littleIntermediate.transform.SetParent(skeleton.LittleIntermediate.transform);
+            littleIntermediate.transform.localScale = new Vector3(.01f, .01f, .01f);
+
+            var littleTip = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            littleTip.transform.SetParent(skeleton.LittleTip.transform);
+            littleTip.transform.localScale = new Vector3(.01f, .01f, .01f);
         }
 
         #region Hand Colliders / Physics

@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
+using RealityToolkit.Definitions.Utilities;
+using System;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
@@ -152,23 +154,19 @@ namespace RealityToolkit.InputSystem.Hands
         /// setup the skeleton and validate.
         /// </summary>
         public bool IsSetUp =>
-                palm.IsNotNull() &&
                 wrist.IsNotNull() &&
                 thumbMetacarpal.IsNotNull() &&
                 thumbProximal.IsNotNull() &&
                 thumbDistal.IsNotNull() &&
                 thumbTip.IsNotNull() &&
-                indexMetacarpal.IsNotNull() &&
                 indexProximal.IsNotNull() &&
                 indexIntermediate.IsNotNull() &&
                 indexDistal.IsNotNull() &&
                 indexTip.IsNotNull() &&
-                middleMetacarpal.IsNotNull() &&
                 middleProximal.IsNotNull() &&
                 middleIntermediate.IsNotNull() &&
                 middleDistal.IsNotNull() &&
                 middleTip.IsNotNull() &&
-                ringMetacarpal.IsNotNull() &&
                 ringProximal.IsNotNull() &&
                 ringIntermediate.IsNotNull() &&
                 ringDistal.IsNotNull() &&
@@ -284,6 +282,88 @@ namespace RealityToolkit.InputSystem.Hands
 
             littleTip = new GameObject(nameof(TrackedHandJoint.LittleTip)).transform;
             littleTip.SetParent(littleDistal);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Transform"/> for <paramref name="trackedHandJoint"/>.
+        /// </summary>
+        /// <param name="trackedHandJoint">The <see cref="TrackedHandJoint"/> to find the <see cref="Transform"/> for.</param>
+        /// <returns><see cref="Transform"/>.</returns>
+        public Transform Get(TrackedHandJoint trackedHandJoint)
+        {
+            switch (trackedHandJoint)
+            {
+                case TrackedHandJoint.Wrist:
+                    return Wrist;
+                case TrackedHandJoint.Palm:
+                    return Palm;
+                case TrackedHandJoint.ThumbMetacarpal:
+                    return ThumbMetacarpal;
+                case TrackedHandJoint.ThumbProximal:
+                    return ThumbProximal;
+                case TrackedHandJoint.ThumbDistal:
+                    return ThumbDistal;
+                case TrackedHandJoint.ThumbTip:
+                    return ThumbTip;
+                case TrackedHandJoint.IndexMetacarpal:
+                    return IndexMetacarpal;
+                case TrackedHandJoint.IndexProximal:
+                    return IndexProximal;
+                case TrackedHandJoint.IndexIntermediate:
+                    return IndexIntermediate;
+                case TrackedHandJoint.IndexDistal:
+                    return IndexDistal;
+                case TrackedHandJoint.IndexTip:
+                    return IndexTip;
+                case TrackedHandJoint.MiddleMetacarpal:
+                    return MiddleMetacarpal;
+                case TrackedHandJoint.MiddleProximal:
+                    return MiddleProximal;
+                case TrackedHandJoint.MiddleIntermediate:
+                    return MiddleIntermediate;
+                case TrackedHandJoint.MiddleDistal:
+                    return MiddleDistal;
+                case TrackedHandJoint.MiddleTip:
+                    return MiddleTip;
+                case TrackedHandJoint.RingMetacarpal:
+                    return RingMetacarpal;
+                case TrackedHandJoint.RingProximal:
+                    return RingProximal;
+                case TrackedHandJoint.RingIntermediate:
+                    return RingIntermediate;
+                case TrackedHandJoint.RingDistal:
+                    return RingDistal;
+                case TrackedHandJoint.RingTip:
+                    return RingTip;
+                case TrackedHandJoint.LittleMetacarpal:
+                    return LittleMetacarpal; ;
+                case TrackedHandJoint.LittleProximal:
+                    return LittleProximal;
+                case TrackedHandJoint.LittleIntermediate:
+                    return LittleIntermediate;
+                case TrackedHandJoint.LittleDistal:
+                    return LittleDistal;
+                case TrackedHandJoint.LittleTip:
+                    return LittleTip;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Sets a new <paramref name="pose"/> for the <paramref name="trackedHandJoint"/>.
+        /// </summary>
+        /// <param name="trackedHandJoint">The <see cref="TrackedHandJoint"/> to update the pose for.</param>
+        /// <param name="pose">The new <see cref="MixedRealityPose"/> for the <paramref name="trackedHandJoint"/>.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public void Set(TrackedHandJoint trackedHandJoint, MixedRealityPose pose)
+        {
+            var target = Get(trackedHandJoint);
+            if (target.IsNotNull())
+            {
+                target.localPosition = pose.Position;
+                target.localRotation = pose.Rotation;
+            }
         }
     }
 }
