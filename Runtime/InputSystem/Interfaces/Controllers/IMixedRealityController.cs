@@ -94,12 +94,10 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         Vector3 Velocity { get; }
 
         /// <summary>
-        /// Attempts to load the controller model render settings from the <see cref="Definitions.Controllers.MixedRealityControllerVisualizationProfile"/>
+        /// Attempts to load the controller model from the <see cref="RealityToolkit.Definitions.Controllers.MixedRealityControllerVisualizationProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
-        /// <param name="useAlternatePoseAction">Should the rendered controller use the alternate pose action?</param>
-        /// <returns>True, if controller model is being properly rendered.</returns>
-        void TryRenderControllerModel(bool useAlternatePoseAction = false);
+        void TryRenderControllerModel();
 
         /// <summary>
         /// Updates the controller's state.

@@ -1,5 +1,5 @@
-﻿// Copyright (c) XRTK. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.﻿
+﻿// Copyright (c) Reality Collective. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
@@ -17,7 +17,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
         private SerializedProperty controllerType;
         private SerializedProperty handedness;
-        private SerializedProperty visualizationProfile;
+        private SerializedProperty controllerPrefab;
         private SerializedProperty useCustomInteractions;
         private SerializedProperty interactionMappingProfiles;
 
@@ -32,7 +32,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
             controllerType = serializedObject.FindProperty(nameof(controllerType));
             handedness = serializedObject.FindProperty(nameof(handedness));
-            visualizationProfile = serializedObject.FindProperty(nameof(visualizationProfile));
+            controllerPrefab = serializedObject.FindProperty(nameof(controllerPrefab));
             useCustomInteractions = serializedObject.FindProperty(nameof(useCustomInteractions));
             interactionMappingProfiles = serializedObject.FindProperty(nameof(interactionMappingProfiles));
 
@@ -57,7 +57,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
             EditorGUILayout.PropertyField(controllerType);
             EditorGUILayout.PropertyField(handedness);
-            EditorGUILayout.PropertyField(visualizationProfile);
+            EditorGUILayout.PropertyField(controllerPrefab);
             EditorGUILayout.Space();
 
             if (GUILayout.Button(EditButtonContent))

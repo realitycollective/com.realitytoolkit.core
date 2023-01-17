@@ -209,10 +209,10 @@ namespace RealityToolkit.InputSystem.Hands
             wrist.SetParent(transform);
 
             palm = new GameObject(nameof(TrackedHandJoint.Palm)).transform;
-            palm.SetParent(transform);
+            palm.SetParent(wrist);
 
             thumbMetacarpal = new GameObject(nameof(TrackedHandJoint.ThumbMetacarpal)).transform;
-            thumbMetacarpal.SetParent(transform);
+            thumbMetacarpal.SetParent(wrist);
 
             thumbProximal = new GameObject(nameof(TrackedHandJoint.ThumbProximal)).transform;
             thumbProximal.SetParent(thumbMetacarpal);
@@ -224,7 +224,7 @@ namespace RealityToolkit.InputSystem.Hands
             thumbTip.SetParent(thumbDistal);
 
             indexMetacarpal = new GameObject(nameof(TrackedHandJoint.IndexMetacarpal)).transform;
-            indexMetacarpal.SetParent(transform);
+            indexMetacarpal.SetParent(wrist);
 
             indexProximal = new GameObject(nameof(TrackedHandJoint.IndexProximal)).transform;
             indexProximal.SetParent(indexMetacarpal);
@@ -239,7 +239,7 @@ namespace RealityToolkit.InputSystem.Hands
             indexTip.SetParent(indexDistal);
 
             middleMetacarpal = new GameObject(nameof(TrackedHandJoint.MiddleMetacarpal)).transform;
-            middleMetacarpal.SetParent(transform);
+            middleMetacarpal.SetParent(wrist);
 
             middleProximal = new GameObject(nameof(TrackedHandJoint.MiddleProximal)).transform;
             middleProximal.SetParent(middleMetacarpal);
@@ -254,7 +254,7 @@ namespace RealityToolkit.InputSystem.Hands
             middleTip.SetParent(middleDistal);
 
             ringMetacarpal = new GameObject(nameof(TrackedHandJoint.RingMetacarpal)).transform;
-            ringMetacarpal.SetParent(transform);
+            ringMetacarpal.SetParent(wrist);
 
             ringProximal = new GameObject(nameof(TrackedHandJoint.RingProximal)).transform;
             ringProximal.SetParent(ringMetacarpal);
@@ -269,7 +269,7 @@ namespace RealityToolkit.InputSystem.Hands
             ringTip.SetParent(ringDistal);
 
             littleMetacarpal = new GameObject(nameof(TrackedHandJoint.LittleMetacarpal)).transform;
-            littleMetacarpal.SetParent(transform);
+            littleMetacarpal.SetParent(wrist);
 
             littleProximal = new GameObject(nameof(TrackedHandJoint.LittleProximal)).transform;
             littleProximal.SetParent(littleMetacarpal);

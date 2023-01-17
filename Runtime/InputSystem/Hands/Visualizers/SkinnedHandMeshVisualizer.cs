@@ -44,7 +44,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
             base.Start();
 
             skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>(true);
-            Debug.Assert(skinnedMeshRenderer.IsNotNull(), $"{nameof(SkinnedHandMeshVisualizer)} can only work with {nameof(SkinnedMeshRenderer)} on the object.");
+            Debug.Assert(skinnedMeshRenderer.IsNotNull(), $"{nameof(SkinnedHandMeshVisualizer)} can only work with a {nameof(SkinnedMeshRenderer)} in the object hierarchy.");
 
             skeleton = gameObject.EnsureComponent<HandSkeleton>();
             if (!skeleton.IsSetUp)

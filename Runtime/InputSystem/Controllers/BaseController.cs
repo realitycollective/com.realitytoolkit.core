@@ -8,11 +8,11 @@ using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
@@ -59,7 +59,7 @@ namespace RealityToolkit.InputSystem.Controllers
                 throw new Exception($"{nameof(controllerMappingProfile)} cannot be null for {Name}");
             }
 
-            visualizationProfile = controllerMappingProfile.VisualizationProfile;
+            controllerPrefab = controllerMappingProfile.ControllerPrefab;
             var pointers = AssignControllerMappings(controllerMappingProfile.InteractionMappingProfiles);
 
             // If no controller mappings found, warn the user.  Does not stop the project from running.
@@ -89,7 +89,7 @@ namespace RealityToolkit.InputSystem.Controllers
 
         protected readonly IMixedRealityInputSystem InputSystem;
 
-        private readonly MixedRealityControllerVisualizationProfile visualizationProfile;
+        private readonly ControllerPoseSynchronizer controllerPrefab;
 
         /// <summary>
         /// The default interactions for this controller.
@@ -205,57 +205,29 @@ namespace RealityToolkit.InputSystem.Controllers
         }
 
         /// <inheritdoc />
-        public void TryRenderControllerModel(bool useAlternatePoseAction = false)
+        public void TryRenderControllerModel()
         {
-            if (visualizationProfile.IsNull())
+            if (controllerPrefab.IsNull())
             {
-                Debug.LogWarning($"Missing {nameof(visualizationProfile)} for {GetType().Name}");
+                Debug.LogError($"No prefab is assigned for controller {GetType().Name}. Please assign a prefab to spawn when the controller is detected in the controller's profile configuration.");
                 return;
             }
 
-            var controllerModel = visualizationProfile.Model;
-            
-            // If we've got a controller model, then place it in the scene and get/attach the visualizer.
-            if (!controllerModel.IsNull())
-            {
-                var rigTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+            var rigTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
                     ? cameraSystem.MainCameraRig.RigTransform
                     : CameraCache.Main.transform.parent;
 
-                var controllerObject = Object.Instantiate(controllerModel, rigTransform);
-                Debug.Assert(controllerObject != null);
-                controllerObject.name = $"{GetType().Name}_Visualization";
-                Visualizer = controllerObject.GetComponent<IMixedRealityControllerVisualizer>();
+            var controllerObject = Object.Instantiate(controllerPrefab, rigTransform);
+            controllerObject.name = $"{GetType().Name}_Visualization";
+            Visualizer = controllerObject.GetComponent<IMixedRealityControllerVisualizer>();
 
-                // If a visualizer exists, set it up and bind it to the controller
-                if (Visualizer != null)
-                {
-                    Visualizer.Controller = this;
-                    SetupController(Visualizer);
-                }
-                else
-                {
-                    Debug.LogWarning($"Failed to attach a valid {nameof(IMixedRealityControllerVisualizer)} to {GetType().Name}");
-                }
-            }
-
-            if (Visualizer == null)
+            if (Visualizer != null)
             {
-                Debug.LogError("Failed to render controller model!");
+                Visualizer.Controller = this;
             }
-
-            void SetupController(IMixedRealityControllerVisualizer visualizer)
+            else
             {
-                if (useAlternatePoseAction)
-                {
-                    visualizer.UseSourcePoseData = visualizationProfile.AlternatePointerPose == MixedRealityInputAction.None;
-                    visualizer.PoseAction = visualizationProfile.AlternatePointerPose;
-                }
-                else
-                {
-                    visualizer.UseSourcePoseData = visualizationProfile.PointerPose == MixedRealityInputAction.None;
-                    visualizer.PoseAction = visualizationProfile.PointerPose;
-                }
+                Debug.LogError($"{GetType().Name} prefab must have a {nameof(IMixedRealityControllerVisualizer)} component attached.");
             }
         }
     }
