@@ -159,15 +159,17 @@ namespace RealityToolkit.Services.InputSystem.Utilities
         /// <inheritdoc />
         public virtual void OnSourcePoseChanged(SourcePoseEventData<MixedRealityPose> eventData)
         {
-            if (eventData.SourceId == Controller?.InputSource.SourceId)
+            if (eventData.SourceId != Controller?.InputSource.SourceId)
             {
-                if (!PoseDriver.IsNull() &&
+                return;
+            }
+
+            if (!PoseDriver.IsNull() &&
                     UseSourcePoseData &&
                     TrackingState == TrackingState.Tracked)
-                {
-                    PoseDriver.localPosition = eventData.SourceData.Position;
-                    PoseDriver.localRotation = eventData.SourceData.Rotation;
-                }
+            {
+                PoseDriver.localPosition = eventData.SourceData.Position;
+                PoseDriver.localRotation = eventData.SourceData.Rotation;
             }
         }
 
@@ -190,49 +192,55 @@ namespace RealityToolkit.Services.InputSystem.Utilities
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<Vector3> eventData)
         {
-            if (eventData.SourceId == Controller?.InputSource.SourceId)
+            if (eventData.SourceId != Controller?.InputSource.SourceId)
             {
-                if (!UseSourcePoseData &&
+                return;
+            }
+
+            if (!UseSourcePoseData &&
                     PoseAction == eventData.MixedRealityInputAction)
-                {
-                    IsTracked = true;
-                    TrackingState = TrackingState.Tracked;
-                    transform.localPosition = eventData.InputData;
-                }
+            {
+                IsTracked = true;
+                TrackingState = TrackingState.Tracked;
+                transform.localPosition = eventData.InputData;
             }
         }
 
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<Quaternion> eventData)
         {
-            if (eventData.SourceId == Controller?.InputSource.SourceId)
+            if (eventData.SourceId != Controller?.InputSource.SourceId)
             {
-                if (!UseSourcePoseData &&
+                return;
+            }
+
+            if (!UseSourcePoseData &&
                     PoseAction == eventData.MixedRealityInputAction)
-                {
-                    IsTracked = true;
-                    TrackingState = TrackingState.Tracked;
-                    transform.localRotation = eventData.InputData;
-                }
+            {
+                IsTracked = true;
+                TrackingState = TrackingState.Tracked;
+                transform.localRotation = eventData.InputData;
             }
         }
 
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<MixedRealityPose> eventData)
         {
-            if (eventData.SourceId == Controller?.InputSource.SourceId)
+            if (eventData.SourceId != Controller?.InputSource.SourceId)
             {
-                if (!UseSourcePoseData &&
-                    PoseAction == eventData.MixedRealityInputAction)
-                {
-                    IsTracked = true;
-                    TrackingState = TrackingState.Tracked;
+                return;
+            }
 
-                    if (PoseDriver != null)
-                    {
-                        PoseDriver.localPosition = eventData.InputData.Position;
-                        PoseDriver.localRotation = eventData.InputData.Rotation;
-                    }
+            if (!UseSourcePoseData &&
+                    PoseAction == eventData.MixedRealityInputAction)
+            {
+                IsTracked = true;
+                TrackingState = TrackingState.Tracked;
+
+                if (PoseDriver != null)
+                {
+                    PoseDriver.localPosition = eventData.InputData.Position;
+                    PoseDriver.localRotation = eventData.InputData.Rotation;
                 }
             }
         }

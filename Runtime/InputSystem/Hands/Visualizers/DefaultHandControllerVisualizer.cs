@@ -78,7 +78,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         {
             base.OnInputChanged(eventData);
 
-            if (eventData.Handedness != Controller.ControllerHandedness)
+            if (eventData.SourceId != Controller?.InputSource.SourceId)
             {
                 return;
             }

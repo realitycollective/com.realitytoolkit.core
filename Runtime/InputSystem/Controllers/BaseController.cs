@@ -218,7 +218,7 @@ namespace RealityToolkit.InputSystem.Controllers
                     : CameraCache.Main.transform.parent;
 
             var controllerObject = Object.Instantiate(controllerPrefab, rigTransform);
-            controllerObject.name = $"{GetType().Name}_Visualization";
+            controllerObject.name = GetType().Name;
             Visualizer = controllerObject.GetComponent<IMixedRealityControllerVisualizer>();
 
             if (Visualizer != null)

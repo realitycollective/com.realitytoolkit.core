@@ -124,17 +124,15 @@ namespace RealityToolkit.InputSystem.Hands
             InputDevice = inputDevice;
             UpdateTrackingState();
 
-            if (TrackingState != TrackingState.Tracked)
+            if (TrackingState == TrackingState.Tracked)
             {
-                UpdateInteractionMappings();
-                return;
+                UpdateHandJoints();
+                ApplyPostProcessingToHandData();
+                UpdateControllerPose();
+                UpdateSpatialPointerPose();
+                UpdateSpatialGripPose();
             }
 
-            UpdateHandJoints();
-            ApplyPostProcessingToHandData();
-            UpdateControllerPose();
-            UpdateSpatialPointerPose();
-            UpdateSpatialGripPose();
             UpdateInteractionMappings();
         }
 
@@ -181,9 +179,16 @@ namespace RealityToolkit.InputSystem.Hands
         /// <inheritdoc />
         protected override void UpdateTrackingState()
         {
+            var currentTrackingState = TrackingState;
+
             // This is a workaround until the tracking state has been implemented by Unity
             // for OpenXR hands.
             TrackingState = TrackingState.Tracked;
+
+            if (TrackingState != currentTrackingState)
+            {
+                InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
+            }
         }
 
         /// <inheritdoc />
