@@ -162,7 +162,19 @@ namespace RealityToolkit.InputSystem.Hands
             if (wristPose != Pose)
             {
                 Pose = wristPose;
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
+
+                if (IsPositionAvailable && IsRotationAvailable)
+                {
+                    InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
+                }
+                else if (IsPositionAvailable && !IsRotationAvailable)
+                {
+                    InputSystem?.RaiseSourcePositionChanged(InputSource, this, Pose.Position);
+                }
+                else if (!IsPositionAvailable && IsRotationAvailable)
+                {
+                    InputSystem?.RaiseSourceRotationChanged(InputSource, this, Pose.Rotation);
+                }
             }
         }
 
