@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
@@ -27,6 +27,9 @@ namespace RealityToolkit.LocomotionSystem.Modules
 
         private readonly AutoStartBehavior startupBehaviour;
         private bool isInitialized;
+
+        /// <inheritdoc />
+        public bool IsActive { get; protected set; }
 
         /// <inheritdoc />
         public MixedRealityInputAction InputAction { get; }
@@ -76,14 +79,14 @@ namespace RealityToolkit.LocomotionSystem.Modules
         {
             base.Enable();
 
-            if (IsEnabled)
+            if (IsActive)
             {
                 return;
             }
 
             if (startupBehaviour == AutoStartBehavior.AutoStart || isInitialized)
             {
-                IsEnabled = true;
+                IsActive = true;
                 LocomotionSystem.OnLocomotionProviderEnabled(this);
             }
             else
@@ -99,12 +102,12 @@ namespace RealityToolkit.LocomotionSystem.Modules
         {
             base.Disable();
 
-            if (!IsEnabled)
+            if (!IsActive)
             {
                 return;
             }
 
-            IsEnabled = false;
+            IsActive = false;
             LocomotionSystem.OnLocomotionProviderDisabled(this);
         }
 
