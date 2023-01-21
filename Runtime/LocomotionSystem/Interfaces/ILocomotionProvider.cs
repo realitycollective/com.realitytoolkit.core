@@ -17,6 +17,11 @@ namespace RealityToolkit.LocomotionSystem.Interfaces
         IMixedRealityInputHandler<Vector2>
     {
         /// <summary>
+        /// Gets whether this <see cref="ILocomotionProvider"/> is currently active.
+        /// </summary>
+        bool IsActive { get; }
+
+        /// <summary>
         /// The input action used to perform locomotion using this provider.
         /// </summary>
         MixedRealityInputAction InputAction { get; }

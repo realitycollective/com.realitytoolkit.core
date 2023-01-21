@@ -7,9 +7,9 @@ using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.InputSystem.Listeners;
 using RealityToolkit.LocomotionSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Interfaces;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +37,7 @@ namespace RealityToolkit.LocomotionSystem
             teleportCooldown = profile.TeleportCooldown;
         }
 
+        private GameObject eventDriver;
         private readonly float teleportCooldown;
         private float currentTeleportCooldown;
         private LocomotionEventData teleportEventData;
@@ -61,21 +62,20 @@ namespace RealityToolkit.LocomotionSystem
         /// <inheritdoc />
         public override void Initialize()
         {
-            base.Initialize();
-
-            if (Application.isPlaying)
+            if (!Application.isPlaying)
             {
-                teleportEventData = new LocomotionEventData(EventSystem.current);
+                return;
             }
 
-            CameraCache.Main.gameObject.EnsureComponent<LocomotionProviderEventDriver>();
+            teleportEventData = new LocomotionEventData(EventSystem.current);
+            EnsureEventDriver();
         }
 
         /// <inheritdoc />
         public override void Enable()
         {
             base.Enable();
-            CameraCache.Main.gameObject.EnsureComponent<LocomotionProviderEventDriver>().enabled = true;
+            EnsureEventDriver();
         }
 
         /// <inheritdoc />
@@ -90,17 +90,14 @@ namespace RealityToolkit.LocomotionSystem
         /// <inheritdoc />
         public override void Disable()
         {
-            CameraCache.Main.EnsureComponent<LocomotionProviderEventDriver>().enabled = false;
+            DestroyEventDriver();
             base.Disable();
         }
 
         /// <inheritdoc />
         public override void Destroy()
         {
-            if (CameraCache.IsNotNull)
-            {
-                CameraCache.Main.gameObject.EnsureComponentDestroyed<LocomotionProviderEventDriver>();
-            }
+            DestroyEventDriver();
             base.Destroy();
         }
 
@@ -108,7 +105,7 @@ namespace RealityToolkit.LocomotionSystem
         public void EnableLocomotionProvider<T>() where T : ILocomotionProvider
         {
             var provider = ServiceManager.Instance.GetService<T>();
-            if (!provider.IsEnabled)
+            if (!provider.IsActive)
             {
                 provider.Enable();
             }
@@ -123,7 +120,7 @@ namespace RealityToolkit.LocomotionSystem
             for (var i = 0; i < locomotionProviders.Count; i++)
             {
                 var provider = locomotionProviders[i];
-                if (provider.GetType() == locomotionProviderType && !provider.IsEnabled)
+                if (provider.GetType() == locomotionProviderType && !provider.IsActive)
                 {
                     provider.Enable();
                 }
@@ -134,7 +131,7 @@ namespace RealityToolkit.LocomotionSystem
         public void DisableLocomotionProvider<T>() where T : ILocomotionProvider
         {
             var provider = ServiceManager.Instance.GetService<T>();
-            if (provider.IsEnabled)
+            if (provider.IsActive)
             {
                 provider.Disable();
             }
@@ -149,7 +146,7 @@ namespace RealityToolkit.LocomotionSystem
             for (var i = 0; i < locomotionProviders.Count; i++)
             {
                 var provider = locomotionProviders[i];
-                if (provider.GetType() == locomotionProviderType && provider.IsEnabled)
+                if (provider.GetType() == locomotionProviderType && provider.IsActive)
                 {
                     provider.Disable();
                 }
@@ -273,6 +270,23 @@ namespace RealityToolkit.LocomotionSystem
                 enabledLocomotionProviders[type].Contains(locomotionProvider))
             {
                 enabledLocomotionProviders[type].Remove(locomotionProvider);
+            }
+        }
+
+        private void EnsureEventDriver()
+        {
+            if (eventDriver.IsNull())
+            {
+                eventDriver = new GameObject(nameof(LocomotionProviderEventDriver), typeof(LocomotionProviderEventDriver), typeof(InputSystemGlobalListener));
+                UnityEngine.Object.DontDestroyOnLoad(eventDriver);
+            }
+        }
+
+        private void DestroyEventDriver()
+        {
+            if (eventDriver.IsNotNull())
+            {
+                eventDriver.Destroy();
             }
         }
 

@@ -23,5 +23,3 @@ MonoBehaviour:
   teleportActivationAngle: 45
   rotateActivationAngle: 22.5
   rotationAmount: 90
-  backStrafeActivationAngle: 45
-  strafeAmount: 0.25
