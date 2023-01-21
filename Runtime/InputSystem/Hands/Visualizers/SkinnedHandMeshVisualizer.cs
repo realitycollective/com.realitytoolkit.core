@@ -60,6 +60,11 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         {
             base.OnInputChanged(eventData);
 
+            if (eventData.SourceId != Controller?.InputSource.SourceId)
+            {
+                return;
+            }
+
             if (Controller is IHandController handController)
             {
                 for (int i = 0; i < HandData.JointCount; i++)
