@@ -93,6 +93,8 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
                 if (skeleton.IsNull())
                 {
                     skeleton = GameObject.EnsureComponent<HandSkeleton>();
+                    skeleton.UpdatePositions = true;
+                    skeleton.UpdateRotations = true;
                     skeleton.Create();
                     CreatePrimitives();
                 }

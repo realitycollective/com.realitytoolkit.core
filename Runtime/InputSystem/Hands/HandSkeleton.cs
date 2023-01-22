@@ -14,6 +14,12 @@ namespace RealityToolkit.InputSystem.Hands
     public class HandSkeleton : MonoBehaviour
     {
         [SerializeField]
+        private bool updatePositions = false;
+
+        [SerializeField]
+        private bool updateRotations = true;
+
+        [SerializeField]
         private Transform wrist = null;
 
         [SerializeField]
@@ -147,6 +153,10 @@ namespace RealityToolkit.InputSystem.Hands
         public Transform LittleDistal => littleDistal;
 
         public Transform LittleTip => littleTip;
+
+        public bool UpdateRotations { get => updateRotations; set => updateRotations = value; }
+
+        public bool UpdatePositions { get => updatePositions; set => updatePositions = value; }
 
         /// <summary>
         /// If <c>true</c>, the skeleton has initialized correctly and all hand bones
@@ -361,8 +371,15 @@ namespace RealityToolkit.InputSystem.Hands
             var target = Get(trackedHandJoint);
             if (target.IsNotNull())
             {
-                target.localPosition = pose.Position;
-                target.localRotation = pose.Rotation;
+                if (updatePositions)
+                {
+                    target.localPosition = pose.Position;
+                }
+
+                if (updateRotations)
+                {
+                    target.localRotation = pose.Rotation;
+                }
             }
         }
     }

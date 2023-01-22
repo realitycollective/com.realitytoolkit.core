@@ -65,6 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7337f23b4998243b888c562d6d2cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updatePositions: 0
+  updateRotations: 1
   wrist: {fileID: 3232818385395622503}
   palm: {fileID: 0}
   thumbMetacarpal: {fileID: 6602486976246236023}

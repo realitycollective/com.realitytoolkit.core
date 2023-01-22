@@ -67,6 +67,8 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
 
             if (Controller is IHandController handController)
             {
+                TrackingState = handController.TrackingState;
+
                 for (int i = 0; i < HandData.JointCount; i++)
                 {
                     var handJoint = (TrackedHandJoint)i;
