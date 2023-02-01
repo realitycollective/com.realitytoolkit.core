@@ -9,7 +9,8 @@ using UnityEngine;
 namespace RealityToolkit.Utilities
 {
     /// <summary>
-    /// Helper class for setting up canvases for use in the XRTK.
+    /// Utility component for setting up <see cref="UnityEngine.Canvas"/>es for use with the
+    /// <see cref="IMixedRealityInputSystem"/>.
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Canvas))]

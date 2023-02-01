@@ -571,10 +571,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
         }
 
         private Vector3 PointerPosition
-        { 
+        {
             get
             {
-                if(TryGetPointerPosition(out var pos))
+                if (TryGetPointerPosition(out var pos))
                 {
                     return pos;
                 }
