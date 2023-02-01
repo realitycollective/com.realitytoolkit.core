@@ -17,6 +17,7 @@ namespace RealityToolkit.Editor.UX.Pointers
 
         private SerializedProperty cursorPrefab;
         private SerializedProperty disableCursorOnStart;
+        private SerializedProperty uiLayerMask;
         private SerializedProperty setCursorVisibilityOnSourceDetected;
         private SerializedProperty raycastOrigin;
         private SerializedProperty defaultPointerExtent;
@@ -37,6 +38,7 @@ namespace RealityToolkit.Editor.UX.Pointers
 
             cursorPrefab = serializedObject.FindProperty(nameof(cursorPrefab));
             disableCursorOnStart = serializedObject.FindProperty(nameof(disableCursorOnStart));
+            uiLayerMask = serializedObject.FindProperty(nameof(uiLayerMask));
             setCursorVisibilityOnSourceDetected = serializedObject.FindProperty(nameof(setCursorVisibilityOnSourceDetected));
             raycastOrigin = serializedObject.FindProperty(nameof(raycastOrigin));
             defaultPointerExtent = serializedObject.FindProperty(nameof(defaultPointerExtent));
@@ -64,6 +66,7 @@ namespace RealityToolkit.Editor.UX.Pointers
                 EditorGUI.indentLevel++;
 
                 EditorGUILayout.PropertyField(disableCursorOnStart);
+                EditorGUILayout.PropertyField(uiLayerMask);
                 EditorGUILayout.PropertyField(setCursorVisibilityOnSourceDetected);
                 EditorGUILayout.PropertyField(enablePointerOnStart);
                 EditorGUILayout.PropertyField(interactionMode);

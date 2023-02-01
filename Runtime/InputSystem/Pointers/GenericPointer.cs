@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.InputSystem.Definitions;
@@ -58,6 +59,9 @@ namespace RealityToolkit.InputSystem.Pointers
 
         /// <inheritdoc />
         public string PointerName { get; set; }
+
+        /// <inheritdoc/>
+        public bool IsOverUI { get; } = false;
 
         /// <inheritdoc />
         public virtual IMixedRealityInputSource InputSourceParent
