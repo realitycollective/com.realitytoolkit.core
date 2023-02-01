@@ -758,7 +758,7 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 UpdatePointer(pointer);
 
-                if (MixedRealityRaycaster.DebugEnabled)
+                if (Application.isEditor && MixedRealityRaycaster.DebugEnabled)
                 {
                     Color debugPointingRayColor;
 

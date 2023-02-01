@@ -158,7 +158,6 @@ namespace RealityToolkit.InputSystem.Modules
         protected IMixedRealityInputSystem InputSystem
             => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
 
-
         #region InternalGazePointer Class
 
         private class InternalGazePointer : GenericPointer
