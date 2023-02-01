@@ -621,7 +621,7 @@ namespace RealityToolkit.InputSystem.Modules
         {
             if (uiRaycastCameraTargetTexture != null)
             {
-                UnityEngine.Object.Destroy(uiRaycastCameraTargetTexture);
+                uiRaycastCameraTargetTexture.Destroy();
             }
 
             uiRaycastCameraTargetTexture = null;
