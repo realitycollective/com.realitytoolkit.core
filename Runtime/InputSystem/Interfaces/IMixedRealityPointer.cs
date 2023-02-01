@@ -27,6 +27,11 @@ namespace RealityToolkit.InputSystem.Interfaces
         string PointerName { get; set; }
 
         /// <summary>
+        /// Is the pointer currently over an UI object?
+        /// </summary>
+        bool IsOverUI { get; }
+
+        /// <summary>
         /// The pointer's current controller reference.
         /// </summary>
         IMixedRealityController Controller { get; set; }

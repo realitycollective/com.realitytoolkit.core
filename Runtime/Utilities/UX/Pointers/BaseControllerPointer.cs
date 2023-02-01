@@ -35,6 +35,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
         [SerializeField]
         private bool disableCursorOnStart = false;
 
+        [SerializeField]
+        private LayerMask uiLayerMask = -1;
+
         protected bool DisableCursorOnStart => disableCursorOnStart;
 
         [SerializeField]
@@ -99,6 +102,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// Gets or sets whether this pointer is currently pressed and hold.
         /// </summary>
         protected bool IsHoldPressed { get; set; } = false;
+
+        /// <inheritdoc/>
+        public bool IsOverUI => Result != null &&
+                    Result.CurrentPointerTarget.IsNotNull() &&
+                    uiLayerMask == (uiLayerMask | (1 << Result.CurrentPointerTarget.layer));
 
         /// <summary>
         /// Gets or sets whether there is currently ANY teleportation request by the
