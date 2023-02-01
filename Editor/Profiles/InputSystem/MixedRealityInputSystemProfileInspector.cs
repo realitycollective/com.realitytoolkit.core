@@ -23,7 +23,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private static readonly GUIContent GazeProviderBehaviourContent = new GUIContent("Gaze Provider Mode");
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");
         private static readonly GUIContent GazeCursorPrefabContent = new GUIContent("Gaze Cursor Prefab");
-        private static readonly GUIContent GlobalPointerSettingsContent = new GUIContent("Global Pointer Settings");
         private static readonly GUIContent GlobalHandSettingsContent = new GUIContent("Global Hand Settings");
         private static readonly GUIContent ShowControllerMappingsContent = new GUIContent("Controller Action Mappings");
 
@@ -31,10 +30,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private SerializedProperty gazeProviderType;
         private SerializedProperty gazeCursorPrefab;
 
-        private SerializedProperty pointingExtent;
-        private SerializedProperty pointerRaycastLayerMasks;
-        private SerializedProperty drawDebugPointingRays;
-        private SerializedProperty debugPointingRayColors;
+        private SerializedProperty pointersProfile;
 
         private SerializedProperty gripThreshold;
         private SerializedProperty renderingMode;
@@ -47,7 +43,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private SerializedProperty speechCommandsProfile;
         private SerializedProperty gesturesProfile;
 
-        private bool showGlobalPointerOptions;
         private bool showGlobalHandOptions;
         private bool showAggregatedSimpleControllerMappingProfiles;
         private ReorderableList poseProfilesList;
@@ -63,10 +58,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             gazeProviderType = serializedObject.FindProperty(nameof(gazeProviderType));
             gazeCursorPrefab = serializedObject.FindProperty(nameof(gazeCursorPrefab));
 
-            pointingExtent = serializedObject.FindProperty(nameof(pointingExtent));
-            pointerRaycastLayerMasks = serializedObject.FindProperty(nameof(pointerRaycastLayerMasks));
-            drawDebugPointingRays = serializedObject.FindProperty(nameof(drawDebugPointingRays));
-            debugPointingRayColors = serializedObject.FindProperty(nameof(debugPointingRayColors));
+            pointersProfile = serializedObject.FindProperty(nameof(pointersProfile));
 
             gripThreshold = serializedObject.FindProperty(nameof(gripThreshold));
             renderingMode = serializedObject.FindProperty(nameof(renderingMode));
@@ -132,34 +124,6 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             EditorGUILayout.Space();
 
-            showGlobalPointerOptions = EditorGUILayoutExtensions.FoldoutWithBoldLabel(showGlobalPointerOptions, GlobalPointerSettingsContent, true);
-
-            if (showGlobalPointerOptions)
-            {
-                EditorGUILayout.HelpBox("Global pointer options applied to all controllers that support pointers. You may override these globals per controller mapping profile.", MessageType.Info);
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(pointingExtent);
-                EditorGUILayout.Space();
-                EditorGUILayout.PropertyField(pointerRaycastLayerMasks, true);
-                EditorGUILayout.Space();
-
-                EditorGUI.BeginChangeCheck();
-                EditorGUI.indentLevel--;
-                var newValue = EditorGUILayout.ToggleLeft(new GUIContent(drawDebugPointingRays.displayName, drawDebugPointingRays.tooltip), drawDebugPointingRays.boolValue);
-                EditorGUI.indentLevel++;
-
-                if (EditorGUI.EndChangeCheck())
-                {
-                    drawDebugPointingRays.boolValue = newValue;
-                }
-
-                EditorGUILayout.Space();
-                EditorGUILayout.PropertyField(debugPointingRayColors, true);
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
-
             showGlobalHandOptions = EditorGUILayoutExtensions.FoldoutWithBoldLabel(showGlobalHandOptions, GlobalHandSettingsContent, true);
 
             if (showGlobalHandOptions)
@@ -183,6 +147,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             EditorGUILayout.Space();
 
+            EditorGUILayout.PropertyField(pointersProfile);
             EditorGUILayout.PropertyField(inputActionsProfile);
             EditorGUILayout.PropertyField(speechCommandsProfile);
             EditorGUILayout.PropertyField(gesturesProfile);

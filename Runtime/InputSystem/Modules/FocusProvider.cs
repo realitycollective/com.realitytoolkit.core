@@ -36,10 +36,10 @@ namespace RealityToolkit.InputSystem.Modules
                 throw new Exception($"Unable to start {name}! An {nameof(MixedRealityInputSystemProfile)} is required for this feature.");
             }
 
-            focusLayerMasks = inputSystemProfile.PointerRaycastLayerMasks;
-            globalPointingExtent = inputSystemProfile.PointingExtent;
-            debugPointingRayColors = inputSystemProfile.DebugPointingRayColors;
-            MixedRealityRaycaster.DebugEnabled = inputSystemProfile.DrawDebugPointingRays;
+            focusLayerMasks = inputSystemProfile.PointersProfile.PointerRaycastLayerMasks;
+            globalPointingExtent = inputSystemProfile.PointersProfile.PointingExtent;
+            debugPointingRayColors = inputSystemProfile.PointersProfile.DebugPointingRayColors;
+            MixedRealityRaycaster.DebugEnabled = inputSystemProfile.PointersProfile.DrawDebugPointingRays;
         }
 
         private readonly HashSet<PointerData> pointers = new HashSet<PointerData>();
