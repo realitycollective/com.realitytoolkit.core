@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
@@ -36,19 +36,20 @@ namespace RealityToolkit.InputSystem.Modules
                 throw new Exception($"Unable to start {name}! An {nameof(MixedRealityInputSystemProfile)} is required for this feature.");
             }
 
-            focusLayerMasks = inputSystemProfile.PointerRaycastLayerMasks;
-            globalPointingExtent = inputSystemProfile.PointingExtent;
-            debugPointingRayColors = inputSystemProfile.DebugPointingRayColors;
-            MixedRealityRaycaster.DebugEnabled = inputSystemProfile.DrawDebugPointingRays;
+            focusLayerMasks = inputSystemProfile.PointersProfile.PointerRaycastLayerMasks;
+            globalPointingExtent = inputSystemProfile.PointersProfile.PointingExtent;
+            debugPointingRayColors = inputSystemProfile.PointersProfile.DebugPointingRayColors;
+            MixedRealityRaycaster.DebugEnabled = inputSystemProfile.PointersProfile.DrawDebugPointingRays;
         }
 
         private readonly HashSet<PointerData> pointers = new HashSet<PointerData>();
         private readonly HashSet<GameObject> pendingOverallFocusEnterSet = new HashSet<GameObject>();
-        private readonly HashSet<GameObject> pendingOverallFocusExitSet = new HashSet<GameObject>();
+        private readonly Dictionary<GameObject, int> pendingOverallFocusExitSet = new Dictionary<GameObject, int>();
         private readonly List<PointerData> pendingPointerSpecificFocusChange = new List<PointerData>();
         private readonly PointerHitResult physicsHitResult = new PointerHitResult();
         private readonly PointerHitResult graphicsHitResult = new PointerHitResult();
         private readonly Color[] debugPointingRayColors;
+        private RenderTexture uiRaycastCameraTargetTexture;
 
         private IMixedRealityInputSystem inputSystem = null;
 
@@ -87,6 +88,7 @@ namespace RealityToolkit.InputSystem.Modules
 
                 return uiRaycastCamera;
             }
+            private set => uiRaycastCamera = value;
         }
 
         #endregion IFocusProvider Properties
@@ -501,7 +503,7 @@ namespace RealityToolkit.InputSystem.Modules
         public override void Destroy()
         {
             base.Destroy();
-            uiRaycastCamera.Destroy();
+            CleanUpUiRaycastCamera();
         }
 
         #endregion IMixedRealityService Implementation
@@ -574,30 +576,62 @@ namespace RealityToolkit.InputSystem.Modules
         private void EnsureUiRaycastCameraSetup()
         {
             const string uiRayCastCameraName = "UIRaycastCamera";
-            var cameraTransform = CameraCache.Main.transform;
-            var uiCameraTransform = cameraTransform.Find(uiRayCastCameraName);
-            GameObject cameraObject = null;
+            GameObject cameraObject;
 
-            if (uiCameraTransform != null)
+            var existingUiRaycastCameraObject = GameObject.Find(uiRayCastCameraName);
+            if (existingUiRaycastCameraObject != null)
             {
-                cameraObject = uiCameraTransform.gameObject;
+                cameraObject = existingUiRaycastCameraObject;
             }
-
-            if (cameraObject == null)
+            else
             {
                 cameraObject = new GameObject { name = uiRayCastCameraName };
-                cameraObject.transform.parent = cameraTransform;
             }
 
-            Debug.Assert(cameraObject.transform.parent == cameraTransform);
-            cameraObject.transform.localPosition = Vector3.zero;
-            cameraObject.transform.localRotation = Quaternion.identity;
-
-            // The raycast camera is used to raycast into the UI scene,
-            // it doesn't need to render anything so is disabled
-            // The default settings are all that is necessary
             uiRaycastCamera = cameraObject.EnsureComponent<Camera>();
             uiRaycastCamera.enabled = false;
+            uiRaycastCamera.clearFlags = CameraClearFlags.Color;
+            uiRaycastCamera.backgroundColor = new Color(0, 0, 0, 1);
+            uiRaycastCamera.cullingMask = CameraCache.Main.cullingMask;
+            uiRaycastCamera.orthographic = true;
+            uiRaycastCamera.orthographicSize = 0.5f;
+            uiRaycastCamera.nearClipPlane = 0.0f;
+            uiRaycastCamera.farClipPlane = 1000f;
+            uiRaycastCamera.rect = new Rect(0, 0, 1, 1);
+            uiRaycastCamera.depth = 0;
+            uiRaycastCamera.renderingPath = RenderingPath.UsePlayerSettings;
+            uiRaycastCamera.useOcclusionCulling = false;
+            uiRaycastCamera.allowHDR = false;
+            uiRaycastCamera.allowMSAA = false;
+            uiRaycastCamera.allowDynamicResolution = false;
+            uiRaycastCamera.targetDisplay = 0;
+            uiRaycastCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+
+            if (uiRaycastCameraTargetTexture == null)
+            {
+                // Set target texture to specific pixel size so that drag thresholds are treated the same regardless of underlying
+                // device display resolution.
+                uiRaycastCameraTargetTexture = new RenderTexture(128, 128, 0);
+            }
+
+            uiRaycastCamera.targetTexture = uiRaycastCameraTargetTexture;
+        }
+
+        private void CleanUpUiRaycastCamera()
+        {
+            if (uiRaycastCameraTargetTexture != null)
+            {
+                uiRaycastCameraTargetTexture.Destroy();
+            }
+
+            uiRaycastCameraTargetTexture = null;
+
+            if (UIRaycastCamera.IsNotNull())
+            {
+                UIRaycastCamera.Destroy();
+            }
+
+            UIRaycastCamera = null;
         }
 
         /// <summary>
@@ -614,10 +648,7 @@ namespace RealityToolkit.InputSystem.Modules
 
             for (var i = 0; i < sceneCanvases.Length; i++)
             {
-                if (sceneCanvases[i].isRootCanvas && sceneCanvases[i].renderMode == RenderMode.WorldSpace)
-                {
-                    sceneCanvases[i].worldCamera = uiRaycastCamera;
-                }
+                sceneCanvases[i].EnsureComponent<CanvasUtility>();
             }
         }
 
@@ -727,19 +758,22 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 UpdatePointer(pointer);
 
-                Color debugPointingRayColor;
-
-                if (debugPointingRayColors != null &&
-                    debugPointingRayColors.Length > 0)
+                if (Application.isEditor && MixedRealityRaycaster.DebugEnabled)
                 {
-                    debugPointingRayColor = debugPointingRayColors[pointerCount++ % debugPointingRayColors.Length];
-                }
-                else
-                {
-                    debugPointingRayColor = Color.green;
-                }
+                    Color debugPointingRayColor;
 
-                Debug.DrawRay(pointer.StartPoint, (pointer.EndPoint - pointer.StartPoint), debugPointingRayColor);
+                    if (debugPointingRayColors != null &&
+                        debugPointingRayColors.Length > 0)
+                    {
+                        debugPointingRayColor = debugPointingRayColors[pointerCount++ % debugPointingRayColors.Length];
+                    }
+                    else
+                    {
+                        debugPointingRayColor = Color.green;
+                    }
+
+                    Debug.DrawRay(pointer.StartPoint, (pointer.EndPoint - pointer.StartPoint), debugPointingRayColor);
+                }
             }
         }
 
@@ -917,39 +951,26 @@ namespace RealityToolkit.InputSystem.Modules
         /// <param name="hitResult"></param>
         private void RaycastGraphics(IMixedRealityPointer pointer, PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
-            if (UIRaycastCamera == null)
-            {
-                Debug.LogError("Missing UIRaycastCamera!");
-                return;
-            }
+            Debug.Assert(UIRaycastCamera != null, "Missing UIRaycastCamera!");
+            Debug.Assert(UIRaycastCamera.nearClipPlane == 0, "Near plane must be zero for raycast distances to be correct");
 
-            if (!uiRaycastCamera.nearClipPlane.Equals(0.01f))
-            {
-                uiRaycastCamera.nearClipPlane = 0.01f;
-            }
-
-            if (pointer.Rays == null)
+            if (pointer.Rays == null || pointer.Rays.Length <= 0)
             {
                 Debug.LogError($"No valid rays for {pointer.PointerName} pointer.");
                 return;
             }
 
-            if (pointer.Rays.Length <= 0)
-            {
-                Debug.LogError($"No valid rays for {pointer.PointerName} pointer");
-                return;
-            }
-
             // Cast rays for every step until we score a hit
-            float totalDistance = 0.0f;
-
+            var totalDistance = 0.0f;
             for (int i = 0; i < pointer.Rays.Length; i++)
             {
-                if (RaycastGraphicsStep(graphicEventData, pointer.Rays[i], prioritizedLayerMasks, out var raycastResult) &&
-                    raycastResult.isValid &&
-                    raycastResult.distance < pointer.Rays[i].Length &&
-                    raycastResult.module != null &&
-                    raycastResult.module.eventCamera == UIRaycastCamera)
+
+                RaycastResult raycastResult;
+                if (RaycastGraphicsStep(graphicEventData, pointer.Rays[i], prioritizedLayerMasks, out raycastResult) &&
+                        raycastResult.isValid &&
+                        raycastResult.distance < pointer.Rays[i].Length &&
+                        raycastResult.module != null &&
+                        raycastResult.module.eventCamera == UIRaycastCamera)
                 {
                     totalDistance += raycastResult.distance;
 
@@ -957,8 +978,8 @@ namespace RealityToolkit.InputSystem.Modules
                     newUiRaycastPosition.y = raycastResult.screenPosition.y;
                     newUiRaycastPosition.z = raycastResult.distance;
 
-                    var worldPos = uiRaycastCamera.ScreenToWorldPoint(newUiRaycastPosition);
-                    var normal = -raycastResult.gameObject.transform.forward;
+                    Vector3 worldPos = UIRaycastCamera.ScreenToWorldPoint(newUiRaycastPosition);
+                    Vector3 normal = -raycastResult.gameObject.transform.forward;
 
                     hitResult.Set(raycastResult, worldPos, normal, pointer.Rays[i], i, totalDistance);
                     return;
@@ -993,20 +1014,20 @@ namespace RealityToolkit.InputSystem.Modules
             }
 
             // Move the uiRaycast camera to the current pointer's position.
-            uiRaycastCamera.transform.position = step.Origin;
-            uiRaycastCamera.transform.rotation = Quaternion.LookRotation(step.Direction, Vector3.up);
+            UIRaycastCamera.transform.position = step.Origin;
+            UIRaycastCamera.transform.rotation = Quaternion.LookRotation(step.Direction, Vector3.up);
 
             // We always raycast from the center of the camera.
             var newPosition = graphicRaycastMultiplier;
-            newPosition.x *= uiRaycastCamera.pixelWidth;
-            newPosition.y *= uiRaycastCamera.pixelHeight;
+            newPosition.x *= UIRaycastCamera.pixelWidth;
+            newPosition.y *= UIRaycastCamera.pixelHeight;
             graphicEventData.position = newPosition;
 
             // Graphics raycast
             uiRaycastResult = currentEventSystem.Raycast(graphicEventData, prioritizedLayerMasks);
             graphicEventData.pointerCurrentRaycast = uiRaycastResult;
 
-            return uiRaycastCamera.gameObject != null;
+            return UIRaycastCamera.gameObject != null;
         }
 
         private readonly Vector2 graphicRaycastMultiplier = new Vector2(0.5f, 0.5f);
@@ -1028,54 +1049,79 @@ namespace RealityToolkit.InputSystem.Modules
 
             foreach (var pointer in pointers)
             {
-                if (pointer.PreviousPointerTarget == pointer.CurrentPointerTarget) { continue; }
-
-                pendingPointerSpecificFocusChange.Add(pointer);
-
-                // Initially, we assume all pointer-specific focus changes will
-                // also result in an overall focus change...
-
-                if (pointer.PreviousPointerTarget != null)
+                if (pointer.PreviousPointerTarget != pointer.CurrentPointerTarget)
                 {
-                    pendingOverallFocusExitSet.Add(pointer.PreviousPointerTarget);
-                }
+                    pendingPointerSpecificFocusChange.Add(pointer);
 
-                if (pointer.CurrentPointerTarget != null)
-                {
-                    pendingOverallFocusEnterSet.Add(pointer.CurrentPointerTarget);
+                    // Initially, we assume all pointer-specific focus changes will
+                    // also result in an overall focus change...
+
+                    if (pointer.PreviousPointerTarget != null)
+                    {
+                        int numExits;
+                        if (pendingOverallFocusExitSet.TryGetValue(pointer.PreviousPointerTarget, out numExits))
+                        {
+                            pendingOverallFocusExitSet[pointer.PreviousPointerTarget] = numExits + 1;
+                        }
+                        else
+                        {
+                            pendingOverallFocusExitSet.Add(pointer.PreviousPointerTarget, 1);
+                        }
+                    }
+
+                    if (pointer.CurrentPointerTarget != null)
+                    {
+                        pendingOverallFocusEnterSet.Add(pointer.CurrentPointerTarget);
+                    }
                 }
+            }
+
+            // Early out if there have been no focus changes
+            if (pendingPointerSpecificFocusChange.Count == 0)
+            {
+                return;
             }
 
             // ... but now we trim out objects whose overall focus was maintained the same by a different pointer:
 
             foreach (var pointer in pointers)
             {
-                pendingOverallFocusExitSet.Remove(pointer.CurrentPointerTarget);
+                if (pointer.CurrentPointerTarget != null)
+                {
+                    pendingOverallFocusExitSet.Remove(pointer.CurrentPointerTarget);
+                }
                 pendingOverallFocusEnterSet.Remove(pointer.PreviousPointerTarget);
             }
 
             // Now we raise the events:
             for (int iChange = 0; iChange < pendingPointerSpecificFocusChange.Count; iChange++)
             {
-                var change = pendingPointerSpecificFocusChange[iChange];
-                var pendingUnfocusedObject = change.PreviousPointerTarget;
-                var pendingFocusObject = change.CurrentPointerTarget;
+                PointerData change = pendingPointerSpecificFocusChange[iChange];
+                GameObject pendingUnfocusObject = change.PreviousPointerTarget;
+                GameObject pendingFocusObject = change.CurrentPointerTarget;
 
-                InputSystem.RaisePreFocusChanged(change.Pointer, pendingUnfocusedObject, pendingFocusObject);
+                InputSystem?.RaisePreFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
 
-                if (pendingOverallFocusExitSet.Contains(pendingUnfocusedObject))
+                if (pendingUnfocusObject != null && pendingOverallFocusExitSet.TryGetValue(pendingUnfocusObject, out int numExits))
                 {
-                    InputSystem.RaiseFocusExit(change.Pointer, pendingUnfocusedObject);
-                    pendingOverallFocusExitSet.Remove(pendingUnfocusedObject);
+                    if (numExits > 1)
+                    {
+                        pendingOverallFocusExitSet[pendingUnfocusObject] = numExits - 1;
+                    }
+                    else
+                    {
+                        InputSystem?.RaiseFocusExit(change.Pointer, pendingUnfocusObject);
+                        pendingOverallFocusExitSet.Remove(pendingUnfocusObject);
+                    }
                 }
 
                 if (pendingOverallFocusEnterSet.Contains(pendingFocusObject))
                 {
-                    InputSystem.RaiseFocusEnter(change.Pointer, pendingFocusObject);
+                    InputSystem?.RaiseFocusEnter(change.Pointer, pendingFocusObject);
                     pendingOverallFocusEnterSet.Remove(pendingFocusObject);
                 }
 
-                InputSystem.RaiseFocusChanged(change.Pointer, pendingUnfocusedObject, pendingFocusObject);
+                InputSystem?.RaiseFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
             }
 
             Debug.Assert(pendingOverallFocusExitSet.Count == 0);

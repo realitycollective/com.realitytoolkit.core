@@ -21,18 +21,33 @@ MonoBehaviour:
     platformEntries:
       runtimePlatforms:
       - reference: 9869b29e-43bb-44cc-ae49-eb5c913263f9
+  - instancedType:
+      reference: 07512ffc-5128-434c-b7bf-5cd7ca8ef853
+    name: Simulated Hand Controller Data Provider
+    priority: 0
+    profile: {fileID: 11400000, guid: 6bd4ff02967a9b24197b8cd2593ddfa4, type: 2}
+    platformEntries:
+      runtimePlatforms:
+      - reference: 9869b29e-43bb-44cc-ae49-eb5c913263f9
   gazeProviderBehaviour: 0
   gazeProviderType:
     reference: bed2c9a4-48c5-49d2-bca4-3d351153ba75
   gazeCursorPrefab: {fileID: 1000012072213228, guid: 79f96834fcc44889b558cc13518979a0, type: 3}
-  pointingExtent: 10
-  pointerRaycastLayerMasks:
-  - serializedVersion: 2
-    m_Bits: 4294967291
-  drawDebugPointingRays: 1
-  debugPointingRayColors:
-  - {r: 0, g: 1, b: 0, a: 1}
-  handControllerSettings: {fileID: 11400000, guid: 2ceca59027073fd428fd2aa5794be97a, type: 2}
+  pointersProfile: {fileID: 11400000, guid: 3c5db97663ea9314f96d7a0e1f92ec22, type: 2}
+  gripThreshold: 0.8
+  renderingMode: 1
+  handPhysicsEnabled: 0
+  useTriggers: 0
+  boundsMode: 0
+  trackedPoses:
+  - {fileID: 11400000, guid: 287ec39181134fc4eaee0a3a5e47ab9f, type: 2}
+  - {fileID: 11400000, guid: d3d67de686d952849b6771a111518e0d, type: 2}
+  - {fileID: 11400000, guid: 5269abf28f233044d9ec71f10b94552d, type: 2}
+  - {fileID: 11400000, guid: 0ece078ec16cbbd44bb7eba974dca862, type: 2}
+  - {fileID: 11400000, guid: 9fba060de129a9d4ea929a0d74fdc3fa, type: 2}
+  - {fileID: 11400000, guid: 1251200226ad995498472e45aaf12178, type: 2}
+  - {fileID: 11400000, guid: 5e6bcc3863bdc634d82a8a59598a070b, type: 2}
+  - {fileID: 11400000, guid: 2f6c29c72cd30c74f9717c932bd87a4a, type: 2}
   inputActionsProfile: {fileID: 11400000, guid: 399335ccc89c4d12b79f3539ca7771db, type: 2}
   speechCommandsProfile: {fileID: 11400000, guid: 89759c8b9c98420794a5d650ce3b2f90, type: 2}
   gesturesProfile: {fileID: 11400000, guid: 47280a6380eb40d5952dc5a5da00a89e, type: 2}

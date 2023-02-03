@@ -8,7 +8,6 @@ using RealityToolkit.InputSystem.Hands;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RealityToolkit.InputSystem.Definitions
 {
@@ -56,44 +55,18 @@ namespace RealityToolkit.InputSystem.Definitions
         /// </summary>
         public GameObject GazeCursorPrefab => gazeCursorPrefab;
 
-        #region Global Pointer Options
-
         [SerializeField]
-        [Tooltip("Maximum distance at which all pointers can collide with a GameObject, unless it has an override extent.")]
-        private float pointingExtent = 10f;
+        [Tooltip("Global configuration settings for pointers in the input service.")]
+        private PointersProfile pointersProfile;
 
         /// <summary>
-        /// Maximum distance at which all pointers can collide with a GameObject, unless it has an override extent.
+        /// Global configuration settings for pointers in the input service.
         /// </summary>
-        public float PointingExtent => pointingExtent;
-
-        [SerializeField]
-        [Tooltip("The Physics Layers, in prioritized order, that are used to determine the pointers target when raycasting.")]
-        [FormerlySerializedAs("pointingRaycastLayerMasks")]
-        private LayerMask[] pointerRaycastLayerMasks = { UnityEngine.Physics.DefaultRaycastLayers };
-
-        /// <summary>
-        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IPointerResult.CurrentPointerTarget"/> when raycasting.
-        /// </summary>
-        public LayerMask[] PointerRaycastLayerMasks => pointerRaycastLayerMasks;
-
-        [SerializeField]
-        private bool drawDebugPointingRays = false;
-
-        /// <summary>
-        /// Toggle to enable or disable debug pointing rays.
-        /// </summary>
-        public bool DrawDebugPointingRays => drawDebugPointingRays;
-
-        [SerializeField]
-        private Color[] debugPointingRayColors = { Color.green };
-
-        /// <summary>
-        /// The colors to use when debugging pointer rays.
-        /// </summary>
-        public Color[] DebugPointingRayColors => debugPointingRayColors;
-
-        #endregion Global Pointer Options
+        public PointersProfile PointersProfile
+        {
+            get => pointersProfile;
+            internal set => pointersProfile = value;
+        }
 
         #endregion Global Input System Options
 
