@@ -17,7 +17,5 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
         /// This reference may not always be available when called.
         /// </remarks>
         GameObject GameObject { get; }
-
-        // TODO add defined elements or transforms?
     }
 }

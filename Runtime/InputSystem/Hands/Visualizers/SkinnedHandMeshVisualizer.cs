@@ -23,20 +23,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         private HandSkeleton skeleton;
 
         /// <inheritdoc />
-        public GameObject GameObject
-        {
-            get
-            {
-                try
-                {
-                    return gameObject;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
+        public GameObject GameObject => gameObject;
 
         /// <inheritdoc />
         protected override void Start()
