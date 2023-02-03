@@ -588,6 +588,10 @@ namespace RealityToolkit.InputSystem.Modules
                 cameraObject = new GameObject { name = uiRayCastCameraName };
             }
 
+            cameraObject.transform.SetParent(Camera.main.transform, false);
+            cameraObject.transform.position = Vector3.zero;
+            cameraObject.transform.rotation = Quaternion.identity;
+
             uiRaycastCamera = cameraObject.EnsureComponent<Camera>();
             uiRaycastCamera.enabled = false;
             uiRaycastCamera.clearFlags = CameraClearFlags.Color;
