@@ -8,13 +8,13 @@ using UnityEngine.XR;
 namespace RealityToolkit.InputSystem.Hands
 {
     /// <summary>
-    /// Defines the programming interface for new joint provider implementations. <see cref="ITrackedHandJointPoseProvider"/>s
-    /// provide tracked joint pose information for hand controllers.
+    /// Provides tracked joint pose information for hand controllers.
     /// </summary>
     public interface ITrackedHandJointPoseProvider
     {
         /// <summary>
-        /// Updates hand joint data and writes it into <paramref name="jointPoses"/>.
+        /// Updates hand joint data and writes it into <paramref name="jointPoses"/>
+        /// as well as <paramref name="jointPosesDictionary"/> for fast access.
         /// </summary>
         /// <param name="inputDevice">The <see cref="InputDevice"/> to read hand joint data for.</param>
         /// <param name="jointPoses"><see cref="MixedRealityPose"/> array reference that will be updated with latest joint pose information.

@@ -1,17 +1,76 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Hands;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities
+namespace RealityToolkit.InputSystem.Hands.Utilities
 {
     /// <summary>
     /// Hand controller utilities.
     /// </summary>
     public static class HandUtilities
     {
+        public static TrackedHandJoint GetParentJoint(TrackedHandJoint trackedHandJoint)
+        {
+            switch (trackedHandJoint)
+            {
+                case TrackedHandJoint.Palm:
+                    return TrackedHandJoint.Wrist;
+                case TrackedHandJoint.ThumbMetacarpal:
+                    return TrackedHandJoint.Wrist;
+                case TrackedHandJoint.ThumbProximal:
+                    return TrackedHandJoint.ThumbMetacarpal;
+                case TrackedHandJoint.ThumbDistal:
+                    return TrackedHandJoint.ThumbProximal;
+                case TrackedHandJoint.ThumbTip:
+                    return TrackedHandJoint.ThumbDistal;
+                case TrackedHandJoint.IndexMetacarpal:
+                    return TrackedHandJoint.Wrist;
+                case TrackedHandJoint.IndexProximal:
+                    return TrackedHandJoint.IndexMetacarpal;
+                case TrackedHandJoint.IndexIntermediate:
+                    return TrackedHandJoint.IndexProximal;
+                case TrackedHandJoint.IndexDistal:
+                    return TrackedHandJoint.IndexIntermediate;
+                case TrackedHandJoint.IndexTip:
+                    return TrackedHandJoint.IndexDistal;
+                case TrackedHandJoint.MiddleMetacarpal:
+                    return TrackedHandJoint.Wrist;
+                case TrackedHandJoint.MiddleProximal:
+                    return TrackedHandJoint.MiddleMetacarpal;
+                case TrackedHandJoint.MiddleIntermediate:
+                    return TrackedHandJoint.MiddleProximal;
+                case TrackedHandJoint.MiddleDistal:
+                    return TrackedHandJoint.MiddleIntermediate;
+                case TrackedHandJoint.MiddleTip:
+                    return TrackedHandJoint.MiddleDistal;
+                case TrackedHandJoint.RingMetacarpal:
+                    return TrackedHandJoint.Wrist;
+                case TrackedHandJoint.RingProximal:
+                    return TrackedHandJoint.RingMetacarpal;
+                case TrackedHandJoint.RingIntermediate:
+                    return TrackedHandJoint.RingProximal;
+                case TrackedHandJoint.RingDistal:
+                    return TrackedHandJoint.RingIntermediate;
+                case TrackedHandJoint.RingTip:
+                    return TrackedHandJoint.RingDistal;
+                case TrackedHandJoint.LittleMetacarpal:
+                    return TrackedHandJoint.Wrist;
+                case TrackedHandJoint.LittleProximal:
+                    return TrackedHandJoint.LittleMetacarpal;
+                case TrackedHandJoint.LittleIntermediate:
+                    return TrackedHandJoint.LittleProximal;
+                case TrackedHandJoint.LittleDistal:
+                    return TrackedHandJoint.LittleIntermediate;
+                case TrackedHandJoint.LittleTip:
+                    return TrackedHandJoint.LittleDistal;
+                case TrackedHandJoint.Wrist:
+                default:
+                    return TrackedHandJoint.Wrist;
+            }
+        }
+
         /// <summary>
         /// Gets an estimated <see cref="TrackedHandJoint.IndexMetacarpal"/> pose.
         /// Requires known <see cref="TrackedHandJoint.ThumbMetacarpal"/> and
