@@ -44,8 +44,6 @@ namespace RealityToolkit.InputSystem.Hands
             postProcessors = new IHandDataPostProcessor[]
             {
                 new HandDataPostProcessor(this, inputSystemProfile.HandControllerSettings),
-                new HandGripPostProcessor(this, inputSystemProfile.HandControllerSettings),
-                new HandTrackedPosePostProcessor(this, inputSystemProfile.HandControllerSettings),
                 new HandBoundsPostProcessor(this, inputSystemProfile.HandControllerSettings)
             };
 
@@ -91,9 +89,6 @@ namespace RealityToolkit.InputSystem.Hands
 
         /// <inheritdoc />
         public float GripStrength { get; private set; }
-
-        /// <inheritdoc />
-        public string TrackedPoseId { get; private set; }
 
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =

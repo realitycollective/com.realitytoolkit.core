@@ -6,7 +6,6 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.InputSystem.Controllers;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
@@ -38,10 +37,6 @@ namespace RealityToolkit.InputSystem.Hands
             BoundsMode = profile.HandControllerSettings.IsNotNull()
                 ? profile.HandControllerSettings.BoundsMode
                 : inputSystemProfile.HandControllerSettings.BoundsMode;
-
-            TrackedPoses = profile.HandControllerSettings.IsNotNull()
-                    ? profile.HandControllerSettings.TrackedPoses
-                    : inputSystemProfile.HandControllerSettings.TrackedPoses;
         }
 
         /// <inheritdoc />
@@ -52,10 +47,5 @@ namespace RealityToolkit.InputSystem.Hands
 
         /// <inheritdoc />
         public HandBoundsLOD BoundsMode { get; set; }
-
-        /// <summary>
-        /// Configured <see cref="HandControllerPoseProfile"/>s for pose recognition.
-        /// </summary>
-        protected IReadOnlyList<HandControllerPoseProfile> TrackedPoses { get; }
     }
 }

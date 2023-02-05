@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Hands
         bool IsPinching { get; }
 
         /// <summary>
-        /// Gets the current pinch strength (index and thumb) of the hand.
+        /// Gets the current pinch strength of the hand.
         /// </summary>
         float PinchStrength { get; }
 
@@ -36,14 +36,9 @@ namespace RealityToolkit.InputSystem.Hands
         bool IsGripping { get; }
 
         /// <summary>
-        /// Gets the current grip strength (fist) of the hand.
+        /// Gets the current grip strength of the hand.
         /// </summary>
         float GripStrength { get; }
-
-        /// <summary>
-        /// Gets the hands current pose.
-        /// </summary>
-        string TrackedPoseId { get; }
 
         /// <summary>
         /// Get the hands bounds of a given type, if they are available.

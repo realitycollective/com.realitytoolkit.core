@@ -56,45 +56,5 @@ namespace RealityToolkit.InputSystem.Hands
         /// Gets the gesture definition's joint information used to simulate the gesture.
         /// </summary>
         public TextAsset Data => data;
-
-        #region Baked Hand Data
-
-        [SerializeField]
-        [Tooltip("Was the data for this pose definition baked?")]
-        private bool didBake = false;
-
-        /// <summary>
-        /// Was the data for this pose definition baked?
-        /// </summary>
-        public bool DidBake => didBake;
-
-        [SerializeField]
-        [Tooltip("Is the hand currently in a gripping pose?")]
-        private bool isGripping = false;
-
-        /// <summary>
-        /// Is the hand currently in a gripping pose?
-        /// </summary>
-        public bool IsGripping => isGripping;
-
-        [SerializeField]
-        [Tooltip("Finger curling values per hand finger.")]
-        private float[] fingerCurlStrengths = new float[] { 0, 0, 0, 0, 0 };
-
-        /// <summary>
-        /// Finger curling values per hand finger.
-        /// </summary>
-        public float[] FingerCurlStrengths => fingerCurlStrengths;
-
-        [SerializeField]
-        [Tooltip("What's the grip strength of the hand?")]
-        private float gripStrength = 0f;
-
-        /// <summary>
-        /// What's the grip strength of the hand?
-        /// </summary>
-        public float GripStrength => gripStrength;
-
-        #endregion Baked Hand Data
     }
 }

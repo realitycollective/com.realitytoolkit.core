@@ -2,23 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Definitions;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Hands
 {
     public class HandControllerSettings : BaseProfile
     {
-        [SerializeField]
-        [Range(.5f, 1f)]
-        [Tooltip("Threshold in range [0.5, 1] that defines when a hand is considered to be grabing.")]
-        private float gripThreshold = .8f;
-
-        /// <summary>
-        /// Threshold in range [0, 1] that defines when a hand is considered to be grabing.
-        /// </summary>
-        public float GripThreshold => gripThreshold;
-
         [SerializeField]
         [Tooltip("If set, hands will be setup with colliders and a rigidbody to work with Unity's physics system.")]
         private bool handPhysicsEnabled = false;
@@ -45,14 +34,5 @@ namespace RealityToolkit.InputSystem.Hands
         /// Set the bounds mode to use for calculating hand bounds.
         /// </summary>
         public HandBoundsLOD BoundsMode => boundsMode;
-
-        [SerializeField]
-        [Tooltip("Hand controller poses tracked.")]
-        private HandControllerPoseProfile[] trackedPoses = null;
-
-        /// <summary>
-        /// Hand controller poses tracked.
-        /// </summary>
-        public IReadOnlyList<HandControllerPoseProfile> TrackedPoses => trackedPoses;
     }
 }
