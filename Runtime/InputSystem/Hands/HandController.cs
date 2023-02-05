@@ -71,9 +71,6 @@ namespace RealityToolkit.InputSystem.Hands
         protected ITrackedHandJointPoseProvider trackedHandJointPoseProvider;
         protected IMixedRealityCameraRig cameraRig;
         private readonly IHandDataPostProcessor[] postProcessors;
-        private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(poseFrameBufferSize);
-        private readonly Queue<bool> isGrippingBuffer = new Queue<bool>(poseFrameBufferSize);
-        private readonly Queue<bool> isPointingBuffer = new Queue<bool>(poseFrameBufferSize);
 
         /// <inheritdoc />
         public bool IsPinching { get; private set; }
@@ -140,6 +137,93 @@ namespace RealityToolkit.InputSystem.Hands
         }
 
         /// <inheritdoc />
+        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => handData.Bounds.TryGetValue(handBounds, out newBounds);
+
+        /// <inheritdoc />
+        public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
+        {
+            if (relativeTo == Space.Self)
+            {
+                // Return joint pose relative to hand root.
+                return jointPosesDict.TryGetValue(joint, out pose);
+            }
+
+            if (jointPosesDict.TryGetValue(joint, out var localPose))
+            {
+                pose = new MixedRealityPose
+                {
+                    // Combine root pose with local joint pose.
+                    Position = Pose.Position + Pose.Rotation * localPose.Position,
+                    Rotation = Pose.Rotation * localPose.Rotation
+                };
+
+                // Translate to world space.
+                pose.Position = cameraRig.RigTransform.TransformPoint(pose.Position);
+                pose.Rotation = cameraRig.RigTransform.rotation * pose.Rotation;
+
+                return true;
+            }
+
+            pose = MixedRealityPose.ZeroIdentity;
+            return false;
+        }
+
+        /// <inheritdoc />
+        public bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength)
+        {
+            if (handData.FingerCurlStrengths == null)
+            {
+                curlStrength = 0f;
+                return false;
+            }
+
+            curlStrength = handData.FingerCurlStrengths[(int)handFinger];
+            return true;
+        }
+
+        #region Internal State Updates
+
+        /// <summary>
+        /// Updates the <see cref="IHandController.IsPinching"/> value.
+        /// </summary>
+        protected virtual void UpdateIsPinching()
+        {
+
+        }
+
+        /// <summary>
+        /// Updates the <see cref="IHandController.PinchStrength"/> value.
+        /// </summary>
+        protected virtual void UpdatePinchStrength()
+        {
+
+        }
+
+        /// <summary>
+        /// Updates the <see cref="IHandController.IsPointing"/> value.
+        /// </summary>
+        protected virtual void UpdateIsPointing()
+        {
+
+        }
+
+        /// <summary>
+        /// Updates the <see cref="IHandController.IsGripping"/> value.
+        /// </summary>
+        protected virtual void UpdateIsGripping()
+        {
+
+        }
+
+        /// <summary>
+        /// Updates the <see cref="IHandController.GripStrength"/> value.
+        /// </summary>
+        protected virtual void UpdateGripStrength()
+        {
+
+        }
+
+        /// <inheritdoc />
         protected override void UpdateControllerPose()
         {
             if (TrackingState != TrackingState.Tracked)
@@ -198,50 +282,7 @@ namespace RealityToolkit.InputSystem.Hands
             }
         }
 
-        /// <inheritdoc />
-        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => handData.Bounds.TryGetValue(handBounds, out newBounds);
-
-        /// <inheritdoc />
-        public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
-        {
-            if (relativeTo == Space.Self)
-            {
-                // Return joint pose relative to hand root.
-                return jointPosesDict.TryGetValue(joint, out pose);
-            }
-
-            if (jointPosesDict.TryGetValue(joint, out var localPose))
-            {
-                pose = new MixedRealityPose
-                {
-                    // Combine root pose with local joint pose.
-                    Position = Pose.Position + Pose.Rotation * localPose.Position,
-                    Rotation = Pose.Rotation * localPose.Rotation
-                };
-
-                // Translate to world space.
-                pose.Position = cameraRig.RigTransform.TransformPoint(pose.Position);
-                pose.Rotation = cameraRig.RigTransform.rotation * pose.Rotation;
-
-                return true;
-            }
-
-            pose = MixedRealityPose.ZeroIdentity;
-            return false;
-        }
-
-        /// <inheritdoc />
-        public bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength)
-        {
-            if (handData.FingerCurlStrengths == null)
-            {
-                curlStrength = 0f;
-                return false;
-            }
-
-            curlStrength = handData.FingerCurlStrengths[(int)handFinger];
-            return true;
-        }
+        #endregion
 
         #region Interaction Mappings
 
@@ -279,139 +320,81 @@ namespace RealityToolkit.InputSystem.Hands
             }
         }
 
-        private void UpdateIsPointingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <summary>
+        /// Updates the <see cref="IHandController"/>'s is pointing interaciton mapping.
+        /// </summary>
+        /// <param name="interactionMapping"><see cref="MixedRealityInteractionMapping"/>.</param>
+        protected virtual void UpdateIsPointingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, pointInputName));
 
             if (TrackingState == TrackingState.Tracked)
             {
-                var isPointingThisFrame = handData.IsPointing;
-                if (isPointingBuffer.Count < poseFrameBufferSize)
-                {
-                    isPointingBuffer.Enqueue(isPointingThisFrame);
-                    IsPointing = false;
-                }
-                else
-                {
-                    isPointingBuffer.Dequeue();
-                    isPointingBuffer.Enqueue(isPointingThisFrame);
-
-                    isPointingThisFrame = true;
-                    for (int i = 0; i < isPointingBuffer.Count; i++)
-                    {
-                        var value = isPointingBuffer.Dequeue();
-
-                        if (!value)
-                        {
-                            isPointingThisFrame = false;
-                        }
-
-                        isPointingBuffer.Enqueue(value);
-                    }
-
-                    IsPointing = isPointingThisFrame;
-                }
+                IsPointing = handData.IsPointing;
             }
             else
             {
-                isPointingBuffer.Clear();
                 IsPointing = false;
             }
 
             interactionMapping.BoolData = IsPointing;
         }
 
-        private void UpdateIsPinchingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <summary>
+        /// Updates the <see cref="IHandController"/>'s is pinching interaciton mapping.
+        /// </summary>
+        /// <param name="interactionMapping"><see cref="MixedRealityInteractionMapping"/>.</param>
+        protected virtual void UpdateIsPinchingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, pinchPressInputName));
 
             if (TrackingState == TrackingState.Tracked)
             {
-                var isPinchingThisFrame = handData.IsPinching;
-                if (isPinchingBuffer.Count < poseFrameBufferSize)
-                {
-                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
-                    IsPinching = false;
-                }
-                else
-                {
-                    isPinchingBuffer.Dequeue();
-                    isPinchingBuffer.Enqueue(isPinchingThisFrame);
-
-                    isPinchingThisFrame = true;
-                    for (int i = 0; i < isPinchingBuffer.Count; i++)
-                    {
-                        var value = isPinchingBuffer.Dequeue();
-
-                        if (!value)
-                        {
-                            isPinchingThisFrame = false;
-                        }
-
-                        isPinchingBuffer.Enqueue(value);
-                    }
-
-                    IsPinching = isPinchingThisFrame;
-                }
+                IsPinching = handData.IsPinching;
             }
             else
             {
-                isPinchingBuffer.Clear();
                 IsPinching = false;
             }
 
             interactionMapping.BoolData = IsPinching;
         }
 
-        private void UpdateIsGrippingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <summary>
+        /// Updates the <see cref="IHandController"/>'s is gripping interaciton mapping.
+        /// </summary>
+        /// <param name="interactionMapping"><see cref="MixedRealityInteractionMapping"/>.</param>
+        protected virtual void UpdateIsGrippingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, gripPressInputName));
 
             if (TrackingState == TrackingState.Tracked)
             {
-                var isGrippingThisFrame = handData.IsGripping;
-                if (isGrippingBuffer.Count < poseFrameBufferSize)
-                {
-                    isGrippingBuffer.Enqueue(isGrippingThisFrame);
-                    IsGripping = false;
-                }
-                else
-                {
-                    isGrippingBuffer.Dequeue();
-                    isGrippingBuffer.Enqueue(isGrippingThisFrame);
-
-                    isGrippingThisFrame = true;
-                    for (int i = 0; i < isGrippingBuffer.Count; i++)
-                    {
-                        var value = isGrippingBuffer.Dequeue();
-
-                        if (!value)
-                        {
-                            isGrippingThisFrame = false;
-                        }
-
-                        isGrippingBuffer.Enqueue(value);
-                    }
-
-                    IsGripping = isGrippingThisFrame;
-                }
+                IsGripping = handData.IsGripping;
             }
             else
             {
-                isGrippingBuffer.Clear();
                 IsGripping = false;
             }
 
             interactionMapping.BoolData = IsGripping;
         }
 
-        private void UpdateGripStrengthInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <summary>
+        /// Updates the <see cref="IHandController"/>'s grip strength interaciton mapping.
+        /// </summary>
+        /// <param name="interactionMapping"><see cref="MixedRealityInteractionMapping"/>.</param>
+        protected virtual void UpdateGripStrengthInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, gripInputName));
             interactionMapping.FloatData = GripStrength;
         }
 
-        private void UpdateIndexFingerPoseInteractionMapping(MixedRealityInteractionMapping interactionMapping)
+        /// <summary>
+        /// Updates the <see cref="IHandController"/>'s index finger pose interaciton mapping.
+        /// </summary>
+        /// <param name="interactionMapping"><see cref="MixedRealityInteractionMapping"/>.</param>
+        protected virtual void UpdateIndexFingerPoseInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, indexFingerPoseInputName));
 
