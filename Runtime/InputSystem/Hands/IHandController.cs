@@ -4,7 +4,6 @@
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
-using UnityEngine.XR;
 
 namespace RealityToolkit.InputSystem.Hands
 {
@@ -60,13 +59,5 @@ namespace RealityToolkit.InputSystem.Hands
         /// <param name="relativeTo">Optional coordinate space to get the pose in. Defaults to <see cref="Space.Self"/>.</param>
         /// <returns><c>true</c>, if the pose is available.</returns>
         bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self);
-
-        /// <summary>
-        /// Gets the curl strength for a <see cref="HandFinger"/>, if available.
-        /// </summary>
-        /// <param name="handFinger">The <see cref="HandFinger"/> to lookup strength for.</param>
-        /// <param name="curlStrength">The finger's curl strength is a value from 0 to 1.</param>
-        /// <returns><c>true</c>, if success.</returns>
-        bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength);
     }
 }

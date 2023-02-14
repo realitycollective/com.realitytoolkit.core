@@ -8,9 +8,7 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Controllers.UnityInput;
-using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Extensions;
-using RealityToolkit.InputSystem.Interfaces;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,21 +29,7 @@ namespace RealityToolkit.InputSystem.Hands
         public HandController(IHandControllerServiceModule serviceModule, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(serviceModule, trackingState, controllerHandedness, controllerMappingProfile)
         {
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
-            {
-                Debug.LogError($"The {GetType().Name} requires a valid {nameof(MixedRealityInputSystemProfile)} to work.");
-                return;
-            }
-
             trackedHandJointPoseProvider = new TrackedHandJointPoseProvider();
-            jointPoses = new MixedRealityPose[Enum.GetNames(typeof(TrackedHandJoint)).Length];
-            jointPosesDict = new Dictionary<TrackedHandJoint, MixedRealityPose>();
-
-            postProcessors = new IHandDataPostProcessor[]
-            {
-                new HandDataPostProcessor(this, inputSystemProfile.HandControllerSettings),
-                new HandBoundsPostProcessor(this, inputSystemProfile.HandControllerSettings)
-            };
 
             if (!ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem))
             {
@@ -54,6 +38,7 @@ namespace RealityToolkit.InputSystem.Hands
             }
 
             cameraRig = cameraSystem.MainCameraRig;
+            handBoundsLOD = serviceModule.BoundsMode;
         }
 
         private const string pinchPressInputName = "Pinch";
@@ -65,12 +50,12 @@ namespace RealityToolkit.InputSystem.Hands
         private const string spatialPointerPoseInputName = "Spatial Pointer Pose";
         private const int poseFrameBufferSize = 5;
 
-        private HandData handData;
-        private MixedRealityPose[] jointPoses;
-        private Dictionary<TrackedHandJoint, MixedRealityPose> jointPosesDict;
+        private readonly HandBoundsLOD handBoundsLOD;
+        private MixedRealityPose[] jointPoses = new MixedRealityPose[Enum.GetNames(typeof(TrackedHandJoint)).Length];
+        private Dictionary<TrackedHandJoint, MixedRealityPose> jointPosesDict = new Dictionary<TrackedHandJoint, MixedRealityPose>();
+        private readonly HandBoundsProvider boundsProvider = new HandBoundsProvider();
         protected ITrackedHandJointPoseProvider trackedHandJointPoseProvider;
         protected IMixedRealityCameraRig cameraRig;
-        private readonly IHandDataPostProcessor[] postProcessors;
 
         /// <inheritdoc />
         public bool IsPinching { get; private set; }
@@ -119,25 +104,22 @@ namespace RealityToolkit.InputSystem.Hands
             if (TrackingState == TrackingState.Tracked)
             {
                 UpdateHandJoints();
-                ApplyPostProcessingToHandData();
+                UpdateIsPinching();
+                UpdatePinchStrength();
+                UpdateIsPointing();
+                UpdateIsGripping();
+                UpdateGripStrength();
                 UpdateControllerPose();
                 UpdateSpatialPointerPose();
                 UpdateSpatialGripPose();
+                UpdateBounds();
             }
 
             UpdateInteractionMappings();
         }
 
-        protected void ApplyPostProcessingToHandData()
-        {
-            for (var i = 0; i < postProcessors.Length; i++)
-            {
-                handData = postProcessors[i].PostProcess(handData);
-            }
-        }
-
         /// <inheritdoc />
-        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => handData.Bounds.TryGetValue(handBounds, out newBounds);
+        public bool TryGetBounds(TrackedHandBounds handBounds, out Bounds[] newBounds) => boundsProvider.Bounds.TryGetValue(handBounds, out newBounds);
 
         /// <inheritdoc />
         public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
@@ -168,27 +150,26 @@ namespace RealityToolkit.InputSystem.Hands
             return false;
         }
 
-        /// <inheritdoc />
-        public bool TryGetCurlStrength(HandFinger handFinger, out float curlStrength)
-        {
-            if (handData.FingerCurlStrengths == null)
-            {
-                curlStrength = 0f;
-                return false;
-            }
-
-            curlStrength = handData.FingerCurlStrengths[(int)handFinger];
-            return true;
-        }
-
         #region Internal State Updates
+
+        /// <summary>
+        /// Updates the controller's bounds calculations.
+        /// </summary>
+        protected virtual void UpdateBounds()
+        {
+            boundsProvider.Update(handBoundsLOD, ref jointPosesDict);
+        }
 
         /// <summary>
         /// Updates the <see cref="IHandController.IsPinching"/> value.
         /// </summary>
         protected virtual void UpdateIsPinching()
         {
+            var thumbTipPose = jointPoses[(int)TrackedHandJoint.ThumbTip];
+            var indexTipPose = jointPoses[(int)TrackedHandJoint.IndexTip];
 
+            const float thumbIndexPinchDistanceThreshold = 0.0004f;
+            IsPinching = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude < thumbIndexPinchDistanceThreshold;
         }
 
         /// <summary>
@@ -196,7 +177,15 @@ namespace RealityToolkit.InputSystem.Hands
         /// </summary>
         protected virtual void UpdatePinchStrength()
         {
+            var thumbTipPose = jointPoses[(int)TrackedHandJoint.ThumbTip];
+            var indexTipPose = jointPoses[(int)TrackedHandJoint.IndexTip];
 
+            const float fullPinchThreshold = 0.0004f;
+            const float noPinchThreshold = 0.0025f;
+            const float pinchStrengthDistance = noPinchThreshold - fullPinchThreshold;
+
+            var distanceSquareMagnitude = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude - fullPinchThreshold;
+            PinchStrength = 1 - Mathf.Clamp(distanceSquareMagnitude / pinchStrengthDistance, 0f, 1f);
         }
 
         /// <summary>
@@ -204,7 +193,22 @@ namespace RealityToolkit.InputSystem.Hands
         /// </summary>
         protected virtual void UpdateIsPointing()
         {
+            if (TryGetJointPose(TrackedHandJoint.Palm, out var localPalmPose))
+            {
+                IsPointing = false;
+                return;
+            }
 
+            var worldPalmPose = new MixedRealityPose
+            {
+                Position = localPalmPose.Position,
+                Rotation = cameraRig.RigTransform.rotation * localPalmPose.Rotation
+            };
+
+            // We check if the palm forward is roughly in line with the camera lookAt.
+            const float isPointingDotProductThreshold = .1f;
+            var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.Up, cameraRig.CameraTransform.up);
+            IsPointing = Vector3.Dot(cameraRig.CameraTransform.forward, projectedPalmUp) > isPointingDotProductThreshold;
         }
 
         /// <summary>
@@ -212,7 +216,13 @@ namespace RealityToolkit.InputSystem.Hands
         /// </summary>
         protected virtual void UpdateIsGripping()
         {
+            if (InputDevice.TryGetFeatureValue(CommonUsages.gripButton, out var isGripping))
+            {
+                IsGripping = isGripping;
+                return;
+            }
 
+            IsGripping = false;
         }
 
         /// <summary>
@@ -220,7 +230,13 @@ namespace RealityToolkit.InputSystem.Hands
         /// </summary>
         protected virtual void UpdateGripStrength()
         {
+            if (InputDevice.TryGetFeatureValue(CommonUsages.grip, out var gripStrength))
+            {
+                GripStrength = gripStrength;
+                return;
+            }
 
+            GripStrength = 0f;
         }
 
         /// <inheritdoc />
@@ -264,22 +280,28 @@ namespace RealityToolkit.InputSystem.Hands
         {
             Debug.Assert(trackedHandJointPoseProvider != null, $"{GetType().Name} has no {nameof(ITrackedHandJointPoseProvider)} to work with.");
             trackedHandJointPoseProvider.UpdateHandJoints(InputDevice, ref jointPoses, ref jointPosesDict);
-            handData = new HandData(jointPoses);
         }
 
-        /// <inheritdoc />
-        protected override void UpdateTrackingState()
+        /// <inheritdoc/>
+        protected override void UpdateSpatialPointerPose()
         {
-            var currentTrackingState = TrackingState;
+            var palmPose = jointPosesDict[TrackedHandJoint.Palm];
+            var wristPose = jointPosesDict[TrackedHandJoint.Wrist];
 
-            // This is a workaround until the tracking state has been implemented by Unity
-            // for OpenXR hands.
-            TrackingState = TrackingState.Tracked;
+            palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
 
-            if (TrackingState != currentTrackingState)
-            {
-                InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
-            }
+            var thumbProximalPose = jointPoses[(int)TrackedHandJoint.ThumbProximal];
+            var indexDistalPose = jointPoses[(int)TrackedHandJoint.IndexDistal];
+            var pointerPosition = Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
+
+            var forward = wristPose.Forward;
+            forward.y = palmPose.Forward.y;
+            var pointerEndPosition = pointerPosition + forward;
+            var pointerDirection = (pointerEndPosition - pointerPosition).normalized;
+            var pointerRotation = Quaternion.LookRotation(pointerDirection);
+
+            pointerRotation = cameraRig.CameraTransform.rotation * pointerRotation;
+            SpatialPointerPose = new MixedRealityPose(pointerPosition, pointerRotation);
         }
 
         #endregion
@@ -327,16 +349,6 @@ namespace RealityToolkit.InputSystem.Hands
         protected virtual void UpdateIsPointingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, pointInputName));
-
-            if (TrackingState == TrackingState.Tracked)
-            {
-                IsPointing = handData.IsPointing;
-            }
-            else
-            {
-                IsPointing = false;
-            }
-
             interactionMapping.BoolData = IsPointing;
         }
 
@@ -347,16 +359,6 @@ namespace RealityToolkit.InputSystem.Hands
         protected virtual void UpdateIsPinchingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, pinchPressInputName));
-
-            if (TrackingState == TrackingState.Tracked)
-            {
-                IsPinching = handData.IsPinching;
-            }
-            else
-            {
-                IsPinching = false;
-            }
-
             interactionMapping.BoolData = IsPinching;
         }
 
@@ -367,16 +369,6 @@ namespace RealityToolkit.InputSystem.Hands
         protected virtual void UpdateIsGrippingInteractionMapping(MixedRealityInteractionMapping interactionMapping)
         {
             Debug.Assert(string.Equals(interactionMapping.InputName, gripPressInputName));
-
-            if (TrackingState == TrackingState.Tracked)
-            {
-                IsGripping = handData.IsGripping;
-            }
-            else
-            {
-                IsGripping = false;
-            }
-
             interactionMapping.BoolData = IsGripping;
         }
 

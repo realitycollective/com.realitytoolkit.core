@@ -200,9 +200,19 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         protected virtual void UpdateTrackingState()
         {
             var currentTrackingState = TrackingState;
+
             if (InputDevice.TryGetFeatureValue(CommonUsages.isTracked, out var isTracked))
             {
                 TrackingState = isTracked ? TrackingState.Tracked : TrackingState.NotTracked;
+            }
+            else if (InputDevice.TryGetFeatureValue(CommonUsages.trackingState, out var inputTrackingState))
+            {
+                TrackingState = inputTrackingState == InputTrackingState.None ? TrackingState.NotTracked : TrackingState.Tracked;
+            }
+            else
+            {
+                // Fallback to assume we are tracked as long as this controller is being updated.
+                TrackingState = TrackingState.Tracked;
             }
 
             if (TrackingState != currentTrackingState)
