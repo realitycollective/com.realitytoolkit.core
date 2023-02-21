@@ -483,11 +483,6 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 RegisterPointers(inputSource);
             }
-
-            if (Application.isEditor && !Application.isPlaying)
-            {
-                UpdateCanvasEventSystems();
-            }
         }
 
         /// <inheritdoc />
@@ -632,24 +627,6 @@ namespace RealityToolkit.InputSystem.Modules
             }
 
             UIRaycastCamera = null;
-        }
-
-        /// <summary>
-        /// Helper for assigning world space canvases event cameras.
-        /// </summary>
-        /// <remarks>Warning! Very expensive. Use sparingly at runtime.</remarks>
-        public void UpdateCanvasEventSystems()
-        {
-            Debug.Assert(UIRaycastCamera != null, "You must assign a UIRaycastCamera on the FocusProvider before updating your canvases.");
-
-            // This will also find disabled GameObjects in the scene.
-            // Warning! this look up is very expensive!
-            var sceneCanvases = Resources.FindObjectsOfTypeAll<Canvas>();
-
-            for (var i = 0; i < sceneCanvases.Length; i++)
-            {
-                sceneCanvases[i].EnsureComponent<CanvasUtility>();
-            }
         }
 
         /// <inheritdoc />

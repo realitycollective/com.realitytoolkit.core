@@ -19,29 +19,20 @@ namespace RealityToolkit.Utilities
         [SerializeField]
         private Canvas canvas;
 
-        /// <summary>
-        /// The canvas this helper script is targeting.
-        /// </summary>
-        public Canvas Canvas
-        {
-            get => canvas;
-            set => canvas = value;
-        }
-
         private void OnEnable()
         {
-            if (Canvas.IsNull())
+            if (canvas.IsNull())
             {
-                Canvas = GetComponent<Canvas>();
+                canvas = GetComponent<Canvas>();
             }
 
-            Debug.Assert(Canvas != null, $"The {nameof(CanvasUtility)} requires a {nameof(Canvas)} component on the game object.");
+            Debug.Assert(canvas.IsNotNull(), $"The {nameof(CanvasUtility)} requires a {nameof(Canvas)} component on the game object.");
 
             if (ServiceManager.IsActiveAndInitialized &&
                 ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
-                Canvas.isRootCanvas && Canvas.renderMode == RenderMode.WorldSpace)
+                canvas.isRootCanvas && canvas.renderMode == RenderMode.WorldSpace)
             {
-                Canvas.worldCamera = inputSystem.FocusProvider.UIRaycastCamera;
+                canvas.worldCamera = inputSystem.FocusProvider.UIRaycastCamera;
             }
         }
     }
