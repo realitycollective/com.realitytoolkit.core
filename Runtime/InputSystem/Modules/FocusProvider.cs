@@ -581,6 +581,7 @@ namespace RealityToolkit.InputSystem.Modules
             else
             {
                 cameraObject = new GameObject { name = uiRayCastCameraName };
+                cameraObject.transform.SetParent(Camera.main.transform, false);
             }
 
             uiRaycastCamera = cameraObject.EnsureComponent<Camera>();
