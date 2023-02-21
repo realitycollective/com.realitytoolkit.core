@@ -3,7 +3,6 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
-using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Definitions;
 using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Utilities;
@@ -17,21 +16,13 @@ namespace RealityToolkit.CameraSystem.Modules
     /// <summary>
     /// Base class for all <see cref="IMixedRealityCameraServiceModule"/>s can inherit from.
     /// </summary>
-    [System.Runtime.InteropServices.Guid("EA4C0C19-E533-4AE8-91A2-6998CB8905BB")]
-    public class BaseCameraServiceModule : BaseServiceModule, IMixedRealityCameraServiceModule
+    public abstract class BaseCameraServiceModule : BaseServiceModule, IMixedRealityCameraServiceModule
     {
         /// <inheritdoc />
         public BaseCameraServiceModule(string name, uint priority, BaseMixedRealityCameraServiceModuleProfile profile, IMixedRealityCameraSystem parentService)
             : base(name, priority, profile, parentService)
         {
             cameraSystem = parentService;
-
-            if (profile.IsNull())
-            {
-                profile = ServiceManager.Instance.TryGetServiceProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile)
-                    ? cameraSystemProfile.GlobalCameraProfile
-                    : throw new ArgumentException($"Unable to get a valid {nameof(MixedRealityCameraSystemProfile)}!");
-            }
 
             if (profile.CameraRigType?.Type == null)
             {
