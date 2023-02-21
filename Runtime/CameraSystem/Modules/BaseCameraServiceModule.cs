@@ -14,7 +14,7 @@ using UnityEngine.XR;
 namespace RealityToolkit.CameraSystem.Modules
 {
     /// <summary>
-    /// Base class for all <see cref="IMixedRealityCameraServiceModule"/>s can inherit from.
+    /// Base class for <see cref="IMixedRealityCameraServiceModule"/>s to inherit from.
     /// </summary>
     public abstract class BaseCameraServiceModule : BaseServiceModule, IMixedRealityCameraServiceModule
     {
