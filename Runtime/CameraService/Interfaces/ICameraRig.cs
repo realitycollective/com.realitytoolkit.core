@@ -4,12 +4,12 @@
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 
-namespace RealityToolkit.CameraSystem.Interfaces
+namespace RealityToolkit.CameraService.Interfaces
 {
     /// <summary>
     /// This interface is to be implemented by a <see cref="MonoBehaviour"/> and attached to the rig root object.
     /// </summary>
-    public interface IMixedRealityCameraRig
+    public interface ICameraRig
     {
         /// <summary>
         /// The <see cref="GameObject"/> reference for this camera rig.
@@ -43,7 +43,7 @@ namespace RealityToolkit.CameraSystem.Interfaces
         /// </summary>
         /// <remarks>
         /// This <see cref="Transform"/> is synced to the player's head camera X &amp; Z values.
-        /// Y value is set using current <see cref="IMixedRealityCameraServiceModule.HeadHeight"/>.
+        /// Y value is set using current <see cref="ICameraServiceModule.HeadHeight"/>.
         /// </remarks>
         Transform BodyTransform { get; }
     }

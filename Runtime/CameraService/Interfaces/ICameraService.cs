@@ -2,29 +2,29 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityToolkit.CameraSystem.Definitions;
+using RealityToolkit.CameraService.Definitions;
 using System.Collections.Generic;
 using UnityEngine.XR;
 
-namespace RealityToolkit.CameraSystem.Interfaces
+namespace RealityToolkit.CameraService.Interfaces
 {
     /// <summary>
     /// The base interface for implementing a mixed reality camera system.
     /// </summary>
-    public interface IMixedRealityCameraSystem : IService
+    public interface ICameraService : IService
     {
         /// <summary>
-        /// The list of <see cref="IMixedRealityCameraServiceModule"/>s registered and running with the system.
+        /// The list of <see cref="ICameraServiceModule"/>s registered and running with the system.
         /// </summary>
-        IReadOnlyCollection<IMixedRealityCameraServiceModule> CameraDataProviders { get; }
+        IReadOnlyCollection<ICameraServiceModule> CameraDataProviders { get; }
 
         /// <summary>
-        /// The reference to the <see cref="IMixedRealityCameraRig"/> attached to the Main Camera (typically this is the player's camera).
+        /// The reference to the <see cref="ICameraRig"/> attached to the Main Camera (typically this is the player's camera).
         /// </summary>
-        IMixedRealityCameraRig MainCameraRig { get; }
+        ICameraRig MainCameraRig { get; }
 
         /// <summary>
-        /// Gets the configured <see cref="TrackingType"/> for the active <see cref="IMixedRealityCameraRig"/>.
+        /// Gets the configured <see cref="TrackingType"/> for the active <see cref="ICameraRig"/>.
         /// </summary>
         TrackingType TrackingType { get; }
 
@@ -36,15 +36,15 @@ namespace RealityToolkit.CameraSystem.Interfaces
         XRDisplaySubsystem DisplaySubsystem { get; }
 
         /// <summary>
-        /// Registers the <see cref="IMixedRealityCameraServiceModule"/> with the <see cref="IMixedRealityCameraSystem"/>.
+        /// Registers the <see cref="ICameraServiceModule"/> with the <see cref="ICameraService"/>.
         /// </summary>
         /// <param name="dataProvider"></param>
-        void RegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider);
+        void RegisterCameraDataProvider(ICameraServiceModule dataProvider);
 
         /// <summary>
-        /// UnRegisters the <see cref="IMixedRealityCameraServiceModule"/> with the <see cref="IMixedRealityCameraSystem"/>.
+        /// UnRegisters the <see cref="ICameraServiceModule"/> with the <see cref="ICameraService"/>.
         /// </summary>
         /// <param name="dataProvider"></param>
-        void UnRegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider);
+        void UnRegisterCameraDataProvider(ICameraServiceModule dataProvider);
     }
 }

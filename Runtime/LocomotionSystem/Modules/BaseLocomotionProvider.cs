@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Definitions;
@@ -46,7 +46,7 @@ namespace RealityToolkit.LocomotionSystem.Modules
         {
             get
             {
-                return ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+                return ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                     ? cameraSystem.MainCameraRig.CameraTransform
                     : CameraCache.Main.transform;
             }

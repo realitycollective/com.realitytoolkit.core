@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.LocomotionSystem.Definitions;
@@ -104,7 +104,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
             transform.position = focusDetails.EndPoint;
 
-            var cameraTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+            var cameraTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                 ? cameraSystem.MainCameraRig.CameraTransform
                 : CameraCache.Main.transform;
             var forward = cameraTransform.forward;

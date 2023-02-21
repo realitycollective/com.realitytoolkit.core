@@ -4,21 +4,21 @@
 using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Definitions;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Definitions;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace RealityToolkit.CameraSystem
+namespace RealityToolkit.CameraService
 {
     /// <summary>
-    /// The Reality Toolkit's default implementation of the <see cref="IMixedRealityCameraSystem"/>.
+    /// The Reality Toolkit's default implementation of the <see cref="ICameraService"/>.
     /// </summary>
     [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("5C656EE3-FE7C-4FB3-B3EE-DF3FC0D0973D")]
-    public class MixedRealityCameraSystem : BaseServiceWithConstructor, IMixedRealityCameraSystem
+    public class CameraService : BaseServiceWithConstructor, ICameraService
     {
         /// <summary>
         /// Constructor.
@@ -26,11 +26,11 @@ namespace RealityToolkit.CameraSystem
         /// <param name="name">The service display name.</param>
         /// <param name="priority">The service initialization priority.</param>
         /// <param name="profile">The service configuration profile.</param>
-        public MixedRealityCameraSystem(string name, uint priority, MixedRealityCameraSystemProfile profile)
+        public CameraService(string name, uint priority, CameraServiceProfile profile)
             : base(name, priority) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        private readonly HashSet<IMixedRealityCameraServiceModule> cameraDataProviders = new HashSet<IMixedRealityCameraServiceModule>();
+        private readonly HashSet<ICameraServiceModule> cameraDataProviders = new HashSet<ICameraServiceModule>();
 
         public const string DefaultXRCameraRigName = "XRCameraRig";
 
@@ -38,11 +38,11 @@ namespace RealityToolkit.CameraSystem
         public override uint Priority => 0;
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IMixedRealityCameraServiceModule> CameraDataProviders => cameraDataProviders;
+        public IReadOnlyCollection<ICameraServiceModule> CameraDataProviders => cameraDataProviders;
 
-        private IMixedRealityCameraRig mainCameraRig = null;
+        private ICameraRig mainCameraRig = null;
         /// <inheritdoc />
-        public IMixedRealityCameraRig MainCameraRig
+        public ICameraRig MainCameraRig
         {
             get
             {
@@ -116,9 +116,9 @@ namespace RealityToolkit.CameraSystem
         }
 
         /// <inheritdoc />
-        public void RegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider) => cameraDataProviders.Add(dataProvider);
+        public void RegisterCameraDataProvider(ICameraServiceModule dataProvider) => cameraDataProviders.Add(dataProvider);
 
         /// <inheritdoc />
-        public void UnRegisterCameraDataProvider(IMixedRealityCameraServiceModule dataProvider) => cameraDataProviders.Remove(dataProvider);
+        public void UnRegisterCameraDataProvider(ICameraServiceModule dataProvider) => cameraDataProviders.Remove(dataProvider);
     }
 }

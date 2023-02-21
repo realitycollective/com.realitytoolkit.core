@@ -3,25 +3,25 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Definitions;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Definitions;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 
-namespace RealityToolkit.CameraSystem
+namespace RealityToolkit.CameraService
 {
     /// <summary>
-    /// The default <see cref="IMixedRealityCameraRig"/> for the XRTK.
+    /// The default <see cref="ICameraRig"/> for the XRTK.
     /// </summary>
     [ExecuteAlways]
     [System.Runtime.InteropServices.Guid("8E0EE4FC-C8A5-4B10-9FCA-EE55B6D421FF")]
-    public class DefaultCameraRig : MonoBehaviour, IMixedRealityCameraRig
+    public class DefaultCameraRig : MonoBehaviour, ICameraRig
     {
         #region IMixedRealityCameraRig Implementation
 
         [SerializeField]
-        private string rigName = MixedRealityCameraSystem.DefaultXRCameraRigName;
+        private string rigName = CameraService.DefaultXRCameraRigName;
 
         [SerializeField]
         private Transform rigTransform = null;
@@ -221,7 +221,7 @@ namespace RealityToolkit.CameraSystem
         private void Start()
         {
             if (ServiceManager.Instance != null &&
-                ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+                ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                 && CameraPoseDriver.IsNotNull())
             {
                 switch (cameraSystem.TrackingType)

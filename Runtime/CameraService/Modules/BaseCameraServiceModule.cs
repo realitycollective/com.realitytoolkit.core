@@ -3,23 +3,23 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
-using RealityToolkit.CameraSystem.Definitions;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Definitions;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace RealityToolkit.CameraSystem.Modules
+namespace RealityToolkit.CameraService.Modules
 {
     /// <summary>
-    /// Base class for <see cref="IMixedRealityCameraServiceModule"/>s to inherit from.
+    /// Base class for <see cref="ICameraServiceModule"/>s to inherit from.
     /// </summary>
-    public abstract class BaseCameraServiceModule : BaseServiceModule, IMixedRealityCameraServiceModule
+    public abstract class BaseCameraServiceModule : BaseServiceModule, ICameraServiceModule
     {
         /// <inheritdoc />
-        public BaseCameraServiceModule(string name, uint priority, BaseMixedRealityCameraServiceModuleProfile profile, IMixedRealityCameraSystem parentService)
+        public BaseCameraServiceModule(string name, uint priority, BaseCameraServiceModuleProfile profile, ICameraService parentService)
             : base(name, priority, profile, parentService)
         {
             cameraSystem = parentService;
@@ -53,7 +53,7 @@ namespace RealityToolkit.CameraSystem.Modules
             bodyAdjustmentSpeed = profile.BodyAdjustmentSpeed;
         }
 
-        private readonly IMixedRealityCameraSystem cameraSystem;
+        private readonly ICameraService cameraSystem;
         private readonly float eyeTextureResolution;
         private readonly bool isCameraPersistent;
         private readonly Type cameraRigType;
@@ -95,7 +95,7 @@ namespace RealityToolkit.CameraSystem.Modules
         public virtual bool IsStereoscopic => CameraRig.PlayerCamera.stereoEnabled;
 
         /// <inheritdoc />
-        public IMixedRealityCameraRig CameraRig { get; private set; }
+        public ICameraRig CameraRig { get; private set; }
 
         /// <inheritdoc />
         public TrackingType TrackingType { get; }
@@ -236,7 +236,7 @@ namespace RealityToolkit.CameraSystem.Modules
             }
 
             if (CameraRig is Component component &&
-                component is IMixedRealityCameraRig)
+                component is ICameraRig)
             {
                 component.Destroy();
             }
@@ -258,22 +258,22 @@ namespace RealityToolkit.CameraSystem.Modules
             {
                 if (CameraCache.Main.transform.parent.IsNull())
                 {
-                    var rigTransform = new GameObject(MixedRealityCameraSystem.DefaultXRCameraRigName).transform;
+                    var rigTransform = new GameObject(CameraService.DefaultXRCameraRigName).transform;
                     CameraCache.Main.transform.SetParent(rigTransform);
                 }
 
-                CameraRig = CameraCache.Main.transform.parent.gameObject.EnsureComponent(cameraRigType) as IMixedRealityCameraRig;
+                CameraRig = CameraCache.Main.transform.parent.gameObject.EnsureComponent(cameraRigType) as ICameraRig;
                 Debug.Assert(CameraRig != null);
 #if !UNITY_EDITOR
                 Debug.Log($"There was no {MixedRealityCameraSystem.DefaultXRCameraRigName} in the scene. The {GetType().Name} requires one and added it, as well as making the main camera a child of the rig.");
 #endif
             }
 
-            if (!string.Equals(CameraRig.RigTransform.name, MixedRealityCameraSystem.DefaultXRCameraRigName))
+            if (!string.Equals(CameraRig.RigTransform.name, CameraService.DefaultXRCameraRigName))
             {
                 var previousName = CameraRig.RigTransform.name;
-                CameraRig.RigTransform.name = MixedRealityCameraSystem.DefaultXRCameraRigName;
-                Debug.Log($"Rig object {previousName} was renamed to {MixedRealityCameraSystem.DefaultXRCameraRigName} by {GetType().Name}.");
+                CameraRig.RigTransform.name = CameraService.DefaultXRCameraRigName;
+                Debug.Log($"Rig object {previousName} was renamed to {CameraService.DefaultXRCameraRigName} by {GetType().Name}.");
             }
 
             if (resetCameraToOrigin)
@@ -413,8 +413,8 @@ namespace RealityToolkit.CameraSystem.Modules
         }
 
         /// <summary>
-        /// Resets the <see cref="IMixedRealityCameraRig.RigTransform"/>, <see cref="IMixedRealityCameraRig.CameraTransform"/>,
-        /// and <see cref="IMixedRealityCameraRig.BodyTransform"/> poses.
+        /// Resets the <see cref="ICameraRig.RigTransform"/>, <see cref="ICameraRig.CameraTransform"/>,
+        /// and <see cref="ICameraRig.BodyTransform"/> poses.
         /// </summary>
         protected virtual void ResetRigTransforms()
         {
@@ -430,8 +430,8 @@ namespace RealityToolkit.CameraSystem.Modules
         }
 
         /// <summary>
-        /// Called each <see cref="LateUpdate"/> to sync the <see cref="IMixedRealityCameraRig.RigTransform"/>,
-        /// <see cref="IMixedRealityCameraRig.CameraTransform"/>, and <see cref="IMixedRealityCameraRig.BodyTransform"/> poses.
+        /// Called each <see cref="LateUpdate"/> to sync the <see cref="ICameraRig.RigTransform"/>,
+        /// <see cref="ICameraRig.CameraTransform"/>, and <see cref="ICameraRig.BodyTransform"/> poses.
         /// </summary>
         protected virtual void SyncRigTransforms()
         {

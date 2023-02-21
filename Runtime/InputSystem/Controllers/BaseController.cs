@@ -4,7 +4,7 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
@@ -180,7 +180,7 @@ namespace RealityToolkit.InputSystem.Controllers
                 for (int j = 0; j < interactionProfile.PointerProfiles.Length; j++)
                 {
                     var pointerProfile = interactionProfile.PointerProfiles[j];
-                    var rigTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+                    var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                         ? cameraSystem.MainCameraRig.RigTransform
                         : CameraCache.Main.transform.parent;
                     var pointerObject = Object.Instantiate(pointerProfile.PointerPrefab, rigTransform);
@@ -233,7 +233,7 @@ namespace RealityToolkit.InputSystem.Controllers
             // If we've got a controller model, then place it in the scene and get/attach the visualizer.
             if (!controllerModel.IsNull())
             {
-                var rigTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+                var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                     ? cameraSystem.MainCameraRig.RigTransform
                     : CameraCache.Main.transform.parent;
 

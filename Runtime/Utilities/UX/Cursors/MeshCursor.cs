@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.InputSystem.Definitions;
 using System;
 using UnityEngine;
@@ -64,7 +64,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             if (targetRenderer == null) { return; }
 
             var targetTransform = targetRenderer.transform;
-            var targetCamera = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
+            var targetCamera = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                 ? cameraSystem.MainCameraRig.PlayerCamera
                 : CameraCache.Main;
 

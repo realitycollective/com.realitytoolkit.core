@@ -7,8 +7,8 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.BoundarySystem.Interfaces;
-using RealityToolkit.CameraSystem.Definitions;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Definitions;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions;
 using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.InputSystem.Definitions;
@@ -249,10 +249,10 @@ namespace RealityToolkit.Editor
 
                 switch (configurationType)
                 {
-                    case Type _ when typeof(IMixedRealityCameraSystem).IsAssignableFrom(configurationType):
-                        if (!ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out _))
+                    case Type _ when typeof(ICameraService).IsAssignableFrom(configurationType):
+                        if (!ServiceManager.Instance.TryGetService<ICameraService>(out _))
                         {
-                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityCameraSystem>(configuration));
+                            ServiceManager.Instance.ActiveProfile.AddConfiguration(new ServiceConfiguration<ICameraService>(configuration));
                             EditorUtility.SetDirty(ServiceManager.Instance.ActiveProfile);
                             didInstallConfigurations = true;
                         }
@@ -314,10 +314,10 @@ namespace RealityToolkit.Editor
                         }
                         break;
 
-                    case Type _ when typeof(IMixedRealityCameraServiceModule).IsAssignableFrom(configurationType):
-                        if (ServiceManager.Instance.TryGetServiceProfile<IMixedRealityCameraSystem, MixedRealityCameraSystemProfile>(out var cameraSystemProfile, rootProfile))
+                    case Type _ when typeof(ICameraServiceModule).IsAssignableFrom(configurationType):
+                        if (ServiceManager.Instance.TryGetServiceProfile<ICameraService, CameraServiceProfile>(out var cameraSystemProfile, rootProfile))
                         {
-                            var cameraDataProviderConfiguration = new ServiceConfiguration<IMixedRealityCameraServiceModule>(configuration);
+                            var cameraDataProviderConfiguration = new ServiceConfiguration<ICameraServiceModule>(configuration);
 
                             if (cameraSystemProfile.ServiceConfigurations.Any(serviceConfiguration => serviceConfiguration.InstancedType.Type == cameraDataProviderConfiguration.InstancedType.Type))
                             {
