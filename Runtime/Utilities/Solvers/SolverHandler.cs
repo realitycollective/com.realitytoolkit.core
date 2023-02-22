@@ -223,7 +223,7 @@ namespace RealityToolkit.Utilities.Solvers
             switch (TrackedObjectToReference)
             {
                 case TrackedObjectType.Head:
-                    TrackTransform(cameraSystem.MainCameraRig.CameraTransform);
+                    TrackTransform(cameraSystem.CameraRig.CameraTransform);
                     break;
                 case TrackedObjectType.LeftHandOrController:
                     Handedness = Handedness.Left;
@@ -232,10 +232,10 @@ namespace RealityToolkit.Utilities.Solvers
                     Handedness = Handedness.Right;
                     break;
                 case TrackedObjectType.Body:
-                    TrackTransform(cameraSystem.MainCameraRig.BodyTransform);
+                    TrackTransform(cameraSystem.CameraRig.BodyTransform);
                     break;
                 case TrackedObjectType.Rig:
-                    TrackTransform(cameraSystem.MainCameraRig.RigTransform);
+                    TrackTransform(cameraSystem.CameraRig.RigTransform);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

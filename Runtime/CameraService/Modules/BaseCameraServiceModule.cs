@@ -5,7 +5,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.CameraService.Definitions;
 using RealityToolkit.CameraService.Interfaces;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +28,7 @@ namespace RealityToolkit.CameraService.Modules
                 throw new Exception($"{nameof(profile.CameraRigType)} cannot be null!");
             }
 
+            rigPrefab = profile.RigPrefab;
             eyeTextureResolution = profile.EyeTextureResolution;
             isCameraPersistent = profile.IsCameraPersistent;
             cameraRigType = profile.CameraRigType.Type;
@@ -54,6 +54,7 @@ namespace RealityToolkit.CameraService.Modules
         }
 
         private readonly ICameraService cameraSystem;
+        private readonly GameObject rigPrefab;
         private readonly float eyeTextureResolution;
         private readonly bool isCameraPersistent;
         private readonly Type cameraRigType;
@@ -114,7 +115,6 @@ namespace RealityToolkit.CameraService.Modules
             base.Initialize();
 
             EnsureCameraRigSetup(true);
-            cameraSystem.RegisterCameraDataProvider(this);
 
             if (!Application.isPlaying)
             {
@@ -242,31 +242,19 @@ namespace RealityToolkit.CameraService.Modules
             }
         }
 
-        /// <inheritdoc />
-        public override void Destroy()
-        {
-            base.Destroy();
-
-            cameraSystem.UnRegisterCameraDataProvider(this);
-        }
-
         #endregion IMixedRealitySerivce Implementation
 
         private void EnsureCameraRigSetup(bool resetCameraToOrigin)
         {
             if (CameraRig == null)
             {
-                if (CameraCache.Main.transform.parent.IsNull())
+                CameraRig = UnityEngine.Object.FindObjectOfType(cameraRigType) as ICameraRig;
+                if (CameraRig == null)
                 {
-                    var rigTransform = new GameObject(CameraService.DefaultXRCameraRigName).transform;
-                    CameraCache.Main.transform.SetParent(rigTransform);
+                    CameraRig = UnityEngine.Object.Instantiate(rigPrefab).GetComponent(cameraRigType) as ICameraRig;
                 }
 
-                CameraRig = CameraCache.Main.transform.parent.gameObject.EnsureComponent(cameraRigType) as ICameraRig;
                 Debug.Assert(CameraRig != null);
-#if !UNITY_EDITOR
-                Debug.Log($"There was no {MixedRealityCameraSystem.DefaultXRCameraRigName} in the scene. The {GetType().Name} requires one and added it, as well as making the main camera a child of the rig.");
-#endif
             }
 
             if (!string.Equals(CameraRig.RigTransform.name, CameraService.DefaultXRCameraRigName))

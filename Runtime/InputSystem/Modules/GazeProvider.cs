@@ -433,7 +433,7 @@ namespace RealityToolkit.InputSystem.Modules
             if (gazeTransform == null)
             {
                 gazeTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                    ? cameraSystem.MainCameraRig.CameraTransform
+                    ? cameraSystem.CameraRig.CameraTransform
                     : CameraCache.Main.transform;
             }
 

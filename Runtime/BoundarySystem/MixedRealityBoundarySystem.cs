@@ -83,7 +83,7 @@ namespace RealityToolkit.BoundarySystem
                 if (rigTransform == null)
                 {
                     rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                       ? cameraSystem.MainCameraRig.RigTransform
+                       ? cameraSystem.CameraRig.RigTransform
                        : CameraCache.Main.transform.parent;
                 }
                 return rigTransform;

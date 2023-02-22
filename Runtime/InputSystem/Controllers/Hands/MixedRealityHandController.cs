@@ -800,8 +800,8 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Translate to world space.
                 if (CameraSystem != null)
                 {
-                    pose.Position = CameraSystem.MainCameraRig.RigTransform.TransformPoint(pose.Position);
-                    pose.Rotation = CameraSystem.MainCameraRig.RigTransform.rotation * pose.Rotation;
+                    pose.Position = CameraSystem.CameraRig.RigTransform.TransformPoint(pose.Position);
+                    pose.Rotation = CameraSystem.CameraRig.RigTransform.rotation * pose.Rotation;
                 }
 
                 return lastHandRootPose != MixedRealityPose.ZeroIdentity;

@@ -3,7 +3,6 @@
 
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.CameraService.Definitions;
-using System.Collections.Generic;
 using UnityEngine.XR;
 
 namespace RealityToolkit.CameraService.Interfaces
@@ -14,14 +13,9 @@ namespace RealityToolkit.CameraService.Interfaces
     public interface ICameraService : IService
     {
         /// <summary>
-        /// The list of <see cref="ICameraServiceModule"/>s registered and running with the system.
-        /// </summary>
-        IReadOnlyCollection<ICameraServiceModule> CameraDataProviders { get; }
-
-        /// <summary>
         /// The reference to the <see cref="ICameraRig"/> attached to the Main Camera (typically this is the player's camera).
         /// </summary>
-        ICameraRig MainCameraRig { get; }
+        ICameraRig CameraRig { get; }
 
         /// <summary>
         /// Gets the configured <see cref="TrackingType"/> for the active <see cref="ICameraRig"/>.
@@ -34,17 +28,5 @@ namespace RealityToolkit.CameraService.Interfaces
         /// </summary>
         /// <remarks>The reference is lazy loaded once on first access and then cached for future use.</remarks>
         XRDisplaySubsystem DisplaySubsystem { get; }
-
-        /// <summary>
-        /// Registers the <see cref="ICameraServiceModule"/> with the <see cref="ICameraService"/>.
-        /// </summary>
-        /// <param name="dataProvider"></param>
-        void RegisterCameraDataProvider(ICameraServiceModule dataProvider);
-
-        /// <summary>
-        /// UnRegisters the <see cref="ICameraServiceModule"/> with the <see cref="ICameraService"/>.
-        /// </summary>
-        /// <param name="dataProvider"></param>
-        void UnRegisterCameraDataProvider(ICameraServiceModule dataProvider);
     }
 }

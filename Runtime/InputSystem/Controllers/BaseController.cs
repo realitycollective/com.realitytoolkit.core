@@ -181,7 +181,7 @@ namespace RealityToolkit.InputSystem.Controllers
                 {
                     var pointerProfile = interactionProfile.PointerProfiles[j];
                     var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                        ? cameraSystem.MainCameraRig.RigTransform
+                        ? cameraSystem.CameraRig.RigTransform
                         : CameraCache.Main.transform.parent;
                     var pointerObject = Object.Instantiate(pointerProfile.PointerPrefab, rigTransform);
                     var pointer = pointerObject.GetComponent<IMixedRealityPointer>();
@@ -234,7 +234,7 @@ namespace RealityToolkit.InputSystem.Controllers
             if (!controllerModel.IsNull())
             {
                 var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                    ? cameraSystem.MainCameraRig.RigTransform
+                    ? cameraSystem.CameraRig.RigTransform
                     : CameraCache.Main.transform.parent;
 
                 var controllerObject = Object.Instantiate(controllerModel, rigTransform);

@@ -5,7 +5,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraService.Definitions;
 using RealityToolkit.CameraService.Interfaces;
-using RealityToolkit.Utilities;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 
@@ -18,208 +17,44 @@ namespace RealityToolkit.CameraService
     [System.Runtime.InteropServices.Guid("8E0EE4FC-C8A5-4B10-9FCA-EE55B6D421FF")]
     public class DefaultCameraRig : MonoBehaviour, ICameraRig
     {
-        #region IMixedRealityCameraRig Implementation
-
-        [SerializeField]
-        private string rigName = CameraService.DefaultXRCameraRigName;
-
         [SerializeField]
         private Transform rigTransform = null;
-
-        /// <inheritdoc />
-        public GameObject GameObject
-        {
-            get
-            {
-                try
-                {
-                    return gameObject;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
-        /// <inheritdoc />
-        public Transform RigTransform
-        {
-            get
-            {
-                if (rigTransform != null)
-                {
-                    return rigTransform;
-                }
-
-                if (ServiceManager.Instance.IsApplicationQuitting)
-                {
-                    return null;
-                }
-
-                var rigTransformLookup = GameObject.Find(rigName);
-
-                rigTransform = rigTransformLookup.IsNull()
-                    ? new GameObject(rigName).transform
-                    : rigTransformLookup.transform;
-
-                if (CameraTransform.parent != rigTransform)
-                {
-                    CameraTransform.SetParent(rigTransform);
-                }
-
-                if (BodyTransform.parent != rigTransform)
-                {
-                    BodyTransform.SetParent(rigTransform);
-                }
-
-                // It's very important that the rig transform aligns with the tracked space,
-                // otherwise world-locked things like boundaries won't be aligned properly.
-                // For now, we'll just assume that when the rig is first initialized, the
-                // tracked space origin overlaps with the world space origin. If a platform ever does
-                // something else (i.e, placing the lower left hand corner of the tracked space at world
-                // space 0,0,0), we should compensate for that here.
-                return rigTransform;
-            }
-        }
-
-        /// <inheritdoc />
-        public Transform CameraTransform => PlayerCamera == null ? null : playerCamera.transform;
 
         [SerializeField]
         private Camera playerCamera = null;
 
-        /// <inheritdoc />
-        public Camera PlayerCamera
-        {
-            get
-            {
-                if (playerCamera != null)
-                {
-                    return playerCamera;
-                }
-
-                if (ServiceManager.Instance.IsApplicationQuitting)
-                {
-                    return null;
-                }
-
-                // Currently the XRTK only supports a single player/user
-                // So for now we will always reference the tagged MainCamera.
-                if (playerCamera == null)
-                {
-                    playerCamera = CameraCache.Main;
-                }
-
-                if (playerCamera.transform.parent == null)
-                {
-                    playerCamera.transform.SetParent(RigTransform);
-                }
-                else
-                {
-                    rigTransform = playerCamera.transform.parent;
-                }
-
-                return playerCamera;
-            }
-        }
+        [SerializeField]
+        private Transform bodyTransform = null;
 
         [SerializeField]
         private TrackedPoseDriver cameraPoseDriver = null;
 
         /// <inheritdoc />
-        public TrackedPoseDriver CameraPoseDriver
-        {
-            get
-            {
-                if (cameraPoseDriver != null)
-                {
-                    return cameraPoseDriver;
-                }
-
-                if (ServiceManager.Instance.IsApplicationQuitting)
-                {
-                    return null;
-                }
-
-                cameraPoseDriver = PlayerCamera.gameObject.EnsureComponent<TrackedPoseDriver>();
-                cameraPoseDriver.UseRelativeTransform = false;
-
-                Debug.Assert(cameraPoseDriver != null);
-
-                return cameraPoseDriver;
-            }
-        }
-
-        [SerializeField]
-        private string playerBodyName = "PlayerBody";
-
-        [SerializeField]
-        private Transform bodyTransform = null;
+        public GameObject GameObject => gameObject;
 
         /// <inheritdoc />
-        public Transform BodyTransform
-        {
-            get
-            {
-                if (bodyTransform != null)
-                {
-                    return bodyTransform;
-                }
+        public Transform RigTransform => rigTransform;
 
-                if (ServiceManager.Instance.IsApplicationQuitting)
-                {
-                    return null;
-                }
+        /// <inheritdoc />
+        public Camera PlayerCamera => playerCamera;
 
-                if (bodyTransform == null)
-                {
-                    bodyTransform = RigTransform.Find(playerBodyName);
-                }
+        /// <inheritdoc />
+        public Transform CameraTransform => PlayerCamera == null ? null : PlayerCamera.transform;
 
-                if (bodyTransform == null)
-                {
-                    bodyTransform = new GameObject(playerBodyName).transform;
-                    bodyTransform.transform.SetParent(RigTransform);
-                }
+        /// <inheritdoc />
+        public Transform BodyTransform => bodyTransform;
 
-                return bodyTransform;
-            }
-        }
-
-        #endregion IMixedRealityCameraRig Implementation
-
-        #region MonoBehaviour Implementation
-
-        private void OnValidate()
-        {
-            if (rigTransform != null &&
-                !rigTransform.name.Equals(rigName))
-            {
-                rigTransform.name = rigName;
-            }
-
-            if (bodyTransform != null &&
-                !bodyTransform.name.Equals(playerBodyName))
-            {
-                bodyTransform.name = playerBodyName;
-            }
-
-            if (PlayerCamera.transform.parent.name != rigName)
-            {
-                // Since the scene is set up with a different camera parent, its likely
-                // that there's an expectation that that parent is going to be used for
-                // something else. We print a warning to call out the fact that we're
-                // co-opting this object for use with teleporting and such, since that
-                // might cause conflicts with the parent's intended purpose.
-                Debug.LogWarning($"The Reality Toolkit expected the camera\'s parent to be named {rigName}. The existing parent will be renamed and used instead.\nPlease ensure youe scene is configured properly in the editor using \'MixedRealityToolkit -> Configure..\'");
-                // If we rename it, we make it clearer that why it's being teleported around at runtime.
-                PlayerCamera.transform.parent.name = rigName;
-            }
-        }
+        /// <inheritdoc />
+        public TrackedPoseDriver CameraPoseDriver => cameraPoseDriver;
 
         private void Start()
         {
+            if (CameraPoseDriver.IsNull())
+            {
+                cameraPoseDriver = PlayerCamera.gameObject.EnsureComponent<TrackedPoseDriver>();
+                cameraPoseDriver.UseRelativeTransform = false;
+            }
+
             if (ServiceManager.Instance != null &&
                 ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                 && CameraPoseDriver.IsNotNull())
@@ -240,7 +75,5 @@ namespace RealityToolkit.CameraService
                 }
             }
         }
-
-        #endregion MonoBehaviour Implementation
     }
 }

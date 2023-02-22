@@ -128,7 +128,7 @@ namespace RealityToolkit.Utilities.Solvers
         {
             var desiredRot = Quaternion.identity;
             var cameraTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                ? cameraSystem.MainCameraRig.CameraTransform
+                ? cameraSystem.CameraRig.CameraTransform
                 : CameraCache.Main.transform;
 
             switch (orientationType)

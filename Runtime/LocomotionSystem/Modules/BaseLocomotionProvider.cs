@@ -47,7 +47,7 @@ namespace RealityToolkit.LocomotionSystem.Modules
             get
             {
                 return ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                    ? cameraSystem.MainCameraRig.CameraTransform
+                    ? cameraSystem.CameraRig.CameraTransform
                     : CameraCache.Main.transform;
             }
         }

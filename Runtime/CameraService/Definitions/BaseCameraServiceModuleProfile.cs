@@ -17,6 +17,14 @@ namespace RealityToolkit.CameraService.Definitions
     public class BaseCameraServiceModuleProfile : BaseProfile
     {
         [Header("General")]
+        [SerializeField, Tooltip("The camera rig prefab used by this service module."), Prefab]
+        private GameObject rigPrefab = null;
+
+        /// <summary>
+        /// The camera rig prefab used by this service module.
+        /// </summary>
+        public GameObject RigPrefab => rigPrefab;
+
         [SerializeField]
         [Tooltip("Sets the tracking type of the camera.")]
         private TrackingType trackingType = TrackingType.Auto;

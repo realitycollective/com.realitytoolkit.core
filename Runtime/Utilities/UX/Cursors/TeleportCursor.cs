@@ -105,7 +105,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             transform.position = focusDetails.EndPoint;
 
             var cameraTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                ? cameraSystem.MainCameraRig.CameraTransform
+                ? cameraSystem.CameraRig.CameraTransform
                 : CameraCache.Main.transform;
             var forward = cameraTransform.forward;
             forward.y = 0f;

@@ -6,7 +6,6 @@ using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraService.Definitions;
 using RealityToolkit.CameraService.Interfaces;
-using RealityToolkit.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -30,55 +29,17 @@ namespace RealityToolkit.CameraService
             : base(name, priority) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        private readonly HashSet<ICameraServiceModule> cameraDataProviders = new HashSet<ICameraServiceModule>();
-
+        private ICameraServiceModule cameraServiceModule;
         public const string DefaultXRCameraRigName = "XRCameraRig";
 
         /// <inheritdoc />
         public override uint Priority => 0;
 
         /// <inheritdoc />
-        public IReadOnlyCollection<ICameraServiceModule> CameraDataProviders => cameraDataProviders;
-
-        private ICameraRig mainCameraRig = null;
-        /// <inheritdoc />
-        public ICameraRig MainCameraRig
-        {
-            get
-            {
-                if (mainCameraRig == null)
-                {
-                    foreach (var dataProvider in cameraDataProviders)
-                    {
-                        if (dataProvider.CameraRig.PlayerCamera == CameraCache.Main)
-                        {
-                            mainCameraRig = dataProvider.CameraRig;
-                        }
-                    }
-                }
-
-                return mainCameraRig;
-            }
-        }
+        public ICameraRig CameraRig => cameraServiceModule != null ? cameraServiceModule.CameraRig : null;
 
         /// <inheritdoc />
-        public TrackingType TrackingType
-        {
-            get
-            {
-                foreach (var dataProvider in cameraDataProviders)
-                {
-                    if (dataProvider.CameraRig.PlayerCamera == CameraCache.Main)
-                    {
-                        return dataProvider.TrackingType;
-                    }
-                }
-
-                // If we can't find the active camera service module we must rely
-                // on whatever the platform default is.
-                return TrackingType.Auto;
-            }
-        }
+        public TrackingType TrackingType => cameraServiceModule != null ? cameraServiceModule.TrackingType : TrackingType.Auto;
 
         private static XRDisplaySubsystem displaySubsystem = null;
         /// <inheritdoc />
@@ -109,16 +70,12 @@ namespace RealityToolkit.CameraService
         }
 
         /// <inheritdoc />
-        public override void Destroy()
+        public override void Initialize()
         {
-            base.Destroy();
-            Debug.Assert(cameraDataProviders.Count == 0, "Failed to clean up camera service module references!");
+            var cameraServiceModules = ServiceManager.Instance.GetServices<ICameraServiceModule>();
+            Debug.Assert(cameraServiceModules.Count > 0, $"There must be an active {nameof(ICameraServiceModule)}. Please check your {nameof(CameraServiceProfile)} configuration.");
+            Debug.Assert(cameraServiceModules.Count < 2, $"There should only ever be one active {nameof(ICameraServiceModule)}. Please check your {nameof(CameraServiceProfile)} configuration.");
+            cameraServiceModule = cameraServiceModules[0];
         }
-
-        /// <inheritdoc />
-        public void RegisterCameraDataProvider(ICameraServiceModule dataProvider) => cameraDataProviders.Add(dataProvider);
-
-        /// <inheritdoc />
-        public void UnRegisterCameraDataProvider(ICameraServiceModule dataProvider) => cameraDataProviders.Remove(dataProvider);
     }
 }
