@@ -32,5 +32,5 @@ The simplest way to getting started using the core platform package in your proj
 
 | branch | build status |
 | --- | --- |
-| main | [![main](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/development-buildandtestupmrelease.yml/badge.svg?branch=main)](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/development-buildandtestupmrelease.yml) |
-| development | [![development](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/main-publish.yml/badge.svg?branch=development)](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/main-publish.yml)|
+| main | [![main](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/main-publish.yml/badge.svg?branch=main)](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/main-publish.yml) |
+| development | [![development](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/development-buildandtestupmrelease.yml/badge.svg?branch=development)](https://github.com/realitycollective/com.realitytoolkit.core/actions/workflows/development-buildandtestupmrelease.yml)|
