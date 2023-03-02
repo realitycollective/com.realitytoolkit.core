@@ -588,7 +588,6 @@ namespace RealityToolkit.InputSystem.Modules
             uiRaycastCamera.enabled = false;
             uiRaycastCamera.clearFlags = CameraClearFlags.Color;
             uiRaycastCamera.backgroundColor = new Color(0, 0, 0, 1);
-            uiRaycastCamera.cullingMask = Camera.main.cullingMask;
             uiRaycastCamera.orthographic = true;
             uiRaycastCamera.orthographicSize = 0.5f;
             uiRaycastCamera.nearClipPlane = 0.0f;
@@ -602,6 +601,11 @@ namespace RealityToolkit.InputSystem.Modules
             uiRaycastCamera.allowDynamicResolution = false;
             uiRaycastCamera.targetDisplay = 0;
             uiRaycastCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+
+            if (Camera.main.IsNotNull())
+            {
+                uiRaycastCamera.cullingMask = Camera.main.cullingMask;
+            }
 
             if (uiRaycastCameraTargetTexture == null)
             {
