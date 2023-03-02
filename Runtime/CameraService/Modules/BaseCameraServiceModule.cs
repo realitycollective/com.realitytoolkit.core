@@ -23,15 +23,9 @@ namespace RealityToolkit.CameraService.Modules
         {
             cameraSystem = parentService;
 
-            if (profile.CameraRigType?.Type == null)
-            {
-                throw new Exception($"{nameof(profile.CameraRigType)} cannot be null!");
-            }
-
             rigPrefab = profile.RigPrefab;
             eyeTextureResolution = profile.EyeTextureResolution;
             isCameraPersistent = profile.IsCameraPersistent;
-            cameraRigType = profile.CameraRigType.Type;
             applyQualitySettings = profile.ApplyQualitySettings;
 
             TrackingType = profile.TrackingType;
@@ -57,7 +51,6 @@ namespace RealityToolkit.CameraService.Modules
         private readonly GameObject rigPrefab;
         private readonly float eyeTextureResolution;
         private readonly bool isCameraPersistent;
-        private readonly Type cameraRigType;
         private readonly bool applyQualitySettings;
         private readonly float nearClipPlaneTransparentDisplay;
         private readonly CameraClearFlags cameraClearFlagsTransparentDisplay;
@@ -112,8 +105,6 @@ namespace RealityToolkit.CameraService.Modules
         /// <inheritdoc />
         public override void Initialize()
         {
-            base.Initialize();
-
             EnsureCameraRigSetup(true);
 
             if (!Application.isPlaying)
@@ -148,10 +139,8 @@ namespace RealityToolkit.CameraService.Modules
         }
 
         /// <inheritdoc />
-        public override void Enable()
+        public override void Start()
         {
-            base.Enable();
-
             EnsureCameraRigSetup(false);
 
             if (Application.isPlaying &&
@@ -164,13 +153,6 @@ namespace RealityToolkit.CameraService.Modules
         /// <inheritdoc />
         public override void Update()
         {
-            base.Update();
-
-            if (!Application.isPlaying)
-            {
-                return;
-            }
-
             if (cameraOpaqueLastFrame != IsOpaque)
             {
                 cameraOpaqueLastFrame = IsOpaque;
@@ -201,18 +183,12 @@ namespace RealityToolkit.CameraService.Modules
         /// <inheritdoc />
         public override void LateUpdate()
         {
-            base.LateUpdate();
-
-            if (!Application.isPlaying) { return; }
-
             SyncRigTransforms();
         }
 
         /// <inheritdoc />
         public override void Disable()
         {
-            base.Disable();
-
             if (CameraRig == null ||
                 CameraRig.GameObject.IsNull())
             {
@@ -221,24 +197,9 @@ namespace RealityToolkit.CameraService.Modules
 
             ResetRigTransforms();
 
-            if (!CameraRig.PlayerCamera.IsNull() &&
-                !CameraRig.PlayerCamera.transform.IsNull())
+            if (CameraRig.GameObject.IsNotNull())
             {
-                var cameraTransform = CameraRig.PlayerCamera.transform;
-                cameraTransform.SetParent(null);
-                cameraTransform.position = Vector3.one;
-                cameraTransform.rotation = Quaternion.identity;
-            }
-
-            if (CameraRig.RigTransform != null)
-            {
-                CameraRig.RigTransform.gameObject.Destroy();
-            }
-
-            if (CameraRig is Component component &&
-                component is ICameraRig)
-            {
-                component.Destroy();
+                CameraRig.GameObject.Destroy();
             }
         }
 
@@ -246,12 +207,31 @@ namespace RealityToolkit.CameraService.Modules
 
         private void EnsureCameraRigSetup(bool resetCameraToOrigin)
         {
+            // If we don't have a rig reference yet...
             if (CameraRig == null)
             {
-                CameraRig = UnityEngine.Object.FindObjectOfType(cameraRigType) as ICameraRig;
+                // We first try and lookup an existing rig in the scene...
+                if (Camera.main.IsNotNull())
+                {
+                    CameraRig = Camera.main.transform.root.GetComponentInChildren<ICameraRig>();
+                }
+
+                // If we still don't have a rig, then and only then we create a new rig instance.
                 if (CameraRig == null)
                 {
-                    CameraRig = UnityEngine.Object.Instantiate(rigPrefab).GetComponent(cameraRigType) as ICameraRig;
+#if UNITY_EDITOR
+                    if (Application.isPlaying)
+                    {
+                        CameraRig = UnityEngine.Object.Instantiate(rigPrefab).GetComponent<ICameraRig>();
+                    }
+                    else
+                    {
+                        var go = UnityEditor.PrefabUtility.InstantiatePrefab(rigPrefab) as GameObject;
+                        CameraRig = go.GetComponent<ICameraRig>();
+                    }
+#else
+                    CameraRig = UnityEngine.Object.Instantiate(rigPrefab).GetComponent<ICameraRig>();
+#endif
                 }
 
                 Debug.Assert(CameraRig != null);

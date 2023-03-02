@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
-using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.CameraService.Interfaces;
 using System;
@@ -62,20 +61,6 @@ namespace RealityToolkit.CameraService.Definitions
         /// If so, then the camera's root will be flagged so it is not destroyed when the scene is unloaded.
         /// </summary>
         public bool IsCameraPersistent => isCameraPersistent;
-
-        [SerializeField]
-        [Tooltip("The concrete type to use for the camera rig.")]
-        [Implements(typeof(ICameraRig), TypeGrouping.ByNamespaceFlat)]
-        private SystemType cameraRigType = new SystemType(typeof(DefaultCameraRig));
-
-        /// <summary>
-        /// The concrete type to use for the camera rig.
-        /// </summary>
-        public SystemType CameraRigType
-        {
-            get => cameraRigType;
-            internal set => cameraRigType = value;
-        }
 
         [Range(0f, 3f)]
         [SerializeField]
