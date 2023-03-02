@@ -10,7 +10,6 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Interfaces;
-using RealityToolkit.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.LocomotionSystem.Modules
@@ -48,7 +47,7 @@ namespace RealityToolkit.LocomotionSystem.Modules
             {
                 return ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                     ? cameraSystem.CameraRig.CameraTransform
-                    : CameraCache.Main.transform;
+                    : Camera.main.transform;
             }
         }
 

@@ -279,7 +279,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
                 switch (pivotDirectionOrient)
                 {
                     case ConnectorOrientType.OrientToCamera:
-                        relativeTo = CameraCache.Main.transform;
+                        relativeTo = Camera.main.transform;
                         break;
 
                     case ConnectorOrientType.OrientToObject:

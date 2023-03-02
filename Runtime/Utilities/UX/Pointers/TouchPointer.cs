@@ -69,7 +69,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
             var playerCamera = CameraSystem != null
                 ? CameraSystem.CameraRig.PlayerCamera
-                : CameraCache.Main;
+                : Camera.main;
             position = Result.CurrentPointerTarget != null
                 ? Result.EndPoint
                 : playerCamera.ScreenPointToRay(UnityEngine.Input.GetTouch(FingerId).position).GetPoint(PointerExtent);

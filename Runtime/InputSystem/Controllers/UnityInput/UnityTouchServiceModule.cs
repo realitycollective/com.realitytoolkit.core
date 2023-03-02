@@ -38,7 +38,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
                 var touch = Input.touches[i];
 
                 // Construct a ray from the current touch coordinates
-                var ray = CameraCache.Main.ScreenPointToRay(touch.position);
+                var ray = Camera.main.ScreenPointToRay(touch.position);
 
                 switch (touch.phase)
                 {

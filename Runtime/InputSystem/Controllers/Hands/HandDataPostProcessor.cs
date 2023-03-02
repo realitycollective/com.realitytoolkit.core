@@ -49,7 +49,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraSystem != null ? CameraSystem.CameraRig.PlayerCamera : CameraCache.Main;
+                    playerCamera = CameraSystem != null ? CameraSystem.CameraRig.PlayerCamera : Camera.main;
                 }
 
                 return playerCamera;
@@ -140,7 +140,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             {
                 var rigTransform = CameraSystem != null
                     ? CameraSystem.CameraRig.RigTransform
-                    : CameraCache.Main.transform.parent;
+                    : Camera.main.transform.parent;
                 var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
                 var worldPalmPose = new MixedRealityPose
                 {

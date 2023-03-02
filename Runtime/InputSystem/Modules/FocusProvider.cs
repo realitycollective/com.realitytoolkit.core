@@ -588,7 +588,7 @@ namespace RealityToolkit.InputSystem.Modules
             uiRaycastCamera.enabled = false;
             uiRaycastCamera.clearFlags = CameraClearFlags.Color;
             uiRaycastCamera.backgroundColor = new Color(0, 0, 0, 1);
-            uiRaycastCamera.cullingMask = CameraCache.Main.cullingMask;
+            uiRaycastCamera.cullingMask = Camera.main.cullingMask;
             uiRaycastCamera.orthographic = true;
             uiRaycastCamera.orthographicSize = 0.5f;
             uiRaycastCamera.nearClipPlane = 0.0f;

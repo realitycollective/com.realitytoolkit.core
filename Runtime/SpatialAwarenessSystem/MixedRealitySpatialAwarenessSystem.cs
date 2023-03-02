@@ -59,7 +59,7 @@ namespace RealityToolkit.SpatialAwarenessSystem
                 var spatialAwarenessSystemObject = new GameObject("Spatial Awareness System");
                 var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                     ? cameraSystem.CameraRig.RigTransform
-                    : CameraCache.Main.transform.parent;
+                    : Camera.main.transform.parent;
                 spatialAwarenessSystemObject.transform.SetParent(rigTransform, false);
                 return spatialAwarenessSystemObject;
             }

@@ -5,7 +5,6 @@ using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.LocomotionSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Interfaces;
-using RealityToolkit.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Services.LocomotionSystem.Modules
@@ -41,8 +40,8 @@ namespace RealityToolkit.Services.LocomotionSystem.Modules
             TeleportValidationResult teleportValidationResult;
 
             // Check distance.
-            if ((pointerResult.EndPoint - CameraCache.Main.transform.position).sqrMagnitude > maxDistanceSquare ||
-                Mathf.Abs(pointerResult.EndPoint.y - CameraCache.Main.transform.position.y) > maxHeightDistance)
+            if ((pointerResult.EndPoint - Camera.main.transform.position).sqrMagnitude > maxDistanceSquare ||
+                Mathf.Abs(pointerResult.EndPoint.y - Camera.main.transform.position.y) > maxHeightDistance)
             {
                 teleportValidationResult = TeleportValidationResult.Invalid;
             }
