@@ -11,9 +11,8 @@ using UnityEngine.SpatialTracking;
 namespace RealityToolkit.CameraService
 {
     /// <summary>
-    /// The default <see cref="ICameraRig"/> for the XRTK.
+    /// The default <see cref="ICameraRig"/>.
     /// </summary>
-    [ExecuteAlways]
     [System.Runtime.InteropServices.Guid("8E0EE4FC-C8A5-4B10-9FCA-EE55B6D421FF")]
     public class DefaultCameraRig : MonoBehaviour, ICameraRig
     {
