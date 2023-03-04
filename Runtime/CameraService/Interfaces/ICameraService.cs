@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityToolkit.CameraService.Definitions;
 using UnityEngine.XR;
 
 namespace RealityToolkit.CameraService.Interfaces
@@ -18,9 +17,9 @@ namespace RealityToolkit.CameraService.Interfaces
         ICameraRig CameraRig { get; }
 
         /// <summary>
-        /// Gets the configured <see cref="TrackingType"/> for the active <see cref="ICameraRig"/>.
+        /// The active <see cref="ICameraServiceModule"/> managing the <see cref="CameraRig"/>.
         /// </summary>
-        TrackingType TrackingType { get; }
+        ICameraServiceModule CameraServiceModule { get; }
 
         /// <summary>
         /// Gets the active <see cref="XRDisplaySubsystem"/> for the currently loaded

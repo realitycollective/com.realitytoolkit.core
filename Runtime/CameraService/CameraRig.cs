@@ -11,10 +11,11 @@ using UnityEngine.SpatialTracking;
 namespace RealityToolkit.CameraService
 {
     /// <summary>
-    /// The default <see cref="ICameraRig"/>.
+    /// The default <see cref="ICameraRig"/> implmentation.
+    /// Use it as it is or use it as starting point for your own implementation.
     /// </summary>
     [System.Runtime.InteropServices.Guid("8E0EE4FC-C8A5-4B10-9FCA-EE55B6D421FF")]
-    public class DefaultCameraRig : MonoBehaviour, ICameraRig
+    public class CameraRig : MonoBehaviour, ICameraRig
     {
         [SerializeField]
         private Transform rigTransform = null;
@@ -46,7 +47,10 @@ namespace RealityToolkit.CameraService
         /// <inheritdoc />
         public TrackedPoseDriver CameraPoseDriver => cameraPoseDriver;
 
-        private void Start()
+        /// <summary>
+        /// Called just before any of the update callbacks is called the first time.
+        /// </summary>
+        protected virtual void Start()
         {
             if (CameraPoseDriver.IsNull())
             {
@@ -58,7 +62,7 @@ namespace RealityToolkit.CameraService
                 ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
                 && CameraPoseDriver.IsNotNull())
             {
-                switch (cameraSystem.TrackingType)
+                switch (cameraSystem.CameraServiceModule.TrackingType)
                 {
                     case TrackingType.SixDegreesOfFreedom:
                         CameraPoseDriver.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;

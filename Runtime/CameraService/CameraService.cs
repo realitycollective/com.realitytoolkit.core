@@ -29,17 +29,16 @@ namespace RealityToolkit.CameraService
             : base(name, priority) { }
 
         private static readonly List<XRDisplaySubsystem> xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        private ICameraServiceModule cameraServiceModule;
         public const string DefaultXRCameraRigName = "XRCameraRig";
 
         /// <inheritdoc />
         public override uint Priority => 0;
 
         /// <inheritdoc />
-        public ICameraRig CameraRig => cameraServiceModule != null ? cameraServiceModule.CameraRig : null;
+        public ICameraRig CameraRig => CameraServiceModule != null ? CameraServiceModule.CameraRig : null;
 
         /// <inheritdoc />
-        public TrackingType TrackingType => cameraServiceModule != null ? cameraServiceModule.TrackingType : TrackingType.Auto;
+        public ICameraServiceModule CameraServiceModule { get; private set; }
 
         private static XRDisplaySubsystem displaySubsystem = null;
         /// <inheritdoc />
@@ -75,7 +74,7 @@ namespace RealityToolkit.CameraService
             var cameraServiceModules = ServiceManager.Instance.GetServices<ICameraServiceModule>();
             Debug.Assert(cameraServiceModules.Count > 0, $"There must be an active {nameof(ICameraServiceModule)}. Please check your {nameof(CameraServiceProfile)} configuration.");
             Debug.Assert(cameraServiceModules.Count < 2, $"There should only ever be one active {nameof(ICameraServiceModule)}. Please check your {nameof(CameraServiceProfile)} configuration.");
-            cameraServiceModule = cameraServiceModules[0];
+            CameraServiceModule = cameraServiceModules[0];
         }
     }
 }
