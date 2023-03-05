@@ -12,7 +12,6 @@ using RealityToolkit.SpatialAwarenessSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.Handlers;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
 using RealityToolkit.SpatialAwarenessSystem.Modules;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

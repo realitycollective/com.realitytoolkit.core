@@ -11,7 +11,6 @@ using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.InputSystem.Pointers;
-using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
 using System;
 using UnityEngine;
