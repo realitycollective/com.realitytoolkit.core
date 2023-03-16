@@ -7,6 +7,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Editor;
+using RealityCollective.ServiceFramework.Editor.Packages;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities;
 using System.IO;
@@ -60,7 +61,7 @@ namespace RealityToolkit.Editor
             }
 
             var serviceManagerInstance = SetupServiceManager();
-            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
+            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", AssetsInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
 
             // Why is this here you wonder? Well, I have no idea but for some reason we need to give Unity
             // a bit of time after initializing the manager object and potentially copying over assets etc.
@@ -134,7 +135,7 @@ namespace RealityToolkit.Editor
         {
             if (!EditorPreferences.Get($"{nameof(CorePackageInstaller)}.Assets", false))
             {
-                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath));
+                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", AssetsInstaller.TryInstallAssets(hiddenPath, defaultPath));
             }
         }
 
