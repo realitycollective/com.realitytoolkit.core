@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
@@ -36,10 +36,10 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private const float FIVE_CENTIMETER_SQUARE_MAGNITUDE = 0.0025f;
         private const float PINCH_STRENGTH_DISTANCE = FIVE_CENTIMETER_SQUARE_MAGNITUDE - TWO_CENTIMETER_SQUARE_MAGNITUDE;
 
-        private static IMixedRealityCameraSystem cameraSystem = null;
+        private static ICameraService cameraSystem = null;
 
-        private static IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<IMixedRealityCameraSystem>());
+        private static ICameraService CameraSystem
+            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<ICameraService>());
 
         private static Camera playerCamera = null;
 
@@ -49,7 +49,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraSystem != null ? CameraSystem.MainCameraRig.PlayerCamera : CameraCache.Main;
+                    playerCamera = CameraSystem != null ? CameraSystem.CameraRig.PlayerCamera : Camera.main;
                 }
 
                 return playerCamera;
@@ -139,8 +139,8 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesIsPointing)
             {
                 var rigTransform = CameraSystem != null
-                    ? CameraSystem.MainCameraRig.RigTransform
-                    : CameraCache.Main.transform.parent;
+                    ? CameraSystem.CameraRig.RigTransform
+                    : Camera.main.transform.parent;
                 var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
                 var worldPalmPose = new MixedRealityPose
                 {

@@ -3,7 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
@@ -169,10 +169,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
         protected ILocomotionSystem LocomotionSystem
             => locomotionSystem ?? (locomotionSystem = ServiceManager.Instance.GetService<ILocomotionSystem>());
 
-        private IMixedRealityCameraSystem cameraSystem = null;
+        private ICameraService cameraSystem = null;
 
-        protected IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<IMixedRealityCameraSystem>());
+        protected ICameraService CameraSystem
+            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<ICameraService>());
 
         private Vector3 lastPointerPosition = Vector3.zero;
 

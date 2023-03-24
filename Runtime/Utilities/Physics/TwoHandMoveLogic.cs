@@ -44,8 +44,8 @@ namespace RealityToolkit.Utilities.Physics
 
             // We transform the forward vector of the object, the direction of the object, and the direction of the hand
             // to camera space so everything is relative to the user's perspective.
-            objDirection = CameraCache.Main.transform.InverseTransformDirection(objDirection);
-            handDirection = CameraCache.Main.transform.InverseTransformDirection(handDirection);
+            objDirection = Camera.main.transform.InverseTransformDirection(objDirection);
+            handDirection = Camera.main.transform.InverseTransformDirection(handDirection);
 
             // Store the original rotation between the hand an object
             gazeAngularOffset = Quaternion.FromToRotation(handDirection, objDirection);
@@ -58,11 +58,11 @@ namespace RealityToolkit.Utilities.Physics
 
             // Compute the pivot -> hand vector in camera space
             var newHandDirection = Vector3.Normalize(newHandPosition - pivotPosition);
-            newHandDirection = CameraCache.Main.transform.InverseTransformDirection(newHandDirection);
+            newHandDirection = Camera.main.transform.InverseTransformDirection(newHandDirection);
 
             // The direction the object should face is the current hand direction rotated by the original hand -> object rotation.
             var targetDirection = Vector3.Normalize(gazeAngularOffset * newHandDirection);
-            targetDirection = CameraCache.Main.transform.TransformDirection(targetDirection);
+            targetDirection = Camera.main.transform.TransformDirection(targetDirection);
 
             // Compute how far away the object should be based on the ratio of the current to original hand distance
             var currentHandDistance = Vector3.Magnitude(newHandPosition - pivotPosition);
@@ -86,7 +86,7 @@ namespace RealityToolkit.Utilities.Physics
         /// <returns>A point that is below and just in front of the head.</returns>
         public static Vector3 GetHandPivotPosition()
         {
-            var cameraTransform = CameraCache.Main.transform;
+            var cameraTransform = Camera.main.transform;
             return cameraTransform.position + offsetPosition - cameraTransform.forward * 0.2f; // a bit lower and behind
         }
     }

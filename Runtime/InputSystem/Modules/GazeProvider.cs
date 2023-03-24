@@ -3,7 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.InputSources;
@@ -11,7 +11,6 @@ using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.InputSystem.Pointers;
-using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
 using System;
 using UnityEngine;
@@ -432,9 +431,9 @@ namespace RealityToolkit.InputSystem.Modules
 
             if (gazeTransform == null)
             {
-                gazeTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
-                    ? cameraSystem.MainCameraRig.CameraTransform
-                    : CameraCache.Main.transform;
+                gazeTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
+                    ? cameraSystem.CameraRig.CameraTransform
+                    : Camera.main.transform;
             }
 
             if (gazeTransform == null)

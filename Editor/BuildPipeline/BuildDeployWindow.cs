@@ -3,9 +3,9 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
+using RealityCollective.ServiceFramework.Editor.Utilities;
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.Editor.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -98,9 +98,9 @@ namespace RealityToolkit.Editor.BuildPipeline
             EditorGUILayout.Space();
             EditorGUILayout.BeginVertical();
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("The Reality Toolkit", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
+            EditorGUILayout.LabelField("The Reality Toolkit", ServiceFrameworkInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField($"{MixedRealityPreferences.CurrentPlatformTarget.Name} Build Window", MixedRealityInspectorUtility.BoldCenteredHeaderStyle);
+            EditorGUILayout.LabelField($"{MixedRealityPreferences.CurrentPlatformTarget.Name} Build Window", ServiceFrameworkInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             EditorGUI.BeginChangeCheck();
