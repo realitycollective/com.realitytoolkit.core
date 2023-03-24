@@ -6,6 +6,8 @@ using RealityCollective.Editor.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework;
 using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Editor;
+using RealityCollective.ServiceFramework.Editor.Packages;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities;
 using System.IO;
@@ -27,6 +29,7 @@ namespace RealityToolkit.Editor
     [InitializeOnLoad]
     internal static class CorePackageInstaller
     {
+        private const string CORE_PATH_FINDER = "/Editor/Utilities/CorePathFinder.cs";
         private static readonly string defaultPath = $"{MixedRealityPreferences.ProfileGenerationPath}Core";
         private static readonly string hiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(CorePathFinder))}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
         const string configureMenuItemPath = MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...";
@@ -58,7 +61,7 @@ namespace RealityToolkit.Editor
             }
 
             var serviceManagerInstance = SetupServiceManager();
-            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
+            EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", AssetsInstaller.TryInstallAssets(hiddenPath, defaultPath, false, true));
 
             // Why is this here you wonder? Well, I have no idea but for some reason we need to give Unity
             // a bit of time after initializing the manager object and potentially copying over assets etc.
@@ -132,8 +135,49 @@ namespace RealityToolkit.Editor
         {
             if (!EditorPreferences.Get($"{nameof(CorePackageInstaller)}.Assets", false))
             {
-                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(hiddenPath, defaultPath));
+                EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", AssetsInstaller.TryInstallAssets(hiddenPath, defaultPath));
             }
         }
+
+        #region Core Paths
+
+        /// <summary>
+        /// The absolute folder path to the Reality Toolkit in your project.
+        /// </summary>
+        public static string RTK_Core_AbsoluteFolderPath
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(coreAbsoluteFolderPath))
+                {
+                    coreAbsoluteFolderPath = Path.GetFullPath(RTK_Core_RelativeFolderPath);
+                }
+
+                return coreAbsoluteFolderPath.BackSlashes();
+            }
+        }
+
+        private static string coreAbsoluteFolderPath = string.Empty;
+
+        /// <summary>
+        /// The relative folder path to the Reality Toolkit Core module folder in relation to either the "Assets" or "Packages" folders.
+        /// </summary>
+        public static string RTK_Core_RelativeFolderPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(coreRelativeFolderPath))
+                {
+                    coreRelativeFolderPath = PathFinderUtility.ResolvePath(CORE_PATH_FINDER);
+                    Debug.Assert(!string.IsNullOrWhiteSpace(coreRelativeFolderPath));
+                }
+
+                return coreRelativeFolderPath;
+            }
+        }
+
+        private static string coreRelativeFolderPath = string.Empty;
+
+        #endregion Core Paths
     }
 }

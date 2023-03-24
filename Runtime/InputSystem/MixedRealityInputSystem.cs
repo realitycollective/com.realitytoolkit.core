@@ -140,7 +140,12 @@ namespace RealityToolkit.InputSystem
 
         private void RemoveGazeProvider()
         {
-            var component = CameraCache.Main.GetComponent<IMixedRealityGazeProvider>() as Component;
+            if (Camera.main.IsNull())
+            {
+                return;
+            }
+
+            var component = Camera.main.gameObject.GetComponent<IMixedRealityGazeProvider>() as Component;
             if (component.IsNotNull())
             {
                 component.Destroy();
@@ -149,7 +154,15 @@ namespace RealityToolkit.InputSystem
             GazeProvider = null;
         }
 
-        private void EnsureGazeProvider() => GazeProvider = CameraCache.Main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+        private void EnsureGazeProvider()
+        {
+            if (Camera.main.IsNull())
+            {
+                return;
+            }
+
+            GazeProvider = Camera.main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+        }
 
         private bool TryGetControllerWithPointersAttached(out IMixedRealityController controller)
         {
@@ -186,13 +199,7 @@ namespace RealityToolkit.InputSystem
 
             EnsureStandaloneInputModuleSetup();
 
-            if (!Application.isPlaying)
-            {
-                var cameraTransform = CameraCache.Main.transform;
-                cameraTransform.position = Vector3.zero;
-                cameraTransform.rotation = Quaternion.identity;
-            }
-            else
+            if (Application.isPlaying)
             {
                 var eventSystem = EventSystem.current;
                 sourceStateEventData = new SourceStateEventData(eventSystem);
@@ -237,10 +244,15 @@ namespace RealityToolkit.InputSystem
                     eventSystemGameObject.gameObject.EnsureComponent<StandaloneInputModule>();
                     Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
                 }
+                else if (Camera.main.IsNotNull())
+                {
+                    Camera.main.gameObject.EnsureComponent<StandaloneInputModule>();
+                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                }
                 else
                 {
-                    CameraCache.Main.gameObject.EnsureComponent<StandaloneInputModule>();
-                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                    var inputModuleObject = new GameObject(nameof(StandaloneInputModule), typeof(StandaloneInputModule));
+                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the scene.");
                 }
             }
             else if (standaloneInputModules.Length > 1)
@@ -274,9 +286,8 @@ namespace RealityToolkit.InputSystem
             {
                 RemoveGazeProvider();
 
-                var inputModule = CameraCache.Main.GetComponent<StandaloneInputModule>();
-
-                if (!inputModule.IsNull())
+                var inputModule = UnityEngine.Object.FindObjectOfType<StandaloneInputModule>();
+                if (inputModule.IsNotNull())
                 {
                     inputModule.Destroy();
                 }

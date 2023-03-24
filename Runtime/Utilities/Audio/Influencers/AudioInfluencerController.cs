@@ -195,7 +195,7 @@ namespace RealityToolkit.Utilities.Audio.Influencers
         private List<IAudioInfluencer> GetInfluencers()
         {
             var influencers = new List<IAudioInfluencer>();
-            Transform cameraTransform = CameraCache.Main.transform;
+            Transform cameraTransform = Camera.main.transform;
 
             var cameraTransformPosition = cameraTransform.position;
             var objectTransformPosition = gameObject.transform.position;

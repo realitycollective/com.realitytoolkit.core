@@ -5,14 +5,13 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.EventDatum.SpatialAwarenessSystem;
 using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.Handlers;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
 using RealityToolkit.SpatialAwarenessSystem.Modules;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,9 +56,9 @@ namespace RealityToolkit.SpatialAwarenessSystem
             get
             {
                 var spatialAwarenessSystemObject = new GameObject("Spatial Awareness System");
-                var rigTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
-                    ? cameraSystem.MainCameraRig.RigTransform
-                    : CameraCache.Main.transform.parent;
+                var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
+                    ? cameraSystem.CameraRig.RigTransform
+                    : Camera.main.transform.parent;
                 spatialAwarenessSystemObject.transform.SetParent(rigTransform, false);
                 return spatialAwarenessSystemObject;
             }

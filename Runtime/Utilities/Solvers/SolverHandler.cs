@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Utilities;
 using System;
 using System.Collections.Generic;
@@ -214,16 +214,16 @@ namespace RealityToolkit.Utilities.Solvers
         {
             Handedness = Handedness.None;
 
-            if (!ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem))
+            if (!ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem))
             {
-                Debug.LogError($"Failed to find the {nameof(IMixedRealityCameraSystem)}!");
+                Debug.LogError($"Failed to find the {nameof(ICameraService)}!");
                 return;
             }
 
             switch (TrackedObjectToReference)
             {
                 case TrackedObjectType.Head:
-                    TrackTransform(cameraSystem.MainCameraRig.CameraTransform);
+                    TrackTransform(cameraSystem.CameraRig.CameraTransform);
                     break;
                 case TrackedObjectType.LeftHandOrController:
                     Handedness = Handedness.Left;
@@ -232,10 +232,10 @@ namespace RealityToolkit.Utilities.Solvers
                     Handedness = Handedness.Right;
                     break;
                 case TrackedObjectType.Body:
-                    TrackTransform(cameraSystem.MainCameraRig.BodyTransform);
+                    TrackTransform(cameraSystem.CameraRig.BodyTransform);
                     break;
                 case TrackedObjectType.Rig:
-                    TrackTransform(cameraSystem.MainCameraRig.RigTransform);
+                    TrackTransform(cameraSystem.CameraRig.RigTransform);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
