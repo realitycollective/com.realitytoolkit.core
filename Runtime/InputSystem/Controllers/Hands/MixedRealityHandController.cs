@@ -7,7 +7,6 @@ using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Extensions;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using RealityToolkit.InputSystem.Interfaces.Modules;
@@ -44,7 +43,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private readonly Bounds[] cachedRingFingerBounds = new Bounds[2];
         private readonly Bounds[] cachedLittleFingerBounds = new Bounds[2];
         private readonly Dictionary<TrackedHandBounds, Bounds[]> bounds = new Dictionary<TrackedHandBounds, Bounds[]>();
-        private readonly Dictionary<TrackedHandJoint, MixedRealityPose> jointPoses = new Dictionary<TrackedHandJoint, MixedRealityPose>();
+        private readonly Dictionary<TrackedHandJoint, Pose> jointPoses = new Dictionary<TrackedHandJoint, Pose>();
         private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
         private readonly Queue<bool> isGrippingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
         private readonly Queue<bool> isPointingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
@@ -53,7 +52,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private float deltaTimeStart = 0;
 
         private HandMeshData lastHandMeshData = HandMeshData.Empty;
-        private MixedRealityPose lastHandRootPose;
+        private Pose lastHandRootPose;
         private Vector3 lastPalmNormal = Vector3.zero;
         private Vector3 lastPalmPosition = Vector3.zero;
 
@@ -88,7 +87,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         /// <summary>
         /// Gets the current palm normal of the hand controller.
         /// </summary>
-        private Vector3 PalmNormal => TryGetJointPose(TrackedHandJoint.Palm, out var pose) ? -pose.Up : Vector3.zero;
+        private Vector3 PalmNormal => TryGetJointPose(TrackedHandJoint.Palm, out var pose) ? -pose.up : Vector3.zero;
 
         /// <summary>
         /// Is pinching state from the previous update frame.
@@ -129,17 +128,17 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         /// <summary>
         /// The hand's pointer pose in the camera rig's local coordinate space.
         /// </summary>
-        private MixedRealityPose SpatialPointerPose { get; set; }
+        private Pose SpatialPointerPose { get; set; }
 
         /// <summary>
         /// The hand's index finger tip pose in the camera rig's local coordinate space.
         /// </summary>
-        private MixedRealityPose IndexFingerTipPose { get; set; }
+        private Pose IndexFingerTipPose { get; set; }
 
         /// <summary>
         /// The hand's grip pose in the camera rig's local coordinate space.
         /// </summary>
-        private MixedRealityPose GripPose { get; set; }
+        private Pose GripPose { get; set; }
 
         /// <summary>
         /// Updates the hand controller with new hand data input.
@@ -238,23 +237,23 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Excluding the thumb here.
 
                 // Index
-                var indexPalmBounds = new Bounds(indexMetacarpalPose.Position, Vector3.zero);
-                indexPalmBounds.Encapsulate(indexKnucklePose.Position);
+                var indexPalmBounds = new Bounds(indexMetacarpalPose.position, Vector3.zero);
+                indexPalmBounds.Encapsulate(indexKnucklePose.position);
                 cachedPalmBounds[0] = indexPalmBounds;
 
                 // Middle
-                var middlePalmBounds = new Bounds(middleMetacarpalPose.Position, Vector3.zero);
-                middlePalmBounds.Encapsulate(middleKnucklePose.Position);
+                var middlePalmBounds = new Bounds(middleMetacarpalPose.position, Vector3.zero);
+                middlePalmBounds.Encapsulate(middleKnucklePose.position);
                 cachedPalmBounds[1] = middlePalmBounds;
 
                 // Ring
-                var ringPalmBounds = new Bounds(ringMetacarpalPose.Position, Vector3.zero);
-                ringPalmBounds.Encapsulate(ringKnucklePose.Position);
+                var ringPalmBounds = new Bounds(ringMetacarpalPose.position, Vector3.zero);
+                ringPalmBounds.Encapsulate(ringKnucklePose.position);
                 cachedPalmBounds[2] = ringPalmBounds;
 
                 // Pinky
-                var pinkyPalmBounds = new Bounds(pinkyMetacarpalPose.Position, Vector3.zero);
-                pinkyPalmBounds.Encapsulate(pinkyKnucklePose.Position);
+                var pinkyPalmBounds = new Bounds(pinkyMetacarpalPose.position, Vector3.zero);
+                pinkyPalmBounds.Encapsulate(pinkyKnucklePose.position);
                 cachedPalmBounds[3] = pinkyPalmBounds;
 
                 // Update cached bounds entry.
@@ -273,7 +272,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         {
             if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose))
             {
-                var newHandBounds = new Bounds(palmPose.Position, Vector3.zero);
+                var newHandBounds = new Bounds(palmPose.position, Vector3.zero);
 
                 foreach (var kvp in jointPoses)
                 {
@@ -282,7 +281,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                         continue;
                     }
 
-                    newHandBounds.Encapsulate(kvp.Value.Position);
+                    newHandBounds.Encapsulate(kvp.Value.position);
                 }
 
                 if (bounds.ContainsKey(TrackedHandBounds.Hand))
@@ -305,13 +304,13 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Thumb bounds include metacarpal -> proximal and proximal -> tip bounds.
 
                 // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
+                var knuckleToMiddleBounds = new Bounds(knucklePose.position, Vector3.zero);
+                knuckleToMiddleBounds.Encapsulate(middlePose.position);
                 cachedThumbBounds[0] = knuckleToMiddleBounds;
 
                 // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
+                var middleToTipBounds = new Bounds(middlePose.position, Vector3.zero);
+                middleToTipBounds.Encapsulate(tipPose.position);
                 cachedThumbBounds[1] = middleToTipBounds;
 
                 // Update cached bounds entry.
@@ -335,13 +334,13 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Index finger bounds include knuckle -> middle and middle -> tip bounds.
 
                 // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
+                var knuckleToMiddleBounds = new Bounds(knucklePose.position, Vector3.zero);
+                knuckleToMiddleBounds.Encapsulate(middlePose.position);
                 cachedIndexFingerBounds[0] = knuckleToMiddleBounds;
 
                 // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
+                var middleToTipBounds = new Bounds(middlePose.position, Vector3.zero);
+                middleToTipBounds.Encapsulate(tipPose.position);
                 cachedIndexFingerBounds[1] = middleToTipBounds;
 
                 // Update cached bounds entry.
@@ -365,13 +364,13 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Middle finger bounds include knuckle -> middle and middle -> tip bounds.
 
                 // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
+                var knuckleToMiddleBounds = new Bounds(knucklePose.position, Vector3.zero);
+                knuckleToMiddleBounds.Encapsulate(middlePose.position);
                 cachedMiddleFingerBounds[0] = knuckleToMiddleBounds;
 
                 // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
+                var middleToTipBounds = new Bounds(middlePose.position, Vector3.zero);
+                middleToTipBounds.Encapsulate(tipPose.position);
                 cachedMiddleFingerBounds[1] = middleToTipBounds;
 
                 // Update cached bounds entry.
@@ -395,13 +394,13 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Ring finger bounds include knuckle -> middle and middle -> tip bounds.
 
                 // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
+                var knuckleToMiddleBounds = new Bounds(knucklePose.position, Vector3.zero);
+                knuckleToMiddleBounds.Encapsulate(middlePose.position);
                 cachedRingFingerBounds[0] = knuckleToMiddleBounds;
 
                 // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
+                var middleToTipBounds = new Bounds(middlePose.position, Vector3.zero);
+                middleToTipBounds.Encapsulate(tipPose.position);
                 cachedRingFingerBounds[1] = middleToTipBounds;
 
                 // Update cached bounds entry.
@@ -425,13 +424,13 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 // Pinky finger bounds include knuckle -> middle and middle -> tip bounds.
 
                 // Knuckle to middle joint bounds.
-                var knuckleToMiddleBounds = new Bounds(knucklePose.Position, Vector3.zero);
-                knuckleToMiddleBounds.Encapsulate(middlePose.Position);
+                var knuckleToMiddleBounds = new Bounds(knucklePose.position, Vector3.zero);
+                knuckleToMiddleBounds.Encapsulate(middlePose.position);
                 cachedLittleFingerBounds[0] = knuckleToMiddleBounds;
 
                 // Middle to tip joint bounds.
-                var middleToTipBounds = new Bounds(middlePose.Position, Vector3.zero);
-                middleToTipBounds.Encapsulate(tipPose.Position);
+                var middleToTipBounds = new Bounds(middlePose.position, Vector3.zero);
+                middleToTipBounds.Encapsulate(tipPose.position);
                 cachedLittleFingerBounds[1] = middleToTipBounds;
 
                 // Update cached bounds entry.
@@ -563,7 +562,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             Vector3 palmPosition = Vector3.zero;
             if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose, Space.World))
             {
-                palmPosition = palmPose.Position;
+                palmPosition = palmPose.position;
             }
 
             if (velocityUpdateFrame == 0)
@@ -780,7 +779,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         }
 
         /// <inheritdoc />
-        public bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self)
+        public bool TryGetJointPose(TrackedHandJoint joint, out Pose pose, Space relativeTo = Space.Self)
         {
             if (relativeTo == Space.Self)
             {
@@ -790,24 +789,24 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
 
             if (jointPoses.TryGetValue(joint, out var localPose))
             {
-                pose = new MixedRealityPose
+                pose = new Pose
                 {
                     // Combine root pose with local joint pose.
-                    Position = lastHandRootPose.Position + lastHandRootPose.Rotation * localPose.Position,
-                    Rotation = lastHandRootPose.Rotation * localPose.Rotation
+                    position = lastHandRootPose.position + lastHandRootPose.rotation * localPose.position,
+                    rotation = lastHandRootPose.rotation * localPose.rotation
                 };
 
                 // Translate to world space.
                 if (CameraSystem != null)
                 {
-                    pose.Position = CameraSystem.MainCameraRig.RigTransform.TransformPoint(pose.Position);
-                    pose.Rotation = CameraSystem.MainCameraRig.RigTransform.rotation * pose.Rotation;
+                    pose.position = CameraSystem.MainCameraRig.RigTransform.TransformPoint(pose.position);
+                    pose.rotation = CameraSystem.MainCameraRig.RigTransform.rotation * pose.rotation;
                 }
 
-                return lastHandRootPose != MixedRealityPose.ZeroIdentity;
+                return lastHandRootPose != Pose.identity;
             }
 
-            pose = MixedRealityPose.ZeroIdentity;
+            pose = Pose.identity;
             return false;
         }
 

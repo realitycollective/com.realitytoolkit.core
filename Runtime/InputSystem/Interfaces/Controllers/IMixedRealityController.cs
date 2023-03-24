@@ -3,7 +3,6 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
@@ -81,7 +80,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         /// <summary>
         /// Gets the current position and rotation for the controller, if available.
         /// </summary>
-        MixedRealityPose Pose { get; }
+        Pose Pose { get; }
 
         /// <summary>
         /// Gets how fast the controller rotates or revolves relative to its pivot point.

@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities
@@ -19,15 +18,15 @@ namespace RealityToolkit.Utilities
         /// </summary>
         /// <param name="jointPoses">Known joint poses.</param>
         /// <returns>Estimated <see cref="TrackedHandJoint.IndexMetacarpal"/> pose.</returns>
-        public static MixedRealityPose GetEstimatedIndexMetacarpalPose(MixedRealityPose[] jointPoses)
+        public static Pose GetEstimatedIndexMetacarpalPose(Pose[] jointPoses)
         {
-            MixedRealityPose thumbMetacarpalPose = jointPoses[(int)TrackedHandJoint.ThumbMetacarpal];
-            MixedRealityPose littleMetacarpalPose = jointPoses[(int)TrackedHandJoint.LittleMetacarpal];
+            Pose thumbMetacarpalPose = jointPoses[(int)TrackedHandJoint.ThumbMetacarpal];
+            Pose littleMetacarpalPose = jointPoses[(int)TrackedHandJoint.LittleMetacarpal];
 
-            Vector3 indexMetacarpalPosition = Vector3.Lerp(thumbMetacarpalPose.Position, littleMetacarpalPose.Position, .2f);
-            Quaternion indexMetacarpalRotation = jointPoses[(int)TrackedHandJoint.Wrist].Rotation;
+            Vector3 indexMetacarpalPosition = Vector3.Lerp(thumbMetacarpalPose.position, littleMetacarpalPose.position, .2f);
+            Quaternion indexMetacarpalRotation = jointPoses[(int)TrackedHandJoint.Wrist].rotation;
 
-            return new MixedRealityPose(indexMetacarpalPosition, indexMetacarpalRotation);
+            return new Pose(indexMetacarpalPosition, indexMetacarpalRotation);
         }
 
         /// <summary>
@@ -37,15 +36,15 @@ namespace RealityToolkit.Utilities
         /// </summary>
         /// <param name="jointPoses">Known joint poses.</param>
         /// <returns>Estimated <see cref="TrackedHandJoint.RingMetacarpal"/> pose.</returns>
-        public static MixedRealityPose GetEstimatedRingMetacarpalPose(MixedRealityPose[] jointPoses)
+        public static Pose GetEstimatedRingMetacarpalPose(Pose[] jointPoses)
         {
-            MixedRealityPose thumbMetacarpalPose = jointPoses[(int)TrackedHandJoint.ThumbMetacarpal];
-            MixedRealityPose littleMetacarpalPose = jointPoses[(int)TrackedHandJoint.LittleMetacarpal];
+            Pose thumbMetacarpalPose = jointPoses[(int)TrackedHandJoint.ThumbMetacarpal];
+            Pose littleMetacarpalPose = jointPoses[(int)TrackedHandJoint.LittleMetacarpal];
 
-            Vector3 ringMetacarpalPosition = Vector3.Lerp(thumbMetacarpalPose.Position, littleMetacarpalPose.Position, .8f);
-            Quaternion ringMetacarpalRotation = jointPoses[(int)TrackedHandJoint.LittleMetacarpal].Rotation;
+            Vector3 ringMetacarpalPosition = Vector3.Lerp(thumbMetacarpalPose.position, littleMetacarpalPose.position, .8f);
+            Quaternion ringMetacarpalRotation = jointPoses[(int)TrackedHandJoint.LittleMetacarpal].rotation;
 
-            return new MixedRealityPose(ringMetacarpalPosition, ringMetacarpalRotation);
+            return new Pose(ringMetacarpalPosition, ringMetacarpalRotation);
         }
 
         /// <summary>
@@ -55,15 +54,15 @@ namespace RealityToolkit.Utilities
         /// </summary>
         /// <param name="jointPoses">Known joint poses.</param>
         /// <returns>Estimated <see cref="TrackedHandJoint.MiddleMetacarpal"/> pose.</returns>
-        public static MixedRealityPose GetEstimatedMiddleMetacarpalPose(MixedRealityPose[] jointPoses)
+        public static Pose GetEstimatedMiddleMetacarpalPose(Pose[] jointPoses)
         {
-            MixedRealityPose thumbMetacarpalPose = jointPoses[(int)TrackedHandJoint.ThumbMetacarpal];
-            MixedRealityPose littleMetacarpalPose = jointPoses[(int)TrackedHandJoint.LittleMetacarpal];
+            Pose thumbMetacarpalPose = jointPoses[(int)TrackedHandJoint.ThumbMetacarpal];
+            Pose littleMetacarpalPose = jointPoses[(int)TrackedHandJoint.LittleMetacarpal];
 
-            Vector3 middleMetacarpalPosition = Vector3.Lerp(thumbMetacarpalPose.Position, littleMetacarpalPose.Position, .5f);
-            Quaternion middleMetacarpalRotation = jointPoses[(int)TrackedHandJoint.Wrist].Rotation;
+            Vector3 middleMetacarpalPosition = Vector3.Lerp(thumbMetacarpalPose.position, littleMetacarpalPose.position, .5f);
+            Quaternion middleMetacarpalRotation = jointPoses[(int)TrackedHandJoint.Wrist].rotation;
 
-            return new MixedRealityPose(middleMetacarpalPosition, middleMetacarpalRotation);
+            return new Pose(middleMetacarpalPosition, middleMetacarpalRotation);
         }
 
         /// <summary>
@@ -73,15 +72,15 @@ namespace RealityToolkit.Utilities
         /// </summary>
         /// <param name="jointPoses">Known joint poses.</param>
         /// <returns>Estimated <see cref="TrackedHandJoint.Palm"/> pose.</returns>
-        public static MixedRealityPose GetEstimatedPalmPose(MixedRealityPose[] jointPoses)
+        public static Pose GetEstimatedPalmPose(Pose[] jointPoses)
         {
-            MixedRealityPose middleMetacarpalPose = GetEstimatedMiddleMetacarpalPose(jointPoses);
-            MixedRealityPose middleProximalPose = jointPoses[(int)TrackedHandJoint.MiddleProximal];
+            Pose middleMetacarpalPose = GetEstimatedMiddleMetacarpalPose(jointPoses);
+            Pose middleProximalPose = jointPoses[(int)TrackedHandJoint.MiddleProximal];
 
-            Vector3 palmPosition = Vector3.Lerp(middleMetacarpalPose.Position, middleProximalPose.Position, .5f);
-            Quaternion palmRotation = middleMetacarpalPose.Rotation;
+            Vector3 palmPosition = Vector3.Lerp(middleMetacarpalPose.position, middleProximalPose.position, .5f);
+            Quaternion palmRotation = middleMetacarpalPose.rotation;
 
-            return new MixedRealityPose(palmPosition, palmRotation);
+            return new Pose(palmPosition, palmRotation);
         }
     }
 }

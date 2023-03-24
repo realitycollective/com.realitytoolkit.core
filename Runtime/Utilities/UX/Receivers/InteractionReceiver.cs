@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Handlers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
@@ -373,7 +372,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         /// </summary>
         /// <param name="targetObject"></param>
         /// <param name="eventData"></param>
-        protected virtual void PositionInputChanged(GameObject targetObject, InputEventData<MixedRealityPose> eventData) { }
+        protected virtual void PositionInputChanged(GameObject targetObject, InputEventData<Pose> eventData) { }
 
         /// <summary>
         /// Raised when the target interactable object receives an gesture started event.

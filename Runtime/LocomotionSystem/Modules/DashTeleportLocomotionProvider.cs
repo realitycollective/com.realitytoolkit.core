@@ -63,8 +63,8 @@ namespace RealityToolkit.Services.LocomotionSystem.Modules
             {
                 locomotionEventData = eventData;
                 var targetRotation = Vector3.zero;
-                targetPosition = eventData.Pose.Value.Position;
-                targetRotation.y = eventData.Pose.Value.Rotation.eulerAngles.y;
+                targetPosition = eventData.Pose.Value.position;
+                targetRotation.y = eventData.Pose.Value.rotation.eulerAngles.y;
 
                 if (eventData.Anchor != null)
                 {

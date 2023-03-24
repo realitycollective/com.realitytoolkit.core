@@ -3,7 +3,6 @@
 
 using RealityCollective.Definitions.Utilities;
 using UnityEngine;
-using RealityToolkit.Utilities;
 
 namespace RealityToolkit.Utilities.Solvers
 {

@@ -3,7 +3,6 @@
 
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
@@ -87,7 +86,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         }
 
         /// <inheritdoc />
-        public override void OnInputChanged(InputEventData<MixedRealityPose> eventData)
+        public override void OnInputChanged(InputEventData<Pose> eventData)
         {
             base.OnInputChanged(eventData);
 
@@ -123,8 +122,8 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                 if (handController.TryGetJointPose(handJoint, out var jointPose))
                 {
                     var jointTransform = GetOrCreateJointTransform(handJoint);
-                    jointTransform.localPosition = jointPose.Position;
-                    jointTransform.localRotation = jointPose.Rotation;
+                    jointTransform.localPosition = jointPose.position;
+                    jointTransform.localRotation = jointPose.rotation;
                 }
             }
         }

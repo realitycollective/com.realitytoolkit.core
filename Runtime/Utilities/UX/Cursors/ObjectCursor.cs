@@ -34,7 +34,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// </summary>
         protected override void OnEnable()
         {
-            if(ParentTransform == null)
+            if (ParentTransform == null)
             {
                 ParentTransform = transform;
             }
@@ -53,7 +53,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             if (state != CursorStateEnum.Contextual)
             {
                 // Hide all children first
-                for(int i = 0; i < ParentTransform.childCount; i++)
+                for (int i = 0; i < ParentTransform.childCount; i++)
                 {
                     ParentTransform.GetChild(i).gameObject.SetActive(false);
                 }

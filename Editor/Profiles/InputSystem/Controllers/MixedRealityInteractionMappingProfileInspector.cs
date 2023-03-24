@@ -6,7 +6,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Processors;
@@ -138,7 +137,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
                     inputProcessorType = typeof(InputProcessor<Quaternion>);
                     break;
                 case AxisType.SixDof:
-                    inputProcessorType = typeof(InputProcessor<MixedRealityPose>);
+                    inputProcessorType = typeof(InputProcessor<Pose>);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(currentAxisType), currentAxisType, null);

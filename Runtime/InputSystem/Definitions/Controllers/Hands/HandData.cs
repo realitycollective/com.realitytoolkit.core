@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using System;
+using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers.Hands
 {
@@ -19,7 +19,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// </summary>
         /// <param name="rootPose">The hands root pose.</param>
         /// <param name="jointPoses">Joint pose values.</param>
-        public HandData(MixedRealityPose rootPose, MixedRealityPose[] jointPoses)
+        public HandData(Pose rootPose, Pose[] jointPoses)
         {
             if (jointPoses.Length != JointCount)
             {
@@ -27,14 +27,14 @@ namespace RealityToolkit.Definitions.Controllers.Hands
             }
 
             RootPose = rootPose;
-            Joints = new MixedRealityPose[JointCount];
+            Joints = new Pose[JointCount];
             Array.Copy(jointPoses, Joints, JointCount);
 
             UpdatedAt = long.MinValue;
             TrackingState = TrackingState.NotTracked;
             PinchStrength = 0;
             GripStrength = 0;
-            PointerPose = MixedRealityPose.ZeroIdentity;
+            PointerPose = Pose.identity;
             IsPinching = false;
             IsPointing = false;
             IsGripping = false;
@@ -91,7 +91,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// <summary>
         /// The hand's pointer pose, relative to <see cref="Interfaces.CameraSystem.IMixedRealityCameraRig.RigTransform"/>.
         /// </summary>
-        public MixedRealityPose PointerPose { get; set; }
+        public Pose PointerPose { get; set; }
 
         /// <summary>
         /// Recognized hand pose, if any.
@@ -104,12 +104,12 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// The hands root pose. <see cref="Joints"/> poses are relative to the root pose.
         /// The root pose itself is relative to <see cref="Interfaces.CameraSystem.IMixedRealityCameraRig.RigTransform"/>.
         /// </summary>
-        public MixedRealityPose RootPose { get; set; }
+        public Pose RootPose { get; set; }
 
         /// <summary>
         /// Pose information for each hand joint, relative to <see cref="RootPose"/>.
         /// </summary>
-        public MixedRealityPose[] Joints { get; set; }
+        public Pose[] Joints { get; set; }
 
         /// <summary>
         /// Mesh information of the hand.

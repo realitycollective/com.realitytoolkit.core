@@ -1,7 +1,6 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using System;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// </summary>
         /// <param name="joint">The joint that was recorded.</param>
         /// <param name="pose">The joint pose that was recorded.</param>
-        public RecordedHandJoint(TrackedHandJoint joint, MixedRealityPose pose)
+        public RecordedHandJoint(TrackedHandJoint joint, Pose pose)
         {
             this.joint = joint;
             this.pose = pose;
@@ -33,11 +32,11 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         public TrackedHandJoint Joint => joint;
 
         [SerializeField]
-        private MixedRealityPose pose;
+        private Pose pose;
 
         /// <summary>
         /// The recorded pose.
         /// </summary>
-        public MixedRealityPose Pose => pose;
+        public Pose Pose => pose;
     }
 }

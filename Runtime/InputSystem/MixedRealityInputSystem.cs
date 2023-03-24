@@ -7,7 +7,6 @@ using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.InputSources;
@@ -84,7 +83,7 @@ namespace RealityToolkit.InputSystem
         private SourcePoseEventData<Vector2> sourceVector2EventData;
         private SourcePoseEventData<Vector3> sourcePositionEventData;
         private SourcePoseEventData<Quaternion> sourceRotationEventData;
-        private SourcePoseEventData<MixedRealityPose> sourcePoseEventData;
+        private SourcePoseEventData<Pose> sourcePoseEventData;
 
         private FocusEventData focusEventData;
 
@@ -97,7 +96,7 @@ namespace RealityToolkit.InputSystem
         private InputEventData<Vector2> vector2InputEventData;
         private InputEventData<Vector3> positionInputEventData;
         private InputEventData<Quaternion> rotationInputEventData;
-        private InputEventData<MixedRealityPose> poseInputEventData;
+        private InputEventData<Pose> poseInputEventData;
 
         private SpeechEventData speechEventData;
         private DictationEventData dictationEventData;
@@ -202,7 +201,7 @@ namespace RealityToolkit.InputSystem
                 sourceVector2EventData = new SourcePoseEventData<Vector2>(eventSystem);
                 sourcePositionEventData = new SourcePoseEventData<Vector3>(eventSystem);
                 sourceRotationEventData = new SourcePoseEventData<Quaternion>(eventSystem);
-                sourcePoseEventData = new SourcePoseEventData<MixedRealityPose>(eventSystem);
+                sourcePoseEventData = new SourcePoseEventData<Pose>(eventSystem);
 
                 focusEventData = new FocusEventData(eventSystem);
 
@@ -215,7 +214,7 @@ namespace RealityToolkit.InputSystem
                 vector2InputEventData = new InputEventData<Vector2>(eventSystem);
                 positionInputEventData = new InputEventData<Vector3>(eventSystem);
                 rotationInputEventData = new InputEventData<Quaternion>(eventSystem);
-                poseInputEventData = new InputEventData<MixedRealityPose>(eventSystem);
+                poseInputEventData = new InputEventData<Pose>(eventSystem);
 
                 speechEventData = new SpeechEventData(eventSystem);
                 dictationEventData = new DictationEventData(eventSystem);
@@ -731,7 +730,7 @@ namespace RealityToolkit.InputSystem
             };
 
         /// <inheritdoc />
-        public void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, MixedRealityPose position)
+        public void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, Pose position)
         {
             // Create input event
             sourcePoseEventData.Initialize(source, controller, position);
@@ -743,7 +742,7 @@ namespace RealityToolkit.InputSystem
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourcePoseChangedEventHandler =
             delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Pose>>(eventData);
                 handler.OnSourcePoseChanged(casted);
             };
 
@@ -1275,21 +1274,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Pose Changed
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<MixedRealityPose>> OnPoseInputChanged =
-            delegate (IMixedRealityInputHandler<MixedRealityPose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<Pose>> OnPoseInputChanged =
+            delegate (IMixedRealityInputHandler<Pose> handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, MixedRealityPose inputData)
+        public void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Pose inputData)
         {
             RaisePoseInputChanged(source, Handedness.None, inputAction, inputData);
         }
 
         /// <inheritdoc />
-        public void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, MixedRealityPose inputData)
+        public void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1382,15 +1381,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(rotationInputEventData, OnGestureRotationUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<MixedRealityPose>> OnGesturePoseUpdated =
-            delegate (IMixedRealityGestureHandler<MixedRealityPose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Pose>> OnGesturePoseUpdated =
+            delegate (IMixedRealityGestureHandler<Pose> handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData)
+        public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
@@ -1457,15 +1456,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(rotationInputEventData, OnGestureRotationCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<MixedRealityPose>> OnGesturePoseCompleted =
-            delegate (IMixedRealityGestureHandler<MixedRealityPose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Pose>> OnGesturePoseCompleted =
+            delegate (IMixedRealityGestureHandler<Pose> handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData)
+        public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);

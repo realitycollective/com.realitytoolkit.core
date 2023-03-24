@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Lines.DataProviders
@@ -14,12 +13,12 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     {
         [SerializeField]
         [Tooltip("The point where this line will end.")]
-        private MixedRealityPose endPoint = MixedRealityPose.ZeroIdentity;
+        private Pose endPoint = Pose.identity;
 
         /// <summary>
         /// The point where this line will end.
         /// </summary>
-        public MixedRealityPose EndPoint
+        public Pose EndPoint
         {
             get => endPoint;
             set => endPoint = value;
@@ -56,7 +55,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         {
             if (endPoint == StartPoint)
             {
-                endPoint.Position = transform.InverseTransformPoint(LineTransform.position) + Vector3.forward;
+                endPoint.position = transform.InverseTransformPoint(LineTransform.position) + Vector3.forward;
             }
 
             base.OnValidate();
@@ -75,9 +74,9 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             switch (pointIndex)
             {
                 case 0:
-                    return StartPoint.Position;
+                    return StartPoint.position;
                 case 1:
-                    return endPoint.Position;
+                    return endPoint.position;
                 default:
                     Debug.LogError("Invalid point index!");
                     return Vector3.zero;
@@ -92,7 +91,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
                 case 0:
                     break;
                 case 1:
-                    endPoint.Position = point;
+                    endPoint.position = point;
                     break;
                 default:
                     Debug.LogError("Invalid point index!");
@@ -103,7 +102,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         /// <inheritdoc />
         protected override Vector3 GetPointInternal(float normalizedDistance)
         {
-            return LineUtility.GetPointAlongConstrainedParabola(StartPoint.Position, endPoint.Position, upDirection, height, normalizedDistance);
+            return LineUtility.GetPointAlongConstrainedParabola(StartPoint.position, endPoint.position, upDirection, height, normalizedDistance);
         }
 
         #endregion Line Data Provider Implementation

@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.LocomotionSystem.Definitions;
 using RealityToolkit.LocomotionSystem.Interfaces;
@@ -35,7 +34,7 @@ namespace RealityToolkit.Services.LocomotionSystem.Modules
         private readonly Color fadeInColor;
         private readonly Color fadeOutColor;
         private IMixedRealityInputSource inputSource;
-        private MixedRealityPose targetPose;
+        private Pose targetPose;
         private ITeleportAnchor targetAnchor;
         private GameObject fadeSphere;
         private MeshRenderer fadeSphereRenderer;
@@ -107,10 +106,10 @@ namespace RealityToolkit.Services.LocomotionSystem.Modules
 
                 if (eventData.Anchor != null)
                 {
-                    targetPose.Position = targetAnchor.Position;
+                    targetPose.position = targetAnchor.Position;
                     if (targetAnchor.OverrideTargetOrientation)
                     {
-                        targetPose.Rotation = Quaternion.Euler(0f, targetAnchor.TargetOrientation, 0f);
+                        targetPose.rotation = Quaternion.Euler(0f, targetAnchor.TargetOrientation, 0f);
                     }
                 }
 
@@ -144,15 +143,15 @@ namespace RealityToolkit.Services.LocomotionSystem.Modules
 
         private void PerformTeleport()
         {
-            var height = targetPose.Position.y;
-            targetPose.Position -= LocomotionTargetTransform.position - LocomotionTargetTransform.position;
+            var height = targetPose.position.y;
+            targetPose.position -= LocomotionTargetTransform.position - LocomotionTargetTransform.position;
 
-            var targetPosition = targetPose.Position;
+            var targetPosition = targetPose.position;
             targetPosition.y = height;
-            targetPose.Position = targetPosition;
+            targetPose.position = targetPosition;
 
-            LocomotionTargetTransform.position = targetPose.Position;
-            LocomotionTargetTransform.RotateAround(LocomotionTargetTransform.position, Vector3.up, targetPose.Rotation.eulerAngles.y - LocomotionTargetTransform.eulerAngles.y);
+            LocomotionTargetTransform.position = targetPose.position;
+            LocomotionTargetTransform.RotateAround(LocomotionTargetTransform.position, Vector3.up, targetPose.rotation.eulerAngles.y - LocomotionTargetTransform.eulerAngles.y);
             LocomotionSystem.RaiseTeleportCompleted(this, inputSource, targetPose, targetAnchor);
         }
 

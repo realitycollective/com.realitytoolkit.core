@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Utilities.Lines.DataProviders;
 using System.Collections.Generic;
 using UnityEditor;
@@ -202,7 +201,7 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
                         continue;
                     }
 
-                    if (Vector3.Distance(splineData.ControlPoints[i].Position, splineData.ControlPoints[j].Position) < OverlappingPointThreshold)
+                    if (Vector3.Distance(splineData.ControlPoints[i].position, splineData.ControlPoints[j].position) < OverlappingPointThreshold)
                     {
                         if (i != 0)
                         {
@@ -226,18 +225,18 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 
             Undo.RecordObject(LineData, "Add Spline Control Point");
 
-            var newControlPoints = new MixedRealityPose[3];
+            var newControlPoints = new Pose[3];
             Vector3 direction = LineData.GetVelocity(0.99f);
             float distance = Mathf.Max(LineData.UnClampedWorldLength * 0.05f, OverlappingPointThreshold * 5);
-            newControlPoints[0].Position = LineData.LastPoint + (direction * distance);
-            newControlPoints[1].Position = newControlPoints[0].Position + (direction * distance);
-            newControlPoints[2].Position = newControlPoints[1].Position + (direction * distance);
+            newControlPoints[0].position = LineData.LastPoint + (direction * distance);
+            newControlPoints[1].position = newControlPoints[0].position + (direction * distance);
+            newControlPoints[2].position = newControlPoints[1].position + (direction * distance);
 
             for (int i = 0; i < 3; i++)
             {
                 controlPoints.arraySize = controlPoints.arraySize + 1;
                 var newControlPointProperty = controlPoints.GetArrayElementAtIndex(controlPoints.arraySize - 1);
-                newControlPointProperty.FindPropertyRelative("position").vector3Value = newControlPoints[i].Position;
+                newControlPointProperty.FindPropertyRelative("position").vector3Value = newControlPoints[i].position;
                 newControlPointProperty.FindPropertyRelative("rotation").quaternionValue = Quaternion.identity;
             }
 

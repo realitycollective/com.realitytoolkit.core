@@ -1,9 +1,9 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.LocomotionSystem.Definitions;
+using UnityEngine;
 
 namespace RealityToolkit.LocomotionSystem.Interfaces
 {
@@ -39,7 +39,7 @@ namespace RealityToolkit.LocomotionSystem.Interfaces
         /// <summary>
         /// Gets the target pose provided, if any.
         /// </summary>
-        MixedRealityPose? TargetPose { get; }
+        Pose? TargetPose { get; }
 
         /// <summary>
         /// Gets the target anchor, if any.
