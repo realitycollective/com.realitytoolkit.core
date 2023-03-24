@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.Utilities;
 using System;
 using UnityEngine;
 
@@ -21,9 +20,9 @@ namespace RealityToolkit.InputSystem.Extensions
         /// <returns><see cref="HandData"/> object for the pose.</returns>
         public static HandData ToHandData(this HandControllerPoseProfile pose)
         {
-            var rootPose = new MixedRealityPose(Vector3.zero, Quaternion.identity);
+            var rootPose = new Pose(Vector3.zero, Quaternion.identity);
             var recordedHandJoints = JsonUtility.FromJson<RecordedHandJoints>(pose.Data.text);
-            var jointPoses = new MixedRealityPose[HandData.JointCount];
+            var jointPoses = new Pose[HandData.JointCount];
 
             for (int j = 0; j < recordedHandJoints.Joints.Length; j++)
             {

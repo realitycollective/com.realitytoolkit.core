@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.InputSystem.Interfaces.Controllers.Hands
@@ -67,7 +66,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers.Hands
         /// <param name="pose">Pose output parameter containing the pose if found.</param>
         /// <param name="relativeTo">Optional coordinate space to get the pose in. Defaults to <see cref="Space.Self"/>.</param>
         /// <returns>True, if the pose is available.</returns>
-        bool TryGetJointPose(TrackedHandJoint joint, out MixedRealityPose pose, Space relativeTo = Space.Self);
+        bool TryGetJointPose(TrackedHandJoint joint, out Pose pose, Space relativeTo = Space.Self);
 
         /// <summary>
         /// Gets the curl strength for a finger, if available.

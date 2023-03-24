@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Lines.DataProviders
@@ -12,22 +11,22 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     public class SimpleLineDataProvider : BaseMixedRealityLineDataProvider
     {
         [SerializeField]
-        private MixedRealityPose startPoint = MixedRealityPose.ZeroIdentity;
+        private Pose startPoint = Pose.identity;
 
         /// <summary>
         /// The Starting point of this line.
         /// </summary>
         /// <remarks>Always located at this <see cref="GameObject"/>'s <see cref="Transform.position"/></remarks>
-        public MixedRealityPose StartPoint => startPoint;
+        public Pose StartPoint => startPoint;
 
         [SerializeField]
         [Tooltip("The point where this line will end.\nNote: Start point is always located at the GameObject's transform position.")]
-        private MixedRealityPose endPoint = new MixedRealityPose(Vector3.right, Quaternion.identity);
+        private Pose endPoint = new Pose(Vector3.right, Quaternion.identity);
 
         /// <summary>
         /// The point where this line will end.
         /// </summary>
-        public MixedRealityPose EndPoint
+        public Pose EndPoint
         {
             get => endPoint;
             set => endPoint = value;
@@ -39,12 +38,12 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         {
             base.OnValidate();
 
-            if (endPoint.Position == startPoint.Position)
+            if (endPoint.position == startPoint.position)
             {
-                endPoint.Position = transform.InverseTransformPoint(LineTransform.position) + Vector3.right;
+                endPoint.position = transform.InverseTransformPoint(LineTransform.position) + Vector3.right;
             }
 
-            startPoint.Position = transform.transform.InverseTransformPoint(LineTransform.position);
+            startPoint.position = transform.transform.InverseTransformPoint(LineTransform.position);
         }
 
         #endregion MonoBehaviour Implementation
@@ -60,9 +59,9 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             switch (pointIndex)
             {
                 case 0:
-                    return startPoint.Position;
+                    return startPoint.position;
                 case 1:
-                    return endPoint.Position;
+                    return endPoint.position;
                 default:
                     Debug.LogError("Invalid point index");
                     return Vector3.zero;
@@ -75,10 +74,10 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             switch (pointIndex)
             {
                 case 0:
-                    startPoint.Position = point;
+                    startPoint.position = point;
                     break;
                 case 1:
-                    endPoint.Position = point;
+                    endPoint.position = point;
                     break;
                 default:
                     Debug.LogError("Invalid point index");
@@ -89,13 +88,13 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         /// <inheritdoc />
         protected override Vector3 GetPointInternal(float normalizedDistance)
         {
-            return Vector3.Lerp(startPoint.Position, endPoint.Position, normalizedDistance);
+            return Vector3.Lerp(startPoint.position, endPoint.position, normalizedDistance);
         }
 
         /// <inheritdoc />
         protected override float GetUnClampedWorldLengthInternal()
         {
-            return Vector3.Distance(startPoint.Position, endPoint.Position);
+            return Vector3.Distance(startPoint.position, endPoint.position);
         }
 
         /// <inheritdoc />

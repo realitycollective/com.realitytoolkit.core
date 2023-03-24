@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using UnityEngine;
 
@@ -37,6 +36,6 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
         /// <summary>
         /// Raised when the source pose is changed.
         /// </summary>
-        void OnSourcePoseChanged(SourcePoseEventData<MixedRealityPose> eventData);
+        void OnSourcePoseChanged(SourcePoseEventData<Pose> eventData);
     }
 }

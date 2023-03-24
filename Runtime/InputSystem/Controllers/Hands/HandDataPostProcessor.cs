@@ -6,7 +6,6 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
 using RealityToolkit.Utilities;
 using System.Collections.Generic;
@@ -112,12 +111,12 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
 
                 if (!PlatformProvidesIsPinching)
                 {
-                    handData.IsPinching = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude < TWO_CENTIMETER_SQUARE_MAGNITUDE;
+                    handData.IsPinching = (thumbTipPose.position - indexTipPose.position).sqrMagnitude < TWO_CENTIMETER_SQUARE_MAGNITUDE;
                 }
 
                 if (!PlatformProvidesPinchStrength)
                 {
-                    var distanceSquareMagnitude = (thumbTipPose.Position - indexTipPose.Position).sqrMagnitude - TWO_CENTIMETER_SQUARE_MAGNITUDE;
+                    var distanceSquareMagnitude = (thumbTipPose.position - indexTipPose.position).sqrMagnitude - TWO_CENTIMETER_SQUARE_MAGNITUDE;
                     handData.PinchStrength = 1 - Mathf.Clamp(distanceSquareMagnitude / PINCH_STRENGTH_DISTANCE, 0f, 1f);
                 }
             }
@@ -142,14 +141,14 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                     ? CameraSystem.CameraRig.RigTransform
                     : Camera.main.transform.parent;
                 var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
-                var worldPalmPose = new MixedRealityPose
+                var worldPalmPose = new Pose
                 {
-                    Position = handData.RootPose.Position + handData.RootPose.Rotation * localPalmPose.Position,
-                    Rotation = rigTransform.rotation * handData.RootPose.Rotation * localPalmPose.Rotation
+                    position = handData.RootPose.position + handData.RootPose.rotation * localPalmPose.position,
+                    rotation = rigTransform.rotation * handData.RootPose.rotation * localPalmPose.rotation
                 };
 
                 // We check if the palm forward is roughly in line with the camera lookAt.
-                var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.Up, PlayerCamera.transform.up);
+                var projectedPalmUp = Vector3.ProjectOnPlane(-worldPalmPose.up, PlayerCamera.transform.up);
                 handData.IsPointing = Vector3.Dot(PlayerCamera.transform.forward, projectedPalmUp) > IS_POINTING_DOTP_THRESHOLD;
             }
             else
@@ -169,17 +168,17 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesPointerPose)
             {
                 var palmPose = handData.Joints[(int)TrackedHandJoint.Palm];
-                palmPose.Rotation = Quaternion.Inverse(palmPose.Rotation) * palmPose.Rotation;
+                palmPose.rotation = Quaternion.Inverse(palmPose.rotation) * palmPose.rotation;
 
                 var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
                 var indexDistalPose = handData.Joints[(int)TrackedHandJoint.IndexDistal];
-                var pointerPosition = handData.RootPose.Position + Vector3.Lerp(thumbProximalPose.Position, indexDistalPose.Position, .5f);
-                var pointerEndPosition = pointerPosition + palmPose.Forward * 10f;
+                var pointerPosition = handData.RootPose.position + Vector3.Lerp(thumbProximalPose.position, indexDistalPose.position, .5f);
+                var pointerEndPosition = pointerPosition + palmPose.forward * 10f;
                 var pointerDirection = pointerEndPosition - pointerPosition;
-                var pointerRotation = Quaternion.LookRotation(pointerDirection, PlayerCamera.transform.up) * handData.RootPose.Rotation;
+                var pointerRotation = Quaternion.LookRotation(pointerDirection, PlayerCamera.transform.up) * handData.RootPose.rotation;
 
                 pointerRotation = PlayerCamera.transform.rotation * pointerRotation;
-                handData.PointerPose = new MixedRealityPose(pointerPosition, pointerRotation);
+                handData.PointerPose = new Pose(pointerPosition, pointerRotation);
             }
 
             return handData;

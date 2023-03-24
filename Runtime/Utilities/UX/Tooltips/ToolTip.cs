@@ -3,9 +3,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 //
 
-using System;
 using RealityToolkit.Definitions.ToolTips;
 using RealityToolkit.Utilities.Lines.DataProviders;
+using System;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.ToolTips

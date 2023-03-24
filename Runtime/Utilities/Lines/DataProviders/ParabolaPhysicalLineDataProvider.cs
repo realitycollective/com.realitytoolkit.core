@@ -73,7 +73,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             switch (pointIndex)
             {
                 case 0:
-                    return StartPoint.Position;
+                    return StartPoint.position;
                 case 1:
                     return GetPointInternal(1f);
                 default:
@@ -98,7 +98,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         /// <inheritdoc />
         protected override Vector3 GetPointInternal(float normalizedDistance)
         {
-            return LineUtility.GetPointAlongPhysicalParabola(StartPoint.Position, direction, velocity, useCustomGravity ? gravity : UnityEngine.Physics.gravity, normalizedDistance * distanceMultiplier);
+            return LineUtility.GetPointAlongPhysicalParabola(StartPoint.position, direction, velocity, useCustomGravity ? gravity : UnityEngine.Physics.gravity, normalizedDistance * distanceMultiplier);
         }
 
         /// <inheritdoc />

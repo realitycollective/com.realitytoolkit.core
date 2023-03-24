@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using RealityToolkit.Interfaces.Events;
-using UnityEngine.EventSystems;
 using RealityCollective.Extensions;
+using RealityToolkit.Interfaces.Events;
+using System;
+using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum
 {

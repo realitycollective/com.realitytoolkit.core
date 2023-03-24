@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Utilities.Lines.DataProviders;
 using UnityEngine;
 using UnityEngine.Rendering;
-using RealityToolkit.Definitions.Lines;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Lines.Renderers
 {

@@ -73,7 +73,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             {
                 // Gather needed data for calculations.
                 var palmPose = handData.Joints[(int)TrackedHandJoint.Palm];
-                var palmLookRotation = Quaternion.LookRotation(palmPose.Forward, palmPose.Up);
+                var palmLookRotation = Quaternion.LookRotation(palmPose.forward, palmPose.up);
                 var thumbMetacarpalPose = handData.Joints[(int)TrackedHandJoint.ThumbMetacarpal];
                 var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
                 var indexProximalPose = handData.Joints[(int)TrackedHandJoint.IndexProximal];
@@ -86,16 +86,16 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 var littleIntermediatePose = handData.Joints[(int)TrackedHandJoint.LittleIntermediate];
 
                 // Calculate per finger curl angles.
-                var thumbMetacarpalCurl = Quaternion.Angle(palmLookRotation, thumbMetacarpalPose.Rotation);
-                var thumbProximalCurl = Quaternion.Angle(palmLookRotation, thumbProximalPose.Rotation);
-                var indexProximalCurl = Quaternion.Angle(palmLookRotation, indexProximalPose.Rotation);
-                var indexIntermediateCurl = Quaternion.Angle(palmLookRotation, indexIntermediatePose.Rotation);
-                var middleProximalCurl = Quaternion.Angle(palmLookRotation, middleProximalPose.Rotation);
-                var middleIntermediateCurl = Quaternion.Angle(palmLookRotation, middleIntermediatePose.Rotation);
-                var ringProximalCurl = Quaternion.Angle(palmLookRotation, ringProximalPose.Rotation);
-                var ringIntermediateCurl = Quaternion.Angle(palmLookRotation, ringIntermediatePose.Rotation);
-                var littleProximalCurl = Quaternion.Angle(palmLookRotation, littleProximalPose.Rotation);
-                var littleIntermediateCurl = Quaternion.Angle(palmLookRotation, littleIntermediatePose.Rotation);
+                var thumbMetacarpalCurl = Quaternion.Angle(palmLookRotation, thumbMetacarpalPose.rotation);
+                var thumbProximalCurl = Quaternion.Angle(palmLookRotation, thumbProximalPose.rotation);
+                var indexProximalCurl = Quaternion.Angle(palmLookRotation, indexProximalPose.rotation);
+                var indexIntermediateCurl = Quaternion.Angle(palmLookRotation, indexIntermediatePose.rotation);
+                var middleProximalCurl = Quaternion.Angle(palmLookRotation, middleProximalPose.rotation);
+                var middleIntermediateCurl = Quaternion.Angle(palmLookRotation, middleIntermediatePose.rotation);
+                var ringProximalCurl = Quaternion.Angle(palmLookRotation, ringProximalPose.rotation);
+                var ringIntermediateCurl = Quaternion.Angle(palmLookRotation, ringIntermediatePose.rotation);
+                var littleProximalCurl = Quaternion.Angle(palmLookRotation, littleProximalPose.rotation);
+                var littleIntermediateCurl = Quaternion.Angle(palmLookRotation, littleIntermediatePose.rotation);
 
                 // Grip strength is defined as the total traveled curl distance for the intermediate joints
                 // compared to the total travel curl distance for the whole hand.

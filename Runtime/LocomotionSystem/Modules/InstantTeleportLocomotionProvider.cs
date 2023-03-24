@@ -27,8 +27,8 @@ namespace RealityToolkit.Services.LocomotionSystem.Modules
             if (OpenTargetRequests.ContainsKey(eventData.EventSource.SourceId))
             {
                 var targetRotation = Vector3.zero;
-                var targetPosition = eventData.Pose.Value.Position;
-                targetRotation.y = eventData.Pose.Value.Rotation.eulerAngles.y;
+                var targetPosition = eventData.Pose.Value.position;
+                targetRotation.y = eventData.Pose.Value.rotation.eulerAngles.y;
 
                 if (eventData.Anchor != null)
                 {

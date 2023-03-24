@@ -4,7 +4,6 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
 
@@ -97,7 +96,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
 
                 if (InputSource.Pointers[0].BaseCursor != null)
                 {
-                    Pose = new MixedRealityPose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
+                    Pose = new Pose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
                 }
 
                 InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
@@ -201,7 +200,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
             Lifetime = 0.0f;
             isTouched = false;
             Interactions[0].Vector2Data = Vector2.zero;
-            Interactions[1].PoseData = MixedRealityPose.ZeroIdentity;
+            Interactions[1].PoseData = Pose.identity;
         }
     }
 }

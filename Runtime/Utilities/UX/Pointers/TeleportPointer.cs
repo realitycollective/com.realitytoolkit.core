@@ -3,7 +3,6 @@
 
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.LocomotionSystem.Definitions;
@@ -41,7 +40,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public IMixedRealityInputSource InputSource => InputSourceParent;
 
         /// <inheritdoc />
-        public MixedRealityPose? TargetPose { get; private set; }
+        public Pose? TargetPose { get; private set; }
 
         /// <inheritdoc />
         public ITeleportAnchor Anchor { get; private set; }
@@ -158,7 +157,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     if (ValidationResult == TeleportValidationResult.Valid ||
                         ValidationResult == TeleportValidationResult.Anchor)
                     {
-                        TargetPose = new MixedRealityPose(Result.EndPoint, Quaternion.Euler(0f, PointerOrientation, 0f));
+                        TargetPose = new Pose(Result.EndPoint, Quaternion.Euler(0f, PointerOrientation, 0f));
                     }
 
                     // Use the step index to determine the length of the hit

@@ -7,7 +7,6 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
@@ -109,7 +108,7 @@ namespace RealityToolkit.InputSystem.Controllers
         /// Local offset from the controller position defining where the grip pose is.
         /// The grip pose may be used to attach things to the controller when grabbing objects.
         /// </summary>
-        protected virtual MixedRealityPose GripPoseOffset => MixedRealityPose.ZeroIdentity;
+        protected virtual Pose GripPoseOffset => Pose.identity;
 
         #region IMixedRealityController Implementation
 
@@ -147,7 +146,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public MixedRealityInteractionMapping[] Interactions { get; private set; } = null;
 
         /// <inheritdoc />
-        public MixedRealityPose Pose { get; protected set; } = MixedRealityPose.ZeroIdentity;
+        public Pose Pose { get; protected set; } = Pose.identity;
 
         /// <inheritdoc />
         public Vector3 AngularVelocity { get; protected set; } = Vector3.zero;

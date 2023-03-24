@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Lines.DataProviders
@@ -12,15 +11,15 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     public class SplineDataProvider : BaseMixedRealityLineDataProvider
     {
         [SerializeField]
-        private MixedRealityPose[] controlPoints =
+        private Pose[] controlPoints =
         {
-            MixedRealityPose.ZeroIdentity,
-            new MixedRealityPose(new Vector3(0.5f, 0.5f, 0f), Quaternion.identity),
-            new MixedRealityPose(new Vector3(0.5f, -0.5f, 0f), Quaternion.identity),
-            new MixedRealityPose(Vector3.right, Quaternion.identity),
+            Pose.identity,
+            new Pose(new Vector3(0.5f, 0.5f, 0f), Quaternion.identity),
+            new Pose(new Vector3(0.5f, -0.5f, 0f), Quaternion.identity),
+            new Pose(Vector3.right, Quaternion.identity),
         };
 
-        public MixedRealityPose[] ControlPoints => controlPoints;
+        public Pose[] ControlPoints => controlPoints;
 
         [SerializeField]
         private bool alignAllControlPoints = true;
@@ -91,17 +90,17 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
                         prevControlPoint = prevControlPoint % (PointCount - 1);
                     }
 
-                    Vector3 midPoint = controlPoints[midPointIndex].Position;
-                    Vector3 tangent = midPoint - controlPoints[prevControlPoint].Position;
-                    tangent = tangent.normalized * Vector3.Distance(midPoint, controlPoints[changedControlPoint].Position);
-                    controlPoints[changedControlPoint].Position = midPoint + tangent;
+                    Vector3 midPoint = controlPoints[midPointIndex].position;
+                    Vector3 tangent = midPoint - controlPoints[prevControlPoint].position;
+                    tangent = tangent.normalized * Vector3.Distance(midPoint, controlPoints[changedControlPoint].position);
+                    controlPoints[changedControlPoint].position = midPoint + tangent;
                 }
                 else if (changedControlPoint >= 0 && changedControlPoint < PointCount && prevControlPoint >= 0 && prevControlPoint < PointCount)
                 {
-                    Vector3 midPoint = controlPoints[midPointIndex].Position;
-                    Vector3 tangent = midPoint - controlPoints[prevControlPoint].Position;
-                    tangent = tangent.normalized * Vector3.Distance(midPoint, controlPoints[changedControlPoint].Position);
-                    controlPoints[changedControlPoint].Position = midPoint + tangent;
+                    Vector3 midPoint = controlPoints[midPointIndex].position;
+                    Vector3 tangent = midPoint - controlPoints[prevControlPoint].position;
+                    tangent = tangent.normalized * Vector3.Distance(midPoint, controlPoints[changedControlPoint].position);
+                    controlPoints[changedControlPoint].position = midPoint + tangent;
                 }
             }
         }
@@ -127,12 +126,12 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             {
                 if (point1Index + 3 >= PointCount)
                 {
-                    return controlPoints[PointCount - 1].Position;
+                    return controlPoints[PointCount - 1].position;
                 }
 
                 if (point1Index < 0)
                 {
-                    return controlPoints[0].Position;
+                    return controlPoints[0].position;
                 }
 
                 point2Index = point1Index + 1;
@@ -146,10 +145,10 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
                 point4Index = (point1Index + 3) % (PointCount - 1);
             }
 
-            Vector3 point1 = controlPoints[point1Index].Position;
-            Vector3 point2 = controlPoints[point2Index].Position;
-            Vector3 point3 = controlPoints[point3Index].Position;
-            Vector3 point4 = controlPoints[point4Index].Position;
+            Vector3 point1 = controlPoints[point1Index].position;
+            Vector3 point2 = controlPoints[point2Index].position;
+            Vector3 point3 = controlPoints[point3Index].position;
+            Vector3 point4 = controlPoints[point4Index].position;
 
             return LineUtility.InterpolateBezierPoints(point1, point2, point3, point4, subDistance);
         }
@@ -169,7 +168,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
                 pointIndex = 0;
             }
 
-            return controlPoints[pointIndex].Position;
+            return controlPoints[pointIndex].position;
         }
 
         /// <inheritdoc />
@@ -191,43 +190,43 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             {
                 if (pointIndex % 3 == 0)
                 {
-                    Vector3 delta = point - controlPoints[pointIndex].Position;
+                    Vector3 delta = point - controlPoints[pointIndex].position;
                     if (Loops)
                     {
                         if (pointIndex == 0)
                         {
-                            controlPoints[1].Position += delta;
-                            controlPoints[PointCount - 2].Position += delta;
-                            controlPoints[PointCount - 1].Position = point;
+                            controlPoints[1].position += delta;
+                            controlPoints[PointCount - 2].position += delta;
+                            controlPoints[PointCount - 1].position = point;
                         }
                         else if (pointIndex == PointCount)
                         {
-                            controlPoints[0].Position = point;
-                            controlPoints[1].Position += delta;
-                            controlPoints[pointIndex - 1].Position += delta;
+                            controlPoints[0].position = point;
+                            controlPoints[1].position += delta;
+                            controlPoints[pointIndex - 1].position += delta;
                         }
                         else
                         {
-                            controlPoints[pointIndex - 1].Position += delta;
-                            controlPoints[pointIndex + 1].Position += delta;
+                            controlPoints[pointIndex - 1].position += delta;
+                            controlPoints[pointIndex + 1].position += delta;
                         }
                     }
                     else
                     {
                         if (pointIndex > 0)
                         {
-                            controlPoints[pointIndex - 1].Position += delta;
+                            controlPoints[pointIndex - 1].position += delta;
                         }
 
                         if (pointIndex + 1 < controlPoints.Length)
                         {
-                            controlPoints[pointIndex + 1].Position += delta;
+                            controlPoints[pointIndex + 1].position += delta;
                         }
                     }
                 }
             }
 
-            controlPoints[pointIndex].Position = point;
+            controlPoints[pointIndex].position = point;
             UpdatePointAlignment(pointIndex);
         }
 
@@ -250,7 +249,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             }
 
             float blendAmount = (normalizedLength - (arrayValueLength * indexA)) / arrayValueLength;
-            Quaternion rotation = Quaternion.Lerp(controlPoints[indexA].Rotation, controlPoints[indexB].Rotation, blendAmount);
+            Quaternion rotation = Quaternion.Lerp(controlPoints[indexA].rotation, controlPoints[indexB].rotation, blendAmount);
             return rotation * transform.up;
         }
 

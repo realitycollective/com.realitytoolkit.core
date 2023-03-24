@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
+using RealityToolkit.Definitions.Physics;
 using System;
 using System.Collections.Generic;
-using RealityToolkit.Definitions.Physics;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.Physics
 {

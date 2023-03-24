@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Lines.DataProviders
@@ -12,13 +11,13 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     public abstract class ParabolaLineDataProvider : BaseMixedRealityLineDataProvider
     {
         [SerializeField]
-        private MixedRealityPose startPoint = MixedRealityPose.ZeroIdentity;
+        private Pose startPoint = Pose.identity;
 
         /// <summary>
         /// The Starting point of this line.
         /// </summary>
         /// <remarks>Always located at this <see cref="GameObject"/>'s <see cref="Transform.position"/></remarks>
-        public MixedRealityPose StartPoint => startPoint;
+        public Pose StartPoint => startPoint;
 
         #region MonoBehaviour Implementation
 
@@ -26,7 +25,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         {
             base.OnValidate();
 
-            startPoint.Position = transform.transform.InverseTransformPoint(LineTransform.position);
+            startPoint.position = transform.transform.InverseTransformPoint(LineTransform.position);
         }
 
         #endregion MonoBehaviour Implementation

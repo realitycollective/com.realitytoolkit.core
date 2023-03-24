@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Definitions;
-using UnityEngine.Serialization;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RealityToolkit.InputSystem.Definitions
 {

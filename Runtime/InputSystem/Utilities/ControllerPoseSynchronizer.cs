@@ -4,7 +4,6 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
@@ -157,7 +156,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
         public virtual void OnSourcePoseChanged(SourcePoseEventData<Quaternion> eventData) { }
 
         /// <inheritdoc />
-        public virtual void OnSourcePoseChanged(SourcePoseEventData<MixedRealityPose> eventData)
+        public virtual void OnSourcePoseChanged(SourcePoseEventData<Pose> eventData)
         {
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
@@ -165,8 +164,8 @@ namespace RealityToolkit.Services.InputSystem.Utilities
                     UseSourcePoseData &&
                     TrackingState == TrackingState.Tracked)
                 {
-                    PoseDriver.localPosition = eventData.SourceData.Position;
-                    PoseDriver.localRotation = eventData.SourceData.Rotation;
+                    PoseDriver.localPosition = eventData.SourceData.position;
+                    PoseDriver.localRotation = eventData.SourceData.rotation;
                 }
             }
         }
@@ -218,7 +217,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
         }
 
         /// <inheritdoc />
-        public virtual void OnInputChanged(InputEventData<MixedRealityPose> eventData)
+        public virtual void OnInputChanged(InputEventData<Pose> eventData)
         {
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
@@ -230,8 +229,8 @@ namespace RealityToolkit.Services.InputSystem.Utilities
 
                     if (PoseDriver != null)
                     {
-                        PoseDriver.localPosition = eventData.InputData.Position;
-                        PoseDriver.localRotation = eventData.InputData.Rotation;
+                        PoseDriver.localPosition = eventData.InputData.position;
+                        PoseDriver.localRotation = eventData.InputData.rotation;
                     }
                 }
             }

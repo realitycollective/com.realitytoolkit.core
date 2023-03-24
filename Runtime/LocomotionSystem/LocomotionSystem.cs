@@ -5,7 +5,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Listeners;
 using RealityToolkit.LocomotionSystem.Definitions;
@@ -317,7 +316,7 @@ namespace RealityToolkit.LocomotionSystem
             };
 
         /// <inheritdoc />
-        public void RaiseTeleportStarted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, MixedRealityPose pose, ITeleportAnchor anchor)
+        public void RaiseTeleportStarted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, Pose pose, ITeleportAnchor anchor)
         {
             teleportEventData.Initialize(locomotionProvider, inputSource, pose, anchor);
             HandleEvent(teleportEventData, OnTeleportStartedHandler);
@@ -331,7 +330,7 @@ namespace RealityToolkit.LocomotionSystem
             };
 
         /// <inheritdoc />
-        public void RaiseTeleportCompleted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, MixedRealityPose pose, ITeleportAnchor anchor)
+        public void RaiseTeleportCompleted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, Pose pose, ITeleportAnchor anchor)
         {
             currentTeleportCooldown = teleportCooldown;
             teleportEventData.Initialize(locomotionProvider, inputSource, pose, anchor);

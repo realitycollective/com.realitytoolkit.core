@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using UnityEngine;
 using RealityCollective.Extensions;
+using UnityEngine;
 
 namespace RealityToolkit.Utilities.Solvers
 {
@@ -204,8 +204,8 @@ namespace RealityToolkit.Utilities.Solvers
 
         public virtual void SnapTo(Vector3 position, Quaternion rotation, Vector3 scale)
         {
-            SnapGoalTo(position,rotation,scale);
-            
+            SnapGoalTo(position, rotation, scale);
+
             WorkingPosition = position;
             WorkingRotation = rotation;
             WorkingScale = scale;

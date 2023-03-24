@@ -5,7 +5,6 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Extensions;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
@@ -35,8 +34,8 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         private Vector2 dualAxisPosition = Vector2.zero;
         protected Vector3 CurrentControllerPosition = Vector3.zero;
         protected Quaternion CurrentControllerRotation = Quaternion.identity;
-        private MixedRealityPose pointerOffsetPose = MixedRealityPose.ZeroIdentity;
-        protected MixedRealityPose LastControllerPose = MixedRealityPose.ZeroIdentity;
+        private Pose pointerOffsetPose = Pose.identity;
+        protected Pose LastControllerPose = Pose.identity;
 
         /// <summary>
         /// Update the controller data from Unity's Input Manager
@@ -179,8 +178,8 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
             switch (interactionMapping.InputType)
             {
                 case DeviceInputType.SpatialPointer:
-                    pointerOffsetPose.Position = Pose.Position;
-                    pointerOffsetPose.Rotation = Pose.Rotation * Quaternion.AngleAxis(PointerOffsetAngle, Vector3.left);
+                    pointerOffsetPose.position = Pose.position;
+                    pointerOffsetPose.rotation = Pose.rotation * Quaternion.AngleAxis(PointerOffsetAngle, Vector3.left);
 
                     // Update the interaction data source
                     interactionMapping.PoseData = pointerOffsetPose;

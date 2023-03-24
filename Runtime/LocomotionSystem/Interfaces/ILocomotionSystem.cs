@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.LocomotionSystem.Interfaces
 {
@@ -74,18 +74,18 @@ namespace RealityToolkit.LocomotionSystem.Interfaces
         /// </summary>
         /// <param name="locomotionProvider">The <see cref="ITeleportLocomotionProvider"/> that started teleportation.</param>
         /// <param name="inputSource">The <see cref="IMixedRealityInputSource"/> the <paramref name="locomotionProvider"/>'s teleport request originated from.</param>
-        /// <param name="pose">The target <see cref="MixedRealityPose"/> the teleportation is going for.</param>
+        /// <param name="pose">The target <see cref="Pose"/> the teleportation is going for.</param>
         /// <param name="anchor">The teleport target anchor, if any.</param>
-        void RaiseTeleportStarted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, MixedRealityPose pose, ITeleportAnchor anchor);
+        void RaiseTeleportStarted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, Pose pose, ITeleportAnchor anchor);
 
         /// <summary>
         /// Raises a teleportation completed event for <see cref="ILocomotionSystemHandler"/>s.
         /// </summary>
         /// <param name="locomotionProvider">The <see cref="ITeleportLocomotionProvider"/> whose teleportation has completed.</param>
         /// <param name="inputSource">The <see cref="IMixedRealityInputSource"/> the <paramref name="locomotionProvider"/>'s teleport request originated from.</param>
-        /// <param name="pose">The target <see cref="MixedRealityPose"/> the teleportation was going for.</param>
+        /// <param name="pose">The target <see cref="Pose"/> the teleportation was going for.</param>
         /// <param name="anchor">The teleport target anchor, if any.</param>
-        void RaiseTeleportCompleted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, MixedRealityPose pose, ITeleportAnchor anchor);
+        void RaiseTeleportCompleted(ITeleportLocomotionProvider locomotionProvider, IMixedRealityInputSource inputSource, Pose pose, ITeleportAnchor anchor);
 
         /// <summary>
         /// Raises a teleportation canceled event for <see cref="ILocomotionSystemHandler"/>s.

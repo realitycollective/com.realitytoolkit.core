@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Lines;
-using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Lines
@@ -108,25 +107,25 @@ namespace RealityToolkit.Utilities.Lines
         /// <param name="normalizedLength">the normalized length along the line to calculate the point.</param>
         /// <param name="interpolation">Optional Interpolation type to use when calculating the point.</param>
         /// <returns>The calculated point found along the normalized length.</returns>
-        public static Vector3 GetPointAlongSpline(MixedRealityPose[] points, float normalizedLength, InterpolationType interpolation = InterpolationType.Bezier)
+        public static Vector3 GetPointAlongSpline(Pose[] points, float normalizedLength, InterpolationType interpolation = InterpolationType.Bezier)
         {
             int pointIndex = (Mathf.RoundToInt(normalizedLength * points.Length));
             float length = normalizedLength - ((float)pointIndex / points.Length);
 
             if (pointIndex + 3 >= points.Length)
             {
-                return points[points.Length - 1].Position;
+                return points[points.Length - 1].position;
             }
 
             if (pointIndex < 0)
             {
-                return points[0].Position;
+                return points[0].position;
             }
 
-            Vector3 point1 = points[pointIndex].Position;
-            Vector3 point2 = points[pointIndex + 1].Position;
-            Vector3 point3 = points[pointIndex + 2].Position;
-            Vector3 point4 = points[pointIndex + 3].Position;
+            Vector3 point1 = points[pointIndex].position;
+            Vector3 point2 = points[pointIndex + 1].position;
+            Vector3 point3 = points[pointIndex + 2].position;
+            Vector3 point4 = points[pointIndex + 3].position;
 
             switch (interpolation)
             {
