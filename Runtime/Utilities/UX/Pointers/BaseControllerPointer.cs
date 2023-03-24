@@ -11,8 +11,6 @@ using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
-using RealityToolkit.LocomotionSystem.Definitions;
-using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities.Physics;
 using System;
@@ -26,8 +24,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// </summary>
     [DisallowMultipleComponent]
     public abstract class BaseControllerPointer : ControllerPoseSynchronizer,
-        IMixedRealityPointer,
-        ILocomotionSystemHandler
+        IMixedRealityPointer
+#if RTK_LOCOMOTION
+        ,ILocomotionSystemHandler
+#endif
     {
         [SerializeField]
         private GameObject cursorPrefab = null;
@@ -164,10 +164,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
+#if RTK_LOCOMOTION
         private ILocomotionSystem locomotionSystem = null;
 
         protected ILocomotionSystem LocomotionSystem
             => locomotionSystem ?? (locomotionSystem = ServiceManager.Instance.GetService<ILocomotionSystem>());
+#endif
 
         private ICameraService cameraSystem = null;
 
@@ -182,11 +184,13 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             base.OnEnable();
 
+#if RTK_LOCOMOTION
             if (!lateRegisterTeleport &&
                 ServiceManager.Instance.TryGetService(out locomotionSystem))
             {
                 locomotionSystem.Register(gameObject);
             }
+#endif
         }
 
         protected override async void Start()
@@ -195,6 +199,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
             SetCursor();
 
+#if RTK_LOCOMOTION
             if (lateRegisterTeleport)
             {
                 try
@@ -211,6 +216,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     lateRegisterTeleport = false;
                 }
             }
+#endif
         }
 
         protected virtual void OnTriggerEnter(Collider other)
@@ -270,7 +276,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
 
             base.OnDisable();
+
+#if RTK_LOCOMOTION
             LocomotionSystem?.Unregister(gameObject);
+#endif
 
             IsHoldPressed = false;
             IsSelectPressed = false;
@@ -751,6 +760,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         #endregion  IMixedRealityInputHandler Implementation
 
+#if RTK_LOCOMOTION
         #region IMixedRealityLocomotionSystemHandler Implementation
 
         /// <inheritdoc />
@@ -789,5 +799,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
         }
 
         #endregion IMixedRealityLocomotionSystemHandler Implementation
+#endif
     }
 }
