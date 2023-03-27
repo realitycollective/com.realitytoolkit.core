@@ -11,8 +11,6 @@ using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
-using RealityToolkit.LocomotionSystem.Definitions;
-using RealityToolkit.LocomotionSystem.Interfaces;
 using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities.Physics;
 using System;
@@ -25,9 +23,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// Base Pointer class for pointers that exist in the scene as GameObjects.
     /// </summary>
     [DisallowMultipleComponent]
-    public abstract class BaseControllerPointer : ControllerPoseSynchronizer,
-        IMixedRealityPointer,
-        ILocomotionSystemHandler
+    public abstract class BaseControllerPointer : ControllerPoseSynchronizer, IMixedRealityPointer
     {
         [SerializeField]
         private GameObject cursorPrefab = null;
@@ -108,14 +104,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     Result.CurrentPointerTarget.IsNotNull() &&
                     uiLayerMask == (uiLayerMask | (1 << Result.CurrentPointerTarget.layer));
 
-        /// <summary>
-        /// Gets or sets whether there is currently ANY teleportation request by the
-        /// <see cref="ILocomotionSystem"/> active. This is used to temporarily
-        /// disable pointers that may interfere with teleportation.
-        /// </summary>
-        protected bool IsTeleportRequestActive { get; set; } = false;
-
-        private bool lateRegisterTeleport = true;
+        /// <inheritdoc/>
+        public bool IsTeleportRequestActive { get; set; } = false;
 
         /// <summary>
         /// Gets the currently captured near interaction object. Only applicable
@@ -164,11 +154,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        private ILocomotionSystem locomotionSystem = null;
-
-        protected ILocomotionSystem LocomotionSystem
-            => locomotionSystem ?? (locomotionSystem = ServiceManager.Instance.GetService<ILocomotionSystem>());
-
         private ICameraService cameraSystem = null;
 
         protected ICameraService CameraSystem
@@ -178,41 +163,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         #region MonoBehaviour Implementation
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            if (!lateRegisterTeleport &&
-                ServiceManager.Instance.TryGetService(out locomotionSystem))
-            {
-                locomotionSystem.Register(gameObject);
-            }
-        }
-
-        protected override async void Start()
+        /// <inheritdoc/>
+        protected override void Start()
         {
             base.Start();
-
             SetCursor();
-
-            if (lateRegisterTeleport)
-            {
-                try
-                {
-                    locomotionSystem = await ServiceManager.Instance.GetServiceAsync<ILocomotionSystem>();
-                    LocomotionSystem?.Register(gameObject);
-                }
-                catch
-                {
-                    return;
-                }
-                finally
-                {
-                    lateRegisterTeleport = false;
-                }
-            }
         }
 
+        /// <inheritdoc/>
         protected virtual void OnTriggerEnter(Collider other)
         {
             if (InteractionMode.HasFlags(InteractionMode.Near) &&
@@ -230,6 +188,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
+        /// <inheritdoc/>
         protected virtual void OnTriggerStay(Collider other)
         {
             if (InteractionMode.HasFlags(InteractionMode.Near) &&
@@ -245,6 +204,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
+        /// <inheritdoc/>
         protected virtual void OnTriggerExit(Collider other)
         {
             if (InteractionMode.HasFlags(InteractionMode.Near) &&
@@ -262,6 +222,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnDisable()
         {
             if (IsSelectPressed || IsGrabPressed)
@@ -270,7 +231,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
 
             base.OnDisable();
-            LocomotionSystem?.Unregister(gameObject);
 
             IsHoldPressed = false;
             IsSelectPressed = false;
@@ -750,44 +710,5 @@ namespace RealityToolkit.Utilities.UX.Pointers
         }
 
         #endregion  IMixedRealityInputHandler Implementation
-
-        #region IMixedRealityLocomotionSystemHandler Implementation
-
-        /// <inheritdoc />
-        public virtual void OnTeleportTargetRequested(LocomotionEventData eventData)
-        {
-            // Only turn off pointers that are on the input source making the request.
-            if (eventData.EventSource.SourceId == InputSourceParent.SourceId)
-            {
-                IsTeleportRequestActive = true;
-                BaseCursor?.SetVisibility(false);
-            }
-        }
-
-        /// <inheritdoc />
-        public virtual void OnTeleportStarted(LocomotionEventData eventData)
-        {
-            // Turn off all pointers while we teleport.
-            IsTeleportRequestActive = true;
-            BaseCursor?.SetVisibility(false);
-        }
-
-        /// <inheritdoc />
-        public virtual void OnTeleportCompleted(LocomotionEventData eventData)
-        {
-            // Turn all our pointers back on.
-            IsTeleportRequestActive = false;
-            BaseCursor?.SetVisibility(true);
-        }
-
-        /// <inheritdoc />
-        public virtual void OnTeleportCanceled(LocomotionEventData eventData)
-        {
-            // Turn all our pointers back on.
-            IsTeleportRequestActive = false;
-            BaseCursor?.SetVisibility(true);
-        }
-
-        #endregion IMixedRealityLocomotionSystemHandler Implementation
     }
 }

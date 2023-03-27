@@ -58,6 +58,15 @@ namespace RealityToolkit.InputSystem.Interfaces
         bool IsInputEnabled { get; }
 
         /// <summary>
+        /// Looks up the <see cref="IMixedRealityInputSource"/> from <see cref="DetectedInputSources"/>,
+        /// if it exists.
+        /// </summary>
+        /// <param name="sourceId">The <see cref="IMixedRealityInputSource"/> identifier.</param>
+        /// <param name="inputSource">The found <see cref="IMixedRealityInputSource"/>.</param>
+        /// <returns><c>true</c>, if the source was found.</returns>
+        bool TryGetInputSource(uint sourceId, out IMixedRealityInputSource inputSource);
+
+        /// <summary>
         /// Push a disabled input state onto the Input System.
         /// While input is disabled no events will be sent out and the cursor displays
         /// a waiting animation.
