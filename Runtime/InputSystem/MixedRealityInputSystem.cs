@@ -13,7 +13,6 @@ using RealityToolkit.InputSystem.InputSources;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,6 +99,22 @@ namespace RealityToolkit.InputSystem
 
         private SpeechEventData speechEventData;
         private DictationEventData dictationEventData;
+
+        /// <inheritdoc/>
+        public bool TryGetInputSource(uint sourceId, out IMixedRealityInputSource inputSource)
+        {
+            foreach (var detectedInputSource in DetectedInputSources)
+            {
+                if (detectedInputSource.SourceId == sourceId)
+                {
+                    inputSource = detectedInputSource;
+                    return true;
+                }
+            }
+
+            inputSource = null;
+            return false;
+        }
 
         #region IMixedRealityGazeProvider options
 
