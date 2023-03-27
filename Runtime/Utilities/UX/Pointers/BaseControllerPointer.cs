@@ -104,12 +104,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     Result.CurrentPointerTarget.IsNotNull() &&
                     uiLayerMask == (uiLayerMask | (1 << Result.CurrentPointerTarget.layer));
 
-        /// <summary>
-        /// Gets or sets whether there is currently ANY teleportation request by the
-        /// <see cref="ILocomotionSystem"/> active. This is used to temporarily
-        /// disable pointers that may interfere with teleportation.
-        /// </summary>
-        protected bool IsTeleportRequestActive { get; set; } = false;
+        /// <inheritdoc/>
+        public bool IsTeleportRequestActive { get; set; } = false;
 
         /// <summary>
         /// Gets the currently captured near interaction object. Only applicable

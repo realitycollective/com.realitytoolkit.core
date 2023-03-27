@@ -96,6 +96,9 @@ namespace RealityToolkit.InputSystem.Pointers
         /// <inheritdoc />
         public InteractionMode InteractionMode { get; }
 
+        /// <inheritdoc/>
+        public bool IsTeleportRequestActive { get; set; } = false;
+
         /// <inheritdoc />
         public Collider NearInteractionCollider { get; } = null;
 
