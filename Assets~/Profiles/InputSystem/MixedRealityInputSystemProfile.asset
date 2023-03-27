@@ -21,14 +21,6 @@ MonoBehaviour:
     platformEntries:
       runtimePlatforms:
       - reference: 9869b29e-43bb-44cc-ae49-eb5c913263f9
-  - instancedType:
-      reference: 07512ffc-5128-434c-b7bf-5cd7ca8ef853
-    name: Simulated Hand Controller Data Provider
-    priority: 0
-    profile: {fileID: 11400000, guid: 6bd4ff02967a9b24197b8cd2593ddfa4, type: 2}
-    platformEntries:
-      runtimePlatforms:
-      - reference: 9869b29e-43bb-44cc-ae49-eb5c913263f9
   gazeProviderBehaviour: 0
   gazeProviderType:
     reference: bed2c9a4-48c5-49d2-bca4-3d351153ba75
