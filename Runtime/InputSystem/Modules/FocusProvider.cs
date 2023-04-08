@@ -571,6 +571,15 @@ namespace RealityToolkit.InputSystem.Modules
         private void EnsureUiRaycastCameraSetup()
         {
             const string uiRayCastCameraName = "UIRaycastCamera";
+
+            if (Camera.main.IsNull())
+            {
+                // The main camera is not available yet, so we cannot init the raycat camera
+                // at this time. The get-accessor of the UIRaycastCamera property will ensure
+                // it is set up at a later time when accessed.
+                return;
+            }
+
             GameObject cameraObject;
 
             var existingUiRaycastCameraObject = GameObject.Find(uiRayCastCameraName);
@@ -601,11 +610,7 @@ namespace RealityToolkit.InputSystem.Modules
             uiRaycastCamera.allowDynamicResolution = false;
             uiRaycastCamera.targetDisplay = 0;
             uiRaycastCamera.stereoTargetEye = StereoTargetEyeMask.Both;
-
-            if (Camera.main.IsNotNull())
-            {
-                uiRaycastCamera.cullingMask = Camera.main.cullingMask;
-            }
+            uiRaycastCamera.cullingMask = Camera.main.cullingMask;
 
             if (uiRaycastCameraTargetTexture == null)
             {
