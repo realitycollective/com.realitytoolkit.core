@@ -67,6 +67,12 @@ namespace RealityToolkit.InputSystem
         /// <inheritdoc />
         public IMixedRealityGazeProvider GazeProvider { get; private set; }
 
+#if UNITY_INPUT_SYSTEM_ACTIVE
+        private Type InputModuleType => typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule);
+#else
+        private Type InputModuleType => typeof(StandaloneInputModule);
+#endif
+
         private GazeProviderBehaviour gazeProviderBehaviour;
         private readonly Type gazeProviderType;
         private readonly Stack<GameObject> modalInputStack = new Stack<GameObject>();
@@ -212,7 +218,7 @@ namespace RealityToolkit.InputSystem
         {
             base.Initialize();
 
-            EnsureStandaloneInputModuleSetup();
+            EnsureInputModuleSetup();
 
             if (Application.isPlaying)
             {
@@ -248,31 +254,32 @@ namespace RealityToolkit.InputSystem
             UpdateGazeProvider();
         }
 
-        private void EnsureStandaloneInputModuleSetup()
+        private void EnsureInputModuleSetup()
         {
-            var standaloneInputModules = UnityEngine.Object.FindObjectsOfType<StandaloneInputModule>();
-            if (standaloneInputModules.Length == 0)
+            var inputModules = UnityEngine.Object.FindObjectsOfType(InputModuleType);
+
+            if (inputModules.Length == 0)
             {
                 var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<EventSystem>();
                 if (eventSystemGameObject.IsNotNull())
                 {
-                    eventSystemGameObject.gameObject.EnsureComponent<StandaloneInputModule>();
-                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
+                    eventSystemGameObject.gameObject.EnsureComponent(InputModuleType);
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
                 }
                 else if (Camera.main.IsNotNull())
                 {
-                    Camera.main.gameObject.EnsureComponent<StandaloneInputModule>();
-                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                    Camera.main.gameObject.EnsureComponent(InputModuleType);
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
                 }
                 else
                 {
-                    var inputModuleObject = new GameObject(nameof(StandaloneInputModule), typeof(StandaloneInputModule));
-                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the scene.");
+                    var inputModuleObject = new GameObject(InputModuleType.Name, InputModuleType);
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the scene.");
                 }
             }
-            else if (standaloneInputModules.Length > 1)
+            else if (inputModules.Length > 1)
             {
-                Debug.LogError($"There is more than one {nameof(StandaloneInputModule)} active in the scene. Please make sure only one instance of it exists as it may cause errors.");
+                Debug.LogError($"There is more than one {InputModuleType.Name} active in the scene. Please make sure only one instance of it exists as it may cause errors.");
             }
         }
 
@@ -301,7 +308,7 @@ namespace RealityToolkit.InputSystem
             {
                 RemoveGazeProvider();
 
-                var inputModule = UnityEngine.Object.FindObjectOfType<StandaloneInputModule>();
+                var inputModule = UnityEngine.Object.FindObjectOfType(InputModuleType);
                 if (inputModule.IsNotNull())
                 {
                     inputModule.Destroy();
