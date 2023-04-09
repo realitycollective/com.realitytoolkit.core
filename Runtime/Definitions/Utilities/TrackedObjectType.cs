@@ -6,7 +6,7 @@ namespace RealityToolkit.Definitions.Utilities
     public enum TrackedObjectType
     {
         /// <summary>
-        /// Calculates position and orientation based on the <see cref="IMixedRealityCameraRig.CameraTransform"/>.
+        /// Calculates position and orientation based on the <see cref="CameraService.Interfaces.ICameraRig.CameraTransform"/>.
         /// </summary>
         Head = 0,
         /// <summary>
@@ -18,11 +18,11 @@ namespace RealityToolkit.Definitions.Utilities
         /// </summary>
         RightHandOrController,
         /// <summary>
-        /// Calculates position and orientation based on the <see cref="IMixedRealityCameraRig.BodyTransform"/>.
+        /// Calculates position and orientation based on the <see cref="CameraService.Interfaces.ICharacterCameraRig.BodyTransform"/>.
         /// </summary>
         Body,
         /// <summary>
-        /// Calculates position and orientation based on the <see cref="IMixedRealityCameraRig.RigTransform"/>
+        /// Calculates position and orientation based on the <see cref="CameraService.Interfaces.ICameraRig.RigTransform"/>
         /// </summary>
         Rig
     }

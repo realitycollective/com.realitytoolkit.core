@@ -65,7 +65,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
             var targetTransform = targetRenderer.transform;
             var targetCamera = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                ? cameraSystem.CameraRig.PlayerCamera
+                ? cameraSystem.CameraRig.RigCamera
                 : Camera.main;
 
             var cameraPosition = targetCamera.transform.position;

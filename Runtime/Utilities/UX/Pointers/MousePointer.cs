@@ -87,7 +87,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public override bool TryGetPointingRay(out Ray pointingRay)
         {
             var playerCamera = CameraSystem != null
-                ? CameraSystem.CameraRig.PlayerCamera
+                ? CameraSystem.CameraRig.RigCamera
                 : Camera.main;
             pointingRay = playerCamera.ScreenPointToRay(UnityEngine.Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             return true;

@@ -232,7 +232,9 @@ namespace RealityToolkit.Utilities.Solvers
                     Handedness = Handedness.Right;
                     break;
                 case TrackedObjectType.Body:
-                    TrackTransform(cameraSystem.CameraRig.BodyTransform);
+                    TrackTransform(cameraSystem.CameraRig is ICharacterCameraRig characterCameraRig ?
+                            characterCameraRig.BodyTransform :
+                            cameraSystem.CameraRig.CameraTransform);
                     break;
                 case TrackedObjectType.Rig:
                     TrackTransform(cameraSystem.CameraRig.RigTransform);

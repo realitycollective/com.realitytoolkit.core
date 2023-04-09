@@ -68,7 +68,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (fingerId < 0) { return false; }
 
             var playerCamera = CameraSystem != null
-                ? CameraSystem.CameraRig.PlayerCamera
+                ? CameraSystem.CameraRig.RigCamera
                 : Camera.main;
             position = Result.CurrentPointerTarget != null
                 ? Result.EndPoint

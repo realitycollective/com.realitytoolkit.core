@@ -48,7 +48,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraSystem != null ? CameraSystem.CameraRig.PlayerCamera : Camera.main;
+                    playerCamera = CameraSystem != null ? CameraSystem.CameraRig.RigCamera : Camera.main;
                 }
 
                 return playerCamera;
