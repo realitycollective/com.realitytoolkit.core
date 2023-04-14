@@ -18,10 +18,6 @@ namespace RealityToolkit.Definitions.Utilities
         /// </summary>
         RightHandOrController,
         /// <summary>
-        /// Calculates position and orientation based on the <see cref="CameraService.Interfaces.ICharacterCameraRig.BodyTransform"/>.
-        /// </summary>
-        Body,
-        /// <summary>
         /// Calculates position and orientation based on the <see cref="CameraService.Interfaces.ICameraRig.RigTransform"/>
         /// </summary>
         Rig

@@ -74,9 +74,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             {
                 controller = value;
                 InputSourceParent = value.InputSource;
-                RaycastOrigin = CameraSystem != null
-                    ? CameraSystem.CameraRig.CameraTransform
-                    : Camera.main.transform;
+                RaycastOrigin = Camera.main.transform;
                 Handedness = value.ControllerHandedness;
                 gameObject.name = "Spatial Mouse Pointer";
                 TrackingState = TrackingState.NotApplicable;
@@ -86,10 +84,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public override bool TryGetPointingRay(out Ray pointingRay)
         {
-            var playerCamera = CameraSystem != null
-                ? CameraSystem.CameraRig.RigCamera
-                : Camera.main;
-            pointingRay = playerCamera.ScreenPointToRay(UnityEngine.Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
+            var playerCamera = Camera.main;
+            pointingRay = playerCamera.ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             return true;
         }
 
@@ -135,7 +131,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public override void OnPostRaycast()
         {
             transform.position = Result.EndPoint;
-            transform.LookAt(CameraSystem != null ? CameraSystem.CameraRig.CameraTransform : Camera.main.transform);
+            transform.LookAt(Camera.main.transform);
         }
 
         #endregion IMixedRealityPointer Implementaiton

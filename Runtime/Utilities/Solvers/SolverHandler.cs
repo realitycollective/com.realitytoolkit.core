@@ -2,8 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Utilities;
 using System;
 using System.Collections.Generic;
@@ -214,16 +213,10 @@ namespace RealityToolkit.Utilities.Solvers
         {
             Handedness = Handedness.None;
 
-            if (!ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem))
-            {
-                Debug.LogError($"Failed to find the {nameof(ICameraService)}!");
-                return;
-            }
-
             switch (TrackedObjectToReference)
             {
                 case TrackedObjectType.Head:
-                    TrackTransform(cameraSystem.CameraRig.CameraTransform);
+                    TrackTransform(Camera.main.transform);
                     break;
                 case TrackedObjectType.LeftHandOrController:
                     Handedness = Handedness.Left;
@@ -231,13 +224,11 @@ namespace RealityToolkit.Utilities.Solvers
                 case TrackedObjectType.RightHandOrController:
                     Handedness = Handedness.Right;
                     break;
-                case TrackedObjectType.Body:
-                    TrackTransform(cameraSystem.CameraRig is ICharacterCameraRig characterCameraRig ?
-                            characterCameraRig.BodyTransform :
-                            cameraSystem.CameraRig.CameraTransform);
-                    break;
                 case TrackedObjectType.Rig:
-                    TrackTransform(cameraSystem.CameraRig.RigTransform);
+                    if (Camera.main.transform.parent.IsNotNull())
+                    {
+                        TrackTransform(Camera.main.transform.parent);
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

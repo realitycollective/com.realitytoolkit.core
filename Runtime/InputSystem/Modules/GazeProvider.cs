@@ -3,7 +3,6 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.InputSources;
@@ -431,9 +430,7 @@ namespace RealityToolkit.InputSystem.Modules
 
             if (gazeTransform == null)
             {
-                gazeTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                    ? cameraSystem.CameraRig.CameraTransform
-                    : Camera.main.transform;
+                gazeTransform = Camera.main.transform;
             }
 
             if (gazeTransform == null)

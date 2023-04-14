@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Utilities;
 using UnityEngine;
 
@@ -127,9 +125,7 @@ namespace RealityToolkit.Utilities.Solvers
         private Quaternion CalculateDesiredRotation(Vector3 desiredPos)
         {
             var desiredRot = Quaternion.identity;
-            var cameraTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                ? cameraSystem.CameraRig.CameraTransform
-                : Camera.main.transform;
+            var cameraTransform = Camera.main.transform;
 
             switch (orientationType)
             {

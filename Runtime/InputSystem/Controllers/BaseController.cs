@@ -4,7 +4,6 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Definitions;
@@ -178,9 +177,7 @@ namespace RealityToolkit.InputSystem.Controllers
                 for (int j = 0; j < interactionProfile.PointerProfiles.Length; j++)
                 {
                     var pointerProfile = interactionProfile.PointerProfiles[j];
-                    var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                        ? cameraSystem.CameraRig.RigTransform
-                        : Camera.main.transform.parent;
+                    var rigTransform = Camera.main.transform.parent;
                     var pointerObject = Object.Instantiate(pointerProfile.PointerPrefab, rigTransform);
                     var pointer = pointerObject.GetComponent<IMixedRealityPointer>();
 
@@ -231,10 +228,7 @@ namespace RealityToolkit.InputSystem.Controllers
             // If we've got a controller model, then place it in the scene and get/attach the visualizer.
             if (!controllerModel.IsNull())
             {
-                var rigTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                    ? cameraSystem.CameraRig.RigTransform
-                    : Camera.main.transform.parent;
-
+                var rigTransform = Camera.main.transform.parent;
                 var controllerObject = Object.Instantiate(controllerModel, rigTransform);
                 Debug.Assert(controllerObject != null);
                 controllerObject.name = $"{GetType().Name}_Visualization";
