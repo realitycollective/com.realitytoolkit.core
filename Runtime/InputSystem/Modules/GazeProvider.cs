@@ -311,7 +311,7 @@ namespace RealityToolkit.InputSystem.Modules
                 lateInitialize = false;
                 InputSystem.Register(gameObject);
 
-                if (gazePointer.BaseCursor != null)
+                if (GazePointer.BaseCursor != null)
                 {
                     GazePointer.BaseCursor.IsVisible = true;
                 }
@@ -408,8 +408,8 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerUp(gazePointer, eventData.MixedRealityInputAction);
-                    InputSystem.RaisePointerClicked(gazePointer, eventData.MixedRealityInputAction);
+                    InputSystem.RaisePointerUp(GazePointer, eventData.MixedRealityInputAction);
+                    InputSystem.RaisePointerClicked(GazePointer, eventData.MixedRealityInputAction);
                     return;
                 }
             }
@@ -422,7 +422,7 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerDown(gazePointer, eventData.MixedRealityInputAction, eventData.InputSource);
+                    InputSystem.RaisePointerDown(GazePointer, eventData.MixedRealityInputAction, eventData.InputSource);
                     return;
                 }
             }
