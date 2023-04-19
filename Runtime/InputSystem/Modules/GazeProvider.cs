@@ -3,7 +3,6 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.InputSources;
@@ -312,7 +311,10 @@ namespace RealityToolkit.InputSystem.Modules
                 lateInitialize = false;
                 InputSystem.Register(gameObject);
 
-                GazePointer.BaseCursor?.SetVisibility(true);
+                if (GazePointer.BaseCursor != null)
+                {
+                    GazePointer.BaseCursor.IsVisible = true;
+                }
 
                 if (delayInitialization)
                 {
@@ -373,7 +375,12 @@ namespace RealityToolkit.InputSystem.Modules
         protected virtual void OnDisable()
         {
             InputSystem?.Unregister(gameObject);
-            GazePointer?.BaseCursor?.SetVisibility(false);
+
+            if (GazePointer.BaseCursor != null)
+            {
+                GazePointer.BaseCursor.IsVisible = false;
+            }
+
             if (sourceRaised)
             {
                 InputSystem?.RaiseSourceLost(GazeInputSource);
@@ -401,8 +408,8 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerUp(gazePointer, eventData.MixedRealityInputAction);
-                    InputSystem.RaisePointerClicked(gazePointer, eventData.MixedRealityInputAction);
+                    InputSystem.RaisePointerUp(GazePointer, eventData.MixedRealityInputAction);
+                    InputSystem.RaisePointerClicked(GazePointer, eventData.MixedRealityInputAction);
                     return;
                 }
             }
@@ -415,7 +422,7 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerDown(gazePointer, eventData.MixedRealityInputAction, eventData.InputSource);
+                    InputSystem.RaisePointerDown(GazePointer, eventData.MixedRealityInputAction, eventData.InputSource);
                     return;
                 }
             }
@@ -431,9 +438,7 @@ namespace RealityToolkit.InputSystem.Modules
 
             if (gazeTransform == null)
             {
-                gazeTransform = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                    ? cameraSystem.CameraRig.CameraTransform
-                    : Camera.main.transform;
+                gazeTransform = Camera.main.transform;
             }
 
             if (gazeTransform == null)
@@ -477,7 +482,12 @@ namespace RealityToolkit.InputSystem.Modules
             if (this == null) { return; }
 
             InputSystem.RaiseSourceDetected(GazeInputSource);
-            GazePointer.BaseCursor?.SetVisibility(true);
+
+            if (GazePointer.BaseCursor != null)
+            {
+                GazePointer.BaseCursor.IsVisible = true;
+            }
+
             sourceRaised = true;
         }
 

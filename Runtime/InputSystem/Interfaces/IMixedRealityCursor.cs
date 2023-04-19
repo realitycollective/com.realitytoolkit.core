@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.InputSystem.Interfaces.Handlers;
@@ -37,15 +37,9 @@ namespace RealityToolkit.InputSystem.Interfaces
         Vector3 LocalScale { get; }
 
         /// <summary>
-        /// Sets the visibility of the <see cref="IMixedRealityCursor"/>.
+        /// Gets or sets whether the <see cref="IMixedRealityCursor"/> is visible or not.
         /// </summary>
-        /// <param name="visible">True if cursor should be visible, false if not.</param>
-        void SetVisibility(bool visible);
-
-        /// <summary>
-        /// Is the cursor currently visible?
-        /// </summary>
-        bool IsVisible { get; }
+        bool IsVisible { get; set; }
 
         /// <summary>
         /// Sets the visibility of the <see cref="IMixedRealityCursor"/> when the source is detected.

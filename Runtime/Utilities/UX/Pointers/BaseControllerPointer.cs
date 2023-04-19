@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
@@ -145,7 +143,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 {
                     BaseCursor.Pointer = this;
                     BaseCursor.SetVisibilityOnSourceDetected = setCursorVisibilityOnSourceDetected;
-                    BaseCursor.SetVisibility(!disableCursorOnStart);
+                    BaseCursor.IsVisible = !disableCursorOnStart;
                 }
                 else
                 {
@@ -153,11 +151,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 }
             }
         }
-
-        private ICameraService cameraSystem = null;
-
-        protected ICameraService CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<ICameraService>());
 
         private Vector3 lastPointerPosition = Vector3.zero;
 
@@ -236,7 +229,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
             IsSelectPressed = false;
             IsGrabPressed = false;
             HasSelectPressedOnce = false;
-            BaseCursor?.SetVisibility(false);
+
+            if (BaseCursor != null)
+            {
+                BaseCursor.IsVisible = false;
+            }
         }
 
         #endregion MonoBehaviour Implementation

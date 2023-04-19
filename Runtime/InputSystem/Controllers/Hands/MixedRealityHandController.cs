@@ -2,8 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
@@ -55,11 +54,6 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private Pose lastHandRootPose;
         private Vector3 lastPalmNormal = Vector3.zero;
         private Vector3 lastPalmPosition = Vector3.zero;
-
-        private static ICameraService cameraSystem = null;
-
-        private static ICameraService CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<ICameraService>());
 
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
@@ -797,10 +791,10 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
                 };
 
                 // Translate to world space.
-                if (CameraSystem != null)
+                if (Camera.main.transform.parent.IsNotNull())
                 {
-                    pose.position = CameraSystem.CameraRig.RigTransform.TransformPoint(pose.position);
-                    pose.rotation = CameraSystem.CameraRig.RigTransform.rotation * pose.rotation;
+                    pose.position = Camera.main.transform.parent.TransformPoint(pose.position);
+                    pose.rotation = Camera.main.transform.parent.rotation * pose.rotation;
                 }
 
                 return lastHandRootPose != Pose.identity;

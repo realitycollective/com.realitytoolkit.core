@@ -2,12 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
-using RealityToolkit.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,11 +33,6 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private const float FIVE_CENTIMETER_SQUARE_MAGNITUDE = 0.0025f;
         private const float PINCH_STRENGTH_DISTANCE = FIVE_CENTIMETER_SQUARE_MAGNITUDE - TWO_CENTIMETER_SQUARE_MAGNITUDE;
 
-        private static ICameraService cameraSystem = null;
-
-        private static ICameraService CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<ICameraService>());
-
         private static Camera playerCamera = null;
 
         private static Camera PlayerCamera
@@ -48,7 +41,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraSystem != null ? CameraSystem.CameraRig.PlayerCamera : Camera.main;
+                    playerCamera = Camera.main;
                 }
 
                 return playerCamera;
@@ -137,9 +130,8 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         {
             if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesIsPointing)
             {
-                var rigTransform = CameraSystem != null
-                    ? CameraSystem.CameraRig.RigTransform
-                    : Camera.main.transform.parent;
+                Debug.Assert(Camera.main.transform.parent.IsNotNull(), $"The {nameof(HandDataPostProcessor)} expects the main camera to be parented.");
+                var rigTransform = Camera.main.transform.parent;
                 var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
                 var worldPalmPose = new Pose
                 {

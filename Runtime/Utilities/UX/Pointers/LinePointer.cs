@@ -200,7 +200,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (!IsInteractionEnabled)
             {
                 lineBase.enabled = false;
-                BaseCursor?.SetVisibility(false);
+
+                if (BaseCursor != null)
+                {
+                    BaseCursor.IsVisible = false;
+                }
+
                 return;
             }
 
@@ -209,7 +214,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
             Gradient lineColor;
 
             lineBase.enabled = true;
-            BaseCursor?.SetVisibility(true);
+
+            if (BaseCursor != null)
+            {
+                BaseCursor.IsVisible = true;
+            }
 
             // The distance the ray travels through the world before it hits something.
             // Measured in world-units (as opposed to normalized distance).

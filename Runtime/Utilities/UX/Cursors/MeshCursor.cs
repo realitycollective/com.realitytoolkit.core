@@ -1,8 +1,6 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.InputSystem.Definitions;
 using System;
 using UnityEngine;
@@ -64,9 +62,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             if (targetRenderer == null) { return; }
 
             var targetTransform = targetRenderer.transform;
-            var targetCamera = ServiceManager.Instance.TryGetService<ICameraService>(out var cameraSystem)
-                ? cameraSystem.CameraRig.PlayerCamera
-                : Camera.main;
+            var targetCamera = Camera.main;
 
             var cameraPosition = targetCamera.transform.position;
             var distance = (cameraPosition - targetTransform.position).magnitude;
