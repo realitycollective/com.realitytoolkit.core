@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Utilities.Lines.DataProviders;
@@ -13,7 +13,6 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
         private SerializedProperty height;
         private SerializedProperty endPoint;
         private SerializedProperty upDirection;
-        private SerializedProperty endPointPosition;
 
         protected override void OnEnable()
         {
