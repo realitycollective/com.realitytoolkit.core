@@ -194,7 +194,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
                 if (cursorWasDisabledOnDown)
                 {
-                    BaseCursor?.SetVisibility(true);
+                    if (BaseCursor != null)
+                    {
+                        BaseCursor.IsVisible = true;
+                    }
+
                     isDisabled = false;
                 }
                 else
@@ -262,7 +266,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
             if (Time.time - lastUpdateTime >= hideTimeout)
             {
-                BaseCursor?.SetVisibility(false);
+                if (BaseCursor != null)
+                {
+                    BaseCursor.IsVisible = false;
+                }
+
                 isDisabled = true;
                 lastUpdateTime = Time.time;
             }
@@ -289,9 +297,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (Mathf.Abs(scaledMouseX) >= movementThresholdToUnHide ||
                 Mathf.Abs(scaledMouseY) >= movementThresholdToUnHide)
             {
-                if (isDisabled)
+                if (isDisabled && BaseCursor != null)
                 {
-                    BaseCursor?.SetVisibility(true);
+                    BaseCursor.IsVisible = true;
                 }
 
                 shouldUpdate = true;

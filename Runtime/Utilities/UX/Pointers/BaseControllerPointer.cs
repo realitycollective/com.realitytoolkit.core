@@ -143,7 +143,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 {
                     BaseCursor.Pointer = this;
                     BaseCursor.SetVisibilityOnSourceDetected = setCursorVisibilityOnSourceDetected;
-                    BaseCursor.SetVisibility(!disableCursorOnStart);
+                    BaseCursor.IsVisible = !disableCursorOnStart;
                 }
                 else
                 {
@@ -229,7 +229,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
             IsSelectPressed = false;
             IsGrabPressed = false;
             HasSelectPressedOnce = false;
-            BaseCursor?.SetVisibility(false);
+
+            if (BaseCursor != null)
+            {
+                BaseCursor.IsVisible = false;
+            }
         }
 
         #endregion MonoBehaviour Implementation

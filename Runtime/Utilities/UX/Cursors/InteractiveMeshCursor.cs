@@ -53,6 +53,24 @@ namespace RealityToolkit.Utilities.UX.Cursors
         private Vector3 targetScale;
         private Vector3 initialScale;
 
+        /// <inheritdoc/>
+        public override bool IsVisible
+        {
+            get => base.IsVisible;
+            set
+            {
+                base.IsVisible = value;
+
+                isVisible = value;
+                ElementVisibility(value);
+
+                if (value)
+                {
+                    OnCursorStateChange(CursorState);
+                }
+            }
+        }
+
         private void Awake()
         {
             initialScale = transform.localScale;
@@ -144,23 +162,6 @@ namespace RealityToolkit.Utilities.UX.Cursors
             float distance = Vector3.Distance(InputSystem.GazeProvider.GazeOrigin, transform.position);
             float smoothScaling = 1 - Pointer.PointerExtent * distanceScaleFactor;
             transform.localScale = initialScale * (distance * distanceScaleFactor + smoothScaling);
-        }
-
-        /// <summary>
-        /// override the base class for custom visibility
-        /// </summary>
-        /// <param name="visible"></param>
-        public override void SetVisibility(bool visible)
-        {
-            base.SetVisibility(visible);
-
-            isVisible = visible;
-            ElementVisibility(visible);
-
-            if (visible)
-            {
-                OnCursorStateChange(CursorState);
-            }
         }
 
         /// <summary>

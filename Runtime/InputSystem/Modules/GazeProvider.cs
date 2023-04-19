@@ -311,7 +311,10 @@ namespace RealityToolkit.InputSystem.Modules
                 lateInitialize = false;
                 InputSystem.Register(gameObject);
 
-                GazePointer.BaseCursor?.SetVisibility(true);
+                if (gazePointer.BaseCursor != null)
+                {
+                    GazePointer.BaseCursor.IsVisible = true;
+                }
 
                 if (delayInitialization)
                 {
@@ -372,7 +375,12 @@ namespace RealityToolkit.InputSystem.Modules
         protected virtual void OnDisable()
         {
             InputSystem?.Unregister(gameObject);
-            GazePointer?.BaseCursor?.SetVisibility(false);
+
+            if (GazePointer.BaseCursor != null)
+            {
+                GazePointer.BaseCursor.IsVisible = false;
+            }
+
             if (sourceRaised)
             {
                 InputSystem?.RaiseSourceLost(GazeInputSource);
@@ -474,7 +482,12 @@ namespace RealityToolkit.InputSystem.Modules
             if (this == null) { return; }
 
             InputSystem.RaiseSourceDetected(GazeInputSource);
-            GazePointer.BaseCursor?.SetVisibility(true);
+
+            if (GazePointer.BaseCursor != null)
+            {
+                GazePointer.BaseCursor.IsVisible = true;
+            }
+
             sourceRaised = true;
         }
 
