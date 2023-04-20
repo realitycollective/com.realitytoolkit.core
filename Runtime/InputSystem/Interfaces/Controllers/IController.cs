@@ -47,7 +47,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         /// <summary>
         /// The controller's "Visual" <see cref="Component"/> in the scene.
         /// </summary>
-        IMixedRealityControllerVisualizer Visualizer { get; }
+        IControllerVisualizer Visualizer { get; }
 
         /// <summary>
         /// Indicates that this controller is currently providing position data.

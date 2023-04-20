@@ -130,7 +130,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public IMixedRealityInputSource InputSource { get; private set; }
 
         /// <inheritdoc />
-        public IMixedRealityControllerVisualizer Visualizer { get; private set; }
+        public IControllerVisualizer Visualizer { get; private set; }
 
         /// <inheritdoc />
         public bool IsPositionAvailable { get; protected set; }
@@ -213,7 +213,7 @@ namespace RealityToolkit.InputSystem.Controllers
 
             var controllerObject = Object.Instantiate(controllerPrefab, rigTransform);
             controllerObject.name = GetType().Name;
-            Visualizer = controllerObject.GetComponent<IMixedRealityControllerVisualizer>();
+            Visualizer = controllerObject.GetComponent<IControllerVisualizer>();
 
             if (Visualizer != null)
             {
@@ -221,7 +221,7 @@ namespace RealityToolkit.InputSystem.Controllers
             }
             else
             {
-                Debug.LogError($"{GetType().Name} prefab must have a {nameof(IMixedRealityControllerVisualizer)} component attached.");
+                Debug.LogError($"{GetType().Name} prefab must have a {nameof(IControllerVisualizer)} component attached.");
             }
         }
     }

@@ -17,7 +17,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
     /// Base hand controller visualizer implementation.
     /// </summary>
     [System.Runtime.InteropServices.Guid("5d844e0b-f913-46b8-bc3b-fa6429e62c60")]
-    public class DefaultHandControllerVisualizer : ControllerPoseSynchronizer, IMixedRealityControllerVisualizer
+    public class DefaultHandControllerVisualizer : ControllerPoseSynchronizer, IControllerVisualizer
     {
         private readonly Dictionary<TrackedHandJoint, Transform> jointTransforms = new Dictionary<TrackedHandJoint, Transform>();
         private readonly Dictionary<TrackedHandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<TrackedHandJoint, CapsuleCollider>();
