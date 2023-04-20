@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Definitions.Utilities;
 using System;
 using System.Collections.Generic;
-using RealityCollective.Definitions.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Physics
@@ -104,7 +104,7 @@ namespace RealityToolkit.Utilities.Physics
                     throw new ArgumentOutOfRangeException(nameof(constraint), constraint, null);
             }
 
-            return CameraCache.Main.transform.TransformDirection(result);
+            return Camera.main.transform.TransformDirection(result);
         }
 
         private static Vector3 GetHandlebarDirection(Dictionary<uint, Vector3> handsPressedMap)
@@ -119,8 +119,8 @@ namespace RealityToolkit.Utilities.Physics
 
             // We project the handlebar direction into camera space because otherwise when we move our body the handlebar will move even 
             // though, relative to our heads, the handlebar is not moving.
-            hand1 = CameraCache.Main.transform.InverseTransformPoint(hand1);
-            hand2 = CameraCache.Main.transform.InverseTransformPoint(hand2);
+            hand1 = Camera.main.transform.InverseTransformPoint(hand1);
+            hand2 = Camera.main.transform.InverseTransformPoint(hand2);
 
             return hand2 - hand1;
         }

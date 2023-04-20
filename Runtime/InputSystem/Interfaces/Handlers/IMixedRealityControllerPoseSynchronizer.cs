@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
@@ -18,7 +17,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
         IMixedRealityInputHandler<Vector2>,
         IMixedRealityInputHandler<Vector3>,
         IMixedRealityInputHandler<Quaternion>,
-        IMixedRealityInputHandler<MixedRealityPose>
+        IMixedRealityInputHandler<Pose>
     {
         /// <summary>
         /// The <see cref="Transform"/> that will be synchronized with the controller data.

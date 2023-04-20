@@ -4,7 +4,6 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using RealityToolkit.InputSystem.Processors;
 using System.Collections.Generic;
@@ -76,14 +75,14 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
 
             if (InputSource.Pointers[0].BaseCursor != null)
             {
-                Pose = new MixedRealityPose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
+                Pose = new Pose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
             }
 
             mousePosition.x = Input.GetAxis(Interactions[1].AxisCodeX);
             mousePosition.y = Input.GetAxis(Interactions[1].AxisCodeY);
 
             InputSystem?.RaiseSourcePositionChanged(InputSource, this, mousePosition);
-            InputSystem?.RaiseSourcePoseChanged(InputSource, this,Pose);
+            InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
 
             for (int i = 0; i < Interactions.Length; i++)
             {

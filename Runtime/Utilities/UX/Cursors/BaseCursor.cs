@@ -1,6 +1,7 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
@@ -146,17 +147,18 @@ namespace RealityToolkit.Utilities.UX.Cursors
         public virtual Vector3 LocalScale => transform.localScale;
 
         /// <inheritdoc />
-        public virtual void SetVisibility(bool visible)
+        public virtual bool IsVisible
         {
-            if (PrimaryCursorVisual != null &&
-                PrimaryCursorVisual.gameObject.activeInHierarchy != visible)
+            get => PrimaryCursorVisual.IsNotNull() ? PrimaryCursorVisual.gameObject.activeInHierarchy : gameObject.activeInHierarchy;
+            set
             {
-                PrimaryCursorVisual.gameObject.SetActive(visible);
+                if (PrimaryCursorVisual.IsNotNull() &&
+                PrimaryCursorVisual.gameObject.activeSelf != value)
+                {
+                    PrimaryCursorVisual.gameObject.SetActive(value);
+                }
             }
         }
-
-        /// <inheritdoc />
-        public bool IsVisible => PrimaryCursorVisual != null ? PrimaryCursorVisual.gameObject.activeInHierarchy : gameObject.activeInHierarchy;
 
         /// <inheritdoc />
         public bool SetVisibilityOnSourceDetected { get; set; } = false;
@@ -182,7 +184,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
                         if (SetVisibilityOnSourceDetected && visibleSourcesCount == 1)
                         {
-                            SetVisibility(true);
+                            IsVisible = true;
                         }
 
                         return;
@@ -222,7 +224,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
                 if (SetVisibilityOnSourceDetected)
                 {
-                    SetVisibility(false);
+                    IsVisible = false;
                 }
             }
         }

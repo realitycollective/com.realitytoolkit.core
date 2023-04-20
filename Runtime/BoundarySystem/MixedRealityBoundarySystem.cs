@@ -7,7 +7,6 @@ using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.BoundarySystem.Definitions;
 using RealityToolkit.BoundarySystem.Interfaces;
-using RealityToolkit.CameraSystem.Interfaces;
 using RealityToolkit.Definitions.BoundarySystem;
 using RealityToolkit.Utilities;
 using System;
@@ -82,10 +81,9 @@ namespace RealityToolkit.BoundarySystem
             {
                 if (rigTransform == null)
                 {
-                    rigTransform = ServiceManager.Instance.TryGetService<IMixedRealityCameraSystem>(out var cameraSystem)
-                       ? cameraSystem.MainCameraRig.RigTransform
-                       : CameraCache.Main.transform.parent;
+                    rigTransform = Camera.main.transform.parent;
                 }
+
                 return rigTransform;
             }
         }

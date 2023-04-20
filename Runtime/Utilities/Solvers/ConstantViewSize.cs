@@ -3,7 +3,6 @@
 
 using RealityCollective.Definitions.Utilities;
 using UnityEngine;
-using RealityToolkit.Utilities;
 
 namespace RealityToolkit.Utilities.Solvers
 {
@@ -65,7 +64,7 @@ namespace RealityToolkit.Utilities.Solvers
         {
             get
             {
-                float cameraFovRadians = (CameraCache.Main.aspect * CameraCache.Main.fieldOfView) * Mathf.Deg2Rad;
+                float cameraFovRadians = (Camera.main.aspect * Camera.main.fieldOfView) * Mathf.Deg2Rad;
                 float sinFov = Mathf.Sin(cameraFovRadians * 0.5f);
                 return 2f * targetViewPercentV * sinFov / objectSize;
             }

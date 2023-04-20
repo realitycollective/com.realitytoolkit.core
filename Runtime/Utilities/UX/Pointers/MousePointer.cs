@@ -74,9 +74,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             {
                 controller = value;
                 InputSourceParent = value.InputSource;
-                RaycastOrigin = CameraSystem != null
-                    ? CameraSystem.MainCameraRig.CameraTransform
-                    : CameraCache.Main.transform;
+                RaycastOrigin = Camera.main.transform;
                 Handedness = value.ControllerHandedness;
                 gameObject.name = "Spatial Mouse Pointer";
                 TrackingState = TrackingState.NotApplicable;
@@ -86,10 +84,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public override bool TryGetPointingRay(out Ray pointingRay)
         {
-            var playerCamera = CameraSystem != null
-                ? CameraSystem.MainCameraRig.PlayerCamera
-                : CameraCache.Main;
-            pointingRay = playerCamera.ScreenPointToRay(UnityEngine.Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
+            var playerCamera = Camera.main;
+            pointingRay = playerCamera.ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             return true;
         }
 
@@ -135,7 +131,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public override void OnPostRaycast()
         {
             transform.position = Result.EndPoint;
-            transform.LookAt(CameraSystem != null ? CameraSystem.MainCameraRig.CameraTransform : CameraCache.Main.transform);
+            transform.LookAt(Camera.main.transform);
         }
 
         #endregion IMixedRealityPointer Implementaiton
@@ -198,7 +194,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
                 if (cursorWasDisabledOnDown)
                 {
-                    BaseCursor?.SetVisibility(true);
+                    if (BaseCursor != null)
+                    {
+                        BaseCursor.IsVisible = true;
+                    }
+
                     isDisabled = false;
                 }
                 else
@@ -266,7 +266,11 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
             if (Time.time - lastUpdateTime >= hideTimeout)
             {
-                BaseCursor?.SetVisibility(false);
+                if (BaseCursor != null)
+                {
+                    BaseCursor.IsVisible = false;
+                }
+
                 isDisabled = true;
                 lastUpdateTime = Time.time;
             }
@@ -293,9 +297,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (Mathf.Abs(scaledMouseX) >= movementThresholdToUnHide ||
                 Mathf.Abs(scaledMouseY) >= movementThresholdToUnHide)
             {
-                if (isDisabled)
+                if (isDisabled && BaseCursor != null)
                 {
-                    BaseCursor?.SetVisibility(true);
+                    BaseCursor.IsVisible = true;
                 }
 
                 shouldUpdate = true;

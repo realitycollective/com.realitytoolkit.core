@@ -74,7 +74,7 @@ namespace RealityToolkit.InputSystem.Hands.Visualizers
         }
 
         /// <inheritdoc />
-        public override void OnInputChanged(InputEventData<MixedRealityPose> eventData)
+        public override void OnInputChanged(InputEventData<Pose> eventData)
         {
             base.OnInputChanged(eventData);
 

@@ -41,7 +41,7 @@ namespace RealityToolkit.Definitions.Devices
             vector2Data = Vector2.zero;
             positionData = Vector3.zero;
             rotationData = Quaternion.identity;
-            poseData = MixedRealityPose.ZeroIdentity;
+            poseData = Pose.identity;
             updated = false;
             activated = false;
         }
@@ -120,7 +120,7 @@ namespace RealityToolkit.Definitions.Devices
             vector2Data = Vector2.zero;
             positionData = Vector3.zero;
             rotationData = Quaternion.identity;
-            poseData = MixedRealityPose.ZeroIdentity;
+            poseData = Pose.identity;
             activated = false;
             updated = false;
         }
@@ -281,7 +281,7 @@ namespace RealityToolkit.Definitions.Devices
 
         private Quaternion rotationData;
 
-        private MixedRealityPose poseData;
+        private Pose poseData;
 
         #endregion Definition Data Items
 
@@ -468,7 +468,7 @@ namespace RealityToolkit.Definitions.Devices
         /// The Pose data value.
         /// </summary>
         /// <remarks>Only supported for <see cref="Utilities.AxisType.SixDof"/> <see cref="AxisType"/>s</remarks>
-        public MixedRealityPose PoseData
+        public Pose PoseData
         {
             get => poseData;
             set
@@ -485,16 +485,16 @@ namespace RealityToolkit.Definitions.Devices
                     PoseInputProcessors[i].Process(ref newValue);
                 }
 
-                Updated = poseData != newValue || !newValue.Equals(MixedRealityPose.ZeroIdentity);
+                Updated = poseData != newValue || !newValue.Equals(Pose.identity);
                 poseData = newValue;
-                positionData = poseData.Position;
-                rotationData = poseData.Rotation;
+                positionData = poseData.position;
+                rotationData = poseData.rotation;
             }
         }
 
-        private IReadOnlyList<InputProcessor<MixedRealityPose>> poseInputProcessors;
+        private IReadOnlyList<InputProcessor<Pose>> poseInputProcessors;
 
-        private IReadOnlyList<InputProcessor<MixedRealityPose>> PoseInputProcessors => poseInputProcessors ?? (poseInputProcessors = GetInputProcessorForType<MixedRealityPose>());
+        private IReadOnlyList<InputProcessor<Pose>> PoseInputProcessors => poseInputProcessors ?? (poseInputProcessors = GetInputProcessorForType<Pose>());
 
         #endregion Data Properties
 

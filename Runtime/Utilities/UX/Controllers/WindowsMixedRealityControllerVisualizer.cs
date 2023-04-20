@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using UnityEngine;
@@ -261,7 +260,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
         }
 
         /// <inheritdoc />
-        public override void OnInputChanged(InputEventData<MixedRealityPose> eventData)
+        public override void OnInputChanged(InputEventData<Pose> eventData)
         {
             if (eventData.SourceId != Controller?.InputSource.SourceId) { return; }
 
@@ -273,8 +272,8 @@ namespace RealityToolkit.Utilities.UX.Controllers
 
                 if (PoseDriver != null)
                 {
-                    PoseDriver.localPosition = eventData.InputData.Position;
-                    PoseDriver.localRotation = eventData.InputData.Rotation * inverseRotation;
+                    PoseDriver.localPosition = eventData.InputData.position;
+                    PoseDriver.localRotation = eventData.InputData.rotation * inverseRotation;
                 }
             }
         }

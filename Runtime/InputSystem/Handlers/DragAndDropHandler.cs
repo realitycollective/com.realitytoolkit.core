@@ -211,7 +211,7 @@ namespace RealityToolkit.InputSystem.Handlers
                 hostRigidbody.isKinematic = true;
             }
 
-            Transform cameraTransform = CameraCache.Main.transform;
+            Transform cameraTransform = Camera.main.transform;
 
             currentPointer.TryGetPointerPosition(out Vector3 inputPosition);
 
@@ -247,7 +247,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// </summary>
         private void UpdateDragging()
         {
-            Transform cameraTransform = CameraCache.Main.transform;
+            Transform cameraTransform = Camera.main.transform;
 
             currentPointer.TryGetPointerPosition(out Vector3 inputPosition);
 

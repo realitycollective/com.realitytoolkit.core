@@ -57,6 +57,12 @@ namespace RealityToolkit.InputSystem.Interfaces
         InteractionMode InteractionMode { get; }
 
         /// <summary>
+        /// Is there currently a teleport going on that could be blocking
+        /// to this pointer?
+        /// </summary>
+        bool IsTeleportRequestActive { get; set; }
+
+        /// <summary>
         /// The <see cref="Collider"/> used for determining and raising near interactions.
         /// </summary>
         Collider NearInteractionCollider { get; }

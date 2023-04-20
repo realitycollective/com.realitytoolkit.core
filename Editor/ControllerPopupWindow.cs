@@ -3,6 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Editor.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
@@ -93,7 +94,7 @@ namespace RealityToolkit.Editor
         private bool IsCustomController => ControllerType == typeof(GenericJoystickController) ||
                                            ControllerType == typeof(IHandController);
 
-        private static string EditorWindowOptionsPath => $"{PathFinderUtility.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
+        private static string EditorWindowOptionsPath => $"{CorePackageInstaller.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
 
         private void OnFocus()
         {

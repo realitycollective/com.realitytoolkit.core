@@ -7,14 +7,12 @@ using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.InputSources;
 using RealityToolkit.InputSystem.Interfaces;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
 using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,6 +67,12 @@ namespace RealityToolkit.InputSystem
         /// <inheritdoc />
         public IMixedRealityGazeProvider GazeProvider { get; private set; }
 
+#if UNITY_INPUT_SYSTEM_ACTIVE
+        private Type InputModuleType => typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule);
+#else
+        private Type InputModuleType => typeof(StandaloneInputModule);
+#endif
+
         private GazeProviderBehaviour gazeProviderBehaviour;
         private readonly Type gazeProviderType;
         private readonly Stack<GameObject> modalInputStack = new Stack<GameObject>();
@@ -84,7 +88,7 @@ namespace RealityToolkit.InputSystem
         private SourcePoseEventData<Vector2> sourceVector2EventData;
         private SourcePoseEventData<Vector3> sourcePositionEventData;
         private SourcePoseEventData<Quaternion> sourceRotationEventData;
-        private SourcePoseEventData<MixedRealityPose> sourcePoseEventData;
+        private SourcePoseEventData<Pose> sourcePoseEventData;
 
         private FocusEventData focusEventData;
 
@@ -97,10 +101,26 @@ namespace RealityToolkit.InputSystem
         private InputEventData<Vector2> vector2InputEventData;
         private InputEventData<Vector3> positionInputEventData;
         private InputEventData<Quaternion> rotationInputEventData;
-        private InputEventData<MixedRealityPose> poseInputEventData;
+        private InputEventData<Pose> poseInputEventData;
 
         private SpeechEventData speechEventData;
         private DictationEventData dictationEventData;
+
+        /// <inheritdoc/>
+        public bool TryGetInputSource(uint sourceId, out IMixedRealityInputSource inputSource)
+        {
+            foreach (var detectedInputSource in DetectedInputSources)
+            {
+                if (detectedInputSource.SourceId == sourceId)
+                {
+                    inputSource = detectedInputSource;
+                    return true;
+                }
+            }
+
+            inputSource = null;
+            return false;
+        }
 
         #region IMixedRealityGazeProvider options
 
@@ -141,7 +161,12 @@ namespace RealityToolkit.InputSystem
 
         private void RemoveGazeProvider()
         {
-            var component = CameraCache.Main.GetComponent<IMixedRealityGazeProvider>() as Component;
+            if (Camera.main.IsNull())
+            {
+                return;
+            }
+
+            var component = Camera.main.gameObject.GetComponent<IMixedRealityGazeProvider>() as Component;
             if (component.IsNotNull())
             {
                 component.Destroy();
@@ -150,7 +175,15 @@ namespace RealityToolkit.InputSystem
             GazeProvider = null;
         }
 
-        private void EnsureGazeProvider() => GazeProvider = CameraCache.Main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+        private void EnsureGazeProvider()
+        {
+            if (Camera.main.IsNull())
+            {
+                return;
+            }
+
+            GazeProvider = Camera.main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+        }
 
         private bool TryGetControllerWithPointersAttached(out IMixedRealityController controller)
         {
@@ -185,15 +218,9 @@ namespace RealityToolkit.InputSystem
         {
             base.Initialize();
 
-            EnsureStandaloneInputModuleSetup();
+            EnsureInputModuleSetup();
 
-            if (!Application.isPlaying)
-            {
-                var cameraTransform = CameraCache.Main.transform;
-                cameraTransform.position = Vector3.zero;
-                cameraTransform.rotation = Quaternion.identity;
-            }
-            else
+            if (Application.isPlaying)
             {
                 var eventSystem = EventSystem.current;
                 sourceStateEventData = new SourceStateEventData(eventSystem);
@@ -202,7 +229,7 @@ namespace RealityToolkit.InputSystem
                 sourceVector2EventData = new SourcePoseEventData<Vector2>(eventSystem);
                 sourcePositionEventData = new SourcePoseEventData<Vector3>(eventSystem);
                 sourceRotationEventData = new SourcePoseEventData<Quaternion>(eventSystem);
-                sourcePoseEventData = new SourcePoseEventData<MixedRealityPose>(eventSystem);
+                sourcePoseEventData = new SourcePoseEventData<Pose>(eventSystem);
 
                 focusEventData = new FocusEventData(eventSystem);
 
@@ -215,38 +242,44 @@ namespace RealityToolkit.InputSystem
                 vector2InputEventData = new InputEventData<Vector2>(eventSystem);
                 positionInputEventData = new InputEventData<Vector3>(eventSystem);
                 rotationInputEventData = new InputEventData<Quaternion>(eventSystem);
-                poseInputEventData = new InputEventData<MixedRealityPose>(eventSystem);
+                poseInputEventData = new InputEventData<Pose>(eventSystem);
 
                 speechEventData = new SpeechEventData(eventSystem);
                 dictationEventData = new DictationEventData(eventSystem);
+
+                UpdateGazeProvider();
             }
 
             ServiceManager.Instance.TryGetService(out IMixedRealityFocusProvider focusProvider);
             FocusProvider = focusProvider;
-
-            UpdateGazeProvider();
         }
 
-        private void EnsureStandaloneInputModuleSetup()
+        private void EnsureInputModuleSetup()
         {
-            var standaloneInputModules = UnityEngine.Object.FindObjectsOfType<StandaloneInputModule>();
-            if (standaloneInputModules.Length == 0)
+            var inputModules = UnityEngine.Object.FindObjectsOfType(InputModuleType);
+
+            if (inputModules.Length == 0)
             {
                 var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<EventSystem>();
                 if (eventSystemGameObject.IsNotNull())
                 {
-                    eventSystemGameObject.gameObject.EnsureComponent<StandaloneInputModule>();
-                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
+                    eventSystemGameObject.gameObject.EnsureComponent(InputModuleType);
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
+                }
+                else if (Camera.main.IsNotNull())
+                {
+                    Camera.main.gameObject.EnsureComponent(InputModuleType);
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
                 }
                 else
                 {
-                    CameraCache.Main.gameObject.EnsureComponent<StandaloneInputModule>();
-                    Debug.Log($"There was no {nameof(StandaloneInputModule)} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                    var inputModuleObject = new GameObject(InputModuleType.Name, InputModuleType);
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the scene.");
                 }
             }
-            else if (standaloneInputModules.Length > 1)
+            else if (inputModules.Length > 1)
             {
-                Debug.LogError($"There is more than one {nameof(StandaloneInputModule)} active in the scene. Please make sure only one instance of it exists as it may cause errors.");
+                Debug.LogError($"There is more than one {InputModuleType.Name} active in the scene. Please make sure only one instance of it exists as it may cause errors.");
             }
         }
 
@@ -275,9 +308,8 @@ namespace RealityToolkit.InputSystem
             {
                 RemoveGazeProvider();
 
-                var inputModule = CameraCache.Main.GetComponent<StandaloneInputModule>();
-
-                if (!inputModule.IsNull())
+                var inputModule = UnityEngine.Object.FindObjectOfType(InputModuleType);
+                if (inputModule.IsNotNull())
                 {
                     inputModule.Destroy();
                 }
@@ -731,7 +763,7 @@ namespace RealityToolkit.InputSystem
             };
 
         /// <inheritdoc />
-        public void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, MixedRealityPose position)
+        public void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, Pose position)
         {
             // Create input event
             sourcePoseEventData.Initialize(source, controller, position);
@@ -743,7 +775,7 @@ namespace RealityToolkit.InputSystem
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourcePoseChangedEventHandler =
             delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Pose>>(eventData);
                 handler.OnSourcePoseChanged(casted);
             };
 
@@ -1275,21 +1307,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Pose Changed
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<MixedRealityPose>> OnPoseInputChanged =
-            delegate (IMixedRealityInputHandler<MixedRealityPose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<Pose>> OnPoseInputChanged =
+            delegate (IMixedRealityInputHandler<Pose> handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, MixedRealityPose inputData)
+        public void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Pose inputData)
         {
             RaisePoseInputChanged(source, Handedness.None, inputAction, inputData);
         }
 
         /// <inheritdoc />
-        public void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, MixedRealityPose inputData)
+        public void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1382,15 +1414,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(rotationInputEventData, OnGestureRotationUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<MixedRealityPose>> OnGesturePoseUpdated =
-            delegate (IMixedRealityGestureHandler<MixedRealityPose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Pose>> OnGesturePoseUpdated =
+            delegate (IMixedRealityGestureHandler<Pose> handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData)
+        public void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
@@ -1457,15 +1489,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(rotationInputEventData, OnGestureRotationCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<MixedRealityPose>> OnGesturePoseCompleted =
-            delegate (IMixedRealityGestureHandler<MixedRealityPose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Pose>> OnGesturePoseCompleted =
+            delegate (IMixedRealityGestureHandler<Pose> handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<MixedRealityPose>>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData)
+        public void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
+using RealityCollective.ServiceFramework.Editor.Utilities;
 using RealityToolkit.Utilities.Lines.DataProviders;
 using RealityToolkit.Utilities.Lines.Renderers;
 using RealityToolkit.Utilities.Physics.Distorters;
@@ -259,7 +260,7 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
                     float normalizedLength = (1f / (LineData.ManualUpVectors.Length - 1)) * i;
                     var position = LineData.GetPoint(normalizedLength);
                     float handleSize = HandleUtility.GetHandleSize(position);
-                    LineData.ManualUpVectors[i] = MixedRealityInspectorUtility.VectorHandle(LineData, position, LineData.ManualUpVectors[i], false, true, ManualUpVectorLength * handleSize, handleSize * ManualUpVectorHandleSizeModifier);
+                    LineData.ManualUpVectors[i] = ServiceFrameworkInspectorUtility.VectorHandle(LineData, position, LineData.ManualUpVectors[i], false, true, ManualUpVectorLength * handleSize, handleSize * ManualUpVectorHandleSizeModifier);
                 }
             }
 
@@ -298,12 +299,12 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
                 if (DrawLineRotations)
                 {
                     float arrowSize = HandleUtility.GetHandleSize(currentPosition) * RotationArrowLength;
-                    Handles.color = MixedRealityInspectorUtility.LineVelocityColor;
-                    Handles.color = Color.Lerp(MixedRealityInspectorUtility.LineVelocityColor, Handles.zAxisColor, 0.75f);
+                    Handles.color = ServiceFrameworkInspectorUtility.LineVelocityColor;
+                    Handles.color = Color.Lerp(ServiceFrameworkInspectorUtility.LineVelocityColor, Handles.zAxisColor, 0.75f);
                     Handles.ArrowHandleCap(0, currentPosition, Quaternion.LookRotation(rotation * Vector3.forward), arrowSize, EventType.Repaint);
-                    Handles.color = Color.Lerp(MixedRealityInspectorUtility.LineVelocityColor, Handles.xAxisColor, 0.75f);
+                    Handles.color = Color.Lerp(ServiceFrameworkInspectorUtility.LineVelocityColor, Handles.xAxisColor, 0.75f);
                     Handles.ArrowHandleCap(0, currentPosition, Quaternion.LookRotation(rotation * Vector3.right), arrowSize, EventType.Repaint);
-                    Handles.color = Color.Lerp(MixedRealityInspectorUtility.LineVelocityColor, Handles.yAxisColor, 0.75f);
+                    Handles.color = Color.Lerp(ServiceFrameworkInspectorUtility.LineVelocityColor, Handles.yAxisColor, 0.75f);
                     Handles.ArrowHandleCap(0, currentPosition, Quaternion.LookRotation(rotation * Vector3.up), arrowSize, EventType.Repaint);
                 }
 

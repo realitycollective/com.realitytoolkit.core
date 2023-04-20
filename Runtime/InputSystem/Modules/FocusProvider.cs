@@ -483,11 +483,6 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 RegisterPointers(inputSource);
             }
-
-            if (Application.isEditor && !Application.isPlaying)
-            {
-                UpdateCanvasEventSystems();
-            }
         }
 
         /// <inheritdoc />
@@ -576,6 +571,15 @@ namespace RealityToolkit.InputSystem.Modules
         private void EnsureUiRaycastCameraSetup()
         {
             const string uiRayCastCameraName = "UIRaycastCamera";
+
+            if (Camera.main.IsNull())
+            {
+                // The main camera is not available yet, so we cannot init the raycat camera
+                // at this time. The get-accessor of the UIRaycastCamera property will ensure
+                // it is set up at a later time when accessed.
+                return;
+            }
+
             GameObject cameraObject;
 
             var existingUiRaycastCameraObject = GameObject.Find(uiRayCastCameraName);
@@ -586,6 +590,7 @@ namespace RealityToolkit.InputSystem.Modules
             else
             {
                 cameraObject = new GameObject { name = uiRayCastCameraName };
+                cameraObject.transform.SetParent(Camera.main.transform, false);
             }
 
             cameraObject.transform.SetParent(Camera.main.transform, false);
@@ -596,7 +601,6 @@ namespace RealityToolkit.InputSystem.Modules
             uiRaycastCamera.enabled = false;
             uiRaycastCamera.clearFlags = CameraClearFlags.Color;
             uiRaycastCamera.backgroundColor = new Color(0, 0, 0, 1);
-            uiRaycastCamera.cullingMask = CameraCache.Main.cullingMask;
             uiRaycastCamera.orthographic = true;
             uiRaycastCamera.orthographicSize = 0.5f;
             uiRaycastCamera.nearClipPlane = 0.0f;
@@ -610,6 +614,7 @@ namespace RealityToolkit.InputSystem.Modules
             uiRaycastCamera.allowDynamicResolution = false;
             uiRaycastCamera.targetDisplay = 0;
             uiRaycastCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+            uiRaycastCamera.cullingMask = Camera.main.cullingMask;
 
             if (uiRaycastCameraTargetTexture == null)
             {
@@ -636,24 +641,6 @@ namespace RealityToolkit.InputSystem.Modules
             }
 
             UIRaycastCamera = null;
-        }
-
-        /// <summary>
-        /// Helper for assigning world space canvases event cameras.
-        /// </summary>
-        /// <remarks>Warning! Very expensive. Use sparingly at runtime.</remarks>
-        public void UpdateCanvasEventSystems()
-        {
-            Debug.Assert(UIRaycastCamera != null, "You must assign a UIRaycastCamera on the FocusProvider before updating your canvases.");
-
-            // This will also find disabled GameObjects in the scene.
-            // Warning! this look up is very expensive!
-            var sceneCanvases = Resources.FindObjectsOfTypeAll<Canvas>();
-
-            for (var i = 0; i < sceneCanvases.Length; i++)
-            {
-                sceneCanvases[i].EnsureComponent<CanvasUtility>();
-            }
         }
 
         /// <inheritdoc />

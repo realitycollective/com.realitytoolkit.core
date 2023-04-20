@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
@@ -85,7 +84,7 @@ namespace RealityToolkit.InputSystem.Hands.Pointers
         public override InteractionMode InteractionMode => InteractionMode.Far;
 
         /// <inheritdoc />
-        public override void OnInputChanged(InputEventData<MixedRealityPose> eventData)
+        public override void OnInputChanged(InputEventData<Pose> eventData)
         {
             base.OnInputChanged(eventData);
 

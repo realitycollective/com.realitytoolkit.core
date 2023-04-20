@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Interfaces.Audio;
 using System;
 using System.Collections.Generic;
-using RealityToolkit.Interfaces.Audio;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Audio.Influencers
@@ -195,7 +195,7 @@ namespace RealityToolkit.Utilities.Audio.Influencers
         private List<IAudioInfluencer> GetInfluencers()
         {
             var influencers = new List<IAudioInfluencer>();
-            Transform cameraTransform = CameraCache.Main.transform;
+            Transform cameraTransform = Camera.main.transform;
 
             var cameraTransformPosition = cameraTransform.position;
             var objectTransformPosition = gameObject.transform.position;

@@ -29,8 +29,8 @@ namespace RealityToolkit.Utilities.Utilities
         /// </summary>
         public Transform TargetTransform
         {
-            get => targetTransform = targetTransform == null ? CameraCache.Main.transform : targetTransform;
-            set => targetTransform = value == null ? CameraCache.Main.transform : value;
+            get => targetTransform = targetTransform == null ? Camera.main.transform : targetTransform;
+            set => targetTransform = value == null ? Camera.main.transform : value;
         }
 
         [SerializeField]
@@ -91,7 +91,7 @@ namespace RealityToolkit.Utilities.Utilities
 
             // Calculate and apply the rotation required to reorient the object
             transform.rotation = useCameraAsUpVector
-                ? Quaternion.LookRotation(-directionToTarget, CameraCache.Main.transform.up)
+                ? Quaternion.LookRotation(-directionToTarget, Camera.main.transform.up)
                 : Quaternion.LookRotation(-directionToTarget);
         }
     }

@@ -4,7 +4,6 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
@@ -57,6 +56,15 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// Indicates if input is currently enabled or not.
         /// </summary>
         bool IsInputEnabled { get; }
+
+        /// <summary>
+        /// Looks up the <see cref="IMixedRealityInputSource"/> from <see cref="DetectedInputSources"/>,
+        /// if it exists.
+        /// </summary>
+        /// <param name="sourceId">The <see cref="IMixedRealityInputSource"/> identifier.</param>
+        /// <param name="inputSource">The found <see cref="IMixedRealityInputSource"/>.</param>
+        /// <returns><c>true</c>, if the source was found.</returns>
+        bool TryGetInputSource(uint sourceId, out IMixedRealityInputSource inputSource);
 
         /// <summary>
         /// Push a disabled input state onto the Input System.
@@ -208,7 +216,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, MixedRealityPose position);
+        void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, Pose position);
 
         #endregion Input Source Events
 
@@ -487,7 +495,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="inputData"></param>
-        void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, MixedRealityPose inputData);
+        void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Pose inputData);
 
         /// <summary>
         /// Raise the 6 degrees of freedom input event.
@@ -496,7 +504,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="inputData"></param>
-        void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, MixedRealityPose inputData);
+        void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Pose inputData);
 
         #endregion Input Pose Changed
 
@@ -548,7 +556,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData);
+        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -587,7 +595,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, MixedRealityPose inputData);
+        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData);
 
         /// <summary>
         /// Raise the Gesture Canceled Event.

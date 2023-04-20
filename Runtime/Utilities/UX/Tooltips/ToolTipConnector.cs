@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Definitions.ToolTips;
 using UnityEngine;
-using RealityCollective.Extensions;
 
 namespace RealityToolkit.Utilities.UX.ToolTips
 {
@@ -175,7 +175,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
                             switch (PivotDirectionOrient)
                             {
                                 case ConnectorOrientType.OrientToCamera:
-                                    relativeTo = CameraCache.Main.transform;
+                                    relativeTo = Camera.main.transform;
                                     break;
 
                                 case ConnectorOrientType.OrientToObject:
@@ -211,7 +211,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
                             switch (PivotDirectionOrient)
                             {
                                 case ConnectorOrientType.OrientToCamera:
-                                    relativeTo = CameraCache.Main.transform;
+                                    relativeTo = Camera.main.transform;
                                     break;
 
                                 case ConnectorOrientType.OrientToObject:
@@ -240,7 +240,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
                             switch (PivotDirectionOrient)
                             {
                                 case ConnectorOrientType.OrientToCamera:
-                                    relativeTo = CameraCache.Main.transform;
+                                    relativeTo = Camera.main.transform;
                                     break;
 
                                 case ConnectorOrientType.OrientToObject:
