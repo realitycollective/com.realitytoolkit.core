@@ -5,6 +5,7 @@ using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Services.InputSystem.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
@@ -33,14 +34,13 @@ namespace RealityToolkit.Definitions.Controllers
             internal set => handedness = value;
         }
 
-        [SerializeField]
-        private MixedRealityControllerVisualizationProfile visualizationProfile = null;
+        [SerializeField, Tooltip("The prefab spawned to visualize the controller.")]
+        private ControllerPoseSynchronizer controllerPrefab = null;
 
-        public MixedRealityControllerVisualizationProfile VisualizationProfile
-        {
-            get => visualizationProfile;
-            internal set => visualizationProfile = value;
-        }
+        /// <summary>
+        /// The prefab spawned to visualize the controller.
+        /// </summary>
+        public ControllerPoseSynchronizer ControllerPrefab => controllerPrefab;
 
         [SerializeField]
         private bool useCustomInteractions = true;
