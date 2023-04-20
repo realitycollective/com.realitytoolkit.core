@@ -11,7 +11,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
     /// <summary>
     /// Basic interface for synchronizing to a controller pose.
     /// </summary>
-    public interface IMixedRealityControllerPoseSynchronizer : IMixedRealitySourcePoseHandler,
+    public interface IControllerPoseSynchronizer : IMixedRealitySourcePoseHandler,
         IMixedRealityInputHandler,
         IMixedRealityInputHandler<float>,
         IMixedRealityInputHandler<Vector2>,

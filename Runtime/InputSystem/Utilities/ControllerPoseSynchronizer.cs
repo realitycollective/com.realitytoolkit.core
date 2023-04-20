@@ -17,7 +17,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
     /// Waits for a controller to be initialized, then synchronizes its transform position to a specified handedness.
     /// </summary>
     [System.Runtime.InteropServices.Guid("F9E5D87E-78B0-4BD0-AE93-491DFCEE9FA0")]
-    public class ControllerPoseSynchronizer : InputSystemGlobalListener, IMixedRealityControllerPoseSynchronizer
+    public class ControllerPoseSynchronizer : InputSystemGlobalListener, IControllerPoseSynchronizer
     {
         #region IMixedRealityControllerPoseSynchronizer Implementation
 
