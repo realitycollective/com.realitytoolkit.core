@@ -204,7 +204,8 @@ namespace RealityToolkit.InputSystem.Controllers
         {
             if (controllerPrefab.IsNull())
             {
-                Debug.LogError($"No prefab is assigned for controller {GetType().Name}. Please assign a prefab to spawn when the controller is detected in the controller's profile configuration.");
+                // If there is no prefab assigned, it is likely intended, since there is many controllers
+                // that do not require a controller model, e.g. Xbox, PlayStation etc.
                 return;
             }
 
