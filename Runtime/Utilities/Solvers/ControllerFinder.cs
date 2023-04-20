@@ -99,7 +99,7 @@ namespace RealityToolkit.Utilities.Solvers
         /// Starts to track the passed in controller's transform, assuming it meets the previously set handedness criteria.
         /// </summary>
         /// <param name="newController">The new controller to be tracked.</param>
-        protected virtual void AddControllerTransform(IMixedRealityController newController)
+        protected virtual void AddControllerTransform(IController newController)
         {
             if (newController.ControllerHandedness == handedness && newController.Visualizer != null && newController.Visualizer.GameObject.transform != null && !newController.Visualizer.GameObject.transform.Equals(ControllerTransform))
             {

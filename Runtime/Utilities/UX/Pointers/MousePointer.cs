@@ -64,10 +64,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public override bool IsInteractionEnabled => isInteractionEnabled;
 
-        private IMixedRealityController controller;
+        private IController controller;
 
         /// <inheritdoc />
-        public override IMixedRealityController Controller
+        public override IController Controller
         {
             get => controller;
             set

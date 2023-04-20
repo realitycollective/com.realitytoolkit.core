@@ -35,12 +35,12 @@ namespace RealityToolkit.InputSystem.Interfaces
         IReadOnlyCollection<IMixedRealityInputSource> DetectedInputSources { get; }
 
         /// <summary>
-        /// List of <see cref="IMixedRealityController"/>s currently detected by the input manager.
+        /// List of <see cref="IController"/>s currently detected by the input manager.
         /// </summary>
         /// <remarks>
         /// This property is similar to <see cref="DetectedInputSources"/>, as this is a subset of those <see cref="IMixedRealityInputSource"/>s in that list.
         /// </remarks>
-        IReadOnlyCollection<IMixedRealityController> DetectedControllers { get; }
+        IReadOnlyCollection<IController> DetectedControllers { get; }
 
         /// <summary>
         /// The current Focus Provider that's been implemented by this Input System.
@@ -127,12 +127,12 @@ namespace RealityToolkit.InputSystem.Interfaces
         #region IMixedRealityController Utilities
 
         /// <summary>
-        /// Tried to get a <see cref="IMixedRealityController"/> from the <see cref="DetectedControllers"/> list.
+        /// Tried to get a <see cref="IController"/> from the <see cref="DetectedControllers"/> list.
         /// </summary>
         /// <param name="inputSource">The <see cref="IMixedRealityInputSource"/> you want to get a controller reference for.</param>
-        /// <param name="controller">The <see cref="IMixedRealityController"/> that was found in the list of <see cref="DetectedControllers"/></param>
-        /// <returns>True, if an <see cref="IMixedRealityController"/> is found.</returns>
-        bool TryGetController(IMixedRealityInputSource inputSource, out IMixedRealityController controller);
+        /// <param name="controller">The <see cref="IController"/> that was found in the list of <see cref="DetectedControllers"/></param>
+        /// <returns>True, if an <see cref="IController"/> is found.</returns>
+        bool TryGetController(IMixedRealityInputSource inputSource, out IController controller);
 
         #endregion IMixedRealityController Utilities
 
@@ -169,14 +169,14 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// </summary>
         /// <param name="source">The detected Input Source.</param>
         /// <param name="controller"></param>
-        void RaiseSourceDetected(IMixedRealityInputSource source, IMixedRealityController controller = null);
+        void RaiseSourceDetected(IMixedRealityInputSource source, IController controller = null);
 
         /// <summary>
         /// Raise the event that the Input Source was lost.
         /// </summary>
         /// <param name="source">The lost Input Source.</param>
         /// <param name="controller"></param>
-        void RaiseSourceLost(IMixedRealityInputSource source, IMixedRealityController controller = null);
+        void RaiseSourceLost(IMixedRealityInputSource source, IController controller = null);
 
         /// <summary>
         /// Raise the event that the Input Source's tracking state has changed.
@@ -184,7 +184,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="state"></param>
-        void RaiseSourceTrackingStateChanged(IMixedRealityInputSource source, IMixedRealityController controller, TrackingState state);
+        void RaiseSourceTrackingStateChanged(IMixedRealityInputSource source, IController controller, TrackingState state);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -192,7 +192,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePositionChanged(IMixedRealityInputSource source, IMixedRealityController controller, Vector2 position);
+        void RaiseSourcePositionChanged(IMixedRealityInputSource source, IController controller, Vector2 position);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -200,7 +200,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePositionChanged(IMixedRealityInputSource source, IMixedRealityController controller, Vector3 position);
+        void RaiseSourcePositionChanged(IMixedRealityInputSource source, IController controller, Vector3 position);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -208,7 +208,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="rotation"></param>
-        void RaiseSourceRotationChanged(IMixedRealityInputSource source, IMixedRealityController controller, Quaternion rotation);
+        void RaiseSourceRotationChanged(IMixedRealityInputSource source, IController controller, Quaternion rotation);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -216,7 +216,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePoseChanged(IMixedRealityInputSource source, IMixedRealityController controller, Pose position);
+        void RaiseSourcePoseChanged(IMixedRealityInputSource source, IController controller, Pose position);
 
         #endregion Input Source Events
 
@@ -517,22 +517,14 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureStarted(IMixedRealityController controller, MixedRealityInputAction action);
+        void RaiseGestureStarted(IController controller, MixedRealityInputAction action);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action);
-
-        /// <summary>
-        /// Raise the Gesture Updated Event.
-        /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="action"></param>
-        /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Vector2 inputData);
+        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
@@ -540,7 +532,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Vector3 inputData);
+        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Vector2 inputData);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
@@ -548,7 +540,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Quaternion inputData);
+        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Vector3 inputData);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
@@ -556,14 +548,22 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData);
+        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Quaternion inputData);
+
+        /// <summary>
+        /// Raise the Gesture Updated Event.
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="action"></param>
+        /// <param name="inputData"></param>
+        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Pose inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action);
+        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -571,7 +571,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Vector2 inputData);
+        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Vector2 inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -579,7 +579,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Vector3 inputData);
+        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Vector3 inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -587,7 +587,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Quaternion inputData);
+        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Quaternion inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -595,14 +595,14 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IMixedRealityController controller, MixedRealityInputAction action, Pose inputData);
+        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Pose inputData);
 
         /// <summary>
         /// Raise the Gesture Canceled Event.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureCanceled(IMixedRealityController controller, MixedRealityInputAction action);
+        void RaiseGestureCanceled(IController controller, MixedRealityInputAction action);
 
         #endregion
 

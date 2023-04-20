@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
@@ -12,7 +12,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
     /// <summary>
     /// Reality Toolkit controller definition, used to manage a specific controller type.
     /// </summary>
-    public interface IMixedRealityController
+    public interface IController
     {
         /// <summary>
         /// The name of the controller.
@@ -47,7 +47,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         /// <summary>
         /// The controller's "Visual" <see cref="Component"/> in the scene.
         /// </summary>
-        IMixedRealityControllerVisualizer Visualizer { get; }
+        IControllerVisualizer Visualizer { get; }
 
         /// <summary>
         /// Indicates that this controller is currently providing position data.
@@ -93,12 +93,11 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         Vector3 Velocity { get; }
 
         /// <summary>
-        /// Attempts to load the controller model render settings from the <see cref="Definitions.Controllers.MixedRealityControllerVisualizationProfile"/>
+        /// Attempts to load the controller model specified in the <see cref="RealityToolkit.Definitions.Controllers.MixedRealityControllerMappingProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
-        /// <param name="useAlternatePoseAction">Should the rendered controller use the alternate pose action?</param>
         /// <returns>True, if controller model is being properly rendered.</returns>
-        void TryRenderControllerModel(bool useAlternatePoseAction = false);
+        void TryRenderControllerModel();
 
         /// <summary>
         /// Updates the controller's state.

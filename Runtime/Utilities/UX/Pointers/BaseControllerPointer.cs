@@ -240,8 +240,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         #region IMixedRealityPointer Implementation
 
-        /// <inheritdoc cref="IMixedRealityController" />
-        public override IMixedRealityController Controller
+        /// <inheritdoc cref="IController" />
+        public override IController Controller
         {
             get => base.Controller;
             set

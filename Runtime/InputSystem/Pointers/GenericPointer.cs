@@ -41,7 +41,7 @@ namespace RealityToolkit.InputSystem.Pointers
         }
 
         /// <inheritdoc />
-        public virtual IMixedRealityController Controller
+        public virtual IController Controller
         {
             get => controller;
             set
@@ -51,7 +51,7 @@ namespace RealityToolkit.InputSystem.Pointers
             }
         }
 
-        private IMixedRealityController controller;
+        private IController controller;
 
         /// <inheritdoc />
         public uint PointerId { get; }

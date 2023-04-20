@@ -8,7 +8,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
     /// <summary>
     /// Interface for configuring controller visualization.
     /// </summary>
-    public interface IMixedRealityControllerVisualizer : IMixedRealityControllerPoseSynchronizer
+    public interface IControllerVisualizer : IControllerPoseSynchronizer
     {
         /// <summary>
         /// The <see cref="UnityEngine.GameObject"/> reference for this controller.
@@ -17,7 +17,5 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
         /// This reference may not always be available when called.
         /// </remarks>
         GameObject GameObject { get; }
-
-        // TODO add defined elements or transforms?
     }
 }

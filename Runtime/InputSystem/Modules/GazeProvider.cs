@@ -178,7 +178,7 @@ namespace RealityToolkit.InputSystem.Modules
             #region IMixedRealityPointer Implementation
 
             /// <inheritdoc />
-            public override IMixedRealityController Controller { get; set; }
+            public override IController Controller { get; set; }
 
             /// <inheritdoc />
             public override IMixedRealityInputSource InputSourceParent { get; protected set; }
