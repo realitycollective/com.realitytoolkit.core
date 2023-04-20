@@ -246,12 +246,12 @@ namespace RealityToolkit.InputSystem
 
                 speechEventData = new SpeechEventData(eventSystem);
                 dictationEventData = new DictationEventData(eventSystem);
+
+                UpdateGazeProvider();
             }
 
             ServiceManager.Instance.TryGetService(out IMixedRealityFocusProvider focusProvider);
             FocusProvider = focusProvider;
-
-            UpdateGazeProvider();
         }
 
         private void EnsureInputModuleSetup()
