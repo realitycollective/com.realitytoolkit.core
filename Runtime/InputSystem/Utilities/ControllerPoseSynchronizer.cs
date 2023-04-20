@@ -68,14 +68,14 @@ namespace RealityToolkit.Services.InputSystem.Utilities
         public bool IsTracked { get; protected set; } = false;
 
         /// <summary>
-        /// The current tracking state of the assigned <see cref="IMixedRealityController"/>
+        /// The current tracking state of the assigned <see cref="IController"/>
         /// </summary>
         protected TrackingState TrackingState { get; set; } = TrackingState.NotTracked;
 
-        private IMixedRealityController controller;
+        private IController controller;
 
         /// <inheritdoc />
-        public virtual IMixedRealityController Controller
+        public virtual IController Controller
         {
             get => controller;
             set

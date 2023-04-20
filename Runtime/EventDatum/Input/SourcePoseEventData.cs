@@ -27,7 +27,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputSource"></param>
         /// <param name="controller"></param>
         /// <param name="data"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, IMixedRealityController controller, T data)
+        public void Initialize(IMixedRealityInputSource inputSource, IController controller, T data)
         {
             Initialize(inputSource, controller);
             SourceData = data;

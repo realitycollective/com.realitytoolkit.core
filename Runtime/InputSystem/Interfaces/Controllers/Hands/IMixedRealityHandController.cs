@@ -9,7 +9,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers.Hands
     /// <summary>
     /// Controller definition, used to manage a hand controller.
     /// </summary>
-    public interface IMixedRealityHandController : IMixedRealityController
+    public interface IMixedRealityHandController : IController
     {
         /// <summary>
         /// Gets whether the hand is currently in input down pose

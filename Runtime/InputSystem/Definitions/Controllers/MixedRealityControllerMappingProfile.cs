@@ -13,7 +13,7 @@ namespace RealityToolkit.Definitions.Controllers
     public class MixedRealityControllerMappingProfile : BaseProfile
     {
         [SerializeField]
-        [Implements(typeof(IMixedRealityController), TypeGrouping.ByNamespaceFlat)]
+        [Implements(typeof(IController), TypeGrouping.ByNamespaceFlat)]
         private SystemType controllerType = null;
 
         /// <summary>

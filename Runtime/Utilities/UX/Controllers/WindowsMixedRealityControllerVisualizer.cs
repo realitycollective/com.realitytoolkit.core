@@ -67,7 +67,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
         private double lastSelectPressedAmount;
 
         /// <inheritdoc />
-        public override IMixedRealityController Controller
+        public override IController Controller
         {
             get => base.Controller;
             set

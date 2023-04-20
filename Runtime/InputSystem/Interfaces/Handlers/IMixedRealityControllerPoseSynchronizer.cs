@@ -41,7 +41,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
         /// <summary>
         /// The current controller reference.
         /// </summary>
-        IMixedRealityController Controller { get; set; }
+        IController Controller { get; set; }
 
         /// <summary>
         /// Should the Transform's position be driven from the source pose or from input handler?

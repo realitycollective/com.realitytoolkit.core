@@ -43,10 +43,10 @@ namespace RealityToolkit.InputSystem.Controllers
 
         private readonly MixedRealityControllerMappingProfile[] controllerMappingProfiles;
 
-        private readonly List<IMixedRealityController> activeControllers = new List<IMixedRealityController>();
+        private readonly List<IController> activeControllers = new List<IController>();
 
         /// <inheritdoc />
-        public IReadOnlyList<IMixedRealityController> ActiveControllers => activeControllers;
+        public IReadOnlyList<IController> ActiveControllers => activeControllers;
 
         /// <inheritdoc />
         public MixedRealityControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)
@@ -70,9 +70,9 @@ namespace RealityToolkit.InputSystem.Controllers
                 return false;
             }
 
-            if (!typeof(IMixedRealityController).IsAssignableFrom(controllerType))
+            if (!typeof(IController).IsAssignableFrom(controllerType))
             {
-                Debug.LogError($"{controllerType.Name} does not implement {nameof(IMixedRealityController)}");
+                Debug.LogError($"{controllerType.Name} does not implement {nameof(IController)}");
                 controllerMappingProfile = null;
                 return false;
             }
@@ -92,12 +92,12 @@ namespace RealityToolkit.InputSystem.Controllers
             return false;
         }
 
-        protected void AddController(IMixedRealityController controller)
+        protected void AddController(IController controller)
         {
             activeControllers.Add(controller);
         }
 
-        protected void RemoveController(IMixedRealityController controller)
+        protected void RemoveController(IController controller)
         {
             if (controller != null)
             {

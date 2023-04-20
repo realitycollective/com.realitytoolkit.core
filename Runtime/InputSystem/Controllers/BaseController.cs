@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Controllers
     /// <summary>
     /// Base Controller class to inherit from for all controllers.
     /// </summary>
-    public abstract class BaseController : IMixedRealityController
+    public abstract class BaseController : IController
     {
         /// <summary>
         /// Creates a new instance of a controller.

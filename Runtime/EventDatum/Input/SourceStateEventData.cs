@@ -14,7 +14,7 @@ namespace RealityToolkit.EventDatum.Input
     /// <remarks>Source State events do not have an associated <see cref="Definitions.InputSystem.MixedRealityInputAction"/>.</remarks>
     public class SourceStateEventData : BaseInputEventData
     {
-        public IMixedRealityController Controller { get; private set; }
+        public IController Controller { get; private set; }
 
         /// <inheritdoc />
         public SourceStateEventData(EventSystem eventSystem) : base(eventSystem) { }
@@ -24,7 +24,7 @@ namespace RealityToolkit.EventDatum.Input
         /// </summary>
         /// <param name="inputSource"></param>
         /// <param name="controller"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, IMixedRealityController controller)
+        public void Initialize(IMixedRealityInputSource inputSource, IController controller)
         {
             // NOTE: Source State events do not have an associated Input Action.
             BaseInitialize(inputSource, MixedRealityInputAction.None);

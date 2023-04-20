@@ -17,12 +17,12 @@ namespace RealityToolkit.InputSystem.Interfaces.Modules
         /// <summary>
         /// Retrieve all controllers currently registered with this device at runtime (if direct access is required).
         /// </summary>
-        IReadOnlyList<IMixedRealityController> ActiveControllers { get; }
+        IReadOnlyList<IController> ActiveControllers { get; }
 
         /// <summary>
-        /// Gets the registered controller mapping profile for the provided <see cref="IMixedRealityController"/>
+        /// Gets the registered controller mapping profile for the provided <see cref="IController"/>
         /// </summary>
-        /// <param name="controllerType">The type of the <see cref="IMixedRealityController"/> to lookup the profile for.</param>
+        /// <param name="controllerType">The type of the <see cref="IController"/> to lookup the profile for.</param>
         /// <param name="handedness">The <see cref="Handedness"/> the profile should be configured for.</param>
         /// <returns><see cref="MixedRealityControllerMappingProfile"/> or <c>null</c>.</returns>
         /// <remarks>
@@ -34,7 +34,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Modules
         /// <summary>
         /// Gets the <see cref="MixedRealityControllerMappingProfile"/> for <paramref name="controllerType"/>, if it exists.
         /// </summary>
-        /// <param name="controllerType">The type of the <see cref="IMixedRealityController"/> to lookup the profile for.</param>
+        /// <param name="controllerType">The type of the <see cref="IController"/> to lookup the profile for.</param>
         /// <param name="handedness">The <see cref="Handedness"/> the profile should be configured for.</param>
         /// <param name="controllerMappingProfile">The found <see cref="MixedRealityControllerMappingProfile"/>.</param>
         /// <returns><c>true</c>, if found, otherwise <c>false</c>.</returns>

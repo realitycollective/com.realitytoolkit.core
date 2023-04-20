@@ -34,7 +34,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <summary>
         /// The pointer's current controller reference.
         /// </summary>
-        IMixedRealityController Controller { get; set; }
+        IController Controller { get; set; }
 
         /// <summary>
         /// This pointer's input source parent.
