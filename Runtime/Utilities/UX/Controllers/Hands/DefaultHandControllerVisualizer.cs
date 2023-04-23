@@ -4,9 +4,9 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces.Modules;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System.Collections.Generic;
 using UnityEngine;

@@ -2,19 +2,19 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// This component handles the speech input events raised form the <see cref="IMixedRealityInputSystem"/>.
     /// </summary>
     [DisallowMultipleComponent]
-    public class SpeechInputHandler : BaseInputHandler, IMixedRealitySpeechHandler
+    public class SpeechInputHandler : BaseInputHandler, ISpeechHandler
     {
         /// <summary>
         /// The keywords to be recognized and optional keyboard shortcuts.
@@ -66,7 +66,7 @@ namespace RealityToolkit.InputSystem.Handlers
 
         #region IMixedRealitySpeechHandler Implementation
 
-        void IMixedRealitySpeechHandler.OnSpeechKeywordRecognized(SpeechEventData eventData)
+        void ISpeechHandler.OnSpeechKeywordRecognized(SpeechEventData eventData)
         {
             // Check to make sure the recognized keyword exists in the methods dictionary, then invoke the corresponding method.
             if (enabled && responses.TryGetValue(eventData.RecognizedText.ToLower(), out UnityEvent keywordResponse))

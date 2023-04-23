@@ -4,29 +4,29 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
-    /// Interface to implement to react to pointer drag input.
+    /// Interface to implement to react to pointer drag UnityEngine.Input.
     /// </summary>
-    public interface IMixedRealityPointerDragHandler : IEventSystemHandler
+    public interface IPointerDragHandler : IEventSystemHandler
     {
         /// <summary>
         /// When a pointer drag begin event is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerDragBegin(MixedRealityPointerDragEventData eventData);
+        void OnPointerDragBegin(PointerDragEventData eventData);
 
         /// <summary>
         /// When a pointer dragged event is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerDrag(MixedRealityPointerDragEventData eventData);
+        void OnPointerDrag(PointerDragEventData eventData);
 
         /// <summary>
         /// When a pointer drag end event is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerDragEnd(MixedRealityPointerDragEventData eventData);
+        void OnPointerDragEnd(PointerDragEventData eventData);
     }
 }

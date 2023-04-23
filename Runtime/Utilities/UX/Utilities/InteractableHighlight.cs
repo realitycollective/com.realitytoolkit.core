@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Handlers;
+using RealityToolkit.Input.Handlers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

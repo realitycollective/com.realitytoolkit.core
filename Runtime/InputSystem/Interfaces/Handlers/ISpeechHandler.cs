@@ -4,12 +4,12 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface to implement to react to speech recognition.
     /// </summary>
-    public interface IMixedRealitySpeechHandler : IEventSystemHandler
+    public interface ISpeechHandler : IEventSystemHandler
     {
         void OnSpeechKeywordRecognized(SpeechEventData eventData);
     }

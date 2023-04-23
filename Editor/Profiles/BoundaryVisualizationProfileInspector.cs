@@ -3,13 +3,13 @@
 
 using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
-using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.Definitions.Boundary;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles
 {
-    [CustomEditor(typeof(MixedRealityBoundaryProfile))]
+    [CustomEditor(typeof(BoundaryProfile))]
     public class MixedRealityBoundaryVisualizationProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty showBoundary;

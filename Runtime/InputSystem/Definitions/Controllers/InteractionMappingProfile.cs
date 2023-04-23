@@ -3,17 +3,17 @@
 
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    public class MixedRealityInteractionMappingProfile : BaseProfile
+    public class InteractionMappingProfile : BaseProfile
     {
         [SerializeField]
-        private MixedRealityInteractionMapping interactionMapping = new MixedRealityInteractionMapping();
+        private InteractionMapping interactionMapping = new InteractionMapping();
 
-        public MixedRealityInteractionMapping InteractionMapping
+        public InteractionMapping InteractionMapping
         {
             get => interactionMapping;
             internal set => interactionMapping = value;

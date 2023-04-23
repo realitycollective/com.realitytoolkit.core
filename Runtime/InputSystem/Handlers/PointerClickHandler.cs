@@ -2,17 +2,17 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// This component handles pointer clicks from all types of input sources.<para/>
     /// i.e. a primary mouse button click, motion controller selection press, or hand tap.
     /// </summary>
-    public class PointerClickHandler : BaseInputHandler, IMixedRealityPointerHandler
+    public class PointerClickHandler : BaseInputHandler, IPointerHandler
     {
         [SerializeField]
         [Tooltip("The input actions to be recognized on pointer up.")]
@@ -31,7 +31,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public void OnPointerDown(MixedRealityPointerEventData eventData)
         {
-            if (onPointerDownActionEvent.InputAction == MixedRealityInputAction.None) { return; }
+            if (onPointerDownActionEvent.InputAction == InputAction.None) { return; }
 
             if (onPointerDownActionEvent.InputAction == eventData.MixedRealityInputAction)
             {
@@ -42,7 +42,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public void OnPointerUp(MixedRealityPointerEventData eventData)
         {
-            if (onPointerUpActionEvent.InputAction == MixedRealityInputAction.None) { return; }
+            if (onPointerUpActionEvent.InputAction == InputAction.None) { return; }
 
             if (onPointerUpActionEvent.InputAction == eventData.MixedRealityInputAction)
             {
@@ -53,7 +53,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public void OnPointerClicked(MixedRealityPointerEventData eventData)
         {
-            if (onPointerClickedActionEvent.InputAction == MixedRealityInputAction.None) { return; }
+            if (onPointerClickedActionEvent.InputAction == InputAction.None) { return; }
 
             if (onPointerClickedActionEvent.InputAction == eventData.MixedRealityInputAction)
             {

@@ -4,10 +4,10 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
 using RealityToolkit.Services.InputSystem.Utilities;
 using RealityToolkit.Utilities.Physics;
@@ -21,7 +21,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// Base Pointer class for pointers that exist in the scene as GameObjects.
     /// </summary>
     [DisallowMultipleComponent]
-    public abstract class BaseControllerPointer : ControllerPoseSynchronizer, IMixedRealityPointer
+    public abstract class BaseControllerPointer : ControllerPoseSynchronizer, IPointer
     {
         [SerializeField]
         private GameObject cursorPrefab = null;
@@ -54,15 +54,15 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         [SerializeField]
         [Tooltip("The hold action that will enable the raise the input event for this pointer.")]
-        private MixedRealityInputAction activeHoldAction = MixedRealityInputAction.None;
+        private InputAction activeHoldAction = InputAction.None;
 
         [SerializeField]
         [Tooltip("The action that will enable the raise the input event for this pointer.")]
-        private MixedRealityInputAction pointerAction = MixedRealityInputAction.None;
+        private InputAction pointerAction = InputAction.None;
 
         [SerializeField]
         [Tooltip("The action that will enable the raise the input grab event for this pointer.")]
-        protected MixedRealityInputAction grabAction = MixedRealityInputAction.None;
+        protected InputAction grabAction = InputAction.None;
 
         /// <summary>
         /// True if grab is pressed right now
@@ -117,9 +117,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public virtual Vector3 PointerDirection => raycastOrigin != null ? raycastOrigin.forward : transform.forward;
 
         /// <summary>
-        /// Set a new cursor for this <see cref="IMixedRealityPointer"/>
+        /// Set a new cursor for this <see cref="IPointer"/>
         /// </summary>
-        /// <remarks>This <see cref="GameObject"/> must have a <see cref="IMixedRealityCursor"/> attached to it.</remarks>
+        /// <remarks>This <see cref="GameObject"/> must have a <see cref="ICursor"/> attached to it.</remarks>
         /// <param name="newCursor">The new cursor</param>
         public virtual void SetCursor(GameObject newCursor = null)
         {
@@ -137,7 +137,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (cursorInstance != null)
             {
                 cursorInstance.name = $"{Handedness}_{name}_Cursor";
-                BaseCursor = cursorInstance.GetComponent<IMixedRealityCursor>();
+                BaseCursor = cursorInstance.GetComponent<ICursor>();
 
                 if (BaseCursor != null)
                 {
@@ -275,10 +275,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
         }
 
         /// <inheritdoc />
-        public IMixedRealityInputSource InputSourceParent { get; protected set; }
+        public IInputSource InputSourceParent { get; protected set; }
 
         /// <inheritdoc />
-        public IMixedRealityCursor BaseCursor { get; set; }
+        public ICursor BaseCursor { get; set; }
 
         private ICursorModifier cursorModifier = null;
 
@@ -456,10 +456,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public LayerMask[] PointerRaycastLayerMasksOverride { get; set; } = null;
 
         /// <inheritdoc />
-        public IMixedRealityFocusHandler FocusHandler { get; set; }
+        public IFocusHandler FocusHandler { get; set; }
 
         /// <inheritdoc />
-        public IMixedRealityInputHandler InputHandler { get; set; }
+        public IInputHandler InputHandler { get; set; }
 
         /// <inheritdoc />
         public IPointerResult Result { get; set; }
@@ -493,7 +493,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <inheritdoc />
         public virtual void OnPostRaycast()
         {
-            if (grabAction != MixedRealityInputAction.None)
+            if (grabAction != InputAction.None)
             {
                 if (IsGrabPressed)
                 {
@@ -510,7 +510,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        private void DragHandler(MixedRealityInputAction action)
+        private void DragHandler(InputAction action)
         {
             if (IsDragging)
             {
@@ -581,10 +581,10 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (obj is null) { return false; }
             if (this == null) { return false; }
             if (ReferenceEquals(this, obj)) { return true; }
-            return obj.GetType() == GetType() && Equals((IMixedRealityPointer)obj);
+            return obj.GetType() == GetType() && Equals((IPointer)obj);
         }
 
-        private bool Equals(IMixedRealityPointer other)
+        private bool Equals(IPointer other)
         {
             return other != null && PointerId == other.PointerId && string.Equals(PointerName, other.PointerName);
         }
@@ -658,7 +658,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     IsHoldPressed = false;
                 }
 
-                if (grabAction != MixedRealityInputAction.None &&
+                if (grabAction != InputAction.None &&
                     eventData.MixedRealityInputAction == grabAction)
                 {
                     IsGrabPressed = false;
@@ -689,7 +689,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     IsHoldPressed = true;
                 }
 
-                if (grabAction != MixedRealityInputAction.None &&
+                if (grabAction != InputAction.None &&
                     eventData.MixedRealityInputAction == grabAction)
                 {
                     IsGrabPressed = true;

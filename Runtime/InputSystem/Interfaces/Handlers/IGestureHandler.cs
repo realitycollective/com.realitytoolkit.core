@@ -4,12 +4,12 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
-    /// Interface to implement for generic gesture input.
+    /// Interface to implement for generic gesture UnityEngine.Input.
     /// </summary>
-    public interface IMixedRealityGestureHandler : IEventSystemHandler
+    public interface IGestureHandler : IEventSystemHandler
     {
         /// <summary>
         /// Gesture Started Event.
@@ -37,10 +37,10 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
     }
 
     /// <summary>
-    /// Interface to implement for generic gesture input.
+    /// Interface to implement for generic gesture UnityEngine.Input.
     /// </summary>
     /// <typeparam name="T">The type of data you want to listen for.</typeparam>
-    public interface IMixedRealityGestureHandler<T> : IMixedRealityGestureHandler
+    public interface IGestureHandler<T> : IGestureHandler
     {
         /// <summary>
         /// Gesture Updated Event.

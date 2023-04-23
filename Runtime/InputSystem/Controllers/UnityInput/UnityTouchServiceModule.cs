@@ -4,13 +4,13 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Input.Controllers.UnityInput
 {
     /// <summary>
     /// Manages Touch devices using unity input system.
@@ -19,7 +19,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
     public class UnityTouchServiceModule : BaseControllerServiceModule
     {
         /// <inheritdoc />
-        public UnityTouchServiceModule(string name, uint priority, TouchScreenControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        public UnityTouchServiceModule(string name, uint priority, TouchScreenControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
         }
@@ -31,11 +31,11 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         {
             base.Update();
 
-            var touchCount = Input.touchCount;
+            var touchCount = UnityEngine.Input.touchCount;
 
             for (var i = 0; i < touchCount; i++)
             {
-                var touch = Input.touches[i];
+                var touch = UnityEngine.Input.touches[i];
 
                 // Construct a ray from the current touch coordinates
                 var ray = Camera.main.ScreenPointToRay(touch.position);

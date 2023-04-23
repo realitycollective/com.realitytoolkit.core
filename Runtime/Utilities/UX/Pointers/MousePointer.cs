@@ -3,8 +3,8 @@
 
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
@@ -85,7 +85,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public override bool TryGetPointingRay(out Ray pointingRay)
         {
             var playerCamera = Camera.main;
-            pointingRay = playerCamera.ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
+            pointingRay = playerCamera.ScreenPointToRay(UnityEngine.Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             return true;
         }
 

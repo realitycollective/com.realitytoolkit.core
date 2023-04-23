@@ -8,8 +8,8 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.InputSystem.Controllers.UnityInput;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Controllers.UnityInput;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -85,7 +85,7 @@ namespace RealityToolkit.Editor
         private Texture2D currentControllerTexture;
         private ControllerInputActionOption currentControllerOption;
 
-        private MixedRealityControllerMappingProfile controllerDataProviderProfile;
+        private ControllerMappingProfile controllerDataProviderProfile;
         private string currentControllerName;
 
         private Type ControllerType => controllerDataProviderProfile.ControllerType;
@@ -111,7 +111,7 @@ namespace RealityToolkit.Editor
         /// </summary>
         /// <param name="profile"></param>
         /// <param name="interactionMappingProfiles"></param>
-        public static void Show(MixedRealityControllerMappingProfile profile, SerializedProperty interactionMappingProfiles)
+        public static void Show(ControllerMappingProfile profile, SerializedProperty interactionMappingProfiles)
         {
             var handednessTitleText = profile.Handedness != Handedness.None ? $"{profile.Handedness} Hand " : string.Empty;
 
@@ -318,7 +318,7 @@ namespace RealityToolkit.Editor
             for (int i = 0; i < interactionProfilesList.arraySize; i++)
             {
                 var interactionProfileProperty = interactionProfilesList.GetArrayElementAtIndex(i);
-                var mappingProfile = interactionProfileProperty.objectReferenceValue as MixedRealityInteractionMappingProfile;
+                var mappingProfile = interactionProfileProperty.objectReferenceValue as InteractionMappingProfile;
 
                 if (mappingProfile.IsNull())
                 {

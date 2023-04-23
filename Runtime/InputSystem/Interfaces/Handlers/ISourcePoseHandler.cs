@@ -5,12 +5,12 @@ using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface to implement to react to source 
     /// </summary>
-    public interface IMixedRealitySourcePoseHandler : IMixedRealitySourceStateHandler
+    public interface ISourcePoseHandler : ISourceStateHandler
     {
         /// <summary>
         /// Raised when the source pose tracking state is changed.

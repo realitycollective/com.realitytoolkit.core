@@ -5,10 +5,10 @@ using RealityToolkit.Definitions.Devices;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
-    /// Data structure for mapping gestures to <see cref="MixedRealityInputAction"/>s that can be raised by the Input System.
+    /// Data structure for mapping gestures to <see cref="InputAction"/>s that can be raised by the Input System.
     /// </summary>
     [Serializable]
     public struct MixedRealityGestureMapping
@@ -19,7 +19,7 @@ namespace RealityToolkit.InputSystem.Definitions
         /// <param name="description"></param>
         /// <param name="gestureType"></param>
         /// <param name="action"></param>
-        public MixedRealityGestureMapping(string description, GestureInputType gestureType, MixedRealityInputAction action)
+        public MixedRealityGestureMapping(string description, GestureInputType gestureType, InputAction action)
         {
             this.description = description;
             this.gestureType = gestureType;
@@ -43,11 +43,11 @@ namespace RealityToolkit.InputSystem.Definitions
         public GestureInputType GestureType => gestureType;
 
         [SerializeField]
-        private MixedRealityInputAction action;
+        private InputAction action;
 
         /// <summary>
         /// Action for the associated gesture.
         /// </summary>
-        public MixedRealityInputAction Action => action;
+        public InputAction Action => action;
     }
 }

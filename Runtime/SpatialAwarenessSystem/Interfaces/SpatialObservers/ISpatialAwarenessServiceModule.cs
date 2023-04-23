@@ -10,7 +10,7 @@ namespace RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers
     /// <summary>
     /// The Mixed Reality Spatial Observer service module contract.
     /// </summary>
-    public interface IMixedRealitySpatialAwarenessServiceModule : IServiceModule, IMixedRealityEventSource
+    public interface IMixedRealitySpatialAwarenessServiceModule : IServiceModule, IEventSource
     {
         /// <summary>
         /// The startup behavior of the hardware resource.

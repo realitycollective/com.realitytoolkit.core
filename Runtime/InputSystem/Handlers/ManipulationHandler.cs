@@ -5,9 +5,9 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.SpatialAwarenessSystem.Definitions;
 using RealityToolkit.SpatialAwarenessSystem.Interfaces;
 using RealityToolkit.Utilities;
@@ -16,7 +16,7 @@ using RealityToolkit.Utilities.UX;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// This input handler is designed to help facilitate the physical manipulation of <see cref="GameObject"/>s across all platforms.
@@ -24,10 +24,10 @@ namespace RealityToolkit.InputSystem.Handlers
     /// nudge, rotate, and scale the object.
     /// </summary>
     public class ManipulationHandler : BaseInputHandler,
-        IMixedRealityPointerHandler,
-        IMixedRealityInputHandler,
-        IMixedRealityInputHandler<float>,
-        IMixedRealityInputHandler<Vector2>
+        IPointerHandler,
+        IInputHandler,
+        IInputHandler<float>,
+        IInputHandler<Vector2>
     {
         #region Input Actions
 
@@ -35,12 +35,12 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action to use to select the GameObject and begin/end the manipulation phase")]
-        private MixedRealityInputAction selectAction = MixedRealityInputAction.None;
+        private InputAction selectAction = InputAction.None;
 
         /// <summary>
         /// The action to use to select the GameObject and begin/end the manipulation phase
         /// </summary>
-        public MixedRealityInputAction SelectAction
+        public InputAction SelectAction
         {
             get => selectAction;
             set => selectAction = value;
@@ -48,12 +48,12 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action to use to enable pressed actions")]
-        private MixedRealityInputAction touchpadPressAction = MixedRealityInputAction.None;
+        private InputAction touchpadPressAction = InputAction.None;
 
         /// <summary>
         /// The action to use to enable pressed actions
         /// </summary>
-        public MixedRealityInputAction TouchpadPressAction
+        public InputAction TouchpadPressAction
         {
             get => touchpadPressAction;
             set => touchpadPressAction = value;
@@ -71,12 +71,12 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action to use to rotate the GameObject")]
-        private MixedRealityInputAction rotateAction = MixedRealityInputAction.None;
+        private InputAction rotateAction = InputAction.None;
 
         /// <summary>
         /// The action to use to rotate the GameObject
         /// </summary>
-        public MixedRealityInputAction RotateAction
+        public InputAction RotateAction
         {
             get => rotateAction;
             set => rotateAction = value;
@@ -84,12 +84,12 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action to use to scale the GameObject")]
-        private MixedRealityInputAction scaleAction = MixedRealityInputAction.None;
+        private InputAction scaleAction = InputAction.None;
 
         /// <summary>
         /// The action to use to scale the GameObject
         /// </summary>
-        public MixedRealityInputAction ScaleAction
+        public InputAction ScaleAction
         {
             get => scaleAction;
             set => scaleAction = value;
@@ -97,12 +97,12 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action to use to nudge the pointer extent closer or further away from the pointer source")]
-        private MixedRealityInputAction nudgeAction = MixedRealityInputAction.None;
+        private InputAction nudgeAction = InputAction.None;
 
         /// <summary>
         /// The action to use to nudge the <see cref="GameObject"/> closer or further away from the pointer source.
         /// </summary>
-        public MixedRealityInputAction NudgeAction
+        public InputAction NudgeAction
         {
             get => nudgeAction;
             set => nudgeAction = value;
@@ -110,12 +110,12 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action to use to immediately cancel any current manipulation.")]
-        private MixedRealityInputAction cancelAction = MixedRealityInputAction.None;
+        private InputAction cancelAction = InputAction.None;
 
         /// <summary>
         /// The action to use to immediately cancel any current manipulation.
         /// </summary>
-        public MixedRealityInputAction CancelAction
+        public InputAction CancelAction
         {
             get => cancelAction;
             set => cancelAction = value;
@@ -515,7 +515,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <summary>
         /// The captured primary pointer for the current active hold.
         /// </summary>
-        public IMixedRealityPointer PrimaryPointer { get; private set; }
+        public IPointer PrimaryPointer { get; private set; }
 
         /// <summary>
         /// The <see cref="BoundingBox"/> associated to this <see cref="GameObject"/>.
@@ -543,7 +543,7 @@ namespace RealityToolkit.InputSystem.Handlers
 
         #endregion Events
 
-        private IMixedRealityInputSource primaryInputSource;
+        private IInputSource primaryInputSource;
 
         private SpatialMeshDisplayOptions prevSpatialMeshDisplay;
 
@@ -619,7 +619,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public virtual void OnInputDown(InputEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == MixedRealityInputAction.None) { return; }
+            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
 
             if (!eventData.used &&
                 IsBeingHeld &&
@@ -633,7 +633,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public virtual void OnInputUp(InputEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == MixedRealityInputAction.None) { return; }
+            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
 
             if (!eventData.used &&
                 IsBeingHeld &&
@@ -647,7 +647,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<float> eventData)
         {
-            if (eventData.MixedRealityInputAction == MixedRealityInputAction.None) { return; }
+            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
 
             if (!IsBeingHeld ||
                 primaryInputSource == null ||
@@ -690,7 +690,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<Vector2> eventData)
         {
-            if (eventData.MixedRealityInputAction == MixedRealityInputAction.None) { return; }
+            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
 
             // reset this in case we are rotating only.
             IsScalingPossible = false;
@@ -796,7 +796,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == MixedRealityInputAction.None) { return; }
+            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
 
             if (eventData.MixedRealityInputAction == selectAction)
             {
@@ -812,7 +812,7 @@ namespace RealityToolkit.InputSystem.Handlers
         /// <inheritdoc />
         public virtual void OnPointerUp(MixedRealityPointerEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == MixedRealityInputAction.None) { return; }
+            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
 
             if (eventData.used ||
                 eventData.MixedRealityInputAction != selectAction)
@@ -968,7 +968,7 @@ namespace RealityToolkit.InputSystem.Handlers
             return prevExtent + nudgeAmount * (nudgeFactor < 0f ? -1 : 1);
         }
 
-        private static float GetCurrentExtent(IMixedRealityPointer pointer)
+        private static float GetCurrentExtent(IPointer pointer)
         {
             var extent = pointer.PointerExtent;
             var currentRaycastDistance = pointer.Result.RayDistance;

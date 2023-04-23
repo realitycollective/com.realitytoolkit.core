@@ -3,12 +3,12 @@
 
 using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Speech;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Speech;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Modules
+namespace RealityToolkit.Input.Modules
 {
     /// <summary>
     /// Base dictation service module to use when implementing <see cref="IMixedRealityDictationServiceModule"/>s
@@ -16,13 +16,13 @@ namespace RealityToolkit.InputSystem.Modules
     public abstract class BaseDictationServiceModule : BaseServiceModule, IMixedRealityDictationServiceModule
     {
         /// <inheritdoc />
-        protected BaseDictationServiceModule(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseDictationServiceModule(string name, uint priority, BaseControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
             InputSystem = parentService;
         }
 
-        protected readonly IMixedRealityInputSystem InputSystem;
+        protected readonly IInputService InputSystem;
 
         #region IMixedRealityDictationDataProvider Implementation
 

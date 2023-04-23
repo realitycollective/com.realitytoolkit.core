@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.ServiceFramework.Editor.Profiles;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;

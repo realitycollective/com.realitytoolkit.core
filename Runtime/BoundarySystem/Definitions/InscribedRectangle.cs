@@ -7,7 +7,7 @@ using System;
 using UnityEngine;
 using Random = System.Random;
 
-namespace RealityToolkit.BoundarySystem.Definitions
+namespace RealityToolkit.Boundary.Definitions
 {
     /// <summary>
     /// The InscribedRectangle class defines the largest rectangle within an

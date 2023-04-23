@@ -55,7 +55,7 @@ namespace RealityToolkit.Utilities.Physics
         }
 
         /// <summary>
-        /// Update the rotation based on input.
+        /// Update the rotation based on UnityEngine.Input.
         /// </summary>
         /// <param name="handsPressedMap"></param>
         /// <param name="currentRotation"></param>

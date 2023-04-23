@@ -3,15 +3,15 @@
 
 using RealityCollective.Attributes;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.BoundarySystem.Interfaces;
+using RealityToolkit.Boundary.Interfaces;
 using UnityEngine;
 
-namespace RealityToolkit.Definitions.BoundarySystem
+namespace RealityToolkit.Definitions.Boundary
 {
     /// <summary>
-    /// Configuration profile settings for setting up the <see cref="IMixedRealityBoundarySystem"/>.
+    /// Configuration profile settings for setting up the <see cref="IBoundaryService"/>.
     /// </summary>
-    public class MixedRealityBoundaryProfile : BaseServiceProfile<IMixedRealityBoundaryServiceModule>
+    public class BoundaryProfile : BaseServiceProfile<IMixedRealityBoundaryServiceModule>
     {
         #region General Settings
 

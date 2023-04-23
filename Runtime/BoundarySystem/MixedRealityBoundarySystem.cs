@@ -5,23 +5,23 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.BoundarySystem.Definitions;
-using RealityToolkit.BoundarySystem.Interfaces;
-using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.Boundary.Definitions;
+using RealityToolkit.Boundary.Interfaces;
+using RealityToolkit.Definitions.Boundary;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace RealityToolkit.BoundarySystem
+namespace RealityToolkit.Boundary
 {
     /// <summary>
     /// The Boundary system controls the presentation and display of the users boundary in a scene.
     /// </summary>
     [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("FE458876-CC0F-4B6F-9459-544DDF6A9263")]
-    public class MixedRealityBoundarySystem : BaseServiceWithConstructor, IMixedRealityBoundarySystem
+    public class BoundarySservice : BaseServiceWithConstructor, IBoundaryService
     {
         /// <summary>
         /// Constructor.
@@ -29,7 +29,7 @@ namespace RealityToolkit.BoundarySystem
         /// <param name="name">The service display name.</param>
         /// <param name="priority">The service initialization priority.</param>
         /// <param name="profile">The service configuration profile.</param>
-        public MixedRealityBoundarySystem(string name, uint priority, MixedRealityBoundaryProfile profile)
+        public BoundarySservice(string name, uint priority, BoundaryProfile profile)
             : base(name, priority)
         {
             showBoundary = profile.ShowBoundary;

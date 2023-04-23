@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Handlers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,13 +14,13 @@ namespace RealityToolkit.Utilities.UX.Receivers
     /// based on events from those interactable objects. This is the base abstract class to extend from.
     /// </summary>
     public abstract class InteractionReceiver : BaseInputHandler,
-        IMixedRealityFocusChangedHandler,
-        IMixedRealityInputHandler,
-        IMixedRealityInputHandler<float>,
-        IMixedRealityInputHandler<Vector2>,
-        IMixedRealityGestureHandler<Vector2>,
-        IMixedRealityGestureHandler<Vector3>,
-        IMixedRealityGestureHandler<Quaternion>
+        IFocusChangedHandler,
+        IInputHandler,
+        IInputHandler<float>,
+        IInputHandler<Vector2>,
+        IGestureHandler<Vector2>,
+        IGestureHandler<Vector3>,
+        IGestureHandler<Quaternion>
     {
         #region Public Members
 
@@ -157,10 +157,10 @@ namespace RealityToolkit.Utilities.UX.Receivers
         #region IMixedRealityFocusChangedHandler Implementation
 
         /// <inheritdoc />
-        void IMixedRealityFocusChangedHandler.OnBeforeFocusChange(FocusEventData eventData) { /*Unused*/ }
+        void IFocusChangedHandler.OnBeforeFocusChange(FocusEventData eventData) { /*Unused*/ }
 
         /// <inheritdoc />
-        void IMixedRealityFocusChangedHandler.OnFocusChanged(FocusEventData eventData)
+        void IFocusChangedHandler.OnFocusChanged(FocusEventData eventData)
         {
             if (eventData.NewFocusedObject != null && IsInteractable(eventData.NewFocusedObject))
             {
@@ -178,7 +178,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         #region IMixedRealityInputHandler Impmentations
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler.OnInputUp(InputEventData eventData)
+        void IInputHandler.OnInputUp(InputEventData eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -187,7 +187,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler.OnInputDown(InputEventData eventData)
+        void IInputHandler.OnInputDown(InputEventData eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -196,7 +196,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler<float>.OnInputChanged(InputEventData<float> eventData)
+        void IInputHandler<float>.OnInputChanged(InputEventData<float> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -205,7 +205,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler<Vector2>.OnInputChanged(InputEventData<Vector2> eventData)
+        void IInputHandler<Vector2>.OnInputChanged(InputEventData<Vector2> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -218,7 +218,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         #region IMixedRealityGestureHandler Impmentations
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler.OnGestureStarted(InputEventData eventData)
+        void IGestureHandler.OnGestureStarted(InputEventData eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -227,7 +227,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler.OnGestureUpdated(InputEventData eventData)
+        void IGestureHandler.OnGestureUpdated(InputEventData eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -236,7 +236,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler<Vector2>.OnGestureUpdated(InputEventData<Vector2> eventData)
+        void IGestureHandler<Vector2>.OnGestureUpdated(InputEventData<Vector2> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -245,7 +245,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler<Vector3>.OnGestureUpdated(InputEventData<Vector3> eventData)
+        void IGestureHandler<Vector3>.OnGestureUpdated(InputEventData<Vector3> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -254,7 +254,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler<Quaternion>.OnGestureUpdated(InputEventData<Quaternion> eventData)
+        void IGestureHandler<Quaternion>.OnGestureUpdated(InputEventData<Quaternion> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -263,7 +263,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler.OnGestureCompleted(InputEventData eventData)
+        void IGestureHandler.OnGestureCompleted(InputEventData eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -272,7 +272,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler<Vector2>.OnGestureCompleted(InputEventData<Vector2> eventData)
+        void IGestureHandler<Vector2>.OnGestureCompleted(InputEventData<Vector2> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -281,7 +281,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler<Vector3>.OnGestureCompleted(InputEventData<Vector3> eventData)
+        void IGestureHandler<Vector3>.OnGestureCompleted(InputEventData<Vector3> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -290,7 +290,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler<Quaternion>.OnGestureCompleted(InputEventData<Quaternion> eventData)
+        void IGestureHandler<Quaternion>.OnGestureCompleted(InputEventData<Quaternion> eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {
@@ -299,7 +299,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
         }
 
         /// <inheritdoc />
-        void IMixedRealityGestureHandler.OnGestureCanceled(InputEventData eventData)
+        void IGestureHandler.OnGestureCanceled(InputEventData eventData)
         {
             if (IsInteractable(eventData.selectedObject))
             {

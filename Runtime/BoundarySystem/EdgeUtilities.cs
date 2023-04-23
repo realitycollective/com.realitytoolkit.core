@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.BoundarySystem.Definitions;
+using RealityToolkit.Boundary.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.BoundarySystem
+namespace RealityToolkit.Boundary
 {
     /// <summary>
     /// The EdgeUtilities class provides functionality for working with <see cref="Edge"/> objects.

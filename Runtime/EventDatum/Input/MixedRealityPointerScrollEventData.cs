@@ -1,8 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,7 +11,7 @@ namespace RealityToolkit.EventDatum.Input
     /// <summary>
     /// Describes a <see cref="MixedRealityPointerEventData"/> with scroll data.
     /// </summary>
-    public class MixedRealityPointerScrollEventData : MixedRealityPointerEventData
+    public class PointerScrollEventData : MixedRealityPointerEventData
     {
         /// <summary>
         /// The distance this pointer has been scrolled since the last event was raised.
@@ -19,7 +19,7 @@ namespace RealityToolkit.EventDatum.Input
         public Vector2 ScrollDelta { get; private set; }
 
         /// <inheritdoc />
-        public MixedRealityPointerScrollEventData(EventSystem eventSystem) : base(eventSystem) { }
+        public PointerScrollEventData(EventSystem eventSystem) : base(eventSystem) { }
 
         /// <summary>
         /// Used to initialize/reset the event and populate the data.
@@ -28,7 +28,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputAction"></param>
         /// <param name="scrollDelta"></param>
         /// <param name="inputSource"></param>
-        public void Initialize(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, Vector2 scrollDelta, IMixedRealityInputSource inputSource = null)
+        public void Initialize(IPointer pointer, InputAction inputAction, Vector2 scrollDelta, IInputSource inputSource = null)
         {
             Initialize(pointer, inputAction, inputSource);
             ScrollDelta = scrollDelta;

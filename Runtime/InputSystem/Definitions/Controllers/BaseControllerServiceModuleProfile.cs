@@ -9,7 +9,7 @@ namespace RealityToolkit.Definitions.Controllers
     /// <summary>
     /// Provides additional configuration options for controller service modules.
     /// </summary>
-    public abstract class BaseMixedRealityControllerServiceModuleProfile : BaseProfile
+    public abstract class BaseControllerServiceModuleProfile : BaseProfile
     {
         [SerializeField]
         private bool hasSetupDefaults = false;
@@ -20,9 +20,9 @@ namespace RealityToolkit.Definitions.Controllers
         protected bool HasSetupDefaults => hasSetupDefaults;
 
         [SerializeField]
-        private MixedRealityControllerMappingProfile[] controllerMappingProfiles = new MixedRealityControllerMappingProfile[0];
+        private ControllerMappingProfile[] controllerMappingProfiles = new ControllerMappingProfile[0];
 
-        public MixedRealityControllerMappingProfile[] ControllerMappingProfiles
+        public ControllerMappingProfile[] ControllerMappingProfiles
         {
             get => controllerMappingProfiles;
             internal set => controllerMappingProfiles = value;

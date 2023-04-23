@@ -3,12 +3,12 @@
 
 using RealityCollective.ServiceFramework.Interfaces;
 
-namespace RealityToolkit.InputSystem.Interfaces.Modules
+namespace RealityToolkit.Input.Interfaces.Modules
 {
     /// <summary>
     /// Reality Toolkit service module definition, used to instantiate and manage devices, controllers and input for specific SDKs and libraries.
     /// </summary>
-    public interface IMixedRealityInputServiceModule : IServiceModule
+    public interface IInputServiceModule : IServiceModule
     {
     }
 }

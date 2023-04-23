@@ -1,8 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Attributes;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Attributes;
+using RealityToolkit.Input.Definitions;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
         {
             var constraintAttribute = attribute as AxisConstraintAttribute;
 
-            if (property.type == nameof(MixedRealityInputAction))
+            if (property.type == nameof(InputAction))
             {
                 inputActionDropdown.OnGui(position, property, label, constraintAttribute.AxisConstraint);
             }

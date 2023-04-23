@@ -4,10 +4,10 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.Hands
+namespace RealityToolkit.Input.Controllers.Hands
 {
     /// <summary>
     /// The <see cref="HandGripPostProcessor"/> processes <see cref="HandData"/>

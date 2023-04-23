@@ -2,22 +2,22 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Basic interface for synchronizing to a controller pose.
     /// </summary>
-    public interface IControllerPoseSynchronizer : IMixedRealitySourcePoseHandler,
-        IMixedRealityInputHandler,
-        IMixedRealityInputHandler<float>,
-        IMixedRealityInputHandler<Vector2>,
-        IMixedRealityInputHandler<Vector3>,
-        IMixedRealityInputHandler<Quaternion>,
-        IMixedRealityInputHandler<Pose>
+    public interface IControllerPoseSynchronizer : ISourcePoseHandler,
+        IInputHandler,
+        IInputHandler<float>,
+        IInputHandler<Vector2>,
+        IInputHandler<Vector3>,
+        IInputHandler<Quaternion>,
+        IInputHandler<Pose>
     {
         /// <summary>
         /// The <see cref="Transform"/> that will be synchronized with the controller data.
@@ -51,6 +51,6 @@ namespace RealityToolkit.InputSystem.Interfaces.Handlers
         /// <summary>
         /// The input action that will drive the Transform's pose, position, or rotation.
         /// </summary>
-        MixedRealityInputAction PoseAction { get; set; }
+        InputAction PoseAction { get; set; }
     }
 }

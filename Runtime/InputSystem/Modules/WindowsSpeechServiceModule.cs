@@ -4,15 +4,15 @@
 using System;
 using RealityCollective.Definitions.Utilities;
 using UnityEngine;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace RealityToolkit.InputSystem.Modules
+namespace RealityToolkit.Input.Modules
 {
     /// <summary>
     /// Speech service module for windows 10 based platforms.
@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Modules
     public class WindowsSpeechServiceModule : BaseSpeechServiceModule
     {
         /// <inheritdoc />
-        public WindowsSpeechServiceModule(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IMixedRealityInputSystem parentService)
+        public WindowsSpeechServiceModule(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
 #if UNITY_WSA && UNITY_EDITOR
@@ -33,9 +33,9 @@ namespace RealityToolkit.InputSystem.Modules
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile))
             {
-                throw new ArgumentException($"Unable to get a valid {nameof(MixedRealityInputSystemProfile)}!");
+                throw new ArgumentException($"Unable to get a valid {nameof(InputServiceProfile)}!");
             }
 
             autoStartBehavior = inputSystemProfile.SpeechCommandsProfile.SpeechRecognizerStartBehavior;
@@ -76,7 +76,7 @@ namespace RealityToolkit.InputSystem.Modules
 
         private static SpeechCommands[] commands;
 
-        private static IMixedRealityInputSource inputSource;
+        private static IInputSource inputSource;
 
         private static KeywordRecognizer keywordRecognizer;
 
@@ -108,7 +108,7 @@ namespace RealityToolkit.InputSystem.Modules
 
             for (int i = 0; i < commands.Length; i++)
             {
-                if (Input.GetKeyDown(commands[i].KeyCode))
+                if (UnityEngine.Input.GetKeyDown(commands[i].KeyCode))
                 {
                     OnPhraseRecognized((ConfidenceLevel)RecognitionConfidenceLevel, TimeSpan.Zero, DateTime.UtcNow, commands[i].Keyword);
                 }

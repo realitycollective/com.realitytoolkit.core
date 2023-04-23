@@ -4,13 +4,13 @@
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Services.InputSystem.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    public class MixedRealityControllerMappingProfile : BaseProfile
+    public class ControllerMappingProfile : BaseProfile
     {
         [SerializeField]
         [Implements(typeof(IController), TypeGrouping.ByNamespaceFlat)]
@@ -52,12 +52,12 @@ namespace RealityToolkit.Definitions.Controllers
         }
 
         [SerializeField]
-        private MixedRealityInteractionMappingProfile[] interactionMappingProfiles = new MixedRealityInteractionMappingProfile[0];
+        private InteractionMappingProfile[] interactionMappingProfiles = new InteractionMappingProfile[0];
 
         /// <summary>
         /// Details the list of available interaction profiles available for the controller.
         /// </summary>
-        public MixedRealityInteractionMappingProfile[] InteractionMappingProfiles
+        public InteractionMappingProfile[] InteractionMappingProfiles
         {
             get => interactionMappingProfiles;
             internal set => interactionMappingProfiles = value;

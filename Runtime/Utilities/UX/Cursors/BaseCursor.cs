@@ -4,9 +4,9 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Listeners;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Listeners;
 using RealityToolkit.Utilities.UX.Pointers;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
     /// <summary>
     /// Object that represents a cursor in 3D space controlled by gaze.
     /// </summary>
-    public class BaseCursor : InputSystemGlobalListener, IMixedRealityCursor
+    public class BaseCursor : InputSystemGlobalListener, ICursor
     {
         /// <summary>
         /// The current <see cref="CursorStateEnum"/> of the cursor.
@@ -124,7 +124,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         #region IMixedRealityCursor Implementation
 
         /// <inheritdoc />
-        public virtual IMixedRealityPointer Pointer
+        public virtual IPointer Pointer
         {
             get => pointer;
             set
@@ -135,7 +135,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
         }
 
-        private IMixedRealityPointer pointer;
+        private IPointer pointer;
 
         /// <inheritdoc />
         public virtual Vector3 Position => transform.position;

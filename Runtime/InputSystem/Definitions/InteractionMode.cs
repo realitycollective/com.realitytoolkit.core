@@ -3,7 +3,7 @@
 
 using System;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     [Flags]
     public enum InteractionMode

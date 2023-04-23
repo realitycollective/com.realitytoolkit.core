@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using System;
 using UnityEngine.EventSystems;
 
@@ -47,7 +47,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="phraseDuration"></param>
         /// <param name="phraseStartTime"></param>
         /// <param name="recognizedText"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, MixedRealityInputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string recognizedText)
+        public void Initialize(IInputSource inputSource, InputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string recognizedText)
         {
             BaseInitialize(inputSource, inputAction);
             Confidence = confidence;

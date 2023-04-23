@@ -5,19 +5,19 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Controllers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces
+namespace RealityToolkit.Input.Interfaces
 {
     /// <summary>
     /// Manager interface for a Input system in the Reality Toolkit
     /// All replacement systems for providing Input System functionality should derive from this interface
     /// </summary>
-    public interface IMixedRealityInputSystem : IEventService
+    public interface IInputService : IEventService
     {
         /// <summary>
         /// Event that's raised when the Input is enabled.
@@ -32,25 +32,25 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <summary>
         /// List of the Interaction Input Sources as detected by the input manager like hands or motion controllers.
         /// </summary>
-        IReadOnlyCollection<IMixedRealityInputSource> DetectedInputSources { get; }
+        IReadOnlyCollection<IInputSource> DetectedInputSources { get; }
 
         /// <summary>
         /// List of <see cref="IController"/>s currently detected by the input manager.
         /// </summary>
         /// <remarks>
-        /// This property is similar to <see cref="DetectedInputSources"/>, as this is a subset of those <see cref="IMixedRealityInputSource"/>s in that list.
+        /// This property is similar to <see cref="DetectedInputSources"/>, as this is a subset of those <see cref="IInputSource"/>s in that list.
         /// </remarks>
         IReadOnlyCollection<IController> DetectedControllers { get; }
 
         /// <summary>
         /// The current Focus Provider that's been implemented by this Input System.
         /// </summary>
-        IMixedRealityFocusProvider FocusProvider { get; }
+        IFocusProvider FocusProvider { get; }
 
         /// <summary>
         /// The current Gaze Provider that's been implemented by this Input System.
         /// </summary>
-        IMixedRealityGazeProvider GazeProvider { get; }
+        IGazeProvider GazeProvider { get; }
 
         /// <summary>
         /// Indicates if input is currently enabled or not.
@@ -58,13 +58,13 @@ namespace RealityToolkit.InputSystem.Interfaces
         bool IsInputEnabled { get; }
 
         /// <summary>
-        /// Looks up the <see cref="IMixedRealityInputSource"/> from <see cref="DetectedInputSources"/>,
+        /// Looks up the <see cref="IInputSource"/> from <see cref="DetectedInputSources"/>,
         /// if it exists.
         /// </summary>
-        /// <param name="sourceId">The <see cref="IMixedRealityInputSource"/> identifier.</param>
-        /// <param name="inputSource">The found <see cref="IMixedRealityInputSource"/>.</param>
+        /// <param name="sourceId">The <see cref="IInputSource"/> identifier.</param>
+        /// <param name="inputSource">The found <see cref="IInputSource"/>.</param>
         /// <returns><c>true</c>, if the source was found.</returns>
-        bool TryGetInputSource(uint sourceId, out IMixedRealityInputSource inputSource);
+        bool TryGetInputSource(uint sourceId, out IInputSource inputSource);
 
         /// <summary>
         /// Push a disabled input state onto the Input System.
@@ -80,7 +80,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         void PopInputDisable();
 
         /// <summary>
-        /// Clear the input disable stack, which will immediately re-enable input.
+        /// Clear the input disable stack, which will immediately re-enable UnityEngine.Input.
         /// </summary>
         void ClearInputDisableStack();
 
@@ -119,7 +119,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         void ClearFallbackInputStack();
 
         /// <summary>
-        /// Sets and updates the behaviour of the configured <see cref="IMixedRealityGazeProvider"/>.
+        /// Sets and updates the behaviour of the configured <see cref="IGazeProvider"/>.
         /// </summary>
         /// <param name="gazeProviderBehaviour">The new <see cref="GazeProviderBehaviour"/>.</param>
         void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour);
@@ -129,10 +129,10 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <summary>
         /// Tried to get a <see cref="IController"/> from the <see cref="DetectedControllers"/> list.
         /// </summary>
-        /// <param name="inputSource">The <see cref="IMixedRealityInputSource"/> you want to get a controller reference for.</param>
+        /// <param name="inputSource">The <see cref="IInputSource"/> you want to get a controller reference for.</param>
         /// <param name="controller">The <see cref="IController"/> that was found in the list of <see cref="DetectedControllers"/></param>
         /// <returns>True, if an <see cref="IController"/> is found.</returns>
-        bool TryGetController(IMixedRealityInputSource inputSource, out IController controller);
+        bool TryGetController(IInputSource inputSource, out IController controller);
 
         #endregion IController Utilities
 
@@ -162,21 +162,21 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="name"></param>
         /// <param name="pointers"></param>
         /// <returns></returns>
-        IMixedRealityInputSource RequestNewGenericInputSource(string name, IMixedRealityPointer[] pointers = null);
+        IInputSource RequestNewGenericInputSource(string name, IPointer[] pointers = null);
 
         /// <summary>
         /// Raise the event that the Input Source was detected.
         /// </summary>
         /// <param name="source">The detected Input Source.</param>
         /// <param name="controller"></param>
-        void RaiseSourceDetected(IMixedRealityInputSource source, IController controller = null);
+        void RaiseSourceDetected(IInputSource source, IController controller = null);
 
         /// <summary>
         /// Raise the event that the Input Source was lost.
         /// </summary>
         /// <param name="source">The lost Input Source.</param>
         /// <param name="controller"></param>
-        void RaiseSourceLost(IMixedRealityInputSource source, IController controller = null);
+        void RaiseSourceLost(IInputSource source, IController controller = null);
 
         /// <summary>
         /// Raise the event that the Input Source's tracking state has changed.
@@ -184,7 +184,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="state"></param>
-        void RaiseSourceTrackingStateChanged(IMixedRealityInputSource source, IController controller, TrackingState state);
+        void RaiseSourceTrackingStateChanged(IInputSource source, IController controller, TrackingState state);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -192,7 +192,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePositionChanged(IMixedRealityInputSource source, IController controller, Vector2 position);
+        void RaiseSourcePositionChanged(IInputSource source, IController controller, Vector2 position);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -200,7 +200,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePositionChanged(IMixedRealityInputSource source, IController controller, Vector3 position);
+        void RaiseSourcePositionChanged(IInputSource source, IController controller, Vector3 position);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -208,7 +208,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="rotation"></param>
-        void RaiseSourceRotationChanged(IMixedRealityInputSource source, IController controller, Quaternion rotation);
+        void RaiseSourceRotationChanged(IInputSource source, IController controller, Quaternion rotation);
 
         /// <summary>
         /// Raise the event that the Input Source position was changed.
@@ -216,7 +216,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="controller"></param>
         /// <param name="position"></param>
-        void RaiseSourcePoseChanged(IMixedRealityInputSource source, IController controller, Pose position);
+        void RaiseSourcePoseChanged(IInputSource source, IController controller, Pose position);
 
         #endregion Input Source Events
 
@@ -229,7 +229,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="pointer">The pointer that the focus change event is raised on.</param>
         /// <param name="oldFocusedObject">The old focused object.</param>
         /// <param name="newFocusedObject">The new focused object.</param>
-        void RaisePreFocusChanged(IMixedRealityPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
+        void RaisePreFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
 
         /// <summary>
         /// Raise the focus changed event.
@@ -237,21 +237,21 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="pointer">The pointer that the focus change event is raised on.</param>
         /// <param name="oldFocusedObject">The old focused object.</param>
         /// <param name="newFocusedObject">The new focused object.</param>
-        void RaiseFocusChanged(IMixedRealityPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
+        void RaiseFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
 
         /// <summary>
         /// Raise the focus enter event.
         /// </summary>
         /// <param name="pointer">The pointer that has focus.</param>
         /// <param name="focusedObject">The <see cref="GameObject"/> that the pointer has entered focus on.</param>
-        void RaiseFocusEnter(IMixedRealityPointer pointer, GameObject focusedObject);
+        void RaiseFocusEnter(IPointer pointer, GameObject focusedObject);
 
         /// <summary>
         /// Raise the focus exit event.
         /// </summary>
         /// <param name="pointer">The pointer that has lost focus.</param>
         /// <param name="unfocusedObject">The <see cref="GameObject"/> that the pointer has exited focus on.</param>
-        void RaiseFocusExit(IMixedRealityPointer pointer, GameObject unfocusedObject);
+        void RaiseFocusExit(IPointer pointer, GameObject unfocusedObject);
 
         #endregion Focus Events
 
@@ -265,7 +265,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="pointer">The pointer where the event originates.</param>
         /// <param name="inputAction">The action associated with this event.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDown(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null);
+        void RaisePointerDown(IPointer pointer, InputAction inputAction, IInputSource inputSource = null);
 
         #endregion Pointer Down
 
@@ -277,7 +277,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="pointer">The pointer where the event originates.</param>
         /// <param name="inputAction">The action associated with this event.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerClicked(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null);
+        void RaisePointerClicked(IPointer pointer, InputAction inputAction, IInputSource inputSource = null);
 
         #endregion Pointer Click
 
@@ -289,7 +289,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="pointer">The pointer where the event originates.</param>
         /// <param name="inputAction">The action associated with this event.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerUp(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null);
+        void RaisePointerUp(IPointer pointer, InputAction inputAction, IInputSource inputSource = null);
 
         #endregion Pointer Up
 
@@ -300,7 +300,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="scrollAction">The action associated with this event.</param>
         /// <param name="scrollDelta">The distance this pointer has scrolled since the scroll event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerScroll(IMixedRealityPointer pointer, MixedRealityInputAction scrollAction, Vector2 scrollDelta, IMixedRealityInputSource inputSource = null);
+        void RaisePointerScroll(IPointer pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null);
 
         #region Pointer Dragging
 
@@ -311,7 +311,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="draggedAction">The action associated with this event.</param>
         /// <param name="dragDelta">The distance this pointer has been moved since the last time the dragged event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDragBegin(IMixedRealityPointer pointer, MixedRealityInputAction draggedAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null);
+        void RaisePointerDragBegin(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
 
         /// <summary>
         /// Raise the pointer drag event.
@@ -320,7 +320,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="draggedAction">The action associated with this event.</param>
         /// <param name="dragDelta">The distance this pointer has been moved since the last time the dragged event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDrag(IMixedRealityPointer pointer, MixedRealityInputAction draggedAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null);
+        void RaisePointerDrag(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
 
         /// <summary>
         /// Raise the pointer drag end event.
@@ -329,7 +329,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="draggedAction">The action associated with this event.</param>
         /// <param name="dragDelta">The distance this pointer has been moved since the last time the dragged event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDragEnd(IMixedRealityPointer pointer, MixedRealityInputAction draggedAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null);
+        void RaisePointerDragEnd(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
 
         #endregion Pointer Dragging
 
@@ -344,7 +344,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// </summary>
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
-        void RaiseOnInputDown(IMixedRealityInputSource source, MixedRealityInputAction inputAction);
+        void RaiseOnInputDown(IInputSource source, InputAction inputAction);
 
         /// <summary>
         /// Raise the input down event.
@@ -352,7 +352,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
-        void RaiseOnInputDown(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction);
+        void RaiseOnInputDown(IInputSource source, Handedness handedness, InputAction inputAction);
 
         #endregion Input Down
 
@@ -363,7 +363,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// </summary>
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
-        void RaiseOnInputPressed(IMixedRealityInputSource source, MixedRealityInputAction inputAction);
+        void RaiseOnInputPressed(IInputSource source, InputAction inputAction);
 
         /// <summary>
         /// Raise Input Pressed.
@@ -371,7 +371,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
-        void RaiseOnInputPressed(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction);
+        void RaiseOnInputPressed(IInputSource source, Handedness handedness, InputAction inputAction);
 
         /// <summary>
         /// Raise Input Pressed.
@@ -379,7 +379,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="pressAmount"></param>
-        void RaiseOnInputPressed(IMixedRealityInputSource source, MixedRealityInputAction inputAction, float pressAmount);
+        void RaiseOnInputPressed(IInputSource source, InputAction inputAction, float pressAmount);
 
         /// <summary>
         /// Raise Input Pressed.
@@ -388,7 +388,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="pressAmount"></param>
-        void RaiseOnInputPressed(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, float pressAmount);
+        void RaiseOnInputPressed(IInputSource source, Handedness handedness, InputAction inputAction, float pressAmount);
 
         #endregion Input Pressed
 
@@ -399,7 +399,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// </summary>
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
-        void RaiseOnInputUp(IMixedRealityInputSource source, MixedRealityInputAction inputAction);
+        void RaiseOnInputUp(IInputSource source, InputAction inputAction);
 
         /// <summary>
         /// Raise the input up event.
@@ -407,7 +407,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
-        void RaiseOnInputUp(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction);
+        void RaiseOnInputUp(IInputSource source, Handedness handedness, InputAction inputAction);
 
         #endregion Input Up
 
@@ -419,7 +419,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="position"></param>
-        void RaisePositionInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, float position);
+        void RaisePositionInputChanged(IInputSource source, InputAction inputAction, float position);
 
         /// <summary>
         /// Raise the 1st degree of freedom input event.
@@ -428,7 +428,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="position"></param>
-        void RaisePositionInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, float position);
+        void RaisePositionInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, float position);
 
         /// <summary>
         /// Raise the 2 degrees of freedom input event.
@@ -436,7 +436,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="position"></param>
-        void RaisePositionInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Vector2 position);
+        void RaisePositionInputChanged(IInputSource source, InputAction inputAction, Vector2 position);
 
         /// <summary>
         /// Raise the 2 degrees of freedom input event.
@@ -445,7 +445,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="position"></param>
-        void RaisePositionInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Vector2 position);
+        void RaisePositionInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Vector2 position);
 
         /// <summary>
         /// Raise the 3 degrees of freedom input event.
@@ -453,7 +453,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="position"></param>
-        void RaisePositionInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Vector3 position);
+        void RaisePositionInputChanged(IInputSource source, InputAction inputAction, Vector3 position);
 
         /// <summary>
         /// Raise the 3 degrees of freedom input event.
@@ -462,7 +462,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="position"></param>
-        void RaisePositionInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Vector3 position);
+        void RaisePositionInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Vector3 position);
 
         #endregion Input Position Changed
 
@@ -474,7 +474,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="rotation"></param>
-        void RaiseRotationInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Quaternion rotation);
+        void RaiseRotationInputChanged(IInputSource source, InputAction inputAction, Quaternion rotation);
 
         /// <summary>
         /// Raise the 3 degrees of freedom input event.
@@ -483,7 +483,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="rotation"></param>
-        void RaiseRotationInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Quaternion rotation);
+        void RaiseRotationInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Quaternion rotation);
 
         #endregion Input Rotation Changed
 
@@ -495,7 +495,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="inputAction"></param>
         /// <param name="inputData"></param>
-        void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Pose inputData);
+        void RaisePoseInputChanged(IInputSource source, InputAction inputAction, Pose inputData);
 
         /// <summary>
         /// Raise the 6 degrees of freedom input event.
@@ -504,7 +504,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="inputData"></param>
-        void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Pose inputData);
+        void RaisePoseInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Pose inputData);
 
         #endregion Input Pose Changed
 
@@ -517,22 +517,14 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureStarted(IController controller, MixedRealityInputAction action);
+        void RaiseGestureStarted(IController controller, InputAction action);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action);
-
-        /// <summary>
-        /// Raise the Gesture Updated Event.
-        /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="action"></param>
-        /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Vector2 inputData);
+        void RaiseGestureUpdated(IController controller, InputAction action);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
@@ -540,7 +532,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Vector3 inputData);
+        void RaiseGestureUpdated(IController controller, InputAction action, Vector2 inputData);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
@@ -548,7 +540,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Quaternion inputData);
+        void RaiseGestureUpdated(IController controller, InputAction action, Vector3 inputData);
 
         /// <summary>
         /// Raise the Gesture Updated Event.
@@ -556,14 +548,22 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Pose inputData);
+        void RaiseGestureUpdated(IController controller, InputAction action, Quaternion inputData);
+
+        /// <summary>
+        /// Raise the Gesture Updated Event.
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="action"></param>
+        /// <param name="inputData"></param>
+        void RaiseGestureUpdated(IController controller, InputAction action, Pose inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action);
+        void RaiseGestureCompleted(IController controller, InputAction action);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -571,7 +571,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Vector2 inputData);
+        void RaiseGestureCompleted(IController controller, InputAction action, Vector2 inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -579,7 +579,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Vector3 inputData);
+        void RaiseGestureCompleted(IController controller, InputAction action, Vector3 inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -587,7 +587,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Quaternion inputData);
+        void RaiseGestureCompleted(IController controller, InputAction action, Quaternion inputData);
 
         /// <summary>
         /// Raise the Gesture Completed Event.
@@ -595,14 +595,14 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <param name="inputData"></param>
-        void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Pose inputData);
+        void RaiseGestureCompleted(IController controller, InputAction action, Pose inputData);
 
         /// <summary>
         /// Raise the Gesture Canceled Event.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="action"></param>
-        void RaiseGestureCanceled(IController controller, MixedRealityInputAction action);
+        void RaiseGestureCanceled(IController controller, InputAction action);
 
         #endregion
 
@@ -617,7 +617,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="phraseDuration"></param>
         /// <param name="phraseStartTime"></param>
         /// <param name="text"></param>
-        void RaiseSpeechCommandRecognized(IMixedRealityInputSource source, MixedRealityInputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string text);
+        void RaiseSpeechCommandRecognized(IInputSource source, InputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string text);
 
         #endregion Speech Keyword Events
 
@@ -629,7 +629,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="dictationHypothesis"></param>
         /// <param name="dictationAudioClip"></param>
-        void RaiseDictationHypothesis(IMixedRealityInputSource source, string dictationHypothesis, AudioClip dictationAudioClip = null);
+        void RaiseDictationHypothesis(IInputSource source, string dictationHypothesis, AudioClip dictationAudioClip = null);
 
         /// <summary>
         /// 
@@ -637,7 +637,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="dictationResult"></param>
         /// <param name="dictationAudioClip"></param>
-        void RaiseDictationResult(IMixedRealityInputSource source, string dictationResult, AudioClip dictationAudioClip = null);
+        void RaiseDictationResult(IInputSource source, string dictationResult, AudioClip dictationAudioClip = null);
 
         /// <summary>
         /// 
@@ -645,7 +645,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="dictationResult"></param>
         /// <param name="dictationAudioClip"></param>
-        void RaiseDictationComplete(IMixedRealityInputSource source, string dictationResult, AudioClip dictationAudioClip);
+        void RaiseDictationComplete(IInputSource source, string dictationResult, AudioClip dictationAudioClip);
 
         /// <summary>
         /// 
@@ -653,7 +653,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="source"></param>
         /// <param name="dictationResult"></param>
         /// <param name="dictationAudioClip"></param>
-        void RaiseDictationError(IMixedRealityInputSource source, string dictationResult, AudioClip dictationAudioClip = null);
+        void RaiseDictationError(IInputSource source, string dictationResult, AudioClip dictationAudioClip = null);
 
         #endregion Dictation Events
 

@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces.Modules;
 
-namespace RealityToolkit.InputSystem.Interfaces.Speech
+namespace RealityToolkit.Input.Interfaces.Speech
 {
     /// <summary>
     /// Reality Toolkit controller definition, used to manage a specific controller type
     /// </summary>
-    public interface IMixedRealitySpeechServiceModule : IMixedRealityInputServiceModule
+    public interface IMixedRealitySpeechServiceModule : IInputServiceModule
     {
         /// <summary>
         /// Query whether or not the speech system is active

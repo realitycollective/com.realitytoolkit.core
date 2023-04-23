@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Data struct for cursor state information for the Animated Cursor, which leverages the Unity animation system.

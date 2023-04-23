@@ -3,21 +3,21 @@
 
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Pointers
+namespace RealityToolkit.Input.Pointers
 {
     /// <summary>
     /// Base Class for pointers that don't inherit from MonoBehaviour.
     /// </summary>
-    public class GenericPointer : IMixedRealityPointer
+    public class GenericPointer : IPointer
     {
         /// <summary>
         /// Constructor.
@@ -25,9 +25,9 @@ namespace RealityToolkit.InputSystem.Pointers
         /// <param name="pointerName"></param>
         /// <param name="inputSourceParent"></param>
         /// <param name="interactionMode"></param>
-        public GenericPointer(string pointerName, IMixedRealityInputSource inputSourceParent, InteractionMode interactionMode)
+        public GenericPointer(string pointerName, IInputSource inputSourceParent, InteractionMode interactionMode)
         {
-            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
             {
                 PointerId = inputSystem.FocusProvider.GenerateNewPointerId();
                 PointerName = pointerName;
@@ -36,7 +36,7 @@ namespace RealityToolkit.InputSystem.Pointers
             }
             else
             {
-                throw new ArgumentException($"Couldn't find a valid {nameof(IMixedRealityInputSystem)}!");
+                throw new ArgumentException($"Couldn't find a valid {nameof(IInputService)}!");
             }
         }
 
@@ -63,16 +63,16 @@ namespace RealityToolkit.InputSystem.Pointers
         public bool IsOverUI { get; } = false;
 
         /// <inheritdoc />
-        public virtual IMixedRealityInputSource InputSourceParent
+        public virtual IInputSource InputSourceParent
         {
             get => inputSourceParent;
             protected set => inputSourceParent = value;
         }
 
-        private IMixedRealityInputSource inputSourceParent;
+        private IInputSource inputSourceParent;
 
         /// <inheritdoc />
-        public IMixedRealityCursor BaseCursor { get; set; }
+        public ICursor BaseCursor { get; set; }
 
         private ICursorModifier cursorModifier = null;
 
@@ -186,10 +186,10 @@ namespace RealityToolkit.InputSystem.Pointers
         public LayerMask[] PointerRaycastLayerMasksOverride { get; set; } = null;
 
         /// <inheritdoc />
-        public IMixedRealityFocusHandler FocusHandler { get; set; }
+        public IFocusHandler FocusHandler { get; set; }
 
         /// <inheritdoc />
-        public IMixedRealityInputHandler InputHandler { get; set; }
+        public IInputHandler InputHandler { get; set; }
 
         /// <inheritdoc />
         public IPointerResult Result { get; set; }
@@ -258,10 +258,10 @@ namespace RealityToolkit.InputSystem.Pointers
         {
             if (obj is null) { return false; }
             if (ReferenceEquals(this, obj)) { return true; }
-            return obj.GetType() == GetType() && Equals((IMixedRealityPointer)obj);
+            return obj.GetType() == GetType() && Equals((IPointer)obj);
         }
 
-        private bool Equals(IMixedRealityPointer other)
+        private bool Equals(IPointer other)
         {
             return other != null && PointerId == other.PointerId && string.Equals(PointerName, other.PointerName);
         }

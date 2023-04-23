@@ -3,8 +3,8 @@
 
 using NUnit.Framework;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 
 namespace RealityToolkit.Tests.InputSystem
 {
@@ -22,7 +22,7 @@ namespace RealityToolkit.Tests.InputSystem
         [Test]
         public void Test01_GazeProviderSetAuto()
         {
-            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
             inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Auto);
 
             if (AnyControllerWithPointersAttached(inputSystem))
@@ -38,7 +38,7 @@ namespace RealityToolkit.Tests.InputSystem
         [Test]
         public void Test02_GazeProviderSetInactive()
         {
-            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
             inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Inactive);
 
             Assert.IsNull(inputSystem.GazeProvider);
@@ -47,7 +47,7 @@ namespace RealityToolkit.Tests.InputSystem
         [Test]
         public void Test03_GazeProviderSetActive()
         {
-            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
             inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Active);
 
             Assert.IsNotNull(inputSystem.GazeProvider);
@@ -56,7 +56,7 @@ namespace RealityToolkit.Tests.InputSystem
         [TearDown]
         public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
 
-        private bool AnyControllerWithPointersAttached(IMixedRealityInputSystem inputSystem)
+        private bool AnyControllerWithPointersAttached(IInputService inputSystem)
         {
             if (inputSystem.DetectedControllers != null && inputSystem.DetectedControllers.Count > 0)
             {

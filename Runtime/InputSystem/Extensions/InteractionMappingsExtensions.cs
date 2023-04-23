@@ -4,19 +4,19 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 
-namespace RealityToolkit.InputSystem.Extensions
+namespace RealityToolkit.Input.Extensions
 {
     /// <summary>
-    /// Extensions for the <see cref="MixedRealityInteractionMapping"/> to refactor the generic methods used for raising events.
+    /// Extensions for the <see cref="InteractionMapping"/> to refactor the generic methods used for raising events.
     /// </summary>
     public static class InteractionMappingsExtensions
     {
-        private static IMixedRealityInputSystem inputSystem = null;
+        private static IInputService inputSystem = null;
 
-        private static IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
+        private static IInputService InputSystem
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
 
         /// <summary>
         /// Raise the actions to the input system.
@@ -24,7 +24,7 @@ namespace RealityToolkit.InputSystem.Extensions
         /// <param name="interactionMapping"></param>
         /// <param name="inputSource"></param>
         /// <param name="controllerHandedness"></param>
-        public static void RaiseInputAction(this MixedRealityInteractionMapping interactionMapping, IMixedRealityInputSource inputSource, Handedness controllerHandedness)
+        public static void RaiseInputAction(this InteractionMapping interactionMapping, IInputSource inputSource, Handedness controllerHandedness)
         {
             var changed = interactionMapping.ControlActivated;
             var updated = interactionMapping.Updated;
@@ -98,7 +98,7 @@ namespace RealityToolkit.InputSystem.Extensions
         /// </summary>
         /// <param name="input">The InteractionDefinition array reference</param>
         /// <param name="key">The specific DeviceInputType value to query</param>
-        public static MixedRealityInteractionMapping GetInteractionByType(this MixedRealityInteractionMapping[] input, DeviceInputType key)
+        public static InteractionMapping GetInteractionByType(this InteractionMapping[] input, DeviceInputType key)
         {
             for (int i = 0; i < input?.Length; i++)
             {
@@ -116,7 +116,7 @@ namespace RealityToolkit.InputSystem.Extensions
         /// </summary>
         /// <param name="input">The InteractionDefinition array reference</param>
         /// <param name="key">The specific DeviceInputType value to query</param>
-        public static bool SupportsInputType(this MixedRealityInteractionMapping[] input, DeviceInputType key)
+        public static bool SupportsInputType(this InteractionMapping[] input, DeviceInputType key)
         {
             for (int i = 0; i < input.Length; i++)
             {

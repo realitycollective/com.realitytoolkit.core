@@ -2,20 +2,20 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Utilities;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// Component that allows dragging a <see cref="GameObject"/>.
     /// Dragging is done by calculating the angular delta and z-delta between the current and previous hand positions,
     /// and then repositioning the object based on that.
     /// </summary>
-    public class DragAndDropHandler : BaseFocusHandler, IMixedRealitySourceStateHandler, IMixedRealityPointerHandler
+    public class DragAndDropHandler : BaseFocusHandler, ISourceStateHandler, IPointerHandler
     {
         private enum RotationModeEnum
         {
@@ -27,7 +27,7 @@ namespace RealityToolkit.InputSystem.Handlers
 
         [SerializeField]
         [Tooltip("The action that will start/stop the dragging.")]
-        private MixedRealityInputAction dragAction = MixedRealityInputAction.None;
+        private InputAction dragAction = InputAction.None;
 
         [SerializeField]
         [Tooltip("Transform that will be dragged. Defaults to the object of the component.")]
@@ -68,8 +68,8 @@ namespace RealityToolkit.InputSystem.Handlers
         private Rigidbody hostRigidbody;
         private bool hostRigidbodyWasKinematic;
 
-        private IMixedRealityPointer currentPointer;
-        private IMixedRealityInputSource currentInputSource;
+        private IPointer currentPointer;
+        private IInputSource currentInputSource;
 
         #region MonoBehaviour Implementation
 
@@ -104,7 +104,7 @@ namespace RealityToolkit.InputSystem.Handlers
         #region IMixedRealityPointerHandler Implementation
 
         /// <inheritdoc />
-        void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
+        void IPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
         {
             if (isDragging)
             {
@@ -131,7 +131,7 @@ namespace RealityToolkit.InputSystem.Handlers
         }
 
         /// <inheritdoc />
-        void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
+        void IPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
         {
             if (eventData.SourceId == currentInputSource.SourceId)
             {
@@ -142,15 +142,15 @@ namespace RealityToolkit.InputSystem.Handlers
         }
 
         /// <inheritdoc />
-        void IMixedRealityPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
+        void IPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
 
         #endregion IMixedRealityPointerHandler Implementation
 
         #region IMixedRealitySourceStateHandler Implementation
 
-        void IMixedRealitySourceStateHandler.OnSourceDetected(SourceStateEventData eventData) { }
+        void ISourceStateHandler.OnSourceDetected(SourceStateEventData eventData) { }
 
-        void IMixedRealitySourceStateHandler.OnSourceLost(SourceStateEventData eventData)
+        void ISourceStateHandler.OnSourceLost(SourceStateEventData eventData)
         {
             if (eventData.SourceId == currentInputSource.SourceId)
             {

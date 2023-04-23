@@ -3,12 +3,12 @@
 
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// Base Component for handling Focus on <see cref="GameObject"/>s.
@@ -16,8 +16,8 @@ namespace RealityToolkit.InputSystem.Handlers
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Collider))]
     public abstract class BaseFocusHandler : MonoBehaviour,
-        IMixedRealityFocusHandler,
-        IMixedRealityFocusChangedHandler
+        IFocusHandler,
+        IFocusChangedHandler
     {
         [SerializeField]
         [Tooltip("Is focus enabled for this component?")]
@@ -32,27 +32,27 @@ namespace RealityToolkit.InputSystem.Handlers
             set => focusEnabled = value;
         }
 
-        private IMixedRealityInputSystem inputSystem = null;
+        private IInputService inputSystem = null;
 
-        protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
+        protected IInputService InputSystem
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
 
-        private IMixedRealityFocusProvider focusProvider = null;
+        private IFocusProvider focusProvider = null;
 
-        protected IMixedRealityFocusProvider FocusProvider
+        protected IFocusProvider FocusProvider
             => focusProvider ?? (focusProvider = InputSystem?.FocusProvider);
 
         /// <summary>
-        /// Does this object currently have focus by any <see cref="IMixedRealityPointer"/>?
+        /// Does this object currently have focus by any <see cref="IPointer"/>?
         /// </summary>
         public virtual bool HasFocus => FocusEnabled && ActivePointers.Count > 0;
 
         /// <summary>
-        /// The list of <see cref="IMixedRealityPointer"/>s that are currently focused on this <see cref="GameObject"/>
+        /// The list of <see cref="IPointer"/>s that are currently focused on this <see cref="GameObject"/>
         /// </summary>
-        public IReadOnlyList<IMixedRealityPointer> ActivePointers => activePointers;
+        public IReadOnlyList<IPointer> ActivePointers => activePointers;
 
-        private readonly List<IMixedRealityPointer> activePointers = new List<IMixedRealityPointer>(0);
+        private readonly List<IPointer> activePointers = new List<IPointer>(0);
 
         /// <inheritdoc />
         public virtual void OnFocusEnter(FocusEventData eventData) { }

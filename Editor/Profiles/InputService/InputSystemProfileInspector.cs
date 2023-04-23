@@ -8,7 +8,7 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
-    [CustomEditor(typeof(MixedRealityInputSystemProfile))]
+    [CustomEditor(typeof(InputServiceProfile))]
     public class MixedRealityInputSystemProfileInspector : ServiceProfileInspector
     {
         private static readonly GUIContent GazeProviderBehaviourContent = new GUIContent("Gaze Provider Mode");
@@ -48,7 +48,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private ReorderableList poseProfilesList;
         private int currentlySelectedPoseElement;
 
-        private Dictionary<string, Tuple<BaseMixedRealityControllerServiceModuleProfile, MixedRealityControllerMappingProfile>> controllerMappingProfiles;
+        private Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>> controllerMappingProfiles;
 
         protected override void OnEnable()
         {
@@ -71,7 +71,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             gesturesProfile = serializedObject.FindProperty(nameof(gesturesProfile));
             speechCommandsProfile = serializedObject.FindProperty(nameof(speechCommandsProfile));
 
-            controllerMappingProfiles = new Dictionary<string, Tuple<BaseMixedRealityControllerServiceModuleProfile, MixedRealityControllerMappingProfile>>();
+            controllerMappingProfiles = new Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>>();
 
             for (int i = 0; i < Configurations?.arraySize; i++)
             {
@@ -79,7 +79,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                 var configurationProfileProperty = configurationProperty.FindPropertyRelative("profile");
 
                 if (configurationProfileProperty != null &&
-                    configurationProfileProperty.objectReferenceValue is BaseMixedRealityControllerServiceModuleProfile controllerDataProviderProfile)
+                    configurationProfileProperty.objectReferenceValue is BaseControllerServiceModuleProfile controllerDataProviderProfile)
                 {
                     if (controllerDataProviderProfile.IsNull() ||
                         controllerDataProviderProfile.ControllerMappingProfiles == null)
@@ -95,7 +95,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
                         if (!controllerMappingProfiles.ContainsKey(guid))
                         {
-                            controllerMappingProfiles.Add(guid, new Tuple<BaseMixedRealityControllerServiceModuleProfile, MixedRealityControllerMappingProfile>(controllerDataProviderProfile, mappingProfile));
+                            controllerMappingProfiles.Add(guid, new Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>(controllerDataProviderProfile, mappingProfile));
                         }
                     }
                 }

@@ -1,13 +1,13 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.PropertyDrawers
 {
-    [CustomPropertyDrawer(typeof(MixedRealityInputAction))]
+    [CustomPropertyDrawer(typeof(InputAction))]
     public class InputActionPropertyDrawer : PropertyDrawer
     {
         private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();

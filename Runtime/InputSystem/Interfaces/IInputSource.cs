@@ -3,17 +3,17 @@
 
 using RealityToolkit.Interfaces.Events;
 
-namespace RealityToolkit.InputSystem.Interfaces
+namespace RealityToolkit.Input.Interfaces
 {
     /// <summary>
     /// Interface for an input source.
     /// An input source is the origin of user input and generally comes from a physical controller, sensor, or other hardware device.
     /// </summary>
-    public interface IMixedRealityInputSource : IMixedRealityEventSource
+    public interface IInputSource : IEventSource
     {
         /// <summary>
         /// Array of pointers associated with this input source.
         /// </summary>
-        IMixedRealityPointer[] Pointers { get; }
+        IPointer[] Pointers { get; }
     }
 }

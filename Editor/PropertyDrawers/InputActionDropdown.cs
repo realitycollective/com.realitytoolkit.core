@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -11,7 +11,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.PropertyDrawers
 {
     /// <summary>
-    /// Draws the <see cref="MixedRealityInputAction"/> property field in custom inspectors.
+    /// Draws the <see cref="InputAction"/> property field in custom inspectors.
     /// </summary>
     /// <example>
     /// <code language="csharp"><![CDATA[
@@ -77,7 +77,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
                 profileGuid.stringValue = DefaultGuidString;
             }
 
-            var currentAction = new MixedRealityInputAction(Guid.Parse(profileGuid.stringValue), (uint)id.intValue, description.stringValue, (AxisType)axisConstraint.intValue);
+            var currentAction = new InputAction(Guid.Parse(profileGuid.stringValue), (uint)id.intValue, description.stringValue, (AxisType)axisConstraint.intValue);
 
             if (allInputActionProfiles == null)
             {

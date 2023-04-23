@@ -4,10 +4,10 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Input.Controllers.UnityInput
 {
     [System.Runtime.InteropServices.Guid("98F97EDA-4418-4B4B-88E9-E4F1F0734E4E")]
     public class UnityTouchController : BaseController
@@ -16,7 +16,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public UnityTouchController() { }
 
         /// <inheritdoc />
-        public UnityTouchController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public UnityTouchController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
@@ -49,13 +49,13 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public float Lifetime { get; private set; } = 0.0f;
 
         /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
+        public override InteractionMapping[] DefaultInteractions { get; } =
         {
-            new MixedRealityInteractionMapping("Touch Pointer Delta", AxisType.DualAxis, DeviceInputType.PointerPosition),
-            new MixedRealityInteractionMapping("Touch Pointer Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
-            new MixedRealityInteractionMapping("Touch Press", AxisType.Digital, DeviceInputType.PointerClick),
-            new MixedRealityInteractionMapping("Touch Hold", AxisType.Digital, DeviceInputType.ButtonPress),
-            new MixedRealityInteractionMapping("Touch Drag", AxisType.DualAxis, DeviceInputType.Touchpad)
+            new InteractionMapping("Touch Pointer Delta", AxisType.DualAxis, DeviceInputType.PointerPosition),
+            new InteractionMapping("Touch Pointer Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
+            new InteractionMapping("Touch Press", AxisType.Digital, DeviceInputType.PointerClick),
+            new InteractionMapping("Touch Hold", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Touch Drag", AxisType.DualAxis, DeviceInputType.Touchpad)
         };
 
         private bool isTouched;

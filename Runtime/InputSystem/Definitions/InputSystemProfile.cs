@@ -5,17 +5,17 @@ using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Modules;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
-    public class MixedRealityInputSystemProfile : BaseServiceProfile<IMixedRealityInputServiceModule>
+    public class InputServiceProfile : BaseServiceProfile<IInputServiceModule>
     {
         #region Global Input System Options
 
@@ -34,11 +34,11 @@ namespace RealityToolkit.InputSystem.Definitions
 
         [SerializeField]
         [Tooltip("The concrete type of IMixedRealityGazeProvider to use.")]
-        [Implements(typeof(IMixedRealityGazeProvider), TypeGrouping.ByNamespaceFlat)]
+        [Implements(typeof(IGazeProvider), TypeGrouping.ByNamespaceFlat)]
         private SystemType gazeProviderType;
 
         /// <summary>
-        /// The concrete type of <see cref="IMixedRealityGazeProvider"/> to use.
+        /// The concrete type of <see cref="IGazeProvider"/> to use.
         /// </summary>
         public SystemType GazeProviderType
         {

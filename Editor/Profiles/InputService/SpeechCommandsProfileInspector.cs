@@ -3,7 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -24,13 +24,13 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private SerializedProperty speechCommands;
         private static GUIContent[] actionLabels;
         private static int[] actionIds;
-        private MixedRealityInputSystemProfile inputSystemProfile;
+        private InputServiceProfile inputSystemProfile;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            inputSystemProfile = ThisProfile.ParentProfile as MixedRealityInputSystemProfile;
+            inputSystemProfile = ThisProfile.ParentProfile as InputServiceProfile;
 
             if (inputSystemProfile.IsNull() ||
                 inputSystemProfile.InputActionsProfile == null)
@@ -133,7 +133,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                 if (EditorGUI.EndChangeCheck())
                 {
                     var inputAction = actionId.intValue == 0
-                        ? MixedRealityInputAction.None
+                        ? InputAction.None
                         : inputSystemProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
 
                     actionDescription.stringValue = inputAction.Description;

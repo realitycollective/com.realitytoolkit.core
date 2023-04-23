@@ -4,7 +4,7 @@
 using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Processors
+namespace RealityToolkit.Input.Processors
 {
     [CreateAssetMenu(menuName = "Reality Toolkit/Input System/Processors/Invert Single Axis", fileName = "InvertSingleAxisProcessor", order = (int)CreateProfileMenuItemIndices.Configuration)]
     public class InvertSingleAxisProcessor : InputProcessor<float>

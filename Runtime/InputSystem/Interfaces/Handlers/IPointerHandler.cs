@@ -4,12 +4,12 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
-    /// Interface to implement to react to simple pointer input.
+    /// Interface to implement to react to simple pointer UnityEngine.Input.
     /// </summary>
-    public interface IMixedRealityPointerHandler : IEventSystemHandler
+    public interface IPointerHandler : IEventSystemHandler
     {
         /// <summary>
         /// When a pointer down event is raised, this method is used to pass along the event data to the input handler.

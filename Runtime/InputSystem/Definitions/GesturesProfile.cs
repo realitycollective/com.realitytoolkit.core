@@ -5,7 +5,7 @@ using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Definitions.Devices;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Configuration profile settings for setting up and consuming gesture based input actions.
@@ -15,9 +15,9 @@ namespace RealityToolkit.InputSystem.Definitions
         [SerializeField]
         private MixedRealityGestureMapping[] gestures =
         {
-            new MixedRealityGestureMapping("Hold", GestureInputType.Hold, MixedRealityInputAction.None),
-            new MixedRealityGestureMapping("Navigation", GestureInputType.Navigation, MixedRealityInputAction.None),
-            new MixedRealityGestureMapping("Manipulation", GestureInputType.Manipulation, MixedRealityInputAction.None),
+            new MixedRealityGestureMapping("Hold", GestureInputType.Hold, InputAction.None),
+            new MixedRealityGestureMapping("Navigation", GestureInputType.Navigation, InputAction.None),
+            new MixedRealityGestureMapping("Manipulation", GestureInputType.Manipulation, InputAction.None),
         };
 
         /// <summary>

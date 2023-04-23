@@ -4,21 +4,21 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface to implement to react to focus enter/exit.
     /// </summary>
-    public interface IMixedRealityFocusHandler : IEventSystemHandler
+    public interface IFocusHandler : IEventSystemHandler
     {
         /// <summary>
-        /// The Focus Enter event is raised on this <see cref="UnityEngine.GameObject"/> whenever a <see cref="IMixedRealityPointer"/>'s focus enters this <see cref="UnityEngine.GameObject"/>'s <see cref="UnityEngine.Collider"/>.
+        /// The Focus Enter event is raised on this <see cref="UnityEngine.GameObject"/> whenever a <see cref="IPointer"/>'s focus enters this <see cref="UnityEngine.GameObject"/>'s <see cref="UnityEngine.Collider"/>.
         /// </summary>
         /// <param name="eventData"></param>
         void OnFocusEnter(FocusEventData eventData);
 
         /// <summary>
-        /// The Focus Exit event is raised on this <see cref="UnityEngine.GameObject"/> whenever a <see cref="IMixedRealityPointer"/>'s focus leaves this <see cref="UnityEngine.GameObject"/>'s <see cref="UnityEngine.Collider"/>.
+        /// The Focus Exit event is raised on this <see cref="UnityEngine.GameObject"/> whenever a <see cref="IPointer"/>'s focus leaves this <see cref="UnityEngine.GameObject"/>'s <see cref="UnityEngine.Collider"/>.
         /// </summary>
         /// <param name="eventData"></param>
         void OnFocusExit(FocusEventData eventData);

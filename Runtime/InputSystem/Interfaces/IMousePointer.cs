@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace RealityToolkit.InputSystem.Interfaces
+namespace RealityToolkit.Input.Interfaces
 {
     /// <summary>
     /// Interface for handling mouse pointers.
     /// </summary>
-    public interface IMixedRealityMousePointer : IMixedRealityPointer
+    public interface IMixedRealityMousePointer : IPointer
     {
         /// <summary>
         /// Should the mouse cursor be hidden when no active input is received?

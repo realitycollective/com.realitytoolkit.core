@@ -3,7 +3,7 @@
 
 using NUnit.Framework;
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using System;
 
 namespace RealityToolkit.Tests.InputSystem
@@ -19,19 +19,19 @@ namespace RealityToolkit.Tests.InputSystem
         [Test]
         public void Test_01_TestCodeGeneratedActions()
         {
-            var pressAction = new MixedRealityInputAction(1, "Pressed", AxisType.Digital);
-            var selectAction = new MixedRealityInputAction(2, "Select", AxisType.Digital);
+            var pressAction = new InputAction(1, "Pressed", AxisType.Digital);
+            var selectAction = new InputAction(2, "Select", AxisType.Digital);
 
             Assert.IsTrue(selectAction != pressAction);
-            Assert.IsTrue(pressAction != MixedRealityInputAction.None);
-            Assert.IsTrue(selectAction != MixedRealityInputAction.None);
+            Assert.IsTrue(pressAction != InputAction.None);
+            Assert.IsTrue(selectAction != InputAction.None);
         }
 
         [Test]
         public void Test_02_TestBackwardsCompatibility()
         {
-            var oldActionWithNoGuid = new MixedRealityInputAction(default, 1, "Select", AxisType.Digital);
-            var profileWithGuid = new MixedRealityInputAction(Guid.NewGuid(), 1, "Select", AxisType.Digital);
+            var oldActionWithNoGuid = new InputAction(default, 1, "Select", AxisType.Digital);
+            var profileWithGuid = new InputAction(Guid.NewGuid(), 1, "Select", AxisType.Digital);
             Assert.IsTrue(profileWithGuid.ProfileGuid != default);
             Assert.IsTrue(oldActionWithNoGuid == profileWithGuid);
         }

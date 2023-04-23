@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Controllers.UnityInput;
+using RealityToolkit.Input.Controllers.UnityInput;
 
 namespace RealityToolkit.Definitions.Controllers.UnityInput.Profiles
 {
-    public class UnityInputControllerDataProfile : BaseMixedRealityControllerServiceModuleProfile
+    public class UnityInputControllerDataProfile : BaseControllerServiceModuleProfile
     {
         public override ControllerDefinition[] GetDefaultControllerOptions()
         {

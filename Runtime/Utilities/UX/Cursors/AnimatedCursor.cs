@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors
@@ -32,7 +32,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         private Animator cursorAnimator = null;
 
         /// <summary>
-        /// Change animation state when enabling input.
+        /// Change animation state when enabling UnityEngine.Input.
         /// </summary>
         public override void OnInputEnabled()
         {
@@ -41,7 +41,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         }
 
         /// <summary>
-        /// Change animation state when disabling input.
+        /// Change animation state when disabling UnityEngine.Input.
         /// </summary>
         public override void OnInputDisabled()
         {

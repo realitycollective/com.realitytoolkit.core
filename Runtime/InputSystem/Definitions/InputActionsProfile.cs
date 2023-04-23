@@ -4,7 +4,7 @@
 using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Configuration profile settings for setting up and consuming Input Actions.
@@ -13,12 +13,12 @@ namespace RealityToolkit.InputSystem.Definitions
     {
         [SerializeField]
         [Tooltip("The list of actions users can do in your application.")]
-        private MixedRealityInputAction[] inputActions = { };
+        private InputAction[] inputActions = { };
 
         /// <summary>
         /// The list of actions users can do in your application.
         /// </summary>
         /// <remarks>Input Actions are device agnostic and can be paired with any number of device inputs across all platforms.</remarks>
-        public MixedRealityInputAction[] InputActions => inputActions;
+        public InputAction[] InputActions => inputActions;
     }
 }

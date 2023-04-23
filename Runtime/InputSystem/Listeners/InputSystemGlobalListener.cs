@@ -2,21 +2,21 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Listeners
+namespace RealityToolkit.Input.Listeners
 {
     /// <summary>
     /// This component ensures that all input events are forwarded to this <see cref="GameObject"/> when focus or gaze is not required.
     /// </summary>
     public class InputSystemGlobalListener : MonoBehaviour
     {
-        private IMixedRealityInputSystem inputSystem = null;
+        private IInputService inputSystem = null;
 
-        protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
+        protected IInputService InputSystem
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
 
         private bool lateInitialize = true;
 
@@ -35,7 +35,7 @@ namespace RealityToolkit.InputSystem.Listeners
             {
                 try
                 {
-                    inputSystem = await ServiceManager.Instance.GetServiceAsync<IMixedRealityInputSystem>();
+                    inputSystem = await ServiceManager.Instance.GetServiceAsync<IInputService>();
                 }
                 catch (Exception e)
                 {

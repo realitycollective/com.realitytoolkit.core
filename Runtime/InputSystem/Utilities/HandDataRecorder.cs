@@ -4,8 +4,8 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Listeners;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
 namespace RealityToolkit.Services.InputSystem.Utilities
@@ -13,7 +13,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
     /// <summary>
     /// Utility component to record a hand controller's data into a file.
     /// </summary>
-    public class HandDataRecorder : InputSystemGlobalListener, IMixedRealityInputHandler<HandData>
+    public class HandDataRecorder : InputSystemGlobalListener, IInputHandler<HandData>
     {
         private RecordedHandJoints currentRecording;
         RecordedHandJoints recordedHandJoints = new RecordedHandJoints();

@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System;
 using UnityEngine;

@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Controllers.Hands;
+using RealityToolkit.Input.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
     /// <summary>
     /// Provides additional configuration options for hand service modules.
     /// </summary>
-    public abstract class BaseHandControllerServiceModuleProfile : BaseMixedRealityControllerServiceModuleProfile
+    public abstract class BaseHandControllerServiceModuleProfile : BaseControllerServiceModuleProfile
     {
         [SerializeField]
         [Range(.5f, 1f)]

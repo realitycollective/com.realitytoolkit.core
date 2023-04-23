@@ -5,10 +5,10 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Listeners;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
 namespace RealityToolkit.Services.InputSystem.Utilities
@@ -104,10 +104,10 @@ namespace RealityToolkit.Services.InputSystem.Utilities
 
         [SerializeField]
         [Tooltip("The input action that will drive the Transform's pose, position, or rotation.")]
-        private MixedRealityInputAction poseAction = MixedRealityInputAction.None;
+        private InputAction poseAction = InputAction.None;
 
         /// <inheritdoc />
-        public MixedRealityInputAction PoseAction
+        public InputAction PoseAction
         {
             get => poseAction;
             set => poseAction = value;

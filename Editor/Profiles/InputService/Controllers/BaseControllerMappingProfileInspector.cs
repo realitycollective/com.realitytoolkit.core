@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
-    [CustomEditor(typeof(MixedRealityControllerMappingProfile))]
+    [CustomEditor(typeof(ControllerMappingProfile))]
     public class BaseMixedRealityControllerMappingProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent EditButtonContent = new GUIContent("Edit Button Mappings");
@@ -21,7 +21,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
         private SerializedProperty useCustomInteractions;
         private SerializedProperty interactionMappingProfiles;
 
-        private MixedRealityControllerMappingProfile controllerMappingProfile;
+        private ControllerMappingProfile controllerMappingProfile;
 
         private ReorderableList interactionsList;
         private int currentlySelectedElement;
@@ -36,7 +36,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             useCustomInteractions = serializedObject.FindProperty(nameof(useCustomInteractions));
             interactionMappingProfiles = serializedObject.FindProperty(nameof(interactionMappingProfiles));
 
-            controllerMappingProfile = target as MixedRealityControllerMappingProfile;
+            controllerMappingProfile = target as ControllerMappingProfile;
 
             var showButtons = useCustomInteractions.boolValue;
 
@@ -82,7 +82,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             position.y += 3;
             position.xMin += 8;
             var mappingProfileProperty = interactionMappingProfiles.GetArrayElementAtIndex(index);
-            ProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityInteractionMappingProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(InteractionMappingProfile);
             EditorGUI.PropertyField(position, mappingProfileProperty, GUIContent.none);
         }
 

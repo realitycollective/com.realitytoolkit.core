@@ -5,14 +5,14 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers
+namespace RealityToolkit.Input.Controllers
 {
     /// <summary>
     /// Base controller service module to inherit from when implementing <see cref="IControllerServiceModule"/>s
@@ -20,7 +20,7 @@ namespace RealityToolkit.InputSystem.Controllers
     public abstract class BaseControllerServiceModule : BaseServiceModule, IControllerServiceModule
     {
         /// <inheritdoc />
-        protected BaseControllerServiceModule(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseControllerServiceModule(string name, uint priority, BaseControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
@@ -39,9 +39,9 @@ namespace RealityToolkit.InputSystem.Controllers
             InputSystem = parentService;
         }
 
-        protected readonly IMixedRealityInputSystem InputSystem;
+        protected readonly IInputService InputSystem;
 
-        private readonly MixedRealityControllerMappingProfile[] controllerMappingProfiles;
+        private readonly ControllerMappingProfile[] controllerMappingProfiles;
 
         private readonly List<IController> activeControllers = new List<IController>();
 
@@ -49,7 +49,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public IReadOnlyList<IController> ActiveControllers => activeControllers;
 
         /// <inheritdoc />
-        public MixedRealityControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)
+        public ControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)
         {
             if (TryGetControllerMappingProfile(controllerType, handedness, out var controllerMappingProfile))
             {
@@ -61,7 +61,7 @@ namespace RealityToolkit.InputSystem.Controllers
         }
 
         /// <inheritdoc />
-        public bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out MixedRealityControllerMappingProfile controllerMappingProfile)
+        public bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out ControllerMappingProfile controllerMappingProfile)
         {
             if (controllerType == null)
             {

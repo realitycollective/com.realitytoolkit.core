@@ -1,8 +1,8 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,7 +11,7 @@ namespace RealityToolkit.EventDatum.Input
     /// <summary>
     /// Describes a <see cref="MixedRealityPointerEventData"/> with dragging data.
     /// </summary>
-    public class MixedRealityPointerDragEventData : MixedRealityPointerEventData
+    public class PointerDragEventData : MixedRealityPointerEventData
     {
         /// <summary>
         /// The distance this pointer has been dragged since the last event was raised.
@@ -19,7 +19,7 @@ namespace RealityToolkit.EventDatum.Input
         public Vector3 DragDelta { get; private set; }
 
         /// <inheritdoc />
-        public MixedRealityPointerDragEventData(EventSystem eventSystem) : base(eventSystem) { }
+        public PointerDragEventData(EventSystem eventSystem) : base(eventSystem) { }
 
         /// <summary>
         /// Used to initialize/reset the event and populate the data.
@@ -28,7 +28,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputAction"></param>
         /// <param name="dragDelta"></param>
         /// <param name="inputSource"></param>
-        public void Initialize(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null)
+        public void Initialize(IPointer pointer, InputAction inputAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             Initialize(pointer, inputAction, inputSource);
             DragDelta = dragDelta;

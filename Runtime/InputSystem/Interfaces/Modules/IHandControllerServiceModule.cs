@@ -3,7 +3,7 @@
 
 using RealityToolkit.Definitions.Controllers.Hands;
 
-namespace RealityToolkit.InputSystem.Interfaces.Modules
+namespace RealityToolkit.Input.Interfaces.Modules
 {
     public interface IMixedRealityHandControllerServiceModule : IControllerServiceModule
     {

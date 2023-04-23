@@ -2,18 +2,18 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityToolkit.BoundarySystem.Definitions;
+using RealityToolkit.Boundary.Definitions;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.BoundarySystem.Interfaces
+namespace RealityToolkit.Boundary.Interfaces
 {
     /// <summary>
     /// The interface for a Boundary system in the Reality Toolkit
     /// All systems for providing Boundary functionality should derive from this interface
     /// </summary>
-    public interface IMixedRealityBoundarySystem : IService
+    public interface IBoundaryService : IService
     {
         /// <summary>
         /// Event raised when a tracked object nears, or crosses the boundary.

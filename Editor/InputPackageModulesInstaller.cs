@@ -4,17 +4,17 @@
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Editor.Packages;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Modules;
 using System.Linq;
 using UnityEditor;
 
 namespace RealityToolkit.Editor
 {
     /// <summary>
-    /// Installs <see cref="IMixedRealityInputServiceModule"/>s coming from a third party package
-    /// into the <see cref="MixedRealityInputSystemProfile"/> in the <see cref="ServiceManager.ActiveProfile"/>.
+    /// Installs <see cref="IInputServiceModule"/>s coming from a third party package
+    /// into the <see cref="InputServiceProfile"/> in the <see cref="ServiceManager.ActiveProfile"/>.
     /// </summary>
     [InitializeOnLoad]
     public sealed class InputPackageModulesInstaller : IPackageModulesInstaller
@@ -40,7 +40,7 @@ namespace RealityToolkit.Editor
         /// <inheritdoc/>
         public bool Install(ServiceConfiguration serviceConfiguration)
         {
-            if (!typeof(IMixedRealityInputServiceModule).IsAssignableFrom(serviceConfiguration.InstancedType.Type))
+            if (!typeof(IInputServiceModule).IsAssignableFrom(serviceConfiguration.InstancedType.Type))
             {
                 // This module installer does not accept the configuration type.
                 return false;
@@ -58,14 +58,14 @@ namespace RealityToolkit.Editor
                 return false;
             }
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputServiceProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputServiceProfile))
             {
-                UnityEngine.Debug.LogWarning($"Could not install {serviceConfiguration.InstancedType.Type.Name}.{nameof(MixedRealityInputSystemProfile)} not found.");
+                UnityEngine.Debug.LogWarning($"Could not install {serviceConfiguration.InstancedType.Type.Name}.{nameof(InputServiceProfile)} not found.");
                 return false;
             }
 
             // Setup the configuration.
-            var typedServiceConfiguration = new ServiceConfiguration<IMixedRealityInputServiceModule>(serviceConfiguration.InstancedType.Type, serviceConfiguration.Name, serviceConfiguration.Priority, serviceConfiguration.RuntimePlatforms, serviceConfiguration.Profile);
+            var typedServiceConfiguration = new ServiceConfiguration<IInputServiceModule>(serviceConfiguration.InstancedType.Type, serviceConfiguration.Name, serviceConfiguration.Priority, serviceConfiguration.RuntimePlatforms, serviceConfiguration.Profile);
 
             // Make sure it's not already in the target profile.
             if (inputServiceProfile.ServiceConfigurations.All(sc => sc.InstancedType.Type != serviceConfiguration.InstancedType.Type))

@@ -3,7 +3,7 @@
 
 using NUnit.Framework;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 
 namespace RealityToolkit.Tests.InputSystem
 {
@@ -37,7 +37,7 @@ namespace RealityToolkit.Tests.InputSystem
             Assert.IsNotEmpty(ServiceManager.Instance.ActiveServices);
 
             // Retrieve Input System
-            var inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>();
+            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
 
             // Tests
             Assert.IsNotNull(service);
@@ -52,7 +52,7 @@ namespace RealityToolkit.Tests.InputSystem
             TestUtilities.InitializeRealityToolkit();
 
             // Check for Input System
-            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IMixedRealityInputSystem>();
+            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IInputService>();
 
             // Tests
             Assert.IsFalse(inputSystemExists);
@@ -69,7 +69,7 @@ namespace RealityToolkit.Tests.InputSystem
             ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out _);
 
             // Check for Input System
-            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IMixedRealityInputSystem>();
+            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IInputService>();
 
             // Tests
             Assert.IsTrue(inputSystemExists);

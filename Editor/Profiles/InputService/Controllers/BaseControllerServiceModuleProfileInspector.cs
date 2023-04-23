@@ -9,7 +9,7 @@ using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.InputSystem.Controllers;
+using RealityToolkit.Input.Controllers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +20,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
-    [CustomEditor(typeof(BaseMixedRealityControllerServiceModuleProfile), editorForChildClasses: true, isFallback = true)]
+    [CustomEditor(typeof(BaseControllerServiceModuleProfile), editorForChildClasses: true, isFallback = true)]
     public class BaseMixedRealityControllerServiceModuleProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent controllerProfilesFoldoutHeader = new GUIContent("Controller Mapping Profiles");
@@ -30,7 +30,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
         private SerializedProperty hasSetupDefaults;
         private SerializedProperty controllerMappingProfiles;
 
-        private BaseMixedRealityControllerServiceModuleProfile dataProviderProfile;
+        private BaseControllerServiceModuleProfile dataProviderProfile;
         private bool showMappingProfiles = true;
 
         private ReorderableList mappingProfileList;
@@ -58,7 +58,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             hasSetupDefaults = serializedObject.FindProperty(nameof(hasSetupDefaults));
             controllerMappingProfiles = serializedObject.FindProperty(nameof(controllerMappingProfiles));
 
-            dataProviderProfile = (BaseMixedRealityControllerServiceModuleProfile)serializedObject.targetObject;
+            dataProviderProfile = (BaseControllerServiceModuleProfile)serializedObject.targetObject;
 
             if (!hasSetupDefaults.boolValue)
             {
@@ -75,7 +75,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
                 {
                     var defaultControllerOption = defaultControllerOptions[i];
 
-                    var controllerMappingAsset = CreateInstance(nameof(MixedRealityControllerMappingProfile)).CreateAsset($"{profileRootPath}/", $"{defaultControllerOption.Description}Profile", false) as MixedRealityControllerMappingProfile;
+                    var controllerMappingAsset = CreateInstance(nameof(ControllerMappingProfile)).CreateAsset($"{profileRootPath}/", $"{defaultControllerOption.Description}Profile", false) as ControllerMappingProfile;
 
                     Debug.Assert(controllerMappingAsset != null);
 
@@ -127,14 +127,14 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
                             }
                         }
 
-                        void CreateDefaultMappingProfiles(MixedRealityInteractionMapping[] defaultMappings)
+                        void CreateDefaultMappingProfiles(InteractionMapping[] defaultMappings)
                         {
                             var mappingProfileRootPath = AssetDatabase.GetAssetPath(controllerMappingAsset);
                             mappingProfileRootPath = mappingProfileRootPath.Replace("DataProviderProfile", string.Empty);
 
                             for (int j = 0; j < defaultMappings.Length; j++)
                             {
-                                var interactionMappingProfileAsset = CreateInstance(nameof(MixedRealityInteractionMappingProfile)).CreateAsset($"{mappingProfileRootPath}/", $"{defaultMappings[j].Description}Profile", false) as MixedRealityInteractionMappingProfile;
+                                var interactionMappingProfileAsset = CreateInstance(nameof(InteractionMappingProfile)).CreateAsset($"{mappingProfileRootPath}/", $"{defaultMappings[j].Description}Profile", false) as InteractionMappingProfile;
                                 Debug.Assert(interactionMappingProfileAsset != null);
                                 var mapping = defaultMappings[j];
 
@@ -233,7 +233,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             for (int i = 0; i < controllerMappingProfiles.arraySize; i++)
             {
                 var targetObjectReference = controllerMappingProfiles.GetArrayElementAtIndex(i).objectReferenceValue;
-                var controllerMappingProfile = (MixedRealityControllerMappingProfile)targetObjectReference;
+                var controllerMappingProfile = (ControllerMappingProfile)targetObjectReference;
 
                 // In advanced mode new profile entries might have been created
                 // but not assigned, which leads to null entries in the mapping profiles list.
@@ -267,7 +267,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 
         private static int layoutIndex;
 
-        internal void RenderControllerMappingButton(MixedRealityControllerMappingProfile controllerMappingProfile)
+        internal void RenderControllerMappingButton(ControllerMappingProfile controllerMappingProfile)
         {
             var controllerType = controllerMappingProfile.ControllerType.Type;
 
@@ -314,7 +314,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             position.height = EditorGUIUtility.singleLineHeight;
             position.y += 3;
             var mappingProfileProperty = controllerMappingProfiles.GetArrayElementAtIndex(index);
-            ProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityControllerMappingProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(ControllerMappingProfile);
             EditorGUI.PropertyField(position, mappingProfileProperty, GUIContent.none);
         }
 

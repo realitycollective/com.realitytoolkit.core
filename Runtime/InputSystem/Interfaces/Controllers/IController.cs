@@ -3,11 +3,11 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces.Controllers
+namespace RealityToolkit.Input.Interfaces.Controllers
 {
     /// <summary>
     /// Reality Toolkit controller definition, used to manage a specific controller type.
@@ -42,7 +42,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         /// <summary>
         /// The registered Input Source for this controller
         /// </summary>
-        IMixedRealityInputSource InputSource { get; }
+        IInputSource InputSource { get; }
 
         /// <summary>
         /// The controller's "Visual" <see cref="Component"/> in the scene.
@@ -75,7 +75,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         /// <summary>
         /// Mapping definition for this controller, linking the Physical inputs to logical Input System Actions
         /// </summary>
-        MixedRealityInteractionMapping[] Interactions { get; }
+        InteractionMapping[] Interactions { get; }
 
         /// <summary>
         /// Gets the current position and rotation for the controller, if available.
@@ -93,7 +93,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         Vector3 Velocity { get; }
 
         /// <summary>
-        /// Attempts to load the controller model specified in the <see cref="RealityToolkit.Definitions.Controllers.MixedRealityControllerMappingProfile"/>
+        /// Attempts to load the controller model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
         /// <returns>True, if controller model is being properly rendered.</returns>

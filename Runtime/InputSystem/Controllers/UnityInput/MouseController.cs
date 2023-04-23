@@ -4,12 +4,12 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces.Modules;
-using RealityToolkit.InputSystem.Processors;
+using RealityToolkit.Input.Interfaces.Modules;
+using RealityToolkit.Input.Processors;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Input.Controllers.UnityInput
 {
     /// <summary>
     /// Manages the mouse using unity input system.
@@ -21,13 +21,13 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public MouseController() { }
 
         /// <inheritdoc />
-        public MouseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public MouseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
 
         /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultInteractions
+        public override InteractionMapping[] DefaultInteractions
         {
             get
             {
@@ -38,25 +38,25 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
                 dualAxisProcessor.InvertY = true;
                 return new[]
                 {
-                    new MixedRealityInteractionMapping("Spatial Mouse Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
-                    new MixedRealityInteractionMapping("Mouse Position", AxisType.DualAxis, DeviceInputType.PointerPosition, ControllerMappingLibrary.MouseY, ControllerMappingLibrary.MouseX, new List<InputProcessor>{ singleAxisProcessor }),
-                    new MixedRealityInteractionMapping("Mouse Scroll Position", AxisType.DualAxis, DeviceInputType.Scroll, ControllerMappingLibrary.MouseScroll, ControllerMappingLibrary.MouseScroll, new List<InputProcessor>{ dualAxisProcessor }),
-                    new MixedRealityInteractionMapping("Left Mouse Button", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse0),
-                    new MixedRealityInteractionMapping("Right Mouse Button", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse1),
-                    new MixedRealityInteractionMapping("Mouse Button 2", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse2),
-                    new MixedRealityInteractionMapping("Mouse Button 3", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse3),
-                    new MixedRealityInteractionMapping("Mouse Button 4", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse4),
-                    new MixedRealityInteractionMapping("Mouse Button 5", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse5),
-                    new MixedRealityInteractionMapping("Mouse Button 6", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse6),
+                    new InteractionMapping("Spatial Mouse Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
+                    new InteractionMapping("Mouse Position", AxisType.DualAxis, DeviceInputType.PointerPosition, ControllerMappingLibrary.MouseY, ControllerMappingLibrary.MouseX, new List<InputProcessor>{ singleAxisProcessor }),
+                    new InteractionMapping("Mouse Scroll Position", AxisType.DualAxis, DeviceInputType.Scroll, ControllerMappingLibrary.MouseScroll, ControllerMappingLibrary.MouseScroll, new List<InputProcessor>{ dualAxisProcessor }),
+                    new InteractionMapping("Left Mouse Button", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse0),
+                    new InteractionMapping("Right Mouse Button", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse1),
+                    new InteractionMapping("Mouse Button 2", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse2),
+                    new InteractionMapping("Mouse Button 3", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse3),
+                    new InteractionMapping("Mouse Button 4", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse4),
+                    new InteractionMapping("Mouse Button 5", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse5),
+                    new InteractionMapping("Mouse Button 6", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Mouse6),
                 };
             }
         }
 
-        public static bool IsInGameWindow => Input.mousePresent &&
-                                             (Input.mousePosition.x > 0 ||
-                                              Input.mousePosition.y > 0 ||
-                                              Input.mousePosition.x < Screen.width ||
-                                              Input.mousePosition.y < Screen.height);
+        public static bool IsInGameWindow => UnityEngine.Input.mousePresent &&
+                                             (UnityEngine.Input.mousePosition.x > 0 ||
+                                              UnityEngine.Input.mousePosition.y > 0 ||
+                                              UnityEngine.Input.mousePosition.x < Screen.width ||
+                                              UnityEngine.Input.mousePosition.y < Screen.height);
 
         private Vector2 mousePosition;
 
@@ -78,8 +78,8 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
                 Pose = new Pose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
             }
 
-            mousePosition.x = Input.GetAxis(Interactions[1].AxisCodeX);
-            mousePosition.y = Input.GetAxis(Interactions[1].AxisCodeY);
+            mousePosition.x = UnityEngine.Input.GetAxis(Interactions[1].AxisCodeX);
+            mousePosition.y = UnityEngine.Input.GetAxis(Interactions[1].AxisCodeY);
 
             InputSystem?.RaiseSourcePositionChanged(InputSource, this, mousePosition);
             InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
@@ -110,7 +110,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
 
                 if (Interactions[i].InputType == DeviceInputType.Scroll)
                 {
-                    Interactions[i].Vector2Data = Input.mouseScrollDelta;
+                    Interactions[i].Vector2Data = UnityEngine.Input.mouseScrollDelta;
 
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
@@ -121,7 +121,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
 
                 if (Interactions[i].AxisType == AxisType.Digital)
                 {
-                    var keyButton = Input.GetKey(Interactions[i].KeyCode);
+                    var keyButton = UnityEngine.Input.GetKey(Interactions[i].KeyCode);
 
                     // Update the interaction data source
                     Interactions[i].BoolData = keyButton;

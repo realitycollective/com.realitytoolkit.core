@@ -4,12 +4,12 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface to implement to react to source state changes, such as when an input source is detected or lost.
     /// </summary>
-    public interface IMixedRealitySourceStateHandler : IEventSystemHandler
+    public interface ISourceStateHandler : IEventSystemHandler
     {
         /// <summary>
         /// Raised when a source is detected.

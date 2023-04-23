@@ -6,14 +6,14 @@ using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Extensions;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Extensions;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.Hands
+namespace RealityToolkit.Input.Controllers.Hands
 {
     /// <summary>
     /// Platform agnostic hand controller type.
@@ -25,7 +25,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         public MixedRealityHandController() : base() { }
 
         /// <inheritdoc />
-        public MixedRealityHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public MixedRealityHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
@@ -56,27 +56,27 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private Vector3 lastPalmPosition = Vector3.zero;
 
         /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
+        public override InteractionMapping[] DefaultInteractions { get; } =
         {
             // 6 DoF pose of the spatial pointer ("far interaction pointer").
-            new MixedRealityInteractionMapping("Spatial Pointer Pose", AxisType.SixDof, DeviceInputType.SpatialPointer),
+            new InteractionMapping("Spatial Pointer Pose", AxisType.SixDof, DeviceInputType.SpatialPointer),
             // Select / pinch button press / release.
-            new MixedRealityInteractionMapping("Select", AxisType.Digital, DeviceInputType.Select),
+            new InteractionMapping("Select", AxisType.Digital, DeviceInputType.Select),
             // Hand in pointing pose yes/no?
-            new MixedRealityInteractionMapping("Point", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Point", AxisType.Digital, DeviceInputType.ButtonPress),
             // Grip / grab button press / release.
-            new MixedRealityInteractionMapping("Grip", AxisType.Digital, DeviceInputType.TriggerPress),
+            new InteractionMapping("Grip", AxisType.Digital, DeviceInputType.TriggerPress),
             // 6 DoF grip pose ("Where to put things when grabbing something?")
-            new MixedRealityInteractionMapping("Grip Pose", AxisType.SixDof, DeviceInputType.SpatialGrip),
+            new InteractionMapping("Grip Pose", AxisType.SixDof, DeviceInputType.SpatialGrip),
             // 6 DoF index finger tip pose (mainly for "near interaction pointer").
-            new MixedRealityInteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger)
+            new InteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger)
         };
 
         /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultLeftHandedInteractions => DefaultInteractions;
+        public override InteractionMapping[] DefaultLeftHandedInteractions => DefaultInteractions;
 
         /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultRightHandedInteractions => DefaultInteractions;
+        public override InteractionMapping[] DefaultRightHandedInteractions => DefaultInteractions;
 
         /// <summary>
         /// Gets the current palm normal of the hand controller.
@@ -135,7 +135,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         private Pose GripPose { get; set; }
 
         /// <summary>
-        /// Updates the hand controller with new hand data input.
+        /// Updates the hand controller with new hand data UnityEngine.Input.
         /// </summary>
         /// <param name="handData">Updated hand data.</param>
         public void UpdateController(HandData handData)
@@ -474,19 +474,19 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             }
         }
 
-        private void UpdateGripPoseMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdateGripPoseMapping(InteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
             interactionMapping.PoseData = GripPose;
         }
 
-        private void UpdateSpatialPointerMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdateSpatialPointerMapping(InteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
             interactionMapping.PoseData = SpatialPointerPose;
         }
 
-        private void UpdateSelectMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdateSelectMapping(InteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
 
@@ -504,7 +504,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             }
         }
 
-        private void UpdateGripMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdateGripMapping(InteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
 
@@ -522,7 +522,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             }
         }
 
-        private void UpdatePointingMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdatePointingMapping(InteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
 
@@ -540,7 +540,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
             }
         }
 
-        private void UpdateIndexFingerMapping(MixedRealityInteractionMapping interactionMapping)
+        private void UpdateIndexFingerMapping(InteractionMapping interactionMapping)
         {
             Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
             interactionMapping.PoseData = IndexFingerTipPose;

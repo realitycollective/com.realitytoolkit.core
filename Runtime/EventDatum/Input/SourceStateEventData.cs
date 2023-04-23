@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
@@ -24,10 +24,10 @@ namespace RealityToolkit.EventDatum.Input
         /// </summary>
         /// <param name="inputSource"></param>
         /// <param name="controller"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, IController controller)
+        public void Initialize(IInputSource inputSource, IController controller)
         {
             // NOTE: Source State events do not have an associated Input Action.
-            BaseInitialize(inputSource, MixedRealityInputAction.None);
+            BaseInitialize(inputSource, InputAction.None);
             Controller = controller;
         }
     }

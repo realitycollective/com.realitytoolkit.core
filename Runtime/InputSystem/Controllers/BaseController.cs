@@ -6,17 +6,17 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces.Modules;
 using RealityToolkit.Services.InputSystem.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RealityToolkit.InputSystem.Controllers
+namespace RealityToolkit.Input.Controllers
 {
     /// <summary>
     /// Base Controller class to inherit from for all controllers.
@@ -35,7 +35,7 @@ namespace RealityToolkit.InputSystem.Controllers
         /// <param name="trackingState">The initial tracking state of this controller.</param>
         /// <param name="controllerHandedness">The controller's handedness.</param>
         /// <param name="controllerMappingProfile"></param>
-        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
         {
             ControllerDataProvider = controllerDataProvider;
             TrackingState = trackingState;
@@ -65,7 +65,7 @@ namespace RealityToolkit.InputSystem.Controllers
                 throw new Exception($"No Controller interaction mappings found for {controllerMappingProfile.name}!");
             }
 
-            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
             {
                 Debug.Assert(ReferenceEquals(inputSystem, controllerDataProvider.ParentService));
                 InputSystem = inputSystem;
@@ -84,24 +84,24 @@ namespace RealityToolkit.InputSystem.Controllers
             Enabled = true;
         }
 
-        protected readonly IMixedRealityInputSystem InputSystem;
+        protected readonly IInputService InputSystem;
 
         private readonly ControllerPoseSynchronizer controllerPrefab;
 
         /// <summary>
         /// The default interactions for this controller.
         /// </summary>
-        public virtual MixedRealityInteractionMapping[] DefaultInteractions { get; } = new MixedRealityInteractionMapping[0];
+        public virtual InteractionMapping[] DefaultInteractions { get; } = new InteractionMapping[0];
 
         /// <summary>
         /// The Default Left Handed interactions for this controller.
         /// </summary>
-        public virtual MixedRealityInteractionMapping[] DefaultLeftHandedInteractions { get; } = new MixedRealityInteractionMapping[0];
+        public virtual InteractionMapping[] DefaultLeftHandedInteractions { get; } = new InteractionMapping[0];
 
         /// <summary>
         /// The Default Right Handed interactions for this controller.
         /// </summary>
-        public virtual MixedRealityInteractionMapping[] DefaultRightHandedInteractions { get; } = new MixedRealityInteractionMapping[0];
+        public virtual InteractionMapping[] DefaultRightHandedInteractions { get; } = new InteractionMapping[0];
 
         /// <summary>
         /// Local offset from the controller position defining where the grip pose is.
@@ -127,7 +127,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public Handedness ControllerHandedness { get; }
 
         /// <inheritdoc />
-        public IMixedRealityInputSource InputSource { get; private set; }
+        public IInputSource InputSource { get; private set; }
 
         /// <inheritdoc />
         public IControllerVisualizer Visualizer { get; private set; }
@@ -142,7 +142,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public bool IsRotationAvailable { get; protected set; }
 
         /// <inheritdoc />
-        public MixedRealityInteractionMapping[] Interactions { get; private set; } = null;
+        public InteractionMapping[] Interactions { get; private set; } = null;
 
         /// <inheritdoc />
         public Pose Pose { get; protected set; } = Pose.identity;
@@ -163,12 +163,12 @@ namespace RealityToolkit.InputSystem.Controllers
         /// <summary>
         /// Load the Interaction mappings for this controller from the configured Controller Mapping profile
         /// </summary>
-        protected void AssignControllerMappings(MixedRealityInteractionMapping[] mappings) => Interactions = mappings;
+        protected void AssignControllerMappings(InteractionMapping[] mappings) => Interactions = mappings;
 
-        private IMixedRealityPointer[] AssignControllerMappings(MixedRealityInteractionMappingProfile[] interactionMappingProfiles)
+        private IPointer[] AssignControllerMappings(InteractionMappingProfile[] interactionMappingProfiles)
         {
-            var pointers = new List<IMixedRealityPointer>();
-            var interactions = new MixedRealityInteractionMapping[interactionMappingProfiles.Length];
+            var pointers = new List<IPointer>();
+            var interactions = new InteractionMapping[interactionMappingProfiles.Length];
 
             for (int i = 0; i < interactions.Length; i++)
             {
@@ -179,7 +179,7 @@ namespace RealityToolkit.InputSystem.Controllers
                     var pointerProfile = interactionProfile.PointerProfiles[j];
                     var rigTransform = Camera.main.transform.parent;
                     var pointerObject = Object.Instantiate(pointerProfile.PointerPrefab, rigTransform);
-                    var pointer = pointerObject.GetComponent<IMixedRealityPointer>();
+                    var pointer = pointerObject.GetComponent<IPointer>();
 
                     if (pointer != null)
                     {

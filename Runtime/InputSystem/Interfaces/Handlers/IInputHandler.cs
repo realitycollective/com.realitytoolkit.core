@@ -4,31 +4,31 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
-    /// Interface to implement for simple generic input.
+    /// Interface to implement for simple generic UnityEngine.Input.
     /// </summary>
-    public interface IMixedRealityInputHandler : IEventSystemHandler
+    public interface IInputHandler : IEventSystemHandler
     {
         /// <summary>
-        /// Input Up updates from Interactions, Keys, or any other simple input.
+        /// Input Up updates from Interactions, Keys, or any other simple UnityEngine.Input.
         /// </summary>
         /// <param name="eventData"></param>
         void OnInputUp(InputEventData eventData);
 
         /// <summary>
-        /// Input Down updates from Interactions, Keys, or any other simple input.
+        /// Input Down updates from Interactions, Keys, or any other simple UnityEngine.Input.
         /// </summary>
         /// <param name="eventData"></param>
         void OnInputDown(InputEventData eventData);
     }
 
     /// <summary>
-    /// Interface to implement for more complex generic input.
+    /// Interface to implement for more complex generic UnityEngine.Input.
     /// </summary>
     /// <typeparam name="T">The type of input to listen for.</typeparam>
-    public interface IMixedRealityInputHandler<T> : IEventSystemHandler
+    public interface IInputHandler<T> : IEventSystemHandler
     {
         /// <summary>
         /// Raised input event updates from the type of input specified in the interface handler implementation.

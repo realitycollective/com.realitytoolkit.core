@@ -8,7 +8,7 @@ namespace RealityToolkit.Interfaces.Events
     /// <summary>
     /// Interface to implement an event source.
     /// </summary>
-    public interface IMixedRealityEventSource : IEqualityComparer
+    public interface IEventSource : IEqualityComparer
     {
         /// <summary>
         /// The Unique Source Id of this Event Source.

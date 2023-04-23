@@ -3,8 +3,8 @@
 
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers

@@ -4,12 +4,12 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Input.Controllers.UnityInput
 {
     /// <summary>
     /// Manages joysticks using unity input system.
@@ -18,7 +18,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
     public class UnityJoystickServiceModule : BaseControllerServiceModule
     {
         /// <inheritdoc />
-        public UnityJoystickServiceModule(string name, uint priority, UnityInputControllerDataProfile profile, IMixedRealityInputSystem parentService)
+        public UnityJoystickServiceModule(string name, uint priority, UnityInputControllerDataProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
         }
@@ -64,7 +64,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
 
         private void RefreshDevices()
         {
-            var joystickNames = Input.GetJoystickNames();
+            var joystickNames = UnityEngine.Input.GetJoystickNames();
 
             if (joystickNames.Length <= 0) { return; }
 

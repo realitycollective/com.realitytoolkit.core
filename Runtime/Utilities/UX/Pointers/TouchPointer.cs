@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
@@ -70,7 +70,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             var playerCamera = Camera.main;
             position = Result.CurrentPointerTarget != null
                 ? Result.EndPoint
-                : playerCamera.ScreenPointToRay(Input.GetTouch(FingerId).position).GetPoint(PointerExtent);
+                : playerCamera.ScreenPointToRay(UnityEngine.Input.GetTouch(FingerId).position).GetPoint(PointerExtent);
             return true;
         }
 

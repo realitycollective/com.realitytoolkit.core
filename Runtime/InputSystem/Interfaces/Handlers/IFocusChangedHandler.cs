@@ -4,12 +4,12 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface to implement to react to focus changed events.
     /// </summary>
-    public interface IMixedRealityFocusChangedHandler : IEventSystemHandler
+    public interface IFocusChangedHandler : IEventSystemHandler
     {
         /// <summary>
         /// Focus event that is raised before the focus is actually changed.

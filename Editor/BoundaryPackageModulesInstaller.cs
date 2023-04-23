@@ -4,8 +4,8 @@
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Editor.Packages;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.BoundarySystem.Interfaces;
-using RealityToolkit.Definitions.BoundarySystem;
+using RealityToolkit.Boundary.Interfaces;
+using RealityToolkit.Definitions.Boundary;
 using System.Linq;
 using UnityEditor;
 
@@ -13,7 +13,7 @@ namespace RealityToolkit.Editor
 {
     /// <summary>
     /// Installs <see cref="IMixedRealityBoundaryServiceModule"/>s coming from a third party package
-    /// into the <see cref="MixedRealityBoundaryProfile"/> in the <see cref="ServiceManager.ActiveProfile"/>.
+    /// into the <see cref="BoundaryProfile"/> in the <see cref="ServiceManager.ActiveProfile"/>.
     /// </summary>
     [InitializeOnLoad]
     public sealed class BoundaryPackageModulesInstaller : IPackageModulesInstaller
@@ -57,9 +57,9 @@ namespace RealityToolkit.Editor
                 return false;
             }
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityBoundarySystem, MixedRealityBoundaryProfile>(out var boundaryServiceProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IBoundaryService, BoundaryProfile>(out var boundaryServiceProfile))
             {
-                UnityEngine.Debug.LogWarning($"Could not install {serviceConfiguration.InstancedType.Type.Name}.{nameof(MixedRealityBoundaryProfile)} not found.");
+                UnityEngine.Debug.LogWarning($"Could not install {serviceConfiguration.InstancedType.Type.Name}.{nameof(BoundaryProfile)} not found.");
                 return false;
             }
 

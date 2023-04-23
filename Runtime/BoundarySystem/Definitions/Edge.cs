@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace RealityToolkit.BoundarySystem.Definitions
+namespace RealityToolkit.Boundary.Definitions
 {
     /// <summary>
     /// The BoundaryEdge structure defines the points of a line segment that are used to

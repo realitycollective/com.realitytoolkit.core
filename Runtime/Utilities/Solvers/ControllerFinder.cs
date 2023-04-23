@@ -4,9 +4,9 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Solvers
@@ -14,7 +14,7 @@ namespace RealityToolkit.Utilities.Solvers
     /// <summary>
     /// ControllerFinder is a base class providing simple event handling for getting/releasing MotionController Transforms.
     /// </summary>
-    public abstract class ControllerFinder : MonoBehaviour, IMixedRealitySourceStateHandler
+    public abstract class ControllerFinder : MonoBehaviour, ISourceStateHandler
     {
         [SerializeField]
         [Tooltip("The handedness of the controller that should be found.")]
@@ -79,7 +79,7 @@ namespace RealityToolkit.Utilities.Solvers
         {
             // Look if the controller was already loaded. This could happen if the
             // GameObject was instantiated at runtime and the model loaded event has already fired.
-            if (!ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
+            if (!ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
             {
                 // The InputSystem could not be found.
                 return;

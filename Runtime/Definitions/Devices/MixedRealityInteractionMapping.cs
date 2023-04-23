@@ -4,8 +4,8 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Processors;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Processors;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,16 +17,16 @@ namespace RealityToolkit.Definitions.Devices
     /// </summary>
     /// <remarks>One definition should exist for each physical device input, such as buttons, triggers, joysticks, dpads, and more.</remarks>
     [Serializable]
-    public class MixedRealityInteractionMapping
+    public class InteractionMapping
     {
         #region Constructors
 
-        public MixedRealityInteractionMapping(string description = "None", List<InputProcessor> inputProcessors = null)
+        public InteractionMapping(string description = "None", List<InputProcessor> inputProcessors = null)
         {
             this.description = description;
             this.inputProcessors = inputProcessors ?? new List<InputProcessor>();
 
-            inputAction = MixedRealityInputAction.None;
+            inputAction = InputAction.None;
             stateChangeType = StateChangeType.Continuous;
             inputName = string.Empty;
             axisType = AxisType.None;
@@ -46,7 +46,7 @@ namespace RealityToolkit.Definitions.Devices
             activated = false;
         }
 
-        public MixedRealityInteractionMapping(string description, AxisType axisType, DeviceInputType inputType, List<InputProcessor> inputProcessors = null)
+        public InteractionMapping(string description, AxisType axisType, DeviceInputType inputType, List<InputProcessor> inputProcessors = null)
             : this(description, inputProcessors)
         {
             this.axisType = axisType;
@@ -61,7 +61,7 @@ namespace RealityToolkit.Definitions.Devices
         /// <param name="inputName">Optional inputName value to get input for a coded input identity from a provider.</param>
         /// <param name="inputType">The physical input device / control type.</param>
         /// <param name="inputProcessors"></param>
-        public MixedRealityInteractionMapping(string description, AxisType axisType, string inputName, DeviceInputType inputType, List<InputProcessor> inputProcessors = null)
+        public InteractionMapping(string description, AxisType axisType, string inputName, DeviceInputType inputType, List<InputProcessor> inputProcessors = null)
             : this(description, axisType, inputType, inputProcessors)
         {
             this.inputName = inputName;
@@ -76,7 +76,7 @@ namespace RealityToolkit.Definitions.Devices
         /// <param name="axisCodeX">Optional horizontal or single axis value to get axis data from Unity's old input system.</param>
         /// <param name="axisCodeY">Optional vertical axis value to get axis data from Unity's old input system.</param>
         /// <param name="inputProcessors"></param>
-        public MixedRealityInteractionMapping(string description, AxisType axisType, DeviceInputType inputType, string axisCodeX, string axisCodeY = "", List<InputProcessor> inputProcessors = null)
+        public InteractionMapping(string description, AxisType axisType, DeviceInputType inputType, string axisCodeX, string axisCodeY = "", List<InputProcessor> inputProcessors = null)
             : this(description, axisType, inputType, inputProcessors)
         {
             this.axisCodeX = axisCodeX;
@@ -91,17 +91,17 @@ namespace RealityToolkit.Definitions.Devices
         /// <param name="inputType">The physical input device / control type.</param>
         /// <param name="keyCode">Optional KeyCode value to get input from Unity's old input system</param>
         /// <param name="inputProcessors"></param>
-        public MixedRealityInteractionMapping(string description, AxisType axisType, DeviceInputType inputType, KeyCode keyCode, List<InputProcessor> inputProcessors = null)
+        public InteractionMapping(string description, AxisType axisType, DeviceInputType inputType, KeyCode keyCode, List<InputProcessor> inputProcessors = null)
             : this(description, axisType, inputType, inputProcessors)
         {
             this.keyCode = keyCode;
         }
 
         /// <summary>
-        /// Creates a copy of a <see cref="MixedRealityInteractionMapping"/>
+        /// Creates a copy of a <see cref="InteractionMapping"/>
         /// </summary>
         /// <param name="mapping"></param>
-        public MixedRealityInteractionMapping(MixedRealityInteractionMapping mapping) : this()
+        public InteractionMapping(InteractionMapping mapping) : this()
         {
             description = mapping.description;
             axisType = mapping.axisType;
@@ -167,12 +167,12 @@ namespace RealityToolkit.Definitions.Devices
 
         [SerializeField]
         [Tooltip("Action to be raised to the Input Manager when the input data has changed.")]
-        private MixedRealityInputAction inputAction;
+        private InputAction inputAction;
 
         /// <summary>
         /// Action to be raised to the Input Manager when the input data has changed.
         /// </summary>
-        public MixedRealityInputAction MixedRealityInputAction
+        public InputAction MixedRealityInputAction
         {
             get => inputAction;
             set => inputAction = value;

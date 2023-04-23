@@ -3,12 +3,12 @@
 
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces
+namespace RealityToolkit.Input.Interfaces
 {
     /// <summary>
     /// Interface for handling touch pointers.
     /// </summary>
-    public interface IMixedRealityTouchPointer : IMixedRealityPointer
+    public interface IMixedRealityTouchPointer : IPointer
     {
         /// <summary>
         /// Current finger id of the touch.

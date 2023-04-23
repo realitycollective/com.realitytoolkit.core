@@ -3,13 +3,13 @@
 
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 
-namespace RealityToolkit.InputSystem.Controllers.Hands
+namespace RealityToolkit.Input.Controllers.Hands
 {
     /// <summary>
     /// Base controller service module to inherit from when implementing <see cref="IMixedRealityHandController"/>s.
@@ -17,12 +17,12 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
     public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IMixedRealityHandControllerServiceModule
     {
         /// <inheritdoc />
-        protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile))
             {
-                throw new ArgumentException($"Unable to get a valid {nameof(MixedRealityInputSystemProfile)}!");
+                throw new ArgumentException($"Unable to get a valid {nameof(InputServiceProfile)}!");
             }
 
             RenderingMode = profile.RenderingMode != inputSystemProfile.RenderingMode

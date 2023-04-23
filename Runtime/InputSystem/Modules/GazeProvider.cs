@@ -4,24 +4,24 @@
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.InputSources;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Pointers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.InputSources;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Pointers;
 using RealityToolkit.Utilities.Physics;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Modules
+namespace RealityToolkit.Input.Modules
 {
     /// <summary>
     /// This class provides Gaze as an Input Source so users can interact with objects using their head.
     /// </summary>
     [DisallowMultipleComponent]
     [System.Runtime.InteropServices.Guid("BED2C9A4-48C5-49D2-BCA4-3D351153BA75")]
-    public class GazeProvider : MonoBehaviour, IMixedRealityGazeProvider, IMixedRealityInputHandler
+    public class GazeProvider : MonoBehaviour, IGazeProvider, IInputHandler
     {
         private const float VelocityThreshold = 0.1f;
 
@@ -82,7 +82,7 @@ namespace RealityToolkit.InputSystem.Modules
         }
 
         /// <inheritdoc />
-        public IMixedRealityInputSource GazeInputSource
+        public IInputSource GazeInputSource
         {
             get
             {
@@ -99,11 +99,11 @@ namespace RealityToolkit.InputSystem.Modules
         private BaseGenericInputSource gazeInputSource;
 
         /// <inheritdoc />
-        public IMixedRealityPointer GazePointer => gazePointer ?? InitializeGazePointer();
+        public IPointer GazePointer => gazePointer ?? InitializeGazePointer();
         private InternalGazePointer gazePointer = null;
 
         /// <inheritdoc />
-        public IMixedRealityCursor GazeCursor => GazePointer.BaseCursor;
+        public ICursor GazeCursor => GazePointer.BaseCursor;
 
         /// <inheritdoc />
         public GameObject GazeTarget { get; private set; }
@@ -151,10 +151,10 @@ namespace RealityToolkit.InputSystem.Modules
 
         private Vector3 lastHeadPosition = Vector3.zero;
 
-        private IMixedRealityInputSystem inputSystem = null;
+        private IInputService inputSystem = null;
 
-        protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
+        protected IInputService InputSystem
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
 
         #region InternalGazePointer Class
 
@@ -164,7 +164,7 @@ namespace RealityToolkit.InputSystem.Modules
             private readonly BaseRayStabilizer stabilizer;
             private readonly GazeProvider gazeProvider;
 
-            public InternalGazePointer(GazeProvider gazeProvider, string pointerName, IMixedRealityInputSource inputSourceParent, LayerMask[] raycastLayerMasks, float pointerExtent, Transform gazeTransform, BaseRayStabilizer stabilizer)
+            public InternalGazePointer(GazeProvider gazeProvider, string pointerName, IInputSource inputSourceParent, LayerMask[] raycastLayerMasks, float pointerExtent, Transform gazeTransform, BaseRayStabilizer stabilizer)
                     : base(pointerName, inputSourceParent, InteractionMode.Far)
             {
                 this.gazeProvider = gazeProvider;
@@ -181,7 +181,7 @@ namespace RealityToolkit.InputSystem.Modules
             public override IController Controller { get; set; }
 
             /// <inheritdoc />
-            public override IMixedRealityInputSource InputSourceParent { get; protected set; }
+            public override IInputSource InputSourceParent { get; protected set; }
 
             private float pointerExtent;
 
@@ -196,7 +196,7 @@ namespace RealityToolkit.InputSystem.Modules
             /// Only for use when initializing Gaze Pointer on startup.
             /// </summary>
             /// <param name="gazeInputSource"></param>
-            internal void SetGazeInputSourceParent(IMixedRealityInputSource gazeInputSource)
+            internal void SetGazeInputSourceParent(IInputSource gazeInputSource)
             {
                 InputSourceParent = gazeInputSource;
             }
@@ -297,7 +297,7 @@ namespace RealityToolkit.InputSystem.Modules
             {
                 try
                 {
-                    inputSystem = await ServiceManager.Instance.GetServiceAsync<IMixedRealityInputSystem>();
+                    inputSystem = await ServiceManager.Instance.GetServiceAsync<IInputService>();
                 }
                 catch (Exception e)
                 {
@@ -402,7 +402,7 @@ namespace RealityToolkit.InputSystem.Modules
         #region IMixedRealityInputHandler Implementation
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler.OnInputUp(InputEventData eventData)
+        void IInputHandler.OnInputUp(InputEventData eventData)
         {
             for (int i = 0; i < eventData.InputSource.Pointers.Length; i++)
             {
@@ -416,7 +416,7 @@ namespace RealityToolkit.InputSystem.Modules
         }
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler.OnInputDown(InputEventData eventData)
+        void IInputHandler.OnInputDown(InputEventData eventData)
         {
             for (int i = 0; i < eventData.InputSource.Pointers.Length; i++)
             {
@@ -432,7 +432,7 @@ namespace RealityToolkit.InputSystem.Modules
 
         #region Utilities
 
-        private IMixedRealityPointer InitializeGazePointer()
+        private IPointer InitializeGazePointer()
         {
             if (InputSystem == null) { return null; }
 
@@ -456,7 +456,7 @@ namespace RealityToolkit.InputSystem.Modules
             gazePointer = new InternalGazePointer(this, "Gaze Pointer", null, raycastLayerMasks, maxGazeCollisionDistance, gazeTransform, stabilizer);
 
             if (GazeCursor == null &&
-                ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile) &&
+                ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile) &&
                 inputSystemProfile.GazeCursorPrefab != null)
             {
                 var cursor = Instantiate(inputSystemProfile.GazeCursorPrefab, gazeTransform.parent);
@@ -470,7 +470,7 @@ namespace RealityToolkit.InputSystem.Modules
         {
             try
             {
-                inputSystem = await ServiceManager.Instance.GetServiceAsync<IMixedRealityInputSystem>();
+                inputSystem = await ServiceManager.Instance.GetServiceAsync<IInputService>();
             }
             catch (Exception e)
             {
@@ -498,7 +498,7 @@ namespace RealityToolkit.InputSystem.Modules
         {
             Debug.Assert(cursor != null);
             cursor.transform.parent = transform.parent;
-            GazePointer.BaseCursor = cursor.GetComponent<IMixedRealityCursor>();
+            GazePointer.BaseCursor = cursor.GetComponent<ICursor>();
             Debug.Assert(GazePointer.BaseCursor != null, "Failed to load cursor");
             GazePointer.BaseCursor.SetVisibilityOnSourceDetected = false;
             GazePointer.BaseCursor.Pointer = GazePointer;

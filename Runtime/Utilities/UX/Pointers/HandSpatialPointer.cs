@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers
@@ -15,7 +15,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// </summary>
     public class HandSpatialPointer : LinePointer
     {
-        private IMixedRealityPointer nearPointer;
+        private IPointer nearPointer;
         private IMixedRealityHandController handController;
 
         [SerializeField]
@@ -40,7 +40,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <summary>
         /// Gets the near pointer attached to the hand.
         /// </summary>
-        private IMixedRealityPointer NearPointer => nearPointer ?? (nearPointer = InitializeNearPointerReference());
+        private IPointer NearPointer => nearPointer ?? (nearPointer = InitializeNearPointerReference());
 
         /// <summary>
         /// Casted reference to the hand controller driving the pointer.
@@ -65,7 +65,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             return controller;
         }
 
-        private IMixedRealityPointer InitializeNearPointerReference()
+        private IPointer InitializeNearPointerReference()
         {
             for (int i = 0; i < Controller.InputSource.Pointers.Length; i++)
             {

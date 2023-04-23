@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
@@ -14,7 +14,7 @@ namespace RealityToolkit.EventDatum.Input
     public class InputEventData : BaseInputEventData
     {
         /// <summary>
-        /// Handedness of the <see cref="IMixedRealityInputSource"/>.
+        /// Handedness of the <see cref="IInputSource"/>.
         /// </summary>
         public Handedness Handedness { get; private set; } = Handedness.None;
 
@@ -27,7 +27,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputSource"></param>
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, Handedness handedness, MixedRealityInputAction inputAction)
+        public void Initialize(IInputSource inputSource, Handedness handedness, InputAction inputAction)
         {
             BaseInitialize(inputSource, inputAction);
             Handedness = handedness;
@@ -55,7 +55,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="handedness"></param>
         /// <param name="inputAction"></param>
         /// <param name="data"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, Handedness handedness, MixedRealityInputAction inputAction, T data)
+        public void Initialize(IInputSource inputSource, Handedness handedness, InputAction inputAction, T data)
         {
             Initialize(inputSource, handedness, inputAction);
             InputData = data;

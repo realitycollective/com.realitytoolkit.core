@@ -6,9 +6,9 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Handlers;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Handlers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,8 +27,8 @@ namespace RealityToolkit.Utilities.UX
         /// Rig component for handling input events.
         /// </summary>
         private class BoundingBoxRig : BaseInputHandler,
-            IMixedRealitySourceStateHandler,
-            IMixedRealityPointerHandler
+            ISourceStateHandler,
+            IPointerHandler
         {
             private const int IgnoreRaycastLayer = 2;
 
@@ -56,7 +56,7 @@ namespace RealityToolkit.Utilities.UX
             private Collider[] parentColliderCache;
 
             /// <inheritdoc />
-            void IMixedRealityPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
+            void IPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
             {
                 if (BoundingBoxParent.currentInputSource != null) { return; }
 
@@ -93,7 +93,7 @@ namespace RealityToolkit.Utilities.UX
             }
 
             /// <inheritdoc />
-            void IMixedRealityPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
+            void IPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
             {
                 if (BoundingBoxParent.currentInputSource != null &&
                     eventData.InputSource.SourceId == BoundingBoxParent.currentInputSource.SourceId)
@@ -113,13 +113,13 @@ namespace RealityToolkit.Utilities.UX
             }
 
             /// <inheritdoc />
-            void IMixedRealityPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
+            void IPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
 
             /// <inheritdoc />
-            void IMixedRealitySourceStateHandler.OnSourceDetected(SourceStateEventData eventData) { }
+            void ISourceStateHandler.OnSourceDetected(SourceStateEventData eventData) { }
 
             /// <inheritdoc />
-            void IMixedRealitySourceStateHandler.OnSourceLost(SourceStateEventData eventData)
+            void ISourceStateHandler.OnSourceLost(SourceStateEventData eventData)
             {
                 if (BoundingBoxParent.currentInputSource != null && eventData.InputSource.SourceId == BoundingBoxParent.currentInputSource.SourceId)
                 {
@@ -524,13 +524,13 @@ namespace RealityToolkit.Utilities.UX
 
         private bool isManipulationEnabled;
 
-        private IMixedRealityPointer currentPointer;
-        private IMixedRealityInputSource currentInputSource;
+        private IPointer currentPointer;
+        private IInputSource currentInputSource;
 
-        private IMixedRealityInputSystem inputSystem = null;
+        private IInputService inputSystem = null;
 
-        protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
+        protected IInputService InputSystem
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
 
         private ManipulationHandler manipulationHandler;
 

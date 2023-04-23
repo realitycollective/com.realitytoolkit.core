@@ -3,24 +3,24 @@
 
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Speech;
+using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces.Speech;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// Script used to start and stop recording sessions in the current dictation system.
     /// For this script to work, a dictation system like 'Windows Dictation Service Module' must be added to the service modules in the Input System profile.
     /// </summary>
-    public class BaseDictationHandler : BaseInputHandler, IMixedRealityDictationHandler
+    public class BaseDictationHandler : BaseInputHandler, IDictationHandler
     {
         [SerializeField]
         [Tooltip("Time length in seconds before the dictation session ends due to lack of audio input in case there was no audio heard in the current session")]
         private float initialSilenceTimeout = 5f;
 
         [SerializeField]
-        [Tooltip("Time length in seconds before the dictation session ends due to lack of audio input.")]
+        [Tooltip("Time length in seconds before the dictation session ends due to lack of audio UnityEngine.Input.")]
         private float autoSilenceTimeout = 20f;
 
         [SerializeField]

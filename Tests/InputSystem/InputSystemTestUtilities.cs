@@ -3,29 +3,29 @@
 
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
-using RealityToolkit.InputSystem;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Modules;
+using RealityToolkit.Input;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.Tests.InputSystem
 {
     public static class InputSystemTestUtilities
     {
-        public static ServiceConfiguration<IMixedRealityInputSystem> TestInputSystemConfiguration
-            => new ServiceConfiguration<IMixedRealityInputSystem>(typeof(MixedRealityInputSystem), nameof(MixedRealityInputSystem), 1, new[] { new AllPlatforms() }, SetupInputSystemProfile());
+        public static ServiceConfiguration<IInputService> TestInputSystemConfiguration
+            => new ServiceConfiguration<IInputService>(typeof(InputService), nameof(InputService), 1, new[] { new AllPlatforms() }, SetupInputSystemProfile());
 
-        public static MixedRealityInputSystemProfile SetupInputSystemProfile()
+        public static InputServiceProfile SetupInputSystemProfile()
         {
             // Create blank Input System Profiles
-            var inputSystemProfile = ScriptableObject.CreateInstance<MixedRealityInputSystemProfile>();
+            var inputSystemProfile = ScriptableObject.CreateInstance<InputServiceProfile>();
             inputSystemProfile.GazeProviderBehaviour = GazeProviderBehaviour.Auto;
             inputSystemProfile.GazeProviderType = typeof(GazeProvider);
             inputSystemProfile.InputActionsProfile = ScriptableObject.CreateInstance<MixedRealityInputActionsProfile>();
             inputSystemProfile.GesturesProfile = ScriptableObject.CreateInstance<MixedRealityGesturesProfile>();
             inputSystemProfile.SpeechCommandsProfile = ScriptableObject.CreateInstance<MixedRealitySpeechCommandsProfile>();
-            inputSystemProfile.AddConfiguration(new ServiceConfiguration<IMixedRealityFocusProvider>(typeof(FocusProvider), nameof(FocusProvider), 0, AllPlatforms.Platforms, null));
+            inputSystemProfile.AddConfiguration(new ServiceConfiguration<IFocusProvider>(typeof(FocusProvider), nameof(FocusProvider), 0, AllPlatforms.Platforms, null));
 
             return inputSystemProfile;
         }

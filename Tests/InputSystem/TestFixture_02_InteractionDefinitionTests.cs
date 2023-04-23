@@ -5,7 +5,7 @@ using NUnit.Framework;
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
-using RealityToolkit.InputSystem.Processors;
+using RealityToolkit.Input.Processors;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -17,25 +17,25 @@ namespace RealityToolkit.Tests.InputSystem
     {
         #region Utilities
 
-        private static void Assert_NoChange_NoUpdate(MixedRealityInteractionMapping mapping)
+        private static void Assert_NoChange_NoUpdate(InteractionMapping mapping)
         {
             Assert.IsFalse(mapping.ControlActivated);
             Assert.IsFalse(mapping.Updated);
         }
 
-        private static void Assert_Change_NoUpdate(MixedRealityInteractionMapping mapping)
+        private static void Assert_Change_NoUpdate(InteractionMapping mapping)
         {
             Assert.IsTrue(mapping.ControlActivated);
             Assert.IsFalse(mapping.Updated);
         }
 
-        private static void Assert_NoChange_Update(MixedRealityInteractionMapping mapping)
+        private static void Assert_NoChange_Update(InteractionMapping mapping)
         {
             Assert.IsFalse(mapping.ControlActivated);
             Assert.IsTrue(mapping.Updated);
         }
 
-        private static void Assert_Change_Update(MixedRealityInteractionMapping mapping)
+        private static void Assert_Change_Update(InteractionMapping mapping)
         {
             Assert.IsTrue(mapping.ControlActivated);
             Assert.IsTrue(mapping.Updated);
@@ -45,15 +45,15 @@ namespace RealityToolkit.Tests.InputSystem
 
         #region objects
 
-        public MixedRealityInteractionMapping InitializeRawInteractionMapping()
+        public InteractionMapping InitializeRawInteractionMapping()
         {
-            return new MixedRealityInteractionMapping(string.Empty, AxisType.Raw, DeviceInputType.None);
+            return new InteractionMapping(string.Empty, AxisType.Raw, DeviceInputType.None);
         }
 
         /// <summary>
-        /// We test by initializing a new <see cref="MixedRealityInteractionMapping"/>.
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We test by initializing a new <see cref="InteractionMapping"/>.
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_01_01_InitializedRawData()
@@ -78,8 +78,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to two different values.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_01_02_ObjectChangedAndUpdated()
@@ -137,8 +137,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to the same object multiple times.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true.<para/>
         /// </summary>
         [Test]
         public void Test_01_03_ObjectNoChangeAndUpdated()
@@ -183,15 +183,15 @@ namespace RealityToolkit.Tests.InputSystem
 
         #region bools
 
-        public MixedRealityInteractionMapping InitializeBoolInteractionMapping()
+        public InteractionMapping InitializeBoolInteractionMapping()
         {
-            return new MixedRealityInteractionMapping(string.Empty, AxisType.Digital, DeviceInputType.None);
+            return new InteractionMapping(string.Empty, AxisType.Digital, DeviceInputType.None);
         }
 
         /// <summary>
-        /// We test by initializing a new <see cref="MixedRealityInteractionMapping"/>.
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We test by initializing a new <see cref="InteractionMapping"/>.
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_02_01_InitializedBoolData()
@@ -214,8 +214,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to two different values.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_02_02_Bool_Changed_NoUpdate()
@@ -246,8 +246,8 @@ namespace RealityToolkit.Tests.InputSystem
         /// <summary>
         /// We test by setting the interaction data to the same object multiple times.<para/>
         /// Check that the value can be changed, then subsequent identical values show no change.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_02_03_Bool_NoChange_NoUpdate()
@@ -278,15 +278,15 @@ namespace RealityToolkit.Tests.InputSystem
 
         #region float
 
-        public MixedRealityInteractionMapping InitializeFloatInteractionMapping()
+        public InteractionMapping InitializeFloatInteractionMapping()
         {
-            return new MixedRealityInteractionMapping(string.Empty, AxisType.SingleAxis, DeviceInputType.None);
+            return new InteractionMapping(string.Empty, AxisType.SingleAxis, DeviceInputType.None);
         }
 
         /// <summary>
-        /// We test by initializing a new <see cref="MixedRealityInteractionMapping"/>.
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We test by initializing a new <see cref="InteractionMapping"/>.
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_03_01_InitializedFloatData()
@@ -307,8 +307,8 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         /// <summary>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_03_02_Float_Changed_Updated()
@@ -367,8 +367,8 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         /// <summary>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_03_03_Float_NoChange_Updated()
@@ -411,15 +411,15 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         /// <summary>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_03_03_Float_NoChange_Updated_Inverted()
         {
             var singleAxisInputProcessor = ScriptableObject.CreateInstance<InvertSingleAxisProcessor>();
             singleAxisInputProcessor.Invert = true;
-            var interaction = new MixedRealityInteractionMapping(string.Empty, AxisType.SingleAxis, DeviceInputType.None, new List<InputProcessor> { singleAxisInputProcessor });
+            var interaction = new InteractionMapping(string.Empty, AxisType.SingleAxis, DeviceInputType.None, new List<InputProcessor> { singleAxisInputProcessor });
             var initialValue = interaction.FloatData;
             const float testValue1 = 1f;
             const float testValue2 = -1f;
@@ -461,15 +461,15 @@ namespace RealityToolkit.Tests.InputSystem
 
         #region Vector2
 
-        public MixedRealityInteractionMapping InitializeVector2InteractionMapping()
+        public InteractionMapping InitializeVector2InteractionMapping()
         {
-            return new MixedRealityInteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None);
+            return new InteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None);
         }
 
         /// <summary>
-        /// We test by initializing a new <see cref="MixedRealityInteractionMapping"/>.
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We test by initializing a new <see cref="InteractionMapping"/>.
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_04_01_InitializedVector2()
@@ -642,8 +642,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to two different values.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_04_02_01_Vector2_Changed_Updated()
@@ -698,8 +698,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the inverted interaction data to two different values.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_04_02_02_Vector2_NoChanged_Updated_Inverted()
@@ -707,7 +707,7 @@ namespace RealityToolkit.Tests.InputSystem
             var invertDualAxisProcessor = ScriptableObject.CreateInstance<InvertDualAxisProcessor>();
             invertDualAxisProcessor.InvertX = true;
             invertDualAxisProcessor.InvertY = true;
-            var interaction = new MixedRealityInteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None, new List<InputProcessor> { invertDualAxisProcessor });
+            var interaction = new InteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None, new List<InputProcessor> { invertDualAxisProcessor });
 
             var initialValue = interaction.Vector2Data;
             var testValue1 = Vector2.up;
@@ -758,8 +758,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to the same object multiple times.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true.<para/>
         /// </summary>
         [Test]
         public void Test_04_03_Vector2_NoChange_Updated()
@@ -787,15 +787,15 @@ namespace RealityToolkit.Tests.InputSystem
 
         #region Vector3
 
-        public MixedRealityInteractionMapping InitializeVector3InteractionMapping()
+        public InteractionMapping InitializeVector3InteractionMapping()
         {
-            return new MixedRealityInteractionMapping(string.Empty, AxisType.ThreeDofPosition, DeviceInputType.None);
+            return new InteractionMapping(string.Empty, AxisType.ThreeDofPosition, DeviceInputType.None);
         }
 
         /// <summary>
         /// We test by setting the interaction data to two different values.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_05_01_InitializedVector3()
@@ -817,8 +817,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to the same object multiple times.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true.<para/>
         /// </summary>
         [Test]
         public void Test_05_02_Vector3_NoChange_Updated()
@@ -854,9 +854,9 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         /// <summary>
-        /// We test by initializing a new <see cref="MixedRealityInteractionMapping"/>.
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We test by initializing a new <see cref="InteractionMapping"/>.
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_05_03_Vector3_NoChange_NoUpdate()
@@ -894,15 +894,15 @@ namespace RealityToolkit.Tests.InputSystem
 
         #region Quaternion
 
-        public MixedRealityInteractionMapping InitializeQuaternionInteractionMapping()
+        public InteractionMapping InitializeQuaternionInteractionMapping()
         {
-            return new MixedRealityInteractionMapping(string.Empty, AxisType.ThreeDofRotation, DeviceInputType.None);
+            return new InteractionMapping(string.Empty, AxisType.ThreeDofRotation, DeviceInputType.None);
         }
 
         /// <summary>
         /// We test by setting the interaction data to two different values.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == true, then false after each subsequent check before assigning a new value.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true, then false after each subsequent check before assigning a new value.<para/>
         /// </summary>
         [Test]
         public void Test_06_01_InitializeQuaternion()
@@ -924,8 +924,8 @@ namespace RealityToolkit.Tests.InputSystem
 
         /// <summary>
         /// We test by setting the interaction data to the same object multiple times.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == true.<para/>
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == true.<para/>
         /// </summary>
         [Test]
         public void Test_06_02_Quaternion_NoChanged_Updated()
@@ -961,9 +961,9 @@ namespace RealityToolkit.Tests.InputSystem
         }
 
         /// <summary>
-        /// We test by initializing a new <see cref="MixedRealityInteractionMapping"/>.
-        /// We expect that <see cref="MixedRealityInteractionMapping.ControlActivated"/> == false.<para/>
-        /// We expect that <see cref="MixedRealityInteractionMapping.Updated"/> == false.<para/>
+        /// We test by initializing a new <see cref="InteractionMapping"/>.
+        /// We expect that <see cref="InteractionMapping.ControlActivated"/> == false.<para/>
+        /// We expect that <see cref="InteractionMapping.Updated"/> == false.<para/>
         /// </summary>
         [Test]
         public void Test_06_03_Quaternion_NoChange_NoUpdate()
@@ -1010,7 +1010,7 @@ namespace RealityToolkit.Tests.InputSystem
             createdProcessors.Add(floatAxisProcessor);
             createdProcessors.Add(dualAxisProcessor);
 
-            var interaction = new MixedRealityInteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None, createdProcessors);
+            var interaction = new InteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None, createdProcessors);
 
             var processors = interaction.GetInputProcessorForType<Vector2>();
             Assert.IsTrue(processors.Count == 1);
@@ -1037,7 +1037,7 @@ namespace RealityToolkit.Tests.InputSystem
             createdProcessors.Add(floatAxisProcessor);
             createdProcessors.Add(dualAxisProcessor);
 
-            var interaction = new MixedRealityInteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None, createdProcessors);
+            var interaction = new InteractionMapping(string.Empty, AxisType.DualAxis, DeviceInputType.None, createdProcessors);
 
             var processors = interaction.GetInputProcessors<InvertDualAxisProcessor>();
             Assert.IsTrue(processors.InvertX);

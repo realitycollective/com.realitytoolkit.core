@@ -4,17 +4,17 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
-    /// Interface to implement to react to pointer scroll input.
+    /// Interface to implement to react to pointer scroll UnityEngine.Input.
     /// </summary>
-    public interface IMixedRealityPointerScrollHandler : IEventSystemHandler
+    public interface IPointerScrollHandler : IEventSystemHandler
     {
         /// <summary>
         /// When a pointer scroll is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerScroll(MixedRealityPointerScrollEventData eventData);
+        void OnPointerScroll(PointerScrollEventData eventData);
     }
 }

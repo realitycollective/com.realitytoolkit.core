@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using RealityToolkit.Definitions.Controllers;
 using UnityEngine;
 using RealityCollective.Utilities.Async;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace RealityToolkit.InputSystem.Modules
+namespace RealityToolkit.Input.Modules
 {
     /// <summary>
     /// Dictation service module for Windows 10 based platforms.
@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Modules
     public class WindowsDictationServiceModule : BaseDictationServiceModule
     {
         /// <inheritdoc />
-        public WindowsDictationServiceModule(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        public WindowsDictationServiceModule(string name, uint priority, BaseControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
@@ -118,7 +118,7 @@ namespace RealityToolkit.InputSystem.Modules
         private bool hasListener;
         private bool isTransitioning;
 
-        private IMixedRealityInputSource inputSource = null;
+        private IInputSource inputSource = null;
 
         /// <summary>
         /// Caches the text currently being displayed in dictation display text.

@@ -2,27 +2,27 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using System;
 using System.Collections;
 
-namespace RealityToolkit.InputSystem.InputSources
+namespace RealityToolkit.Input.InputSources
 {
     /// <summary>
     /// Base class for input sources that don't inherit from MonoBehaviour.
     /// <remarks>This base class does not support adding or removing pointers, because many will never
     /// pass pointers in their constructors and will fall back to either the Gaze or Mouse Pointer.</remarks>
     /// </summary>
-    public class BaseGenericInputSource : IMixedRealityInputSource
+    public class BaseGenericInputSource : IInputSource
     {
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="pointers"></param>
-        public BaseGenericInputSource(string name, IMixedRealityPointer[] pointers = null)
+        public BaseGenericInputSource(string name, IPointer[] pointers = null)
         {
-            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
             {
                 SourceId = inputSystem.GenerateNewSourceId();
                 SourceName = name;
@@ -35,7 +35,7 @@ namespace RealityToolkit.InputSystem.InputSources
             }
             else
             {
-                throw new ArgumentException($"Failed to find a valid {nameof(IMixedRealityInputSystem)}!");
+                throw new ArgumentException($"Failed to find a valid {nameof(IInputService)}!");
             }
         }
 
@@ -46,11 +46,11 @@ namespace RealityToolkit.InputSystem.InputSources
         public string SourceName { get; }
 
         /// <inheritdoc />
-        public virtual IMixedRealityPointer[] Pointers { get; }
+        public virtual IPointer[] Pointers { get; }
 
         #region IEquality Implementation
 
-        public static bool Equals(IMixedRealityInputSource left, IMixedRealityInputSource right)
+        public static bool Equals(IInputSource left, IInputSource right)
         {
             return left.Equals(right);
         }
@@ -68,10 +68,10 @@ namespace RealityToolkit.InputSystem.InputSources
             if (ReferenceEquals(this, obj)) { return true; }
             if (obj.GetType() != GetType()) { return false; }
 
-            return Equals((IMixedRealityInputSource)obj);
+            return Equals((IInputSource)obj);
         }
 
-        private bool Equals(IMixedRealityInputSource other)
+        private bool Equals(IInputSource other)
         {
             return other != null && SourceId == other.SourceId && string.Equals(SourceName, other.SourceName);
         }

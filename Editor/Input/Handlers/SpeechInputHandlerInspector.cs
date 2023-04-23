@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Handlers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;

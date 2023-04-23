@@ -8,8 +8,8 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Extensions;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
 using System;
@@ -17,23 +17,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Modules
+namespace RealityToolkit.Input.Modules
 {
     /// <summary>
     /// The focus provider handles the focused objects per input source.
     /// </summary>
     /// <remarks>There are convenience properties for getting only Gaze Pointer if needed.</remarks>
     [System.Runtime.InteropServices.Guid("249D4D78-CADD-45BA-9438-DB9FC2509213")]
-    public class FocusProvider : BaseServiceModule, IMixedRealityFocusProvider
+    public class FocusProvider : BaseServiceModule, IFocusProvider
     {
         /// <inheritdoc />
-        public FocusProvider(string name, uint priority, BaseProfile profile, IMixedRealityInputSystem parentService) : base(name, priority, profile, parentService)
+        public FocusProvider(string name, uint priority, BaseProfile profile, IInputService parentService) : base(name, priority, profile, parentService)
         {
             inputSystem = parentService;
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile))
             {
-                throw new Exception($"Unable to start {name}! An {nameof(MixedRealityInputSystemProfile)} is required for this feature.");
+                throw new Exception($"Unable to start {name}! An {nameof(InputServiceProfile)} is required for this feature.");
             }
 
             focusLayerMasks = inputSystemProfile.PointersProfile.PointerRaycastLayerMasks;
@@ -51,10 +51,10 @@ namespace RealityToolkit.InputSystem.Modules
         private readonly Color[] debugPointingRayColors;
         private RenderTexture uiRaycastCameraTargetTexture;
 
-        private IMixedRealityInputSystem inputSystem = null;
+        private IInputService inputSystem = null;
 
-        protected IMixedRealityInputSystem InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IMixedRealityInputSystem>());
+        protected IInputService InputSystem
+            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
 
         #region IFocusProvider Properties
 
@@ -67,7 +67,7 @@ namespace RealityToolkit.InputSystem.Modules
         private readonly float globalPointingExtent;
 
         /// <inheritdoc />
-        float IMixedRealityFocusProvider.GlobalPointingExtent => globalPointingExtent;
+        float IFocusProvider.GlobalPointingExtent => globalPointingExtent;
 
         private readonly LayerMask[] focusLayerMasks;
 
@@ -111,7 +111,7 @@ namespace RealityToolkit.InputSystem.Modules
         {
             private const int IGNORE_RAYCAST_LAYER = 2;
 
-            public readonly IMixedRealityPointer Pointer;
+            public readonly IPointer Pointer;
 
             private FocusDetails focusDetails;
 
@@ -189,7 +189,7 @@ namespace RealityToolkit.InputSystem.Modules
             /// Constructor.
             /// </summary>
             /// <param name="pointer"></param>
-            public PointerData(IMixedRealityPointer pointer)
+            public PointerData(IPointer pointer)
             {
                 focusDetails = new FocusDetails();
                 Pointer = pointer;
@@ -506,7 +506,7 @@ namespace RealityToolkit.InputSystem.Modules
         #region Focus Details by IMixedRealityPointer
 
         /// <inheritdoc />
-        public GameObject GetFocusedObject(IMixedRealityPointer pointingSource)
+        public GameObject GetFocusedObject(IPointer pointingSource)
         {
             if (pointingSource == null)
             {
@@ -518,7 +518,7 @@ namespace RealityToolkit.InputSystem.Modules
         }
 
         /// <inheritdoc />
-        public bool TryGetFocusDetails(IMixedRealityPointer pointer, out IPointerResult focusDetails)
+        public bool TryGetFocusDetails(IPointer pointer, out IPointerResult focusDetails)
         {
             if (TryGetPointerData(pointer, out var pointerData))
             {
@@ -531,7 +531,7 @@ namespace RealityToolkit.InputSystem.Modules
         }
 
         /// <inheritdoc />
-        public bool TryGetSpecificPointerGraphicEventData(IMixedRealityPointer pointer, out GraphicInputEventData graphicInputEventData)
+        public bool TryGetSpecificPointerGraphicEventData(IPointer pointer, out GraphicInputEventData graphicInputEventData)
         {
             if (TryGetPointerData(pointer, out var pointerData))
             {
@@ -640,14 +640,14 @@ namespace RealityToolkit.InputSystem.Modules
         }
 
         /// <inheritdoc />
-        public bool IsPointerRegistered(IMixedRealityPointer pointer)
+        public bool IsPointerRegistered(IPointer pointer)
         {
             Debug.Assert(pointer.PointerId != 0, $"{pointer} does not have a valid pointer id!");
             return TryGetPointerData(pointer, out _);
         }
 
         /// <inheritdoc />
-        public bool RegisterPointer(IMixedRealityPointer pointer)
+        public bool RegisterPointer(IPointer pointer)
         {
             Debug.Assert(pointer.PointerId != 0, $"{pointer} does not have a valid pointer id!");
 
@@ -660,7 +660,7 @@ namespace RealityToolkit.InputSystem.Modules
             return true;
         }
 
-        private void RegisterPointers(IMixedRealityInputSource inputSource)
+        private void RegisterPointers(IInputSource inputSource)
         {
             // If our input source does not have any pointers, then skip.
             if (inputSource.Pointers == null) { return; }
@@ -681,7 +681,7 @@ namespace RealityToolkit.InputSystem.Modules
         }
 
         /// <inheritdoc />
-        public bool UnregisterPointer(IMixedRealityPointer pointer)
+        public bool UnregisterPointer(IPointer pointer)
         {
             Debug.Assert(pointer.PointerId != 0, $"{pointer} does not have a valid pointer id!");
 
@@ -722,7 +722,7 @@ namespace RealityToolkit.InputSystem.Modules
         /// <param name="pointer">the pointer who's data we're looking for</param>
         /// <param name="data">The data associated to the pointer</param>
         /// <returns>Pointer Data if the pointing source is registered.</returns>
-        private bool TryGetPointerData(IMixedRealityPointer pointer, out PointerData data)
+        private bool TryGetPointerData(IPointer pointer, out PointerData data)
         {
             foreach (var pointerData in pointers)
             {
@@ -863,7 +863,7 @@ namespace RealityToolkit.InputSystem.Modules
         /// <param name="pointer"></param>
         /// <param name="prioritizedLayerMasks"></param>
         /// <param name="hitResult"></param>
-        private static void RaycastPhysics(IMixedRealityPointer pointer, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
+        private static void RaycastPhysics(IPointer pointer, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             float rayStartDistance = 0;
             var pointerRays = pointer.Rays;
@@ -936,7 +936,7 @@ namespace RealityToolkit.InputSystem.Modules
         /// <param name="graphicEventData"></param>
         /// <param name="prioritizedLayerMasks"></param>
         /// <param name="hitResult"></param>
-        private void RaycastGraphics(IMixedRealityPointer pointer, PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
+        private void RaycastGraphics(IPointer pointer, PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             Debug.Assert(UIRaycastCamera != null, "Missing UIRaycastCamera!");
             Debug.Assert(UIRaycastCamera.nearClipPlane == 0, "Near plane must be zero for raycast distances to be correct");

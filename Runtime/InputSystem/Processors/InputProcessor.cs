@@ -3,7 +3,7 @@
 
 using RealityCollective.ServiceFramework.Definitions;
 
-namespace RealityToolkit.InputSystem.Processors
+namespace RealityToolkit.Input.Processors
 {
     /// <summary>
     ///  An operation that the device applies to an input value. For example, an "invert" Processor inverts a floating-point value.

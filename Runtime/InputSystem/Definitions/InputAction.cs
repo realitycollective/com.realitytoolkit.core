@@ -6,19 +6,19 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// An Input Action for mapping an action to an Input Control like a Button, Joystick, Sensor, etc.
     /// </summary>
     [Serializable]
-    public struct MixedRealityInputAction : IEqualityComparer, ISerializationCallbackReceiver
+    public struct InputAction : IEqualityComparer, ISerializationCallbackReceiver
     {
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="description"></param>
-        private MixedRealityInputAction(string description) : this()
+        private InputAction(string description) : this()
         {
             if (string.IsNullOrWhiteSpace(description))
             {
@@ -37,7 +37,7 @@ namespace RealityToolkit.InputSystem.Definitions
         /// <param name="id"></param>
         /// <param name="description"></param>
         /// <param name="axisConstraint"></param>
-        public MixedRealityInputAction(uint id, string description, AxisType axisConstraint = AxisType.None) : this(description)
+        public InputAction(uint id, string description, AxisType axisConstraint = AxisType.None) : this(description)
         {
             if (id == 0 && description != "None")
             {
@@ -55,7 +55,7 @@ namespace RealityToolkit.InputSystem.Definitions
         /// <param name="id"></param>
         /// <param name="description"></param>
         /// <param name="axisConstraint"></param>
-        public MixedRealityInputAction(Guid profileGuid, uint id, string description, AxisType axisConstraint = AxisType.None)
+        public InputAction(Guid profileGuid, uint id, string description, AxisType axisConstraint = AxisType.None)
             : this(id, description, axisConstraint)
         {
             Profile = profileGuid.ToString("N");
@@ -67,7 +67,7 @@ namespace RealityToolkit.InputSystem.Definitions
         /// <remarks>
         /// Any action that has an id of 0 is considered the same as "None".
         /// </remarks>
-        public static readonly MixedRealityInputAction None = new MixedRealityInputAction("None");
+        public static readonly InputAction None = new InputAction("None");
 
         private static readonly string DefaultGuidString = default(Guid).ToString("N");
 
@@ -117,12 +117,12 @@ namespace RealityToolkit.InputSystem.Definitions
         /// </summary>
         public AxisType AxisConstraint => axisConstraint;
 
-        public static bool operator ==(MixedRealityInputAction left, MixedRealityInputAction right)
+        public static bool operator ==(InputAction left, InputAction right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(MixedRealityInputAction left, MixedRealityInputAction right)
+        public static bool operator !=(InputAction left, InputAction right)
         {
             return !left.Equals(right);
         }
@@ -133,14 +133,14 @@ namespace RealityToolkit.InputSystem.Definitions
         bool IEqualityComparer.Equals(object left, object right)
         {
             if (left is null || right is null) { return false; }
-            if (!(left is MixedRealityInputAction) || !(right is MixedRealityInputAction)) { return false; }
-            return ((MixedRealityInputAction)left).Equals((MixedRealityInputAction)right);
+            if (!(left is InputAction) || !(right is InputAction)) { return false; }
+            return ((InputAction)left).Equals((InputAction)right);
         }
 
         /// <summary>
         /// Determines whether the specified objects are equal.
         /// </summary>
-        public bool Equals(MixedRealityInputAction other)
+        public bool Equals(InputAction other)
         {
             // TODO remove backwards compatibility for actions that haven't been re-serialized.
             if (ProfileGuid == default && Id != 0 ||
@@ -157,13 +157,13 @@ namespace RealityToolkit.InputSystem.Definitions
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            return !(obj is null) && obj is MixedRealityInputAction action && Equals(action);
+            return !(obj is null) && obj is InputAction action && Equals(action);
         }
 
         /// <inheritdoc />
         int IEqualityComparer.GetHashCode(object obj)
         {
-            return obj is MixedRealityInputAction action ? action.GetHashCode() : 0;
+            return obj is InputAction action ? action.GetHashCode() : 0;
         }
 
         /// <inheritdoc />

@@ -4,7 +4,7 @@
 using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces.Controllers.Hands
+namespace RealityToolkit.Input.Interfaces.Controllers.Hands
 {
     /// <summary>
     /// Controller definition, used to manage a hand controller.

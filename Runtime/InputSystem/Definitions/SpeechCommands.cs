@@ -4,10 +4,10 @@
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
-    /// Data structure for mapping Voice and Keyboard input to <see cref="MixedRealityInputAction"/>s that can be raised by the Input System.
+    /// Data structure for mapping Voice and Keyboard input to <see cref="InputAction"/>s that can be raised by the Input System.
     /// </summary>
     [Serializable]
     public struct SpeechCommands
@@ -18,7 +18,7 @@ namespace RealityToolkit.InputSystem.Definitions
         /// <param name="keyword">The Keyword.</param>
         /// <param name="keyCode">The KeyCode.</param>
         /// <param name="action">The Action to perform when Keyword or KeyCode is recognized.</param>
-        public SpeechCommands(string keyword, KeyCode keyCode, MixedRealityInputAction action)
+        public SpeechCommands(string keyword, KeyCode keyCode, InputAction action)
         {
             this.keyword = keyword;
             this.keyCode = keyCode;
@@ -45,11 +45,11 @@ namespace RealityToolkit.InputSystem.Definitions
 
         [SerializeField]
         [Tooltip("The Action that is raised by either the Keyword or KeyCode.")]
-        private MixedRealityInputAction action;
+        private InputAction action;
 
         /// <summary>
-        /// The <see cref="MixedRealityInputAction"/> that is raised by either the Keyword or KeyCode.
+        /// The <see cref="InputAction"/> that is raised by either the Keyword or KeyCode.
         /// </summary>
-        public MixedRealityInputAction Action => action;
+        public InputAction Action => action;
     }
 }

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface for configuring controller visualization.

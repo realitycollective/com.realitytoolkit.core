@@ -3,12 +3,12 @@
 
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces
+namespace RealityToolkit.Input.Interfaces
 {
     /// <summary>
     /// Implements the Gaze Provider for an Input Source.
     /// </summary>
-    public interface IMixedRealityGazeProvider
+    public interface IGazeProvider
     {
         /// <summary>
         /// Enable or disable the <see cref="Component"/> attached to the <see cref="UnityEngine.GameObject"/>
@@ -18,17 +18,17 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <summary>
         /// The Gaze Input Source for the provider.
         /// </summary>
-        IMixedRealityInputSource GazeInputSource { get; }
+        IInputSource GazeInputSource { get; }
 
         /// <summary>
         /// The Gaze Pointer for the provider.
         /// </summary>
-        IMixedRealityPointer GazePointer { get; }
+        IPointer GazePointer { get; }
 
         /// <summary>
         /// The Gaze Cursor for the provider.
         /// </summary>
-        IMixedRealityCursor GazeCursor { get; }
+        ICursor GazeCursor { get; }
 
         /// <summary>
         /// The game object that is currently being gazed at, if any.
@@ -73,7 +73,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         Vector3 HeadMovementDirection { get; }
 
         /// <summary>
-        /// Get the <see cref="UnityEngine.GameObject"/> reference for this <see cref="IMixedRealityGazeProvider"/>.
+        /// Get the <see cref="UnityEngine.GameObject"/> reference for this <see cref="IGazeProvider"/>.
         /// </summary>
         GameObject GameObject { get; }
     }

@@ -5,11 +5,11 @@ using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
-    /// Configuration settings for <see cref="Interfaces.IMixedRealityPointer"/>s
-    /// in the <see cref="Interfaces.IMixedRealityInputSystem"/>.
+    /// Configuration settings for <see cref="Interfaces.IPointer"/>s
+    /// in the <see cref="Interfaces.IInputService"/>.
     /// </summary>
     public class PointersProfile : BaseProfile
     {

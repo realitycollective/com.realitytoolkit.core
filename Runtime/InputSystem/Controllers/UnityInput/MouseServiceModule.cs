@@ -4,12 +4,12 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Controllers.UnityInput
+namespace RealityToolkit.Input.Controllers.UnityInput
 {
     /// <summary>
     /// The mouse service module.
@@ -18,7 +18,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
     public class MouseServiceModule : BaseControllerServiceModule
     {
         /// <inheritdoc />
-        public MouseServiceModule(string name, uint priority, MouseControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        public MouseServiceModule(string name, uint priority, MouseControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
         }

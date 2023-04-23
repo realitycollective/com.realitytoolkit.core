@@ -4,14 +4,14 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors
 {
     /// <summary>
-    /// Component that can be added to any <see cref="GameObject"/> with a <see cref="Collider"/> to Modifies either the <see cref="IMixedRealityCursor"/> reacts when focused by a <see cref="IMixedRealityPointer"/>.
+    /// Component that can be added to any <see cref="GameObject"/> with a <see cref="Collider"/> to Modifies either the <see cref="ICursor"/> reacts when focused by a <see cref="IPointer"/>.
     /// </summary>
     public class CursorModifier : MonoBehaviour, ICursorModifier
     {
@@ -113,7 +113,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         public bool GetCursorVisibility() => HideCursorOnFocus;
 
         /// <inheritdoc />
-        public Vector3 GetModifiedPosition(IMixedRealityCursor cursor)
+        public Vector3 GetModifiedPosition(ICursor cursor)
         {
             Debug.Assert(gameObject.activeInHierarchy);
 
@@ -129,7 +129,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
                 return Vector3.zero;
             }
 
-            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem) &&
                 inputSystem.FocusProvider.TryGetFocusDetails(cursor.Pointer, out var focusDetails))
             {
                 // Else, consider the modifiers on the cursor modifier, but don't snap
@@ -140,7 +140,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         }
 
         /// <inheritdoc />
-        public Quaternion GetModifiedRotation(IMixedRealityCursor cursor)
+        public Quaternion GetModifiedRotation(ICursor cursor)
         {
             Debug.Assert(gameObject.activeInHierarchy);
             var lastStep = cursor.Pointer.Rays[cursor.Pointer.Rays.Length - 1];
@@ -153,14 +153,14 @@ namespace RealityToolkit.Utilities.UX.Cursors
         }
 
         /// <inheritdoc />
-        public Vector3 GetModifiedScale(IMixedRealityCursor cursor)
+        public Vector3 GetModifiedScale(ICursor cursor)
         {
             Debug.Assert(gameObject.activeInHierarchy);
             return CursorScaleOffset;
         }
 
         /// <inheritdoc />
-        public void GetModifiedTransform(IMixedRealityCursor cursor, out Vector3 position, out Quaternion rotation, out Vector3 scale)
+        public void GetModifiedTransform(ICursor cursor, out Vector3 position, out Quaternion rotation, out Vector3 scale)
         {
             Debug.Assert(gameObject.activeInHierarchy);
             position = GetModifiedPosition(cursor);
@@ -173,7 +173,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         #region IMixedRealityFocusChangedHandler Implementation
 
         /// <inheritdoc />
-        void IMixedRealityFocusChangedHandler.OnBeforeFocusChange(FocusEventData eventData)
+        void IFocusChangedHandler.OnBeforeFocusChange(FocusEventData eventData)
         {
             if (eventData.NewFocusedObject == gameObject)
             {
@@ -187,7 +187,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         }
 
         /// <inheritdoc />
-        void IMixedRealityFocusChangedHandler.OnFocusChanged(FocusEventData eventData) { }
+        void IFocusChangedHandler.OnFocusChanged(FocusEventData eventData) { }
 
         #endregion IMixedRealityFocusChangedHandler Implementation
 
@@ -200,7 +200,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
         private void OnDisable()
         {
-            if (ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
             {
                 foreach (var inputSource in inputSystem.DetectedInputSources)
                 {

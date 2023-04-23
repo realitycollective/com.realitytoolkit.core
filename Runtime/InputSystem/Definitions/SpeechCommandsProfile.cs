@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Configuration profile settings for setting up and consuming Speech Commands.

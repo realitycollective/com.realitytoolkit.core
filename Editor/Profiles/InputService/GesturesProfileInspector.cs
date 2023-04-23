@@ -5,7 +5,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private SerializedProperty gestures;
 
         private MixedRealityGesturesProfile gesturesProfile;
-        private MixedRealityInputSystemProfile inputSystemProfile;
+        private InputServiceProfile inputSystemProfile;
 
         private static GUIContent[] allGestureLabels;
         private static int[] allGestureIds;
@@ -44,7 +44,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             if (ServiceManager.IsActiveAndInitialized)
             {
-                inputSystemProfile = gesturesProfile.ParentProfile as MixedRealityInputSystemProfile;
+                inputSystemProfile = gesturesProfile.ParentProfile as InputServiceProfile;
                 Debug.Assert(inputSystemProfile != null);
 
                 if (inputSystemProfile.InputActionsProfile != null)
@@ -195,7 +195,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    MixedRealityInputAction inputAction = actionId.intValue == 0 ? MixedRealityInputAction.None : inputSystemProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
+                    InputAction inputAction = actionId.intValue == 0 ? InputAction.None : inputSystemProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
                     actionDescription.stringValue = inputAction.Description;
                     actionConstraint.enumValueIndex = (int)inputAction.AxisConstraint;
                     serializedObject.ApplyModifiedProperties();

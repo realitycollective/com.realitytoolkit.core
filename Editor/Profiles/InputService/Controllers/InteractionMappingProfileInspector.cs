@@ -7,8 +7,8 @@ using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.PropertyDrawers;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Processors;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Processors;
 using System;
 using UnityEditor;
 using UnityEditorInternal;
@@ -16,7 +16,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
-    [CustomEditor(typeof(MixedRealityInteractionMappingProfile))]
+    [CustomEditor(typeof(InteractionMappingProfile))]
     public class MixedRealityInteractionMappingProfileInspector : BaseProfileInspector
     {
         private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();

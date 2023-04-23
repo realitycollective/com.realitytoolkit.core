@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityToolkit.BoundarySystem.Definitions;
+using RealityToolkit.Boundary.Definitions;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.BoundarySystem.Interfaces
+namespace RealityToolkit.Boundary.Interfaces
 {
     /// <summary>
-    /// Boundary service module provide low level data access for the <see cref="IMixedRealityBoundarySystem"/> to query
+    /// Boundary service module provide low level data access for the <see cref="IBoundaryService"/> to query
     /// platform boundary state.
     /// </summary>
     public interface IMixedRealityBoundaryServiceModule : IServiceModule

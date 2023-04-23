@@ -4,12 +4,12 @@
 using RealityToolkit.EventDatum.Input;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem.Interfaces.Handlers
+namespace RealityToolkit.Input.Interfaces.Handlers
 {
     /// <summary>
     /// Interface to implement dictation events.
     /// </summary>
-    public interface IMixedRealityDictationHandler : IEventSystemHandler
+    public interface IDictationHandler : IEventSystemHandler
     {
         void OnDictationHypothesis(DictationEventData eventData);
 

@@ -1,20 +1,20 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Listeners;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Handlers
+namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
     /// Base class for the Reality Toolkit's SDK input handlers.
     /// </summary>
     public abstract class BaseInputHandler : InputSystemGlobalListener
     {
-        private IMixedRealityFocusProvider focusProvider = null;
+        private IFocusProvider focusProvider = null;
 
-        protected IMixedRealityFocusProvider FocusProvider
+        protected IFocusProvider FocusProvider
             => focusProvider ?? (focusProvider = InputSystem?.FocusProvider);
 
         [SerializeField]

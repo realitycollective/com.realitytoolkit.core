@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
@@ -15,7 +15,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <summary>
         /// Pointer for the Input Event
         /// </summary>
-        public IMixedRealityPointer Pointer { get; private set; }
+        public IPointer Pointer { get; private set; }
 
         /// <inheritdoc />
         public MixedRealityPointerEventData(EventSystem eventSystem) : base(eventSystem) { }
@@ -26,7 +26,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="pointer"></param>
         /// <param name="inputAction"></param>
         /// <param name="inputSource"></param>
-        public void Initialize(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null)
+        public void Initialize(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             BaseInitialize(inputSource ?? pointer.InputSourceParent, inputAction);
             Pointer = pointer;

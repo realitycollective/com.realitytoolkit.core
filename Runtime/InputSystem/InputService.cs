@@ -8,24 +8,24 @@ using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.InputSources;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.InputSources;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.InputSystem
+namespace RealityToolkit.Input
 {
     /// <summary>
-    /// The Reality Toolkit's specific implementation of the <see cref="IMixedRealityInputSystem"/>
+    /// The Reality Toolkit's specific implementation of the <see cref="IInputService"/>
     /// </summary>
     [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("18C9CAF0-8D36-4ADD-BB49-CDF7561CF793")]
-    public class MixedRealityInputSystem : BaseEventService, IMixedRealityInputSystem
+    public class InputService : BaseEventService, IInputService
     {
         /// <summary>
         /// Constructor.
@@ -33,12 +33,12 @@ namespace RealityToolkit.InputSystem
         /// <param name="name">The service display name.</param>
         /// <param name="priority">The service initialization priority.</param>
         /// <param name="profile">The service configuration profile.</param>
-        public MixedRealityInputSystem(string name, uint priority, MixedRealityInputSystemProfile profile)
+        public InputService(string name, uint priority, InputServiceProfile profile)
             : base(name, priority, profile)
         {
             if (profile.GazeProviderType?.Type == null)
             {
-                throw new Exception($"The {nameof(IMixedRealityInputSystem)} is missing the required {nameof(profile.GazeProviderType)}!");
+                throw new Exception($"The {nameof(IInputService)} is missing the required {nameof(profile.GazeProviderType)}!");
             }
 
             gazeProviderBehaviour = profile.GazeProviderBehaviour;
@@ -51,10 +51,10 @@ namespace RealityToolkit.InputSystem
         /// <inheritdoc />
         public event Action InputDisabled;
 
-        private readonly HashSet<IMixedRealityInputSource> detectedInputSources = new HashSet<IMixedRealityInputSource>();
+        private readonly HashSet<IInputSource> detectedInputSources = new HashSet<IInputSource>();
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IMixedRealityInputSource> DetectedInputSources => detectedInputSources;
+        public IReadOnlyCollection<IInputSource> DetectedInputSources => detectedInputSources;
 
         private readonly HashSet<IController> detectedControllers = new HashSet<IController>();
 
@@ -62,10 +62,10 @@ namespace RealityToolkit.InputSystem
         public IReadOnlyCollection<IController> DetectedControllers => detectedControllers;
 
         /// <inheritdoc />
-        public IMixedRealityFocusProvider FocusProvider { get; private set; }
+        public IFocusProvider FocusProvider { get; private set; }
 
         /// <inheritdoc />
-        public IMixedRealityGazeProvider GazeProvider { get; private set; }
+        public IGazeProvider GazeProvider { get; private set; }
 
 #if UNITY_INPUT_SYSTEM_ACTIVE
         private Type InputModuleType => typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule);
@@ -94,8 +94,8 @@ namespace RealityToolkit.InputSystem
 
         private InputEventData inputEventData;
         private MixedRealityPointerEventData pointerEventData;
-        private MixedRealityPointerDragEventData pointerDragEventData;
-        private MixedRealityPointerScrollEventData pointerScrollEventData;
+        private PointerDragEventData pointerDragEventData;
+        private PointerScrollEventData pointerScrollEventData;
 
         private InputEventData<float> floatInputEventData;
         private InputEventData<Vector2> vector2InputEventData;
@@ -107,7 +107,7 @@ namespace RealityToolkit.InputSystem
         private DictationEventData dictationEventData;
 
         /// <inheritdoc/>
-        public bool TryGetInputSource(uint sourceId, out IMixedRealityInputSource inputSource)
+        public bool TryGetInputSource(uint sourceId, out IInputSource inputSource)
         {
             foreach (var detectedInputSource in DetectedInputSources)
             {
@@ -122,7 +122,7 @@ namespace RealityToolkit.InputSystem
             return false;
         }
 
-        #region IMixedRealityGazeProvider options
+        #region IGazeProvider options
 
         /// <inheritdoc />
         public void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour)
@@ -166,7 +166,7 @@ namespace RealityToolkit.InputSystem
                 return;
             }
 
-            var component = Camera.main.gameObject.GetComponent<IMixedRealityGazeProvider>() as Component;
+            var component = Camera.main.gameObject.GetComponent<IGazeProvider>() as Component;
             if (component.IsNotNull())
             {
                 component.Destroy();
@@ -182,7 +182,7 @@ namespace RealityToolkit.InputSystem
                 return;
             }
 
-            GazeProvider = Camera.main.gameObject.EnsureComponent(gazeProviderType) as IMixedRealityGazeProvider;
+            GazeProvider = Camera.main.gameObject.EnsureComponent(gazeProviderType) as IGazeProvider;
         }
 
         private bool TryGetControllerWithPointersAttached(out IController controller)
@@ -203,9 +203,9 @@ namespace RealityToolkit.InputSystem
             return false;
         }
 
-        #endregion
+        #endregion IGazeProvider options
 
-        #region IMixedRealityManager Implementation
+        #region IService Implementation
 
         /// <inheritdoc />
         /// <remarks>
@@ -235,8 +235,8 @@ namespace RealityToolkit.InputSystem
 
                 inputEventData = new InputEventData(eventSystem);
                 pointerEventData = new MixedRealityPointerEventData(eventSystem);
-                pointerDragEventData = new MixedRealityPointerDragEventData(eventSystem);
-                pointerScrollEventData = new MixedRealityPointerScrollEventData(eventSystem);
+                pointerDragEventData = new PointerDragEventData(eventSystem);
+                pointerScrollEventData = new PointerScrollEventData(eventSystem);
 
                 floatInputEventData = new InputEventData<float>(eventSystem);
                 vector2InputEventData = new InputEventData<Vector2>(eventSystem);
@@ -250,7 +250,7 @@ namespace RealityToolkit.InputSystem
                 UpdateGazeProvider();
             }
 
-            ServiceManager.Instance.TryGetService(out IMixedRealityFocusProvider focusProvider);
+            ServiceManager.Instance.TryGetService(out IFocusProvider focusProvider);
             FocusProvider = focusProvider;
         }
 
@@ -264,17 +264,17 @@ namespace RealityToolkit.InputSystem
                 if (eventSystemGameObject.IsNotNull())
                 {
                     eventSystemGameObject.gameObject.EnsureComponent(InputModuleType);
-                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the {eventSystemGameObject.name} game object.");
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(InputService)} requires one and added it to the {eventSystemGameObject.name} game object.");
                 }
                 else if (Camera.main.IsNotNull())
                 {
                     Camera.main.gameObject.EnsureComponent(InputModuleType);
-                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the main camera.");
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(InputService)} requires one and added it to the main camera.");
                 }
                 else
                 {
                     var inputModuleObject = new GameObject(InputModuleType.Name, InputModuleType);
-                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(MixedRealityInputSystem)} requires one and added it to the scene.");
+                    Debug.Log($"There was no {InputModuleType.Name} in the scene. The {nameof(InputService)} requires one and added it to the scene.");
                 }
             }
             else if (inputModules.Length > 1)
@@ -316,7 +316,7 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        #endregion IMixedRealityManager Implementation
+        #endregion IService Implementation
 
         #region IEventSystemManager Implementation
 
@@ -498,7 +498,7 @@ namespace RealityToolkit.InputSystem
         }
 
         /// <summary>
-        /// Clear the input disable stack, which will immediately re-enable input.
+        /// Clear the input disable stack, which will immediately re-enable UnityEngine.Input.
         /// </summary>
         public void ClearInputDisableStack()
         {
@@ -585,18 +585,18 @@ namespace RealityToolkit.InputSystem
         #region IController Utilities
 
         /// <inheritdoc />
-        public bool TryGetController(IMixedRealityInputSource inputSource, out IController controller)
+        public bool TryGetController(IInputSource inputSource, out IController outputController)
         {
-            foreach (var mixedRealityController in detectedControllers)
+            foreach (var controller in detectedControllers)
             {
-                if (inputSource.SourceId == mixedRealityController.InputSource.SourceId)
+                if (inputSource.SourceId == controller.InputSource.SourceId)
                 {
-                    controller = mixedRealityController;
+                    outputController = controller;
                     return true;
                 }
             }
 
-            controller = null;
+            outputController = null;
             return false;
         }
 
@@ -626,12 +626,12 @@ namespace RealityToolkit.InputSystem
         }
 
         /// <inheritdoc />
-        public IMixedRealityInputSource RequestNewGenericInputSource(string name, IMixedRealityPointer[] pointers = null) => new BaseGenericInputSource(name, pointers);
+        public IInputSource RequestNewGenericInputSource(string name, IPointer[] pointers = null) => new BaseGenericInputSource(name, pointers);
 
         #region Input Source State Events
 
         /// <inheritdoc />
-        public void RaiseSourceDetected(IMixedRealityInputSource source, IController controller = null)
+        public void RaiseSourceDetected(IInputSource source, IController controller = null)
         {
             // Create input event
             sourceStateEventData.Initialize(source, controller);
@@ -653,15 +653,15 @@ namespace RealityToolkit.InputSystem
             UpdateGazeProvider();
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourceStateHandler> OnSourceDetectedEventHandler =
-            delegate (IMixedRealitySourceStateHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourceStateHandler> OnSourceDetectedEventHandler =
+            delegate (ISourceStateHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourceStateEventData>(eventData);
                 handler.OnSourceDetected(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseSourceLost(IMixedRealityInputSource source, IController controller = null)
+        public void RaiseSourceLost(IInputSource source, IController controller = null)
         {
             // Create input event
             sourceStateEventData.Initialize(source, controller);
@@ -683,8 +683,8 @@ namespace RealityToolkit.InputSystem
             UpdateGazeProvider();
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourceStateHandler> OnSourceLostEventHandler =
-            delegate (IMixedRealitySourceStateHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourceStateHandler> OnSourceLostEventHandler =
+            delegate (ISourceStateHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourceStateEventData>(eventData);
                 handler.OnSourceLost(casted);
@@ -695,7 +695,7 @@ namespace RealityToolkit.InputSystem
         #region Input Source Pose Events
 
         /// <inheritdoc />
-        public void RaiseSourceTrackingStateChanged(IMixedRealityInputSource source, IController controller, TrackingState state)
+        public void RaiseSourceTrackingStateChanged(IInputSource source, IController controller, TrackingState state)
         {
             // Create input event
             sourceTrackingEventData.Initialize(source, controller, state);
@@ -704,15 +704,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(sourceTrackingEventData, OnSourceTrackingChangedEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourceTrackingChangedEventHandler =
-            delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourceTrackingChangedEventHandler =
+            delegate (ISourcePoseHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<TrackingState>>(eventData);
                 handler.OnSourcePoseChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseSourcePositionChanged(IMixedRealityInputSource source, IController controller, Vector2 position)
+        public void RaiseSourcePositionChanged(IInputSource source, IController controller, Vector2 position)
         {
             // Create input event
             sourceVector2EventData.Initialize(source, controller, position);
@@ -721,15 +721,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(sourceVector2EventData, OnSourcePoseVector2ChangedEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourcePoseVector2ChangedEventHandler =
-            delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourcePoseVector2ChangedEventHandler =
+            delegate (ISourcePoseHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Vector2>>(eventData);
                 handler.OnSourcePoseChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseSourcePositionChanged(IMixedRealityInputSource source, IController controller, Vector3 position)
+        public void RaiseSourcePositionChanged(IInputSource source, IController controller, Vector3 position)
         {
             // Create input event
             sourcePositionEventData.Initialize(source, controller, position);
@@ -738,15 +738,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(sourcePositionEventData, OnSourcePositionChangedEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourcePositionChangedEventHandler =
-            delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourcePositionChangedEventHandler =
+            delegate (ISourcePoseHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Vector3>>(eventData);
                 handler.OnSourcePoseChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseSourceRotationChanged(IMixedRealityInputSource source, IController controller, Quaternion rotation)
+        public void RaiseSourceRotationChanged(IInputSource source, IController controller, Quaternion rotation)
         {
             // Create input event
             sourceRotationEventData.Initialize(source, controller, rotation);
@@ -755,15 +755,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(sourceRotationEventData, OnSourceRotationChangedEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourceRotationChangedEventHandler =
-            delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourceRotationChangedEventHandler =
+            delegate (ISourcePoseHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Quaternion>>(eventData);
                 handler.OnSourcePoseChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseSourcePoseChanged(IMixedRealityInputSource source, IController controller, Pose position)
+        public void RaiseSourcePoseChanged(IInputSource source, IController controller, Pose position)
         {
             // Create input event
             sourcePoseEventData.Initialize(source, controller, position);
@@ -772,8 +772,8 @@ namespace RealityToolkit.InputSystem
             HandleEvent(sourcePoseEventData, OnSourcePoseChangedEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySourcePoseHandler> OnSourcePoseChangedEventHandler =
-            delegate (IMixedRealitySourcePoseHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourcePoseChangedEventHandler =
+            delegate (ISourcePoseHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Pose>>(eventData);
                 handler.OnSourcePoseChanged(casted);
@@ -786,7 +786,7 @@ namespace RealityToolkit.InputSystem
         #region Focus Events
 
         /// <inheritdoc />
-        public void RaisePreFocusChanged(IMixedRealityPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
+        public void RaisePreFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
         {
             focusEventData.Initialize(pointer, oldFocusedObject, newFocusedObject);
 
@@ -817,15 +817,15 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityFocusChangedHandler> OnPreFocusChangedHandler =
-            delegate (IMixedRealityFocusChangedHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IFocusChangedHandler> OnPreFocusChangedHandler =
+            delegate (IFocusChangedHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
                 handler.OnBeforeFocusChange(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseFocusChanged(IMixedRealityPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
+        public void RaiseFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
         {
             focusEventData.Initialize(pointer, oldFocusedObject, newFocusedObject);
 
@@ -856,15 +856,15 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityFocusChangedHandler> OnFocusChangedHandler =
-            delegate (IMixedRealityFocusChangedHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IFocusChangedHandler> OnFocusChangedHandler =
+            delegate (IFocusChangedHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
                 handler.OnFocusChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseFocusEnter(IMixedRealityPointer pointer, GameObject focusedObject)
+        public void RaiseFocusEnter(IPointer pointer, GameObject focusedObject)
         {
             focusEventData.Initialize(pointer);
 
@@ -877,15 +877,15 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityFocusHandler> OnFocusEnterEventHandler =
-            delegate (IMixedRealityFocusHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IFocusHandler> OnFocusEnterEventHandler =
+            delegate (IFocusHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
                 handler.OnFocusEnter(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseFocusExit(IMixedRealityPointer pointer, GameObject unfocusedObject)
+        public void RaiseFocusExit(IPointer pointer, GameObject unfocusedObject)
         {
             focusEventData.Initialize(pointer);
 
@@ -898,8 +898,8 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityFocusHandler> OnFocusExitEventHandler =
-            delegate (IMixedRealityFocusHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IFocusHandler> OnFocusExitEventHandler =
+            delegate (IFocusHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
                 handler.OnFocusExit(casted);
@@ -911,15 +911,15 @@ namespace RealityToolkit.InputSystem
 
         #region Pointer Down
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerHandler> OnPointerDownEventHandler =
-            delegate (IMixedRealityPointerHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerHandler> OnPointerDownEventHandler =
+            delegate (IPointerHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerEventData>(eventData);
                 handler.OnPointerDown(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerDown(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerDown(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             // Create input event
             pointerEventData.Initialize(pointer, inputAction, inputSource);
@@ -941,15 +941,15 @@ namespace RealityToolkit.InputSystem
 
         #region Pointer Click
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerHandler> OnInputClickedEventHandler =
-            delegate (IMixedRealityPointerHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerHandler> OnInputClickedEventHandler =
+            delegate (IPointerHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerEventData>(eventData);
                 handler.OnPointerClicked(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerClicked(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerClicked(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             // Create input event
             pointerEventData.Initialize(pointer, inputAction, inputSource);
@@ -964,15 +964,15 @@ namespace RealityToolkit.InputSystem
 
         #region Pointer Up
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerHandler> OnPointerUpEventHandler =
-            delegate (IMixedRealityPointerHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerHandler> OnPointerUpEventHandler =
+            delegate (IPointerHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerEventData>(eventData);
                 handler.OnPointerUp(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerUp(IMixedRealityPointer pointer, MixedRealityInputAction inputAction, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerUp(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             // Create input event
             pointerEventData.Initialize(pointer, inputAction);
@@ -994,15 +994,15 @@ namespace RealityToolkit.InputSystem
 
         #endregion Pointer Up
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerScrollHandler> OnPointerScroll =
-            delegate (IMixedRealityPointerScrollHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerScrollHandler> OnPointerScroll =
+            delegate (IPointerScrollHandler handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerScrollEventData>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<PointerScrollEventData>(eventData);
                 handler.OnPointerScroll(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerScroll(IMixedRealityPointer pointer, MixedRealityInputAction scrollAction, Vector2 scrollDelta, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerScroll(IPointer pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null)
         {
             pointerScrollEventData.Initialize(pointer, scrollAction, scrollDelta);
 
@@ -1020,15 +1020,15 @@ namespace RealityToolkit.InputSystem
 
         #region Pointer Dragging
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerDragHandler> OnPointerDragBegin =
-            delegate (IMixedRealityPointerDragHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerDragHandler> OnPointerDragBegin =
+            delegate (IPointerDragHandler handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerDragEventData>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<PointerDragEventData>(eventData);
                 handler.OnPointerDragBegin(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerDragBegin(IMixedRealityPointer pointer, MixedRealityInputAction draggedAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerDragBegin(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
@@ -1046,15 +1046,15 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerDragHandler> OnPointerDrag =
-            delegate (IMixedRealityPointerDragHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerDragHandler> OnPointerDrag =
+            delegate (IPointerDragHandler handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerDragEventData>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<PointerDragEventData>(eventData);
                 handler.OnPointerDrag(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerDrag(IMixedRealityPointer pointer, MixedRealityInputAction draggedAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerDrag(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
@@ -1069,15 +1069,15 @@ namespace RealityToolkit.InputSystem
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityPointerDragHandler> OnPointerDragEnd =
-            delegate (IMixedRealityPointerDragHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IPointerDragHandler> OnPointerDragEnd =
+            delegate (IPointerDragHandler handler, BaseEventData eventData)
             {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerDragEventData>(eventData);
+                var casted = ExecuteEvents.ValidateEventData<PointerDragEventData>(eventData);
                 handler.OnPointerDragEnd(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePointerDragEnd(IMixedRealityPointer pointer, MixedRealityInputAction draggedAction, Vector3 dragDelta, IMixedRealityInputSource inputSource = null)
+        public void RaisePointerDragEnd(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
@@ -1101,21 +1101,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Down
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler> OnInputDownEventHandler =
-            delegate (IMixedRealityInputHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler> OnInputDownEventHandler =
+            delegate (IInputHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
                 handler.OnInputDown(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseOnInputDown(IMixedRealityInputSource source, MixedRealityInputAction inputAction)
+        public void RaiseOnInputDown(IInputSource source, InputAction inputAction)
         {
             RaiseOnInputDown(source, Handedness.None, inputAction);
         }
 
         /// <inheritdoc />
-        public void RaiseOnInputDown(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction)
+        public void RaiseOnInputDown(IInputSource source, Handedness handedness, InputAction inputAction)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1131,13 +1131,13 @@ namespace RealityToolkit.InputSystem
         #region Input Pressed
 
         /// <inheritdoc />
-        public void RaiseOnInputPressed(IMixedRealityInputSource source, MixedRealityInputAction inputAction)
+        public void RaiseOnInputPressed(IInputSource source, InputAction inputAction)
         {
             RaiseOnInputPressed(source, Handedness.None, inputAction);
         }
 
         /// <inheritdoc />
-        public void RaiseOnInputPressed(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction)
+        public void RaiseOnInputPressed(IInputSource source, Handedness handedness, InputAction inputAction)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1149,13 +1149,13 @@ namespace RealityToolkit.InputSystem
         }
 
         /// <inheritdoc />
-        public void RaiseOnInputPressed(IMixedRealityInputSource source, MixedRealityInputAction inputAction, float pressAmount)
+        public void RaiseOnInputPressed(IInputSource source, InputAction inputAction, float pressAmount)
         {
             RaiseOnInputPressed(source, Handedness.None, inputAction, pressAmount);
         }
 
         /// <inheritdoc />
-        public void RaiseOnInputPressed(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, float pressAmount)
+        public void RaiseOnInputPressed(IInputSource source, Handedness handedness, InputAction inputAction, float pressAmount)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1170,21 +1170,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Up
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler> OnInputUpEventHandler =
-            delegate (IMixedRealityInputHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler> OnInputUpEventHandler =
+            delegate (IInputHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
                 handler.OnInputUp(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseOnInputUp(IMixedRealityInputSource source, MixedRealityInputAction inputAction)
+        public void RaiseOnInputUp(IInputSource source, InputAction inputAction)
         {
             RaiseOnInputUp(source, Handedness.None, inputAction);
         }
 
         /// <inheritdoc />
-        public void RaiseOnInputUp(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction)
+        public void RaiseOnInputUp(IInputSource source, Handedness handedness, InputAction inputAction)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1199,21 +1199,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Position Changed
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<float>> SingleAxisInputEventHandler =
-            delegate (IMixedRealityInputHandler<float> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler<float>> SingleAxisInputEventHandler =
+            delegate (IInputHandler<float> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<float>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePositionInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, float inputPosition)
+        public void RaisePositionInputChanged(IInputSource source, InputAction inputAction, float inputPosition)
         {
             RaisePositionInputChanged(source, Handedness.None, inputAction, inputPosition);
         }
 
         /// <inheritdoc />
-        public void RaisePositionInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, float inputPosition)
+        public void RaisePositionInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, float inputPosition)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1224,21 +1224,21 @@ namespace RealityToolkit.InputSystem
             HandleEvent(floatInputEventData, SingleAxisInputEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<Vector2>> OnTwoDoFInputChanged =
-            delegate (IMixedRealityInputHandler<Vector2> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler<Vector2>> OnTwoDoFInputChanged =
+            delegate (IInputHandler<Vector2> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector2>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePositionInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Vector2 inputPosition)
+        public void RaisePositionInputChanged(IInputSource source, InputAction inputAction, Vector2 inputPosition)
         {
             RaisePositionInputChanged(source, Handedness.None, inputAction, inputPosition);
         }
 
         /// <inheritdoc />
-        public void RaisePositionInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Vector2 inputPosition)
+        public void RaisePositionInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Vector2 inputPosition)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1249,21 +1249,21 @@ namespace RealityToolkit.InputSystem
             HandleEvent(vector2InputEventData, OnTwoDoFInputChanged);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<Vector3>> OnPositionInputChanged =
-            delegate (IMixedRealityInputHandler<Vector3> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler<Vector3>> OnPositionInputChanged =
+            delegate (IInputHandler<Vector3> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector3>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePositionInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Vector3 position)
+        public void RaisePositionInputChanged(IInputSource source, InputAction inputAction, Vector3 position)
         {
             RaisePositionInputChanged(source, Handedness.None, inputAction, position);
         }
 
         /// <inheritdoc />
-        public void RaisePositionInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Vector3 position)
+        public void RaisePositionInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Vector3 position)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1278,21 +1278,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Rotation Changed
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<Quaternion>> OnRotationInputChanged =
-            delegate (IMixedRealityInputHandler<Quaternion> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler<Quaternion>> OnRotationInputChanged =
+            delegate (IInputHandler<Quaternion> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Quaternion>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseRotationInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Quaternion rotation)
+        public void RaiseRotationInputChanged(IInputSource source, InputAction inputAction, Quaternion rotation)
         {
             RaiseRotationInputChanged(source, Handedness.None, inputAction, rotation);
         }
 
         /// <inheritdoc />
-        public void RaiseRotationInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Quaternion rotation)
+        public void RaiseRotationInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Quaternion rotation)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1307,21 +1307,21 @@ namespace RealityToolkit.InputSystem
 
         #region Input Pose Changed
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityInputHandler<Pose>> OnPoseInputChanged =
-            delegate (IMixedRealityInputHandler<Pose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IInputHandler<Pose>> OnPoseInputChanged =
+            delegate (IInputHandler<Pose> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnInputChanged(casted);
             };
 
         /// <inheritdoc />
-        public void RaisePoseInputChanged(IMixedRealityInputSource source, MixedRealityInputAction inputAction, Pose inputData)
+        public void RaisePoseInputChanged(IInputSource source, InputAction inputAction, Pose inputData)
         {
             RaisePoseInputChanged(source, Handedness.None, inputAction, inputData);
         }
 
         /// <inheritdoc />
-        public void RaisePoseInputChanged(IMixedRealityInputSource source, Handedness handedness, MixedRealityInputAction inputAction, Pose inputData)
+        public void RaisePoseInputChanged(IInputSource source, Handedness handedness, InputAction inputAction, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1338,15 +1338,15 @@ namespace RealityToolkit.InputSystem
 
         #region Gesture Events
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler> OnGestureStarted =
-            delegate (IMixedRealityGestureHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureStarted =
+            delegate (IGestureHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
                 handler.OnGestureStarted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureStarted(IController controller, MixedRealityInputAction action)
+        public void RaiseGestureStarted(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
 
@@ -1354,165 +1354,165 @@ namespace RealityToolkit.InputSystem
             HandleEvent(inputEventData, OnGestureStarted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler> OnGestureUpdated =
-            delegate (IMixedRealityGestureHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureUpdated =
+            delegate (IGestureHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IController controller, MixedRealityInputAction action)
+        public void RaiseGestureUpdated(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
             HandleEvent(inputEventData, OnGestureUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Vector2>> OnGestureVector2PositionUpdated =
-            delegate (IMixedRealityGestureHandler<Vector2> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector2>> OnGestureVector2PositionUpdated =
+            delegate (IGestureHandler<Vector2> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector2>>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Vector2 inputData)
+        public void RaiseGestureUpdated(IController controller, InputAction action, Vector2 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             vector2InputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(vector2InputEventData, OnGestureVector2PositionUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Vector3>> OnGesturePositionUpdated =
-            delegate (IMixedRealityGestureHandler<Vector3> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector3>> OnGesturePositionUpdated =
+            delegate (IGestureHandler<Vector3> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector3>>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Vector3 inputData)
+        public void RaiseGestureUpdated(IController controller, InputAction action, Vector3 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             positionInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(positionInputEventData, OnGesturePositionUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Quaternion>> OnGestureRotationUpdated =
-            delegate (IMixedRealityGestureHandler<Quaternion> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Quaternion>> OnGestureRotationUpdated =
+            delegate (IGestureHandler<Quaternion> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Quaternion>>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Quaternion inputData)
+        public void RaiseGestureUpdated(IController controller, InputAction action, Quaternion inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             rotationInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(rotationInputEventData, OnGestureRotationUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Pose>> OnGesturePoseUpdated =
-            delegate (IMixedRealityGestureHandler<Pose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Pose>> OnGesturePoseUpdated =
+            delegate (IGestureHandler<Pose> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnGestureUpdated(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureUpdated(IController controller, MixedRealityInputAction action, Pose inputData)
+        public void RaiseGestureUpdated(IController controller, InputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(poseInputEventData, OnGesturePoseUpdated);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler> OnGestureCompleted =
-            delegate (IMixedRealityGestureHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureCompleted =
+            delegate (IGestureHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IController controller, MixedRealityInputAction action)
+        public void RaiseGestureCompleted(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
             HandleEvent(inputEventData, OnGestureCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Vector2>> OnGestureVector2PositionCompleted =
-            delegate (IMixedRealityGestureHandler<Vector2> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector2>> OnGestureVector2PositionCompleted =
+            delegate (IGestureHandler<Vector2> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector2>>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Vector2 inputData)
+        public void RaiseGestureCompleted(IController controller, InputAction action, Vector2 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             vector2InputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(vector2InputEventData, OnGestureVector2PositionCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Vector3>> OnGesturePositionCompleted =
-            delegate (IMixedRealityGestureHandler<Vector3> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector3>> OnGesturePositionCompleted =
+            delegate (IGestureHandler<Vector3> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector3>>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Vector3 inputData)
+        public void RaiseGestureCompleted(IController controller, InputAction action, Vector3 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             positionInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(positionInputEventData, OnGesturePositionCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Quaternion>> OnGestureRotationCompleted =
-            delegate (IMixedRealityGestureHandler<Quaternion> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Quaternion>> OnGestureRotationCompleted =
+            delegate (IGestureHandler<Quaternion> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Quaternion>>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Quaternion inputData)
+        public void RaiseGestureCompleted(IController controller, InputAction action, Quaternion inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             rotationInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(rotationInputEventData, OnGestureRotationCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler<Pose>> OnGesturePoseCompleted =
-            delegate (IMixedRealityGestureHandler<Pose> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Pose>> OnGesturePoseCompleted =
+            delegate (IGestureHandler<Pose> handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
                 handler.OnGestureCompleted(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCompleted(IController controller, MixedRealityInputAction action, Pose inputData)
+        public void RaiseGestureCompleted(IController controller, InputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
             HandleEvent(poseInputEventData, OnGesturePoseCompleted);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityGestureHandler> OnGestureCanceled =
-            delegate (IMixedRealityGestureHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureCanceled =
+            delegate (IGestureHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
                 handler.OnGestureCanceled(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseGestureCanceled(IController controller, MixedRealityInputAction action)
+        public void RaiseGestureCanceled(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
@@ -1523,15 +1523,15 @@ namespace RealityToolkit.InputSystem
 
         #region Speech Keyword Events
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpeechHandler> OnSpeechKeywordRecognizedEventHandler =
-            delegate (IMixedRealitySpeechHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpeechHandler> OnSpeechKeywordRecognizedEventHandler =
+            delegate (ISpeechHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<SpeechEventData>(eventData);
                 handler.OnSpeechKeywordRecognized(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseSpeechCommandRecognized(IMixedRealityInputSource source, MixedRealityInputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string text)
+        public void RaiseSpeechCommandRecognized(IInputSource source, InputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string text)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1546,15 +1546,15 @@ namespace RealityToolkit.InputSystem
 
         #region Dictation Events
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityDictationHandler> OnDictationHypothesisEventHandler =
-            delegate (IMixedRealityDictationHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationHypothesisEventHandler =
+            delegate (IDictationHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
                 handler.OnDictationHypothesis(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseDictationHypothesis(IMixedRealityInputSource source, string dictationHypothesis, AudioClip dictationAudioClip = null)
+        public void RaiseDictationHypothesis(IInputSource source, string dictationHypothesis, AudioClip dictationAudioClip = null)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1565,15 +1565,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(dictationEventData, OnDictationHypothesisEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityDictationHandler> OnDictationResultEventHandler =
-            delegate (IMixedRealityDictationHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationResultEventHandler =
+            delegate (IDictationHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
                 handler.OnDictationResult(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseDictationResult(IMixedRealityInputSource source, string dictationResult, AudioClip dictationAudioClip = null)
+        public void RaiseDictationResult(IInputSource source, string dictationResult, AudioClip dictationAudioClip = null)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1584,15 +1584,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(dictationEventData, OnDictationResultEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityDictationHandler> OnDictationCompleteEventHandler =
-            delegate (IMixedRealityDictationHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationCompleteEventHandler =
+            delegate (IDictationHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
                 handler.OnDictationComplete(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseDictationComplete(IMixedRealityInputSource source, string dictationResult, AudioClip dictationAudioClip)
+        public void RaiseDictationComplete(IInputSource source, string dictationResult, AudioClip dictationAudioClip)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 
@@ -1603,15 +1603,15 @@ namespace RealityToolkit.InputSystem
             HandleEvent(dictationEventData, OnDictationCompleteEventHandler);
         }
 
-        private static readonly ExecuteEvents.EventFunction<IMixedRealityDictationHandler> OnDictationErrorEventHandler =
-            delegate (IMixedRealityDictationHandler handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationErrorEventHandler =
+            delegate (IDictationHandler handler, BaseEventData eventData)
             {
                 var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
                 handler.OnDictationError(casted);
             };
 
         /// <inheritdoc />
-        public void RaiseDictationError(IMixedRealityInputSource source, string dictationResult, AudioClip dictationAudioClip = null)
+        public void RaiseDictationError(IInputSource source, string dictationResult, AudioClip dictationAudioClip = null)
         {
             Debug.Assert(detectedInputSources.Contains(source));
 

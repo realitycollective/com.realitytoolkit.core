@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
@@ -27,7 +27,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputSource"></param>
         /// <param name="controller"></param>
         /// <param name="data"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, IController controller, T data)
+        public void Initialize(IInputSource inputSource, IController controller, T data)
         {
             Initialize(inputSource, controller);
             SourceData = data;

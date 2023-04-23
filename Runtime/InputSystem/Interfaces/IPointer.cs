@@ -2,19 +2,19 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Physics;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Interfaces
+namespace RealityToolkit.Input.Interfaces
 {
     /// <summary>
     /// Interface for handling pointers.
     /// </summary>
-    public interface IMixedRealityPointer : IEqualityComparer
+    public interface IPointer : IEqualityComparer
     {
         /// <summary>
         /// This pointer's id.
@@ -39,12 +39,12 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <summary>
         /// This pointer's input source parent.
         /// </summary>
-        IMixedRealityInputSource InputSourceParent { get; }
+        IInputSource InputSourceParent { get; }
 
         /// <summary>
         /// The pointer's cursor.
         /// </summary>
-        IMixedRealityCursor BaseCursor { get; set; }
+        ICursor BaseCursor { get; set; }
 
         /// <summary>
         /// The currently active cursor modifier.
@@ -91,7 +91,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IPointerResult.CurrentPointerTarget"/> when raycasting.
         /// </summary>
         /// <remarks>
-        /// If set, will override the <see cref="MixedRealityInputSystemProfile.PointerRaycastLayerMasks"/>'s default raycasting layer mask array.
+        /// If set, will override the <see cref="InputServiceProfile.PointerRaycastLayerMasks"/>'s default raycasting layer mask array.
         /// </remarks>
         /// <example>
         /// Allow the pointer to hit SR, but first prioritize any <see cref="Physics.DefaultRaycastLayers"/> (potentially behind SR)
@@ -106,12 +106,12 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <summary>
         /// The currently targeted focus handler.
         /// </summary>
-        IMixedRealityFocusHandler FocusHandler { get; set; }
+        IFocusHandler FocusHandler { get; set; }
 
         /// <summary>
         /// The currently targeted input handler.
         /// </summary>
-        IMixedRealityInputHandler InputHandler { get; set; }
+        IInputHandler InputHandler { get; set; }
 
         /// <summary>
         /// The combined physics and graphics raycast pointer result.

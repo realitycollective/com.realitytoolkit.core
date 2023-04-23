@@ -4,9 +4,9 @@
 using RealityCollective.Utilities.Async;
 using RealityToolkit.Definitions.ToolTips;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Handlers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Handlers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
     /// Add to any Object to spawn ToolTips on tap or on focus, according to preference
     /// Applies its follow settings to the spawned ToolTip's ToolTipConnector component
     /// </summary>
-    public class ToolTipSpawner : BaseFocusHandler, IMixedRealityInputHandler
+    public class ToolTipSpawner : BaseFocusHandler, IInputHandler
     {
         private enum VanishType
         {
@@ -59,7 +59,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
 
         [SerializeField]
         [Tooltip("The action that will be used for when to spawn or toggle the tooltip.")]
-        private MixedRealityInputAction tooltipToggleAction = MixedRealityInputAction.None;
+        private InputAction tooltipToggleAction = InputAction.None;
 
         [SerializeField]
         [Range(0f, 5f)]
@@ -141,7 +141,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
         }
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler.OnInputDown(InputEventData eventData)
+        void IInputHandler.OnInputDown(InputEventData eventData)
         {
             if (tooltipToggleAction.Id == eventData.MixedRealityInputAction.Id)
             {
@@ -158,7 +158,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
         }
 
         /// <inheritdoc />
-        void IMixedRealityInputHandler.OnInputUp(InputEventData eventData) { }
+        void IInputHandler.OnInputUp(InputEventData eventData) { }
 
         private async void ShowToolTip()
         {

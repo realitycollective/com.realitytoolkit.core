@@ -24,7 +24,7 @@ namespace RealityToolkit.Utilities
         /// <param name="mappingTypesToValidate">Array of controller mappings to validate</param>
         /// <param name="prompt">Unit Test helper, to control whether the UI prompt is offered or not</param>
         /// <returns></returns>
-        public static bool ValidateControllerProfiles(this BaseMixedRealityControllerServiceModuleProfile profile, Type[] mappingTypesToValidate, bool prompt = true)
+        public static bool ValidateControllerProfiles(this BaseControllerServiceModuleProfile profile, Type[] mappingTypesToValidate, bool prompt = true)
         {
 #if UNITY_EDITOR
             if (Application.isPlaying || EditorPrefs.GetBool(IgnoreKey, false))

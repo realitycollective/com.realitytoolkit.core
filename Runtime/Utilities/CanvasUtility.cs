@@ -3,14 +3,14 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// Utility component for setting up <see cref="UnityEngine.Canvas"/>es for use with the
-    /// <see cref="IMixedRealityInputSystem"/>.
+    /// <see cref="IInputService"/>.
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Canvas))]
@@ -29,7 +29,7 @@ namespace RealityToolkit.Utilities
             Debug.Assert(canvas.IsNotNull(), $"The {nameof(CanvasUtility)} requires a {nameof(Canvas)} component on the game object.");
 
             if (ServiceManager.IsActiveAndInitialized &&
-                ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem) &&
+                ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem) &&
                 canvas.isRootCanvas && canvas.renderMode == RenderMode.WorldSpace)
             {
                 canvas.worldCamera = inputSystem.FocusProvider.UIRaycastCamera;

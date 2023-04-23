@@ -2,11 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Modules;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Speech;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Speech;
 
-namespace RealityToolkit.InputSystem.Modules
+namespace RealityToolkit.Input.Modules
 {
     /// <summary>
     /// Base speech service module to inherit from when implementing <see cref="IMixedRealitySpeechServiceModule"/>s
@@ -14,13 +14,13 @@ namespace RealityToolkit.InputSystem.Modules
     public abstract class BaseSpeechServiceModule : BaseServiceModule, IMixedRealitySpeechServiceModule
     {
         /// <inheritdoc />
-        protected BaseSpeechServiceModule(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseSpeechServiceModule(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
             InputSystem = parentService;
         }
 
-        protected readonly IMixedRealityInputSystem InputSystem;
+        protected readonly IInputService InputSystem;
 
         /// <inheritdoc />
         public virtual bool IsRecognitionActive { get; protected set; } = false;

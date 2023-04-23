@@ -3,10 +3,10 @@
 
 using RealityCollective.Attributes;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Definitions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
@@ -14,7 +14,7 @@ namespace RealityToolkit.InputSystem.Definitions
     public class MixedRealityPointerProfile : BaseProfile
     {
         [SerializeField]
-        [Prefab(typeof(IMixedRealityPointer))]
+        [Prefab(typeof(IPointer))]
         private GameObject pointerPrefab = null;
 
         public GameObject PointerPrefab => pointerPrefab;

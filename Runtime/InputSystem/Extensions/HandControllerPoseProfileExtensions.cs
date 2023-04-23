@@ -5,7 +5,7 @@ using RealityToolkit.Definitions.Controllers.Hands;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.InputSystem.Extensions
+namespace RealityToolkit.Input.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="HandControllerPoseProfile"/>
