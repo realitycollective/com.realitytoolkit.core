@@ -12,7 +12,7 @@ namespace RealityToolkit.InputSystem.Interfaces.Modules
     /// <summary>
     /// Reality Toolkit service module definition, used to instantiate and manage controllers and joysticks
     /// </summary>
-    public interface IMixedRealityControllerServiceModule : IMixedRealityInputServiceModule
+    public interface IControllerServiceModule : IMixedRealityInputServiceModule
     {
         /// <summary>
         /// Retrieve all controllers currently registered with this device at runtime (if direct access is required).

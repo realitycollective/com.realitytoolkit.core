@@ -31,11 +31,11 @@ namespace RealityToolkit.InputSystem.Controllers
         /// <summary>
         /// Creates a new instance of a controller.
         /// </summary>
-        /// <param name="controllerDataProvider">The <see cref="IMixedRealityControllerServiceModule"/> this controller belongs to.</param>
+        /// <param name="controllerDataProvider">The <see cref="IControllerServiceModule"/> this controller belongs to.</param>
         /// <param name="trackingState">The initial tracking state of this controller.</param>
         /// <param name="controllerHandedness">The controller's handedness.</param>
         /// <param name="controllerMappingProfile"></param>
-        protected BaseController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
         {
             ControllerDataProvider = controllerDataProvider;
             TrackingState = trackingState;
@@ -109,7 +109,7 @@ namespace RealityToolkit.InputSystem.Controllers
         /// </summary>
         protected virtual Pose GripPoseOffset => Pose.identity;
 
-        #region IMixedRealityController Implementation
+        #region IController Implementation
 
         /// <inheritdoc />
         public string Name { get; }
@@ -118,7 +118,7 @@ namespace RealityToolkit.InputSystem.Controllers
         public bool Enabled { get; set; }
 
         /// <inheritdoc />
-        public IMixedRealityControllerServiceModule ControllerDataProvider { get; }
+        public IControllerServiceModule ControllerDataProvider { get; }
 
         /// <inheritdoc />
         public TrackingState TrackingState { get; protected set; }
@@ -153,7 +153,7 @@ namespace RealityToolkit.InputSystem.Controllers
         /// <inheritdoc />
         public Vector3 Velocity { get; protected set; } = Vector3.zero;
 
-        #endregion IMixedRealityController Implementation
+        #endregion IController Implementation
 
         /// <summary>
         /// Updates the current readings for the controller.

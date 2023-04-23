@@ -124,7 +124,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <param name="gazeProviderBehaviour">The new <see cref="GazeProviderBehaviour"/>.</param>
         void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour);
 
-        #region IMixedRealityController Utilities
+        #region IController Utilities
 
         /// <summary>
         /// Tried to get a <see cref="IController"/> from the <see cref="DetectedControllers"/> list.
@@ -134,7 +134,7 @@ namespace RealityToolkit.InputSystem.Interfaces
         /// <returns>True, if an <see cref="IController"/> is found.</returns>
         bool TryGetController(IMixedRealityInputSource inputSource, out IController controller);
 
-        #endregion IMixedRealityController Utilities
+        #endregion IController Utilities
 
         #region Input Events
 

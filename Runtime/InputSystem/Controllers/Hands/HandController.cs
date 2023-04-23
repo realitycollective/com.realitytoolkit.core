@@ -25,7 +25,7 @@ namespace RealityToolkit.InputSystem.Controllers.Hands
         public MixedRealityHandController() : base() { }
 
         /// <inheritdoc />
-        public MixedRealityHandController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public MixedRealityHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

@@ -25,9 +25,9 @@ namespace RealityToolkit.InputSystem.Interfaces.Controllers
         bool Enabled { get; set; }
 
         /// <summary>
-        /// The <see cref="IMixedRealityControllerServiceModule"/> this controller belongs to.
+        /// The <see cref="IControllerServiceModule"/> this controller belongs to.
         /// </summary>
-        IMixedRealityControllerServiceModule ControllerDataProvider { get; }
+        IControllerServiceModule ControllerDataProvider { get; }
 
         /// <summary>
         /// Outputs the current state of the Input Source, whether it is tracked or not. As defined by the SDK / Unity.

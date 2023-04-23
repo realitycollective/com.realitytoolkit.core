@@ -15,9 +15,9 @@ using UnityEngine;
 namespace RealityToolkit.InputSystem.Controllers
 {
     /// <summary>
-    /// Base controller service module to inherit from when implementing <see cref="IMixedRealityControllerServiceModule"/>s
+    /// Base controller service module to inherit from when implementing <see cref="IControllerServiceModule"/>s
     /// </summary>
-    public abstract class BaseControllerServiceModule : BaseServiceModule, IMixedRealityControllerServiceModule
+    public abstract class BaseControllerServiceModule : BaseServiceModule, IControllerServiceModule
     {
         /// <inheritdoc />
         protected BaseControllerServiceModule(string name, uint priority, BaseMixedRealityControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)

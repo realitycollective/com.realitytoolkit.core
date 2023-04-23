@@ -21,7 +21,7 @@ namespace RealityToolkit.InputSystem.Controllers.UnityInput
         public GenericJoystickController() { }
 
         /// <inheritdoc />
-        public GenericJoystickController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public GenericJoystickController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
                 : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

@@ -11,7 +11,7 @@ namespace RealityToolkit.InputSystem.Definitions
     {
         /// <summary>
         /// The <see cref="Interfaces.InputSystem.IMixedRealityGazeProvider"/> will be auto-activated
-        /// when there is no other <see cref="Interfaces.Providers.Controllers.IMixedRealityController"/> with at least one
+        /// when there is no other <see cref="Interfaces.Providers.Controllers.IController"/> with at least one
         /// <see cref="Interfaces.InputSystem.IMixedRealityPointer"/> attached available. And will become inactive
         /// as soon as one is available.
         /// </summary>

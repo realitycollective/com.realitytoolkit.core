@@ -19,7 +19,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
     [System.Runtime.InteropServices.Guid("F9E5D87E-78B0-4BD0-AE93-491DFCEE9FA0")]
     public class ControllerPoseSynchronizer : InputSystemGlobalListener, IControllerPoseSynchronizer
     {
-        #region IMixedRealityControllerPoseSynchronizer Implementation
+        #region IControllerPoseSynchronizer Implementation
 
         private Transform poseDriver = null;
 
@@ -113,7 +113,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
             set => poseAction = value;
         }
 
-        #endregion IMixedRealityControllerPoseSynchronizer Implementation
+        #endregion IControllerPoseSynchronizer Implementation
 
         #region IMixedRealitySourcePoseHandler Implementation
 

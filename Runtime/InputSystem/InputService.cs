@@ -582,7 +582,7 @@ namespace RealityToolkit.InputSystem
 
         #endregion Fallback Input Handler Options
 
-        #region IMixedRealityController Utilities
+        #region IController Utilities
 
         /// <inheritdoc />
         public bool TryGetController(IMixedRealityInputSource inputSource, out IController controller)
@@ -600,7 +600,7 @@ namespace RealityToolkit.InputSystem
             return false;
         }
 
-        #endregion IMixedRealityController Utilities
+        #endregion IController Utilities
 
         #region Input Events
 
