@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.Input.Interfaces
 {
@@ -77,7 +77,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <summary>
         /// The last raycast hit info for graphic raycast.
         /// </summary>
-        RaycastResult LastGraphicsRaycastResult { get; }
+        UnityEvents.RaycastResult LastGraphicsRaycastResult { get; }
 
         /// <summary>
         /// The current grab position of the <see cref="CurrentPointerTarget"/> in world space.

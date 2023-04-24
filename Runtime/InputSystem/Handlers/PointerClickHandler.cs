@@ -29,33 +29,33 @@ namespace RealityToolkit.Input.Handlers
         #region IMixedRealityPointerHandler Implementation
 
         /// <inheritdoc />
-        public void OnPointerDown(MixedRealityPointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
             if (onPointerDownActionEvent.InputAction == InputAction.None) { return; }
 
-            if (onPointerDownActionEvent.InputAction == eventData.MixedRealityInputAction)
+            if (onPointerDownActionEvent.InputAction == eventData.InputAction)
             {
                 onPointerDownActionEvent.UnityEvent.Invoke();
             }
         }
 
         /// <inheritdoc />
-        public void OnPointerUp(MixedRealityPointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
             if (onPointerUpActionEvent.InputAction == InputAction.None) { return; }
 
-            if (onPointerUpActionEvent.InputAction == eventData.MixedRealityInputAction)
+            if (onPointerUpActionEvent.InputAction == eventData.InputAction)
             {
                 onPointerUpActionEvent.UnityEvent.Invoke();
             }
         }
 
         /// <inheritdoc />
-        public void OnPointerClicked(MixedRealityPointerEventData eventData)
+        public void OnPointerClicked(PointerEventData eventData)
         {
             if (onPointerClickedActionEvent.InputAction == InputAction.None) { return; }
 
-            if (onPointerClickedActionEvent.InputAction == eventData.MixedRealityInputAction)
+            if (onPointerClickedActionEvent.InputAction == eventData.InputAction)
             {
                 onPointerClickedActionEvent.UnityEvent.Invoke();
             }

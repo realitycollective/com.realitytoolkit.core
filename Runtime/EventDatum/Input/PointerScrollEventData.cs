@@ -9,9 +9,9 @@ using UnityEngine.EventSystems;
 namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
-    /// Describes a <see cref="MixedRealityPointerEventData"/> with scroll data.
+    /// Describes a <see cref="PointerEventData"/> with scroll data.
     /// </summary>
-    public class PointerScrollEventData : MixedRealityPointerEventData
+    public class PointerScrollEventData : PointerEventData
     {
         /// <summary>
         /// The distance this pointer has been scrolled since the last event was raised.

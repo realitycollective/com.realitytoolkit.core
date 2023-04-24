@@ -250,7 +250,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         #region IMixedRealityPointerHandler Implementation
 
         /// <inheritdoc />
-        public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerDown(PointerEventData eventData)
         {
             foreach (var sourcePointer in eventData.InputSource.Pointers)
             {
@@ -262,10 +262,10 @@ namespace RealityToolkit.Utilities.UX.Cursors
         }
 
         /// <inheritdoc />
-        public virtual void OnPointerClicked(MixedRealityPointerEventData eventData) { }
+        public virtual void OnPointerClicked(PointerEventData eventData) { }
 
         /// <inheritdoc />
-        public virtual void OnPointerUp(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerUp(PointerEventData eventData)
         {
             foreach (var sourcePointer in eventData.InputSource.Pointers)
             {

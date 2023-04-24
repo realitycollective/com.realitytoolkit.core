@@ -2,18 +2,18 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Interfaces
+namespace RealityToolkit.SpatialAwareness.Interfaces
 {
     /// <summary>
     /// The interface definition for Spatial Awareness features in the Reality Toolkit.
     /// </summary>
-    public interface IMixedRealitySpatialAwarenessSystem : IEventService
+    public interface ISpatialAwarenessService : IEventService
     {
         /// <summary>
         /// Parent <see cref="GameObject"/> which will encapsulate all of the spatial awareness system created scene objects.

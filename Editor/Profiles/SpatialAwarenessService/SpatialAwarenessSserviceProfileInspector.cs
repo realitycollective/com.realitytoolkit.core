@@ -3,7 +3,7 @@
 
 using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
+using RealityToolkit.SpatialAwareness.Definitions;
 using UnityEditor;
 using UnityEngine;
 

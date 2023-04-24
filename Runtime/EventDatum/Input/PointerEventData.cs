@@ -3,14 +3,14 @@
 
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
-using UnityEngine.EventSystems;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Describes a pointer event that involves a tap, click, or touch.
     /// </summary>
-    public class MixedRealityPointerEventData : BaseInputEventData
+    public class PointerEventData : BaseInputEventData
     {
         /// <summary>
         /// Pointer for the Input Event
@@ -18,7 +18,7 @@ namespace RealityToolkit.EventDatum.Input
         public IPointer Pointer { get; private set; }
 
         /// <inheritdoc />
-        public MixedRealityPointerEventData(EventSystem eventSystem) : base(eventSystem) { }
+        public PointerEventData(UnityEvents.EventSystem eventSystem) : base(eventSystem) { }
 
         /// <summary>
         /// Used to initialize/reset the event and populate the data.

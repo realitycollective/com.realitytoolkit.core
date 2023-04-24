@@ -3,7 +3,7 @@
 
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
-using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Services.Input.Utilities;
 using System;
 using UnityEngine;
 

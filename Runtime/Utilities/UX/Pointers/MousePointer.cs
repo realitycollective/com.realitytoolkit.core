@@ -228,7 +228,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 if (!UseSourcePoseData &&
-                    PoseAction == eventData.MixedRealityInputAction)
+                    PoseAction == eventData.InputAction)
                 {
                     UpdateMousePosition(eventData.InputData);
                 }

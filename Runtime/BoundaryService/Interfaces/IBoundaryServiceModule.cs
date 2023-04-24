@@ -12,7 +12,7 @@ namespace RealityToolkit.Boundary.Interfaces
     /// Boundary service module provide low level data access for the <see cref="IBoundaryService"/> to query
     /// platform boundary state.
     /// </summary>
-    public interface IMixedRealityBoundaryServiceModule : IServiceModule
+    public interface IBoundaryServiceModule : IServiceModule
     {
         /// <summary>
         /// Gets the current boundary visibility.

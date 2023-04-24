@@ -4,9 +4,9 @@
 using RealityCollective.ServiceFramework.Definitions;
 using RealityCollective.ServiceFramework.Editor.Packages;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces;
+using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
 using System.Linq;
 using UnityEditor;
 
@@ -58,7 +58,7 @@ namespace RealityToolkit.Editor
                 return false;
             }
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessServiceProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessServiceProfile))
             {
                 UnityEngine.Debug.LogWarning($"Could not install {serviceConfiguration.InstancedType.Type.Name}.{nameof(MixedRealitySpatialAwarenessSystemProfile)} not found.");
                 return false;

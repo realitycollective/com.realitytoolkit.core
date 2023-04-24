@@ -3,11 +3,11 @@
 
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
+using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Definitions
+namespace RealityToolkit.SpatialAwareness.Definitions
 {
     /// <summary>
     /// Configuration profile settings for setting up the spatial awareness system.

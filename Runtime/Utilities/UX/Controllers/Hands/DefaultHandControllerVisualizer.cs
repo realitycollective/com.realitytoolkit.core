@@ -7,7 +7,7 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Interfaces.Modules;
-using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Services.Input.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 

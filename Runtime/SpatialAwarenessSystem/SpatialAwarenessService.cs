@@ -6,24 +6,24 @@ using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.SpatialAwarenessSystem;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.Handlers;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
-using RealityToolkit.SpatialAwarenessSystem.Modules;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces;
+using RealityToolkit.SpatialAwareness.Interfaces.Handlers;
+using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
+using RealityToolkit.SpatialAwareness.Modules;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.SpatialAwarenessSystem
+namespace RealityToolkit.SpatialAwareness
 {
     /// <summary>
-    /// Class providing the default implementation of the <see cref="IMixedRealitySpatialAwarenessSystem"/> interface.
+    /// Class providing the default implementation of the <see cref="ISpatialAwarenessService"/> interface.
     /// </summary>
     [RuntimePlatform(typeof(AllPlatforms))]
     [System.Runtime.InteropServices.Guid("05EF9DDC-13C2-47D4-84C5-1C9CB6CC5C1C")]
-    public class MixedRealitySpatialAwarenessSystem : BaseEventService, IMixedRealitySpatialAwarenessSystem
+    public class SpatialAwarenessService : BaseEventService, ISpatialAwarenessService
     {
         /// <summary>
         /// Constructor.
@@ -31,7 +31,7 @@ namespace RealityToolkit.SpatialAwarenessSystem
         /// <param name="name">The service display name.</param>
         /// <param name="priority">The service initialization priority.</param>
         /// <param name="profile">The service configuration profile.</param>
-        public MixedRealitySpatialAwarenessSystem(string name, uint priority, MixedRealitySpatialAwarenessSystemProfile profile)
+        public SpatialAwarenessService(string name, uint priority, MixedRealitySpatialAwarenessSystemProfile profile)
             : base(name, priority, profile)
         {
             spatialMeshVisibility = profile.MeshDisplayOption;

@@ -3,7 +3,7 @@
 
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
+using RealityToolkit.SpatialAwareness.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialObservers

@@ -265,7 +265,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
             if (eventData.SourceId != Controller?.InputSource.SourceId) { return; }
 
             if (!UseSourcePoseData &&
-                PoseAction == eventData.MixedRealityInputAction)
+                PoseAction == eventData.InputAction)
             {
                 IsTracked = true;
                 TrackingState = Definitions.Devices.TrackingState.Tracked;

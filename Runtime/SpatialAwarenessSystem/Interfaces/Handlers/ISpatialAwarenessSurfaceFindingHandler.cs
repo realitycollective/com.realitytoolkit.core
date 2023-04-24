@@ -4,7 +4,7 @@
 using RealityToolkit.EventDatum.SpatialAwarenessSystem;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Interfaces.Handlers
+namespace RealityToolkit.SpatialAwareness.Interfaces.Handlers
 {
     /// <summary>
     /// The event handler for all Spatial Awareness Surface Finding Events.

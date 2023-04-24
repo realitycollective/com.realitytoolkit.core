@@ -9,7 +9,7 @@ using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
-using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Services.Input.Utilities;
 using RealityToolkit.Utilities.Physics;
 using System;
 using System.Collections;
@@ -653,13 +653,13 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (eventData.SourceId == InputSourceParent.SourceId &&
                 interactionMode.HasFlags(InteractionMode.Far))
             {
-                if (requiresHoldAction && eventData.MixedRealityInputAction == activeHoldAction)
+                if (requiresHoldAction && eventData.InputAction == activeHoldAction)
                 {
                     IsHoldPressed = false;
                 }
 
                 if (grabAction != InputAction.None &&
-                    eventData.MixedRealityInputAction == grabAction)
+                    eventData.InputAction == grabAction)
                 {
                     IsGrabPressed = false;
 
@@ -667,7 +667,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     InputSystem.RaisePointerUp(this, grabAction);
                 }
 
-                if (eventData.MixedRealityInputAction == pointerAction)
+                if (eventData.InputAction == pointerAction)
                 {
                     IsSelectPressed = false;
                     InputSystem.RaisePointerClicked(this, pointerAction);
@@ -684,20 +684,20 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (eventData.SourceId == InputSourceParent.SourceId &&
                 interactionMode.HasFlags(InteractionMode.Far))
             {
-                if (requiresHoldAction && eventData.MixedRealityInputAction == activeHoldAction)
+                if (requiresHoldAction && eventData.InputAction == activeHoldAction)
                 {
                     IsHoldPressed = true;
                 }
 
                 if (grabAction != InputAction.None &&
-                    eventData.MixedRealityInputAction == grabAction)
+                    eventData.InputAction == grabAction)
                 {
                     IsGrabPressed = true;
 
                     InputSystem.RaisePointerDown(this, grabAction);
                 }
 
-                if (eventData.MixedRealityInputAction == pointerAction)
+                if (eventData.InputAction == pointerAction)
                 {
                     IsSelectPressed = true;
                     HasSelectPressedOnce = true;

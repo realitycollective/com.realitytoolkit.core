@@ -12,7 +12,7 @@ using UnityEditor;
 namespace RealityToolkit.Editor
 {
     /// <summary>
-    /// Installs <see cref="IMixedRealityBoundaryServiceModule"/>s coming from a third party package
+    /// Installs <see cref="IBoundaryServiceModule"/>s coming from a third party package
     /// into the <see cref="BoundaryProfile"/> in the <see cref="ServiceManager.ActiveProfile"/>.
     /// </summary>
     [InitializeOnLoad]
@@ -39,7 +39,7 @@ namespace RealityToolkit.Editor
         /// <inheritdoc/>
         public bool Install(ServiceConfiguration serviceConfiguration)
         {
-            if (!typeof(IMixedRealityBoundaryServiceModule).IsAssignableFrom(serviceConfiguration.InstancedType.Type))
+            if (!typeof(IBoundaryServiceModule).IsAssignableFrom(serviceConfiguration.InstancedType.Type))
             {
                 // This module installer does not accept the configuration type.
                 return false;
@@ -64,7 +64,7 @@ namespace RealityToolkit.Editor
             }
 
             // Setup the configuration.
-            var typedServiceConfiguration = new ServiceConfiguration<IMixedRealityBoundaryServiceModule>(serviceConfiguration.InstancedType.Type, serviceConfiguration.Name, serviceConfiguration.Priority, serviceConfiguration.RuntimePlatforms, serviceConfiguration.Profile);
+            var typedServiceConfiguration = new ServiceConfiguration<IBoundaryServiceModule>(serviceConfiguration.InstancedType.Type, serviceConfiguration.Name, serviceConfiguration.Priority, serviceConfiguration.RuntimePlatforms, serviceConfiguration.Profile);
 
             // Make sure it's not already in the target profile.
             if (boundaryServiceProfile.ServiceConfigurations.All(sc => sc.InstancedType.Type != serviceConfiguration.InstancedType.Type))

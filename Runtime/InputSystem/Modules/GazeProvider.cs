@@ -408,8 +408,8 @@ namespace RealityToolkit.Input.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerUp(GazePointer, eventData.MixedRealityInputAction);
-                    InputSystem.RaisePointerClicked(GazePointer, eventData.MixedRealityInputAction);
+                    InputSystem.RaisePointerUp(GazePointer, eventData.InputAction);
+                    InputSystem.RaisePointerClicked(GazePointer, eventData.InputAction);
                     return;
                 }
             }
@@ -422,7 +422,7 @@ namespace RealityToolkit.Input.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerDown(GazePointer, eventData.MixedRealityInputAction, eventData.InputSource);
+                    InputSystem.RaisePointerDown(GazePointer, eventData.InputAction, eventData.InputSource);
                     return;
                 }
             }

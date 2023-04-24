@@ -15,18 +15,18 @@ namespace RealityToolkit.Input.Interfaces.Handlers
         /// When a pointer down event is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerDown(MixedRealityPointerEventData eventData);
+        void OnPointerDown(EventDatum.Input.PointerEventData eventData);
 
         /// <summary>
         /// When a pointer up event is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerUp(MixedRealityPointerEventData eventData);
+        void OnPointerUp(EventDatum.Input.PointerEventData eventData);
 
         /// <summary>
         /// When a pointer clicked event is raised, this method is used to pass along the event data to the input handler.
         /// </summary>
         /// <param name="eventData"></param>
-        void OnPointerClicked(MixedRealityPointerEventData eventData);
+        void OnPointerClicked(EventDatum.Input.PointerEventData eventData);
     }
 }

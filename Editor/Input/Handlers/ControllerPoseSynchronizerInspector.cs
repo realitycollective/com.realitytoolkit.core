@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Services.Input.Utilities;
 using UnityEditor;
 using UnityEngine;
 

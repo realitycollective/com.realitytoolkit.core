@@ -5,14 +5,14 @@ using RealityCollective.Extensions;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
 using System;
-using UnityEngine.EventSystems;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Base class of all Input Events.
     /// </summary>
-    public abstract class BaseInputEventData : BaseEventData
+    public abstract class BaseInputEventData : UnityEvents.BaseEventData
     {
         /// <summary>
         /// The time at which the event occurred.
@@ -35,17 +35,17 @@ namespace RealityToolkit.EventDatum.Input
         /// <summary>
         /// The Input Action for this event.
         /// </summary>
-        public InputAction MixedRealityInputAction { get; private set; }
+        public InputAction InputAction { get; private set; }
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="eventSystem">Typically will be <see cref="EventSystem.current"/></param>
-        protected BaseInputEventData(EventSystem eventSystem) : base(eventSystem)
+        protected BaseInputEventData(UnityEvents.EventSystem eventSystem) : base(eventSystem)
         {
             if (eventSystem.IsNull())
             {
-                throw new Exception($"{nameof(EventSystem)} cannot be null!");
+                throw new Exception($"{nameof(UnityEvents.EventSystem)} cannot be null!");
             }
         }
 
@@ -59,7 +59,7 @@ namespace RealityToolkit.EventDatum.Input
             Reset();
             EventTime = DateTime.UtcNow;
             InputSource = inputSource;
-            MixedRealityInputAction = inputAction;
+            InputAction = inputAction;
             SourceId = InputSource.SourceId;
         }
     }

@@ -5,7 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.Interfaces.Events;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers
+namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
 {
     /// <summary>
     /// The Mixed Reality Spatial Observer service module contract.

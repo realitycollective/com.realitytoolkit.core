@@ -15,7 +15,7 @@ using RealityToolkit.Utilities.Physics;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.Input.Modules
 {
@@ -154,7 +154,7 @@ namespace RealityToolkit.Input.Modules
             public RaycastHit LastRaycastHit => focusDetails.LastRaycastHit;
 
             /// <inheritdoc />
-            public RaycastResult LastGraphicsRaycastResult => focusDetails.LastGraphicsRaycastResult;
+            public UnityEvents.RaycastResult LastGraphicsRaycastResult => focusDetails.LastGraphicsRaycastResult;
 
             /// <inheritdoc />
             public Vector3 GrabPointLocalSpace { get; private set; }
@@ -171,7 +171,7 @@ namespace RealityToolkit.Input.Modules
                 {
                     if (graphicData == null)
                     {
-                        graphicData = new GraphicInputEventData(EventSystem.current);
+                        graphicData = new GraphicInputEventData(UnityEvents.EventSystem.current);
                         graphicData.Clear();
                     }
 
@@ -393,7 +393,7 @@ namespace RealityToolkit.Input.Modules
         private class PointerHitResult
         {
             public RaycastHit RaycastHit;
-            public RaycastResult GraphicsRaycastResult;
+            public UnityEvents.RaycastResult GraphicsRaycastResult;
 
             public GameObject HitObject;
             public Vector3 HitPointOnObject;
@@ -457,7 +457,7 @@ namespace RealityToolkit.Input.Modules
             /// <summary>
             /// Set hit information from a canvas raycast.
             /// </summary>
-            public void Set(RaycastResult result, Vector3 hitPointOnObject, Vector4 hitNormalOnObject, RayStep ray, int rayStepIndex, float rayDistance)
+            public void Set(UnityEvents.RaycastResult result, Vector3 hitPointOnObject, Vector4 hitNormalOnObject, RayStep ray, int rayStepIndex, float rayDistance)
             {
                 RaycastHit = default;
                 GraphicsRaycastResult = result;
@@ -806,7 +806,7 @@ namespace RealityToolkit.Input.Modules
                     var currentHitResult = physicsHitResult;
 
                     // If we have a unity event system, perform graphics raycasts as well to support Unity UI interactions
-                    if (EventSystem.current != null)
+                    if (UnityEvents.EventSystem.current != null)
                     {
                         graphicsHitResult.Clear();
                         // NOTE: We need to do this AFTER RaycastPhysics so we use the current hit point to perform the correct 2D UI Raycast.
@@ -936,7 +936,7 @@ namespace RealityToolkit.Input.Modules
         /// <param name="graphicEventData"></param>
         /// <param name="prioritizedLayerMasks"></param>
         /// <param name="hitResult"></param>
-        private void RaycastGraphics(IPointer pointer, PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
+        private void RaycastGraphics(IPointer pointer, UnityEvents.PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             Debug.Assert(UIRaycastCamera != null, "Missing UIRaycastCamera!");
             Debug.Assert(UIRaycastCamera.nearClipPlane == 0, "Near plane must be zero for raycast distances to be correct");
@@ -952,7 +952,7 @@ namespace RealityToolkit.Input.Modules
             for (int i = 0; i < pointer.Rays.Length; i++)
             {
 
-                RaycastResult raycastResult;
+                UnityEvents.RaycastResult raycastResult;
                 if (RaycastGraphicsStep(graphicEventData, pointer.Rays[i], prioritizedLayerMasks, out raycastResult) &&
                         raycastResult.isValid &&
                         raycastResult.distance < pointer.Rays[i].Length &&
@@ -983,10 +983,10 @@ namespace RealityToolkit.Input.Modules
         /// <param name="step"></param>
         /// <param name="prioritizedLayerMasks"></param>
         /// <param name="uiRaycastResult"></param>
-        private bool RaycastGraphicsStep(PointerEventData graphicEventData, RayStep step, LayerMask[] prioritizedLayerMasks, out RaycastResult uiRaycastResult)
+        private bool RaycastGraphicsStep(UnityEvents.PointerEventData graphicEventData, RayStep step, LayerMask[] prioritizedLayerMasks, out UnityEvents.RaycastResult uiRaycastResult)
         {
             uiRaycastResult = default;
-            var currentEventSystem = EventSystem.current;
+            var currentEventSystem = UnityEvents.EventSystem.current;
 
             if (currentEventSystem == null)
             {

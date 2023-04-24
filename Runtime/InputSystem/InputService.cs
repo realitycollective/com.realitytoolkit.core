@@ -16,7 +16,7 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.Input
 {
@@ -93,7 +93,7 @@ namespace RealityToolkit.Input
         private FocusEventData focusEventData;
 
         private InputEventData inputEventData;
-        private MixedRealityPointerEventData pointerEventData;
+        private PointerEventData pointerEventData;
         private PointerDragEventData pointerDragEventData;
         private PointerScrollEventData pointerScrollEventData;
 
@@ -222,7 +222,7 @@ namespace RealityToolkit.Input
 
             if (Application.isPlaying)
             {
-                var eventSystem = EventSystem.current;
+                var eventSystem = UnityEvents.EventSystem.current;
                 sourceStateEventData = new SourceStateEventData(eventSystem);
 
                 sourceTrackingEventData = new SourcePoseEventData<TrackingState>(eventSystem);
@@ -234,7 +234,7 @@ namespace RealityToolkit.Input
                 focusEventData = new FocusEventData(eventSystem);
 
                 inputEventData = new InputEventData(eventSystem);
-                pointerEventData = new MixedRealityPointerEventData(eventSystem);
+                pointerEventData = new PointerEventData(eventSystem);
                 pointerDragEventData = new PointerDragEventData(eventSystem);
                 pointerScrollEventData = new PointerScrollEventData(eventSystem);
 
@@ -260,7 +260,7 @@ namespace RealityToolkit.Input
 
             if (inputModules.Length == 0)
             {
-                var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<EventSystem>();
+                var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<UnityEvents.EventSystem>();
                 if (eventSystemGameObject.IsNotNull())
                 {
                     eventSystemGameObject.gameObject.EnsureComponent(InputModuleType);
@@ -321,7 +321,7 @@ namespace RealityToolkit.Input
         #region IEventSystemManager Implementation
 
         /// <inheritdoc />
-        public override void HandleEvent<T>(BaseEventData eventData, ExecuteEvents.EventFunction<T> eventHandler)
+        public override void HandleEvent<T>(UnityEvents.BaseEventData eventData, UnityEvents.ExecuteEvents.EventFunction<T> eventHandler)
         {
             if (disabledRefCount > 0)
             {
@@ -329,7 +329,7 @@ namespace RealityToolkit.Input
             }
 
             Debug.Assert(eventData != null);
-            var baseInputEventData = ExecuteEvents.ValidateEventData<BaseInputEventData>(eventData);
+            var baseInputEventData = UnityEvents.ExecuteEvents.ValidateEventData<BaseInputEventData>(eventData);
             Debug.Assert(baseInputEventData != null);
             Debug.Assert(!baseInputEventData.used);
 
@@ -380,7 +380,7 @@ namespace RealityToolkit.Input
                         // If there is a focused object in the hierarchy of the modal handler, start the event bubble there
                         if (focusedObject != null && focusedObject.transform.IsChildOf(modalInput.transform))
                         {
-                            ExecuteEvents.ExecuteHierarchy(focusedObject, baseInputEventData, eventHandler);
+                            InputServiceEventHandlers.Execute(focusedObject, baseInputEventData, eventHandler);
 
                             if (baseInputEventData.used)
                             {
@@ -390,7 +390,7 @@ namespace RealityToolkit.Input
                         // Otherwise, just invoke the event on the modal handler itself
                         else
                         {
-                            ExecuteEvents.ExecuteHierarchy(modalInput, baseInputEventData, eventHandler);
+                            InputServiceEventHandlers.Execute(modalInput, baseInputEventData, eventHandler);
 
                             if (baseInputEventData.used)
                             {
@@ -407,7 +407,7 @@ namespace RealityToolkit.Input
                 // If event was not handled by modal, pass it on to the current focused object
                 if (focusedObject != null)
                 {
-                    ExecuteEvents.ExecuteHierarchy(focusedObject, baseInputEventData, eventHandler);
+                    InputServiceEventHandlers.Execute(focusedObject, baseInputEventData, eventHandler);
 
                     if (baseInputEventData.used)
                     {
@@ -423,7 +423,7 @@ namespace RealityToolkit.Input
 
                 if (fallbackInput != null)
                 {
-                    ExecuteEvents.ExecuteHierarchy(fallbackInput, baseInputEventData, eventHandler);
+                    InputServiceEventHandlers.Execute(fallbackInput, baseInputEventData, eventHandler);
 
                     if (baseInputEventData.used)
                     {
@@ -648,17 +648,10 @@ namespace RealityToolkit.Input
             FocusProvider?.OnSourceDetected(sourceStateEventData);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourceStateEventData, OnSourceDetectedEventHandler);
+            HandleEvent(sourceStateEventData, InputServiceEventHandlers.OnSourceDetectedEventHandler);
 
             UpdateGazeProvider();
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourceStateHandler> OnSourceDetectedEventHandler =
-            delegate (ISourceStateHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourceStateEventData>(eventData);
-                handler.OnSourceDetected(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseSourceLost(IInputSource source, IController controller = null)
@@ -676,19 +669,12 @@ namespace RealityToolkit.Input
             }
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourceStateEventData, OnSourceLostEventHandler);
+            HandleEvent(sourceStateEventData, InputServiceEventHandlers.OnSourceLostEventHandler);
 
             FocusProvider?.OnSourceLost(sourceStateEventData);
 
             UpdateGazeProvider();
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourceStateHandler> OnSourceLostEventHandler =
-            delegate (ISourceStateHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourceStateEventData>(eventData);
-                handler.OnSourceLost(casted);
-            };
 
         #endregion Input Source State Events
 
@@ -701,15 +687,8 @@ namespace RealityToolkit.Input
             sourceTrackingEventData.Initialize(source, controller, state);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourceTrackingEventData, OnSourceTrackingChangedEventHandler);
+            HandleEvent(sourceTrackingEventData, InputServiceEventHandlers.OnSourceTrackingChangedEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourceTrackingChangedEventHandler =
-            delegate (ISourcePoseHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<TrackingState>>(eventData);
-                handler.OnSourcePoseChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseSourcePositionChanged(IInputSource source, IController controller, Vector2 position)
@@ -718,15 +697,8 @@ namespace RealityToolkit.Input
             sourceVector2EventData.Initialize(source, controller, position);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourceVector2EventData, OnSourcePoseVector2ChangedEventHandler);
+            HandleEvent(sourceVector2EventData, InputServiceEventHandlers.OnSourcePoseVector2ChangedEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourcePoseVector2ChangedEventHandler =
-            delegate (ISourcePoseHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Vector2>>(eventData);
-                handler.OnSourcePoseChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseSourcePositionChanged(IInputSource source, IController controller, Vector3 position)
@@ -735,15 +707,8 @@ namespace RealityToolkit.Input
             sourcePositionEventData.Initialize(source, controller, position);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourcePositionEventData, OnSourcePositionChangedEventHandler);
+            HandleEvent(sourcePositionEventData, InputServiceEventHandlers.OnSourcePositionChangedEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourcePositionChangedEventHandler =
-            delegate (ISourcePoseHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Vector3>>(eventData);
-                handler.OnSourcePoseChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseSourceRotationChanged(IInputSource source, IController controller, Quaternion rotation)
@@ -752,15 +717,8 @@ namespace RealityToolkit.Input
             sourceRotationEventData.Initialize(source, controller, rotation);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourceRotationEventData, OnSourceRotationChangedEventHandler);
+            HandleEvent(sourceRotationEventData, InputServiceEventHandlers.OnSourceRotationChangedEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourceRotationChangedEventHandler =
-            delegate (ISourcePoseHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Quaternion>>(eventData);
-                handler.OnSourcePoseChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseSourcePoseChanged(IInputSource source, IController controller, Pose position)
@@ -769,15 +727,8 @@ namespace RealityToolkit.Input
             sourcePoseEventData.Initialize(source, controller, position);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(sourcePoseEventData, OnSourcePoseChangedEventHandler);
+            HandleEvent(sourcePoseEventData, InputServiceEventHandlers.OnSourcePoseChangedEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<ISourcePoseHandler> OnSourcePoseChangedEventHandler =
-            delegate (ISourcePoseHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SourcePoseEventData<Pose>>(eventData);
-                handler.OnSourcePoseChanged(casted);
-            };
 
         #endregion Input Source Pose Events
 
@@ -793,12 +744,12 @@ namespace RealityToolkit.Input
             // Raise Focus Events on the old and new focused objects.
             if (oldFocusedObject != null)
             {
-                ExecuteEvents.ExecuteHierarchy(oldFocusedObject, focusEventData, OnPreFocusChangedHandler);
+                InputServiceEventHandlers.Execute(oldFocusedObject, focusEventData, InputServiceEventHandlers.OnPreFocusChangedHandler);
             }
 
             if (newFocusedObject != null)
             {
-                ExecuteEvents.ExecuteHierarchy(newFocusedObject, focusEventData, OnPreFocusChangedHandler);
+                InputServiceEventHandlers.Execute(newFocusedObject, focusEventData, InputServiceEventHandlers.OnPreFocusChangedHandler);
             }
 
             // Raise Focus Events on the pointers cursor if it has one.
@@ -808,7 +759,7 @@ namespace RealityToolkit.Input
                 {
                     // When shutting down a game, we can sometime get old references to game objects that have been cleaned up.
                     // We'll ignore when this happens.
-                    ExecuteEvents.ExecuteHierarchy(pointer.BaseCursor.GameObjectReference, focusEventData, OnPreFocusChangedHandler);
+                    InputServiceEventHandlers.Execute(pointer.BaseCursor.GameObjectReference, focusEventData, InputServiceEventHandlers.OnPreFocusChangedHandler);
                 }
                 catch (Exception)
                 {
@@ -816,13 +767,6 @@ namespace RealityToolkit.Input
                 }
             }
         }
-
-        private static readonly ExecuteEvents.EventFunction<IFocusChangedHandler> OnPreFocusChangedHandler =
-            delegate (IFocusChangedHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
-                handler.OnBeforeFocusChange(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
@@ -832,12 +776,12 @@ namespace RealityToolkit.Input
             // Raise Focus Events on the old and new focused objects.
             if (oldFocusedObject != null)
             {
-                ExecuteEvents.ExecuteHierarchy(oldFocusedObject, focusEventData, OnFocusChangedHandler);
+                InputServiceEventHandlers.Execute(oldFocusedObject, focusEventData, InputServiceEventHandlers.OnFocusChangedHandler);
             }
 
             if (newFocusedObject != null)
             {
-                ExecuteEvents.ExecuteHierarchy(newFocusedObject, focusEventData, OnFocusChangedHandler);
+                InputServiceEventHandlers.Execute(newFocusedObject, focusEventData, InputServiceEventHandlers.OnFocusChangedHandler);
             }
 
             // Raise Focus Events on the pointers cursor if it has one.
@@ -847,7 +791,7 @@ namespace RealityToolkit.Input
                 {
                     // When shutting down a game, we can sometime get old references to game objects that have been cleaned up.
                     // We'll ignore when this happens.
-                    ExecuteEvents.ExecuteHierarchy(pointer.BaseCursor.GameObjectReference, focusEventData, OnFocusChangedHandler);
+                    InputServiceEventHandlers.Execute(pointer.BaseCursor.GameObjectReference, focusEventData, InputServiceEventHandlers.OnFocusChangedHandler);
                 }
                 catch (Exception)
                 {
@@ -856,67 +800,39 @@ namespace RealityToolkit.Input
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<IFocusChangedHandler> OnFocusChangedHandler =
-            delegate (IFocusChangedHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
-                handler.OnFocusChanged(casted);
-            };
-
         /// <inheritdoc />
         public void RaiseFocusEnter(IPointer pointer, GameObject focusedObject)
         {
             focusEventData.Initialize(pointer);
 
-            ExecuteEvents.ExecuteHierarchy(focusedObject, focusEventData, OnFocusEnterEventHandler);
-            ExecuteEvents.ExecuteHierarchy(focusedObject, focusEventData, ExecuteEvents.selectHandler);
+            InputServiceEventHandlers.Execute(focusedObject, focusEventData, InputServiceEventHandlers.OnFocusEnterEventHandler);
+            InputServiceEventHandlers.Execute(focusedObject, focusEventData, UnityEvents.ExecuteEvents.selectHandler);
 
             if (FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicEventData))
             {
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicEventData, ExecuteEvents.pointerEnterHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicEventData, UnityEvents.ExecuteEvents.pointerEnterHandler);
             }
         }
-
-        private static readonly ExecuteEvents.EventFunction<IFocusHandler> OnFocusEnterEventHandler =
-            delegate (IFocusHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
-                handler.OnFocusEnter(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseFocusExit(IPointer pointer, GameObject unfocusedObject)
         {
             focusEventData.Initialize(pointer);
 
-            ExecuteEvents.ExecuteHierarchy(unfocusedObject, focusEventData, OnFocusExitEventHandler);
-            ExecuteEvents.ExecuteHierarchy(unfocusedObject, focusEventData, ExecuteEvents.deselectHandler);
+            InputServiceEventHandlers.Execute(unfocusedObject, focusEventData, InputServiceEventHandlers.OnFocusExitEventHandler);
+            InputServiceEventHandlers.Execute(unfocusedObject, focusEventData, UnityEvents.ExecuteEvents.deselectHandler);
 
             if (FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicEventData))
             {
-                ExecuteEvents.ExecuteHierarchy(unfocusedObject, graphicEventData, ExecuteEvents.pointerExitHandler);
+                InputServiceEventHandlers.Execute(unfocusedObject, graphicEventData, UnityEvents.ExecuteEvents.pointerExitHandler);
             }
         }
-
-        private static readonly ExecuteEvents.EventFunction<IFocusHandler> OnFocusExitEventHandler =
-            delegate (IFocusHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<FocusEventData>(eventData);
-                handler.OnFocusExit(casted);
-            };
 
         #endregion Focus Events
 
         #region Pointers
 
         #region Pointer Down
-
-        private static readonly ExecuteEvents.EventFunction<IPointerHandler> OnPointerDownEventHandler =
-            delegate (IPointerHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerEventData>(eventData);
-                handler.OnPointerDown(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePointerDown(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
@@ -925,28 +841,21 @@ namespace RealityToolkit.Input
             pointerEventData.Initialize(pointer, inputAction, inputSource);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(pointerEventData, OnPointerDownEventHandler);
+            HandleEvent(pointerEventData, InputServiceEventHandlers.OnPointerDownEventHandler);
 
             var focusedObject = pointer.Result.CurrentPointerTarget;
 
             if (focusedObject != null &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.pointerDownHandler);
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.initializePotentialDrag);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.pointerDownHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.initializePotentialDrag);
             }
         }
 
         #endregion Pointer Down
 
         #region Pointer Click
-
-        private static readonly ExecuteEvents.EventFunction<IPointerHandler> OnInputClickedEventHandler =
-            delegate (IPointerHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerEventData>(eventData);
-                handler.OnPointerClicked(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePointerClicked(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
@@ -955,7 +864,7 @@ namespace RealityToolkit.Input
             pointerEventData.Initialize(pointer, inputAction, inputSource);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(pointerEventData, OnInputClickedEventHandler);
+            HandleEvent(pointerEventData, InputServiceEventHandlers.OnInputClickedEventHandler);
 
             // NOTE: In Unity UI, a "click" happens on every pointer up, so we have RaisePointerUp call the pointerClickHandler.
         }
@@ -964,13 +873,6 @@ namespace RealityToolkit.Input
 
         #region Pointer Up
 
-        private static readonly ExecuteEvents.EventFunction<IPointerHandler> OnPointerUpEventHandler =
-            delegate (IPointerHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<MixedRealityPointerEventData>(eventData);
-                handler.OnPointerUp(casted);
-            };
-
         /// <inheritdoc />
         public void RaisePointerUp(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
         {
@@ -978,15 +880,15 @@ namespace RealityToolkit.Input
             pointerEventData.Initialize(pointer, inputAction);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(pointerEventData, OnPointerUpEventHandler);
+            HandleEvent(pointerEventData, InputServiceEventHandlers.OnPointerUpEventHandler);
 
             var focusedObject = pointer.Result.CurrentPointerTarget;
 
             if (focusedObject != null &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.pointerUpHandler);
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.pointerClickHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.pointerUpHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.pointerClickHandler);
 
                 graphicInputEventData.Clear();
             }
@@ -994,19 +896,12 @@ namespace RealityToolkit.Input
 
         #endregion Pointer Up
 
-        private static readonly ExecuteEvents.EventFunction<IPointerScrollHandler> OnPointerScroll =
-            delegate (IPointerScrollHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<PointerScrollEventData>(eventData);
-                handler.OnPointerScroll(casted);
-            };
-
         /// <inheritdoc />
         public void RaisePointerScroll(IPointer pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null)
         {
             pointerScrollEventData.Initialize(pointer, scrollAction, scrollDelta);
 
-            HandleEvent(pointerScrollEventData, OnPointerScroll);
+            HandleEvent(pointerScrollEventData, InputServiceEventHandlers.OnPointerScroll);
 
             var focusedObject = pointer.Result.CurrentPointerTarget;
 
@@ -1014,25 +909,18 @@ namespace RealityToolkit.Input
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 graphicInputEventData.scrollDelta = scrollDelta;
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.scrollHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.scrollHandler);
             }
         }
 
         #region Pointer Dragging
-
-        private static readonly ExecuteEvents.EventFunction<IPointerDragHandler> OnPointerDragBegin =
-            delegate (IPointerDragHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<PointerDragEventData>(eventData);
-                handler.OnPointerDragBegin(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePointerDragBegin(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
-            HandleEvent(pointerDragEventData, OnPointerDragBegin);
+            HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDragBegin);
 
             var focusedObject = pointer.Result.CurrentPointerTarget;
 
@@ -1042,46 +930,32 @@ namespace RealityToolkit.Input
                 graphicInputEventData.pointerDrag = focusedObject;
                 graphicInputEventData.useDragThreshold = false;
                 graphicInputEventData.dragging = true;
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.beginDragHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.beginDragHandler);
             }
         }
-
-        private static readonly ExecuteEvents.EventFunction<IPointerDragHandler> OnPointerDrag =
-            delegate (IPointerDragHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<PointerDragEventData>(eventData);
-                handler.OnPointerDrag(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePointerDrag(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
-            HandleEvent(pointerDragEventData, OnPointerDrag);
+            HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDrag);
 
             var focusedObject = pointer.Result.CurrentPointerTarget;
 
             if (focusedObject != null &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.dragHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.dragHandler);
             }
         }
-
-        private static readonly ExecuteEvents.EventFunction<IPointerDragHandler> OnPointerDragEnd =
-            delegate (IPointerDragHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<PointerDragEventData>(eventData);
-                handler.OnPointerDragEnd(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePointerDragEnd(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
-            HandleEvent(pointerDragEventData, OnPointerDragEnd);
+            HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDragEnd);
 
             var focusedObject = pointer.Result.CurrentPointerTarget;
 
@@ -1089,7 +963,7 @@ namespace RealityToolkit.Input
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 graphicInputEventData.dragging = false;
-                ExecuteEvents.ExecuteHierarchy(focusedObject, graphicInputEventData, ExecuteEvents.endDragHandler);
+                InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.endDragHandler);
             }
         }
 
@@ -1100,13 +974,6 @@ namespace RealityToolkit.Input
         #region Generic Input Events
 
         #region Input Down
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler> OnInputDownEventHandler =
-            delegate (IInputHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
-                handler.OnInputDown(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseOnInputDown(IInputSource source, InputAction inputAction)
@@ -1123,7 +990,7 @@ namespace RealityToolkit.Input
             inputEventData.Initialize(source, handedness, inputAction);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(inputEventData, OnInputDownEventHandler);
+            HandleEvent(inputEventData, InputServiceEventHandlers.OnInputDownEventHandler);
         }
 
         #endregion Input Down
@@ -1145,7 +1012,7 @@ namespace RealityToolkit.Input
             floatInputEventData.Initialize(source, handedness, inputAction);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(floatInputEventData, SingleAxisInputEventHandler);
+            HandleEvent(floatInputEventData, InputServiceEventHandlers.SingleAxisInputEventHandler);
         }
 
         /// <inheritdoc />
@@ -1163,19 +1030,12 @@ namespace RealityToolkit.Input
             floatInputEventData.Initialize(source, handedness, inputAction, pressAmount);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(floatInputEventData, SingleAxisInputEventHandler);
+            HandleEvent(floatInputEventData, InputServiceEventHandlers.SingleAxisInputEventHandler);
         }
 
         #endregion Input Pressed
 
         #region Input Up
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler> OnInputUpEventHandler =
-            delegate (IInputHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
-                handler.OnInputUp(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseOnInputUp(IInputSource source, InputAction inputAction)
@@ -1192,19 +1052,12 @@ namespace RealityToolkit.Input
             inputEventData.Initialize(source, handedness, inputAction);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(inputEventData, OnInputUpEventHandler);
+            HandleEvent(inputEventData, InputServiceEventHandlers.OnInputUpEventHandler);
         }
 
         #endregion Input Up
 
         #region Input Position Changed
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler<float>> SingleAxisInputEventHandler =
-            delegate (IInputHandler<float> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<float>>(eventData);
-                handler.OnInputChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePositionInputChanged(IInputSource source, InputAction inputAction, float inputPosition)
@@ -1221,15 +1074,8 @@ namespace RealityToolkit.Input
             floatInputEventData.Initialize(source, handedness, inputAction, inputPosition);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(floatInputEventData, SingleAxisInputEventHandler);
+            HandleEvent(floatInputEventData, InputServiceEventHandlers.SingleAxisInputEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler<Vector2>> OnTwoDoFInputChanged =
-            delegate (IInputHandler<Vector2> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector2>>(eventData);
-                handler.OnInputChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePositionInputChanged(IInputSource source, InputAction inputAction, Vector2 inputPosition)
@@ -1246,15 +1092,8 @@ namespace RealityToolkit.Input
             vector2InputEventData.Initialize(source, handedness, inputAction, inputPosition);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(vector2InputEventData, OnTwoDoFInputChanged);
+            HandleEvent(vector2InputEventData, InputServiceEventHandlers.OnTwoDoFInputChanged);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler<Vector3>> OnPositionInputChanged =
-            delegate (IInputHandler<Vector3> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector3>>(eventData);
-                handler.OnInputChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePositionInputChanged(IInputSource source, InputAction inputAction, Vector3 position)
@@ -1271,19 +1110,12 @@ namespace RealityToolkit.Input
             positionInputEventData.Initialize(source, handedness, inputAction, position);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(positionInputEventData, OnPositionInputChanged);
+            HandleEvent(positionInputEventData, InputServiceEventHandlers.OnPositionInputChanged);
         }
 
         #endregion Input Position Changed
 
         #region Input Rotation Changed
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler<Quaternion>> OnRotationInputChanged =
-            delegate (IInputHandler<Quaternion> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Quaternion>>(eventData);
-                handler.OnInputChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseRotationInputChanged(IInputSource source, InputAction inputAction, Quaternion rotation)
@@ -1300,19 +1132,12 @@ namespace RealityToolkit.Input
             rotationInputEventData.Initialize(source, handedness, inputAction, rotation);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(positionInputEventData, OnRotationInputChanged);
+            HandleEvent(positionInputEventData, InputServiceEventHandlers.OnRotationInputChanged);
         }
 
         #endregion Input Rotation Changed
 
         #region Input Pose Changed
-
-        private static readonly ExecuteEvents.EventFunction<IInputHandler<Pose>> OnPoseInputChanged =
-            delegate (IInputHandler<Pose> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
-                handler.OnInputChanged(casted);
-            };
 
         /// <inheritdoc />
         public void RaisePoseInputChanged(IInputSource source, InputAction inputAction, Pose inputData)
@@ -1329,7 +1154,7 @@ namespace RealityToolkit.Input
             poseInputEventData.Initialize(source, handedness, inputAction, inputData);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(poseInputEventData, OnPoseInputChanged);
+            HandleEvent(poseInputEventData, InputServiceEventHandlers.OnPoseInputChanged);
         }
 
         #endregion Input Pose Changed
@@ -1338,197 +1163,106 @@ namespace RealityToolkit.Input
 
         #region Gesture Events
 
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureStarted =
-            delegate (IGestureHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
-                handler.OnGestureStarted(casted);
-            };
-
         /// <inheritdoc />
         public void RaiseGestureStarted(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
 
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
-            HandleEvent(inputEventData, OnGestureStarted);
+            HandleEvent(inputEventData, InputServiceEventHandlers.OnGestureStarted);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureUpdated =
-            delegate (IGestureHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
-                handler.OnGestureUpdated(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureUpdated(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
-            HandleEvent(inputEventData, OnGestureUpdated);
+            HandleEvent(inputEventData, InputServiceEventHandlers.OnGestureUpdated);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector2>> OnGestureVector2PositionUpdated =
-            delegate (IGestureHandler<Vector2> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector2>>(eventData);
-                handler.OnGestureUpdated(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureUpdated(IController controller, InputAction action, Vector2 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             vector2InputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(vector2InputEventData, OnGestureVector2PositionUpdated);
+            HandleEvent(vector2InputEventData, InputServiceEventHandlers.OnGestureVector2PositionUpdated);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector3>> OnGesturePositionUpdated =
-            delegate (IGestureHandler<Vector3> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector3>>(eventData);
-                handler.OnGestureUpdated(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureUpdated(IController controller, InputAction action, Vector3 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             positionInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(positionInputEventData, OnGesturePositionUpdated);
+            HandleEvent(positionInputEventData, InputServiceEventHandlers.OnGesturePositionUpdated);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Quaternion>> OnGestureRotationUpdated =
-            delegate (IGestureHandler<Quaternion> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Quaternion>>(eventData);
-                handler.OnGestureUpdated(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureUpdated(IController controller, InputAction action, Quaternion inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             rotationInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(rotationInputEventData, OnGestureRotationUpdated);
+            HandleEvent(rotationInputEventData, InputServiceEventHandlers.OnGestureRotationUpdated);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Pose>> OnGesturePoseUpdated =
-            delegate (IGestureHandler<Pose> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
-                handler.OnGestureUpdated(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureUpdated(IController controller, InputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(poseInputEventData, OnGesturePoseUpdated);
+            HandleEvent(poseInputEventData, InputServiceEventHandlers.OnGesturePoseUpdated);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureCompleted =
-            delegate (IGestureHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
-                handler.OnGestureCompleted(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureCompleted(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
-            HandleEvent(inputEventData, OnGestureCompleted);
+            HandleEvent(inputEventData, InputServiceEventHandlers.OnGestureCompleted);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector2>> OnGestureVector2PositionCompleted =
-            delegate (IGestureHandler<Vector2> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector2>>(eventData);
-                handler.OnGestureCompleted(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureCompleted(IController controller, InputAction action, Vector2 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             vector2InputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(vector2InputEventData, OnGestureVector2PositionCompleted);
+            HandleEvent(vector2InputEventData, InputServiceEventHandlers.OnGestureVector2PositionCompleted);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Vector3>> OnGesturePositionCompleted =
-            delegate (IGestureHandler<Vector3> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Vector3>>(eventData);
-                handler.OnGestureCompleted(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureCompleted(IController controller, InputAction action, Vector3 inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             positionInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(positionInputEventData, OnGesturePositionCompleted);
+            HandleEvent(positionInputEventData, InputServiceEventHandlers.OnGesturePositionCompleted);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Quaternion>> OnGestureRotationCompleted =
-            delegate (IGestureHandler<Quaternion> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Quaternion>>(eventData);
-                handler.OnGestureCompleted(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureCompleted(IController controller, InputAction action, Quaternion inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             rotationInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(rotationInputEventData, OnGestureRotationCompleted);
+            HandleEvent(rotationInputEventData, InputServiceEventHandlers.OnGestureRotationCompleted);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler<Pose>> OnGesturePoseCompleted =
-            delegate (IGestureHandler<Pose> handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData<Pose>>(eventData);
-                handler.OnGestureCompleted(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureCompleted(IController controller, InputAction action, Pose inputData)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             poseInputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action, inputData);
-            HandleEvent(poseInputEventData, OnGesturePoseCompleted);
+            HandleEvent(poseInputEventData, InputServiceEventHandlers.OnGesturePoseCompleted);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IGestureHandler> OnGestureCanceled =
-            delegate (IGestureHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<InputEventData>(eventData);
-                handler.OnGestureCanceled(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseGestureCanceled(IController controller, InputAction action)
         {
             Debug.Assert(detectedInputSources.Contains(controller.InputSource));
             inputEventData.Initialize(controller.InputSource, controller.ControllerHandedness, action);
-            HandleEvent(inputEventData, OnGestureCanceled);
+            HandleEvent(inputEventData, InputServiceEventHandlers.OnGestureCanceled);
         }
 
         #endregion Gesture Events
 
         #region Speech Keyword Events
-
-        private static readonly ExecuteEvents.EventFunction<ISpeechHandler> OnSpeechKeywordRecognizedEventHandler =
-            delegate (ISpeechHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<SpeechEventData>(eventData);
-                handler.OnSpeechKeywordRecognized(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseSpeechCommandRecognized(IInputSource source, InputAction inputAction, RecognitionConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, string text)
@@ -1539,19 +1273,12 @@ namespace RealityToolkit.Input
             speechEventData.Initialize(source, inputAction, confidence, phraseDuration, phraseStartTime, text);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(speechEventData, OnSpeechKeywordRecognizedEventHandler);
+            HandleEvent(speechEventData, InputServiceEventHandlers.OnSpeechKeywordRecognizedEventHandler);
         }
 
         #endregion Speech Keyword Events
 
         #region Dictation Events
-
-        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationHypothesisEventHandler =
-            delegate (IDictationHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
-                handler.OnDictationHypothesis(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseDictationHypothesis(IInputSource source, string dictationHypothesis, AudioClip dictationAudioClip = null)
@@ -1562,15 +1289,8 @@ namespace RealityToolkit.Input
             dictationEventData.Initialize(source, dictationHypothesis, dictationAudioClip);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(dictationEventData, OnDictationHypothesisEventHandler);
+            HandleEvent(dictationEventData, InputServiceEventHandlers.OnDictationHypothesisEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationResultEventHandler =
-            delegate (IDictationHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
-                handler.OnDictationResult(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseDictationResult(IInputSource source, string dictationResult, AudioClip dictationAudioClip = null)
@@ -1581,15 +1301,8 @@ namespace RealityToolkit.Input
             dictationEventData.Initialize(source, dictationResult, dictationAudioClip);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(dictationEventData, OnDictationResultEventHandler);
+            HandleEvent(dictationEventData, InputServiceEventHandlers.OnDictationResultEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationCompleteEventHandler =
-            delegate (IDictationHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
-                handler.OnDictationComplete(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseDictationComplete(IInputSource source, string dictationResult, AudioClip dictationAudioClip)
@@ -1600,15 +1313,8 @@ namespace RealityToolkit.Input
             dictationEventData.Initialize(source, dictationResult, dictationAudioClip);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(dictationEventData, OnDictationCompleteEventHandler);
+            HandleEvent(dictationEventData, InputServiceEventHandlers.OnDictationCompleteEventHandler);
         }
-
-        private static readonly ExecuteEvents.EventFunction<IDictationHandler> OnDictationErrorEventHandler =
-            delegate (IDictationHandler handler, BaseEventData eventData)
-            {
-                var casted = ExecuteEvents.ValidateEventData<DictationEventData>(eventData);
-                handler.OnDictationError(casted);
-            };
 
         /// <inheritdoc />
         public void RaiseDictationError(IInputSource source, string dictationResult, AudioClip dictationAudioClip = null)
@@ -1619,7 +1325,7 @@ namespace RealityToolkit.Input
             dictationEventData.Initialize(source, dictationResult, dictationAudioClip);
 
             // Pass handler through HandleEvent to perform modal/fallback logic
-            HandleEvent(dictationEventData, OnDictationErrorEventHandler);
+            HandleEvent(dictationEventData, InputServiceEventHandlers.OnDictationErrorEventHandler);
         }
 
         #endregion Dictation Events

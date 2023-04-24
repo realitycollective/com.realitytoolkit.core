@@ -8,8 +8,8 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces;
 using RealityToolkit.Utilities;
 using RealityToolkit.Utilities.Physics;
 using RealityToolkit.Utilities.UX;
@@ -619,11 +619,11 @@ namespace RealityToolkit.Input.Handlers
         /// <inheritdoc />
         public virtual void OnInputDown(InputEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
+            if (eventData.InputAction == InputAction.None) { return; }
 
             if (!eventData.used &&
                 IsBeingHeld &&
-                eventData.MixedRealityInputAction == cancelAction)
+                eventData.InputAction == cancelAction)
             {
                 EndHold(true);
                 eventData.Use();
@@ -633,11 +633,11 @@ namespace RealityToolkit.Input.Handlers
         /// <inheritdoc />
         public virtual void OnInputUp(InputEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
+            if (eventData.InputAction == InputAction.None) { return; }
 
             if (!eventData.used &&
                 IsBeingHeld &&
-                eventData.MixedRealityInputAction == cancelAction)
+                eventData.InputAction == cancelAction)
             {
                 EndHold(true);
                 eventData.Use();
@@ -647,7 +647,7 @@ namespace RealityToolkit.Input.Handlers
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<float> eventData)
         {
-            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
+            if (eventData.InputAction == InputAction.None) { return; }
 
             if (!IsBeingHeld ||
                 primaryInputSource == null ||
@@ -656,7 +656,7 @@ namespace RealityToolkit.Input.Handlers
                 return;
             }
 
-            if (eventData.MixedRealityInputAction == touchpadPressAction)
+            if (eventData.InputAction == touchpadPressAction)
             {
                 if (eventData.InputData <= 0.00001f)
                 {
@@ -671,7 +671,7 @@ namespace RealityToolkit.Input.Handlers
             if (IsRotating) { return; }
 
             if (!IsPressed &&
-                eventData.MixedRealityInputAction == touchpadPressAction &&
+                eventData.InputAction == touchpadPressAction &&
                 eventData.InputData >= pressThreshold)
             {
                 IsPressed = true;
@@ -679,7 +679,7 @@ namespace RealityToolkit.Input.Handlers
             }
 
             if (IsPressed &&
-                eventData.MixedRealityInputAction == touchpadPressAction &&
+                eventData.InputAction == touchpadPressAction &&
                 eventData.InputData <= pressThreshold)
             {
                 IsPressed = false;
@@ -690,7 +690,7 @@ namespace RealityToolkit.Input.Handlers
         /// <inheritdoc />
         public virtual void OnInputChanged(InputEventData<Vector2> eventData)
         {
-            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
+            if (eventData.InputAction == InputAction.None) { return; }
 
             // reset this in case we are rotating only.
             IsScalingPossible = false;
@@ -704,9 +704,9 @@ namespace RealityToolkit.Input.Handlers
             }
 
             // Filter our actions
-            if (eventData.MixedRealityInputAction != nudgeAction ||
-                eventData.MixedRealityInputAction != scaleAction ||
-                eventData.MixedRealityInputAction != rotateAction)
+            if (eventData.InputAction != nudgeAction ||
+                eventData.InputAction != scaleAction ||
+                eventData.InputAction != rotateAction)
             {
                 return;
             }
@@ -715,7 +715,7 @@ namespace RealityToolkit.Input.Handlers
             absoluteInputData.x = Mathf.Abs(absoluteInputData.x);
             absoluteInputData.y = Mathf.Abs(absoluteInputData.y);
 
-            IsRotationPossible = eventData.MixedRealityInputAction == rotateAction &&
+            IsRotationPossible = eventData.InputAction == rotateAction &&
                                  (absoluteInputData.x >= rotationZone.x ||
                                   absoluteInputData.y >= rotationZone.x);
 
@@ -736,8 +736,8 @@ namespace RealityToolkit.Input.Handlers
 
             if (!IsPressed || IsRotating) { return; }
 
-            IsScalingPossible = eventData.MixedRealityInputAction == scaleAction && absoluteInputData.x > 0f;
-            IsNudgePossible = eventData.MixedRealityInputAction == nudgeAction && absoluteInputData.y > 0f;
+            IsScalingPossible = eventData.InputAction == scaleAction && absoluteInputData.x > 0f;
+            IsNudgePossible = eventData.InputAction == nudgeAction && absoluteInputData.y > 0f;
 
             // Check to make sure that input values fall between min/max zone values
             if (IsScalingPossible &&
@@ -794,11 +794,11 @@ namespace RealityToolkit.Input.Handlers
         #region IMixedRealityPointerHandler Implementation
 
         /// <inheritdoc />
-        public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerDown(PointerEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
+            if (eventData.InputAction == InputAction.None) { return; }
 
-            if (eventData.MixedRealityInputAction == selectAction)
+            if (eventData.InputAction == selectAction)
             {
                 if (!useHold)
                 {
@@ -810,12 +810,12 @@ namespace RealityToolkit.Input.Handlers
         }
 
         /// <inheritdoc />
-        public virtual void OnPointerUp(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerUp(PointerEventData eventData)
         {
-            if (eventData.MixedRealityInputAction == InputAction.None) { return; }
+            if (eventData.InputAction == InputAction.None) { return; }
 
             if (eventData.used ||
-                eventData.MixedRealityInputAction != selectAction)
+                eventData.InputAction != selectAction)
             {
                 return;
             }
@@ -841,7 +841,7 @@ namespace RealityToolkit.Input.Handlers
         }
 
         /// <inheritdoc />
-        public virtual void OnPointerClicked(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerClicked(PointerEventData eventData)
         {
         }
 
@@ -852,7 +852,7 @@ namespace RealityToolkit.Input.Handlers
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="grabOffset"></param>
-        public virtual void BeginHold(MixedRealityPointerEventData eventData, Vector3? grabOffset = null)
+        public virtual void BeginHold(PointerEventData eventData, Vector3? grabOffset = null)
         {
             if (IsBeingHeld) { return; }
 
@@ -870,7 +870,7 @@ namespace RealityToolkit.Input.Handlers
 
             InputSystem?.PushModalInputHandler(gameObject);
 
-            if (ServiceManager.Instance.TryGetService<IMixedRealitySpatialAwarenessSystem>(out var spatialAwarenessSystem))
+            if (ServiceManager.Instance.TryGetService<ISpatialAwarenessService>(out var spatialAwarenessSystem))
             {
                 prevSpatialMeshDisplay = spatialAwarenessSystem.SpatialMeshVisibility;
                 spatialAwarenessSystem.SpatialMeshVisibility = spatialMeshVisibility;
@@ -924,7 +924,7 @@ namespace RealityToolkit.Input.Handlers
         {
             if (!IsBeingHeld) { return; }
 
-            if (ServiceManager.Instance.TryGetService<IMixedRealitySpatialAwarenessSystem>(out var spatialAwarenessSystem))
+            if (ServiceManager.Instance.TryGetService<ISpatialAwarenessService>(out var spatialAwarenessSystem))
             {
                 spatialAwarenessSystem.SpatialMeshVisibility = prevSpatialMeshDisplay;
             }

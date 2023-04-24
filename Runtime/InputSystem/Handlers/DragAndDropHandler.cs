@@ -104,7 +104,7 @@ namespace RealityToolkit.Input.Handlers
         #region IMixedRealityPointerHandler Implementation
 
         /// <inheritdoc />
-        void IPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
+        void IPointerHandler.OnPointerDown(PointerEventData eventData)
         {
             if (isDragging)
             {
@@ -112,7 +112,7 @@ namespace RealityToolkit.Input.Handlers
                 return;
             }
 
-            if (eventData.MixedRealityInputAction != dragAction)
+            if (eventData.InputAction != dragAction)
             {
                 // If we're not grabbing.
                 return;
@@ -131,7 +131,7 @@ namespace RealityToolkit.Input.Handlers
         }
 
         /// <inheritdoc />
-        void IPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
+        void IPointerHandler.OnPointerUp(PointerEventData eventData)
         {
             if (eventData.SourceId == currentInputSource.SourceId)
             {
@@ -142,7 +142,7 @@ namespace RealityToolkit.Input.Handlers
         }
 
         /// <inheritdoc />
-        void IPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
+        void IPointerHandler.OnPointerClicked(PointerEventData eventData) { }
 
         #endregion IMixedRealityPointerHandler Implementation
 

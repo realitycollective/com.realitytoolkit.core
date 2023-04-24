@@ -11,7 +11,7 @@ namespace RealityToolkit.Definitions.Boundary
     /// <summary>
     /// Configuration profile settings for setting up the <see cref="IBoundaryService"/>.
     /// </summary>
-    public class BoundaryProfile : BaseServiceProfile<IMixedRealityBoundaryServiceModule>
+    public class BoundaryProfile : BaseServiceProfile<IBoundaryServiceModule>
     {
         #region General Settings
 

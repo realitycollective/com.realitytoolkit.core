@@ -56,7 +56,7 @@ namespace RealityToolkit.Utilities.UX
             private Collider[] parentColliderCache;
 
             /// <inheritdoc />
-            void IPointerHandler.OnPointerDown(MixedRealityPointerEventData eventData)
+            void IPointerHandler.OnPointerDown(PointerEventData eventData)
             {
                 if (BoundingBoxParent.currentInputSource != null) { return; }
 
@@ -93,7 +93,7 @@ namespace RealityToolkit.Utilities.UX
             }
 
             /// <inheritdoc />
-            void IPointerHandler.OnPointerUp(MixedRealityPointerEventData eventData)
+            void IPointerHandler.OnPointerUp(PointerEventData eventData)
             {
                 if (BoundingBoxParent.currentInputSource != null &&
                     eventData.InputSource.SourceId == BoundingBoxParent.currentInputSource.SourceId)
@@ -113,7 +113,7 @@ namespace RealityToolkit.Utilities.UX
             }
 
             /// <inheritdoc />
-            void IPointerHandler.OnPointerClicked(MixedRealityPointerEventData eventData) { }
+            void IPointerHandler.OnPointerClicked(PointerEventData eventData) { }
 
             /// <inheritdoc />
             void ISourceStateHandler.OnSourceDetected(SourceStateEventData eventData) { }

@@ -6,14 +6,14 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces;
+using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Modules
+namespace RealityToolkit.SpatialAwareness.Modules
 {
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialAwarenessServiceModule"/> implementation
@@ -21,12 +21,12 @@ namespace RealityToolkit.SpatialAwarenessSystem.Modules
     public abstract class BaseMixedRealitySpatialObserverServiceModule : BaseServiceModule, IMixedRealitySpatialAwarenessServiceModule
     {
         /// <inheritdoc />
-        protected BaseMixedRealitySpatialObserverServiceModule(string name, uint priority, BaseMixedRealitySpatialObserverProfile profile, IMixedRealitySpatialAwarenessSystem parentService)
+        protected BaseMixedRealitySpatialObserverServiceModule(string name, uint priority, BaseMixedRealitySpatialObserverProfile profile, ISpatialAwarenessService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
             {
-                profile = ServiceManager.Instance.TryGetServiceProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
+                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
                     ? spatialAwarenessSystemProfile.GlobalMeshObserverProfile
                     : throw new ArgumentException($"Unable to get a valid {nameof(MixedRealitySpatialAwarenessSystemProfile)}!");
             }
@@ -43,7 +43,7 @@ namespace RealityToolkit.SpatialAwarenessSystem.Modules
             PhysicsLayer = profile.PhysicsLayer;
         }
 
-        protected readonly IMixedRealitySpatialAwarenessSystem SpatialAwarenessSystem;
+        protected readonly ISpatialAwarenessService SpatialAwarenessSystem;
 
         #region IMixedRealityService Implementation
 

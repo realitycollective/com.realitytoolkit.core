@@ -143,7 +143,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
         /// <inheritdoc />
         void IInputHandler.OnInputDown(InputEventData eventData)
         {
-            if (tooltipToggleAction.Id == eventData.MixedRealityInputAction.Id)
+            if (tooltipToggleAction.Id == eventData.InputAction.Id)
             {
                 tappedTime = Time.unscaledTime;
 

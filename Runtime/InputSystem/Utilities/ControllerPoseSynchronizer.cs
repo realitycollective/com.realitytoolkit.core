@@ -11,7 +11,7 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
-namespace RealityToolkit.Services.InputSystem.Utilities
+namespace RealityToolkit.Services.Input.Utilities
 {
     /// <summary>
     /// Waits for a controller to be initialized, then synchronizes its transform position to a specified handedness.
@@ -192,7 +192,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 if (!UseSourcePoseData &&
-                    PoseAction == eventData.MixedRealityInputAction)
+                    PoseAction == eventData.InputAction)
                 {
                     IsTracked = true;
                     TrackingState = TrackingState.Tracked;
@@ -207,7 +207,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 if (!UseSourcePoseData &&
-                    PoseAction == eventData.MixedRealityInputAction)
+                    PoseAction == eventData.InputAction)
                 {
                     IsTracked = true;
                     TrackingState = TrackingState.Tracked;
@@ -222,7 +222,7 @@ namespace RealityToolkit.Services.InputSystem.Utilities
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 if (!UseSourcePoseData &&
-                    PoseAction == eventData.MixedRealityInputAction)
+                    PoseAction == eventData.InputAction)
                 {
                     IsTracked = true;
                     TrackingState = TrackingState.Tracked;

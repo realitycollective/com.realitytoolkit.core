@@ -1,12 +1,12 @@
 ﻿// Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
+using RealityToolkit.SpatialAwareness.Definitions;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers
+namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
 {
     /// <summary>
     /// The interface contract for Mixed Reality spatial observers.

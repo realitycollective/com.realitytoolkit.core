@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers
+namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
 {
     public interface IMixedRealitySpatialSurfaceObserver : IMixedRealitySpatialAwarenessServiceModule
     {

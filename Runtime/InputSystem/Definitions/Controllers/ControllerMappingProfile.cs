@@ -5,7 +5,7 @@ using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Input.Interfaces.Controllers;
-using RealityToolkit.Services.InputSystem.Utilities;
+using RealityToolkit.Services.Input.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers

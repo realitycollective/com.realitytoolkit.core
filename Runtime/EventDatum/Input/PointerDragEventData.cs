@@ -9,9 +9,9 @@ using UnityEngine.EventSystems;
 namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
-    /// Describes a <see cref="MixedRealityPointerEventData"/> with dragging data.
+    /// Describes a <see cref="PointerEventData"/> with dragging data.
     /// </summary>
-    public class PointerDragEventData : MixedRealityPointerEventData
+    public class PointerDragEventData : PointerEventData
     {
         /// <summary>
         /// The distance this pointer has been dragged since the last event was raised.

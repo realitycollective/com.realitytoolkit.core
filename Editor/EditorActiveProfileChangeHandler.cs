@@ -5,8 +5,8 @@ using RealityCollective.Editor.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces;
 using UnityEditor;
 using UnityEngine;
 
@@ -35,15 +35,15 @@ namespace RealityToolkit.Editor
                     Debug.Log($"{nameof(IInputService)} was disabled, removed input axis mappings.");
                 }
 
-                if (ServiceManager.Instance.IsServiceEnabled<IMixedRealitySpatialAwarenessSystem>() &&
+                if (ServiceManager.Instance.IsServiceEnabled<ISpatialAwarenessService>() &&
                     LayerUtilities.CheckLayers(MixedRealitySpatialAwarenessSystemProfile.SpatialAwarenessLayers))
                 {
-                    Debug.Log($"{nameof(IMixedRealitySpatialAwarenessSystem)} was enabled, spatial mapping layers added to project.");
+                    Debug.Log($"{nameof(ISpatialAwarenessService)} was enabled, spatial mapping layers added to project.");
                 }
-                else if (!ServiceManager.Instance.IsServiceEnabled<IMixedRealitySpatialAwarenessSystem>() &&
+                else if (!ServiceManager.Instance.IsServiceEnabled<ISpatialAwarenessService>() &&
                          LayerUtilities.RemoveLayers(MixedRealitySpatialAwarenessSystemProfile.SpatialAwarenessLayers))
                 {
-                    Debug.Log($"{nameof(IMixedRealitySpatialAwarenessSystem)} was disabled, spatial mapping layers removed to project.");
+                    Debug.Log($"{nameof(ISpatialAwarenessService)} was disabled, spatial mapping layers removed to project.");
                 }
             }
         }

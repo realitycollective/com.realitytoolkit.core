@@ -4,14 +4,14 @@
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.SpatialObservers;
-using RealityToolkit.SpatialAwarenessSystem.Definitions;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces;
-using RealityToolkit.SpatialAwarenessSystem.Interfaces.SpatialObservers;
+using RealityToolkit.SpatialAwareness.Definitions;
+using RealityToolkit.SpatialAwareness.Interfaces;
+using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.SpatialAwarenessSystem.Modules
+namespace RealityToolkit.SpatialAwareness.Modules
 {
     /// <summary>
     /// Base <see cref="IMixedRealitySpatialSurfaceObserver"/> implementation.
@@ -19,12 +19,12 @@ namespace RealityToolkit.SpatialAwarenessSystem.Modules
     public abstract class BaseMixedRealitySpatialSurfaceObserver : BaseMixedRealitySpatialObserverServiceModule, IMixedRealitySpatialSurfaceObserver
     {
         /// <inheritdoc />
-        protected BaseMixedRealitySpatialSurfaceObserver(string name, uint priority, BaseMixedRealitySurfaceObserverProfile profile, IMixedRealitySpatialAwarenessSystem parentService)
+        protected BaseMixedRealitySpatialSurfaceObserver(string name, uint priority, BaseMixedRealitySurfaceObserverProfile profile, ISpatialAwarenessService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
             {
-                profile = ServiceManager.Instance.TryGetServiceProfile<IMixedRealitySpatialAwarenessSystem, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
+                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
                     ? spatialAwarenessSystemProfile.GlobalSurfaceObserverProfile
                     : throw new ArgumentException($"Unable to get a valid {nameof(MixedRealitySpatialAwarenessSystemProfile)}!");
             }

@@ -8,7 +8,7 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
-namespace RealityToolkit.Services.InputSystem.Utilities
+namespace RealityToolkit.Services.Input.Utilities
 {
     /// <summary>
     /// Utility component to record a hand controller's data into a file.
