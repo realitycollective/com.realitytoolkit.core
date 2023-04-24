@@ -1,11 +1,11 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.EventDatum.SpatialAwarenessSystem;
+using RealityToolkit.EventDatum.SpatialAwareness;
 using RealityToolkit.SpatialAwareness.Definitions;
 using RealityToolkit.SpatialAwareness.Interfaces;
 using RealityToolkit.SpatialAwareness.Interfaces.Handlers;
@@ -181,8 +181,8 @@ namespace RealityToolkit.SpatialAwareness
 
         #region IMixedRealityService Implementation
 
-        private MixedRealitySpatialAwarenessEventData<SpatialMeshObject> meshEventData = null;
-        private MixedRealitySpatialAwarenessEventData<GameObject> surfaceFindingEventData = null;
+        private SpatialAwarenessEventData<SpatialMeshObject> meshEventData = null;
+        private SpatialAwarenessEventData<GameObject> surfaceFindingEventData = null;
 
         /// <inheritdoc/>
         public override void Initialize()
@@ -192,8 +192,8 @@ namespace RealityToolkit.SpatialAwareness
             if (Application.isPlaying)
             {
                 var eventSystem = EventSystem.current;
-                meshEventData = new MixedRealitySpatialAwarenessEventData<SpatialMeshObject>(eventSystem);
-                surfaceFindingEventData = new MixedRealitySpatialAwarenessEventData<GameObject>(eventSystem);
+                meshEventData = new SpatialAwarenessEventData<SpatialMeshObject>(eventSystem);
+                surfaceFindingEventData = new SpatialAwarenessEventData<GameObject>(eventSystem);
             }
         }
 
@@ -243,7 +243,7 @@ namespace RealityToolkit.SpatialAwareness
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshAdded =
             delegate (IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
             {
-                var spatialEventData = ExecuteEvents.ValidateEventData<MixedRealitySpatialAwarenessEventData<SpatialMeshObject>>(eventData);
+                var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<SpatialMeshObject>>(eventData);
                 handler.OnMeshAdded(spatialEventData);
             };
 
@@ -263,7 +263,7 @@ namespace RealityToolkit.SpatialAwareness
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshUpdated =
             delegate (IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
             {
-                var spatialEventData = ExecuteEvents.ValidateEventData<MixedRealitySpatialAwarenessEventData<SpatialMeshObject>>(eventData);
+                var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<SpatialMeshObject>>(eventData);
                 handler.OnMeshUpdated(spatialEventData);
             };
 
@@ -280,7 +280,7 @@ namespace RealityToolkit.SpatialAwareness
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshRemoved =
             delegate (IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
             {
-                var spatialEventData = ExecuteEvents.ValidateEventData<MixedRealitySpatialAwarenessEventData<SpatialMeshObject>>(eventData);
+                var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<SpatialMeshObject>>(eventData);
                 handler.OnMeshRemoved(spatialEventData);
             };
 
@@ -301,7 +301,7 @@ namespace RealityToolkit.SpatialAwareness
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceAdded =
             delegate (IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
             {
-                var spatialEventData = ExecuteEvents.ValidateEventData<MixedRealitySpatialAwarenessEventData<GameObject>>(eventData);
+                var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<GameObject>>(eventData);
                 handler.OnSurfaceAdded(spatialEventData);
             };
 
@@ -318,7 +318,7 @@ namespace RealityToolkit.SpatialAwareness
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceUpdated =
             delegate (IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
             {
-                var spatialEventData = ExecuteEvents.ValidateEventData<MixedRealitySpatialAwarenessEventData<GameObject>>(eventData);
+                var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<GameObject>>(eventData);
                 handler.OnSurfaceUpdated(spatialEventData);
             };
 
@@ -335,7 +335,7 @@ namespace RealityToolkit.SpatialAwareness
         private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceRemoved =
             delegate (IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
             {
-                var spatialEventData = ExecuteEvents.ValidateEventData<MixedRealitySpatialAwarenessEventData<GameObject>>(eventData);
+                var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<GameObject>>(eventData);
                 handler.OnSurfaceRemoved(spatialEventData);
             };
 

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.EventDatum.SpatialAwarenessSystem;
+using RealityToolkit.EventDatum.SpatialAwareness;
 using UnityEngine.EventSystems;
 
 namespace RealityToolkit.SpatialAwareness.Interfaces.Handlers
@@ -15,18 +15,18 @@ namespace RealityToolkit.SpatialAwareness.Interfaces.Handlers
         /// Called when the spatial awareness mesh subsystem adds a mesh.
         /// </summary>
         /// <param name="eventData">Data describing the event.</param>
-        void OnMeshAdded(MixedRealitySpatialAwarenessEventData<T> eventData);
+        void OnMeshAdded(SpatialAwarenessEventData<T> eventData);
 
         /// <summary>
         /// Called when the spatial awareness mesh subsystem updates an existing mesh.
         /// </summary>
         /// <param name="eventData">Data describing the event.</param>
-        void OnMeshUpdated(MixedRealitySpatialAwarenessEventData<T> eventData);
+        void OnMeshUpdated(SpatialAwarenessEventData<T> eventData);
 
         /// <summary>
         /// Called when the spatial awareness mesh subsystem removes an existing mesh.
         /// </summary>
         /// <param name="eventData">Data describing the event.</param>
-        void OnMeshRemoved(MixedRealitySpatialAwarenessEventData<T> eventData);
+        void OnMeshRemoved(SpatialAwarenessEventData<T> eventData);
     }
 }

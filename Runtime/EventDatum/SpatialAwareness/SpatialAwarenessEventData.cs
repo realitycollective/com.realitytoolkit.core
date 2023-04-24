@@ -1,16 +1,16 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers;
 using System;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.EventDatum.SpatialAwarenessSystem
+namespace RealityToolkit.EventDatum.SpatialAwareness
 {
     /// <summary>
     /// Data for spatial awareness events.
     /// </summary>
-    public class MixedRealitySpatialAwarenessEventData<T> : GenericBaseEventData
+    public class SpatialAwarenessEventData<T> : GenericBaseEventData
     {
         /// <summary>
         /// Identifier of the object associated with this event.
@@ -26,7 +26,7 @@ namespace RealityToolkit.EventDatum.SpatialAwarenessSystem
         /// Constructor.
         /// </summary>
         /// <param name="eventSystem"></param>
-        public MixedRealitySpatialAwarenessEventData(EventSystem eventSystem) : base(eventSystem) { }
+        public SpatialAwarenessEventData(EventSystem eventSystem) : base(eventSystem) { }
 
         /// <summary>
         /// Used to initialize/reset the event and populate the data.
