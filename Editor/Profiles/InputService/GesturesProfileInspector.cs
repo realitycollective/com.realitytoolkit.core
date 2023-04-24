@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
-    [CustomEditor(typeof(MixedRealityGesturesProfile))]
+    [CustomEditor(typeof(GesturesProfile))]
     public class MixedRealityGesturesProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent MinusButtonContent = new GUIContent("-", "Remove defined Gesture");
@@ -25,7 +25,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
         private SerializedProperty gestures;
 
-        private MixedRealityGesturesProfile gesturesProfile;
+        private GesturesProfile gesturesProfile;
         private InputServiceProfile inputSystemProfile;
 
         private static GUIContent[] allGestureLabels;
@@ -39,7 +39,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             gestures = serializedObject.FindProperty(nameof(gestures));
 
-            gesturesProfile = target as MixedRealityGesturesProfile;
+            gesturesProfile = target as GesturesProfile;
             Debug.Assert(gesturesProfile != null);
 
             if (ServiceManager.IsActiveAndInitialized)

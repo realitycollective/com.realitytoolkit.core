@@ -72,8 +72,8 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         {
             return new[]
             {
-                new ControllerDefinition(typeof(MixedRealityHandController), Handedness.Left),
-                new ControllerDefinition(typeof(MixedRealityHandController), Handedness.Right),
+                new ControllerDefinition(typeof(HandController), Handedness.Left),
+                new ControllerDefinition(typeof(HandController), Handedness.Right),
             };
         }
     }

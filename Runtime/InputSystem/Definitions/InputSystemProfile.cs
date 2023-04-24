@@ -160,12 +160,12 @@ namespace RealityToolkit.Input.Definitions
 
         [SerializeField]
         [Tooltip("Gesture Mapping Profile for recognizing gestures across all platforms.")]
-        private MixedRealityGesturesProfile gesturesProfile;
+        private GesturesProfile gesturesProfile;
 
         /// <summary>
         /// Gesture Mapping Profile for recognizing gestures across all platforms.
         /// </summary>
-        public MixedRealityGesturesProfile GesturesProfile
+        public GesturesProfile GesturesProfile
         {
             get => gesturesProfile;
             internal set => gesturesProfile = value;

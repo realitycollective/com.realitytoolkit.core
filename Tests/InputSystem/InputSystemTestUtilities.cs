@@ -23,7 +23,7 @@ namespace RealityToolkit.Tests.InputSystem
             inputSystemProfile.GazeProviderBehaviour = GazeProviderBehaviour.Auto;
             inputSystemProfile.GazeProviderType = typeof(GazeProvider);
             inputSystemProfile.InputActionsProfile = ScriptableObject.CreateInstance<MixedRealityInputActionsProfile>();
-            inputSystemProfile.GesturesProfile = ScriptableObject.CreateInstance<MixedRealityGesturesProfile>();
+            inputSystemProfile.GesturesProfile = ScriptableObject.CreateInstance<GesturesProfile>();
             inputSystemProfile.SpeechCommandsProfile = ScriptableObject.CreateInstance<MixedRealitySpeechCommandsProfile>();
             inputSystemProfile.AddConfiguration(new ServiceConfiguration<IFocusProvider>(typeof(FocusProvider), nameof(FocusProvider), 0, AllPlatforms.Platforms, null));
 

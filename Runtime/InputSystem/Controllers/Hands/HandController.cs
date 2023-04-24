@@ -19,13 +19,13 @@ namespace RealityToolkit.Input.Controllers.Hands
     /// Platform agnostic hand controller type.
     /// </summary>
     [System.Runtime.InteropServices.Guid("B18A9A6C-E5FD-40AE-89E9-9822415EC62B")]
-    public class MixedRealityHandController : BaseController, IMixedRealityHandController
+    public class HandController : BaseController, IMixedRealityHandController
     {
         /// <inheritdoc />
-        public MixedRealityHandController() : base() { }
+        public HandController() : base() { }
 
         /// <inheritdoc />
-        public MixedRealityHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        public HandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

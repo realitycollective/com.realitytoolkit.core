@@ -7,7 +7,7 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace RealityToolkit.Input
+namespace RealityToolkit.Input.Handlers
 {
     internal static class InputServiceEventHandlers
     {

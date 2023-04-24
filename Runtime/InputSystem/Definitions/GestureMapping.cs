@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
@@ -11,7 +11,7 @@ namespace RealityToolkit.Input.Definitions
     /// Data structure for mapping gestures to <see cref="InputAction"/>s that can be raised by the Input System.
     /// </summary>
     [Serializable]
-    public struct MixedRealityGestureMapping
+    public struct GestureMapping
     {
         /// <summary>
         /// Constructor.
@@ -19,7 +19,7 @@ namespace RealityToolkit.Input.Definitions
         /// <param name="description"></param>
         /// <param name="gestureType"></param>
         /// <param name="action"></param>
-        public MixedRealityGestureMapping(string description, GestureInputType gestureType, InputAction action)
+        public GestureMapping(string description, GestureInputType gestureType, InputAction action)
         {
             this.description = description;
             this.gestureType = gestureType;
