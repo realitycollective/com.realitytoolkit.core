@@ -96,7 +96,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
 
                     if (controller != null)
                     {
-                        InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
+                        InputService?.RaiseSourceDetected(controller.InputSource, controller);
                     }
                 }
             }
@@ -154,7 +154,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
 
             if (controller != null)
             {
-                InputSystem?.RaiseSourceLost(controller.InputSource, controller);
+                InputService?.RaiseSourceLost(controller.InputSource, controller);
             }
 
             if (clearFromRegistry)

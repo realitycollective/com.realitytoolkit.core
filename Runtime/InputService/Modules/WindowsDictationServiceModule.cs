@@ -55,7 +55,7 @@ namespace RealityToolkit.Input.Modules
         {
             if (!Application.isPlaying || dictationRecognizer == null) { return; }
 
-            inputSource = InputSystem.RequestNewGenericInputSource(Name);
+            inputSource = InputService.RequestNewGenericInputSource(Name);
             dictationResult = string.Empty;
 
             dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
@@ -80,7 +80,7 @@ namespace RealityToolkit.Input.Modules
             if (!hasFailed && dictationRecognizer.Status == SpeechSystemStatus.Failed)
             {
                 hasFailed = true;
-                InputSystem.RaiseDictationError(inputSource, "Dictation recognizer has failed!");
+                InputService.RaiseDictationError(inputSource, "Dictation recognizer has failed!");
             }
         }
 
@@ -167,7 +167,7 @@ namespace RealityToolkit.Input.Modules
                 isTransitioning ||
                 !Application.isPlaying ||
                 dictationRecognizer == null ||
-                InputSystem == null)
+                InputService == null)
             {
                 Debug.LogWarning("Unable to start recording");
                 return;
@@ -180,7 +180,7 @@ namespace RealityToolkit.Input.Modules
             if (listener != null)
             {
                 hasListener = true;
-                InputSystem.PushModalInputHandler(listener);
+                InputService.PushModalInputHandler(listener);
             }
 
             if (PhraseRecognitionSystem.Status == SpeechSystemStatus.Running)
@@ -204,7 +204,7 @@ namespace RealityToolkit.Input.Modules
 
             if (dictationRecognizer.Status == SpeechSystemStatus.Failed)
             {
-                InputSystem.RaiseDictationError(inputSource, "Dictation recognizer failed to start!");
+                InputService.RaiseDictationError(inputSource, "Dictation recognizer failed to start!");
                 return;
             }
 
@@ -237,7 +237,7 @@ namespace RealityToolkit.Input.Modules
 
             if (hasListener)
             {
-                InputSystem.PopModalInputHandler();
+                InputService.PopModalInputHandler();
                 hasListener = false;
             }
 
@@ -269,7 +269,7 @@ namespace RealityToolkit.Input.Modules
             // We don't want to append to textSoFar yet, because the hypothesis may have changed on the next event.
             dictationResult = $"{textSoFar} {text}...";
 
-            InputSystem.RaiseDictationHypothesis(inputSource, dictationResult);
+            InputService.RaiseDictationHypothesis(inputSource, dictationResult);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace RealityToolkit.Input.Modules
 
             dictationResult = textSoFar.ToString();
 
-            InputSystem.RaiseDictationResult(inputSource, dictationResult);
+            InputService.RaiseDictationResult(inputSource, dictationResult);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace RealityToolkit.Input.Modules
                 dictationResult = "Dictation has timed out. Please try again.";
             }
 
-            InputSystem.RaiseDictationComplete(inputSource, dictationResult, dictationAudioClip);
+            InputService.RaiseDictationComplete(inputSource, dictationResult, dictationAudioClip);
             textSoFar = null;
             dictationResult = string.Empty;
         }
@@ -315,7 +315,7 @@ namespace RealityToolkit.Input.Modules
         {
             dictationResult = $"{error}\nHRESULT: {hresult}";
 
-            InputSystem.RaiseDictationError(inputSource, dictationResult);
+            InputService.RaiseDictationError(inputSource, dictationResult);
             textSoFar = null;
             dictationResult = string.Empty;
         }

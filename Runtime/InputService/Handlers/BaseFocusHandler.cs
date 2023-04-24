@@ -32,15 +32,15 @@ namespace RealityToolkit.Input.Handlers
             set => focusEnabled = value;
         }
 
-        private IInputService inputSystem = null;
+        private IInputService inputService = null;
 
-        protected IInputService InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
+        protected IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         private IFocusProvider focusProvider = null;
 
         protected IFocusProvider FocusProvider
-            => focusProvider ?? (focusProvider = InputSystem?.FocusProvider);
+            => focusProvider ?? (focusProvider = InputService?.FocusProvider);
 
         /// <summary>
         /// Does this object currently have focus by any <see cref="IPointer"/>?

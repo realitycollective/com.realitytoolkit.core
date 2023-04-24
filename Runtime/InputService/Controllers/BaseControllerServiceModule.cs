@@ -36,10 +36,10 @@ namespace RealityToolkit.Input.Controllers
                 throw new UnassignedReferenceException($"{nameof(controllerMappingProfiles)} has no defined controller mappings for {name}");
             }
 
-            InputSystem = parentService;
+            InputService = parentService;
         }
 
-        protected readonly IInputService InputSystem;
+        protected readonly IInputService InputService;
 
         private readonly ControllerMappingProfile[] controllerMappingProfiles;
 

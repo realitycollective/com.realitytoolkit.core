@@ -147,7 +147,7 @@ namespace RealityToolkit.Input.Controllers.Hands
 
             if (lastTrackingState != TrackingState)
             {
-                InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
+                InputService?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
             }
 
             if (TrackingState == TrackingState.Tracked)
@@ -176,7 +176,7 @@ namespace RealityToolkit.Input.Controllers.Hands
                 PinchStrength = handData.PinchStrength;
                 SpatialPointerPose = handData.PointerPose;
                 Pose = handData.RootPose;
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, handData.RootPose);
+                InputService?.RaiseSourcePoseChanged(InputSource, this, handData.RootPose);
             }
 
             UpdateInteractionMappings();

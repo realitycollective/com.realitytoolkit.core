@@ -11,7 +11,7 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace RealityToolkit.Tests.InputSystem
+namespace RealityToolkit.Tests.Input
 {
     public class TestFixture_02_InteractionDefinitionTests
     {

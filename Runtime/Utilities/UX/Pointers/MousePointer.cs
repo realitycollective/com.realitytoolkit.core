@@ -250,7 +250,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 RayStabilizer = null;
             }
 
-            foreach (var inputSource in InputSystem.DetectedInputSources)
+            foreach (var inputSource in InputService.DetectedInputSources)
             {
                 if (inputSource.SourceId == Controller.InputSource.SourceId)
                 {

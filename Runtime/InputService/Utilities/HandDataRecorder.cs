@@ -13,7 +13,7 @@ namespace RealityToolkit.Services.Input.Utilities
     /// <summary>
     /// Utility component to record a hand controller's data into a file.
     /// </summary>
-    public class HandDataRecorder : InputSystemGlobalListener, IInputHandler<HandData>
+    public class HandDataRecorder : InputServiceGlobalListener, IInputHandler<HandData>
     {
         private RecordedHandJoints currentRecording;
         RecordedHandJoints recordedHandJoints = new RecordedHandJoints();

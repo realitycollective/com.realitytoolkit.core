@@ -6,7 +6,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Input.Definitions;
 using System;
 
-namespace RealityToolkit.Tests.InputSystem
+namespace RealityToolkit.Tests.Input
 {
     public class TestFixture_04_InputActionTests
     {

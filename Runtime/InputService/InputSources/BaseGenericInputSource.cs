@@ -22,15 +22,15 @@ namespace RealityToolkit.Input.InputSources
         /// <param name="pointers"></param>
         public BaseGenericInputSource(string name, IPointer[] pointers = null)
         {
-            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
-                SourceId = inputSystem.GenerateNewSourceId();
+                SourceId = inputService.GenerateNewSourceId();
                 SourceName = name;
 
                 Pointers = pointers;
-                if (Pointers == null && inputSystem.GazeProvider != null)
+                if (Pointers == null && inputService.GazeProvider != null)
                 {
-                    Pointers = new[] { inputSystem.GazeProvider.GazePointer };
+                    Pointers = new[] { inputService.GazeProvider.GazePointer };
                 }
             }
             else

@@ -29,10 +29,10 @@ namespace RealityToolkit.Utilities
             Debug.Assert(canvas.IsNotNull(), $"The {nameof(CanvasUtility)} requires a {nameof(Canvas)} component on the game object.");
 
             if (ServiceManager.IsActiveAndInitialized &&
-                ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem) &&
+                ServiceManager.Instance.TryGetService<IInputService>(out var inputService) &&
                 canvas.isRootCanvas && canvas.renderMode == RenderMode.WorldSpace)
             {
-                canvas.worldCamera = inputSystem.FocusProvider.UIRaycastCamera;
+                canvas.worldCamera = inputService.FocusProvider.UIRaycastCamera;
             }
         }
     }

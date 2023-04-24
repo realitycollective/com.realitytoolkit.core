@@ -69,7 +69,7 @@ namespace RealityToolkit.Utilities.UX
 
                     if (grabbedCollider == null) { return; }
 
-                    InputSystem?.PushModalInputHandler(gameObject);
+                    InputService?.PushModalInputHandler(gameObject);
 
                     BoundingBoxParent.currentInputSource = eventData.InputSource;
                     BoundingBoxParent.currentPointer = pointer;
@@ -104,7 +104,7 @@ namespace RealityToolkit.Utilities.UX
                     BoundingBoxParent.currentPointer = null;
                     BoundingBoxParent.grabbedHandle = null;
                     BoundingBoxParent.ResetHandleVisibility();
-                    InputSystem?.PopModalInputHandler();
+                    InputService?.PopModalInputHandler();
                     BoundingBoxParent.BoundingBoxCollider.transform.SetLayerRecursively(cachedTargetPrevLayer);
                     BoundingBoxParent.transform.SetCollidersActive(true, ref parentColliderCache);
                     transform.SetCollidersActive(true, ref colliderCache);
@@ -128,7 +128,7 @@ namespace RealityToolkit.Utilities.UX
                     BoundingBoxParent.currentPointer = null;
                     BoundingBoxParent.grabbedHandle = null;
                     BoundingBoxParent.ResetHandleVisibility();
-                    InputSystem?.PopModalInputHandler();
+                    InputService?.PopModalInputHandler();
                 }
             }
         }
@@ -527,10 +527,10 @@ namespace RealityToolkit.Utilities.UX
         private IPointer currentPointer;
         private IInputSource currentInputSource;
 
-        private IInputService inputSystem = null;
+        private IInputService inputService = null;
 
-        protected IInputService InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
+        protected IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         private ManipulationHandler manipulationHandler;
 

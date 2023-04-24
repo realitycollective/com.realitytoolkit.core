@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.Input
 {
     [CustomEditor(typeof(SpeechCommandsProfile))]
     public class SpeechCommandsProfileInspector : BaseProfileInspector
@@ -24,16 +24,16 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private SerializedProperty speechCommands;
         private static GUIContent[] actionLabels;
         private static int[] actionIds;
-        private InputServiceProfile inputSystemProfile;
+        private InputServiceProfile inputServiceProfile;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            inputSystemProfile = ThisProfile.ParentProfile as InputServiceProfile;
+            inputServiceProfile = ThisProfile.ParentProfile as InputServiceProfile;
 
-            if (inputSystemProfile.IsNull() ||
-                inputSystemProfile.InputActionsProfile == null)
+            if (inputServiceProfile.IsNull() ||
+                inputServiceProfile.InputActionsProfile == null)
             {
                 return;
             }
@@ -41,21 +41,21 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
             startBehavior = serializedObject.FindProperty(nameof(startBehavior));
             recognitionConfidenceLevel = serializedObject.FindProperty(nameof(recognitionConfidenceLevel));
             speechCommands = serializedObject.FindProperty(nameof(speechCommands));
-            actionLabels = inputSystemProfile.InputActionsProfile.InputActions.Select(action => new GUIContent(action.Description)).Prepend(new GUIContent("None")).ToArray();
-            actionIds = inputSystemProfile.InputActionsProfile.InputActions.Select(action => (int)action.Id).Prepend(0).ToArray();
+            actionLabels = inputServiceProfile.InputActionsProfile.InputActions.Select(action => new GUIContent(action.Description)).Prepend(new GUIContent("None")).ToArray();
+            actionIds = inputServiceProfile.InputActionsProfile.InputActions.Select(action => (int)action.Id).Prepend(0).ToArray();
         }
 
         public override void OnInspectorGUI()
         {
             RenderHeader("Speech Commands are any/all spoken keywords your users will be able say to raise an Input Action in your application.");
 
-            if (inputSystemProfile.IsNull())
+            if (inputServiceProfile.IsNull())
             {
                 EditorGUILayout.HelpBox("No input system profile found, please specify an input system profile in the main configuration profile.", MessageType.Error);
                 return;
             }
 
-            if (inputSystemProfile.InputActionsProfile.IsNull())
+            if (inputServiceProfile.InputActionsProfile.IsNull())
             {
                 EditorGUILayout.HelpBox("No input actions found, please specify a input action profile in the input system profile.", MessageType.Error);
                 return;
@@ -134,7 +134,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                 {
                     var inputAction = actionId.intValue == 0
                         ? InputAction.None
-                        : inputSystemProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
+                        : inputServiceProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
 
                     actionDescription.stringValue = inputAction.Description;
                     actionConstraint.enumValueIndex = (int)inputAction.AxisConstraint;

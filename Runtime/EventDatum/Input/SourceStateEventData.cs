@@ -11,7 +11,7 @@ namespace RealityToolkit.EventDatum.Input
     /// <summary>
     /// Describes an source state event that has a source id.
     /// </summary>
-    /// <remarks>Source State events do not have an associated <see cref="Definitions.InputSystem.InputAction"/>.</remarks>
+    /// <remarks>Source State events do not have an associated <see cref="Definitions.Input.InputAction"/>.</remarks>
     public class SourceStateEventData : BaseInputEventData
     {
         public IController Controller { get; private set; }

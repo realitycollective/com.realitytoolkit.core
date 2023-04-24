@@ -81,8 +81,8 @@ namespace RealityToolkit.Input.Controllers.UnityInput
             mousePosition.x = UnityEngine.Input.GetAxis(Interactions[1].AxisCodeX);
             mousePosition.y = UnityEngine.Input.GetAxis(Interactions[1].AxisCodeY);
 
-            InputSystem?.RaiseSourcePositionChanged(InputSource, this, mousePosition);
-            InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
+            InputService?.RaiseSourcePositionChanged(InputSource, this, mousePosition);
+            InputService?.RaiseSourcePoseChanged(InputSource, this, Pose);
 
             for (int i = 0; i < Interactions.Length; i++)
             {
@@ -93,7 +93,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaisePoseInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].PoseData);
+                        InputService?.RaisePoseInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].PoseData);
                     }
                 }
 
@@ -104,7 +104,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaisePositionInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].Vector2Data);
+                        InputService?.RaisePositionInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].Vector2Data);
                     }
                 }
 
@@ -115,7 +115,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaisePositionInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].Vector2Data);
+                        InputService?.RaisePositionInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].Vector2Data);
                     }
                 }
 
@@ -132,18 +132,18 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                         // Raise input system Event if it enabled
                         if (Interactions[i].BoolData)
                         {
-                            InputSystem?.RaiseOnInputDown(InputSource, ControllerHandedness, Interactions[i].InputAction);
+                            InputService?.RaiseOnInputDown(InputSource, ControllerHandedness, Interactions[i].InputAction);
                         }
                         else
                         {
-                            InputSystem?.RaiseOnInputUp(InputSource, ControllerHandedness, Interactions[i].InputAction);
+                            InputService?.RaiseOnInputUp(InputSource, ControllerHandedness, Interactions[i].InputAction);
                         }
                     }
 
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaiseOnInputPressed(InputSource, ControllerHandedness, Interactions[i].InputAction);
+                        InputService?.RaiseOnInputPressed(InputSource, ControllerHandedness, Interactions[i].InputAction);
                     }
                 }
             }

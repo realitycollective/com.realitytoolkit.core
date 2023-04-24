@@ -20,37 +20,37 @@ namespace RealityToolkit.Input.Controllers.Hands
         protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
-            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputServiceProfile))
             {
                 throw new ArgumentException($"Unable to get a valid {nameof(InputServiceProfile)}!");
             }
 
-            RenderingMode = profile.RenderingMode != inputSystemProfile.RenderingMode
+            RenderingMode = profile.RenderingMode != inputServiceProfile.RenderingMode
                 ? profile.RenderingMode
-                : inputSystemProfile.RenderingMode;
+                : inputServiceProfile.RenderingMode;
 
-            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandPhysicsEnabled
+            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputServiceProfile.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
-                : inputSystemProfile.HandPhysicsEnabled;
+                : inputServiceProfile.HandPhysicsEnabled;
 
-            UseTriggers = profile.UseTriggers != inputSystemProfile.UseTriggers
+            UseTriggers = profile.UseTriggers != inputServiceProfile.UseTriggers
                 ? profile.UseTriggers
-                : inputSystemProfile.UseTriggers;
+                : inputServiceProfile.UseTriggers;
 
-            BoundsMode = profile.BoundsMode != inputSystemProfile.BoundsMode
+            BoundsMode = profile.BoundsMode != inputServiceProfile.BoundsMode
                 ? profile.BoundsMode
-                : inputSystemProfile.BoundsMode;
+                : inputServiceProfile.BoundsMode;
 
             if (profile.TrackedPoses != null &&
                 profile.TrackedPoses.Count > 0)
             {
-                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.TrackedPoses.Count
+                TrackedPoses = profile.TrackedPoses.Count != inputServiceProfile.TrackedPoses.Count
                     ? profile.TrackedPoses
-                    : inputSystemProfile.TrackedPoses;
+                    : inputServiceProfile.TrackedPoses;
             }
             else
             {
-                TrackedPoses = inputSystemProfile.TrackedPoses;
+                TrackedPoses = inputServiceProfile.TrackedPoses;
             }
         }
 

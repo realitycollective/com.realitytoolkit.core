@@ -65,11 +65,11 @@ namespace RealityToolkit.Input.Controllers
                 throw new Exception($"No Controller interaction mappings found for {controllerMappingProfile.name}!");
             }
 
-            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
-                Debug.Assert(ReferenceEquals(inputSystem, controllerDataProvider.ParentService));
-                InputSystem = inputSystem;
-                InputSource = InputSystem.RequestNewGenericInputSource(Name, pointers);
+                Debug.Assert(ReferenceEquals(inputService, controllerDataProvider.ParentService));
+                InputService = inputService;
+                InputSource = InputService.RequestNewGenericInputSource(Name, pointers);
 
                 for (int i = 0; i < InputSource?.Pointers?.Length; i++)
                 {
@@ -84,7 +84,7 @@ namespace RealityToolkit.Input.Controllers
             Enabled = true;
         }
 
-        protected readonly IInputService InputSystem;
+        protected readonly IInputService InputService;
 
         private readonly ControllerPoseSynchronizer controllerPrefab;
 

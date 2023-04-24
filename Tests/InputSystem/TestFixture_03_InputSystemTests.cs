@@ -5,74 +5,74 @@ using NUnit.Framework;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Input.Interfaces;
 
-namespace RealityToolkit.Tests.InputSystem
+namespace RealityToolkit.Tests.Input
 {
-    public class TestFixture_03_InputSystemTests
+    public class TestFixture_03_InputServiceTests
     {
         [Test]
-        public void Test01_CreateInputSystem()
+        public void Test01_CreateInputService()
         {
             TestUtilities.InitializeRealityToolkit();
             var activeSystemCount = ServiceManager.Instance.ActiveServices.Count;
 
             // Add Input System
-            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var inputSystem);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputServiceTestUtilities.TestInputServiceConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputServiceTestUtilities.TestInputServiceConfiguration, out var inputService);
 
             // Tests
             Assert.IsNotEmpty(ServiceManager.Instance.ActiveServices);
-            Assert.IsNotNull(inputSystem);
+            Assert.IsNotNull(inputService);
             Assert.AreEqual(activeSystemCount + 1, ServiceManager.Instance.ActiveServices.Count);
         }
 
         [Test]
-        public void Test02_TestGetInputSystem()
+        public void Test02_TestGetInputService()
         {
             TestUtilities.InitializeRealityToolkit();
 
             // Add Input System
-            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputServiceTestUtilities.TestInputServiceConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputServiceTestUtilities.TestInputServiceConfiguration, out var service);
 
             Assert.IsNotEmpty(ServiceManager.Instance.ActiveServices);
 
             // Retrieve Input System
-            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
+            var inputService = ServiceManager.Instance.GetService<IInputService>();
 
             // Tests
             Assert.IsNotNull(service);
-            Assert.IsNotNull(inputSystem);
-            Assert.IsTrue(ReferenceEquals(service, inputSystem));
+            Assert.IsNotNull(inputService);
+            Assert.IsTrue(ReferenceEquals(service, inputService));
         }
 
         [Test]
-        public void Test03_TestInputSystemDoesNotExist()
+        public void Test03_TestInputServiceDoesNotExist()
         {
             // Initialize without the default profile configuration
             TestUtilities.InitializeRealityToolkit();
 
             // Check for Input System
-            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IInputService>();
+            var inputServiceExists = ServiceManager.Instance.IsServiceRegistered<IInputService>();
 
             // Tests
-            Assert.IsFalse(inputSystemExists);
+            Assert.IsFalse(inputServiceExists);
         }
 
         [Test]
-        public void Test04_TestInputSystemExists()
+        public void Test04_TestInputServiceExists()
         {
             // Initialize with the default profile configuration
             TestUtilities.InitializeRealityToolkit();
 
             // Add Input System
-            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out _);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputServiceTestUtilities.TestInputServiceConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputServiceTestUtilities.TestInputServiceConfiguration, out _);
 
             // Check for Input System
-            var inputSystemExists = ServiceManager.Instance.IsServiceRegistered<IInputService>();
+            var inputServiceExists = ServiceManager.Instance.IsServiceRegistered<IInputService>();
 
             // Tests
-            Assert.IsTrue(inputSystemExists);
+            Assert.IsTrue(inputServiceExists);
         }
 
         [TearDown]

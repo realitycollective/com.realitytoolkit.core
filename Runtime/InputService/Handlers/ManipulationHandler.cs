@@ -868,7 +868,7 @@ namespace RealityToolkit.Input.Handlers
                 PrimaryPointer = eventData.Pointer;
             }
 
-            InputSystem?.PushModalInputHandler(gameObject);
+            InputService?.PushModalInputHandler(gameObject);
 
             if (ServiceManager.Instance.TryGetService<ISpatialAwarenessService>(out var spatialAwarenessSystem))
             {
@@ -941,7 +941,7 @@ namespace RealityToolkit.Input.Handlers
                 manipulationTarget.rotation = prevRotation;
             }
 
-            InputSystem?.PopModalInputHandler();
+            InputService?.PopModalInputHandler();
 
             body.isKinematic = true;
 

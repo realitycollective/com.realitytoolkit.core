@@ -100,7 +100,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                 AddController(controller);
             }
 
-            InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
+            InputService?.RaiseSourceDetected(controller.InputSource, controller);
 
             controller.StartTouch();
             UpdateTouchData(touch, ray);
@@ -127,7 +127,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
             }
 
             controller.EndTouch();
-            InputSystem?.RaiseSourceLost(controller.InputSource, controller);
+            InputService?.RaiseSourceLost(controller.InputSource, controller);
             RemoveController(controller);
         }
     }

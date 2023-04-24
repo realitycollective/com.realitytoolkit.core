@@ -27,9 +27,9 @@ namespace RealityToolkit.Input.Pointers
         /// <param name="interactionMode"></param>
         public GenericPointer(string pointerName, IInputSource inputSourceParent, InteractionMode interactionMode)
         {
-            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
-                PointerId = inputSystem.FocusProvider.GenerateNewPointerId();
+                PointerId = inputService.FocusProvider.GenerateNewPointerId();
                 PointerName = pointerName;
                 this.inputSourceParent = inputSourceParent;
                 InteractionMode = interactionMode;

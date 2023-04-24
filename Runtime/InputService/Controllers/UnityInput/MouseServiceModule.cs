@@ -86,13 +86,13 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                 return;
             }
 
-            InputSystem?.RaiseSourceDetected(Controller.InputSource, Controller);
+            InputService?.RaiseSourceDetected(Controller.InputSource, Controller);
             AddController(Controller);
         }
 
         private void DestroyController()
         {
-            InputSystem?.RaiseSourceLost(Controller.InputSource, Controller);
+            InputService?.RaiseSourceLost(Controller.InputSource, Controller);
             RemoveController(Controller);
         }
     }

@@ -79,13 +79,13 @@ namespace RealityToolkit.Utilities.Solvers
         {
             // Look if the controller was already loaded. This could happen if the
             // GameObject was instantiated at runtime and the model loaded event has already fired.
-            if (!ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
+            if (!ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
-                // The InputSystem could not be found.
+                // The InputService could not be found.
                 return;
             }
 
-            foreach (var controller in inputSystem.DetectedControllers)
+            foreach (var controller in inputService.DetectedControllers)
             {
                 if (controller.ControllerHandedness == handedness)
                 {

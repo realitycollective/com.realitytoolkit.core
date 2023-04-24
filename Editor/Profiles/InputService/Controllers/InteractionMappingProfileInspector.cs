@@ -14,7 +14,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
+namespace RealityToolkit.Editor.Profiles.Input.Controllers
 {
     [CustomEditor(typeof(InteractionMappingProfile))]
     public class InteractionMappingProfileInspector : BaseProfileInspector

@@ -129,8 +129,8 @@ namespace RealityToolkit.Utilities.UX.Cursors
                 return Vector3.zero;
             }
 
-            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem) &&
-                inputSystem.FocusProvider.TryGetFocusDetails(cursor.Pointer, out var focusDetails))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService) &&
+                inputService.FocusProvider.TryGetFocusDetails(cursor.Pointer, out var focusDetails))
             {
                 // Else, consider the modifiers on the cursor modifier, but don't snap
                 return focusDetails.EndPoint + HostTransform.TransformVector(CursorPositionOffset);
@@ -200,9 +200,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
         private void OnDisable()
         {
-            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputSystem))
+            if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
-                foreach (var inputSource in inputSystem.DetectedInputSources)
+                foreach (var inputSource in inputService.DetectedInputSources)
                 {
                     foreach (var pointer in inputSource.Pointers)
                     {

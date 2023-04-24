@@ -19,10 +19,10 @@ namespace RealityToolkit.Input.Modules
         protected BaseDictationServiceModule(string name, uint priority, BaseControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
-            InputSystem = parentService;
+            InputService = parentService;
         }
 
-        protected readonly IInputService InputSystem;
+        protected readonly IInputService InputService;
 
         #region IDictationDataProvider Implementation
 

@@ -10,12 +10,12 @@ namespace RealityToolkit.Input.Handlers
     /// <summary>
     /// Base class for the Reality Toolkit's SDK input handlers.
     /// </summary>
-    public abstract class BaseInputHandler : InputSystemGlobalListener
+    public abstract class BaseInputHandler : InputServiceGlobalListener
     {
         private IFocusProvider focusProvider = null;
 
         protected IFocusProvider FocusProvider
-            => focusProvider ?? (focusProvider = InputSystem?.FocusProvider);
+            => focusProvider ?? (focusProvider = InputService?.FocusProvider);
 
         [SerializeField]
         [Tooltip("Is Focus required to receive input events on this GameObject?")]

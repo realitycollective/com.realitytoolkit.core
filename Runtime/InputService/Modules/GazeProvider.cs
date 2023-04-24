@@ -151,10 +151,10 @@ namespace RealityToolkit.Input.Modules
 
         private Vector3 lastHeadPosition = Vector3.zero;
 
-        private IInputService inputSystem = null;
+        private IInputService inputService = null;
 
-        protected IInputService InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
+        protected IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         #region InternalGazePointer Class
 
@@ -281,7 +281,7 @@ namespace RealityToolkit.Input.Modules
             if (!lateInitialize &&
                 ServiceManager.Instance.IsInitialized)
             {
-                InputSystem?.Register(gameObject);
+                InputService?.Register(gameObject);
             }
 
             if (!delayInitialization)
@@ -297,7 +297,7 @@ namespace RealityToolkit.Input.Modules
             {
                 try
                 {
-                    inputSystem = await ServiceManager.Instance.GetServiceAsync<IInputService>();
+                    inputService = await ServiceManager.Instance.GetServiceAsync<IInputService>();
                 }
                 catch (Exception e)
                 {
@@ -309,7 +309,7 @@ namespace RealityToolkit.Input.Modules
                 if (this == null) { return; }
 
                 lateInitialize = false;
-                InputSystem.Register(gameObject);
+                InputService.Register(gameObject);
 
                 if (GazePointer.BaseCursor != null)
                 {
@@ -374,7 +374,7 @@ namespace RealityToolkit.Input.Modules
 
         protected virtual void OnDisable()
         {
-            InputSystem?.Unregister(gameObject);
+            InputService?.Unregister(gameObject);
 
             if (GazePointer.BaseCursor != null)
             {
@@ -383,13 +383,13 @@ namespace RealityToolkit.Input.Modules
 
             if (sourceRaised)
             {
-                InputSystem?.RaiseSourceLost(GazeInputSource);
+                InputService?.RaiseSourceLost(GazeInputSource);
             }
         }
 
         protected void OnDestroy()
         {
-            InputSystem?.Unregister(gameObject);
+            InputService?.Unregister(gameObject);
 
             if (GazePointer != null && !GazeCursor.Equals(null) && GazeCursor.GameObjectReference.IsNotNull())
             {
@@ -408,8 +408,8 @@ namespace RealityToolkit.Input.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerUp(GazePointer, eventData.InputAction);
-                    InputSystem.RaisePointerClicked(GazePointer, eventData.InputAction);
+                    InputService.RaisePointerUp(GazePointer, eventData.InputAction);
+                    InputService.RaisePointerClicked(GazePointer, eventData.InputAction);
                     return;
                 }
             }
@@ -422,7 +422,7 @@ namespace RealityToolkit.Input.Modules
             {
                 if (eventData.InputSource.Pointers[i].PointerId == GazePointer.PointerId)
                 {
-                    InputSystem.RaisePointerDown(GazePointer, eventData.InputAction, eventData.InputSource);
+                    InputService.RaisePointerDown(GazePointer, eventData.InputAction, eventData.InputSource);
                     return;
                 }
             }
@@ -434,7 +434,7 @@ namespace RealityToolkit.Input.Modules
 
         private IPointer InitializeGazePointer()
         {
-            if (InputSystem == null) { return null; }
+            if (InputService == null) { return null; }
 
             if (gazeTransform == null)
             {
@@ -456,10 +456,10 @@ namespace RealityToolkit.Input.Modules
             gazePointer = new InternalGazePointer(this, "Gaze Pointer", null, raycastLayerMasks, maxGazeCollisionDistance, gazeTransform, stabilizer);
 
             if (GazeCursor == null &&
-                ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile) &&
-                inputSystemProfile.GazeCursorPrefab != null)
+                ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputServiceProfile) &&
+                inputServiceProfile.GazeCursorPrefab != null)
             {
-                var cursor = Instantiate(inputSystemProfile.GazeCursorPrefab, gazeTransform.parent);
+                var cursor = Instantiate(inputServiceProfile.GazeCursorPrefab, gazeTransform.parent);
                 SetGazeCursor(cursor);
             }
 
@@ -470,7 +470,7 @@ namespace RealityToolkit.Input.Modules
         {
             try
             {
-                inputSystem = await ServiceManager.Instance.GetServiceAsync<IInputService>();
+                inputService = await ServiceManager.Instance.GetServiceAsync<IInputService>();
             }
             catch (Exception e)
             {
@@ -481,7 +481,7 @@ namespace RealityToolkit.Input.Modules
             // We've been destroyed during the await.
             if (this == null) { return; }
 
-            InputSystem.RaiseSourceDetected(GazeInputSource);
+            InputService.RaiseSourceDetected(GazeInputSource);
 
             if (GazePointer.BaseCursor != null)
             {

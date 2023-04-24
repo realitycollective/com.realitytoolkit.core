@@ -13,10 +13,10 @@ namespace RealityToolkit.Input.Extensions
     /// </summary>
     public static class InteractionMappingsExtensions
     {
-        private static IInputService inputSystem = null;
+        private static IInputService inputService = null;
 
-        private static IInputService InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
+        private static IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         /// <summary>
         /// Raise the actions to the input system.
@@ -35,11 +35,11 @@ namespace RealityToolkit.Input.Extensions
             {
                 if (interactionMapping.BoolData)
                 {
-                    InputSystem?.RaiseOnInputDown(inputSource, controllerHandedness, interactionMapping.InputAction);
+                    InputService?.RaiseOnInputDown(inputSource, controllerHandedness, interactionMapping.InputAction);
                 }
                 else
                 {
-                    InputSystem?.RaiseOnInputUp(inputSource, controllerHandedness, interactionMapping.InputAction);
+                    InputService?.RaiseOnInputUp(inputSource, controllerHandedness, interactionMapping.InputAction);
                 }
             }
 
@@ -48,42 +48,42 @@ namespace RealityToolkit.Input.Extensions
                 switch (interactionMapping.AxisType)
                 {
                     case AxisType.Digital:
-                        InputSystem?.RaiseOnInputPressed(
+                        InputService?.RaiseOnInputPressed(
                             inputSource,
                             controllerHandedness,
                             interactionMapping.InputAction,
                             interactionMapping.BoolData ? 1 : 0);
                         break;
                     case AxisType.SingleAxis:
-                        InputSystem?.RaiseOnInputPressed(
+                        InputService?.RaiseOnInputPressed(
                             inputSource,
                             controllerHandedness,
                             interactionMapping.InputAction,
                             interactionMapping.FloatData);
                         break;
                     case AxisType.DualAxis:
-                        InputSystem?.RaisePositionInputChanged(
+                        InputService?.RaisePositionInputChanged(
                             inputSource,
                             controllerHandedness,
                             interactionMapping.InputAction,
                             interactionMapping.Vector2Data);
                         break;
                     case AxisType.ThreeDofPosition:
-                        InputSystem?.RaisePositionInputChanged(
+                        InputService?.RaisePositionInputChanged(
                             inputSource,
                             controllerHandedness,
                             interactionMapping.InputAction,
                             interactionMapping.PositionData);
                         break;
                     case AxisType.ThreeDofRotation:
-                        InputSystem?.RaiseRotationInputChanged(
+                        InputService?.RaiseRotationInputChanged(
                             inputSource,
                             controllerHandedness,
                             interactionMapping.InputAction,
                             interactionMapping.RotationData);
                         break;
                     case AxisType.SixDof:
-                        InputSystem?.RaisePoseInputChanged(
+                        InputService?.RaisePoseInputChanged(
                             inputSource,
                             controllerHandedness,
                             interactionMapping.InputAction,

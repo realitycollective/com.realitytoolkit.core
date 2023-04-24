@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.Input
 {
     [CustomEditor(typeof(InputActionsProfile))]
     public class InputActionsProfileInspector : BaseProfileInspector

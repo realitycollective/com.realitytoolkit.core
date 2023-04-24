@@ -67,9 +67,9 @@ namespace RealityToolkit.Input.Controllers.UnityInput
         /// </summary>
         public void StartTouch()
         {
-            InputSystem?.RaisePointerDown(InputSource.Pointers[0], Interactions[2].InputAction);
+            InputService?.RaisePointerDown(InputSource.Pointers[0], Interactions[2].InputAction);
             isTouched = true;
-            InputSystem?.RaiseGestureStarted(this, Interactions[4].InputAction);
+            InputService?.RaiseGestureStarted(this, Interactions[4].InputAction);
             isHolding = true;
         }
 
@@ -91,7 +91,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                 // If our value was updated, raise it.
                 if (Interactions[0].Updated)
                 {
-                    InputSystem?.RaisePositionInputChanged(InputSource, Interactions[0].InputAction, TouchData.deltaPosition);
+                    InputService?.RaisePositionInputChanged(InputSource, Interactions[0].InputAction, TouchData.deltaPosition);
                 }
 
                 if (InputSource.Pointers[0].BaseCursor != null)
@@ -99,14 +99,14 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     Pose = new Pose(InputSource.Pointers[0].BaseCursor.Position, InputSource.Pointers[0].BaseCursor.Rotation);
                 }
 
-                InputSystem?.RaiseSourcePoseChanged(InputSource, this, Pose);
+                InputService?.RaiseSourcePoseChanged(InputSource, this, Pose);
 
                 Interactions[1].PoseData = Pose;
 
                 // If our value was updated, raise it.
                 if (Interactions[1].Updated)
                 {
-                    InputSystem?.RaisePoseInputChanged(InputSource, Interactions[1].InputAction, Pose);
+                    InputService?.RaisePoseInputChanged(InputSource, Interactions[1].InputAction, Pose);
                 }
 
                 if (!isManipulating)
@@ -114,16 +114,16 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     if (Mathf.Abs(TouchData.deltaPosition.x) > ManipulationThreshold ||
                         Mathf.Abs(TouchData.deltaPosition.y) > ManipulationThreshold)
                     {
-                        InputSystem?.RaiseGestureCanceled(this, Interactions[4].InputAction);
+                        InputService?.RaiseGestureCanceled(this, Interactions[4].InputAction);
                         isHolding = false;
 
-                        InputSystem?.RaiseGestureStarted(this, Interactions[5].InputAction);
+                        InputService?.RaiseGestureStarted(this, Interactions[5].InputAction);
                         isManipulating = true;
                     }
                 }
                 else
                 {
-                    InputSystem?.RaiseGestureUpdated(this, Interactions[5].InputAction, TouchData.deltaPosition);
+                    InputService?.RaiseGestureUpdated(this, Interactions[5].InputAction, TouchData.deltaPosition);
                 }
             }
         }
@@ -139,13 +139,13 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                 {
                     if (isHolding)
                     {
-                        InputSystem?.RaiseGestureCanceled(this, Interactions[4].InputAction);
+                        InputService?.RaiseGestureCanceled(this, Interactions[4].InputAction);
                         isHolding = false;
                     }
 
                     if (isManipulating)
                     {
-                        InputSystem?.RaiseGestureCanceled(this, Interactions[5].InputAction);
+                        InputService?.RaiseGestureCanceled(this, Interactions[5].InputAction);
                         isManipulating = false;
                     }
                 }
@@ -153,35 +153,35 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                 {
                     if (isHolding)
                     {
-                        InputSystem?.RaiseGestureCanceled(this, Interactions[4].InputAction);
+                        InputService?.RaiseGestureCanceled(this, Interactions[4].InputAction);
                         isHolding = false;
                     }
 
                     if (isManipulating)
                     {
-                        InputSystem?.RaiseGestureCanceled(this, Interactions[5].InputAction);
+                        InputService?.RaiseGestureCanceled(this, Interactions[5].InputAction);
                         isManipulating = false;
                     }
 
-                    InputSystem?.RaisePointerClicked(InputSource.Pointers[0], Interactions[2].InputAction);
+                    InputService?.RaisePointerClicked(InputSource.Pointers[0], Interactions[2].InputAction);
                 }
 
                 if (isHolding)
                 {
-                    InputSystem?.RaiseGestureCompleted(this, Interactions[4].InputAction);
+                    InputService?.RaiseGestureCompleted(this, Interactions[4].InputAction);
                     isHolding = false;
                 }
 
                 if (isManipulating)
                 {
-                    InputSystem?.RaiseGestureCompleted(this, Interactions[5].InputAction, TouchData.deltaPosition);
+                    InputService?.RaiseGestureCompleted(this, Interactions[5].InputAction, TouchData.deltaPosition);
                     isManipulating = false;
                 }
             }
 
             if (isHolding)
             {
-                InputSystem?.RaiseGestureCompleted(this, Interactions[4].InputAction);
+                InputService?.RaiseGestureCompleted(this, Interactions[4].InputAction);
                 isHolding = false;
             }
 
@@ -189,13 +189,13 @@ namespace RealityToolkit.Input.Controllers.UnityInput
 
             if (isManipulating)
             {
-                InputSystem?.RaiseGestureCompleted(this, Interactions[5].InputAction, TouchData.deltaPosition);
+                InputService?.RaiseGestureCompleted(this, Interactions[5].InputAction, TouchData.deltaPosition);
                 isManipulating = false;
             }
 
             Debug.Assert(!isManipulating);
 
-            InputSystem?.RaisePointerUp(InputSource.Pointers[0], Interactions[2].InputAction);
+            InputService?.RaisePointerUp(InputSource.Pointers[0], Interactions[2].InputAction);
 
             Lifetime = 0.0f;
             isTouched = false;

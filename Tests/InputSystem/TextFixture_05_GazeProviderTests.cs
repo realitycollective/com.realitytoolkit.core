@@ -6,7 +6,7 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
 
-namespace RealityToolkit.Tests.InputSystem
+namespace RealityToolkit.Tests.Input
 {
     public class TextFixture_05_GazeProviderTests
     {
@@ -15,52 +15,52 @@ namespace RealityToolkit.Tests.InputSystem
         {
             TestUtilities.InitializeRealityToolkit();
 
-            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputSystemTestUtilities.TestInputSystemConfiguration);
-            ServiceManager.Instance.TryCreateAndRegisterService(InputSystemTestUtilities.TestInputSystemConfiguration, out var service);
+            ServiceManager.Instance.ActiveProfile.AddConfiguration(InputServiceTestUtilities.TestInputServiceConfiguration);
+            ServiceManager.Instance.TryCreateAndRegisterService(InputServiceTestUtilities.TestInputServiceConfiguration, out var service);
         }
 
         [Test]
         public void Test01_GazeProviderSetAuto()
         {
-            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
-            inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Auto);
+            var inputService = ServiceManager.Instance.GetService<IInputService>();
+            inputService.SetGazeProviderBehaviour(GazeProviderBehaviour.Auto);
 
-            if (AnyControllerWithPointersAttached(inputSystem))
+            if (AnyControllerWithPointersAttached(inputService))
             {
-                Assert.IsNull(inputSystem.GazeProvider);
+                Assert.IsNull(inputService.GazeProvider);
             }
             else
             {
-                Assert.IsNotNull(inputSystem.GazeProvider);
+                Assert.IsNotNull(inputService.GazeProvider);
             }
         }
 
         [Test]
         public void Test02_GazeProviderSetInactive()
         {
-            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
-            inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Inactive);
+            var inputService = ServiceManager.Instance.GetService<IInputService>();
+            inputService.SetGazeProviderBehaviour(GazeProviderBehaviour.Inactive);
 
-            Assert.IsNull(inputSystem.GazeProvider);
+            Assert.IsNull(inputService.GazeProvider);
         }
 
         [Test]
         public void Test03_GazeProviderSetActive()
         {
-            var inputSystem = ServiceManager.Instance.GetService<IInputService>();
-            inputSystem.SetGazeProviderBehaviour(GazeProviderBehaviour.Active);
+            var inputService = ServiceManager.Instance.GetService<IInputService>();
+            inputService.SetGazeProviderBehaviour(GazeProviderBehaviour.Active);
 
-            Assert.IsNotNull(inputSystem.GazeProvider);
+            Assert.IsNotNull(inputService.GazeProvider);
         }
 
         [TearDown]
         public void CleanupRealityToolkitTests() => TestUtilities.CleanupScene();
 
-        private bool AnyControllerWithPointersAttached(IInputService inputSystem)
+        private bool AnyControllerWithPointersAttached(IInputService inputService)
         {
-            if (inputSystem.DetectedControllers != null && inputSystem.DetectedControllers.Count > 0)
+            if (inputService.DetectedControllers != null && inputService.DetectedControllers.Count > 0)
             {
-                foreach (var detectedController in inputSystem.DetectedControllers)
+                foreach (var detectedController in inputService.DetectedControllers)
                 {
                     if (detectedController.InputSource.Pointers != null && detectedController.InputSource.Pointers.Length > 0)
                     {

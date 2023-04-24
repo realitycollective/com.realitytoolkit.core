@@ -7,7 +7,7 @@ using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
+using RealityToolkit.Editor.Profiles.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,10 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.Input
 {
     [CustomEditor(typeof(InputServiceProfile))]
-    public class InputSystemProfileInspector : ServiceProfileInspector
+    public class InputServiceProfileInspector : ServiceProfileInspector
     {
         private static readonly GUIContent GazeProviderBehaviourContent = new GUIContent("Gaze Provider Mode");
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");

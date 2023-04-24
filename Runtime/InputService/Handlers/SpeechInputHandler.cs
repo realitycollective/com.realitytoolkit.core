@@ -11,7 +11,7 @@ using UnityEngine.Events;
 namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
-    /// This component handles the speech input events raised form the <see cref="IInputSystem"/>.
+    /// This component handles the speech input events raised form the <see cref="IInputService"/>.
     /// </summary>
     [DisallowMultipleComponent]
     public class SpeechInputHandler : BaseInputHandler, ISpeechHandler

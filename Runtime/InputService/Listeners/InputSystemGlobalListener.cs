@@ -11,12 +11,12 @@ namespace RealityToolkit.Input.Listeners
     /// <summary>
     /// This component ensures that all input events are forwarded to this <see cref="GameObject"/> when focus or gaze is not required.
     /// </summary>
-    public class InputSystemGlobalListener : MonoBehaviour
+    public class InputServiceGlobalListener : MonoBehaviour
     {
-        private IInputService inputSystem = null;
+        private IInputService inputService = null;
 
-        protected IInputService InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
+        protected IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         private bool lateInitialize = true;
 
@@ -25,7 +25,7 @@ namespace RealityToolkit.Input.Listeners
             if (!lateInitialize &&
                 ServiceManager.Instance.IsInitialized)
             {
-                InputSystem?.Register(gameObject);
+                InputService?.Register(gameObject);
             }
         }
 
@@ -35,7 +35,7 @@ namespace RealityToolkit.Input.Listeners
             {
                 try
                 {
-                    inputSystem = await ServiceManager.Instance.GetServiceAsync<IInputService>();
+                    inputService = await ServiceManager.Instance.GetServiceAsync<IInputService>();
                 }
                 catch (Exception e)
                 {
@@ -47,18 +47,18 @@ namespace RealityToolkit.Input.Listeners
                 if (this == null) { return; }
 
                 lateInitialize = false;
-                InputSystem.Register(gameObject);
+                InputService.Register(gameObject);
             }
         }
 
         protected virtual void OnDisable()
         {
-            InputSystem?.Unregister(gameObject);
+            InputService?.Unregister(gameObject);
         }
 
         protected virtual void OnDestroy()
         {
-            InputSystem?.Unregister(gameObject);
+            InputService?.Unregister(gameObject);
         }
     }
 }

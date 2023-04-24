@@ -5,7 +5,7 @@ using NUnit.Framework;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Editor.Utilities;
 
-namespace RealityToolkit.Tests.InputSystem
+namespace RealityToolkit.Tests.Input
 {
     public class TestFixture_01_UnityInputManagerHelperTests
     {

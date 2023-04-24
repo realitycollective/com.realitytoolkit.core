@@ -201,7 +201,7 @@ namespace RealityToolkit.Input.Handlers
             // TODO: robertes: Fix push/pop and single-handler model so that multiple HandDraggable components can be active at once.
 
             // Add self as a modal input handler, to get all inputs during the manipulation
-            InputSystem.PushModalInputHandler(gameObject);
+            InputService.PushModalInputHandler(gameObject);
 
             isDragging = true;
 
@@ -325,7 +325,7 @@ namespace RealityToolkit.Input.Handlers
             }
 
             // Remove self as a modal input handler
-            InputSystem.PopModalInputHandler();
+            InputService.PopModalInputHandler();
 
             isDragging = false;
 

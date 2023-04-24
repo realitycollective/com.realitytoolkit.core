@@ -17,10 +17,10 @@ namespace RealityToolkit.Input.Modules
         protected BaseSpeechServiceModule(string name, uint priority, SpeechCommandsProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
-            InputSystem = parentService;
+            InputService = parentService;
         }
 
-        protected readonly IInputService InputSystem;
+        protected readonly IInputService InputService;
 
         /// <inheritdoc />
         public virtual bool IsRecognitionActive { get; protected set; } = false;

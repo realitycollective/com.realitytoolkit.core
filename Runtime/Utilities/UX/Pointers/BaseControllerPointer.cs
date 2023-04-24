@@ -168,7 +168,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             if (InteractionMode.HasFlags(InteractionMode.Near) &&
                 nearInteractionCollider != null &&
-                other.IsValidCollision(PointerRaycastLayerMasksOverride ?? InputSystem.FocusProvider.GlobalPointerRaycastLayerMasks))
+                other.IsValidCollision(PointerRaycastLayerMasksOverride ?? InputService.FocusProvider.GlobalPointerRaycastLayerMasks))
             {
                 CapturedNearInteractionObject = other.gameObject;
 
@@ -176,8 +176,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 // gets updated before raising the event. If we don't update
                 // the focus provider here, the event will not be raised on the
                 // capture near interaction object.
-                InputSystem.FocusProvider.Update();
-                InputSystem.RaiseOnInputDown(InputSourceParent, Handedness, pointerAction);
+                InputService.FocusProvider.Update();
+                InputService.RaiseOnInputDown(InputSourceParent, Handedness, pointerAction);
             }
         }
 
@@ -192,8 +192,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 // gets updated before raising the event. If we don't update
                 // the focus provider here, the event will not be raised on the
                 // capture near interaction object.
-                InputSystem.FocusProvider.Update();
-                InputSystem.RaiseOnInputPressed(InputSourceParent, Handedness, pointerAction);
+                InputService.FocusProvider.Update();
+                InputService.RaiseOnInputPressed(InputSourceParent, Handedness, pointerAction);
             }
         }
 
@@ -208,9 +208,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 // gets updated before raising the event. If we don't update
                 // the focus provider here, the event will not be raised on the
                 // capture near interaction object.
-                InputSystem.FocusProvider.Update();
+                InputService.FocusProvider.Update();
 
-                InputSystem.RaiseOnInputUp(InputSourceParent, Handedness, pointerAction);
+                InputService.RaiseOnInputUp(InputSourceParent, Handedness, pointerAction);
                 CapturedNearInteractionObject = null;
             }
         }
@@ -220,7 +220,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             if (IsSelectPressed || IsGrabPressed)
             {
-                InputSystem.RaisePointerUp(this, pointerAction);
+                InputService.RaisePointerUp(this, pointerAction);
             }
 
             base.OnDisable();
@@ -260,7 +260,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             {
                 if (pointerId == 0)
                 {
-                    pointerId = InputSystem.FocusProvider.GenerateNewPointerId();
+                    pointerId = InputService.FocusProvider.GenerateNewPointerId();
                 }
 
                 return pointerId;
@@ -420,9 +420,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             {
                 if (overrideGlobalPointerExtent)
                 {
-                    if (InputSystem?.FocusProvider != null)
+                    if (InputService?.FocusProvider != null)
                     {
-                        return InputSystem.FocusProvider.GlobalPointingExtent;
+                        return InputService.FocusProvider.GlobalPointingExtent;
                     }
                 }
 
@@ -516,14 +516,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
             {
                 var currentPointerPosition = PointerPosition;
                 var delta = currentPointerPosition - lastPointerPosition;
-                InputSystem.RaisePointerDrag(this, action, delta);
+                InputService.RaisePointerDrag(this, action, delta);
                 lastPointerPosition = currentPointerPosition;
             }
             else
             {
                 IsDragging = true;
                 var currentPointerPosition = PointerPosition;
-                InputSystem.RaisePointerDragBegin(this, action, currentPointerPosition);
+                InputService.RaisePointerDragBegin(this, action, currentPointerPosition);
                 lastPointerPosition = currentPointerPosition;
             }
         }
@@ -628,12 +628,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
                 if (IsSelectPressed)
                 {
-                    InputSystem.RaisePointerUp(this, pointerAction);
+                    InputService.RaisePointerUp(this, pointerAction);
                 }
 
                 if (IsGrabPressed)
                 {
-                    InputSystem.RaisePointerUp(this, grabAction);
+                    InputService.RaisePointerUp(this, grabAction);
                 }
 
                 IsSelectPressed = false;
@@ -663,15 +663,15 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 {
                     IsGrabPressed = false;
 
-                    InputSystem.RaisePointerClicked(this, grabAction);
-                    InputSystem.RaisePointerUp(this, grabAction);
+                    InputService.RaisePointerClicked(this, grabAction);
+                    InputService.RaisePointerUp(this, grabAction);
                 }
 
                 if (eventData.InputAction == pointerAction)
                 {
                     IsSelectPressed = false;
-                    InputSystem.RaisePointerClicked(this, pointerAction);
-                    InputSystem.RaisePointerUp(this, pointerAction);
+                    InputService.RaisePointerClicked(this, pointerAction);
+                    InputService.RaisePointerUp(this, pointerAction);
                 }
             }
         }
@@ -694,14 +694,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 {
                     IsGrabPressed = true;
 
-                    InputSystem.RaisePointerDown(this, grabAction);
+                    InputService.RaisePointerDown(this, grabAction);
                 }
 
                 if (eventData.InputAction == pointerAction)
                 {
                     IsSelectPressed = true;
                     HasSelectPressedOnce = true;
-                    InputSystem.RaisePointerDown(this, pointerAction);
+                    InputService.RaisePointerDown(this, pointerAction);
                 }
             }
         }

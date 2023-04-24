@@ -29,17 +29,17 @@ namespace RealityToolkit.Input.Modules
         /// <inheritdoc />
         public FocusProvider(string name, uint priority, BaseProfile profile, IInputService parentService) : base(name, priority, profile, parentService)
         {
-            inputSystem = parentService;
+            inputService = parentService;
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputServiceProfile))
             {
                 throw new Exception($"Unable to start {name}! An {nameof(InputServiceProfile)} is required for this feature.");
             }
 
-            focusLayerMasks = inputSystemProfile.PointersProfile.PointerRaycastLayerMasks;
-            globalPointingExtent = inputSystemProfile.PointersProfile.PointingExtent;
-            debugPointingRayColors = inputSystemProfile.PointersProfile.DebugPointingRayColors;
-            Raycaster.DebugEnabled = inputSystemProfile.PointersProfile.DrawDebugPointingRays;
+            focusLayerMasks = inputServiceProfile.PointersProfile.PointerRaycastLayerMasks;
+            globalPointingExtent = inputServiceProfile.PointersProfile.PointingExtent;
+            debugPointingRayColors = inputServiceProfile.PointersProfile.DebugPointingRayColors;
+            Raycaster.DebugEnabled = inputServiceProfile.PointersProfile.DrawDebugPointingRays;
         }
 
         private readonly HashSet<PointerData> pointers = new HashSet<PointerData>();
@@ -51,10 +51,10 @@ namespace RealityToolkit.Input.Modules
         private readonly Color[] debugPointingRayColors;
         private RenderTexture uiRaycastCameraTargetTexture;
 
-        private IInputService inputSystem = null;
+        private IInputService inputService = null;
 
-        protected IInputService InputSystem
-            => inputSystem ?? (inputSystem = ServiceManager.Instance.GetService<IInputService>());
+        protected IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         #region IFocusProvider Properties
 
@@ -479,7 +479,7 @@ namespace RealityToolkit.Input.Modules
         {
             base.Initialize();
 
-            foreach (var inputSource in InputSystem.DetectedInputSources)
+            foreach (var inputSource in InputService.DetectedInputSources)
             {
                 RegisterPointers(inputSource);
             }
@@ -671,8 +671,8 @@ namespace RealityToolkit.Input.Modules
                 RegisterPointer(pointer);
 
                 // Special Registration for Gaze
-                if (InputSystem.GazeProvider != null &&
-                    inputSource.SourceId == InputSystem.GazeProvider.GazeInputSource.SourceId &&
+                if (InputService.GazeProvider != null &&
+                    inputSource.SourceId == InputService.GazeProvider.GazeInputSource.SourceId &&
                     gazeProviderPointingData == null)
                 {
                     gazeProviderPointingData = new PointerData(pointer);
@@ -706,10 +706,10 @@ namespace RealityToolkit.Input.Modules
                 if (!objectIsStillFocusedByOtherPointer)
                 {
                     // Policy: only raise focus exit if no other pointers are still focusing the object
-                    InputSystem.RaiseFocusExit(pointer, unfocusedObject);
+                    InputService.RaiseFocusExit(pointer, unfocusedObject);
                 }
 
-                InputSystem.RaisePreFocusChanged(pointer, unfocusedObject, null);
+                InputService.RaisePreFocusChanged(pointer, unfocusedObject, null);
             }
 
             pointers.Remove(pointerData);
@@ -1087,7 +1087,7 @@ namespace RealityToolkit.Input.Modules
                 GameObject pendingUnfocusObject = change.PreviousPointerTarget;
                 GameObject pendingFocusObject = change.CurrentPointerTarget;
 
-                InputSystem?.RaisePreFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
+                InputService?.RaisePreFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
 
                 if (pendingUnfocusObject != null && pendingOverallFocusExitSet.TryGetValue(pendingUnfocusObject, out int numExits))
                 {
@@ -1097,18 +1097,18 @@ namespace RealityToolkit.Input.Modules
                     }
                     else
                     {
-                        InputSystem?.RaiseFocusExit(change.Pointer, pendingUnfocusObject);
+                        InputService?.RaiseFocusExit(change.Pointer, pendingUnfocusObject);
                         pendingOverallFocusExitSet.Remove(pendingUnfocusObject);
                     }
                 }
 
                 if (pendingOverallFocusEnterSet.Contains(pendingFocusObject))
                 {
-                    InputSystem?.RaiseFocusEnter(change.Pointer, pendingFocusObject);
+                    InputService?.RaiseFocusEnter(change.Pointer, pendingFocusObject);
                     pendingOverallFocusEnterSet.Remove(pendingFocusObject);
                 }
 
-                InputSystem?.RaiseFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
+                InputService?.RaiseFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
             }
 
             Debug.Assert(pendingOverallFocusExitSet.Count == 0);
@@ -1138,7 +1138,7 @@ namespace RealityToolkit.Input.Modules
                 if (gazeProviderPointingData != null && eventData.InputSource.Pointers[i].PointerId == gazeProviderPointingData.Pointer.PointerId)
                 {
                     // If the source lost is the gaze input source, then reset it.
-                    if (eventData.InputSource.SourceId == InputSystem.GazeProvider.GazeInputSource.SourceId)
+                    if (eventData.InputSource.SourceId == InputService.GazeProvider.GazeInputSource.SourceId)
                     {
                         gazeProviderPointingData.ResetFocusedObjects();
                         gazeProviderPointingData = null;

@@ -5,7 +5,7 @@ using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Input.Definitions;
 using UnityEditor;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.Input
 {
     [CustomEditor(typeof(PointerProfile))]
     public class PointerProfileInspector : BaseProfileInspector

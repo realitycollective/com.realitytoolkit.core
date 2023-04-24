@@ -12,7 +12,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace RealityToolkit.Editor.Profiles.InputSystem
+namespace RealityToolkit.Editor.Profiles.Input
 {
     [CustomEditor(typeof(GesturesProfile))]
     public class GesturesProfileInspector : BaseProfileInspector
@@ -26,7 +26,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         private SerializedProperty gestures;
 
         private GesturesProfile gesturesProfile;
-        private InputServiceProfile inputSystemProfile;
+        private InputServiceProfile inputServiceProfile;
 
         private static GUIContent[] allGestureLabels;
         private static int[] allGestureIds;
@@ -44,15 +44,15 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
             if (ServiceManager.IsActiveAndInitialized)
             {
-                inputSystemProfile = gesturesProfile.ParentProfile as InputServiceProfile;
-                Debug.Assert(inputSystemProfile != null);
+                inputServiceProfile = gesturesProfile.ParentProfile as InputServiceProfile;
+                Debug.Assert(inputServiceProfile != null);
 
-                if (inputSystemProfile.InputActionsProfile != null)
+                if (inputServiceProfile.InputActionsProfile != null)
                 {
-                    actionLabels = inputSystemProfile.InputActionsProfile.InputActions
+                    actionLabels = inputServiceProfile.InputActionsProfile.InputActions
                         .Select(action => new GUIContent(action.Description))
                         .Prepend(new GUIContent("None")).ToArray();
-                    actionIds = inputSystemProfile.InputActionsProfile.InputActions
+                    actionIds = inputServiceProfile.InputActionsProfile.InputActions
                         .Select(action => (int)action.Id)
                         .Prepend(0).ToArray();
                 }
@@ -86,13 +86,13 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
         {
             RenderHeader("This gesture map is any and all movements of part the user's body, especially a hand or the head, that raise actions through the input system.\n\nNote: Defined controllers can look up the list of gestures and raise the events based on specific criteria.");
 
-            if (inputSystemProfile.IsNull())
+            if (inputServiceProfile.IsNull())
             {
                 EditorGUILayout.HelpBox("No input system profile found, please specify a input system profile in the main configuration.", MessageType.Error);
                 return;
             }
 
-            if (inputSystemProfile.InputActionsProfile.IsNull())
+            if (inputServiceProfile.InputActionsProfile.IsNull())
             {
                 EditorGUILayout.HelpBox("No input actions found, please specify a input action profile in the main configuration.", MessageType.Error);
                 return;
@@ -195,7 +195,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    InputAction inputAction = actionId.intValue == 0 ? InputAction.None : inputSystemProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
+                    InputAction inputAction = actionId.intValue == 0 ? InputAction.None : inputServiceProfile.InputActionsProfile.InputActions[actionId.intValue - 1];
                     actionDescription.stringValue = inputAction.Description;
                     actionConstraint.enumValueIndex = (int)inputAction.AxisConstraint;
                     serializedObject.ApplyModifiedProperties();

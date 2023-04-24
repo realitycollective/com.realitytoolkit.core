@@ -33,14 +33,14 @@ namespace RealityToolkit.Input.Modules
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputServiceProfile))
             {
                 throw new ArgumentException($"Unable to get a valid {nameof(InputServiceProfile)}!");
             }
 
-            autoStartBehavior = inputSystemProfile.SpeechCommandsProfile.SpeechRecognizerStartBehavior;
-            RecognitionConfidenceLevel = inputSystemProfile.SpeechCommandsProfile.SpeechRecognitionConfidenceLevel;
-            commands = inputSystemProfile.SpeechCommandsProfile.SpeechCommands;
+            autoStartBehavior = inputServiceProfile.SpeechCommandsProfile.SpeechRecognizerStartBehavior;
+            RecognitionConfidenceLevel = inputServiceProfile.SpeechCommandsProfile.SpeechRecognitionConfidenceLevel;
+            commands = inputServiceProfile.SpeechCommandsProfile.SpeechCommands;
 
             var newKeywords = new string[commands.Length];
 
@@ -89,7 +89,7 @@ namespace RealityToolkit.Input.Modules
 
             if (!Application.isPlaying || commands.Length == 0 || keywordRecognizer == null) { return; }
 
-            inputSource = InputSystem?.RequestNewGenericInputSource("Windows Speech Input Source");
+            inputSource = InputService?.RequestNewGenericInputSource("Windows Speech Input Source");
 
             keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
 
@@ -179,7 +179,7 @@ namespace RealityToolkit.Input.Modules
             {
                 if (commands[i].Keyword == text)
                 {
-                    InputSystem.RaiseSpeechCommandRecognized(inputSource, commands[i].Action, (RecognitionConfidenceLevel)confidence, phraseDuration, phraseStartTime, text);
+                    InputService.RaiseSpeechCommandRecognized(inputSource, commands[i].Action, (RecognitionConfidenceLevel)confidence, phraseDuration, phraseStartTime, text);
                     break;
                 }
             }

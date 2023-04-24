@@ -9,25 +9,25 @@ using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Modules;
 using UnityEngine;
 
-namespace RealityToolkit.Tests.InputSystem
+namespace RealityToolkit.Tests.Input
 {
-    public static class InputSystemTestUtilities
+    public static class InputServiceTestUtilities
     {
-        public static ServiceConfiguration<IInputService> TestInputSystemConfiguration
-            => new ServiceConfiguration<IInputService>(typeof(InputService), nameof(InputService), 1, new[] { new AllPlatforms() }, SetupInputSystemProfile());
+        public static ServiceConfiguration<IInputService> TestInputServiceConfiguration
+            => new ServiceConfiguration<IInputService>(typeof(InputService), nameof(InputService), 1, new[] { new AllPlatforms() }, SetupInputServiceProfile());
 
-        public static InputServiceProfile SetupInputSystemProfile()
+        public static InputServiceProfile SetupInputServiceProfile()
         {
             // Create blank Input System Profiles
-            var inputSystemProfile = ScriptableObject.CreateInstance<InputServiceProfile>();
-            inputSystemProfile.GazeProviderBehaviour = GazeProviderBehaviour.Auto;
-            inputSystemProfile.GazeProviderType = typeof(GazeProvider);
-            inputSystemProfile.InputActionsProfile = ScriptableObject.CreateInstance<InputActionsProfile>();
-            inputSystemProfile.GesturesProfile = ScriptableObject.CreateInstance<GesturesProfile>();
-            inputSystemProfile.SpeechCommandsProfile = ScriptableObject.CreateInstance<SpeechCommandsProfile>();
-            inputSystemProfile.AddConfiguration(new ServiceConfiguration<IFocusProvider>(typeof(FocusProvider), nameof(FocusProvider), 0, AllPlatforms.Platforms, null));
+            var inputServiceProfile = ScriptableObject.CreateInstance<InputServiceProfile>();
+            inputServiceProfile.GazeProviderBehaviour = GazeProviderBehaviour.Auto;
+            inputServiceProfile.GazeProviderType = typeof(GazeProvider);
+            inputServiceProfile.InputActionsProfile = ScriptableObject.CreateInstance<InputActionsProfile>();
+            inputServiceProfile.GesturesProfile = ScriptableObject.CreateInstance<GesturesProfile>();
+            inputServiceProfile.SpeechCommandsProfile = ScriptableObject.CreateInstance<SpeechCommandsProfile>();
+            inputServiceProfile.AddConfiguration(new ServiceConfiguration<IFocusProvider>(typeof(FocusProvider), nameof(FocusProvider), 0, AllPlatforms.Platforms, null));
 
-            return inputSystemProfile;
+            return inputServiceProfile;
         }
     }
 }
