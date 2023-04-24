@@ -8,7 +8,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     /// <summary>
     /// A simple line with two points.
     /// </summary>
-    public class SimpleLineDataProvider : BaseMixedRealityLineDataProvider
+    public class SimpleLineDataProvider : BaseLineDataProvider
     {
         [SerializeField]
         private Pose startPoint = Pose.identity;

@@ -11,14 +11,14 @@ namespace RealityToolkit.Utilities.Lines.Renderers
     /// <summary>
     /// Implements Unity's built in line renderer component, and applies the line data to it.
     /// </summary>
-    [RequireComponent(typeof(LineRenderer))]
-    [RequireComponent(typeof(BaseMixedRealityLineDataProvider))]
-    public class MixedRealityLineRenderer : BaseMixedRealityLineRenderer
+    [RequireComponent(typeof(UnityEngine.LineRenderer))]
+    [RequireComponent(typeof(BaseLineDataProvider))]
+    public class LineRenderer : BaseLineRenderer
     {
-        [Header("Mixed Reality Line Renderer Settings")]
+        [Header("Reality Toolkit Line Renderer Settings")]
 
         [SerializeField]
-        [Tooltip("The material to use for the Unity MixedRealityLineRenderer.")]
+        [Tooltip("The material to use for the LineRenderer.")]
         private Material lineMaterial = null;
 
         public Material LineMaterial
@@ -47,13 +47,13 @@ namespace RealityToolkit.Utilities.Lines.Renderers
 
         [SerializeField]
         [HideInInspector]
-        private LineRenderer lineRenderer = null;
+        private UnityEngine.LineRenderer lineRenderer = null;
 
         private Vector3[] positions;
 
         private void OnEnable()
         {
-            lineRenderer = gameObject.EnsureComponent<LineRenderer>();
+            lineRenderer = gameObject.EnsureComponent<UnityEngine.LineRenderer>();
 
             if (lineMaterial == null)
             {
@@ -62,7 +62,7 @@ namespace RealityToolkit.Utilities.Lines.Renderers
 
             if (lineMaterial == null)
             {
-                Debug.LogError("MixedRealityLineRenderer needs a material.");
+                Debug.LogError("LineRenderer needs a material.");
                 enabled = false;
             }
         }

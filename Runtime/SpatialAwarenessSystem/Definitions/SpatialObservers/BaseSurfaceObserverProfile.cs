@@ -10,7 +10,7 @@ namespace RealityToolkit.Definitions.SpatialObservers
     /// <summary>
     /// The base surface observer profile.
     /// </summary>
-    public class BaseMixedRealitySurfaceObserverProfile : BaseMixedRealitySpatialObserverProfile
+    public class BaseSurfaceObserverProfile : BaseSpatialObserverProfile
     {
         [SerializeField]
         [Tooltip("The minimum area, in square meters, of the planar surfaces")]

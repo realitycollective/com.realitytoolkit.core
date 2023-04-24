@@ -3,7 +3,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RealityToolkit.Editor.BuildPipeline
 {
@@ -11,13 +10,12 @@ namespace RealityToolkit.Editor.BuildPipeline
     /// Build profile for saving 3d app icon's path in the build settings.
     /// </summary>
     [Serializable]
-    public class MixedRealityAppIcon
+    public class RealityToolkitAppIcon
     {
         [SerializeField]
-        [FormerlySerializedAs("MixedRealityAppIconPath")]
         private string appIconPath = "";
 
-        public string MixedRealityAppIconPath
+        public string RealityToolkitAppIconPath
         {
             get => appIconPath;
             set => appIconPath = value;

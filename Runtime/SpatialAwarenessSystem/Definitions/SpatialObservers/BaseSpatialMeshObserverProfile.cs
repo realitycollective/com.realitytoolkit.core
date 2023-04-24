@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Definitions.SpatialObservers
 {
-    public class BaseMixedRealitySpatialMeshObserverProfile : BaseMixedRealitySpatialObserverProfile
+    public class BaseSpatialMeshObserverProfile : BaseSpatialObserverProfile
     {
         [SerializeField]
         [Tooltip("Level of detail for the mesh")]

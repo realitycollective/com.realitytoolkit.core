@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
 {
-    public interface IMixedRealitySpatialSurfaceObserver : IMixedRealitySpatialAwarenessServiceModule
+    public interface ISpatialSurfaceObserver : ISpatialAwarenessServiceModule
     {
         /// <summary>
         /// Gets or sets the minimum surface area, in square meters, that must be satisfied before a surface is identified.

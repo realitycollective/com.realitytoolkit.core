@@ -68,7 +68,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         public virtual BuildTarget BuildTarget => EditorUserBuildSettings.activeBuildTarget;
 
         /// <inheritdoc />
-        public virtual IPlatform BuildPlatform => MixedRealityPreferences.CurrentPlatformTarget;
+        public virtual IPlatform BuildPlatform => RealityToolkitPreferences.CurrentPlatformTarget;
 
         /// <inheritdoc />
         public bool IsCommandLine { get; private set; }

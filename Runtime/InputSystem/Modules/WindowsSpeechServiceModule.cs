@@ -21,7 +21,7 @@ namespace RealityToolkit.Input.Modules
     public class WindowsSpeechServiceModule : BaseSpeechServiceModule
     {
         /// <inheritdoc />
-        public WindowsSpeechServiceModule(string name, uint priority, MixedRealitySpeechCommandsProfile profile, IInputService parentService)
+        public WindowsSpeechServiceModule(string name, uint priority, SpeechCommandsProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
 #if UNITY_WSA && UNITY_EDITOR

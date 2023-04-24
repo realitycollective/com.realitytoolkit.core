@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(SimpleLineDataProvider))]
-    public class SimpleLineDataProviderInspector : BaseMixedRealityLineDataProviderInspector
+    public class SimpleLineDataProviderInspector : BaseLineDataProviderInspector
     {
         private SerializedProperty endPoint;
         private SerializedProperty endPointPosition;

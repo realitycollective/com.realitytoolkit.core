@@ -15,7 +15,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(GesturesProfile))]
-    public class MixedRealityGesturesProfileInspector : BaseProfileInspector
+    public class GesturesProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent MinusButtonContent = new GUIContent("-", "Remove defined Gesture");
         private static readonly GUIContent AddButtonContent = new GUIContent("+ Add a New defined Gesture");

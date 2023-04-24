@@ -8,7 +8,7 @@ namespace RealityToolkit.Input.Interfaces.Speech
     /// <summary>
     /// Reality Toolkit controller definition, used to manage a specific controller type
     /// </summary>
-    public interface IMixedRealitySpeechServiceModule : IInputServiceModule
+    public interface ISpeechServiceModule : IInputServiceModule
     {
         /// <summary>
         /// Query whether or not the speech system is active

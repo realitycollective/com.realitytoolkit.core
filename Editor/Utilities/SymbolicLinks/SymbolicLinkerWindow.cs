@@ -164,7 +164,7 @@ namespace RealityToolkit.Editor.Utilities.SymbolicLinks
                         window.Close();
                     }
 
-                    MixedRealityPreferences.AutoLoadSymbolicLinks = true;
+                    RealityToolkitPreferences.AutoLoadSymbolicLinks = true;
                     SymbolicLinker.Add(new SymbolicLink(sourcePath, targetPath));
                     EditorUtility.SetDirty(SymbolicLinker.Settings);
                     AssetDatabase.SaveAssets();

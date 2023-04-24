@@ -45,7 +45,7 @@ namespace RealityToolkit.Editor.BuildPipeline
             get
             {
                 BuildInfo buildInfoInstance;
-                var currentPlatformTarget = MixedRealityPreferences.CurrentPlatformTarget.GetType();
+                var currentPlatformTarget = RealityToolkitPreferences.CurrentPlatformTarget.GetType();
 
                 bool isBuildInfoNull = buildInfo == null;
 
@@ -104,7 +104,7 @@ namespace RealityToolkit.Editor.BuildPipeline
 
                             if (instance.IsNull())
                             {
-                                Debug.LogError($"Failed to find or create a valid {nameof(IBuildInfo)} for {MixedRealityPreferences.CurrentPlatformTarget}!");
+                                Debug.LogError($"Failed to find or create a valid {nameof(IBuildInfo)} for {RealityToolkitPreferences.CurrentPlatformTarget}!");
                                 return null;
                             }
 
@@ -129,7 +129,7 @@ namespace RealityToolkit.Editor.BuildPipeline
                     return null;
                 }
 
-                var buildAsset = buildInfoInstance.GetOrCreateAsset($"{MixedRealityPreferences.ProfileGenerationPath}{Path.DirectorySeparatorChar}BuildInfo{Path.DirectorySeparatorChar}");
+                var buildAsset = buildInfoInstance.GetOrCreateAsset($"{RealityToolkitPreferences.ProfileGenerationPath}{Path.DirectorySeparatorChar}BuildInfo{Path.DirectorySeparatorChar}");
                 Debug.Assert(buildAsset.IsNotNull());
                 buildInfo = buildInfoInstance;
                 Debug.Assert(buildInfo != null);
@@ -352,7 +352,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         {
             // We don't need stack traces on all our logs. Makes things a lot easier to read.
             Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
-            Debug.Log($"Starting command line build for {MixedRealityPreferences.CurrentPlatformTarget.Name}...");
+            Debug.Log($"Starting command line build for {RealityToolkitPreferences.CurrentPlatformTarget.Name}...");
             EditorAssemblyReloadManager.LockReloadAssemblies = true;
 
             BuildReport buildReport = default;

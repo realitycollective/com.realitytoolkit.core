@@ -67,7 +67,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
             {
                 showConnector = value;
 
-                var lineScript = GetComponent<BaseMixedRealityLineDataProvider>();
+                var lineScript = GetComponent<BaseLineDataProvider>();
                 if (lineScript)
                 { lineScript.enabled = value; }
             }
@@ -210,7 +210,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
 
         [SerializeField]
         [Tooltip("The line connecting the anchor to the pivot. If present, this component will be updated automatically.\n\nRecommended: SimpleLine, Spline, and ParabolaConstrainted")]
-        private BaseMixedRealityLineDataProvider toolTipLine;
+        private BaseLineDataProvider toolTipLine;
 
         private Vector2 localContentSize;
 
@@ -324,7 +324,7 @@ namespace RealityToolkit.Utilities.UX.ToolTips
             // Get our line if it exists
             if (toolTipLine == null)
             {
-                toolTipLine = gameObject.GetComponent<BaseMixedRealityLineDataProvider>();
+                toolTipLine = gameObject.GetComponent<BaseLineDataProvider>();
             }
 
             RefreshLocalContent();

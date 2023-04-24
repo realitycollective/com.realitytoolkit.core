@@ -51,11 +51,11 @@ namespace RealityToolkit.Editor.PropertyDrawers
     /// }
     /// ]]></code>
     /// </example>
-    public class MixedRealityInputActionDropdown
+    public class InputActionDropdown
     {
         private static readonly string DefaultGuidString = default(Guid).ToString("N");
 
-        private MixedRealityInputActionsProfile[] allInputActionProfiles;
+        private InputActionsProfile[] allInputActionProfiles;
 
         public void OnGui(GUIContent content, SerializedProperty property, AxisType axisConstraintFilter = AxisType.None, params GUILayoutOption[] layoutOptions)
         {
@@ -81,7 +81,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
 
             if (allInputActionProfiles == null)
             {
-                allInputActionProfiles = ScriptableObjectExtensions.GetAllInstances<MixedRealityInputActionsProfile>();
+                allInputActionProfiles = ScriptableObjectExtensions.GetAllInstances<InputActionsProfile>();
             }
 
             var dropdownMenu = new GenericMenu { allowDuplicateNames = true };

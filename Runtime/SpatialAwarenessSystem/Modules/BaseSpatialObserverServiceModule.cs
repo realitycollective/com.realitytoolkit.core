@@ -16,19 +16,19 @@ using UnityEngine;
 namespace RealityToolkit.SpatialAwareness.Modules
 {
     /// <summary>
-    /// Base <see cref="IMixedRealitySpatialAwarenessServiceModule"/> implementation
+    /// Base <see cref="ISpatialAwarenessServiceModule"/> implementation
     /// </summary>
-    public abstract class BaseMixedRealitySpatialObserverServiceModule : BaseServiceModule, IMixedRealitySpatialAwarenessServiceModule
+    public abstract class BaseSpatialObserverServiceModule : BaseServiceModule, ISpatialAwarenessServiceModule
     {
         /// <inheritdoc />
-        protected BaseMixedRealitySpatialObserverServiceModule(string name, uint priority, BaseMixedRealitySpatialObserverProfile profile, ISpatialAwarenessService parentService)
+        protected BaseSpatialObserverServiceModule(string name, uint priority, BaseSpatialObserverProfile profile, ISpatialAwarenessService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
             {
-                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
+                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, SpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
                     ? spatialAwarenessSystemProfile.GlobalMeshObserverProfile
-                    : throw new ArgumentException($"Unable to get a valid {nameof(MixedRealitySpatialAwarenessSystemProfile)}!");
+                    : throw new ArgumentException($"Unable to get a valid {nameof(SpatialAwarenessSystemProfile)}!");
             }
 
             if (profile.IsNull())
@@ -120,7 +120,7 @@ namespace RealityToolkit.SpatialAwareness.Modules
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool Equals(IMixedRealitySpatialAwarenessServiceModule left, IMixedRealitySpatialAwarenessServiceModule right)
+        public static bool Equals(ISpatialAwarenessServiceModule left, ISpatialAwarenessServiceModule right)
         {
             return left.Equals(right);
         }
@@ -138,10 +138,10 @@ namespace RealityToolkit.SpatialAwareness.Modules
             if (ReferenceEquals(this, obj)) { return true; }
             if (obj.GetType() != GetType()) { return false; }
 
-            return Equals((IMixedRealitySpatialAwarenessServiceModule)obj);
+            return Equals((ISpatialAwarenessServiceModule)obj);
         }
 
-        private bool Equals(IMixedRealitySpatialAwarenessServiceModule other)
+        private bool Equals(ISpatialAwarenessServiceModule other)
         {
             return other != null && SourceId == other.SourceId && string.Equals(SourceName, other.SourceName);
         }

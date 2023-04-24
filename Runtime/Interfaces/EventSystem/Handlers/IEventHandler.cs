@@ -9,7 +9,7 @@ namespace RealityToolkit.Interfaces.Events.Handlers
     /// <summary>
     /// Interface to implement generic events.
     /// </summary>
-    public interface IMixedRealityEventHandler : IEventSystemHandler
+    public interface IEventHandler : IEventSystemHandler
     {
         void OnEventRaised(GenericBaseEventData eventData);
     }

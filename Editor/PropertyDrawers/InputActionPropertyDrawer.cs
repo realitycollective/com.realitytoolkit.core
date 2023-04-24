@@ -10,7 +10,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
     [CustomPropertyDrawer(typeof(InputAction))]
     public class InputActionPropertyDrawer : PropertyDrawer
     {
-        private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
+        private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
 
         public override void OnGUI(Rect rect, SerializedProperty property, GUIContent content)
         {

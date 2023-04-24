@@ -9,7 +9,7 @@ namespace RealityToolkit.Utilities.Lines.Renderers
     /// <summary>
     /// Creates instances of a mesh along the line
     /// </summary>
-    public class MeshLineRenderer : BaseMixedRealityLineRenderer
+    public class MeshLineRenderer : BaseLineRenderer
     {
         [Header("Instanced Mesh Settings")]
 

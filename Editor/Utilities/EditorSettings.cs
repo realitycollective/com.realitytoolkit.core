@@ -13,7 +13,7 @@ namespace RealityToolkit.Editor.Utilities
     /// Sets Force Text Serialization and visible meta files in all projects that use the Reality Toolkit.
     /// </summary>
     [InitializeOnLoad]
-    public class MixedRealityEditorSettings : IActiveBuildTargetChanged
+    public class RealityToolkitEditorSettings : IActiveBuildTargetChanged
     {
         private static readonly string ignoreKey = $"{Application.productName}_XRTK_Editor_IgnoreSettingsPrompts";
         private static readonly string sessionKey = $"{Application.productName}_XRTK_Editor_ShownSettingsPrompts";
@@ -22,7 +22,7 @@ namespace RealityToolkit.Editor.Utilities
         /// <summary>
         /// Constructor.
         /// </summary>
-        static MixedRealityEditorSettings()
+        static RealityToolkitEditorSettings()
         {
             if (!Application.isBatchMode)
             {

@@ -20,12 +20,12 @@ namespace RealityToolkit.Definitions.Controllers
         }
 
         [SerializeField]
-        private MixedRealityPointerProfile[] pointerProfiles = null;
+        private PointerProfile[] pointerProfiles = null;
 
         /// <summary>
         /// The pointer profiles for this interaction if the interaction is 3 or 6 Dof
         /// </summary>
-        public MixedRealityPointerProfile[] PointerProfiles
+        public PointerProfile[] PointerProfiles
         {
             get => pointerProfiles;
             internal set => pointerProfiles = value;

@@ -44,7 +44,7 @@ namespace RealityToolkit.Editor
 
         private static Vector2 horizontalScrollPosition;
 
-        private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
+        private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
 
         private SerializedProperty currentInteractionProfiles;
 
@@ -92,7 +92,7 @@ namespace RealityToolkit.Editor
         private Handedness Handedness => controllerDataProviderProfile.Handedness;
 
         private bool IsCustomController => ControllerType == typeof(GenericJoystickController) ||
-                                           ControllerType == typeof(IMixedRealityHandController);
+                                           ControllerType == typeof(IHandController);
 
         private static string EditorWindowOptionsPath => $"{CorePackageInstaller.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
 

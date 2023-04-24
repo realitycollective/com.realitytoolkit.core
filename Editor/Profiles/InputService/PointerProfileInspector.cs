@@ -7,8 +7,8 @@ using UnityEditor;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
-    [CustomEditor(typeof(MixedRealityPointerProfile))]
-    public class MixedRealityPointerProfileInspector : BaseProfileInspector
+    [CustomEditor(typeof(PointerProfile))]
+    public class PointerProfileInspector : BaseProfileInspector
     {
         private SerializedProperty pointerPrefab;
         private SerializedProperty pointingExtent;

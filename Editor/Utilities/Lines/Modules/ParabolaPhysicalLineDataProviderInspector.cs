@@ -7,7 +7,7 @@ using UnityEditor;
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(ParabolaPhysicalLineDataProvider))]
-    public class ParabolaPhysicalLineDataProviderInspector : BaseMixedRealityLineDataProviderInspector
+    public class ParabolaPhysicalLineDataProviderInspector : BaseLineDataProviderInspector
     {
         private SerializedProperty gravity;
         private SerializedProperty velocity;

@@ -12,7 +12,7 @@ namespace RealityToolkit.SpatialAwareness.Definitions
     /// <summary>
     /// Configuration profile settings for setting up the spatial awareness system.
     /// </summary>
-    public class MixedRealitySpatialAwarenessSystemProfile : BaseServiceProfile<IMixedRealitySpatialAwarenessServiceModule>
+    public class SpatialAwarenessSystemProfile : BaseServiceProfile<ISpatialAwarenessServiceModule>
     {
         public static readonly Tuple<int, string>[] SpatialAwarenessLayers =
         {
@@ -41,20 +41,20 @@ namespace RealityToolkit.SpatialAwareness.Definitions
 
         [SerializeField]
         [Tooltip("The global mesh observer profile settings to use for the mesh observer service module if no profile is provided.")]
-        private BaseMixedRealitySpatialMeshObserverProfile globalMeshObserverProfile = null;
+        private BaseSpatialMeshObserverProfile globalMeshObserverProfile = null;
 
         /// <summary>
-        /// The global mesh observer profile settings to use for the <see cref="IMixedRealitySpatialMeshObserver"/>s if no profile is provided.
+        /// The global mesh observer profile settings to use for the <see cref="ISpatialMeshObserver"/>s if no profile is provided.
         /// </summary>
-        public BaseMixedRealitySpatialMeshObserverProfile GlobalMeshObserverProfile => globalMeshObserverProfile;
+        public BaseSpatialMeshObserverProfile GlobalMeshObserverProfile => globalMeshObserverProfile;
 
         [SerializeField]
         [Tooltip("The global mesh observer profile settings to use for the mesh observer service module if no profile is provided.")]
-        private BaseMixedRealitySurfaceObserverProfile globalSurfaceObserverProfile = null;
+        private BaseSurfaceObserverProfile globalSurfaceObserverProfile = null;
 
         /// <summary>
-        /// The global mesh observer profile settings to use for the <see cref="IMixedRealitySpatialMeshObserver"/>s if no profile is provided.
+        /// The global mesh observer profile settings to use for the <see cref="ISpatialMeshObserver"/>s if no profile is provided.
         /// </summary>
-        public BaseMixedRealitySurfaceObserverProfile GlobalSurfaceObserverProfile => globalSurfaceObserverProfile;
+        public BaseSurfaceObserverProfile GlobalSurfaceObserverProfile => globalSurfaceObserverProfile;
     }
 }

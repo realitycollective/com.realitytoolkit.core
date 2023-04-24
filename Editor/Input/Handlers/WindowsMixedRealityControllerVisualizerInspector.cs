@@ -4,7 +4,7 @@ using UnityEditor;
 namespace RealityToolkit.Editor.Input.Handlers
 {
     [CustomEditor(typeof(WindowsMixedRealityControllerVisualizer))]
-    public class WindowsMixedRealityControllerVisualizerInspector : DefaultMixedRealityControllerVisualizerInspector
+    public class WindowsMixedRealityControllerVisualizerInspector : DefaultControllerVisualizerInspector
     {
         private SerializedProperty touchpadTouchVisualizer;
 

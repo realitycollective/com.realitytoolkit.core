@@ -63,7 +63,7 @@ namespace RealityToolkit.Utilities.Lines
 
         [SerializeField]
         [HideInInspector]
-        private BaseMixedRealityLineDataProvider source = null;
+        private BaseLineDataProvider source = null;
 
         #region MonoBehaviour Implementation
 
@@ -90,7 +90,7 @@ namespace RealityToolkit.Utilities.Lines
 
             if (source == null)
             {
-                source = GetComponent<BaseMixedRealityLineDataProvider>();
+                source = GetComponent<BaseLineDataProvider>();
             }
 
             if (source == null)

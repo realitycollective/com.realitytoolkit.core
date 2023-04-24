@@ -89,7 +89,7 @@ namespace RealityToolkit.Input.Definitions
         }
 
         /// <summary>
-        /// The guid reference to the <see cref="MixedRealityInputActionsProfile"/> this action belongs to.
+        /// The guid reference to the <see cref="InputActionsProfile"/> this action belongs to.
         /// </summary>
         public Guid ProfileGuid { get; private set; }
 

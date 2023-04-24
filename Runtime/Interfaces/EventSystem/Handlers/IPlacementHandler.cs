@@ -8,7 +8,7 @@ namespace RealityToolkit.Interfaces.Events.Handlers
     /// <summary>
     /// Interface to implement reacting to placement of objects.
     /// </summary>
-    public interface IMixedRealityPlacementHandler : IMixedRealityEventHandler
+    public interface IPlacementHandler : IEventHandler
     {
         void OnPlacingStarted(PlacementEventData eventData);
 

@@ -8,8 +8,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
-    [CustomEditor(typeof(BaseMixedRealitySurfaceObserverProfile), true, isFallback = true)]
-    public class BaseMixedRealitySurfaceObserverProfileInspector : BaseMixedRealitySpatialObserverProfileInspector
+    [CustomEditor(typeof(BaseSurfaceObserverProfile), true, isFallback = true)]
+    public class BaseSurfaceObserverProfileInspector : BaseSpatialObserverProfileInspector
     {
         private readonly GUIContent surfaceFoldoutContent = new GUIContent("Surface Finding Settings");
 

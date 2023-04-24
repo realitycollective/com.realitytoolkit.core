@@ -18,7 +18,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor
 {
-    public static class MixedRealityPreferences
+    public static class RealityToolkitPreferences
     {
         public const string Editor_Menu_Keyword = ToolkitPreferences.Editor_Menu_Keyword + "/Reality Toolkit";
 

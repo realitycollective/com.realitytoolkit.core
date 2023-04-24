@@ -18,17 +18,17 @@ namespace RealityToolkit.SpatialAwareness.Modules
     /// <summary>
     /// Base class for spatial awareness observers.
     /// </summary>
-    public abstract class BaseMixedRealitySpatialMeshObserver : BaseMixedRealitySpatialObserverServiceModule, IMixedRealitySpatialMeshObserver
+    public abstract class BaseSpatialMeshObserver : BaseSpatialObserverServiceModule, ISpatialMeshObserver
     {
         /// <inheritdoc />
-        protected BaseMixedRealitySpatialMeshObserver(string name, uint priority, BaseMixedRealitySpatialMeshObserverProfile profile, ISpatialAwarenessService parentService)
+        protected BaseSpatialMeshObserver(string name, uint priority, BaseSpatialMeshObserverProfile profile, ISpatialAwarenessService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
             {
-                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
+                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, SpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
                     ? spatialAwarenessSystemProfile.GlobalMeshObserverProfile
-                    : throw new ArgumentException($"Unable to get a valid {nameof(MixedRealitySpatialAwarenessSystemProfile)}!");
+                    : throw new ArgumentException($"Unable to get a valid {nameof(SpatialAwarenessSystemProfile)}!");
             }
 
             if (profile.IsNull())

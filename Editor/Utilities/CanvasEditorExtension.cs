@@ -31,7 +31,7 @@ namespace RealityToolkit.Editor.Utilities
             get
             {
                 if (!ServiceManager.IsActiveAndInitialized ||
-                    !MixedRealityPreferences.ShowCanvasUtilityPrompt)
+                    !RealityToolkitPreferences.ShowCanvasUtilityPrompt)
                 {
                     return false;
                 }
@@ -84,7 +84,7 @@ namespace RealityToolkit.Editor.Utilities
                         canvas.EnsureComponent<CanvasUtility>();
                         break;
                     case 2:
-                        MixedRealityPreferences.ShowCanvasUtilityPrompt = false;
+                        RealityToolkitPreferences.ShowCanvasUtilityPrompt = false;
                         break;
                 }
             }

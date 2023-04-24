@@ -9,7 +9,7 @@ namespace RealityToolkit.Input.Definitions
     /// <summary>
     /// Configuration profile settings for setting up and consuming Input Actions.
     /// </summary>
-    public class MixedRealityInputActionsProfile : BaseProfile
+    public class InputActionsProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("The list of actions users can do in your application.")]

@@ -16,7 +16,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     public class HandSpatialPointer : LinePointer
     {
         private IPointer nearPointer;
-        private IMixedRealityHandController handController;
+        private IHandController handController;
 
         [SerializeField]
         private Transform pointerPoseTransform = null;
@@ -45,7 +45,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <summary>
         /// Casted reference to the hand controller driving the pointer.
         /// </summary>
-        private IMixedRealityHandController HandController => handController ?? (handController = InitializeHandControllerReference());
+        private IHandController HandController => handController ?? (handController = InitializeHandControllerReference());
 
         /// <summary>
         /// Is the near pointer in an idle state where it's not
@@ -53,12 +53,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// </summary>
         private bool IsNearPointerIdle => NearPointer == null || NearPointer.Result?.CurrentPointerTarget == null || !NearPointer.IsInteractionEnabled;
 
-        private IMixedRealityHandController InitializeHandControllerReference()
+        private IHandController InitializeHandControllerReference()
         {
             // This pointer type must only be used with hand controllers.
-            if (!(Controller is IMixedRealityHandController controller))
+            if (!(Controller is IHandController controller))
             {
-                Debug.LogError($"{nameof(HandSpatialPointer)} is only for use with {nameof(IMixedRealityHandController)} controllers!");
+                Debug.LogError($"{nameof(HandSpatialPointer)} is only for use with {nameof(IHandController)} controllers!");
                 return null;
             }
 

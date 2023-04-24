@@ -17,9 +17,9 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(InteractionMappingProfile))]
-    public class MixedRealityInteractionMappingProfileInspector : BaseProfileInspector
+    public class InteractionMappingProfileInspector : BaseProfileInspector
     {
-        private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
+        private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
 
         private SerializedProperty interactionMapping;
         private SerializedProperty pointerProfiles;
@@ -217,7 +217,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
             rect.height = EditorGUIUtility.singleLineHeight;
             rect.y += 3;
             var mappingProfileProperty = pointerProfiles.GetArrayElementAtIndex(index);
-            ProfilePropertyDrawer.ProfileTypeOverride = typeof(MixedRealityPointerProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(PointerProfile);
             EditorGUI.PropertyField(rect, mappingProfileProperty, GUIContent.none);
         }
 

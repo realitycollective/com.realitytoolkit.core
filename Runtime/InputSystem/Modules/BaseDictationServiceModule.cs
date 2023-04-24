@@ -11,9 +11,9 @@ using UnityEngine;
 namespace RealityToolkit.Input.Modules
 {
     /// <summary>
-    /// Base dictation service module to use when implementing <see cref="IMixedRealityDictationServiceModule"/>s
+    /// Base dictation service module to use when implementing <see cref="IDictationServiceModule"/>s
     /// </summary>
-    public abstract class BaseDictationServiceModule : BaseServiceModule, IMixedRealityDictationServiceModule
+    public abstract class BaseDictationServiceModule : BaseServiceModule, IDictationServiceModule
     {
         /// <inheritdoc />
         protected BaseDictationServiceModule(string name, uint priority, BaseControllerServiceModuleProfile profile, IInputService parentService)

@@ -10,7 +10,7 @@ namespace RealityToolkit.Input.Interfaces.Speech
     /// <summary>
     /// Reality Toolkit controller definition, used to manage a specific controller type
     /// </summary>
-    public interface IMixedRealityDictationServiceModule : IInputServiceModule
+    public interface IDictationServiceModule : IInputServiceModule
     {
         /// <summary>
         /// Is the system currently listing to dictation input?

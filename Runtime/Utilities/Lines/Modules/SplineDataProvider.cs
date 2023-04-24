@@ -8,7 +8,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     /// <summary>
     /// Creates a spline based on control points.
     /// </summary>
-    public class SplineDataProvider : BaseMixedRealityLineDataProvider
+    public class SplineDataProvider : BaseLineDataProvider
     {
         [SerializeField]
         private Pose[] controlPoints =

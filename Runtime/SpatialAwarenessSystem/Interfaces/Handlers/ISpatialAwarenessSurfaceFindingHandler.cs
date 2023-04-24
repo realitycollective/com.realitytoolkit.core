@@ -10,7 +10,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces.Handlers
     /// The event handler for all Spatial Awareness Surface Finding Events.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IMixedRealitySpatialAwarenessSurfaceFindingHandler<T> : IEventSystemHandler
+    public interface ISpatialAwarenessSurfaceFindingHandler<T> : IEventSystemHandler
     {
         /// <summary>
         /// Called when the spatial awareness surface finding subsystem adds a new planar surface.

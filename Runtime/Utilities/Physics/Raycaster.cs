@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Utilities.Physics
 {
-    public static class MixedRealityRaycaster
+    public static class Raycaster
     {
         public static bool DebugEnabled = false;
 

@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
-    [CustomEditor(typeof(MixedRealitySpatialAwarenessSystemProfile))]
-    public class MixedRealitySpatialAwarenessSystemProfileInspector : ServiceProfileInspector
+    [CustomEditor(typeof(SpatialAwarenessSystemProfile))]
+    public class SpatialAwarenessSystemProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty meshDisplayOption;
         private SerializedProperty globalMeshObserverProfile;

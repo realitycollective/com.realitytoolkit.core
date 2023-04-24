@@ -77,16 +77,16 @@ namespace RealityToolkit.Utilities.UX.Pointers
         }
 
         [SerializeField]
-        private BaseMixedRealityLineDataProvider lineBase;
+        private BaseLineDataProvider lineBase;
 
         /// <summary>
         /// The Line Data Provider driving this pointer.
         /// </summary>
-        public BaseMixedRealityLineDataProvider LineBase => lineBase;
+        public BaseLineDataProvider LineBase => lineBase;
 
         [SerializeField]
         [Tooltip("If no line renderers are specified, this array will be auto-populated on startup.")]
-        private BaseMixedRealityLineRenderer[] lineRenderers;
+        private BaseLineRenderer[] lineRenderers;
 
         /// <summary>
         /// The current line renderers that this pointer is utilizing.
@@ -94,7 +94,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <remarks>
         /// If no line renderers are specified, this array will be auto-populated on startup.
         /// </remarks>
-        public BaseMixedRealityLineRenderer[] LineRenderers
+        public BaseLineRenderer[] LineRenderers
         {
             get => lineRenderers;
             set => lineRenderers = value;
@@ -104,7 +104,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             if (lineBase == null)
             {
-                lineBase = GetComponent<BaseMixedRealityLineDataProvider>();
+                lineBase = GetComponent<BaseLineDataProvider>();
             }
 
             if (lineBase == null)
@@ -114,7 +114,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
             if (lineBase != null && (lineRenderers == null || lineRenderers.Length == 0))
             {
-                lineRenderers = lineBase.GetComponentsInChildren<BaseMixedRealityLineRenderer>();
+                lineRenderers = lineBase.GetComponentsInChildren<BaseLineRenderer>();
             }
 
             if (lineRenderers == null || lineRenderers.Length == 0)

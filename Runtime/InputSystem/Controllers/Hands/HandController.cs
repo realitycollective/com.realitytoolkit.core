@@ -19,7 +19,7 @@ namespace RealityToolkit.Input.Controllers.Hands
     /// Platform agnostic hand controller type.
     /// </summary>
     [System.Runtime.InteropServices.Guid("B18A9A6C-E5FD-40AE-89E9-9822415EC62B")]
-    public class HandController : BaseController, IMixedRealityHandController
+    public class HandController : BaseController, IHandController
     {
         /// <inheritdoc />
         public HandController() : base() { }
@@ -199,7 +199,7 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateBounds()
         {
-            var handControllerDataProvider = (IMixedRealityHandControllerServiceModule)ControllerDataProvider;
+            var handControllerDataProvider = (IHandControllerServiceModule)ControllerDataProvider;
 
             if (handControllerDataProvider.HandPhysicsEnabled && handControllerDataProvider.BoundsMode == HandBoundsLOD.Low)
             {

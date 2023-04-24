@@ -11,7 +11,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(ControllerMappingProfile))]
-    public class BaseMixedRealityControllerMappingProfileInspector : BaseProfileInspector
+    public class BaseControllerMappingProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent EditButtonContent = new GUIContent("Edit Button Mappings");
 

@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
-    [CustomEditor(typeof(BaseMixedRealitySpatialObserverProfile), true, isFallback = true)]
-    public abstract class BaseMixedRealitySpatialObserverProfileInspector : ServiceProfileInspector
+    [CustomEditor(typeof(BaseSpatialObserverProfile), true, isFallback = true)]
+    public abstract class BaseSpatialObserverProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty startupBehavior;
         private SerializedProperty observationExtents;

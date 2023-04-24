@@ -11,7 +11,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
     /// <summary>
     /// The interface contract for Mixed Reality spatial observers.
     /// </summary>
-    public interface IMixedRealitySpatialMeshObserver : IMixedRealitySpatialAwarenessServiceModule
+    public interface ISpatialMeshObserver : ISpatialAwarenessServiceModule
     {
         /// <summary>
         /// Gets or sets the level of detail, as a MixedRealitySpatialAwarenessMeshLevelOfDetail value, for the returned spatial mesh.

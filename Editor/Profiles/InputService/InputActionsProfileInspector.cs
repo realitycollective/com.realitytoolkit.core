@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
-    [CustomEditor(typeof(MixedRealityInputActionsProfile))]
-    public class MixedRealityInputActionsProfileInspector : BaseProfileInspector
+    [CustomEditor(typeof(InputActionsProfile))]
+    public class InputActionsProfileInspector : BaseProfileInspector
     {
         private ReorderableList inputActionsList;
         private int currentlySelectedInputActionElement;

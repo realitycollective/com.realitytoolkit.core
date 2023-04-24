@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(EllipseLineDataProvider))]
-    public class EllipseLineDataProviderInspector : BaseMixedRealityLineDataProviderInspector
+    public class EllipseLineDataProviderInspector : BaseLineDataProviderInspector
     {
         private SerializedProperty resolution;
         private SerializedProperty radius;

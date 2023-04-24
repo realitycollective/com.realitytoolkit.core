@@ -7,7 +7,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(Pose))]
-    public class MixedRealityPosePropertyDrawer : PropertyDrawer
+    public class PosePropertyDrawer : PropertyDrawer
     {
         private readonly GUIContent positionContent = new GUIContent("Position");
         private readonly GUIContent rotationContent = new GUIContent("Rotation");

@@ -18,7 +18,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
     [CustomEditor(typeof(InputServiceProfile))]
-    public class MixedRealityInputSystemProfileInspector : ServiceProfileInspector
+    public class InputSystemProfileInspector : ServiceProfileInspector
     {
         private static readonly GUIContent GazeProviderBehaviourContent = new GUIContent("Gaze Provider Mode");
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");
@@ -163,7 +163,7 @@ namespace RealityToolkit.Editor.Profiles.InputSystem
                     var (dataProviderProfile, mappingProfile) = controllerMappingProfile.Value;
                     var profileEditor = CreateEditor(dataProviderProfile);
 
-                    if (profileEditor is BaseMixedRealityControllerServiceModuleProfileInspector inspector)
+                    if (profileEditor is BaseControllerServiceModuleProfileInspector inspector)
                     {
                         inspector.RenderControllerMappingButton(mappingProfile);
                     }

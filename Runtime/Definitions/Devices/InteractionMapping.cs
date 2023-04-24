@@ -143,7 +143,7 @@ namespace RealityToolkit.Definitions.Devices
         private StateChangeType stateChangeType;
 
         /// <summary>
-        /// Influences how the Interaction determines state changes that will raise the <see cref="MixedRealityInputAction"/>.
+        /// Influences how the Interaction determines state changes that will raise the <see cref="InputAction"/>.
         /// </summary>
         //public StateChangeType StateChangeType => stateChangeType;
 
@@ -172,7 +172,7 @@ namespace RealityToolkit.Definitions.Devices
         /// <summary>
         /// Action to be raised to the Input Manager when the input data has changed.
         /// </summary>
-        public InputAction MixedRealityInputAction
+        public InputAction InputAction
         {
             get => inputAction;
             set => inputAction = value;

@@ -9,7 +9,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces.Handlers
     /// <summary>
     /// The event handler for all Spatial Awareness Mesh Events.
     /// </summary>
-    public interface IMixedRealitySpatialAwarenessMeshHandler<T> : IEventSystemHandler
+    public interface ISpatialAwarenessMeshHandler<T> : IEventSystemHandler
     {
         /// <summary>
         /// Called when the spatial awareness mesh subsystem adds a mesh.

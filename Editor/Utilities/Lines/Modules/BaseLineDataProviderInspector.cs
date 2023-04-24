@@ -12,8 +12,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
-    [CustomEditor(typeof(BaseMixedRealityLineDataProvider))]
-    public class BaseMixedRealityLineDataProviderInspector : UnityEditor.Editor
+    [CustomEditor(typeof(BaseLineDataProvider))]
+    public class BaseLineDataProviderInspector : UnityEditor.Editor
     {
         private const string DrawLinePointsKey = "XRTK_Line_Inspector_DrawLinePoints";
         private const string DrawLineRotationsKey = "XRTK_Line_Inspector_DrawLineRotations";
@@ -59,7 +59,7 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 
         private ReorderableList manualUpVectorList;
 
-        protected BaseMixedRealityLineDataProvider LineData;
+        protected BaseLineDataProvider LineData;
         protected bool RenderLinePreview = true;
 
         protected virtual void OnEnable()
@@ -72,7 +72,7 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
             DrawLineManualUpVectors = SessionState.GetBool(DrawLineManualUpVectorsKey, DrawLineManualUpVectors);
             ManualUpVectorLength = SessionState.GetFloat(ManualUpVectorLengthKey, ManualUpVectorLength);
 
-            LineData = (BaseMixedRealityLineDataProvider)target;
+            LineData = (BaseLineDataProvider)target;
             transformMode = serializedObject.FindProperty(nameof(transformMode));
             customLineTransform = serializedObject.FindProperty(nameof(customLineTransform));
             lineStartClamp = serializedObject.FindProperty(nameof(lineStartClamp));
@@ -93,7 +93,7 @@ namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
             manualUpVectorList.drawElementCallback += DrawManualUpVectorListElement;
             manualUpVectorList.drawHeaderCallback += DrawManualUpVectorHeader;
 
-            RenderLinePreview = LineData.gameObject.GetComponent<BaseMixedRealityLineRenderer>() == null;
+            RenderLinePreview = LineData.gameObject.GetComponent<BaseLineRenderer>() == null;
 
             var newDistorters = LineData.gameObject.GetComponents<Distorter>();
             distorters.arraySize = newDistorters.Length;

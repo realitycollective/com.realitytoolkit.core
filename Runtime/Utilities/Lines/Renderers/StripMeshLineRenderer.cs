@@ -10,7 +10,7 @@ namespace RealityToolkit.Utilities.Lines.Renderers
     /// <summary>
     /// Draws a strip of polygons along the line
     /// </summary>
-    public class StripMeshLineRenderer : BaseMixedRealityLineRenderer
+    public class StripMeshLineRenderer : BaseLineRenderer
     {
         [Header("Strip Mesh Settings")]
 

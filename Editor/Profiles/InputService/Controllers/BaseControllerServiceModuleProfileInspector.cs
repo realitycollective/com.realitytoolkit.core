@@ -21,7 +21,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(BaseControllerServiceModuleProfile), editorForChildClasses: true, isFallback = true)]
-    public class BaseMixedRealityControllerServiceModuleProfileInspector : BaseProfileInspector
+    public class BaseControllerServiceModuleProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent controllerProfilesFoldoutHeader = new GUIContent("Controller Mapping Profiles");
         private static readonly string[] viewModeToolbarOptions = { "Simple", "Advanced" };

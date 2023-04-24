@@ -8,7 +8,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     /// <summary>
     /// Base Parabola line data provider.
     /// </summary>
-    public abstract class ParabolaLineDataProvider : BaseMixedRealityLineDataProvider
+    public abstract class ParabolaLineDataProvider : BaseLineDataProvider
     {
         [SerializeField]
         private Pose startPoint = Pose.identity;

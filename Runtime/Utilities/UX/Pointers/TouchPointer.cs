@@ -11,7 +11,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// <summary>
     /// Touch Pointer Implementation.
     /// </summary>
-    public class TouchPointer : BaseControllerPointer, IMixedRealityTouchPointer
+    public class TouchPointer : BaseControllerPointer, ITouchPointer
     {
         private bool isInteractionEnabled = false;
 
@@ -48,12 +48,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     RayStabilizer.UpdateStability(Rays[0].Origin, Rays[0].Direction);
                     Rays[0].CopyRay(RayStabilizer.StableRay, PointerExtent);
 
-                    if (MixedRealityRaycaster.DebugEnabled)
+                    if (Raycaster.DebugEnabled)
                     {
                         Debug.DrawRay(RayStabilizer.StableRay.origin, RayStabilizer.StableRay.direction * PointerExtent, Color.green);
                     }
                 }
-                else if (MixedRealityRaycaster.DebugEnabled)
+                else if (Raycaster.DebugEnabled)
                 {
                     Debug.DrawRay(pointingRay.origin, pointingRay.direction * PointerExtent, Color.yellow);
                 }

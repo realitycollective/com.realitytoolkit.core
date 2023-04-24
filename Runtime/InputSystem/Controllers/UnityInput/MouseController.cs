@@ -93,7 +93,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaisePoseInputChanged(InputSource, Interactions[i].MixedRealityInputAction, Interactions[i].PoseData);
+                        InputSystem?.RaisePoseInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].PoseData);
                     }
                 }
 
@@ -104,7 +104,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaisePositionInputChanged(InputSource, Interactions[i].MixedRealityInputAction, Interactions[i].Vector2Data);
+                        InputSystem?.RaisePositionInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].Vector2Data);
                     }
                 }
 
@@ -115,7 +115,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaisePositionInputChanged(InputSource, Interactions[i].MixedRealityInputAction, Interactions[i].Vector2Data);
+                        InputSystem?.RaisePositionInputChanged(InputSource, Interactions[i].InputAction, Interactions[i].Vector2Data);
                     }
                 }
 
@@ -132,18 +132,18 @@ namespace RealityToolkit.Input.Controllers.UnityInput
                         // Raise input system Event if it enabled
                         if (Interactions[i].BoolData)
                         {
-                            InputSystem?.RaiseOnInputDown(InputSource, ControllerHandedness, Interactions[i].MixedRealityInputAction);
+                            InputSystem?.RaiseOnInputDown(InputSource, ControllerHandedness, Interactions[i].InputAction);
                         }
                         else
                         {
-                            InputSystem?.RaiseOnInputUp(InputSource, ControllerHandedness, Interactions[i].MixedRealityInputAction);
+                            InputSystem?.RaiseOnInputUp(InputSource, ControllerHandedness, Interactions[i].InputAction);
                         }
                     }
 
                     // If our value was updated, raise it.
                     if (Interactions[i].Updated)
                     {
-                        InputSystem?.RaiseOnInputPressed(InputSource, ControllerHandedness, Interactions[i].MixedRealityInputAction);
+                        InputSystem?.RaiseOnInputPressed(InputSource, ControllerHandedness, Interactions[i].InputAction);
                     }
                 }
             }

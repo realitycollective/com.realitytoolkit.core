@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(BezierLineDataProvider))]
-    public class BezierDataProviderInspector : BaseMixedRealityLineDataProviderInspector
+    public class BezierDataProviderInspector : BaseLineDataProviderInspector
     {
         private const float HANDLE_SIZE_MODIFIER = 0.04f;
         private const float PICK_SIZE_MODIFIER = 0.06f;

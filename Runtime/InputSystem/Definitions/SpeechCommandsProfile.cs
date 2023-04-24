@@ -10,7 +10,7 @@ namespace RealityToolkit.Input.Definitions
     /// <summary>
     /// Configuration profile settings for setting up and consuming Speech Commands.
     /// </summary>
-    public class MixedRealitySpeechCommandsProfile : BaseProfile
+    public class SpeechCommandsProfile : BaseProfile
     {
         [SerializeField]
         [Tooltip("Whether the recognizer should be activated on start.")]

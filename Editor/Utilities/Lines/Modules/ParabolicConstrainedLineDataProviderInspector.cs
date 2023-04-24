@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(ParabolaConstrainedLineDataProvider))]
-    public class ParabolicConstrainedLineDataProviderInspector : BaseMixedRealityLineDataProviderInspector
+    public class ParabolicConstrainedLineDataProviderInspector : BaseLineDataProviderInspector
     {
         private SerializedProperty height;
         private SerializedProperty endPoint;

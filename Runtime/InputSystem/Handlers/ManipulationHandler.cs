@@ -1235,7 +1235,7 @@ namespace RealityToolkit.Input.Handlers
 
                 var rayStep = new RayStep(new Ray(cornerPosition, direction), distance);
 
-                if (MixedRealityRaycaster.RaycastSimplePhysicsStep(rayStep, LayerMasks, out var hitInfo))
+                if (Raycaster.RaycastSimplePhysicsStep(rayStep, LayerMasks, out var hitInfo))
                 {
                     hitAny = true;
 

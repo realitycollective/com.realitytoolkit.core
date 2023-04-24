@@ -30,9 +30,9 @@ namespace RealityToolkit.Editor
     internal static class CorePackageInstaller
     {
         private const string CORE_PATH_FINDER = "/Editor/Utilities/CorePathFinder.cs";
-        private static readonly string defaultPath = $"{MixedRealityPreferences.ProfileGenerationPath}Core";
-        private static readonly string hiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(CorePathFinder))}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
-        const string configureMenuItemPath = MixedRealityPreferences.Editor_Menu_Keyword + "/Configure...";
+        private static readonly string defaultPath = $"{RealityToolkitPreferences.ProfileGenerationPath}Core";
+        private static readonly string hiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(CorePathFinder))}{Path.DirectorySeparatorChar}{RealityToolkitPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
+        const string configureMenuItemPath = RealityToolkitPreferences.Editor_Menu_Keyword + "/Configure...";
 
         static CorePackageInstaller()
         {
@@ -40,7 +40,7 @@ namespace RealityToolkit.Editor
         }
 
         [MenuItem(configureMenuItemPath, true, 0)]
-        private static bool CreateMixedRealityToolkitGameObjectValidation()
+        private static bool CreateToolkitGameObjectValidation()
         {
             return SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() == null;
         }
@@ -102,7 +102,7 @@ namespace RealityToolkit.Editor
                 if (availableRootProfiles == null || availableRootProfiles.Length == 0)
                 {
                     var newProfile = ScriptableObject.CreateInstance<ServiceProvidersProfile>().GetOrCreateAsset(
-                        MixedRealityPreferences.DEFAULT_GENERATION_PATH,
+                        RealityToolkitPreferences.DEFAULT_GENERATION_PATH,
                         $"RealityToolkit{nameof(ServiceProvidersProfile)}", false);
                     serviceManagerInstance.Manager.ResetProfile(newProfile);
                 }
@@ -118,13 +118,13 @@ namespace RealityToolkit.Editor
             return serviceManagerInstance;
         }
 
-        [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", true, -1)]
+        [MenuItem(RealityToolkitPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", true, -1)]
         private static bool ImportPackageAssetsValidation()
         {
             return !Directory.Exists($"{defaultPath}{Path.DirectorySeparatorChar}");
         }
 
-        [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", false, -1)]
+        [MenuItem(RealityToolkitPreferences.Editor_Menu_Keyword + "/Packages/Install Core Package Assets...", false, -1)]
         private static void ImportPackageAssets()
         {
             EditorPreferences.Set($"{nameof(CorePackageInstaller)}.Assets", false);

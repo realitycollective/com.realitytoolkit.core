@@ -6,7 +6,7 @@ namespace RealityToolkit.Input.Interfaces
     /// <summary>
     /// Interface for handling mouse pointers.
     /// </summary>
-    public interface IMixedRealityMousePointer : IPointer
+    public interface IMousePointer : IPointer
     {
         /// <summary>
         /// Should the mouse cursor be hidden when no active input is received?

@@ -11,7 +11,7 @@ namespace RealityToolkit.Input.Definitions
     /// <summary>
     /// Configuration profile settings for setting up controller pointers.
     /// </summary>
-    public class MixedRealityPointerProfile : BaseProfile
+    public class PointerProfile : BaseProfile
     {
         [SerializeField]
         [Prefab(typeof(IPointer))]

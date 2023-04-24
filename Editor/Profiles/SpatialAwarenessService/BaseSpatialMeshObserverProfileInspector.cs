@@ -10,8 +10,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.SpatialAwareness
 {
-    [CustomEditor(typeof(BaseMixedRealitySpatialMeshObserverProfile), true, isFallback = true)]
-    public class BaseMixedRealitySpatialMeshObserverProfileInspector : BaseMixedRealitySpatialObserverProfileInspector
+    [CustomEditor(typeof(BaseSpatialMeshObserverProfile), true, isFallback = true)]
+    public class BaseSpatialMeshObserverProfileInspector : BaseSpatialObserverProfileInspector
     {
         private SerializedProperty meshLevelOfDetail;
         private SerializedProperty meshRecalculateNormals;

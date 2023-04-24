@@ -326,7 +326,7 @@ namespace RealityToolkit.Input.Modules
 
         private void Update()
         {
-            if (MixedRealityRaycaster.DebugEnabled && gazeTransform != null)
+            if (Raycaster.DebugEnabled && gazeTransform != null)
             {
                 Debug.DrawRay(GazeOrigin, (HitPosition - GazeOrigin), Color.white);
             }
@@ -365,7 +365,7 @@ namespace RealityToolkit.Input.Modules
 
             HeadMovementDirection = Vector3.Slerp(HeadMovementDirection, newHeadMoveDirection, directionAdjustmentRate);
 
-            if (MixedRealityRaycaster.DebugEnabled && gazeTransform != null)
+            if (Raycaster.DebugEnabled && gazeTransform != null)
             {
                 Debug.DrawLine(lastHeadPosition, lastHeadPosition + HeadMovementDirection * 10f, Color.Lerp(Color.red, Color.green, multiplier));
                 Debug.DrawLine(lastHeadPosition, lastHeadPosition + HeadVelocity, Color.yellow);

@@ -10,7 +10,7 @@ namespace RealityToolkit.Utilities.Lines.Renderers
     /// attaches a set of particles to the line
     /// </summary>
     [RequireComponent(typeof(ParticleSystem))]
-    public class ParticleSystemLineRenderer : BaseMixedRealityLineRenderer
+    public class ParticleSystemLineRenderer : BaseLineRenderer
     {
         private const int GlobalMaxParticles = 2048;
 

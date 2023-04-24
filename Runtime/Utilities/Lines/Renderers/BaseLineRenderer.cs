@@ -11,22 +11,22 @@ namespace RealityToolkit.Utilities.Lines.Renderers
     /// Base class for Mixed Reality Line Renderers.
     /// </summary>
     [ExecuteAlways]
-    public abstract class BaseMixedRealityLineRenderer : MonoBehaviour
+    public abstract class BaseLineRenderer : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("The line data this component will render")]
-        private BaseMixedRealityLineDataProvider lineDataSource;
+        private BaseLineDataProvider lineDataSource;
 
         /// <summary>
         /// The line data this component will render
         /// </summary>
-        public BaseMixedRealityLineDataProvider LineDataSource
+        public BaseLineDataProvider LineDataSource
         {
             get
             {
                 if (lineDataSource == null)
                 {
-                    lineDataSource = GetComponent<BaseMixedRealityLineDataProvider>();
+                    lineDataSource = GetComponent<BaseLineDataProvider>();
 
                     if (lineDataSource != null)
                     {
@@ -240,7 +240,7 @@ namespace RealityToolkit.Utilities.Lines.Renderers
 
             if (lineDataSource == null)
             {
-                lineDataSource = gameObject.GetComponent<BaseMixedRealityLineDataProvider>();
+                lineDataSource = gameObject.GetComponent<BaseLineDataProvider>();
             }
 
             if (lineDataSource == null || !lineDataSource.enabled)

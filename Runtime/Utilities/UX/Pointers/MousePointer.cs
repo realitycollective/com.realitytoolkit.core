@@ -13,7 +13,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// <summary>
     /// Default Mouse Pointer Implementation.
     /// </summary>
-    public class MousePointer : BaseControllerPointer, IMixedRealityMousePointer
+    public class MousePointer : BaseControllerPointer, IMousePointer
     {
         private float lastUpdateTime = 0.0f;
 
@@ -32,7 +32,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private bool hideCursorWhenInactive = true;
 
         /// <inheritdoc />
-        bool IMixedRealityMousePointer.HideCursorWhenInactive => hideCursorWhenInactive;
+        bool IMousePointer.HideCursorWhenInactive => hideCursorWhenInactive;
 
         [SerializeField]
         [Range(0.01f, 1f)]
@@ -40,7 +40,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private float movementThresholdToUnHide = 0.1f;
 
         /// <inheritdoc />
-        float IMixedRealityMousePointer.MovementThresholdToUnHide => movementThresholdToUnHide;
+        float IMousePointer.MovementThresholdToUnHide => movementThresholdToUnHide;
 
         [SerializeField]
         [Range(0f, 10f)]
@@ -48,14 +48,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private float hideTimeout = 3.0f;
 
         /// <inheritdoc />
-        float IMixedRealityMousePointer.HideTimeout => hideTimeout;
+        float IMousePointer.HideTimeout => hideTimeout;
 
         [SerializeField]
         [Range(0.1f, 1f)]
         [Tooltip("Mouse cursor speed that gets applied to the mouse delta.")]
         private float speed = 0.25f;
 
-        float IMixedRealityMousePointer.Speed => speed;
+        float IMousePointer.Speed => speed;
 
         #endregion IMixedRealityMousePointer Implementation
 
@@ -115,12 +115,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     RayStabilizer.UpdateStability(Rays[0].Origin, Rays[0].Direction);
                     Rays[0].CopyRay(RayStabilizer.StableRay, PointerExtent);
 
-                    if (MixedRealityRaycaster.DebugEnabled)
+                    if (Raycaster.DebugEnabled)
                     {
                         Debug.DrawRay(RayStabilizer.StableRay.origin, RayStabilizer.StableRay.direction * PointerExtent, Color.yellow);
                     }
                 }
-                else if (MixedRealityRaycaster.DebugEnabled)
+                else if (Raycaster.DebugEnabled)
                 {
                     Debug.DrawRay(pointingRay.origin, pointingRay.direction * PointerExtent, Color.yellow);
                 }

@@ -8,7 +8,7 @@ namespace RealityToolkit.Input.Interfaces
     /// <summary>
     /// Interface for handling touch pointers.
     /// </summary>
-    public interface IMixedRealityTouchPointer : IPointer
+    public interface ITouchPointer : IPointer
     {
         /// <summary>
         /// Current finger id of the touch.

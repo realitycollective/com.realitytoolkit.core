@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles.InputSystem.Controllers
 {
     [CustomEditor(typeof(BaseHandControllerServiceModuleProfile), true, isFallback = true)]
-    public class BaseMixedRealityHandControllerServiceModuleProfileInspector : BaseMixedRealityControllerServiceModuleProfileInspector
+    public class BaseHandControllerServiceModuleProfileInspector : BaseControllerServiceModuleProfileInspector
     {
         private static readonly GUIContent handTrackingSettingsFoldoutHeader = new GUIContent("Hand Tracking Settings");
 

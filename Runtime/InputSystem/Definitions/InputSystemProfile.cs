@@ -134,12 +134,12 @@ namespace RealityToolkit.Input.Definitions
 
         [SerializeField]
         [Tooltip("Input System Action Mapping profile for setting up avery action a user can make in your application.")]
-        private MixedRealityInputActionsProfile inputActionsProfile;
+        private InputActionsProfile inputActionsProfile;
 
         /// <summary>
         /// Input System Action Mapping profile for setting up avery action a user can make in your application.
         /// </summary>
-        public MixedRealityInputActionsProfile InputActionsProfile
+        public InputActionsProfile InputActionsProfile
         {
             get => inputActionsProfile;
             internal set => inputActionsProfile = value;
@@ -147,12 +147,12 @@ namespace RealityToolkit.Input.Definitions
 
         [SerializeField]
         [Tooltip("Speech Command profile for wiring up Voice Input to Actions.")]
-        private MixedRealitySpeechCommandsProfile speechCommandsProfile;
+        private SpeechCommandsProfile speechCommandsProfile;
 
         /// <summary>
         /// Speech commands profile for configured speech commands, for use by the speech recognition system
         /// </summary>
-        public MixedRealitySpeechCommandsProfile SpeechCommandsProfile
+        public SpeechCommandsProfile SpeechCommandsProfile
         {
             get => speechCommandsProfile;
             internal set => speechCommandsProfile = value;

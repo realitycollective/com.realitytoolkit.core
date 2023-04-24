@@ -14,19 +14,19 @@ using UnityEngine;
 namespace RealityToolkit.SpatialAwareness.Modules
 {
     /// <summary>
-    /// Base <see cref="IMixedRealitySpatialSurfaceObserver"/> implementation.
+    /// Base <see cref="ISpatialSurfaceObserver"/> implementation.
     /// </summary>
-    public abstract class BaseMixedRealitySpatialSurfaceObserver : BaseMixedRealitySpatialObserverServiceModule, IMixedRealitySpatialSurfaceObserver
+    public abstract class BaseSpatialSurfaceObserver : BaseSpatialObserverServiceModule, ISpatialSurfaceObserver
     {
         /// <inheritdoc />
-        protected BaseMixedRealitySpatialSurfaceObserver(string name, uint priority, BaseMixedRealitySurfaceObserverProfile profile, ISpatialAwarenessService parentService)
+        protected BaseSpatialSurfaceObserver(string name, uint priority, BaseSurfaceObserverProfile profile, ISpatialAwarenessService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
             {
-                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, MixedRealitySpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
+                profile = ServiceManager.Instance.TryGetServiceProfile<ISpatialAwarenessService, SpatialAwarenessSystemProfile>(out var spatialAwarenessSystemProfile)
                     ? spatialAwarenessSystemProfile.GlobalSurfaceObserverProfile
-                    : throw new ArgumentException($"Unable to get a valid {nameof(MixedRealitySpatialAwarenessSystemProfile)}!");
+                    : throw new ArgumentException($"Unable to get a valid {nameof(SpatialAwarenessSystemProfile)}!");
             }
 
             if (profile.IsNull())

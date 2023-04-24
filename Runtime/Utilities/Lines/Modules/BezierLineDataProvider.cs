@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Utilities.Lines
 {
-    public class BezierLineDataProvider : BaseMixedRealityLineDataProvider
+    public class BezierLineDataProvider : BaseLineDataProvider
     {
         [Serializable]
         private class BezierInertia

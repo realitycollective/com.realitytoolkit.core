@@ -36,12 +36,12 @@ namespace RealityToolkit.Editor
                 }
 
                 if (ServiceManager.Instance.IsServiceEnabled<ISpatialAwarenessService>() &&
-                    LayerUtilities.CheckLayers(MixedRealitySpatialAwarenessSystemProfile.SpatialAwarenessLayers))
+                    LayerUtilities.CheckLayers(SpatialAwarenessSystemProfile.SpatialAwarenessLayers))
                 {
                     Debug.Log($"{nameof(ISpatialAwarenessService)} was enabled, spatial mapping layers added to project.");
                 }
                 else if (!ServiceManager.Instance.IsServiceEnabled<ISpatialAwarenessService>() &&
-                         LayerUtilities.RemoveLayers(MixedRealitySpatialAwarenessSystemProfile.SpatialAwarenessLayers))
+                         LayerUtilities.RemoveLayers(SpatialAwarenessSystemProfile.SpatialAwarenessLayers))
                 {
                     Debug.Log($"{nameof(ISpatialAwarenessService)} was disabled, spatial mapping layers removed to project.");
                 }

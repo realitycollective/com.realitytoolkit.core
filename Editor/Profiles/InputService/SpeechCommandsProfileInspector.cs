@@ -10,8 +10,8 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.InputSystem
 {
-    [CustomEditor(typeof(MixedRealitySpeechCommandsProfile))]
-    public class MixedRealitySpeechCommandsProfileInspector : BaseProfileInspector
+    [CustomEditor(typeof(SpeechCommandsProfile))]
+    public class SpeechCommandsProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent MinusButtonContent = new GUIContent("-", "Remove Speech Command");
         private static readonly GUIContent AddButtonContent = new GUIContent("+ Add a New Speech Command", "Add Speech Command");

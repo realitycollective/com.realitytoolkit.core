@@ -39,7 +39,7 @@ namespace RealityToolkit.Input.Modules
             focusLayerMasks = inputSystemProfile.PointersProfile.PointerRaycastLayerMasks;
             globalPointingExtent = inputSystemProfile.PointersProfile.PointingExtent;
             debugPointingRayColors = inputSystemProfile.PointersProfile.DebugPointingRayColors;
-            MixedRealityRaycaster.DebugEnabled = inputSystemProfile.PointersProfile.DrawDebugPointingRays;
+            Raycaster.DebugEnabled = inputSystemProfile.PointersProfile.DrawDebugPointingRays;
         }
 
         private readonly HashSet<PointerData> pointers = new HashSet<PointerData>();
@@ -271,7 +271,7 @@ namespace RealityToolkit.Input.Modules
                         GrabPointLocalSpace = CurrentPointerTarget.transform.InverseTransformPoint(GrabPoint);
 
                         // Visualize the relevant points and their relation
-                        if (Application.isEditor && MixedRealityRaycaster.DebugEnabled)
+                        if (Application.isEditor && Raycaster.DebugEnabled)
                         {
                             DebugUtilities.DrawPoint(GrabPoint, Color.red);
                             DebugUtilities.DrawPoint(focusDetails.EndPoint, Color.yellow);
@@ -745,7 +745,7 @@ namespace RealityToolkit.Input.Modules
             {
                 UpdatePointer(pointer);
 
-                if (Application.isEditor && MixedRealityRaycaster.DebugEnabled)
+                if (Application.isEditor && Raycaster.DebugEnabled)
                 {
                     Color debugPointingRayColor;
 
@@ -886,7 +886,7 @@ namespace RealityToolkit.Input.Modules
                 switch (pointer.RaycastMode)
                 {
                     case RaycastMode.Simple:
-                        if (MixedRealityRaycaster.RaycastSimplePhysicsStep(pointerRays[i], prioritizedLayerMasks, out var simplePhysicsHit) &&
+                        if (Raycaster.RaycastSimplePhysicsStep(pointerRays[i], prioritizedLayerMasks, out var simplePhysicsHit) &&
                             simplePhysicsHit.collider != pointer.NearInteractionCollider)
                         {
                             // Set the pointer source's origin ray to this step
@@ -899,7 +899,7 @@ namespace RealityToolkit.Input.Modules
                         Debug.LogWarning("Box Raycasting Mode not supported for pointers.");
                         break;
                     case RaycastMode.Sphere:
-                        if (MixedRealityRaycaster.RaycastSpherePhysicsStep(pointerRays[i], pointer.SphereCastRadius, prioritizedLayerMasks, out var spherePhysicsHit) &&
+                        if (Raycaster.RaycastSpherePhysicsStep(pointerRays[i], pointer.SphereCastRadius, prioritizedLayerMasks, out var spherePhysicsHit) &&
                             spherePhysicsHit.collider != pointer.NearInteractionCollider)
                         {
                             // Set the pointer source's origin ray to this step

@@ -11,7 +11,7 @@ namespace RealityToolkit.Editor.PropertyDrawers
     [CustomPropertyDrawer(typeof(AxisConstraintAttribute))]
     public class AxisConstraintAttributeDrawer : PropertyDrawer
     {
-        private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
+        private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

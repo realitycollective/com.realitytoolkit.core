@@ -9,7 +9,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     /// Creates an elliptical line shape.
     /// </summary>
     /// <remarks>This line loops.</remarks>
-    public class EllipseLineDataProvider : BaseMixedRealityLineDataProvider
+    public class EllipseLineDataProvider : BaseLineDataProvider
     {
         [SerializeField]
         [Range(0, 2048)]

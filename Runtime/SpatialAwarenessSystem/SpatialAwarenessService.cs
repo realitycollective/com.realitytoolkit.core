@@ -31,7 +31,7 @@ namespace RealityToolkit.SpatialAwareness
         /// <param name="name">The service display name.</param>
         /// <param name="priority">The service initialization priority.</param>
         /// <param name="profile">The service configuration profile.</param>
-        public SpatialAwarenessService(string name, uint priority, MixedRealitySpatialAwarenessSystemProfile profile)
+        public SpatialAwarenessService(string name, uint priority, SpatialAwarenessSystemProfile profile)
             : base(name, priority, profile)
         {
             spatialMeshVisibility = profile.MeshDisplayOption;
@@ -81,7 +81,7 @@ namespace RealityToolkit.SpatialAwareness
 
                 foreach (var observer in DetectedSpatialObservers)
                 {
-                    if (observer is BaseMixedRealitySpatialMeshObserver meshObserver)
+                    if (observer is BaseSpatialMeshObserver meshObserver)
                     {
                         meshObserver.MeshDisplayOption = spatialMeshVisibility;
                     }
@@ -107,10 +107,10 @@ namespace RealityToolkit.SpatialAwareness
         #region IMixedRealitySpatialAwarenessSystem Implementation
 
         /// <inheritdoc />
-        public HashSet<IMixedRealitySpatialAwarenessServiceModule> DetectedSpatialObservers { get; } = new HashSet<IMixedRealitySpatialAwarenessServiceModule>();
+        public HashSet<ISpatialAwarenessServiceModule> DetectedSpatialObservers { get; } = new HashSet<ISpatialAwarenessServiceModule>();
 
         /// <inheritdoc />
-        public bool IsObserverRunning(IMixedRealitySpatialAwarenessServiceModule observer)
+        public bool IsObserverRunning(ISpatialAwarenessServiceModule observer)
         {
             foreach (var detectedObserver in DetectedSpatialObservers)
             {
@@ -140,7 +140,7 @@ namespace RealityToolkit.SpatialAwareness
         }
 
         /// <inheritdoc />
-        public void StartObserver(IMixedRealitySpatialAwarenessServiceModule observer)
+        public void StartObserver(ISpatialAwarenessServiceModule observer)
         {
             foreach (var spatialObserver in DetectedSpatialObservers)
             {
@@ -153,7 +153,7 @@ namespace RealityToolkit.SpatialAwareness
         }
 
         /// <inheritdoc />
-        public void SuspendObserver(IMixedRealitySpatialAwarenessServiceModule observer)
+        public void SuspendObserver(ISpatialAwarenessServiceModule observer)
         {
             foreach (var spatialObserver in DetectedSpatialObservers)
             {
@@ -166,13 +166,13 @@ namespace RealityToolkit.SpatialAwareness
         }
 
         /// <inheritdoc />
-        public void RaiseSpatialAwarenessObserverDetected(IMixedRealitySpatialAwarenessServiceModule observer)
+        public void RaiseSpatialAwarenessObserverDetected(ISpatialAwarenessServiceModule observer)
         {
             DetectedSpatialObservers.Add(observer);
         }
 
         /// <inheritdoc />
-        public void RaiseSpatialAwarenessObserverLost(IMixedRealitySpatialAwarenessServiceModule observer)
+        public void RaiseSpatialAwarenessObserverLost(ISpatialAwarenessServiceModule observer)
         {
             DetectedSpatialObservers.Remove(observer);
         }
@@ -228,7 +228,7 @@ namespace RealityToolkit.SpatialAwareness
         #region Mesh Events
 
         /// <inheritdoc />
-        public void RaiseMeshAdded(IMixedRealitySpatialMeshObserver observer, SpatialMeshObject spatialMeshObject)
+        public void RaiseMeshAdded(ISpatialMeshObserver observer, SpatialMeshObject spatialMeshObject)
         {
             // Parent the mesh object
             spatialMeshObject.GameObject.transform.parent = SpatialMeshesParent.transform;
@@ -240,15 +240,15 @@ namespace RealityToolkit.SpatialAwareness
         /// <summary>
         /// Event sent whenever a mesh is added.
         /// </summary>
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshAdded =
-            delegate (IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshAdded =
+            delegate (ISpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
             {
                 var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<SpatialMeshObject>>(eventData);
                 handler.OnMeshAdded(spatialEventData);
             };
 
         /// <inheritdoc />
-        public void RaiseMeshUpdated(IMixedRealitySpatialMeshObserver observer, SpatialMeshObject spatialMeshObject)
+        public void RaiseMeshUpdated(ISpatialMeshObserver observer, SpatialMeshObject spatialMeshObject)
         {
             // Parent the mesh object
             spatialMeshObject.GameObject.transform.parent = SpatialMeshesParent.transform;
@@ -260,15 +260,15 @@ namespace RealityToolkit.SpatialAwareness
         /// <summary>
         /// Event sent whenever a mesh is updated.
         /// </summary>
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshUpdated =
-            delegate (IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshUpdated =
+            delegate (ISpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
             {
                 var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<SpatialMeshObject>>(eventData);
                 handler.OnMeshUpdated(spatialEventData);
             };
 
         /// <inheritdoc />
-        public void RaiseMeshRemoved(IMixedRealitySpatialMeshObserver observer, SpatialMeshObject spatialMeshObject)
+        public void RaiseMeshRemoved(ISpatialMeshObserver observer, SpatialMeshObject spatialMeshObject)
         {
             meshEventData.Initialize(observer, spatialMeshObject.Id, spatialMeshObject);
             HandleEvent(meshEventData, OnMeshRemoved);
@@ -277,8 +277,8 @@ namespace RealityToolkit.SpatialAwareness
         /// <summary>
         /// Event sent whenever a mesh is discarded.
         /// </summary>
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshRemoved =
-            delegate (IMixedRealitySpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpatialAwarenessMeshHandler<SpatialMeshObject>> OnMeshRemoved =
+            delegate (ISpatialAwarenessMeshHandler<SpatialMeshObject> handler, BaseEventData eventData)
             {
                 var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<SpatialMeshObject>>(eventData);
                 handler.OnMeshRemoved(spatialEventData);
@@ -289,7 +289,7 @@ namespace RealityToolkit.SpatialAwareness
         #region Surface Finding Events
 
         /// <inheritdoc />
-        public void RaiseSurfaceAdded(IMixedRealitySpatialSurfaceObserver observer, Guid surfaceId, GameObject surfaceObject)
+        public void RaiseSurfaceAdded(ISpatialSurfaceObserver observer, Guid surfaceId, GameObject surfaceObject)
         {
             surfaceFindingEventData.Initialize(observer, surfaceId, surfaceObject);
             HandleEvent(surfaceFindingEventData, OnSurfaceAdded);
@@ -298,15 +298,15 @@ namespace RealityToolkit.SpatialAwareness
         /// <summary>
         /// Event sent whenever a planar surface is added.
         /// </summary>
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceAdded =
-            delegate (IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceAdded =
+            delegate (ISpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
             {
                 var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<GameObject>>(eventData);
                 handler.OnSurfaceAdded(spatialEventData);
             };
 
         /// <inheritdoc />
-        public void RaiseSurfaceUpdated(IMixedRealitySpatialSurfaceObserver observer, Guid surfaceId, GameObject surfaceObject)
+        public void RaiseSurfaceUpdated(ISpatialSurfaceObserver observer, Guid surfaceId, GameObject surfaceObject)
         {
             surfaceFindingEventData.Initialize(observer, surfaceId, surfaceObject);
             HandleEvent(surfaceFindingEventData, OnSurfaceUpdated);
@@ -315,15 +315,15 @@ namespace RealityToolkit.SpatialAwareness
         /// <summary>
         /// Event sent whenever a planar surface is updated.
         /// </summary>
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceUpdated =
-            delegate (IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceUpdated =
+            delegate (ISpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
             {
                 var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<GameObject>>(eventData);
                 handler.OnSurfaceUpdated(spatialEventData);
             };
 
         /// <inheritdoc />
-        public void RaiseSurfaceRemoved(IMixedRealitySpatialSurfaceObserver observer, Guid surfaceId)
+        public void RaiseSurfaceRemoved(ISpatialSurfaceObserver observer, Guid surfaceId)
         {
             surfaceFindingEventData.Initialize(observer, surfaceId, null);
             HandleEvent(surfaceFindingEventData, OnSurfaceRemoved);
@@ -332,8 +332,8 @@ namespace RealityToolkit.SpatialAwareness
         /// <summary>
         /// Event sent whenever a planar surface is discarded.
         /// </summary>
-        private static readonly ExecuteEvents.EventFunction<IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceRemoved =
-            delegate (IMixedRealitySpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
+        private static readonly ExecuteEvents.EventFunction<ISpatialAwarenessSurfaceFindingHandler<GameObject>> OnSurfaceRemoved =
+            delegate (ISpatialAwarenessSurfaceFindingHandler<GameObject> handler, BaseEventData eventData)
             {
                 var spatialEventData = ExecuteEvents.ValidateEventData<SpatialAwarenessEventData<GameObject>>(eventData);
                 handler.OnSurfaceRemoved(spatialEventData);

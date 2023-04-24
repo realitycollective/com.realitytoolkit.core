@@ -11,7 +11,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Utilities.Lines.DataProviders
 {
     [CustomEditor(typeof(SplineDataProvider))]
-    public class SplineDataProviderInspector : BaseMixedRealityLineDataProviderInspector
+    public class SplineDataProviderInspector : BaseLineDataProviderInspector
     {
         private const float OverlappingPointThreshold = 0.015f;
         private const float HandleSizeModifier = 0.04f;

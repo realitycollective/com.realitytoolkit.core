@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Editor.Profiles
 {
     [CustomEditor(typeof(BoundaryProfile))]
-    public class MixedRealityBoundaryVisualizationProfileInspector : ServiceProfileInspector
+    public class BoundaryVisualizationProfileInspector : ServiceProfileInspector
     {
         private SerializedProperty showBoundary;
         private SerializedProperty boundaryHeight;

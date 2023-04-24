@@ -47,7 +47,7 @@ namespace RealityToolkit.Editor.BuildPipeline
 
                     for (var i = 0; i < platforms.Count; i++)
                     {
-                        if (MixedRealityPreferences.CurrentPlatformTarget.GetType() == platforms[i].GetType())
+                        if (RealityToolkitPreferences.CurrentPlatformTarget.GetType() == platforms[i].GetType())
                         {
                             platformIndex = i;
                             break;
@@ -59,7 +59,7 @@ namespace RealityToolkit.Editor.BuildPipeline
             }
         }
 
-        [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Build Window", false, 99)]
+        [MenuItem(RealityToolkitPreferences.Editor_Menu_Keyword + "/Build Window", false, 99)]
         public static void OpenWindow()
         {
             // Dock it next to the Scene View.
@@ -87,7 +87,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         {
             for (var i = 0; i < Platforms.Count; i++)
             {
-                if (MixedRealityPreferences.CurrentPlatformTarget.GetType() == Platforms[i].GetType())
+                if (RealityToolkitPreferences.CurrentPlatformTarget.GetType() == Platforms[i].GetType())
                 {
                     platformIndex = i;
                     break;
@@ -100,7 +100,7 @@ namespace RealityToolkit.Editor.BuildPipeline
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("The Reality Toolkit", ServiceFrameworkInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField($"{MixedRealityPreferences.CurrentPlatformTarget.Name} Build Window", ServiceFrameworkInspectorUtility.BoldCenteredHeaderStyle);
+            EditorGUILayout.LabelField($"{RealityToolkitPreferences.CurrentPlatformTarget.Name} Build Window", ServiceFrameworkInspectorUtility.BoldCenteredHeaderStyle);
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             EditorGUI.BeginChangeCheck();
@@ -118,7 +118,7 @@ namespace RealityToolkit.Editor.BuildPipeline
                     {
                         var platform = Platforms[i];
 
-                        MixedRealityPreferences.CurrentPlatformTarget = platform;
+                        RealityToolkitPreferences.CurrentPlatformTarget = platform;
 
                         var buildTarget = platform.ValidBuildTargets[0]; // For now just get the highest priority one.
 

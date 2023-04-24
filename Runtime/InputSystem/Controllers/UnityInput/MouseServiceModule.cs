@@ -74,7 +74,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
 #endif
 
             Cursor.visible = false;
-            MixedRealityRaycaster.DebugEnabled = true;
+            Raycaster.DebugEnabled = true;
 
             try
             {

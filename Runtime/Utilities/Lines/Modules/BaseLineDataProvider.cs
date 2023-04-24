@@ -11,10 +11,10 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     /// <summary>
     /// Base class that provides data about a line.
     /// </summary>
-    /// <remarks>Data to be consumed by other classes like the <see cref="Renderers.BaseMixedRealityLineRenderer"/></remarks>
+    /// <remarks>Data to be consumed by other classes like the <see cref="Renderers.BaseLineRenderer"/></remarks>
     [ExecuteAlways]
     [DisallowMultipleComponent]
-    public abstract class BaseMixedRealityLineDataProvider : MonoBehaviour
+    public abstract class BaseLineDataProvider : MonoBehaviour
     {
         protected const int UnclampedWorldLengthSearchSteps = 10;
         private const float MaxLineEndClamp = 0.9999f;

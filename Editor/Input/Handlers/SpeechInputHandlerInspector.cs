@@ -30,7 +30,7 @@ namespace RealityToolkit.Editor.Input.Handlers
             keywords = serializedObject.FindProperty(nameof(keywords));
             persistentKeywords = serializedObject.FindProperty(nameof(persistentKeywords));
 
-            var profiles = ScriptableObjectExtensions.GetAllInstances<MixedRealitySpeechCommandsProfile>();
+            var profiles = ScriptableObjectExtensions.GetAllInstances<SpeechCommandsProfile>();
             registeredKeywords = RegisteredKeywords(profiles).Distinct().ToArray();
         }
 
@@ -145,7 +145,7 @@ namespace RealityToolkit.Editor.Input.Handlers
             EditorGUI.indentLevel--;
         }
 
-        private static IEnumerable<string> RegisteredKeywords(MixedRealitySpeechCommandsProfile[] profiles)
+        private static IEnumerable<string> RegisteredKeywords(SpeechCommandsProfile[] profiles)
         {
             return from profile in profiles
                    from command in profile.SpeechCommands

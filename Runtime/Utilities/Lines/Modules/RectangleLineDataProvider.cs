@@ -8,7 +8,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
     /// <summary>
     /// Defines a line in the shape of a rectangle.
     /// </summary>
-    public class RectangleLineDataProvider : BaseMixedRealityLineDataProvider
+    public class RectangleLineDataProvider : BaseLineDataProvider
     {
         [SerializeField]
         private Vector3[] points = new Vector3[8];
