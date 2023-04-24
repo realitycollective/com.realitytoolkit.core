@@ -80,7 +80,7 @@ namespace RealityToolkit.Input.Modules
 
         private static KeywordRecognizer keywordRecognizer;
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         /// <inheritdoc />
         public override void Enable()
@@ -138,9 +138,9 @@ namespace RealityToolkit.Input.Modules
             base.OnDispose(finalizing);
         }
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
 
-        #region IMixedRealitySpeechDataProvider Implementation
+        #region ISpeechDataProvider Implementation
 
         /// <inheritdoc />
         public override bool IsRecognitionActive => keywordRecognizer != null && keywordRecognizer.IsRunning;
@@ -185,7 +185,7 @@ namespace RealityToolkit.Input.Modules
             }
         }
 
-        #endregion IMixedRealitySpeechDataProvider Implementation
+        #endregion ISpeechDataProvider Implementation
 
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 

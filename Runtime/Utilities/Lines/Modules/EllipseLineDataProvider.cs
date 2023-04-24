@@ -43,7 +43,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             }
         }
 
-        #region BaseMixedRealityLineDataProvider Implementation
+        #region BaseLineDataProvider Implementation
 
         /// <inheritdoc />
         public override int PointCount => resolution;
@@ -84,6 +84,6 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             return distance;
         }
 
-        #endregion BaseMixedRealityLineDataProvider Implementation
+        #endregion BaseLineDataProvider Implementation
     }
 }

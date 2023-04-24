@@ -73,7 +73,7 @@ namespace RealityToolkit.Input.Handlers
 
         #endregion MonoBehaviour implementation
 
-        #region IMixedRealityDictationHandler implementation
+        #region IDictationHandler implementation
 
         /// <inheritdoc />
         public virtual void OnDictationHypothesis(DictationEventData eventData)
@@ -95,6 +95,6 @@ namespace RealityToolkit.Input.Handlers
         {
         }
 
-        #endregion IMixedRealityDictationHandler implementation
+        #endregion IDictationHandler implementation
     }
 }

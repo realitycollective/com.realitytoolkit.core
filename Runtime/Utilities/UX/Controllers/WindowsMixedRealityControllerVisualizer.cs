@@ -221,7 +221,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
             }
         }
 
-        #region IMixedRealityInputHandler Implementation
+        #region IInputHandler Implementation
 
         /// <inheritdoc />
         public override void OnInputDown(InputEventData eventData)
@@ -278,7 +278,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
             }
         }
 
-        #endregion IMixedRealityInputHandler Implementation
+        #endregion IInputHandler Implementation
 
         private void AnimateGrasp(bool isGrasped)
         {

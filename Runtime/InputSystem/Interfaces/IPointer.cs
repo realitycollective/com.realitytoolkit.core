@@ -98,7 +98,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <code language="csharp"><![CDATA[
         /// int sr = LayerMask.GetMask("SR");
         /// int nonSR = Physics.DefaultRaycastLayers &amp; ~sr;
-        /// IMixedRealityPointer.PointerRaycastLayerMasksOverride = new LayerMask[] { nonSR, sr };
+        /// IPointer.PointerRaycastLayerMasksOverride = new LayerMask[] { nonSR, sr };
         /// ]]></code>
         /// </example>
         LayerMask[] PointerRaycastLayerMasksOverride { get; set; }

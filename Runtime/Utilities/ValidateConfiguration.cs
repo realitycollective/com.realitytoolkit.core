@@ -15,7 +15,7 @@ namespace RealityToolkit.Utilities
 {
     public static class ValidateConfiguration
     {
-        private const string IgnoreKey = "_MixedRealityToolkit_Editor_IgnoreControllerMappingsPrompts";
+        private const string IgnoreKey = "_RealityToolkit_Editor_IgnoreControllerMappingsPrompts";
 
         /// <summary>
         /// Controller Mapping function to test for a controller mapping

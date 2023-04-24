@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RealityToolkit.Definitions.Controllers.Hands
 {
     /// <summary>
-    /// An <see cref="Interfaces.Providers.Controllers.Hands.IMixedRealityHandController"/>'s data
+    /// An <see cref="IHandController"/>'s data
     /// in a single frame.
     /// </summary>
     [Serializable]
@@ -89,20 +89,20 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         public float GripStrength { get; set; }
 
         /// <summary>
-        /// The hand's pointer pose, relative to <see cref="Interfaces.CameraSystem.IMixedRealityCameraRig.RigTransform"/>.
+        /// The hand's pointer pose, relative to the RigTransform.
         /// </summary>
         public Pose PointerPose { get; set; }
 
         /// <summary>
         /// Recognized hand pose, if any.
         /// Recognizable hand poses are defined in <see cref="BaseHandControllerServiceModuleProfile.TrackedPoses"/>
-        /// or <see cref="InputSystem.MixedRealityInputSystemProfile.TrackedPoses"/>.
+        /// or <see cref="InputServiceProfile.TrackedPoses"/>.
         /// </summary>
         public string TrackedPoseId { get; set; }
 
         /// <summary>
         /// The hands root pose. <see cref="Joints"/> poses are relative to the root pose.
-        /// The root pose itself is relative to <see cref="Interfaces.CameraSystem.IMixedRealityCameraRig.RigTransform"/>.
+        /// The root pose itself is relative to the RigTransform.
         /// </summary>
         public Pose RootPose { get; set; }
 

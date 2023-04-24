@@ -88,7 +88,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
         #region Mesh Events
 
         /// <summary>
-        /// The spatial awareness system will call the <see cref="IMixedRealitySpatialAwarenessMeshHandler{T}.OnMeshAdded"/> method to indicate a mesh has been added.
+        /// The spatial awareness system will call the <see cref="ISpatialAwarenessMeshHandler{T}.OnMeshAdded"/> method to indicate a mesh has been added.
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="meshObject">The mesh <see cref="SpatialMeshObject"/>.</param>
@@ -98,7 +98,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
         void RaiseMeshAdded(ISpatialMeshObserver observer, SpatialMeshObject meshObject);
 
         /// <summary>
-        /// The spatial awareness system will call the <see cref="IMixedRealitySpatialAwarenessMeshHandler{T}.OnMeshUpdated"/> method to indicate an existing mesh has been updated.
+        /// The spatial awareness system will call the <see cref="ISpatialAwarenessMeshHandler{T}.OnMeshUpdated"/> method to indicate an existing mesh has been updated.
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="meshObject">The mesh <see cref="SpatialMeshObject"/>.</param>
@@ -108,7 +108,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
         void RaiseMeshUpdated(ISpatialMeshObserver observer, SpatialMeshObject meshObject);
 
         /// <summary>
-        /// The spatial awareness system will call the <see cref="IMixedRealitySpatialAwarenessMeshHandler{T}.OnMeshUpdated"/> method to indicate an existing mesh has been removed.
+        /// The spatial awareness system will call the <see cref="ISpatialAwarenessMeshHandler{T}.OnMeshUpdated"/> method to indicate an existing mesh has been removed.
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="meshObject">The mesh <see cref="SpatialMeshObject"/>.</param>
@@ -122,7 +122,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
         #region Surface Finding Events
 
         /// <summary>
-        /// The spatial awareness system will call the <see cref="IMixedRealitySpatialAwarenessSurfaceFindingHandler{T}.OnSurfaceAdded"/> method to indicate a planar surface has been added.
+        /// The spatial awareness system will call the <see cref="ISpatialAwarenessSurfaceFindingHandler{T}.OnSurfaceAdded"/> method to indicate a planar surface has been added.
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="surfaceId">Value identifying the surface.</param>
@@ -133,7 +133,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
         void RaiseSurfaceAdded(ISpatialSurfaceObserver observer, Guid surfaceId, GameObject surfaceObject);
 
         /// <summary>
-        /// The spatial awareness system will call the <see cref="IMixedRealitySpatialAwarenessSurfaceFindingHandler{T}.OnSurfaceUpdated"/> method to indicate an existing planar surface has been updated.
+        /// The spatial awareness system will call the <see cref="ISpatialAwarenessSurfaceFindingHandler{T}.OnSurfaceUpdated"/> method to indicate an existing planar surface has been updated.
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="surfaceId">Value identifying the surface.</param>
@@ -144,7 +144,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
         void RaiseSurfaceUpdated(ISpatialSurfaceObserver observer, Guid surfaceId, GameObject surfaceObject);
 
         /// <summary>
-        /// The spatial awareness system will call the <see cref="IMixedRealitySpatialAwarenessSurfaceFindingHandler{T}.OnSurfaceUpdated"/> method to indicate an existing planar surface has been removed.
+        /// The spatial awareness system will call the <see cref="ISpatialAwarenessSurfaceFindingHandler{T}.OnSurfaceUpdated"/> method to indicate an existing planar surface has been removed.
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="surfaceId">Value identifying the surface.</param>

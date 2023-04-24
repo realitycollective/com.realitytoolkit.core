@@ -22,7 +22,7 @@ namespace RealityToolkit.Definitions.Controllers
         public SystemType ControllerType
         {
             get => controllerType;
-            internal set => controllerType = value;
+            set => controllerType = value;
         }
 
         [SerializeField]
@@ -31,7 +31,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Handedness Handedness
         {
             get => handedness;
-            internal set => handedness = value;
+            set => handedness = value;
         }
 
         [SerializeField, Tooltip("The prefab spawned to visualize the controller.")]
@@ -60,7 +60,7 @@ namespace RealityToolkit.Definitions.Controllers
         public InteractionMappingProfile[] InteractionMappingProfiles
         {
             get => interactionMappingProfiles;
-            internal set => interactionMappingProfiles = value;
+            set => interactionMappingProfiles = value;
         }
 
         #region Fields hidden in non-debug inspector
@@ -71,7 +71,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D LightThemeLeftControllerTexture
         {
             get => lightThemeLeftControllerTexture;
-            internal set => lightThemeLeftControllerTexture = value;
+            set => lightThemeLeftControllerTexture = value;
         }
 
         [SerializeField]
@@ -80,7 +80,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D LightThemeLeftControllerTextureScaled
         {
             get => lightThemeLeftControllerTextureScaled;
-            internal set => lightThemeLeftControllerTextureScaled = value;
+            set => lightThemeLeftControllerTextureScaled = value;
         }
 
         [SerializeField]
@@ -89,7 +89,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D DarkThemeLeftControllerTexture
         {
             get => darkThemeLeftControllerTexture;
-            internal set => darkThemeLeftControllerTexture = value;
+            set => darkThemeLeftControllerTexture = value;
         }
 
         [SerializeField]
@@ -98,7 +98,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D DarkThemeLeftControllerTextureScaled
         {
             get => darkThemeLeftControllerTextureScaled;
-            internal set => darkThemeLeftControllerTextureScaled = value;
+            set => darkThemeLeftControllerTextureScaled = value;
         }
 
         [SerializeField]
@@ -107,7 +107,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D LightThemeRightControllerTexture
         {
             get => lightThemeRightControllerTexture;
-            internal set => lightThemeRightControllerTexture = value;
+            set => lightThemeRightControllerTexture = value;
         }
 
         [SerializeField]
@@ -116,7 +116,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D LightThemeRightControllerTextureScaled
         {
             get => lightThemeRightControllerTextureScaled;
-            internal set => lightThemeRightControllerTextureScaled = value;
+            set => lightThemeRightControllerTextureScaled = value;
         }
 
         [SerializeField]
@@ -125,7 +125,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D DarkThemeRightControllerTexture
         {
             get => darkThemeRightControllerTexture;
-            internal set => darkThemeRightControllerTexture = value;
+            set => darkThemeRightControllerTexture = value;
         }
 
         [SerializeField]
@@ -134,7 +134,7 @@ namespace RealityToolkit.Definitions.Controllers
         public Texture2D DarkThemeRightControllerTextureScaled
         {
             get => darkThemeRightControllerTextureScaled;
-            internal set => darkThemeRightControllerTextureScaled = value;
+            set => darkThemeRightControllerTextureScaled = value;
         }
 
         #endregion

@@ -52,7 +52,7 @@ namespace RealityToolkit.Utilities.Solvers
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealitySourceStateHandler Implementation
+        #region ISourceStateHandler Implementation
 
         public void OnSourceDetected(SourceStateEventData eventData)
         {
@@ -70,7 +70,7 @@ namespace RealityToolkit.Utilities.Solvers
             }
         }
 
-        #endregion IMixedRealitySourceStateHandler Implementation
+        #endregion ISourceStateHandler Implementation
 
         /// <summary>
         /// Looks to see if the controller model already exists and registers it if so.

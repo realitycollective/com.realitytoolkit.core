@@ -29,11 +29,11 @@ namespace RealityToolkit.Input.Definitions
         public GazeProviderBehaviour GazeProviderBehaviour
         {
             get => gazeProviderBehaviour;
-            internal set => gazeProviderBehaviour = value;
+            set => gazeProviderBehaviour = value;
         }
 
         [SerializeField]
-        [Tooltip("The concrete type of IMixedRealityGazeProvider to use.")]
+        [Tooltip("The concrete type of IGazeProvider to use.")]
         [Implements(typeof(IGazeProvider), TypeGrouping.ByNamespaceFlat)]
         private SystemType gazeProviderType;
 
@@ -43,7 +43,7 @@ namespace RealityToolkit.Input.Definitions
         public SystemType GazeProviderType
         {
             get => gazeProviderType;
-            internal set => gazeProviderType = value;
+            set => gazeProviderType = value;
         }
 
         [Prefab]
@@ -66,7 +66,7 @@ namespace RealityToolkit.Input.Definitions
         public PointersProfile PointersProfile
         {
             get => pointersProfile;
-            internal set => pointersProfile = value;
+            set => pointersProfile = value;
         }
 
         #region Global Hand Options
@@ -142,7 +142,7 @@ namespace RealityToolkit.Input.Definitions
         public InputActionsProfile InputActionsProfile
         {
             get => inputActionsProfile;
-            internal set => inputActionsProfile = value;
+            set => inputActionsProfile = value;
         }
 
         [SerializeField]
@@ -155,7 +155,7 @@ namespace RealityToolkit.Input.Definitions
         public SpeechCommandsProfile SpeechCommandsProfile
         {
             get => speechCommandsProfile;
-            internal set => speechCommandsProfile = value;
+            set => speechCommandsProfile = value;
         }
 
         [SerializeField]
@@ -168,7 +168,7 @@ namespace RealityToolkit.Input.Definitions
         public GesturesProfile GesturesProfile
         {
             get => gesturesProfile;
-            internal set => gesturesProfile = value;
+            set => gesturesProfile = value;
         }
 
         #endregion Profile Options

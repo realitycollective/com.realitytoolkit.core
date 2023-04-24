@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.Definitions
     public class InputActionEventPair
     {
         [SerializeField]
-        [Tooltip("The MixedRealityInputAction to listen for to invoke the UnityEvent.")]
+        [Tooltip("The InputAction to listen for to invoke the UnityEvent.")]
         private InputAction inputAction = InputAction.None;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace RealityToolkit.Input.Definitions
         public InputAction InputAction => inputAction;
 
         [SerializeField]
-        [Tooltip("The UnityEvent to invoke when MixedRealityInputAction is raised.")]
+        [Tooltip("The UnityEvent to invoke when InputAction is raised.")]
         private UnityEvent unityEvent = null;
 
         /// <summary>

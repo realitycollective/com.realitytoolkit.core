@@ -11,7 +11,7 @@ using UnityEngine.Events;
 namespace RealityToolkit.Input.Handlers
 {
     /// <summary>
-    /// This component handles the speech input events raised form the <see cref="IMixedRealityInputSystem"/>.
+    /// This component handles the speech input events raised form the <see cref="IInputSystem"/>.
     /// </summary>
     [DisallowMultipleComponent]
     public class SpeechInputHandler : BaseInputHandler, ISpeechHandler
@@ -64,7 +64,7 @@ namespace RealityToolkit.Input.Handlers
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealitySpeechHandler Implementation
+        #region ISpeechHandler Implementation
 
         void ISpeechHandler.OnSpeechKeywordRecognized(SpeechEventData eventData)
         {
@@ -76,6 +76,6 @@ namespace RealityToolkit.Input.Handlers
             }
         }
 
-        #endregion  IMixedRealitySpeechHandler Implementation
+        #endregion  ISpeechHandler Implementation
     }
 }

@@ -138,7 +138,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealityPointer Implementation
+        #region IPointer Implementation
 
         /// <inheritdoc />
         public override void OnPreRaycast()
@@ -282,6 +282,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        #endregion IMixedRealityPointer Implementation
+        #endregion IPointer Implementation
     }
 }

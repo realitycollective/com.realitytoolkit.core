@@ -18,17 +18,17 @@ namespace RealityToolkit.Editor.PropertyDrawers
     /// public class CustomScript : Monobehaviour
     /// {
     ///     [SerializeField]
-    ///     private MixedRealityInputAction testAction = MixedRealityInputAction.None;
+    ///     private InputAction testAction = InputAction.None;
     ///
     ///     [SerializeField]
     ///     [AxisConstraint(AxisType.DualAxis)]
-    ///     private MixedRealityInputAction test2Action = MixedRealityInputAction.None;
+    ///     private InputAction test2Action = InputAction.None;
     /// }
     ///
     /// [CustomEditor(typeof(CustomScript))]
     /// public class CustomInspector : Editor
     /// {
-    ///     private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
+    ///     private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
     ///
     ///     private SerializedProperty testAction;
     ///     private SerializedProperty test2Action;

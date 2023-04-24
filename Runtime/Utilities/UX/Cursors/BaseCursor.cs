@@ -121,7 +121,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         private Vector3 targetScale;
         private Quaternion targetRotation;
 
-        #region IMixedRealityCursor Implementation
+        #region ICursor Implementation
 
         /// <inheritdoc />
         public virtual IPointer Pointer
@@ -166,9 +166,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// <inheritdoc />
         public GameObject GameObjectReference => gameObject;
 
-        #endregion IMixedRealityCursor Implementation
+        #endregion ICursor Implementation
 
-        #region IMixedRealitySourceStateHandler Implementation
+        #region ISourceStateHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnSourceDetected(SourceStateEventData eventData)
@@ -229,9 +229,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
         }
 
-        #endregion IMixedRealitySourceStateHandler Implementation
+        #endregion ISourceStateHandler Implementation
 
-        #region IMixedRealityFocusChangedHandler Implementation
+        #region IFocusChangedHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnBeforeFocusChange(FocusEventData eventData)
@@ -245,9 +245,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// <inheritdoc />
         public virtual void OnFocusChanged(FocusEventData eventData) { }
 
-        #endregion IMixedRealityFocusChangedHandler Implementation
+        #endregion IFocusChangedHandler Implementation
 
-        #region IMixedRealityPointerHandler Implementation
+        #region IPointerHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnPointerDown(PointerEventData eventData)
@@ -276,7 +276,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
         }
 
-        #endregion IMixedRealityPointerHandler Implementation
+        #endregion IPointerHandler Implementation
 
         #region MonoBehaviour Implementation
 

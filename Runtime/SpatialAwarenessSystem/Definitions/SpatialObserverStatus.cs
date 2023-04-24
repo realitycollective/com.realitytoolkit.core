@@ -5,7 +5,7 @@ namespace RealityToolkit.SpatialAwareness.Definitions
 {
     /// <summary>
     /// Enumerates possible changes that may happen to a spatial observers
-    /// by the <see cref="BaseMixedRealitySpatialObserverDataProvider"/>.
+    /// by the <see cref="BaseSpatialObserverModule"/>.
     /// </summary>
     public enum SpatialObserverStatus
     {

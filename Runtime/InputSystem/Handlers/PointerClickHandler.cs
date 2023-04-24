@@ -26,7 +26,7 @@ namespace RealityToolkit.Input.Handlers
         [Tooltip("The input actions to be recognized on pointer clicked.")]
         private InputActionEventPair onPointerClickedActionEvent = null;
 
-        #region IMixedRealityPointerHandler Implementation
+        #region IPointerHandler Implementation
 
         /// <inheritdoc />
         public void OnPointerDown(PointerEventData eventData)
@@ -61,6 +61,6 @@ namespace RealityToolkit.Input.Handlers
             }
         }
 
-        #endregion IMixedRealityPointerHandler Implementation
+        #endregion IPointerHandler Implementation
     }
 }

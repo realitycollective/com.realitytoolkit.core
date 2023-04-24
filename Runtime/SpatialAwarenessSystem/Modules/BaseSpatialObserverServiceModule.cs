@@ -45,7 +45,7 @@ namespace RealityToolkit.SpatialAwareness.Modules
 
         protected readonly ISpatialAwarenessService SpatialAwarenessSystem;
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         /// <inheritdoc />
         public override void Enable()
@@ -70,9 +70,9 @@ namespace RealityToolkit.SpatialAwareness.Modules
             SpatialAwarenessSystem.RaiseSpatialAwarenessObserverLost(this);
         }
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
 
-        #region IMixedRealitySpatialObserverDataProvider Implementation
+        #region ISpatialObserverDataProvider Implementation
 
         /// <inheritdoc />
         public AutoStartBehavior StartupBehavior { get; }
@@ -100,9 +100,9 @@ namespace RealityToolkit.SpatialAwareness.Modules
             IsRunning = false;
         }
 
-        #endregion IMixedRealitySpatialObserverDataProvider Implementation
+        #endregion ISpatialObserverDataProvider Implementation
 
-        #region IMixedRealityEventSource Implementation
+        #region IEventSource Implementation
 
         /// <inheritdoc />
         public string SourceName => Name;
@@ -110,7 +110,7 @@ namespace RealityToolkit.SpatialAwareness.Modules
         /// <inheritdoc />
         public uint SourceId { get; }
 
-        #endregion IMixedRealityEventSource Implementation
+        #endregion IEventSource Implementation
 
         #region IEquality Implementation
 

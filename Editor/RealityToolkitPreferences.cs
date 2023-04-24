@@ -282,7 +282,7 @@ namespace RealityToolkit.Editor
         private static IPlatform currentPlatformTarget = null;
 
         /// <summary>
-        /// The current <see cref="IMixedRealityPlatform"/> target.
+        /// The current <see cref="IPlatform"/> target.
         /// </summary>
         public static IPlatform CurrentPlatformTarget
         {

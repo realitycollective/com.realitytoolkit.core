@@ -292,7 +292,7 @@ namespace RealityToolkit.Boundary
             }
         }
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         /// <inheritdoc/>
         public override void Update()
@@ -398,9 +398,9 @@ namespace RealityToolkit.Boundary
             boundaryVisualizationRoot.Destroy();
         }
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
 
-        #region Implementation of IMixedRealityBoundarySystem
+        #region Implementation of IBoundaryService
 
         /// <inheritdoc />
         public event Action<GameObject, ProximityAlert> BoundaryProximityAlert;
@@ -642,6 +642,6 @@ namespace RealityToolkit.Boundary
             }
         }
 
-        #endregion Implementation of IMixedRealityBoundarySystem
+        #endregion Implementation of IBoundaryService
     }
 }

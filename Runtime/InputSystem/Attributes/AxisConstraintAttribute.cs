@@ -7,14 +7,14 @@ using UnityEngine;
 namespace RealityToolkit.Input.Attributes
 {
     /// <summary>
-    /// Use this attribute to better define <see cref="MixedRealityInputAction"/>s.
+    /// Use this attribute to better define <see cref="InputAction"/>s.
     /// This will filter the dropdown items to only display actions that match the <see cref="AxisConstraint"/>
     /// </summary>
     /// <example>
     /// <code language="csharp"><![CDATA[
     /// [SerializeField]
     /// [AxisConstraint(AxisType.DualAxis)]
-    /// private MixedRealityInputAction testAction = MixedRealityInputAction.None;
+    /// private InputAction testAction = InputAction.None;
     /// ]]></code>
     /// </example>
     public sealed class AxisConstraintAttribute : PropertyAttribute

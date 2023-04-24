@@ -31,11 +31,11 @@ namespace RealityToolkit.SpatialAwareness.Definitions
         public const string SpatialAwarenessSurfacesLayerName = "Spatial Awareness Surfaces";
 
         [SerializeField]
-        [Tooltip("Indicates how the BaseMixedRealitySpatialMeshObserver is to display surface meshes within the application.")]
+        [Tooltip("Indicates how the BaseSpatialMeshObserver is to display surface meshes within the application.")]
         private SpatialMeshDisplayOptions meshDisplayOption = SpatialMeshDisplayOptions.None;
 
         /// <summary>
-        /// Indicates how the <see cref="BaseMixedRealitySpatialMeshObserver"/> is to display surface meshes within the application.
+        /// Indicates how the <see cref="BaseSpatialMeshObserver"/> is to display surface meshes within the application.
         /// </summary>
         public SpatialMeshDisplayOptions MeshDisplayOption => meshDisplayOption;
 

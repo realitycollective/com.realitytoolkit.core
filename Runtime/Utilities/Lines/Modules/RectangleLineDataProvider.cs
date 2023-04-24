@@ -80,7 +80,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
 
         #endregion MonoBehaviour Implementation
 
-        #region BaseMixedRealityLineDataProvider Implementation
+        #region BaseLineDataProvider Implementation
 
         public override int PointCount => 8;
 
@@ -159,7 +159,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             Gizmos.DrawLine(lastPos, firstPos);
         }
 
-        #endregion BaseMixedRealityLineDataProvider Implementation
+        #endregion BaseLineDataProvider Implementation
 
         private void BuildPoints()
         {

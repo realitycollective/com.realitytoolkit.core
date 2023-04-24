@@ -154,7 +154,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
             return (interactables != null && interactables.Contains(interactable));
         }
 
-        #region IMixedRealityFocusChangedHandler Implementation
+        #region IFocusChangedHandler Implementation
 
         /// <inheritdoc />
         void IFocusChangedHandler.OnBeforeFocusChange(FocusEventData eventData) { /*Unused*/ }
@@ -173,9 +173,9 @@ namespace RealityToolkit.Utilities.UX.Receivers
             }
         }
 
-        #endregion IMixedRealityFocusChangedHandler Implementation
+        #endregion IFocusChangedHandler Implementation
 
-        #region IMixedRealityInputHandler Impmentations
+        #region IInputHandler Impmentations
 
         /// <inheritdoc />
         void IInputHandler.OnInputUp(InputEventData eventData)
@@ -213,9 +213,9 @@ namespace RealityToolkit.Utilities.UX.Receivers
             }
         }
 
-        #endregion IMixedRealityInputHandler Impmentations
+        #endregion IInputHandler Impmentations
 
-        #region IMixedRealityGestureHandler Impmentations
+        #region IGestureHandler Impmentations
 
         /// <inheritdoc />
         void IGestureHandler.OnGestureStarted(InputEventData eventData)
@@ -307,7 +307,7 @@ namespace RealityToolkit.Utilities.UX.Receivers
             }
         }
 
-        #endregion IMixedRealityGestureHandler Impmentations
+        #endregion IGestureHandler Impmentations
 
         #region Protected Virtual Callback Functions
 

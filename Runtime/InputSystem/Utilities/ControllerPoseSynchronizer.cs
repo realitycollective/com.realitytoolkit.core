@@ -115,7 +115,7 @@ namespace RealityToolkit.Services.Input.Utilities
 
         #endregion IControllerPoseSynchronizer Implementation
 
-        #region IMixedRealitySourcePoseHandler Implementation
+        #region ISourcePoseHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnSourceDetected(SourceStateEventData eventData) { }
@@ -170,9 +170,9 @@ namespace RealityToolkit.Services.Input.Utilities
             }
         }
 
-        #endregion IMixedRealitySourcePoseHandler Implementation
+        #endregion ISourcePoseHandler Implementation
 
-        #region IMixedRealityInputHandler Implementation
+        #region IInputHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnInputUp(InputEventData eventData) { }
@@ -236,6 +236,6 @@ namespace RealityToolkit.Services.Input.Utilities
             }
         }
 
-        #endregion  IMixedRealityInputHandler Implementation
+        #endregion  IInputHandler Implementation
     }
 }

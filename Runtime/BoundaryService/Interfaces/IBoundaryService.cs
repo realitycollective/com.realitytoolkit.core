@@ -93,7 +93,7 @@ namespace RealityToolkit.Boundary.Interfaces
         /// </summary>
         /// <param name="dataProvider"></param>
         /// <remarks>
-        /// This method should usually be called from the <see cref="IMixedRealityService.Enable"/> method of the service module itself.
+        /// This method should usually be called from the <see cref="IService.Enable"/> method of the service module itself.
         /// </remarks>
         void SetupBoundary(IBoundaryServiceModule dataProvider);
 

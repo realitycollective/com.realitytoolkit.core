@@ -614,7 +614,7 @@ namespace RealityToolkit.Input.Handlers
 
         #endregion Monobehaviour Implementation
 
-        #region IMixedRealityInputHandler Implementation
+        #region IInputHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnInputDown(InputEventData eventData)
@@ -789,9 +789,9 @@ namespace RealityToolkit.Input.Handlers
             }
         }
 
-        #endregion IMixedRealityInputHandler Implementation
+        #endregion IInputHandler Implementation
 
-        #region IMixedRealityPointerHandler Implementation
+        #region IPointerHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnPointerDown(PointerEventData eventData)
@@ -845,7 +845,7 @@ namespace RealityToolkit.Input.Handlers
         {
         }
 
-        #endregion IMixedRealityPointerHandler Implementation
+        #endregion IPointerHandler Implementation
 
         /// <summary>
         /// Begin a new hold on the manipulation target.

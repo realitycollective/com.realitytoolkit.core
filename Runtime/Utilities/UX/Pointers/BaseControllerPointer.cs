@@ -147,7 +147,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 }
                 else
                 {
-                    Debug.LogError($"No IMixedRealityCursor component found on {cursorInstance.name}", this);
+                    Debug.LogError($"No ICursor component found on {cursorInstance.name}", this);
                 }
             }
         }
@@ -238,7 +238,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealityPointer Implementation
+        #region IPointer Implementation
 
         /// <inheritdoc cref="IController" />
         public override IController Controller
@@ -609,9 +609,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         #endregion IEquality Implementation
 
-        #endregion IMixedRealityPointer Implementation
+        #endregion IPointer Implementation
 
-        #region IMixedRealitySourcePoseHandler Implementation
+        #region ISourcePoseHandler Implementation
 
         /// <inheritdoc />
         public override void OnSourceLost(SourceStateEventData eventData)
@@ -641,9 +641,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        #endregion IMixedRealitySourcePoseHandler Implementation
+        #endregion ISourcePoseHandler Implementation
 
-        #region IMixedRealityInputHandler Implementation
+        #region IInputHandler Implementation
 
         /// <inheritdoc />
         public override void OnInputUp(InputEventData eventData)
@@ -706,6 +706,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        #endregion  IMixedRealityInputHandler Implementation
+        #endregion  IInputHandler Implementation
     }
 }

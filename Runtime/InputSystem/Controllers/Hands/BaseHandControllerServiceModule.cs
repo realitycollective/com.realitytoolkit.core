@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace RealityToolkit.Input.Controllers.Hands
 {
     /// <summary>
-    /// Base controller service module to inherit from when implementing <see cref="IMixedRealityHandController"/>s.
+    /// Base controller service module to inherit from when implementing <see cref="IHandController"/>s.
     /// </summary>
     public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IHandControllerServiceModule
     {

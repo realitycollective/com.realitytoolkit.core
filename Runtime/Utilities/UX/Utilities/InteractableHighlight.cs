@@ -252,7 +252,7 @@ namespace RealityToolkit.Utilities.Utilities
             }
         }
 
-        #region IMixedRealityFocusHandler Implementation
+        #region IFocusHandler Implementation
 
         /// <inheritdoc />
         public override void OnFocusEnter(FocusEventData eventData)
@@ -273,6 +273,6 @@ namespace RealityToolkit.Utilities.Utilities
             Highlight = false;
         }
 
-        #endregion IMixedRealityFocusHandler Implementation
+        #endregion IFocusHandler Implementation
     }
 }

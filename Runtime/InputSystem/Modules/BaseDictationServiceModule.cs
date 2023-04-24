@@ -24,7 +24,7 @@ namespace RealityToolkit.Input.Modules
 
         protected readonly IInputService InputSystem;
 
-        #region IMixedRealityDictationDataProvider Implementation
+        #region IDictationDataProvider Implementation
 
         /// <inheritdoc />
         public virtual bool IsListening { get; protected set; } = false;
@@ -51,6 +51,6 @@ namespace RealityToolkit.Input.Modules
             return null;
         }
 
-        #endregion IMixedRealityDictationDataProvider Implementation
+        #endregion IDictationDataProvider Implementation
     }
 }

@@ -217,7 +217,7 @@ namespace RealityToolkit.Definitions.Devices
         [SerializeField]
         private List<InputProcessor> inputProcessors;
 
-        internal List<InputProcessor> InputProcessors
+        public List<InputProcessor> InputProcessors
         {
             get => inputProcessors;
             set => inputProcessors = value;

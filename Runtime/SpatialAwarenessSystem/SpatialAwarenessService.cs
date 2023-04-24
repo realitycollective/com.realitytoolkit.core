@@ -104,7 +104,7 @@ namespace RealityToolkit.SpatialAwareness
             return secondGeneration;
         }
 
-        #region IMixedRealitySpatialAwarenessSystem Implementation
+        #region ISpatialAwarenessSystem Implementation
 
         /// <inheritdoc />
         public HashSet<ISpatialAwarenessServiceModule> DetectedSpatialObservers { get; } = new HashSet<ISpatialAwarenessServiceModule>();
@@ -177,9 +177,9 @@ namespace RealityToolkit.SpatialAwareness
             DetectedSpatialObservers.Remove(observer);
         }
 
-        #endregion IMixedRealitySpatialAwarenessSystem Implementation
+        #endregion ISpatialAwarenessSystem Implementation
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         private SpatialAwarenessEventData<SpatialMeshObject> meshEventData = null;
         private SpatialAwarenessEventData<GameObject> surfaceFindingEventData = null;
@@ -341,6 +341,6 @@ namespace RealityToolkit.SpatialAwareness
 
         #endregion Surface Finding Events
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
     }
 }

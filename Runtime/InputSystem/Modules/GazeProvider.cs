@@ -175,7 +175,7 @@ namespace RealityToolkit.Input.Modules
                 IsInteractionEnabled = true;
             }
 
-            #region IMixedRealityPointer Implementation
+            #region IPointer Implementation
 
             /// <inheritdoc />
             public override IController Controller { get; set; }
@@ -262,7 +262,7 @@ namespace RealityToolkit.Input.Modules
                 return false;
             }
 
-            #endregion IMixedRealityPointer Implementation
+            #endregion IPointer Implementation
         }
 
         #endregion InternalGazePointer Class
@@ -399,7 +399,7 @@ namespace RealityToolkit.Input.Modules
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealityInputHandler Implementation
+        #region IInputHandler Implementation
 
         /// <inheritdoc />
         void IInputHandler.OnInputUp(InputEventData eventData)
@@ -428,7 +428,7 @@ namespace RealityToolkit.Input.Modules
             }
         }
 
-        #endregion IMixedRealityInputHandler Implementation
+        #endregion IInputHandler Implementation
 
         #region Utilities
 

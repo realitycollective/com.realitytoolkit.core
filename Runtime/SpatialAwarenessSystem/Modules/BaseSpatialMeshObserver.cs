@@ -80,7 +80,7 @@ namespace RealityToolkit.SpatialAwareness.Modules
         /// </summary>
         private readonly Type[] requiredMeshComponents;
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         /// <inheritdoc />
         public override void Initialize()
@@ -162,9 +162,9 @@ namespace RealityToolkit.SpatialAwareness.Modules
             }
         }
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
 
-        #region IMixedRealitySpatialMeshObserver Implementation
+        #region ISpatialMeshObserver Implementation
 
         /// <inheritdoc />
         public SpatialAwarenessMeshLevelOfDetail MeshLevelOfDetail { get; set; }
@@ -335,6 +335,6 @@ namespace RealityToolkit.SpatialAwareness.Modules
             return newGameObject;
         }
 
-        #endregion IMixedRealitySpatialMeshObserver Implementation
+        #endregion ISpatialMeshObserver Implementation
     }
 }

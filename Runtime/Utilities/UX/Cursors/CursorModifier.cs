@@ -170,7 +170,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
 
         #endregion ICursorModifier Implementation
 
-        #region IMixedRealityFocusChangedHandler Implementation
+        #region IFocusChangedHandler Implementation
 
         /// <inheritdoc />
         void IFocusChangedHandler.OnBeforeFocusChange(FocusEventData eventData)
@@ -189,7 +189,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// <inheritdoc />
         void IFocusChangedHandler.OnFocusChanged(FocusEventData eventData) { }
 
-        #endregion IMixedRealityFocusChangedHandler Implementation
+        #endregion IFocusChangedHandler Implementation
 
         #region MonoBehaviour Implementation
 

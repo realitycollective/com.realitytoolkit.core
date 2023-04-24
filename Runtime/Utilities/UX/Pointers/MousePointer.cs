@@ -25,7 +25,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         private Vector2 lastPosition;
 
-        #region IMixedRealityMousePointer Implementaiton
+        #region IMousePointer Implementaiton
 
         [SerializeField]
         [Tooltip("Should the mouse cursor be hidden when no active input is received?")]
@@ -57,9 +57,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         float IMousePointer.Speed => speed;
 
-        #endregion IMixedRealityMousePointer Implementation
+        #endregion IMousePointer Implementation
 
-        #region IMixedRealityPointer Implementaiton
+        #region IPointer Implementaiton
 
         /// <inheritdoc />
         public override bool IsInteractionEnabled => isInteractionEnabled;
@@ -134,9 +134,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             transform.LookAt(Camera.main.transform);
         }
 
-        #endregion IMixedRealityPointer Implementaiton
+        #endregion IPointer Implementaiton
 
-        #region IMixedRealitySourcePoseHandler Implementaiton
+        #region ISourcePoseHandler Implementaiton
 
         /// <inheritdoc />
         public override void OnSourceDetected(SourceStateEventData eventData)
@@ -181,9 +181,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        #endregion IMixedRealitySourcePoseHandler Implementaiton
+        #endregion ISourcePoseHandler Implementaiton
 
-        #region IMixedRealityInputHandler Implementaiton
+        #region IInputHandler Implementaiton
 
         /// <inheritdoc />
         public override void OnInputDown(InputEventData eventData)
@@ -235,7 +235,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        #endregion IMixedRealityInputHandler Implementaiton
+        #endregion IInputHandler Implementaiton
 
         #region Monobehaviour Implementaiton
 

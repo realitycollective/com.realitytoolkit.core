@@ -48,7 +48,7 @@ namespace RealityToolkit.Input.Modules
 
 #if UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         /// <inheritdoc />
         public override void Enable()
@@ -110,9 +110,9 @@ namespace RealityToolkit.Input.Modules
             base.OnDispose(finalizing);
         }
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
 
-        #region IMixedRealityDictationDataProvider Implementation
+        #region IDictationDataProvider Implementation
 
         private bool hasFailed;
         private bool hasListener;
@@ -320,7 +320,7 @@ namespace RealityToolkit.Input.Modules
             dictationResult = string.Empty;
         }
 
-        #endregion IMixedRealityDictationDataProvider Implementation
+        #endregion IDictationDataProvider Implementation
 
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 

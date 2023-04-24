@@ -87,7 +87,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         BuildTarget BuildTarget { get; }
 
         /// <summary>
-        /// The <see cref="IMixedRealityPlatform"/> to build to.
+        /// The <see cref="IPlatform"/> to build to.
         /// </summary>
         IPlatform BuildPlatform { get; }
 

@@ -243,7 +243,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
             set => SetPoint(PointCount - 1, value);
         }
 
-        #region BaseMixedRealityLineDataProvider Abstract Declarations
+        #region BaseLineDataProvider Abstract Declarations
 
         /// <summary>
         /// The number of points this line has.
@@ -289,7 +289,7 @@ namespace RealityToolkit.Utilities.Lines.DataProviders
         /// <returns></returns>
         protected abstract float GetUnClampedWorldLengthInternal();
 
-        #endregion BaseMixedRealityLineDataProvider Abstract Declarations
+        #endregion BaseLineDataProvider Abstract Declarations
 
         #region MonoBehaviour Implementation
 

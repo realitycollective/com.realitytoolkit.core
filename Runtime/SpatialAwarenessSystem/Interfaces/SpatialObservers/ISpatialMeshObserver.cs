@@ -14,7 +14,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
     public interface ISpatialMeshObserver : ISpatialAwarenessServiceModule
     {
         /// <summary>
-        /// Gets or sets the level of detail, as a MixedRealitySpatialAwarenessMeshLevelOfDetail value, for the returned spatial mesh.
+        /// Gets or sets the level of detail, as a <see cref="SpatialAwarenessMeshLevelOfDetail"/> value, for the returned spatial mesh.
         /// </summary>
         SpatialAwarenessMeshLevelOfDetail MeshLevelOfDetail { get; }
 
@@ -76,19 +76,19 @@ namespace RealityToolkit.SpatialAwareness.Interfaces.SpatialObservers
         IReadOnlyDictionary<Guid, SpatialMeshObject> SpatialMeshObjects { get; }
 
         /// <summary>
-        /// Forwards mesh added event to the <see cref="SpatialAwarenessSystem.IMixedRealitySpatialAwarenessSystem"/>.
+        /// Forwards mesh added event to the <see cref="SpatialAwarenessSystem.ISpatialAwarenessSystem"/>.
         /// </summary>
         /// <param name="spatialMeshObject">The <see cref="SpatialMeshObject"/> data.</param>
         void RaiseMeshAdded(SpatialMeshObject spatialMeshObject);
 
         /// <summary>
-        /// Forwards mesh updated event to the <see cref="SpatialAwarenessSystem.IMixedRealitySpatialAwarenessSystem"/>.
+        /// Forwards mesh updated event to the <see cref="SpatialAwarenessSystem.ISpatialAwarenessSystem"/>.
         /// </summary>
         /// <param name="spatialMeshObject">The <see cref="SpatialMeshObject"/> data.</param>
         void RaiseMeshUpdated(SpatialMeshObject spatialMeshObject);
 
         /// <summary>
-        /// Forwards mesh removed event to the <see cref="SpatialAwarenessSystem.IMixedRealitySpatialAwarenessSystem"/>.
+        /// Forwards mesh removed event to the <see cref="SpatialAwarenessSystem.ISpatialAwarenessSystem"/>.
         /// </summary>
         /// <param name="spatialMeshObject">The <see cref="SpatialMeshObject"/> data.</param>
         void RaiseMeshRemoved(SpatialMeshObject spatialMeshObject);

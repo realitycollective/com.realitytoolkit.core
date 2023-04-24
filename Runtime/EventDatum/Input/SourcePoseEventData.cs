@@ -10,7 +10,7 @@ namespace RealityToolkit.EventDatum.Input
     /// <summary>
     /// Describes a source change event.
     /// </summary>
-    /// <remarks>Source State events do not have an associated <see cref="Definitions.InputSystem.MixedRealityInputAction"/>.</remarks>
+    /// <remarks>Source State events do not have an associated <see cref="Definitions.InputSystem.InputAction"/>.</remarks>
     public class SourcePoseEventData<T> : SourceStateEventData
     {
         /// <summary>

@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.Controllers.Hands
 {
     /// <summary>
     /// The hand pose processor uses the recorded hand pose definitions
-    /// configured in <see cref="Definitions.InputSystem.MixedRealityInputSystemProfile.TrackedPoses"/>
+    /// configured in <see cref="InputServiceProfile.TrackedPoses"/>
     /// or the platform's <see cref="BaseHandControllerServiceModuleProfile.TrackedPoses"/>
     /// and attempts to recognize a hand's current pose during runtime to provide for
     /// <see cref="HandData.TrackedPoseId"/>.

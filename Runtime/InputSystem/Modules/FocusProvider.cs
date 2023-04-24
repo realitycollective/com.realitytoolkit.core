@@ -472,7 +472,7 @@ namespace RealityToolkit.Input.Modules
             }
         }
 
-        #region IMixedRealityService Implementation
+        #region IService Implementation
 
         /// <inheritdoc />
         public override void Initialize()
@@ -501,9 +501,9 @@ namespace RealityToolkit.Input.Modules
             CleanUpUiRaycastCamera();
         }
 
-        #endregion IMixedRealityService Implementation
+        #endregion IService Implementation
 
-        #region Focus Details by IMixedRealityPointer
+        #region Focus Details by IPointer
 
         /// <inheritdoc />
         public GameObject GetFocusedObject(IPointer pointingSource)
@@ -544,7 +544,7 @@ namespace RealityToolkit.Input.Modules
             graphicInputEventData = null;
             return false;
         }
-        #endregion Focus Details by IMixedRealityPointer
+        #endregion Focus Details by IPointer
 
         #region Utilities
 

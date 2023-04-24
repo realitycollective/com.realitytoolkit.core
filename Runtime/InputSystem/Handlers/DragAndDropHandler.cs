@@ -101,7 +101,7 @@ namespace RealityToolkit.Input.Handlers
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealityPointerHandler Implementation
+        #region IPointerHandler Implementation
 
         /// <inheritdoc />
         void IPointerHandler.OnPointerDown(PointerEventData eventData)
@@ -144,9 +144,9 @@ namespace RealityToolkit.Input.Handlers
         /// <inheritdoc />
         void IPointerHandler.OnPointerClicked(PointerEventData eventData) { }
 
-        #endregion IMixedRealityPointerHandler Implementation
+        #endregion IPointerHandler Implementation
 
-        #region IMixedRealitySourceStateHandler Implementation
+        #region ISourceStateHandler Implementation
 
         void ISourceStateHandler.OnSourceDetected(SourceStateEventData eventData) { }
 
@@ -158,7 +158,7 @@ namespace RealityToolkit.Input.Handlers
             }
         }
 
-        #endregion IMixedRealitySourceStateHandler Implementation
+        #endregion ISourceStateHandler Implementation
 
         /// <summary>
         /// Gets the pivot position for the hand, which is approximated to the base of the neck.
