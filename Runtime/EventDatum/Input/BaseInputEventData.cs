@@ -1,18 +1,18 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using System;
-using UnityEngine.EventSystems;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.EventDatum.Input
 {
     /// <summary>
     /// Base class of all Input Events.
     /// </summary>
-    public abstract class BaseInputEventData : BaseEventData
+    public abstract class BaseInputEventData : UnityEvents.BaseEventData
     {
         /// <summary>
         /// The time at which the event occurred.
@@ -25,7 +25,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <summary>
         /// The source the input event originates from.
         /// </summary>
-        public IMixedRealityInputSource InputSource { get; private set; }
+        public IInputSource InputSource { get; private set; }
 
         /// <summary>
         /// The id of the source the event is from, for instance the hand id.
@@ -35,17 +35,17 @@ namespace RealityToolkit.EventDatum.Input
         /// <summary>
         /// The Input Action for this event.
         /// </summary>
-        public MixedRealityInputAction MixedRealityInputAction { get; private set; }
+        public InputAction InputAction { get; private set; }
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="eventSystem">Typically will be <see cref="EventSystem.current"/></param>
-        protected BaseInputEventData(EventSystem eventSystem) : base(eventSystem)
+        protected BaseInputEventData(UnityEvents.EventSystem eventSystem) : base(eventSystem)
         {
             if (eventSystem.IsNull())
             {
-                throw new Exception($"{nameof(EventSystem)} cannot be null!");
+                throw new Exception($"{nameof(UnityEvents.EventSystem)} cannot be null!");
             }
         }
 
@@ -54,12 +54,12 @@ namespace RealityToolkit.EventDatum.Input
         /// </summary>
         /// <param name="inputSource"></param>
         /// <param name="inputAction"></param>
-        protected void BaseInitialize(IMixedRealityInputSource inputSource, MixedRealityInputAction inputAction)
+        protected void BaseInitialize(IInputSource inputSource, InputAction inputAction)
         {
             Reset();
             EventTime = DateTime.UtcNow;
             InputSource = inputSource;
-            MixedRealityInputAction = inputAction;
+            InputAction = inputAction;
             SourceId = InputSource.SourceId;
         }
     }

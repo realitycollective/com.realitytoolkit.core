@@ -1,10 +1,10 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// <summary>
     /// Default Mouse Pointer Implementation.
     /// </summary>
-    public class MousePointer : BaseControllerPointer, IMixedRealityMousePointer
+    public class MousePointer : BaseControllerPointer, IMousePointer
     {
         private float lastUpdateTime = 0.0f;
 
@@ -25,14 +25,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         private Vector2 lastPosition;
 
-        #region IMixedRealityMousePointer Implementaiton
+        #region IMousePointer Implementaiton
 
         [SerializeField]
         [Tooltip("Should the mouse cursor be hidden when no active input is received?")]
         private bool hideCursorWhenInactive = true;
 
         /// <inheritdoc />
-        bool IMixedRealityMousePointer.HideCursorWhenInactive => hideCursorWhenInactive;
+        bool IMousePointer.HideCursorWhenInactive => hideCursorWhenInactive;
 
         [SerializeField]
         [Range(0.01f, 1f)]
@@ -40,7 +40,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private float movementThresholdToUnHide = 0.1f;
 
         /// <inheritdoc />
-        float IMixedRealityMousePointer.MovementThresholdToUnHide => movementThresholdToUnHide;
+        float IMousePointer.MovementThresholdToUnHide => movementThresholdToUnHide;
 
         [SerializeField]
         [Range(0f, 10f)]
@@ -48,18 +48,18 @@ namespace RealityToolkit.Utilities.UX.Pointers
         private float hideTimeout = 3.0f;
 
         /// <inheritdoc />
-        float IMixedRealityMousePointer.HideTimeout => hideTimeout;
+        float IMousePointer.HideTimeout => hideTimeout;
 
         [SerializeField]
         [Range(0.1f, 1f)]
         [Tooltip("Mouse cursor speed that gets applied to the mouse delta.")]
         private float speed = 0.25f;
 
-        float IMixedRealityMousePointer.Speed => speed;
+        float IMousePointer.Speed => speed;
 
-        #endregion IMixedRealityMousePointer Implementation
+        #endregion IMousePointer Implementation
 
-        #region IMixedRealityPointer Implementaiton
+        #region IPointer Implementaiton
 
         /// <inheritdoc />
         public override bool IsInteractionEnabled => isInteractionEnabled;
@@ -85,7 +85,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public override bool TryGetPointingRay(out Ray pointingRay)
         {
             var playerCamera = Camera.main;
-            pointingRay = playerCamera.ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
+            pointingRay = playerCamera.ScreenPointToRay(UnityEngine.Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             return true;
         }
 
@@ -115,12 +115,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     RayStabilizer.UpdateStability(Rays[0].Origin, Rays[0].Direction);
                     Rays[0].CopyRay(RayStabilizer.StableRay, PointerExtent);
 
-                    if (MixedRealityRaycaster.DebugEnabled)
+                    if (Raycaster.DebugEnabled)
                     {
                         Debug.DrawRay(RayStabilizer.StableRay.origin, RayStabilizer.StableRay.direction * PointerExtent, Color.yellow);
                     }
                 }
-                else if (MixedRealityRaycaster.DebugEnabled)
+                else if (Raycaster.DebugEnabled)
                 {
                     Debug.DrawRay(pointingRay.origin, pointingRay.direction * PointerExtent, Color.yellow);
                 }
@@ -134,9 +134,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             transform.LookAt(Camera.main.transform);
         }
 
-        #endregion IMixedRealityPointer Implementaiton
+        #endregion IPointer Implementaiton
 
-        #region IMixedRealitySourcePoseHandler Implementaiton
+        #region ISourcePoseHandler Implementaiton
 
         /// <inheritdoc />
         public override void OnSourceDetected(SourceStateEventData eventData)
@@ -181,9 +181,9 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
         }
 
-        #endregion IMixedRealitySourcePoseHandler Implementaiton
+        #endregion ISourcePoseHandler Implementaiton
 
-        #region IMixedRealityInputHandler Implementaiton
+        #region IInputHandler Implementaiton
 
         /// <inheritdoc />
         public override void OnInputDown(InputEventData eventData)
@@ -228,14 +228,14 @@ namespace RealityToolkit.Utilities.UX.Pointers
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 if (!UseSourcePoseData &&
-                    PoseAction == eventData.MixedRealityInputAction)
+                    PoseAction == eventData.InputAction)
                 {
                     UpdateMousePosition(eventData.InputData);
                 }
             }
         }
 
-        #endregion IMixedRealityInputHandler Implementaiton
+        #endregion IInputHandler Implementaiton
 
         #region Monobehaviour Implementaiton
 
@@ -250,7 +250,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 RayStabilizer = null;
             }
 
-            foreach (var inputSource in InputSystem.DetectedInputSources)
+            foreach (var inputSource in InputService.DetectedInputSources)
             {
                 if (inputSource.SourceId == Controller.InputSource.SourceId)
                 {

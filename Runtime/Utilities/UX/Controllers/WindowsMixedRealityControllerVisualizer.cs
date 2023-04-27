@@ -1,15 +1,15 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Controllers
 {
     [System.Runtime.InteropServices.Guid("66444029-7951-40BC-B488-429E178B193A")]
-    public class WindowsMixedRealityControllerVisualizer : DefaultMixedRealityControllerVisualizer
+    public class WindowsMixedRealityControllerVisualizer : DefaultControllerVisualizer
     {
         [Prefab]
         [SerializeField]
@@ -221,7 +221,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
             }
         }
 
-        #region IMixedRealityInputHandler Implementation
+        #region IInputHandler Implementation
 
         /// <inheritdoc />
         public override void OnInputDown(InputEventData eventData)
@@ -265,7 +265,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
             if (eventData.SourceId != Controller?.InputSource.SourceId) { return; }
 
             if (!UseSourcePoseData &&
-                PoseAction == eventData.MixedRealityInputAction)
+                PoseAction == eventData.InputAction)
             {
                 IsTracked = true;
                 TrackingState = Definitions.Devices.TrackingState.Tracked;
@@ -278,7 +278,7 @@ namespace RealityToolkit.Utilities.UX.Controllers
             }
         }
 
-        #endregion IMixedRealityInputHandler Implementation
+        #endregion IInputHandler Implementation
 
         private void AnimateGrasp(bool isGrasped)
         {

@@ -1,4 +1,4 @@
-// Copyright (c) XRTK. All rights reserved.
+// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Interfaces;
@@ -87,7 +87,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         BuildTarget BuildTarget { get; }
 
         /// <summary>
-        /// The <see cref="IMixedRealityPlatform"/> to build to.
+        /// The <see cref="IPlatform"/> to build to.
         /// </summary>
         IPlatform BuildPlatform { get; }
 

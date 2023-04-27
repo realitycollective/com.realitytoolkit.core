@@ -1,7 +1,7 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,9 +31,9 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputSource"></param>
         /// <param name="dictationResult"></param>
         /// <param name="dictationAudioClip"></param>
-        public void Initialize(IMixedRealityInputSource inputSource, string dictationResult, AudioClip dictationAudioClip = null)
+        public void Initialize(IInputSource inputSource, string dictationResult, AudioClip dictationAudioClip = null)
         {
-            BaseInitialize(inputSource, InputSystem.Definitions.MixedRealityInputAction.None);
+            BaseInitialize(inputSource, RealityToolkit.Input.Definitions.InputAction.None);
             DictationResult = dictationResult;
             DictationAudioClip = dictationAudioClip;
         }

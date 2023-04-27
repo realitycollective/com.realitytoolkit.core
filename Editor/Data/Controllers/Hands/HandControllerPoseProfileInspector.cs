@@ -1,12 +1,12 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.InputSystem.Controllers.Hands;
-using RealityToolkit.InputSystem.Extensions;
+using RealityToolkit.Input.Controllers.Hands;
+using RealityToolkit.Input.Extensions;
 using UnityEditor;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
@@ -267,7 +267,7 @@ namespace RealityToolkit.Utilities.Solvers
             bool isHit;
 
             // Do the cast!
-            isHit = MixedRealityRaycaster.RaycastSimplePhysicsStep(rayStep, maxDistance, magneticSurfaces, out var result);
+            isHit = Raycaster.RaycastSimplePhysicsStep(rayStep, maxDistance, magneticSurfaces, out var result);
 
             OnSurface = isHit;
 
@@ -295,7 +295,7 @@ namespace RealityToolkit.Utilities.Solvers
 
             // Do the cast!
             var size = scaleOverride > 0 ? scaleOverride : transform.lossyScale.x * sphereSize;
-            isHit = MixedRealityRaycaster.RaycastSpherePhysicsStep(rayStep, size, maxDistance, magneticSurfaces, out var result);
+            isHit = Raycaster.RaycastSpherePhysicsStep(rayStep, size, maxDistance, magneticSurfaces, out var result);
 
             OnSurface = isHit;
 
@@ -341,7 +341,7 @@ namespace RealityToolkit.Utilities.Solvers
 
             var extents = boxCollider.size;
 
-            if (MixedRealityRaycaster.RaycastBoxPhysicsStep(rayStep, extents, transform.position, targetMatrix, maxDistance, magneticSurfaces, boxRaysPerEdge, orthographicBoxCast, out var positions, out var normals, out var hits))
+            if (Raycaster.RaycastBoxPhysicsStep(rayStep, extents, transform.position, targetMatrix, maxDistance, magneticSurfaces, boxRaysPerEdge, orthographicBoxCast, out var positions, out var normals, out var hits))
             {
                 // Place an unconstrained plane down the ray. Don't use vertical constraint.
                 FindPlacementPlane(rayStep.Origin, rayStep.Direction, positions, normals, hits, boxCollider.size.x, maximumNormalVariance, false, orientationMode == OrientModeEnum.None, out var plane, out var distance);

@@ -1,10 +1,10 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers
@@ -15,8 +15,8 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// </summary>
     public class HandSpatialPointer : LinePointer
     {
-        private IMixedRealityPointer nearPointer;
-        private IMixedRealityHandController handController;
+        private IPointer nearPointer;
+        private IHandController handController;
 
         [SerializeField]
         private Transform pointerPoseTransform = null;
@@ -40,12 +40,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// <summary>
         /// Gets the near pointer attached to the hand.
         /// </summary>
-        private IMixedRealityPointer NearPointer => nearPointer ?? (nearPointer = InitializeNearPointerReference());
+        private IPointer NearPointer => nearPointer ?? (nearPointer = InitializeNearPointerReference());
 
         /// <summary>
         /// Casted reference to the hand controller driving the pointer.
         /// </summary>
-        private IMixedRealityHandController HandController => handController ?? (handController = InitializeHandControllerReference());
+        private IHandController HandController => handController ?? (handController = InitializeHandControllerReference());
 
         /// <summary>
         /// Is the near pointer in an idle state where it's not
@@ -53,19 +53,19 @@ namespace RealityToolkit.Utilities.UX.Pointers
         /// </summary>
         private bool IsNearPointerIdle => NearPointer == null || NearPointer.Result?.CurrentPointerTarget == null || !NearPointer.IsInteractionEnabled;
 
-        private IMixedRealityHandController InitializeHandControllerReference()
+        private IHandController InitializeHandControllerReference()
         {
             // This pointer type must only be used with hand controllers.
-            if (!(Controller is IMixedRealityHandController controller))
+            if (!(Controller is IHandController controller))
             {
-                Debug.LogError($"{nameof(HandSpatialPointer)} is only for use with {nameof(IMixedRealityHandController)} controllers!");
+                Debug.LogError($"{nameof(HandSpatialPointer)} is only for use with {nameof(IHandController)} controllers!");
                 return null;
             }
 
             return controller;
         }
 
-        private IMixedRealityPointer InitializeNearPointerReference()
+        private IPointer InitializeNearPointerReference()
         {
             for (int i = 0; i < Controller.InputSource.Pointers.Length; i++)
             {

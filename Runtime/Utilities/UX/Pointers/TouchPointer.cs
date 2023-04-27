@@ -1,8 +1,8 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
     /// <summary>
     /// Touch Pointer Implementation.
     /// </summary>
-    public class TouchPointer : BaseControllerPointer, IMixedRealityTouchPointer
+    public class TouchPointer : BaseControllerPointer, ITouchPointer
     {
         private bool isInteractionEnabled = false;
 
@@ -48,12 +48,12 @@ namespace RealityToolkit.Utilities.UX.Pointers
                     RayStabilizer.UpdateStability(Rays[0].Origin, Rays[0].Direction);
                     Rays[0].CopyRay(RayStabilizer.StableRay, PointerExtent);
 
-                    if (MixedRealityRaycaster.DebugEnabled)
+                    if (Raycaster.DebugEnabled)
                     {
                         Debug.DrawRay(RayStabilizer.StableRay.origin, RayStabilizer.StableRay.direction * PointerExtent, Color.green);
                     }
                 }
-                else if (MixedRealityRaycaster.DebugEnabled)
+                else if (Raycaster.DebugEnabled)
                 {
                     Debug.DrawRay(pointingRay.origin, pointingRay.direction * PointerExtent, Color.yellow);
                 }
@@ -70,7 +70,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
             var playerCamera = Camera.main;
             position = Result.CurrentPointerTarget != null
                 ? Result.EndPoint
-                : playerCamera.ScreenPointToRay(Input.GetTouch(FingerId).position).GetPoint(PointerExtent);
+                : playerCamera.ScreenPointToRay(UnityEngine.Input.GetTouch(FingerId).position).GetPoint(PointerExtent);
             return true;
         }
 

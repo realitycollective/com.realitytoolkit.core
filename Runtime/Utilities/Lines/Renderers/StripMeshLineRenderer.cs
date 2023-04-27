@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
@@ -10,7 +10,7 @@ namespace RealityToolkit.Utilities.Lines.Renderers
     /// <summary>
     /// Draws a strip of polygons along the line
     /// </summary>
-    public class StripMeshLineRenderer : BaseMixedRealityLineRenderer
+    public class StripMeshLineRenderer : BaseLineRenderer
     {
         [Header("Strip Mesh Settings")]
 

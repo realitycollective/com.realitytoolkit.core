@@ -1,12 +1,12 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Controllers;
-using RealityToolkit.InputSystem.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.Solvers
@@ -14,7 +14,7 @@ namespace RealityToolkit.Utilities.Solvers
     /// <summary>
     /// ControllerFinder is a base class providing simple event handling for getting/releasing MotionController Transforms.
     /// </summary>
-    public abstract class ControllerFinder : MonoBehaviour, IMixedRealitySourceStateHandler
+    public abstract class ControllerFinder : MonoBehaviour, ISourceStateHandler
     {
         [SerializeField]
         [Tooltip("The handedness of the controller that should be found.")]
@@ -52,7 +52,7 @@ namespace RealityToolkit.Utilities.Solvers
 
         #endregion MonoBehaviour Implementation
 
-        #region IMixedRealitySourceStateHandler Implementation
+        #region ISourceStateHandler Implementation
 
         public void OnSourceDetected(SourceStateEventData eventData)
         {
@@ -70,7 +70,7 @@ namespace RealityToolkit.Utilities.Solvers
             }
         }
 
-        #endregion IMixedRealitySourceStateHandler Implementation
+        #endregion ISourceStateHandler Implementation
 
         /// <summary>
         /// Looks to see if the controller model already exists and registers it if so.
@@ -79,13 +79,13 @@ namespace RealityToolkit.Utilities.Solvers
         {
             // Look if the controller was already loaded. This could happen if the
             // GameObject was instantiated at runtime and the model loaded event has already fired.
-            if (!ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out var inputSystem))
+            if (!ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
-                // The InputSystem could not be found.
+                // The InputService could not be found.
                 return;
             }
 
-            foreach (var controller in inputSystem.DetectedControllers)
+            foreach (var controller in inputService.DetectedControllers)
             {
                 if (controller.ControllerHandedness == handedness)
                 {

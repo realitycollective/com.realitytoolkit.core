@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -64,7 +64,7 @@ namespace RealityToolkit.Editor.Utilities
         private static readonly Dictionary<Tuple<Type, Handedness, bool>, Texture2D> CachedTextures = new Dictionary<Tuple<Type, Handedness, bool>, Texture2D>();
 
         /// <summary>
-        /// Gets a texture based on the <see cref="MixedRealityControllerMappingProfile"/>.
+        /// Gets a texture based on the <see cref="ControllerMappingProfile"/>.
         /// </summary>
         /// <param name="mappingProfile"></param>
         /// <returns>The texture for the controller profile, if none found then a generic texture is returned.</returns>
@@ -72,19 +72,19 @@ namespace RealityToolkit.Editor.Utilities
         /// The file name should be formatted as:<para/>XRTK/StandardAssets/Textures/{ControllerTypeName}_{handedness}_{theme}_{scaled}.png<para/>
         /// scaled suffix is optional.<para/>
         /// </remarks>
-        public static Texture2D GetControllerTexture(MixedRealityControllerMappingProfile mappingProfile) => GetControllerTextureCached(mappingProfile);
+        public static Texture2D GetControllerTexture(ControllerMappingProfile mappingProfile) => GetControllerTextureCached(mappingProfile);
 
         /// <summary>
-        /// Gets a texture based on the <see cref="MixedRealityControllerMappingProfile"/>.
+        /// Gets a texture based on the <see cref="ControllerMappingProfile"/>.
         /// </summary>
         /// <param name="mappingProfile"></param>
         /// <returns>The scaled texture for the controller profile, if none found then a generic texture is returned.</returns>
         /// <remarks>
         /// The file name should be formatted as:<para/>XRTK/StandardAssets/Textures/{ControllerName}_{handedness}_{theme}_{scaled}.png<para/>
         /// </remarks>
-        public static Texture2D GetControllerTextureScaled(MixedRealityControllerMappingProfile mappingProfile) => GetControllerTextureCached(mappingProfile, true);
+        public static Texture2D GetControllerTextureScaled(ControllerMappingProfile mappingProfile) => GetControllerTextureCached(mappingProfile, true);
 
-        private static Texture2D GetControllerTextureCached(MixedRealityControllerMappingProfile mappingProfile, bool scaled = false)
+        private static Texture2D GetControllerTextureCached(ControllerMappingProfile mappingProfile, bool scaled = false)
         {
             if (TryGetControllerTextureFromProfile(mappingProfile, scaled, out var profileTexture))
             {
@@ -110,7 +110,7 @@ namespace RealityToolkit.Editor.Utilities
 
         private static readonly string RootTexturePath = $"{CorePackageInstaller.RTK_Core_RelativeFolderPath}/Runtime/StandardAssets/Textures/";
 
-        private static Texture2D GetControllerTextureInternal(MixedRealityControllerMappingProfile mappingProfile, bool scaled)
+        private static Texture2D GetControllerTextureInternal(ControllerMappingProfile mappingProfile, bool scaled)
         {
             Texture2D texture = null;
 
@@ -161,7 +161,7 @@ namespace RealityToolkit.Editor.Utilities
             return (Texture2D)AssetDatabase.LoadAssetAtPath($"{fullTexturePath}{handednessSuffix}{themeSuffix}{(scaled ? "_scaled" : string.Empty)}.png", typeof(Texture2D));
         }
 
-        private static bool TryGetControllerTextureFromProfile(MixedRealityControllerMappingProfile mappingProfile, bool scaled, out Texture2D texture)
+        private static bool TryGetControllerTextureFromProfile(ControllerMappingProfile mappingProfile, bool scaled, out Texture2D texture)
         {
             texture = null;
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Utilities.Lines.DataProviders;
@@ -63,7 +63,7 @@ namespace RealityToolkit.Utilities.Lines
 
         [SerializeField]
         [HideInInspector]
-        private BaseMixedRealityLineDataProvider source = null;
+        private BaseLineDataProvider source = null;
 
         #region MonoBehaviour Implementation
 
@@ -90,7 +90,7 @@ namespace RealityToolkit.Utilities.Lines
 
             if (source == null)
             {
-                source = GetComponent<BaseMixedRealityLineDataProvider>();
+                source = GetComponent<BaseLineDataProvider>();
             }
 
             if (source == null)

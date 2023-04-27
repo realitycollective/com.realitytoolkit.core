@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
@@ -16,7 +16,7 @@ namespace RealityToolkit.EventDatum
         /// <summary>
         /// The Event Source that the event originates from.
         /// </summary>
-        public IMixedRealityEventSource EventSource { get; private set; }
+        public IEventSource EventSource { get; private set; }
 
         /// <summary>
         /// The time at which the event occurred.
@@ -42,7 +42,7 @@ namespace RealityToolkit.EventDatum
         /// Used to initialize/reset the event and populate the data.
         /// </summary>
         /// <param name="eventSource">The source of the event.</param>
-        protected void BaseInitialize(IMixedRealityEventSource eventSource)
+        protected void BaseInitialize(IEventSource eventSource)
         {
             Reset();
             EventTime = DateTime.UtcNow;

@@ -1,7 +1,7 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Definitions;
+using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors
@@ -159,7 +159,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
 
             // handle scale of main cursor go
-            float distance = Vector3.Distance(InputSystem.GazeProvider.GazeOrigin, transform.position);
+            float distance = Vector3.Distance(InputService.GazeProvider.GazeOrigin, transform.position);
             float smoothScaling = 1 - Pointer.PointerExtent * distanceScaleFactor;
             transform.localScale = initialScale * (distance * distanceScaleFactor + smoothScaling);
         }

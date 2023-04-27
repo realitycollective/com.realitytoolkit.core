@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Utilities;
@@ -32,19 +32,19 @@ namespace RealityToolkit.Editor.BuildPipeline
         {
             get
             {
-                if (MixedRealityPreferences.CurrentPlatformTarget != null &&
-                    MixedRealityPreferences.CurrentPlatformTarget.GetType() != typeof(AllPlatforms))
+                if (RealityToolkitPreferences.CurrentPlatformTarget != null &&
+                    RealityToolkitPreferences.CurrentPlatformTarget.GetType() != typeof(AllPlatforms))
                 {
-                    return $"{EditorPreferences.Get(EDITOR_PREF_BUILD_DIR, "Builds")}/{MixedRealityPreferences.CurrentPlatformTarget.Name}";
+                    return $"{EditorPreferences.Get(EDITOR_PREF_BUILD_DIR, "Builds")}/{RealityToolkitPreferences.CurrentPlatformTarget.Name}";
                 }
                 return $"{EditorPreferences.Get(EDITOR_PREF_BUILD_DIR, "Builds")}/{EditorUserBuildSettings.activeBuildTarget}";
             }
             set
             {
-                if (MixedRealityPreferences.CurrentPlatformTarget != null &&
-                    MixedRealityPreferences.CurrentPlatformTarget.GetType() != typeof(AllPlatforms))
+                if (RealityToolkitPreferences.CurrentPlatformTarget != null &&
+                    RealityToolkitPreferences.CurrentPlatformTarget.GetType() != typeof(AllPlatforms))
                 {
-                    EditorPreferences.Set(EDITOR_PREF_BUILD_DIR, value.Replace($"/{MixedRealityPreferences.CurrentPlatformTarget.Name}", string.Empty));
+                    EditorPreferences.Set(EDITOR_PREF_BUILD_DIR, value.Replace($"/{RealityToolkitPreferences.CurrentPlatformTarget.Name}", string.Empty));
                 }
                 else
                 {

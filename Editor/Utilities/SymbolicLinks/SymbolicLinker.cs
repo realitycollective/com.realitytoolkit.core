@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
@@ -62,14 +62,14 @@ namespace RealityToolkit.Editor.Utilities.SymbolicLinks
             get
             {
                 if (settings == null &&
-                    !string.IsNullOrEmpty(MixedRealityPreferences.SymbolicLinkSettingsPath))
+                    !string.IsNullOrEmpty(RealityToolkitPreferences.SymbolicLinkSettingsPath))
                 {
                     if (DebugEnabled)
                     {
-                        Debug.Log($"Loading symlink settings from :{MixedRealityPreferences.SymbolicLinkSettingsPath}");
+                        Debug.Log($"Loading symlink settings from :{RealityToolkitPreferences.SymbolicLinkSettingsPath}");
                     }
 
-                    settings = AssetDatabase.LoadAssetAtPath<SymbolicLinkSettings>(MixedRealityPreferences.SymbolicLinkSettingsPath);
+                    settings = AssetDatabase.LoadAssetAtPath<SymbolicLinkSettings>(RealityToolkitPreferences.SymbolicLinkSettingsPath);
                 }
 
                 return settings;
@@ -98,7 +98,7 @@ namespace RealityToolkit.Editor.Utilities.SymbolicLinks
                 return;
             }
 
-            if (!MixedRealityPreferences.AutoLoadSymbolicLinks && !forceUpdate)
+            if (!RealityToolkitPreferences.AutoLoadSymbolicLinks && !forceUpdate)
             {
                 return;
             }
@@ -114,12 +114,12 @@ namespace RealityToolkit.Editor.Utilities.SymbolicLinks
 
             if (Settings == null)
             {
-                if (!string.IsNullOrEmpty(MixedRealityPreferences.SymbolicLinkSettingsPath))
+                if (!string.IsNullOrEmpty(RealityToolkitPreferences.SymbolicLinkSettingsPath))
                 {
                     Debug.LogWarning("Symbolic link settings not found! Auto load links has been turned off.\nYou can enable this again in the xrtk preferences.");
                 }
 
-                MixedRealityPreferences.AutoLoadSymbolicLinks = false;
+                RealityToolkitPreferences.AutoLoadSymbolicLinks = false;
                 return;
             }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License.
 
 using System;
@@ -10,7 +10,7 @@ namespace RealityToolkit.Utilities
 {
     /// <summary>
     /// Utility component to animate and visualize a light that can be used with 
-    /// the "MixedRealityToolkit/Standard" shader "_ProximityLight" feature.
+    /// the "RealityToolkit/Standard" shader "_ProximityLight" feature.
     /// </summary>
     [ExecuteInEditMode]
     public class ProximityLight : MonoBehaviour

@@ -1,11 +1,11 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace RealityToolkit.SpatialAwarenessSystem.Definitions
+namespace RealityToolkit.SpatialAwareness.Definitions
 {
     /// <summary>
     /// Enumerates possible changes that may happen to a spatial observers
-    /// by the <see cref="BaseMixedRealitySpatialObserverDataProvider"/>.
+    /// by the <see cref="BaseSpatialObserverModule"/>.
     /// </summary>
     public enum SpatialObserverStatus
     {

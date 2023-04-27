@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Definitions.Utilities;
@@ -8,8 +8,8 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.InputSystem.Controllers.UnityInput;
-using RealityToolkit.InputSystem.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Controllers.UnityInput;
+using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,7 +44,7 @@ namespace RealityToolkit.Editor
 
         private static Vector2 horizontalScrollPosition;
 
-        private readonly MixedRealityInputActionDropdown inputActionDropdown = new MixedRealityInputActionDropdown();
+        private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
 
         private SerializedProperty currentInteractionProfiles;
 
@@ -85,14 +85,14 @@ namespace RealityToolkit.Editor
         private Texture2D currentControllerTexture;
         private ControllerInputActionOption currentControllerOption;
 
-        private MixedRealityControllerMappingProfile controllerDataProviderProfile;
+        private ControllerMappingProfile controllerDataProviderProfile;
         private string currentControllerName;
 
         private Type ControllerType => controllerDataProviderProfile.ControllerType;
         private Handedness Handedness => controllerDataProviderProfile.Handedness;
 
         private bool IsCustomController => ControllerType == typeof(GenericJoystickController) ||
-                                           ControllerType == typeof(IMixedRealityHandController);
+                                           ControllerType == typeof(IHandController);
 
         private static string EditorWindowOptionsPath => $"{CorePackageInstaller.RTK_Core_RelativeFolderPath}/Editor/Data/EditorWindowOptions.json";
 
@@ -111,7 +111,7 @@ namespace RealityToolkit.Editor
         /// </summary>
         /// <param name="profile"></param>
         /// <param name="interactionMappingProfiles"></param>
-        public static void Show(MixedRealityControllerMappingProfile profile, SerializedProperty interactionMappingProfiles)
+        public static void Show(ControllerMappingProfile profile, SerializedProperty interactionMappingProfiles)
         {
             var handednessTitleText = profile.Handedness != Handedness.None ? $"{profile.Handedness} Hand " : string.Empty;
 
@@ -318,7 +318,7 @@ namespace RealityToolkit.Editor
             for (int i = 0; i < interactionProfilesList.arraySize; i++)
             {
                 var interactionProfileProperty = interactionProfilesList.GetArrayElementAtIndex(i);
-                var mappingProfile = interactionProfileProperty.objectReferenceValue as MixedRealityInteractionMappingProfile;
+                var mappingProfile = interactionProfileProperty.objectReferenceValue as InteractionMappingProfile;
 
                 if (mappingProfile.IsNull())
                 {

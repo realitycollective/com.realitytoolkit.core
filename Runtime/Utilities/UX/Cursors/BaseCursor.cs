@@ -4,9 +4,9 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Listeners;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Listeners;
 using RealityToolkit.Utilities.UX.Pointers;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
     /// <summary>
     /// Object that represents a cursor in 3D space controlled by gaze.
     /// </summary>
-    public class BaseCursor : InputSystemGlobalListener, IMixedRealityCursor
+    public class BaseCursor : InputServiceGlobalListener, ICursor
     {
         /// <summary>
         /// The current <see cref="CursorStateEnum"/> of the cursor.
@@ -121,10 +121,10 @@ namespace RealityToolkit.Utilities.UX.Cursors
         private Vector3 targetScale;
         private Quaternion targetRotation;
 
-        #region IMixedRealityCursor Implementation
+        #region ICursor Implementation
 
         /// <inheritdoc />
-        public virtual IMixedRealityPointer Pointer
+        public virtual IPointer Pointer
         {
             get => pointer;
             set
@@ -135,7 +135,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
         }
 
-        private IMixedRealityPointer pointer;
+        private IPointer pointer;
 
         /// <inheritdoc />
         public virtual Vector3 Position => transform.position;
@@ -166,9 +166,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// <inheritdoc />
         public GameObject GameObjectReference => gameObject;
 
-        #endregion IMixedRealityCursor Implementation
+        #endregion ICursor Implementation
 
-        #region IMixedRealitySourceStateHandler Implementation
+        #region ISourceStateHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnSourceDetected(SourceStateEventData eventData)
@@ -229,9 +229,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
         }
 
-        #endregion IMixedRealitySourceStateHandler Implementation
+        #endregion ISourceStateHandler Implementation
 
-        #region IMixedRealityFocusChangedHandler Implementation
+        #region IFocusChangedHandler Implementation
 
         /// <inheritdoc />
         public virtual void OnBeforeFocusChange(FocusEventData eventData)
@@ -245,12 +245,12 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// <inheritdoc />
         public virtual void OnFocusChanged(FocusEventData eventData) { }
 
-        #endregion IMixedRealityFocusChangedHandler Implementation
+        #endregion IFocusChangedHandler Implementation
 
-        #region IMixedRealityPointerHandler Implementation
+        #region IPointerHandler Implementation
 
         /// <inheritdoc />
-        public virtual void OnPointerDown(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerDown(PointerEventData eventData)
         {
             foreach (var sourcePointer in eventData.InputSource.Pointers)
             {
@@ -262,10 +262,10 @@ namespace RealityToolkit.Utilities.UX.Cursors
         }
 
         /// <inheritdoc />
-        public virtual void OnPointerClicked(MixedRealityPointerEventData eventData) { }
+        public virtual void OnPointerClicked(PointerEventData eventData) { }
 
         /// <inheritdoc />
-        public virtual void OnPointerUp(MixedRealityPointerEventData eventData)
+        public virtual void OnPointerUp(PointerEventData eventData)
         {
             foreach (var sourcePointer in eventData.InputSource.Pointers)
             {
@@ -276,7 +276,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
             }
         }
 
-        #endregion IMixedRealityPointerHandler Implementation
+        #endregion IPointerHandler Implementation
 
         #region MonoBehaviour Implementation
 
@@ -314,10 +314,10 @@ namespace RealityToolkit.Utilities.UX.Cursors
         protected virtual void RegisterManagers()
         {
             // Register the cursor as a listener, so that it can always get input events it cares about
-            InputSystem.Register(gameObject);
+            InputService.Register(gameObject);
 
             // Setup the cursor to be able to respond to input being globally enabled / disabled
-            if (InputSystem.IsInputEnabled)
+            if (InputService.IsInputEnabled)
             {
                 OnInputEnabled();
             }
@@ -326,8 +326,8 @@ namespace RealityToolkit.Utilities.UX.Cursors
                 OnInputDisabled();
             }
 
-            InputSystem.InputEnabled += OnInputEnabled;
-            InputSystem.InputDisabled += OnInputDisabled;
+            InputService.InputEnabled += OnInputEnabled;
+            InputService.InputDisabled += OnInputDisabled;
         }
 
         /// <summary>
@@ -335,11 +335,11 @@ namespace RealityToolkit.Utilities.UX.Cursors
         /// </summary>
         protected virtual void UnregisterManagers()
         {
-            if (InputSystem != null)
+            if (InputService != null)
             {
-                InputSystem.InputEnabled -= OnInputEnabled;
-                InputSystem.InputDisabled -= OnInputDisabled;
-                InputSystem.Unregister(gameObject);
+                InputService.InputEnabled -= OnInputEnabled;
+                InputService.InputDisabled -= OnInputDisabled;
+                InputService.Unregister(gameObject);
             }
         }
 
@@ -354,9 +354,9 @@ namespace RealityToolkit.Utilities.UX.Cursors
                 return;
             }
 
-            if (!InputSystem.FocusProvider.TryGetFocusDetails(Pointer, out var focusDetails))
+            if (!InputService.FocusProvider.TryGetFocusDetails(Pointer, out var focusDetails))
             {
-                if (InputSystem.FocusProvider.IsPointerRegistered(Pointer))
+                if (InputService.FocusProvider.IsPointerRegistered(Pointer))
                 {
                     Debug.LogError($"{name}: Unable to get focus details for {pointer.GetType().Name}!");
                 }
@@ -364,7 +364,7 @@ namespace RealityToolkit.Utilities.UX.Cursors
                 return;
             }
 
-            var newTargetedObject = InputSystem.FocusProvider.GetFocusedObject(Pointer);
+            var newTargetedObject = InputService.FocusProvider.GetFocusedObject(Pointer);
             Vector3 lookForward;
 
             // Normalize scale on before update

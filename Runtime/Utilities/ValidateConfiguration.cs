@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -15,7 +15,7 @@ namespace RealityToolkit.Utilities
 {
     public static class ValidateConfiguration
     {
-        private const string IgnoreKey = "_MixedRealityToolkit_Editor_IgnoreControllerMappingsPrompts";
+        private const string IgnoreKey = "_RealityToolkit_Editor_IgnoreControllerMappingsPrompts";
 
         /// <summary>
         /// Controller Mapping function to test for a controller mapping
@@ -24,7 +24,7 @@ namespace RealityToolkit.Utilities
         /// <param name="mappingTypesToValidate">Array of controller mappings to validate</param>
         /// <param name="prompt">Unit Test helper, to control whether the UI prompt is offered or not</param>
         /// <returns></returns>
-        public static bool ValidateControllerProfiles(this BaseMixedRealityControllerServiceModuleProfile profile, Type[] mappingTypesToValidate, bool prompt = true)
+        public static bool ValidateControllerProfiles(this BaseControllerServiceModuleProfile profile, Type[] mappingTypesToValidate, bool prompt = true)
         {
 #if UNITY_EDITOR
             if (Application.isPlaying || EditorPrefs.GetBool(IgnoreKey, false))

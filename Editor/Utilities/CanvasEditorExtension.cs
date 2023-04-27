@@ -3,7 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities;
 using UnityEditor;
 using UnityEngine;
@@ -17,21 +17,21 @@ namespace RealityToolkit.Editor.Utilities
     [CustomEditor(typeof(Canvas))]
     public class CanvasEditorExtension : UnityEditor.Editor
     {
-        private static readonly string dialogText = $"In order for the {nameof(IMixedRealityInputSystem)} to work properly with this world space canvas we'd like to add the {nameof(CanvasUtility)} component to it.";
+        private static readonly string dialogText = $"In order for the {nameof(IInputService)} to work properly with this world space canvas we'd like to add the {nameof(CanvasUtility)} component to it.";
         private Canvas canvas;
         private bool hasUtility;
 
         private static bool IsUtilityValid =>
             ServiceManager.IsActiveAndInitialized &&
             ServiceManager.Instance.HasActiveProfile &&
-            ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out _);
+            ServiceManager.Instance.TryGetService<IInputService>(out _);
 
         private bool CanUpdateSettings
         {
             get
             {
                 if (!ServiceManager.IsActiveAndInitialized ||
-                    !MixedRealityPreferences.ShowCanvasUtilityPrompt)
+                    !RealityToolkitPreferences.ShowCanvasUtilityPrompt)
                 {
                     return false;
                 }
@@ -68,7 +68,7 @@ namespace RealityToolkit.Editor.Utilities
 
         private void UpdateCanvasSettings()
         {
-            if (!ServiceManager.Instance.TryGetService<IMixedRealityInputSystem>(out _))
+            if (!ServiceManager.Instance.TryGetService<IInputService>(out _))
             {
                 return;
             }
@@ -84,7 +84,7 @@ namespace RealityToolkit.Editor.Utilities
                         canvas.EnsureComponent<CanvasUtility>();
                         break;
                     case 2:
-                        MixedRealityPreferences.ShowCanvasUtilityPrompt = false;
+                        RealityToolkitPreferences.ShowCanvasUtilityPrompt = false;
                         break;
                 }
             }

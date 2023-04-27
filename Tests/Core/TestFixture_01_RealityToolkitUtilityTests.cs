@@ -1,4 +1,4 @@
-﻿// Copyright (c) XRTK. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using NUnit.Framework;
@@ -7,7 +7,7 @@ using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
 using RealityToolkit.Editor.Utilities;
-using RealityToolkit.InputSystem.Controllers.UnityInput;
+using RealityToolkit.Input.Controllers.UnityInput;
 using RealityToolkit.Utilities;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace RealityToolkit.Tests.Core
         [Test]
         public void Test_02_ConfirmGenereicControllerTextureExists()
         {
-            var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
+            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             // Right / Any hand textures
@@ -46,7 +46,7 @@ namespace RealityToolkit.Tests.Core
         [Test]
         public void Test_03_ConfirmGenereicControllerTextureDoesNotExist()
         {
-            var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
+            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             // Right / Any hand textures
@@ -64,7 +64,7 @@ namespace RealityToolkit.Tests.Core
         [Test]
         public void Test_04_ConfirmProfileControllerTextureUsed()
         {
-            var controllerMappingProfile = ScriptableObject.CreateInstance<MixedRealityControllerMappingProfile>();
+            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerMappingProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             var dummyTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);

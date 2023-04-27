@@ -1,4 +1,4 @@
-// Copyright (c) XRTK. All rights reserved.
+// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Attributes;
@@ -68,7 +68,7 @@ namespace RealityToolkit.Editor.BuildPipeline
         public virtual BuildTarget BuildTarget => EditorUserBuildSettings.activeBuildTarget;
 
         /// <inheritdoc />
-        public virtual IPlatform BuildPlatform => MixedRealityPreferences.CurrentPlatformTarget;
+        public virtual IPlatform BuildPlatform => RealityToolkitPreferences.CurrentPlatformTarget;
 
         /// <inheritdoc />
         public bool IsCommandLine { get; private set; }

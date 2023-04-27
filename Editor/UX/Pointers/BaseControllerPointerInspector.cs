@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Editor.Extensions;
@@ -71,14 +71,14 @@ namespace RealityToolkit.Editor.UX.Pointers
                 EditorGUILayout.PropertyField(enablePointerOnStart);
                 EditorGUILayout.PropertyField(interactionMode);
 
-                var interactionModeValue = (InputSystem.Definitions.InteractionMode)interactionMode.intValue;
+                var interactionModeValue = (RealityToolkit.Input.Definitions.InteractionMode)interactionMode.intValue;
 
-                if (interactionModeValue.HasFlags(InputSystem.Definitions.InteractionMode.Near))
+                if (interactionModeValue.HasFlags(RealityToolkit.Input.Definitions.InteractionMode.Near))
                 {
                     EditorGUILayout.PropertyField(nearInteractionCollider);
                 }
 
-                if (interactionModeValue.HasFlags(InputSystem.Definitions.InteractionMode.Far))
+                if (interactionModeValue.HasFlags(RealityToolkit.Input.Definitions.InteractionMode.Far))
                 {
                     EditorGUILayout.PropertyField(raycastOrigin);
                     EditorGUILayout.PropertyField(defaultPointerExtent);

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
@@ -55,7 +55,7 @@ namespace RealityToolkit.Utilities.Physics
         }
 
         /// <summary>
-        /// Update the rotation based on input.
+        /// Update the rotation based on UnityEngine.Input.
         /// </summary>
         /// <param name="handsPressedMap"></param>
         /// <param name="currentRotation"></param>

@@ -1,8 +1,8 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.InputSystem.Handlers;
+using RealityToolkit.Input.Handlers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -252,7 +252,7 @@ namespace RealityToolkit.Utilities.Utilities
             }
         }
 
-        #region IMixedRealityFocusHandler Implementation
+        #region IFocusHandler Implementation
 
         /// <inheritdoc />
         public override void OnFocusEnter(FocusEventData eventData)
@@ -273,6 +273,6 @@ namespace RealityToolkit.Utilities.Utilities
             Highlight = false;
         }
 
-        #endregion IMixedRealityFocusHandler Implementation
+        #endregion IFocusHandler Implementation
     }
 }
