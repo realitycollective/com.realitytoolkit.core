@@ -50,6 +50,7 @@ namespace RealityToolkit.Input.Modules
         private readonly PointerHitResult graphicsHitResult = new PointerHitResult();
         private readonly Color[] debugPointingRayColors;
         private RenderTexture uiRaycastCameraTargetTexture;
+        private bool didCreateUIRaycastCamera;
 
         private IInputService inputService = null;
 
@@ -591,6 +592,7 @@ namespace RealityToolkit.Input.Modules
             {
                 cameraObject = new GameObject { name = uiRayCastCameraName };
                 cameraObject.transform.SetParent(Camera.main.transform, false);
+                didCreateUIRaycastCamera = true;
             }
 
             uiRaycastCamera = cameraObject.EnsureComponent<Camera>();
@@ -631,9 +633,9 @@ namespace RealityToolkit.Input.Modules
 
             uiRaycastCameraTargetTexture = null;
 
-            if (UIRaycastCamera.IsNotNull())
+            if (didCreateUIRaycastCamera && UIRaycastCamera.gameObject.IsNotNull())
             {
-                UIRaycastCamera.Destroy();
+                UIRaycastCamera.gameObject.Destroy();
             }
 
             UIRaycastCamera = null;
