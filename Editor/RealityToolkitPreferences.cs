@@ -130,60 +130,6 @@ namespace RealityToolkit.Editor
 
         #endregion Custom Profile Generation Path
 
-        #region Start Scene Preference
-
-        private static readonly GUIContent StartSceneContent = new GUIContent("Start Scene", "When pressing play in the editor, a prompt will ask you if you want to switch to this start scene.\n\nThis setting only applies to the currently running project.");
-        private const string START_SCENE_KEY = "StartScene";
-        private static SceneAsset sceneAsset;
-        private static bool isStartScenePrefLoaded;
-
-        /// <summary>
-        /// The <see cref="StartSceneAsset"/> for the global start scene.
-        /// </summary>
-        public static SceneAsset StartSceneAsset
-        {
-            get
-            {
-                if (!isStartScenePrefLoaded)
-                {
-                    var scenePath = EditorPreferences.Get(START_SCENE_KEY, string.Empty);
-                    sceneAsset = GetSceneObject(scenePath);
-                    isStartScenePrefLoaded = true;
-                }
-
-                return sceneAsset;
-            }
-            set
-            {
-                string scenePath;
-
-                if (value == null)
-                {
-                    scenePath = EditorPreferences.Get(START_SCENE_KEY, string.Empty);
-
-                    if (!string.IsNullOrWhiteSpace(scenePath))
-                    {
-                        var oldScenePath = AssetDatabase.GetAssetOrScenePath(GetSceneObject(scenePath));
-                        var buildScenes = EditorBuildSettings.scenes.ToList();
-                        buildScenes.Remove(buildScenes.FirstOrDefault(buildScene => buildScene.path.Equals(oldScenePath)));
-                        EditorBuildSettings.scenes = buildScenes.ToArray();
-                    }
-
-                    scenePath = string.Empty;
-                    sceneAsset = null;
-                }
-                else
-                {
-                    sceneAsset = GetSceneObject(value);
-                    scenePath = AssetDatabase.GetAssetOrScenePath(value);
-                }
-
-                EditorPreferences.Set(START_SCENE_KEY, scenePath);
-            }
-        }
-
-        #endregion  Start Scene Preference
-
         #region Symbolic Link Preferences
 
         private static bool isSymbolicLinkSettingsPathLoaded;
@@ -410,18 +356,6 @@ namespace RealityToolkit.Editor
 
             #endregion Show Canvas Prompt Preference
 
-            #region Start Scene Preference
-
-            EditorGUI.BeginChangeCheck();
-            var startScene = (SceneAsset)EditorGUILayout.ObjectField(StartSceneContent, StartSceneAsset, typeof(SceneAsset), true);
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                StartSceneAsset = startScene;
-            }
-
-            #endregion Start Scene Preference
-
             #region Generated Profile path Preference
 
             EditorGUILayout.LabelField(GeneratedProfilePathContent);
@@ -495,90 +429,6 @@ namespace RealityToolkit.Editor
             #endregion Symbolic Links Preferences
 
             EditorGUIUtility.labelWidth = prevLabelWidth;
-        }
-
-        private static SceneAsset GetSceneObject(SceneAsset asset)
-        {
-            return GetSceneObject(asset.name, asset);
-        }
-
-        private static SceneAsset GetSceneObject(string sceneName, SceneAsset asset = null)
-        {
-            if (string.IsNullOrWhiteSpace(sceneName) ||
-                EditorBuildSettings.scenes == null)
-            {
-                return null;
-            }
-
-            EditorBuildSettingsScene editorScene = null;
-
-            if (EditorBuildSettings.scenes.Length < 1)
-            {
-                if (asset.IsNull())
-                {
-                    Debug.Log($"{sceneName} scene not found in build settings!");
-                    return null;
-                }
-
-                editorScene = new EditorBuildSettingsScene
-                {
-                    path = AssetDatabase.GetAssetOrScenePath(asset),
-                    enabled = true
-                };
-
-                editorScene.guid = new GUID(AssetDatabase.AssetPathToGUID(editorScene.path));
-
-                EditorBuildSettings.scenes = new[] { editorScene };
-            }
-            else
-            {
-
-                try
-                {
-                    editorScene = EditorBuildSettings.scenes.First(scene => scene.path.IndexOf(sceneName, StringComparison.Ordinal) != -1);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            if (editorScene != null)
-            {
-                asset = AssetDatabase.LoadAssetAtPath(editorScene.path, typeof(SceneAsset)) as SceneAsset;
-            }
-
-            if (asset.IsNull())
-            {
-                return null;
-            }
-
-            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(asset, out var guid, out long _);
-            var sceneGuid = new GUID(guid);
-
-            if (EditorBuildSettings.scenes[0].guid != sceneGuid)
-            {
-                editorScene = new EditorBuildSettingsScene(sceneGuid, true);
-                var scenes = EditorBuildSettings.scenes
-                    .Where(scene => scene.guid != sceneGuid)
-                    .Prepend(editorScene)
-                    .ToArray();
-                EditorBuildSettings.scenes = scenes;
-                Debug.Assert(EditorBuildSettings.scenes[0].guid == sceneGuid);
-                AssetDatabase.SaveAssets();
-
-                if (!EditorApplication.isUpdating)
-                {
-                    AssetDatabase.Refresh();
-                }
-            }
-
-            if (!EditorBuildSettings.scenes[0].enabled)
-            {
-                EditorBuildSettings.scenes[0].enabled = true;
-            }
-
-            return asset;
         }
     }
 }
