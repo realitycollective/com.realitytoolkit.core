@@ -153,6 +153,9 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public Vector3 Velocity { get; protected set; } = Vector3.zero;
 
+        /// <inheritdoc />
+        public Vector3 MotionDirection { get; protected set; }
+
         #endregion IController Implementation
 
         /// <summary>

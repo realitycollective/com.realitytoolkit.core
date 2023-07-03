@@ -93,6 +93,12 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         Vector3 Velocity { get; }
 
         /// <summary>
+        /// The <see cref="IController"/>'s motion direction is a normalized <see cref="Vector3"/>
+        /// describing in which direction is moving compared to a previous frame.
+        /// </summary>
+        Vector3 MotionDirection { get; }
+
+        /// <summary>
         /// Attempts to load the controller model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
