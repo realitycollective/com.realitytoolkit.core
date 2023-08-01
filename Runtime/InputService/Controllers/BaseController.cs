@@ -77,10 +77,6 @@ namespace RealityToolkit.Input.Controllers
                 }
             }
 
-            IsPositionAvailable = false;
-            IsPositionApproximate = false;
-            IsRotationAvailable = false;
-
             Enabled = true;
         }
 
