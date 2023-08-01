@@ -133,28 +133,7 @@ namespace RealityToolkit.Input.Controllers
         public IControllerVisualizer Visualizer { get; private set; }
 
         /// <inheritdoc />
-        public bool IsPositionAvailable { get; protected set; }
-
-        /// <inheritdoc />
-        public bool IsPositionApproximate { get; protected set; }
-
-        /// <inheritdoc />
-        public bool IsRotationAvailable { get; protected set; }
-
-        /// <inheritdoc />
         public InteractionMapping[] Interactions { get; private set; } = null;
-
-        /// <inheritdoc />
-        public Pose Pose { get; protected set; } = Pose.identity;
-
-        /// <inheritdoc />
-        public Vector3 AngularVelocity { get; protected set; } = Vector3.zero;
-
-        /// <inheritdoc />
-        public Vector3 Velocity { get; protected set; } = Vector3.zero;
-
-        /// <inheritdoc />
-        public Vector3 MotionDirection { get; protected set; }
 
         #endregion IController Implementation
 
