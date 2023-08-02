@@ -10,47 +10,57 @@ using UnityEngine;
 namespace RealityToolkit.Input.Interfaces.Controllers
 {
     /// <summary>
-    /// Reality Toolkit controller definition, used to manage a specific controller type.
+    /// A <see cref="IController"/> is an input device used to raise <see cref="Definitions.InputAction"/>s.
     /// </summary>
     public interface IController
     {
         /// <summary>
-        /// The name of the controller.
+        /// The name of the <see cref="IController"/>.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// Is the controller enabled?
+        /// Is the <see cref="IController"/> enabled?
         /// </summary>
         bool Enabled { get; set; }
 
         /// <summary>
-        /// The <see cref="IControllerServiceModule"/> this controller belongs to.
+        /// The <see cref="IControllerServiceModule"/> this <see cref="IController"/> belongs to.
         /// </summary>
-        IControllerServiceModule ControllerDataProvider { get; }
+        IControllerServiceModule ServiceModule { get; }
 
         /// <summary>
-        /// Outputs the current state of the Input Source, whether it is tracked or not. As defined by the SDK / Unity.
-        /// </summary>
-        TrackingState TrackingState { get; }
-
-        /// <summary>
-        /// The designated hand that the Input Source is managing, as defined by the SDK / Unity.
+        /// The designated hand that the <see cref="IController"/> is managing.
         /// </summary>
         Handedness ControllerHandedness { get; }
 
         /// <summary>
-        /// The registered Input Source for this controller
+        /// The registered <see cref="IInputSource"/> for this <see cref="IController"/>.
         /// </summary>
         IInputSource InputSource { get; }
 
         /// <summary>
-        /// The controller's "Visual" <see cref="Component"/> in the scene.
+        /// The <see cref="IController"/>'s <see cref="IControllerVisualizer"/> in the scene.
         /// </summary>
         IControllerVisualizer Visualizer { get; }
 
         /// <summary>
-        /// Indicates that this controller is currently providing position data.
+        /// <see cref="InteractionMapping"/>s for this <see cref="IController"/>, linking the physical inputs to logical <see cref="Definitions.InputAction"/>s.
+        /// </summary>
+        InteractionMapping[] Interactions { get; }
+
+        /// <summary>
+        /// Gets the current position and rotation for the <see cref="IController"/>, if available.
+        /// </summary>
+        Pose Pose { get; }
+
+        /// <summary>
+        /// Outputs the current <see cref="RealityToolkit.Definitions.Devices.TrackingState"/> of the <see cref="IController"/>.
+        /// </summary>
+        TrackingState TrackingState { get; }
+
+        /// <summary>
+        /// Indicates that this <see cref="IController"/> is currently providing position data.
         /// </summary>
         /// <remarks>
         /// This value may change during usage for some controllers. As a best practice,
@@ -64,7 +74,7 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         bool IsPositionApproximate { get; }
 
         /// <summary>
-        /// Indicates that this controller is currently providing rotation data.
+        /// Indicates that this <see cref="IController"/> is currently providing rotation data.
         /// </summary>
         /// <remarks>
         /// This value may change during usage for some controllers. As a best practice,
@@ -73,34 +83,29 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         bool IsRotationAvailable { get; }
 
         /// <summary>
-        /// Mapping definition for this controller, linking the Physical inputs to logical Input System Actions
-        /// </summary>
-        InteractionMapping[] Interactions { get; }
-
-        /// <summary>
-        /// Gets the current position and rotation for the controller, if available.
-        /// </summary>
-        Pose Pose { get; }
-
-        /// <summary>
-        /// Gets how fast the controller rotates or revolves relative to its pivot point.
+        /// Gets how fast the <see cref="IController"/> rotates or revolves relative to its pivot point on each axis.
         /// </summary>
         Vector3 AngularVelocity { get; }
 
         /// <summary>
-        /// Gets the controller's current movement speed.
+        /// Gets the <see cref="IController"/>'s current movement speed as a normalized <see cref="Vector3"/>.
         /// </summary>
         Vector3 Velocity { get; }
 
         /// <summary>
-        /// Attempts to load the controller model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
+        /// The <see cref="IController"/>'s motion direction is a normalized <see cref="Vector3"/>
+        /// describing in which direction is moving compared to a previous frame.
+        /// </summary>
+        Vector3 MotionDirection { get; }
+
+        /// Attempts to load the <see cref="IController"/> model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
         /// <returns>True, if controller model is being properly rendered.</returns>
         void TryRenderControllerModel();
 
         /// <summary>
-        /// Updates the controller's state.
+        /// Updates the <see cref="IController"/>'s state.
         /// </summary>
         void UpdateController();
     }

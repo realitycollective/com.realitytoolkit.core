@@ -37,7 +37,7 @@ namespace RealityToolkit.Input.Controllers
         /// <param name="controllerMappingProfile"></param>
         protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
         {
-            ControllerDataProvider = controllerDataProvider;
+            ServiceModule = controllerDataProvider;
             TrackingState = trackingState;
             ControllerHandedness = controllerHandedness;
 
@@ -84,9 +84,13 @@ namespace RealityToolkit.Input.Controllers
             Enabled = true;
         }
 
-        protected readonly IInputService InputService;
-
+        private Vector3 previousPosition;
         private readonly ControllerPoseSynchronizer controllerPrefab;
+
+        /// <summary>
+        /// The <see cref="IInputService"/> the <see cref="IController"/>'s <see cref="ServiceModule"/> is registered with.
+        /// </summary>
+        protected IInputService InputService { get; }
 
         /// <summary>
         /// The default interactions for this controller.
@@ -109,7 +113,26 @@ namespace RealityToolkit.Input.Controllers
         /// </summary>
         protected virtual Pose GripPoseOffset => Pose.identity;
 
-        #region IController Implementation
+        /// <inheritdoc />
+        public Pose Pose { get; protected set; } = Pose.identity;
+
+        /// <inheritdoc />
+        public bool IsPositionAvailable { get; protected set; }
+
+        /// <inheritdoc />
+        public bool IsPositionApproximate { get; protected set; }
+
+        /// <inheritdoc />
+        public bool IsRotationAvailable { get; protected set; }
+
+        /// <inheritdoc />
+        public Vector3 AngularVelocity { get; protected set; } = Vector3.zero;
+
+        /// <inheritdoc />
+        public Vector3 Velocity { get; protected set; } = Vector3.zero;
+
+        /// <inheritdoc />
+        public Vector3 MotionDirection { get; protected set; }
 
         /// <inheritdoc />
         public string Name { get; }
@@ -118,7 +141,7 @@ namespace RealityToolkit.Input.Controllers
         public bool Enabled { get; set; }
 
         /// <inheritdoc />
-        public IControllerServiceModule ControllerDataProvider { get; }
+        public IControllerServiceModule ServiceModule { get; }
 
         /// <inheritdoc />
         public TrackingState TrackingState { get; protected set; }
@@ -133,32 +156,26 @@ namespace RealityToolkit.Input.Controllers
         public IControllerVisualizer Visualizer { get; private set; }
 
         /// <inheritdoc />
-        public bool IsPositionAvailable { get; protected set; }
-
-        /// <inheritdoc />
-        public bool IsPositionApproximate { get; protected set; }
-
-        /// <inheritdoc />
-        public bool IsRotationAvailable { get; protected set; }
-
-        /// <inheritdoc />
         public InteractionMapping[] Interactions { get; private set; } = null;
-
-        /// <inheritdoc />
-        public Pose Pose { get; protected set; } = Pose.identity;
-
-        /// <inheritdoc />
-        public Vector3 AngularVelocity { get; protected set; } = Vector3.zero;
-
-        /// <inheritdoc />
-        public Vector3 Velocity { get; protected set; } = Vector3.zero;
-
-        #endregion IController Implementation
 
         /// <summary>
         /// Updates the current readings for the controller.
         /// </summary>
-        public virtual void UpdateController() { }
+        public virtual void UpdateController()
+        {
+            if (!Enabled)
+            {
+                return;
+            }
+
+            if (TrackingState == TrackingState.Tracked)
+            {
+                MotionDirection = Pose.position - previousPosition;
+                MotionDirection.Normalize();
+            }
+
+            previousPosition = Pose.position;
+        }
 
         /// <summary>
         /// Load the Interaction mappings for this controller from the configured Controller Mapping profile
