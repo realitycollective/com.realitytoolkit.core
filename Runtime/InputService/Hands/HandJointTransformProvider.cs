@@ -25,22 +25,29 @@ namespace RealityToolkit.Input.Hands
 
         private readonly Dictionary<HandJoint, Transform> pairs = new Dictionary<HandJoint, Transform>();
 
-        private void Awake()
+        private void UpdateCache()
         {
             if (transforms == null)
             {
                 transforms = new List<JointTransformPair>();
             }
 
-            foreach (var item in transforms)
+            if (pairs.Count != transforms.Count)
             {
-                pairs.Add(item.Joint, item.Transform);
+                pairs.Clear();
+
+                foreach (var item in transforms)
+                {
+                    pairs.Add(item.Joint, item.Transform);
+                }
             }
         }
 
         /// <inheritdoc/>
         public bool TryGetTransform(HandJoint joint, out Transform transform)
         {
+            UpdateCache();
+
             if (pairs.ContainsKey(joint))
             {
                 transform = pairs[joint];

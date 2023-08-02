@@ -80,7 +80,7 @@ MonoBehaviour:
     Transform: {fileID: 6912633320290522075}
   - Joint: 3
     Transform: {fileID: 4245665786030132194}
-  - Joint: 2
+  - Joint: 4
     Transform: {fileID: 4838978250164468244}
   - Joint: 5
     Transform: {fileID: 731717804917513554}

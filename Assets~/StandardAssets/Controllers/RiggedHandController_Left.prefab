@@ -54,8 +54,8 @@ MonoBehaviour:
     id: 0
     description: None
     axisConstraint: 0
-  idlePose: {fileID: 0}
-  selectPose: {fileID: 0}
+  idlePose: {fileID: 11400000, guid: f4ee4f055d04ac745ba8acb96d0837de, type: 2}
+  selectPose: {fileID: 11400000, guid: 42e5fadc57407fd4ba590e7297704ce2, type: 2}
   selectInputAction:
     profileGuid: 399335ccc89c4d12b79f3539ca7771db
     id: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
     Transform: {fileID: 6259387550224913450}
   - Joint: 3
     Transform: {fileID: 6884397529429306533}
-  - Joint: 2
+  - Joint: 4
     Transform: {fileID: 9069520389679441113}
   - Joint: 5
     Transform: {fileID: 2985403325472405957}

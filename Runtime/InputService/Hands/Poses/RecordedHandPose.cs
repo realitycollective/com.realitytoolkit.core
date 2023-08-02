@@ -1,6 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Definitions.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,18 @@ namespace RealityToolkit.Input.Hands.Poses
     public class RecordedHandPose : ScriptableObject
     {
         private readonly Dictionary<HandJoint, Pose> poseDict = new Dictionary<HandJoint, Pose>();
+
+        [SerializeField, Tooltip("The handedness the pose was recorded with.")]
+        private Handedness handedness = Handedness.Left;
+
+        /// <summary>
+        /// The <see cref="RealityCollective.Definitions.Utilities.Handedness"/> the pose was recorded with.
+        /// </summary>
+        public Handedness Handedness
+        {
+            get => handedness;
+            set => handedness = value;
+        }
 
         [SerializeField, Tooltip("Recorded joint poses.")]
         private List<RecordedJointPose> poses = null;
@@ -63,7 +76,8 @@ namespace RealityToolkit.Input.Hands.Poses
         /// </summary>
         public void Save()
         {
-
+            UnityEditor.AssetDatabase.CreateAsset(this, System.IO.Path.Join("Assets", "RealityToolkit.Generated", $"{nameof(RecordedHandPose)}.asset"));
+            UnityEditor.AssetDatabase.Refresh();
         }
 #endif
     }
