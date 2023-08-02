@@ -199,7 +199,7 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateBounds()
         {
-            var handControllerDataProvider = (IHandControllerServiceModule)ControllerDataProvider;
+            var handControllerDataProvider = (IHandControllerServiceModule)ServiceModule;
 
             if (handControllerDataProvider.HandPhysicsEnabled && handControllerDataProvider.BoundsMode == HandBoundsLOD.Low)
             {
