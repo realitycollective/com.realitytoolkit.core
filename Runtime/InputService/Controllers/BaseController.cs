@@ -37,7 +37,7 @@ namespace RealityToolkit.Input.Controllers
         /// <param name="controllerMappingProfile"></param>
         protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
         {
-            ControllerDataProvider = controllerDataProvider;
+            ServiceModule = controllerDataProvider;
             TrackingState = trackingState;
             ControllerHandedness = controllerHandedness;
 
@@ -84,9 +84,13 @@ namespace RealityToolkit.Input.Controllers
             Enabled = true;
         }
 
-        protected readonly IInputService InputService;
-
+        private Vector3 previousPosition;
         private readonly ControllerPoseSynchronizer controllerPrefab;
+
+        /// <summary>
+        /// The <see cref="IInputService"/> the <see cref="IController"/>'s <see cref="ServiceModule"/> is registered with.
+        /// </summary>
+        protected IInputService InputService { get; }
 
         /// <summary>
         /// The default interactions for this controller.
@@ -137,7 +141,7 @@ namespace RealityToolkit.Input.Controllers
         public bool Enabled { get; set; }
 
         /// <inheritdoc />
-        public IControllerServiceModule ControllerDataProvider { get; }
+        public IControllerServiceModule ServiceModule { get; }
 
         /// <inheritdoc />
         public TrackingState TrackingState { get; protected set; }
@@ -157,7 +161,16 @@ namespace RealityToolkit.Input.Controllers
         /// <summary>
         /// Updates the current readings for the controller.
         /// </summary>
-        public virtual void UpdateController() { }
+        public virtual void UpdateController()
+        {
+            if (TrackingState == TrackingState.Tracked)
+            {
+                MotionDirection = Pose.position - previousPosition;
+                MotionDirection.Normalize();
+            }
+
+            previousPosition = Pose.position;
+        }
 
         /// <summary>
         /// Load the Interaction mappings for this controller from the configured Controller Mapping profile

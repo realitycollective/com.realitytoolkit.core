@@ -70,7 +70,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         /// <summary>
         /// The active <see cref="IHandControllerServiceModule"/>.
         /// </summary>
-        protected IHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IHandControllerServiceModule)Controller.ControllerDataProvider);
+        protected IHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IHandControllerServiceModule)Controller.ServiceModule);
 
         /// <inheritdoc />
         protected override void OnDestroy()

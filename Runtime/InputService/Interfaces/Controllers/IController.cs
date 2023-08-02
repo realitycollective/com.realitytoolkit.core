@@ -27,7 +27,7 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         /// <summary>
         /// The <see cref="IControllerServiceModule"/> this <see cref="IController"/> belongs to.
         /// </summary>
-        IControllerServiceModule ControllerDataProvider { get; }
+        IControllerServiceModule ServiceModule { get; }
 
         /// <summary>
         /// The designated hand that the <see cref="IController"/> is managing.
@@ -50,7 +50,7 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         InteractionMapping[] Interactions { get; }
 
         /// <summary>
-        /// Gets the current position and rotation for the controller, if available.
+        /// Gets the current position and rotation for the <see cref="IController"/>, if available.
         /// </summary>
         Pose Pose { get; }
 
@@ -60,7 +60,7 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         TrackingState TrackingState { get; }
 
         /// <summary>
-        /// Indicates that this controller is currently providing position data.
+        /// Indicates that this <see cref="IController"/> is currently providing position data.
         /// </summary>
         /// <remarks>
         /// This value may change during usage for some controllers. As a best practice,
@@ -74,7 +74,7 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         bool IsPositionApproximate { get; }
 
         /// <summary>
-        /// Indicates that this controller is currently providing rotation data.
+        /// Indicates that this <see cref="IController"/> is currently providing rotation data.
         /// </summary>
         /// <remarks>
         /// This value may change during usage for some controllers. As a best practice,
@@ -83,12 +83,12 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         bool IsRotationAvailable { get; }
 
         /// <summary>
-        /// Gets how fast the controller rotates or revolves relative to its pivot point on each axis.
+        /// Gets how fast the <see cref="IController"/> rotates or revolves relative to its pivot point on each axis.
         /// </summary>
         Vector3 AngularVelocity { get; }
 
         /// <summary>
-        /// Gets the controller's current movement speed as a normalized <see cref="Vector3"/>.
+        /// Gets the <see cref="IController"/>'s current movement speed as a normalized <see cref="Vector3"/>.
         /// </summary>
         Vector3 Velocity { get; }
 
@@ -98,14 +98,14 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         /// </summary>
         Vector3 MotionDirection { get; }
 
-        /// Attempts to load the controller model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
+        /// Attempts to load the <see cref="IController"/> model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
         /// <returns>True, if controller model is being properly rendered.</returns>
         void TryRenderControllerModel();
 
         /// <summary>
-        /// Updates the controller's state.
+        /// Updates the <see cref="IController"/>'s state.
         /// </summary>
         void UpdateController();
     }
