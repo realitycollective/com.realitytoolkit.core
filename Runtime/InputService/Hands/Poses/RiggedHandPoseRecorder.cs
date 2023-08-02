@@ -63,7 +63,7 @@ namespace RealityToolkit.Input.Hands.Poses
                 }
             }
 
-            recordedHandPose.Handedness = visualizer.Handedness;
+            recordedHandPose.RecordedHandedness = visualizer.Handedness;
             recordedHandPose.Poses = poses;
             recordedHandPose.Save();
         }

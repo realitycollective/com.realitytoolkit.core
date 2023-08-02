@@ -14,18 +14,19 @@ namespace RealityToolkit.Input.Hands.Poses
     /// </summary>
     public class RecordedHandPose : ScriptableObject
     {
-        private readonly Dictionary<HandJoint, Pose> poseDict = new Dictionary<HandJoint, Pose>();
+        private readonly Dictionary<HandJoint, Pose> recordedPosesDict = new Dictionary<HandJoint, Pose>();
+        private readonly Dictionary<HandJoint, Pose> mirroredPosesDict = new Dictionary<HandJoint, Pose>();
 
         [SerializeField, Tooltip("The handedness the pose was recorded with.")]
-        private Handedness handedness = Handedness.Left;
+        private Handedness recordedHandedness = Handedness.Left;
 
         /// <summary>
-        /// The <see cref="RealityCollective.Definitions.Utilities.Handedness"/> the pose was recorded with.
+        /// The <see cref="Handedness"/> the pose was recorded with.
         /// </summary>
-        public Handedness Handedness
+        public Handedness RecordedHandedness
         {
-            get => handedness;
-            set => handedness = value;
+            get => recordedHandedness;
+            set => recordedHandedness = value;
         }
 
         [SerializeField, Tooltip("Recorded joint poses.")]
@@ -42,13 +43,15 @@ namespace RealityToolkit.Input.Hands.Poses
 
         private void OnValidate()
         {
-            poseDict.Clear();
+            recordedPosesDict.Clear();
+            mirroredPosesDict.Clear();
 
             if (Poses != null)
             {
                 foreach (var pose in Poses)
                 {
-                    poseDict.Add(pose.Joint, pose.Pose);
+                    recordedPosesDict.Add(pose.Joint, pose.Pose);
+                    mirroredPosesDict.Add(pose.Joint, MirrorPose(pose.Pose));
                 }
             }
         }
@@ -57,17 +60,35 @@ namespace RealityToolkit.Input.Hands.Poses
         /// Gets the recorded <see cref="Pose"/> for <paramref name="joint"/>,
         /// if it exists in the recording.
         /// </summary>
+        /// <param name="handedness">The <see cref="Handedness"/> to get the pose for.</param>
         /// <param name="joint">The <see cref="HandJoint"/> to lookup the <see cref="Pose"/> for.</param>
         /// <param name="pose">The found <see cref="Pose"/>, if any.</param>
         /// <returns><c>true</c>, if found.</returns>
-        public bool TryGetPose(HandJoint joint, out Pose pose)
+        public bool TryGetPose(Handedness handedness, HandJoint joint, out Pose pose)
         {
-            if (poseDict.TryGetValue(joint, out pose))
+            if (RecordedHandedness == handedness &&
+                recordedPosesDict.TryGetValue(joint, out pose))
+            {
+                return true;
+            }
+            else if (mirroredPosesDict.TryGetValue(joint, out pose))
             {
                 return true;
             }
 
             return false;
+        }
+
+        private Pose MirrorPose(Pose pose)
+        {
+            var position = pose.position;
+            position.x *= -1f;
+
+            var rotation = pose.rotation.eulerAngles;
+            rotation.y = -rotation.y;
+            rotation.z = -rotation.z;
+
+            return new Pose(position, Quaternion.Euler(rotation));
         }
 
 #if UNITY_EDITOR

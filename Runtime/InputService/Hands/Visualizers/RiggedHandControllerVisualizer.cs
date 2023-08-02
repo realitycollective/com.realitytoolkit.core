@@ -120,7 +120,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
 
                 if (jointTransformProvider.TryGetTransform(handJoint, out var jointTransform) &&
                     animationStartPoses.TryGetValue(handJoint, out var startPose) &&
-                    CurrentPose.TryGetPose(handJoint, out var targetJointPose))
+                    CurrentPose.TryGetPose(Controller.ControllerHandedness, handJoint, out var targetJointPose))
                 {
                     jointTransform.SetLocalPositionAndRotation(Vector3.Slerp(startPose.position, targetJointPose.position, t), Quaternion.Slerp(startPose.rotation, targetJointPose.rotation, t));
                 }
