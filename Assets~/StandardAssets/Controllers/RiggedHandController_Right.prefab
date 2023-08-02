@@ -54,6 +54,13 @@ MonoBehaviour:
     id: 0
     description: None
     axisConstraint: 0
+  idlePose: {fileID: 0}
+  selectPose: {fileID: 0}
+  selectInputAction:
+    profileGuid: 399335ccc89c4d12b79f3539ca7771db
+    id: 1
+    description: Select
+    axisConstraint: 2
 --- !u!114 &1565297668729320937
 MonoBehaviour:
   m_ObjectHideFlags: 0
