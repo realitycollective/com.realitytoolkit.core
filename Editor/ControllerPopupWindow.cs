@@ -9,7 +9,7 @@ using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Input.Controllers.UnityInput;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Hands;
 using System;
 using System.Collections.Generic;
 using System.IO;
