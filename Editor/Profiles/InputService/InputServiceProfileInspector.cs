@@ -6,13 +6,11 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Editor.Profiles.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.Input
@@ -23,7 +21,6 @@ namespace RealityToolkit.Editor.Profiles.Input
         private static readonly GUIContent GazeProviderBehaviourContent = new GUIContent("Gaze Provider Mode");
         private static readonly GUIContent GazeProviderContent = new GUIContent("Gaze Provider");
         private static readonly GUIContent GazeCursorPrefabContent = new GUIContent("Gaze Cursor Prefab");
-        private static readonly GUIContent GlobalHandSettingsContent = new GUIContent("Global Hand Settings");
         private static readonly GUIContent ShowControllerMappingsContent = new GUIContent("Controller Action Mappings");
 
         private SerializedProperty gazeProviderBehaviour;
@@ -31,22 +28,12 @@ namespace RealityToolkit.Editor.Profiles.Input
         private SerializedProperty gazeCursorPrefab;
 
         private SerializedProperty pointersProfile;
-
-        private SerializedProperty gripThreshold;
-        private SerializedProperty renderingMode;
-        private SerializedProperty handPhysicsEnabled;
-        private SerializedProperty useTriggers;
-        private SerializedProperty boundsMode;
-        private SerializedProperty trackedPoses;
-
+        private SerializedProperty handControllerSettings;
         private SerializedProperty inputActionsProfile;
         private SerializedProperty speechCommandsProfile;
         private SerializedProperty gesturesProfile;
 
-        private bool showGlobalHandOptions;
         private bool showAggregatedSimpleControllerMappingProfiles;
-        private ReorderableList poseProfilesList;
-        private int currentlySelectedPoseElement;
 
         private Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>> controllerMappingProfiles;
 
@@ -57,16 +44,8 @@ namespace RealityToolkit.Editor.Profiles.Input
             gazeProviderBehaviour = serializedObject.FindProperty(nameof(gazeProviderBehaviour));
             gazeProviderType = serializedObject.FindProperty(nameof(gazeProviderType));
             gazeCursorPrefab = serializedObject.FindProperty(nameof(gazeCursorPrefab));
-
             pointersProfile = serializedObject.FindProperty(nameof(pointersProfile));
-
-            gripThreshold = serializedObject.FindProperty(nameof(gripThreshold));
-            renderingMode = serializedObject.FindProperty(nameof(renderingMode));
-            handPhysicsEnabled = serializedObject.FindProperty(nameof(handPhysicsEnabled));
-            useTriggers = serializedObject.FindProperty(nameof(useTriggers));
-            boundsMode = serializedObject.FindProperty(nameof(boundsMode));
-            trackedPoses = serializedObject.FindProperty(nameof(trackedPoses));
-
+            handControllerSettings = serializedObject.FindProperty(nameof(handControllerSettings));
             inputActionsProfile = serializedObject.FindProperty(nameof(inputActionsProfile));
             gesturesProfile = serializedObject.FindProperty(nameof(gesturesProfile));
             speechCommandsProfile = serializedObject.FindProperty(nameof(speechCommandsProfile));
@@ -100,15 +79,6 @@ namespace RealityToolkit.Editor.Profiles.Input
                     }
                 }
             }
-
-            poseProfilesList = new ReorderableList(serializedObject, trackedPoses, true, false, true, true)
-            {
-                elementHeight = EditorGUIUtility.singleLineHeight * 1.5f
-            };
-            poseProfilesList.drawHeaderCallback += PoseProfilesList_DrawHeaderCallback;
-            poseProfilesList.drawElementCallback += PoseProfilesList_DrawConfigurationOptionElement;
-            poseProfilesList.onAddCallback += PoseProfilesList_OnConfigurationOptionAdded;
-            poseProfilesList.onRemoveCallback += PoseProfilesList_OnConfigurationOptionRemoved;
         }
 
         protected override void RenderConfigurationOptions(bool forceExpanded = false)
@@ -124,29 +94,7 @@ namespace RealityToolkit.Editor.Profiles.Input
 
             EditorGUILayout.Space();
 
-            showGlobalHandOptions = EditorGUILayoutExtensions.FoldoutWithBoldLabel(showGlobalHandOptions, GlobalHandSettingsContent, true);
-
-            if (showGlobalHandOptions)
-            {
-                EditorGUILayout.HelpBox("Global hand tracking options applied to all platforms that support hand tracking. You may override these globals per platform in the platform's hand controller service module profile.", MessageType.Info);
-                EditorGUI.indentLevel++;
-                EditorGUILayout.Space();
-                EditorGUILayout.LabelField("General Hand Settings", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(gripThreshold);
-                EditorGUILayout.Space();
-                EditorGUILayout.LabelField("Hand Rendering Settings", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(renderingMode);
-                EditorGUILayout.Space();
-                EditorGUILayout.LabelField("Hand Physics Settings", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(handPhysicsEnabled);
-                EditorGUILayout.PropertyField(useTriggers);
-                EditorGUILayout.PropertyField(boundsMode);
-                poseProfilesList.DoLayoutList();
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.Space();
-
+            EditorGUILayout.PropertyField(handControllerSettings);
             EditorGUILayout.PropertyField(pointersProfile);
             EditorGUILayout.PropertyField(inputActionsProfile);
             EditorGUILayout.PropertyField(speechCommandsProfile);
@@ -181,51 +129,6 @@ namespace RealityToolkit.Editor.Profiles.Input
             {
                 EditorApplication.delayCall += () => ServiceManager.Instance.ResetProfile(ServiceManager.Instance.ActiveProfile);
             }
-        }
-
-        private void PoseProfilesList_DrawHeaderCallback(Rect rect)
-        {
-            EditorGUI.LabelField(rect, "Tracked Hand Poses");
-        }
-
-        private void PoseProfilesList_DrawConfigurationOptionElement(Rect rect, int index, bool isActive, bool isFocused)
-        {
-            if (isFocused)
-            {
-                currentlySelectedPoseElement = index;
-            }
-
-            rect.height = EditorGUIUtility.singleLineHeight;
-            rect.y += 3;
-            var poseDataProperty = trackedPoses.GetArrayElementAtIndex(index);
-            var selectedPoseData = EditorGUI.ObjectField(rect, poseDataProperty.objectReferenceValue, typeof(HandControllerPoseProfile), false) as HandControllerPoseProfile;
-
-            if (selectedPoseData != null)
-            {
-                selectedPoseData.ParentProfile = ThisProfile;
-            }
-
-            poseDataProperty.objectReferenceValue = selectedPoseData;
-        }
-
-        private void PoseProfilesList_OnConfigurationOptionAdded(ReorderableList list)
-        {
-            trackedPoses.arraySize += 1;
-            var index = trackedPoses.arraySize - 1;
-
-            var mappingProfileProperty = trackedPoses.GetArrayElementAtIndex(index);
-            mappingProfileProperty.objectReferenceValue = null;
-            serializedObject.ApplyModifiedProperties();
-        }
-
-        private void PoseProfilesList_OnConfigurationOptionRemoved(ReorderableList list)
-        {
-            if (currentlySelectedPoseElement >= 0)
-            {
-                trackedPoses.DeleteArrayElementAtIndex(currentlySelectedPoseElement);
-            }
-
-            serializedObject.ApplyModifiedProperties();
         }
     }
 }

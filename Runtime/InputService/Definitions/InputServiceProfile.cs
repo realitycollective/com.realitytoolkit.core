@@ -4,10 +4,8 @@
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Modules;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Definitions
@@ -69,68 +67,22 @@ namespace RealityToolkit.Input.Definitions
             set => pointersProfile = value;
         }
 
-        #region Global Hand Options
-
-        [SerializeField]
-        [Range(.5f, 1f)]
-        [Tooltip("Threshold in range [0.5, 1] that defines when a hand is considered to be grabing.")]
-        private float gripThreshold = .8f;
-
-        /// <summary>
-        /// Threshold in range [0, 1] that defines when a hand is considered to be grabing.
-        /// </summary>
-        public float GripThreshold => gripThreshold;
-
-        [SerializeField]
-        [Tooltip("Defines what kind of data should be aggregated for the hands rendering.")]
-        private HandRenderingMode renderingMode = HandRenderingMode.Joints;
-
-        /// <summary>
-        /// Defines what kind of data should be aggregated for the hands rendering.
-        /// </summary>
-        public HandRenderingMode RenderingMode => renderingMode;
-
-        [SerializeField]
-        [Tooltip("If set, hands will be setup with colliders and a rigidbody to work with Unity's physics system.")]
-        private bool handPhysicsEnabled = false;
-
-        /// <summary>
-        /// If set, hands will be setup with colliders and a rigidbody to work with Unity's physics system.
-        /// </summary>
-        public bool HandPhysicsEnabled => handPhysicsEnabled;
-
-        [SerializeField]
-        [Tooltip("If set, hand colliders will be setup as triggers.")]
-        private bool useTriggers = false;
-
-        /// <summary>
-        /// If set, hand colliders will be setup as triggers.
-        /// </summary>
-        public bool UseTriggers => useTriggers;
-
-        [SerializeField]
-        [Tooltip("Set the bounds mode to use for calculating hand bounds.")]
-        private HandBoundsLOD boundsMode = HandBoundsLOD.Low;
-
-        /// <summary>
-        /// Set the bounds mode to use for calculating hand bounds.
-        /// </summary>
-        public HandBoundsLOD BoundsMode => boundsMode;
-
-        [SerializeField]
-        [Tooltip("Hand controller poses tracked.")]
-        private HandControllerPoseProfile[] trackedPoses = null;
-
-        /// <summary>
-        /// Hand controller poses tracked.
-        /// </summary>
-        public IReadOnlyList<HandControllerPoseProfile> TrackedPoses => trackedPoses;
-
-        #endregion Global Hand Options
-
         #endregion Global Input System Options
 
         #region Profile Options
+
+        [SerializeField]
+        [Tooltip("Gloabl settings for hand controllers.")]
+        private HandControllerSettings handControllerSettings = null;
+
+        /// <summary>
+        /// Gloabl settings for hand controllers.
+        /// </summary>
+        public HandControllerSettings HandControllerSettings
+        {
+            get => handControllerSettings;
+            internal set => handControllerSettings = value;
+        }
 
         [SerializeField]
         [Tooltip("Input System Action Mapping profile for setting up avery action a user can make in your application.")]
