@@ -5,7 +5,6 @@ using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Hands;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Interfaces.Modules;
 using RealityToolkit.Services.Input.Utilities;

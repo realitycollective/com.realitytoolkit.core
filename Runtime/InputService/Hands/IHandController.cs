@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Input.Hands;
+using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interfaces.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// Controller definition, used to manage a hand controller.

@@ -5,7 +5,6 @@ using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Hands;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Controllers.Hands

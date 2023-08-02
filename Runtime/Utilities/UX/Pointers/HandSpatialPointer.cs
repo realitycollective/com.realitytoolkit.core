@@ -3,8 +3,8 @@
 
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers

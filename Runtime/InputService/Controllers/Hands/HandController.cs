@@ -8,7 +8,6 @@ using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Extensions;
 using RealityToolkit.Input.Hands;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;

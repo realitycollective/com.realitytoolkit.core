@@ -6,7 +6,6 @@ using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Hands;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 

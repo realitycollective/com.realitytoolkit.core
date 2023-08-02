@@ -4,7 +4,7 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.Input.Definitions;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Hands;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Pointers

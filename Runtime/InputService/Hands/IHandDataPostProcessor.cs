@@ -4,7 +4,7 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.Hands;
 
-namespace RealityToolkit.Input.Interfaces.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// <see cref="HandData"/> post processor definition.
