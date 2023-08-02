@@ -4,14 +4,13 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Interfaces.Modules;
 using RealityToolkit.Services.Input.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// Base hand controller visualizer implementation.
@@ -100,7 +99,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
             // Update the visualizers tracking state.
             TrackingState = handController.TrackingState;
 
-            if (TrackingState == Definitions.Devices.TrackingState.Tracked)
+            if (TrackingState == RealityToolkit.Definitions.Devices.TrackingState.Tracked)
             {
                 // It's important to update physics
                 // configuration first.

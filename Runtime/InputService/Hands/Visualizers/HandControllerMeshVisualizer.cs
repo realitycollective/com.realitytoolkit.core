@@ -4,7 +4,7 @@
 using RealityToolkit.Definitions.Controllers.Hands;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     public class HandControllerMeshVisualizer : MonoBehaviour
     {
