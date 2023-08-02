@@ -4,6 +4,7 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Interfaces.Modules;
@@ -19,8 +20,8 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
     [System.Runtime.InteropServices.Guid("5d844e0b-f913-46b8-bc3b-fa6429e62c60")]
     public class DefaultHandControllerVisualizer : ControllerPoseSynchronizer, IControllerVisualizer
     {
-        private readonly Dictionary<TrackedHandJoint, Transform> jointTransforms = new Dictionary<TrackedHandJoint, Transform>();
-        private readonly Dictionary<TrackedHandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<TrackedHandJoint, CapsuleCollider>();
+        private readonly Dictionary<HandJoint, Transform> jointTransforms = new Dictionary<HandJoint, Transform>();
+        private readonly Dictionary<HandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<HandJoint, CapsuleCollider>();
         private BoxCollider handBoundsModeCollider;
         private const float fingerColliderRadius = .007f;
         private const int capsuleColliderZAxis = 2;
@@ -118,7 +119,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
-                var handJoint = (TrackedHandJoint)i;
+                var handJoint = (HandJoint)i;
                 if (handController.TryGetJointPose(handJoint, out var jointPose))
                 {
                     var jointTransform = GetOrCreateJointTransform(handJoint);
@@ -189,12 +190,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                         Bounds knuckleToMiddle = thumbBounds[0];
                         Bounds middleToTip = thumbBounds[1];
 
-                        var thumbKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.ThumbMetacarpal).gameObject;
-                        var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.ThumbMetacarpal, thumbKnuckleGameObject);
+                        var thumbKnuckleGameObject = GetOrCreateJointTransform(HandJoint.ThumbMetacarpal).gameObject;
+                        var capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.ThumbMetacarpal, thumbKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, thumbKnuckleGameObject.transform);
 
-                        var thumbMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.ThumbProximal).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.ThumbProximal, thumbMiddleGameObject);
+                        var thumbMiddleGameObject = GetOrCreateJointTransform(HandJoint.ThumbProximal).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.ThumbProximal, thumbMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, thumbMiddleGameObject.transform);
                     }
 
@@ -204,12 +205,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                         Bounds knuckleToMiddle = indexFingerBounds[0];
                         Bounds middleToTip = indexFingerBounds[1];
 
-                        var indexKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.IndexProximal).gameObject;
-                        var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.IndexProximal, indexKnuckleGameObject);
+                        var indexKnuckleGameObject = GetOrCreateJointTransform(HandJoint.IndexProximal).gameObject;
+                        var capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.IndexProximal, indexKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, indexKnuckleGameObject.transform);
 
-                        var indexMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.IndexIntermediate).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.IndexIntermediate, indexMiddleGameObject);
+                        var indexMiddleGameObject = GetOrCreateJointTransform(HandJoint.IndexIntermediate).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.IndexIntermediate, indexMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, indexMiddleGameObject.transform);
                     }
 
@@ -219,12 +220,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                         Bounds knuckleToMiddle = middleFingerBounds[0];
                         Bounds middleToTip = middleFingerBounds[1];
 
-                        var middleKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.MiddleProximal).gameObject;
-                        var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.MiddleProximal, middleKnuckleGameObject);
+                        var middleKnuckleGameObject = GetOrCreateJointTransform(HandJoint.MiddleProximal).gameObject;
+                        var capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.MiddleProximal, middleKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, middleKnuckleGameObject.transform);
 
-                        var middleMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.MiddleIntermediate).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.MiddleIntermediate, middleMiddleGameObject);
+                        var middleMiddleGameObject = GetOrCreateJointTransform(HandJoint.MiddleIntermediate).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.MiddleIntermediate, middleMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, middleMiddleGameObject.transform);
                     }
 
@@ -234,12 +235,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                         Bounds knuckleToMiddle = ringFingerBounds[0];
                         Bounds middleToTip = ringFingerBounds[1];
 
-                        var ringKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.RingProximal).gameObject;
-                        var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.RingProximal, ringKnuckleGameObject);
+                        var ringKnuckleGameObject = GetOrCreateJointTransform(HandJoint.RingProximal).gameObject;
+                        var capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.RingProximal, ringKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, ringKnuckleGameObject.transform);
 
-                        var ringMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.RingIntermediate).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.RingIntermediate, ringMiddleGameObject);
+                        var ringMiddleGameObject = GetOrCreateJointTransform(HandJoint.RingIntermediate).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.RingIntermediate, ringMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, ringMiddleGameObject.transform);
                     }
 
@@ -249,12 +250,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                         Bounds knuckleToMiddle = pinkyFingerBounds[0];
                         Bounds middleToTip = pinkyFingerBounds[1];
 
-                        var pinkyKnuckleGameObject = GetOrCreateJointTransform(TrackedHandJoint.LittleProximal).gameObject;
-                        var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.LittleProximal, pinkyKnuckleGameObject);
+                        var pinkyKnuckleGameObject = GetOrCreateJointTransform(HandJoint.LittleProximal).gameObject;
+                        var capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.LittleProximal, pinkyKnuckleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, knuckleToMiddle, pinkyKnuckleGameObject.transform);
 
-                        var pinkyMiddleGameObject = GetOrCreateJointTransform(TrackedHandJoint.LittleIntermediate).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.LittleIntermediate, pinkyMiddleGameObject);
+                        var pinkyMiddleGameObject = GetOrCreateJointTransform(HandJoint.LittleIntermediate).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.LittleIntermediate, pinkyMiddleGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middleToTip, pinkyMiddleGameObject.transform);
                     }
 
@@ -263,23 +264,23 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
                         // For the palm we create a composite collider using a capsule collider per
                         // finger for the area metacarpal <-> knuckle.
                         Bounds indexPalmBounds = palmBounds[0];
-                        var indexMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.IndexMetacarpal).gameObject;
-                        var capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.IndexMetacarpal, indexMetacarpalGameObject);
+                        var indexMetacarpalGameObject = GetOrCreateJointTransform(HandJoint.IndexMetacarpal).gameObject;
+                        var capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.IndexMetacarpal, indexMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, indexPalmBounds, indexMetacarpalGameObject.transform);
 
                         Bounds middlePalmBounds = palmBounds[1];
-                        var middleMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.MiddleMetacarpal).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.MiddleMetacarpal, middleMetacarpalGameObject);
+                        var middleMetacarpalGameObject = GetOrCreateJointTransform(HandJoint.MiddleMetacarpal).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.MiddleMetacarpal, middleMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, middlePalmBounds, middleMetacarpalGameObject.transform);
 
                         Bounds ringPalmBounds = palmBounds[2];
-                        var ringMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.RingMetacarpal).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.RingMetacarpal, ringMetacarpalGameObject);
+                        var ringMetacarpalGameObject = GetOrCreateJointTransform(HandJoint.RingMetacarpal).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.RingMetacarpal, ringMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, ringPalmBounds, ringMetacarpalGameObject.transform);
 
                         Bounds pinkyPalmBounds = palmBounds[3];
-                        var pinkyMetacarpalGameObject = GetOrCreateJointTransform(TrackedHandJoint.LittleMetacarpal).gameObject;
-                        capsuleCollider = GetOrCreateCapsuleCollider(TrackedHandJoint.LittleMetacarpal, pinkyMetacarpalGameObject);
+                        var pinkyMetacarpalGameObject = GetOrCreateJointTransform(HandJoint.LittleMetacarpal).gameObject;
+                        capsuleCollider = GetOrCreateCapsuleCollider(HandJoint.LittleMetacarpal, pinkyMetacarpalGameObject);
                         ConfigureCapsuleCollider(capsuleCollider, pinkyPalmBounds, pinkyMetacarpalGameObject.transform);
                     }
                 }
@@ -312,7 +313,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
             collider.enabled = true;
         }
 
-        private CapsuleCollider GetOrCreateCapsuleCollider(TrackedHandJoint trackedHandJoint, GameObject forObject)
+        private CapsuleCollider GetOrCreateCapsuleCollider(HandJoint trackedHandJoint, GameObject forObject)
         {
             CapsuleCollider collider;
             if (fingerBoundsModeColliders.ContainsKey(trackedHandJoint))
@@ -352,7 +353,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
         /// </summary>
         /// <param name="handJoint">The hand joint a transform should be returned for.</param>
         /// <returns>Joint transform.</returns>
-        public Transform GetOrCreateJointTransform(TrackedHandJoint handJoint)
+        public Transform GetOrCreateJointTransform(HandJoint handJoint)
         {
             if (jointTransforms.TryGetValue(handJoint, out Transform existingJointTransform))
             {

@@ -5,6 +5,7 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,8 +100,8 @@ namespace RealityToolkit.Input.Controllers.Hands
         {
             if (handData.TrackingState == TrackingState.Tracked)
             {
-                var thumbTipPose = handData.Joints[(int)TrackedHandJoint.ThumbTip];
-                var indexTipPose = handData.Joints[(int)TrackedHandJoint.IndexTip];
+                var thumbTipPose = handData.Joints[(int)HandJoint.ThumbTip];
+                var indexTipPose = handData.Joints[(int)HandJoint.IndexTip];
 
                 if (!PlatformProvidesIsPinching)
                 {
@@ -132,7 +133,7 @@ namespace RealityToolkit.Input.Controllers.Hands
             {
                 Debug.Assert(Camera.main.transform.parent.IsNotNull(), $"The {nameof(HandDataPostProcessor)} expects the main camera to be parented.");
                 var rigTransform = Camera.main.transform.parent;
-                var localPalmPose = handData.Joints[(int)TrackedHandJoint.Palm];
+                var localPalmPose = handData.Joints[(int)HandJoint.Palm];
                 var worldPalmPose = new Pose
                 {
                     position = handData.RootPose.position + handData.RootPose.rotation * localPalmPose.position,
@@ -159,11 +160,11 @@ namespace RealityToolkit.Input.Controllers.Hands
         {
             if (handData.TrackingState == TrackingState.Tracked && !PlatformProvidesPointerPose)
             {
-                var palmPose = handData.Joints[(int)TrackedHandJoint.Palm];
+                var palmPose = handData.Joints[(int)HandJoint.Palm];
                 palmPose.rotation = Quaternion.Inverse(palmPose.rotation) * palmPose.rotation;
 
-                var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
-                var indexDistalPose = handData.Joints[(int)TrackedHandJoint.IndexDistal];
+                var thumbProximalPose = handData.Joints[(int)HandJoint.ThumbProximal];
+                var indexDistalPose = handData.Joints[(int)HandJoint.IndexDistal];
                 var pointerPosition = handData.RootPose.position + Vector3.Lerp(thumbProximalPose.position, indexDistalPose.position, .5f);
                 var pointerEndPosition = pointerPosition + palmPose.forward * 10f;
                 var pointerDirection = pointerEndPosition - pointerPosition;

@@ -7,6 +7,7 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Extensions;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using RealityToolkit.Input.Interfaces.Modules;
 using System;
@@ -42,7 +43,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         private readonly Bounds[] cachedRingFingerBounds = new Bounds[2];
         private readonly Bounds[] cachedLittleFingerBounds = new Bounds[2];
         private readonly Dictionary<TrackedHandBounds, Bounds[]> bounds = new Dictionary<TrackedHandBounds, Bounds[]>();
-        private readonly Dictionary<TrackedHandJoint, Pose> jointPoses = new Dictionary<TrackedHandJoint, Pose>();
+        private readonly Dictionary<HandJoint, Pose> jointPoses = new Dictionary<HandJoint, Pose>();
         private readonly Queue<bool> isPinchingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
         private readonly Queue<bool> isGrippingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
         private readonly Queue<bool> isPointingBuffer = new Queue<bool>(POSE_FRAME_BUFFER_SIZE);
@@ -81,7 +82,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         /// <summary>
         /// Gets the current palm normal of the hand controller.
         /// </summary>
-        private Vector3 PalmNormal => TryGetJointPose(TrackedHandJoint.Palm, out var pose) ? -pose.up : Vector3.zero;
+        private Vector3 PalmNormal => TryGetJointPose(HandJoint.Palm, out var pose) ? -pose.up : Vector3.zero;
 
         /// <summary>
         /// Is pinching state from the previous update frame.
@@ -218,14 +219,14 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdatePalmBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.LittleMetacarpal, out var pinkyMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.LittleProximal, out var pinkyKnucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingMetacarpal, out var ringMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingProximal, out var ringKnucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleMetacarpal, out var middleMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleProximal, out var middleKnucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexMetacarpal, out var indexMetacarpalPose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexProximal, out var indexKnucklePose, Space.World))
+            if (TryGetJointPose(HandJoint.LittleMetacarpal, out var pinkyMetacarpalPose, Space.World) &&
+                TryGetJointPose(HandJoint.LittleProximal, out var pinkyKnucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.RingMetacarpal, out var ringMetacarpalPose, Space.World) &&
+                TryGetJointPose(HandJoint.RingProximal, out var ringKnucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.MiddleMetacarpal, out var middleMetacarpalPose, Space.World) &&
+                TryGetJointPose(HandJoint.MiddleProximal, out var middleKnucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.IndexMetacarpal, out var indexMetacarpalPose, Space.World) &&
+                TryGetJointPose(HandJoint.IndexProximal, out var indexKnucklePose, Space.World))
             {
                 // Palm bounds are a composite of each finger's metacarpal -> knuckle joint bounds.
                 // Excluding the thumb here.
@@ -264,13 +265,13 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateHandBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose))
+            if (TryGetJointPose(HandJoint.Palm, out var palmPose))
             {
                 var newHandBounds = new Bounds(palmPose.position, Vector3.zero);
 
                 foreach (var kvp in jointPoses)
                 {
-                    if (kvp.Key == TrackedHandJoint.Palm)
+                    if (kvp.Key == HandJoint.Palm)
                     {
                         continue;
                     }
@@ -291,9 +292,9 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateThumbBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.ThumbMetacarpal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.ThumbProximal, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.ThumbTip, out var tipPose, Space.World))
+            if (TryGetJointPose(HandJoint.ThumbMetacarpal, out var knucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.ThumbProximal, out var middlePose, Space.World) &&
+                TryGetJointPose(HandJoint.ThumbTip, out var tipPose, Space.World))
             {
                 // Thumb bounds include metacarpal -> proximal and proximal -> tip bounds.
 
@@ -321,9 +322,9 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateIndexFingerBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.IndexProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.IndexTip, out var tipPose, Space.World))
+            if (TryGetJointPose(HandJoint.IndexProximal, out var knucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.IndexIntermediate, out var middlePose, Space.World) &&
+                TryGetJointPose(HandJoint.IndexTip, out var tipPose, Space.World))
             {
                 // Index finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -351,9 +352,9 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateMiddleFingerBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.MiddleProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.MiddleTip, out var tipPose, Space.World))
+            if (TryGetJointPose(HandJoint.MiddleProximal, out var knucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.MiddleIntermediate, out var middlePose, Space.World) &&
+                TryGetJointPose(HandJoint.MiddleTip, out var tipPose, Space.World))
             {
                 // Middle finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -381,9 +382,9 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateRingFingerBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.RingProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.RingTip, out var tipPose, Space.World))
+            if (TryGetJointPose(HandJoint.RingProximal, out var knucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.RingIntermediate, out var middlePose, Space.World) &&
+                TryGetJointPose(HandJoint.RingTip, out var tipPose, Space.World))
             {
                 // Ring finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -411,9 +412,9 @@ namespace RealityToolkit.Input.Controllers.Hands
 
         private void UpdateLittleFingerBounds()
         {
-            if (TryGetJointPose(TrackedHandJoint.LittleProximal, out var knucklePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.LittleIntermediate, out var middlePose, Space.World) &&
-                TryGetJointPose(TrackedHandJoint.LittleTip, out var tipPose, Space.World))
+            if (TryGetJointPose(HandJoint.LittleProximal, out var knucklePose, Space.World) &&
+                TryGetJointPose(HandJoint.LittleIntermediate, out var middlePose, Space.World) &&
+                TryGetJointPose(HandJoint.LittleTip, out var tipPose, Space.World))
             {
                 // Pinky finger bounds include knuckle -> middle and middle -> tip bounds.
 
@@ -554,7 +555,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         private void UpdateVelocity()
         {
             Vector3 palmPosition = Vector3.zero;
-            if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose, Space.World))
+            if (TryGetJointPose(HandJoint.Palm, out var palmPose, Space.World))
             {
                 palmPosition = palmPose.position;
             }
@@ -591,7 +592,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         {
             for (int i = 0; i < HandData.JointCount; i++)
             {
-                var handJoint = (TrackedHandJoint)i;
+                var handJoint = (HandJoint)i;
 
                 if (TryGetJointPose(handJoint, out _))
                 {
@@ -609,7 +610,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         /// </summary>
         private void UpdateIndexFingerTipPose()
         {
-            if (TryGetJointPose(TrackedHandJoint.IndexTip, out var indexTipPose, Space.World))
+            if (TryGetJointPose(HandJoint.IndexTip, out var indexTipPose, Space.World))
             {
                 IndexFingerTipPose = indexTipPose;
             }
@@ -620,7 +621,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         /// </summary>
         private void UpdateGripPose()
         {
-            if (TryGetJointPose(TrackedHandJoint.Palm, out var palmPose, Space.World))
+            if (TryGetJointPose(HandJoint.Palm, out var palmPose, Space.World))
             {
                 GripPose = palmPose;
             }
@@ -773,7 +774,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         }
 
         /// <inheritdoc />
-        public bool TryGetJointPose(TrackedHandJoint joint, out Pose pose, Space relativeTo = Space.Self)
+        public bool TryGetJointPose(HandJoint joint, out Pose pose, Space relativeTo = Space.Self)
         {
             if (relativeTo == Space.Self)
             {

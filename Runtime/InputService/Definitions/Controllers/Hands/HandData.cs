@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Input.Hands;
 using System;
 using UnityEngine;
 
@@ -46,7 +47,7 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// <summary>
         /// Gets the total count of joints the XRTK hand controller supports.
         /// </summary>
-        public static readonly int JointCount = Enum.GetNames(typeof(TrackedHandJoint)).Length;
+        public static readonly int JointCount = Enum.GetNames(typeof(HandJoint)).Length;
 
         /// <summary>
         /// Timestamp of hand data, as FileTime, e.g. <see cref="DateTime.UtcNow"/>

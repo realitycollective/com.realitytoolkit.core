@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Input.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
 {
     public class HandControllerJointsVisualizer : MonoBehaviour
     {
-        private readonly Dictionary<TrackedHandJoint, GameObject> jointVisualizations = new Dictionary<TrackedHandJoint, GameObject>();
+        private readonly Dictionary<HandJoint, GameObject> jointVisualizations = new Dictionary<HandJoint, GameObject>();
         private DefaultHandControllerVisualizer mainVisualizer;
 
         [SerializeField]
@@ -58,12 +59,12 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
-                var joint = (TrackedHandJoint)i;
+                var joint = (HandJoint)i;
                 CreateJointVisualizerIfNotExists(joint);
             }
         }
 
-        private void CreateJointVisualizerIfNotExists(TrackedHandJoint handJoint)
+        private void CreateJointVisualizerIfNotExists(HandJoint handJoint)
         {
             if (jointVisualizations.TryGetValue(handJoint, out GameObject jointObject))
             {
@@ -75,17 +76,17 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
 
             switch (handJoint)
             {
-                case TrackedHandJoint.Wrist:
+                case HandJoint.Wrist:
                     prefab = wristPrefab;
                     break;
-                case TrackedHandJoint.Palm:
+                case HandJoint.Palm:
                     prefab = palmPrefab;
                     break;
-                case TrackedHandJoint.IndexTip:
-                case TrackedHandJoint.MiddleTip:
-                case TrackedHandJoint.LittleTip:
-                case TrackedHandJoint.RingTip:
-                case TrackedHandJoint.ThumbTip:
+                case HandJoint.IndexTip:
+                case HandJoint.MiddleTip:
+                case HandJoint.LittleTip:
+                case HandJoint.RingTip:
+                case HandJoint.ThumbTip:
                     prefab = fingertipPrefab;
                     break;
             }
@@ -94,7 +95,7 @@ namespace RealityToolkit.Utilities.UX.Controllers.Hands
             {
                 var jointVisualization = Instantiate(prefab, mainVisualizer.GetOrCreateJointTransform(handJoint));
 
-                if (handJoint == TrackedHandJoint.IndexTip)
+                if (handJoint == HandJoint.IndexTip)
                 {
                     var indexJointRenderer = jointVisualization.GetComponent<Renderer>();
                     if (indexJointRenderer != null)

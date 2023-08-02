@@ -1,17 +1,15 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// The supported tracked hand joints for hand tracking.
     /// </summary>
     /// <remarks>
-    /// It is absolutely important to not change the order of these
-    /// joints in the enum! The hand tracking system relies on the current order
-    /// and changing it will cause issues with joint mappings.
+    /// It is curcial to not change the order of these joints in the enum!
     /// </remarks>
-    public enum TrackedHandJoint
+    public enum HandJoint
     {
         /// <summary>
         /// The hand wrist.

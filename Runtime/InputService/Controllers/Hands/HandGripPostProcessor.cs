@@ -4,6 +4,7 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces.Controllers.Hands;
 using UnityEngine;
 
@@ -72,18 +73,18 @@ namespace RealityToolkit.Input.Controllers.Hands
             if (handData.TrackingState == TrackingState.Tracked)
             {
                 // Gather needed data for calculations.
-                var palmPose = handData.Joints[(int)TrackedHandJoint.Palm];
+                var palmPose = handData.Joints[(int)HandJoint.Palm];
                 var palmLookRotation = Quaternion.LookRotation(palmPose.forward, palmPose.up);
-                var thumbMetacarpalPose = handData.Joints[(int)TrackedHandJoint.ThumbMetacarpal];
-                var thumbProximalPose = handData.Joints[(int)TrackedHandJoint.ThumbProximal];
-                var indexProximalPose = handData.Joints[(int)TrackedHandJoint.IndexProximal];
-                var indexIntermediatePose = handData.Joints[(int)TrackedHandJoint.IndexIntermediate];
-                var middleProximalPose = handData.Joints[(int)TrackedHandJoint.MiddleProximal];
-                var middleIntermediatePose = handData.Joints[(int)TrackedHandJoint.MiddleIntermediate];
-                var ringProximalPose = handData.Joints[(int)TrackedHandJoint.RingProximal];
-                var ringIntermediatePose = handData.Joints[(int)TrackedHandJoint.RingIntermediate];
-                var littleProximalPose = handData.Joints[(int)TrackedHandJoint.LittleProximal];
-                var littleIntermediatePose = handData.Joints[(int)TrackedHandJoint.LittleIntermediate];
+                var thumbMetacarpalPose = handData.Joints[(int)HandJoint.ThumbMetacarpal];
+                var thumbProximalPose = handData.Joints[(int)HandJoint.ThumbProximal];
+                var indexProximalPose = handData.Joints[(int)HandJoint.IndexProximal];
+                var indexIntermediatePose = handData.Joints[(int)HandJoint.IndexIntermediate];
+                var middleProximalPose = handData.Joints[(int)HandJoint.MiddleProximal];
+                var middleIntermediatePose = handData.Joints[(int)HandJoint.MiddleIntermediate];
+                var ringProximalPose = handData.Joints[(int)HandJoint.RingProximal];
+                var ringIntermediatePose = handData.Joints[(int)HandJoint.RingIntermediate];
+                var littleProximalPose = handData.Joints[(int)HandJoint.LittleProximal];
+                var littleIntermediatePose = handData.Joints[(int)HandJoint.LittleIntermediate];
 
                 // Calculate per finger curl angles.
                 var thumbMetacarpalCurl = Quaternion.Angle(palmLookRotation, thumbMetacarpalPose.rotation);

@@ -8,12 +8,12 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
-namespace RealityToolkit.Services.Input.Utilities
+namespace RealityToolkit.Input.Hands.Poses
 {
     /// <summary>
     /// Utility component to record a hand controller's data into a file.
     /// </summary>
-    public class HandDataRecorder : InputServiceGlobalListener, IInputHandler<HandData>
+    public class HandPoseRecorder : InputServiceGlobalListener, IInputHandler<HandData>
     {
         private RecordedHandJoints currentRecording;
         RecordedHandJoints recordedHandJoints = new RecordedHandJoints();
@@ -47,7 +47,7 @@ namespace RealityToolkit.Services.Input.Utilities
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
-                jointPoses[i] = new RecordedHandJoint((TrackedHandJoint)i, eventData.InputData.Joints[i]);
+                jointPoses[i] = new RecordedHandJoint((HandJoint)i, eventData.InputData.Joints[i]);
             }
 
             recordedHandJoints.Joints = jointPoses;
