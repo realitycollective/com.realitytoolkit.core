@@ -4,8 +4,8 @@
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Interfaces.Controllers;
-using RealityToolkit.Services.Input.Utilities;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
@@ -35,12 +35,12 @@ namespace RealityToolkit.Definitions.Controllers
         }
 
         [SerializeField, Tooltip("The prefab spawned to visualize the controller.")]
-        private ControllerPoseSynchronizer controllerPrefab = null;
+        private BaseControllerVisualizer controllerPrefab = null;
 
         /// <summary>
         /// The prefab spawned to visualize the controller.
         /// </summary>
-        public ControllerPoseSynchronizer ControllerPrefab => controllerPrefab;
+        public BaseControllerVisualizer ControllerPrefab => controllerPrefab;
 
         [SerializeField]
         private bool useCustomInteractions = true;

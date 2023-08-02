@@ -4,9 +4,8 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Interfaces.Modules;
-using RealityToolkit.Services.Input.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace RealityToolkit.Input.Hands
     /// Base hand controller visualizer implementation.
     /// </summary>
     [System.Runtime.InteropServices.Guid("5d844e0b-f913-46b8-bc3b-fa6429e62c60")]
-    public class DefaultHandControllerVisualizer : ControllerPoseSynchronizer, IControllerVisualizer
+    public class DefaultHandControllerVisualizer : BaseControllerVisualizer
     {
         private readonly Dictionary<HandJoint, Transform> jointTransforms = new Dictionary<HandJoint, Transform>();
         private readonly Dictionary<HandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<HandJoint, CapsuleCollider>();
@@ -33,22 +32,6 @@ namespace RealityToolkit.Input.Hands
         [SerializeField]
         [Tooltip("Visualization prefab instantiated once mesh rendering mode is enabled for the first time.")]
         private GameObject meshModePrefab = null;
-
-        /// <inheritdoc />
-        public GameObject GameObject
-        {
-            get
-            {
-                try
-                {
-                    return gameObject;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
 
         /// <summary>
         /// If using physics with hand, the actual hand visualization is done
