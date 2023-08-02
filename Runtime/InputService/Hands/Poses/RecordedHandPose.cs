@@ -13,6 +13,8 @@ namespace RealityToolkit.Input.Hands.Poses
     /// </summary>
     public class RecordedHandPose : ScriptableObject
     {
+        private readonly Dictionary<HandJoint, Pose> poseDict = new Dictionary<HandJoint, Pose>();
+
         [SerializeField, Tooltip("Recorded joint poses.")]
         private List<RecordedJointPose> poses = null;
 
@@ -23,6 +25,36 @@ namespace RealityToolkit.Input.Hands.Poses
         {
             get => poses;
             set => poses = value;
+        }
+
+        private void OnValidate()
+        {
+            poseDict.Clear();
+
+            if (Poses != null)
+            {
+                foreach (var pose in Poses)
+                {
+                    poseDict.Add(pose.Joint, pose.Pose);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the recorded <see cref="Pose"/> for <paramref name="joint"/>,
+        /// if it exists in the recording.
+        /// </summary>
+        /// <param name="joint">The <see cref="HandJoint"/> to lookup the <see cref="Pose"/> for.</param>
+        /// <param name="pose">The found <see cref="Pose"/>, if any.</param>
+        /// <returns><c>true</c>, if found.</returns>
+        public bool TryGetPose(HandJoint joint, out Pose pose)
+        {
+            if (poseDict.TryGetValue(joint, out pose))
+            {
+                return true;
+            }
+
+            return false;
         }
 
 #if UNITY_EDITOR

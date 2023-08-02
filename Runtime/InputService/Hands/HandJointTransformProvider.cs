@@ -39,14 +39,16 @@ namespace RealityToolkit.Input.Hands
         }
 
         /// <inheritdoc/>
-        public Transform GetTransform(HandJoint joint)
+        public bool TryGetTransform(HandJoint joint, out Transform transform)
         {
             if (pairs.ContainsKey(joint))
             {
-                return pairs[joint];
+                transform = pairs[joint];
+                return true;
             }
 
-            return null;
+            transform = null;
+            return false;
         }
     }
 }

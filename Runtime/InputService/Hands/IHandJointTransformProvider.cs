@@ -13,10 +13,10 @@ namespace RealityToolkit.Input.Hands
     public interface IHandJointTransformProvider
     {
         /// <summary>
-        /// Gets the <see cref="Transform"/> representation for <paramref name="joint"/>.
+        /// Gets the <see cref="Transform"/> representation for <paramref name="joint"/>, if found.
         /// </summary>
-        /// <param name="joint">The <see cref="HandJoint"/>.</param>
-        /// <returns><see cref="Transform"/>.</returns>
-        Transform GetTransform(HandJoint joint);
+        /// <param name="joint">The <see cref="HandJoint"/> to find the <see cref="Transform"/> for.</param>
+        /// <returns><c>true</c>, if found..</returns>
+        bool TryGetTransform(HandJoint joint, out Transform transform);
     }
 }
