@@ -11,9 +11,9 @@ using UnityEngine;
 namespace RealityToolkit.Input.Hands.Poses
 {
     /// <summary>
-    /// Utility component to record a hand controller's data into a file.
+    /// Records a <see cref="RecordedHandPose"/> using a tracked <see cref="IHandController"/>.
     /// </summary>
-    public class HandPoseRecorder : InputServiceGlobalListener, IInputHandler<HandData>
+    public class TrackedHandPoseRecorder : InputServiceGlobalListener, IInputHandler<HandData>
     {
         private RecordedHandJoints currentRecording;
         RecordedHandJoints recordedHandJoints = new RecordedHandJoints();
