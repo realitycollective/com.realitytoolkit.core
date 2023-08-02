@@ -163,6 +163,11 @@ namespace RealityToolkit.Input.Controllers
         /// </summary>
         public virtual void UpdateController()
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             if (TrackingState == TrackingState.Tracked)
             {
                 MotionDirection = Pose.position - previousPosition;

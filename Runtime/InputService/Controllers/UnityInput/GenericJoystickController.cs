@@ -42,9 +42,10 @@ namespace RealityToolkit.Input.Controllers.UnityInput
         /// </summary>
         public override void UpdateController()
         {
-            if (!Enabled) { return; }
-
-            base.UpdateController();
+            if (!Enabled)
+            {
+                return;
+            }
 
             if (Interactions == null)
             {
@@ -81,6 +82,8 @@ namespace RealityToolkit.Input.Controllers.UnityInput
 
                 interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
             }
+
+            base.UpdateController();
         }
 
         /// <summary>
