@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace RealityToolkit.Input.Hands.Visualizers
 {
+    /// <summary>
+    /// Visualizers a controller using a rigged hand mesh.
+    /// </summary>
     [System.Runtime.InteropServices.Guid("f7dc4217-86da-4540-a2e4-3e721994e7c8")]
     public class RiggedHandControllerVisualizer : BaseControllerVisualizer
     {
