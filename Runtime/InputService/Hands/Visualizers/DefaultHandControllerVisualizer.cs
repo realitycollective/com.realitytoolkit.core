@@ -77,12 +77,7 @@ namespace RealityToolkit.Input.Hands
                 return;
             }
 
-            var handController = (IHandController)Controller;
-
-            // Update the visualizers tracking state.
-            TrackingState = handController.TrackingState;
-
-            if (TrackingState == RealityToolkit.Definitions.Devices.TrackingState.Tracked)
+            if (Controller.TrackingState == RealityToolkit.Definitions.Devices.TrackingState.Tracked)
             {
                 // It's important to update physics
                 // configuration first.

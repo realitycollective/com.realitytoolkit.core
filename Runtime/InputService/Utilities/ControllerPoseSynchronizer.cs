@@ -62,18 +62,7 @@ namespace RealityToolkit.Services.Input.Utilities
             set => destroyOnSourceLost = value;
         }
 
-        /// <summary>
-        /// Is the controller this Synchronizer is registered to currently tracked?
-        /// </summary>
-        public bool IsTracked { get; protected set; } = false;
-
-        /// <summary>
-        /// The current tracking state of the assigned <see cref="IController"/>
-        /// </summary>
-        protected TrackingState TrackingState { get; set; } = TrackingState.NotTracked;
-
         private IController controller;
-
         /// <inheritdoc />
         public virtual IController Controller
         {
@@ -124,27 +113,15 @@ namespace RealityToolkit.Services.Input.Utilities
         public virtual void OnSourceLost(SourceStateEventData eventData)
         {
             if (eventData.SourceId == Controller?.InputSource.SourceId &&
-                eventData.Controller.ControllerHandedness == Handedness)
+                eventData.Controller.ControllerHandedness == Handedness &&
+                destroyOnSourceLost)
             {
-                IsTracked = false;
-                TrackingState = TrackingState.NotTracked;
-
-                if (destroyOnSourceLost)
-                {
-                    gameObject.Destroy();
-                }
+                gameObject.Destroy();
             }
         }
 
         /// <inheritdoc />
-        public virtual void OnSourcePoseChanged(SourcePoseEventData<TrackingState> eventData)
-        {
-            if (eventData.SourceId == Controller?.InputSource.SourceId)
-            {
-                IsTracked = eventData.SourceData == TrackingState.Tracked;
-                TrackingState = eventData.SourceData;
-            }
-        }
+        public virtual void OnSourcePoseChanged(SourcePoseEventData<TrackingState> eventData) { }
 
         /// <inheritdoc />
         public virtual void OnSourcePoseChanged(SourcePoseEventData<Vector2> eventData) { }
@@ -160,12 +137,11 @@ namespace RealityToolkit.Services.Input.Utilities
         {
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
-                if (!PoseDriver.IsNull() &&
+                if (PoseDriver.IsNotNull() &&
                     UseSourcePoseData &&
-                    TrackingState == TrackingState.Tracked)
+                    Controller.TrackingState == TrackingState.Tracked)
                 {
-                    PoseDriver.localPosition = eventData.SourceData.position;
-                    PoseDriver.localRotation = eventData.SourceData.rotation;
+                    PoseDriver.SetLocalPositionAndRotation(eventData.SourceData.position, eventData.SourceData.rotation);
                 }
             }
         }
@@ -194,8 +170,6 @@ namespace RealityToolkit.Services.Input.Utilities
                 if (!UseSourcePoseData &&
                     PoseAction == eventData.InputAction)
                 {
-                    IsTracked = true;
-                    TrackingState = TrackingState.Tracked;
                     transform.localPosition = eventData.InputData;
                 }
             }
@@ -209,8 +183,6 @@ namespace RealityToolkit.Services.Input.Utilities
                 if (!UseSourcePoseData &&
                     PoseAction == eventData.InputAction)
                 {
-                    IsTracked = true;
-                    TrackingState = TrackingState.Tracked;
                     transform.localRotation = eventData.InputData;
                 }
             }
@@ -222,16 +194,10 @@ namespace RealityToolkit.Services.Input.Utilities
             if (eventData.SourceId == Controller?.InputSource.SourceId)
             {
                 if (!UseSourcePoseData &&
-                    PoseAction == eventData.InputAction)
+                    PoseAction == eventData.InputAction &&
+                    PoseDriver.IsNotNull())
                 {
-                    IsTracked = true;
-                    TrackingState = TrackingState.Tracked;
-
-                    if (PoseDriver != null)
-                    {
-                        PoseDriver.localPosition = eventData.InputData.position;
-                        PoseDriver.localRotation = eventData.InputData.rotation;
-                    }
+                    PoseDriver.SetLocalPositionAndRotation(eventData.InputData.position, eventData.InputData.rotation);
                 }
             }
         }

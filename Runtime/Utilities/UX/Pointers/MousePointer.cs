@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
@@ -77,7 +76,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 RaycastOrigin = Camera.main.transform;
                 Handedness = value.ControllerHandedness;
                 gameObject.name = "Spatial Mouse Pointer";
-                TrackingState = TrackingState.NotApplicable;
             }
         }
 
