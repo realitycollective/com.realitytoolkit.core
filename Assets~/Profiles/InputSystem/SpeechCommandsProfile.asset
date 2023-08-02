@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7108692c36a84dfaaa0984f6c5d6d3a3, type: 3}
-  m_Name: MixedRealitySpeechCommandsProfile
+  m_Name: SpeechCommandsProfile
   m_EditorClassIdentifier: 
   startBehavior: 0
   recognitionConfidenceLevel: 1

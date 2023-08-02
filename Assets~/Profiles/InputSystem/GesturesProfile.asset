@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc4e210e45f74f1c8729d17634bc5dfd, type: 3}
-  m_Name: MixedRealityGesturesProfile
+  m_Name: GesturesProfile
   m_EditorClassIdentifier: 
   gestures:
   - description: Hold
