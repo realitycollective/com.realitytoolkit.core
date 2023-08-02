@@ -77,6 +77,10 @@ namespace RealityToolkit.Input.Controllers
                 }
             }
 
+            IsPositionAvailable = false;
+            IsPositionApproximate = false;
+            IsRotationAvailable = false;
+
             Enabled = true;
         }
 
@@ -105,7 +109,26 @@ namespace RealityToolkit.Input.Controllers
         /// </summary>
         protected virtual Pose GripPoseOffset => Pose.identity;
 
-        #region IController Implementation
+        /// <inheritdoc />
+        public Pose Pose { get; protected set; } = Pose.identity;
+
+        /// <inheritdoc />
+        public bool IsPositionAvailable { get; protected set; }
+
+        /// <inheritdoc />
+        public bool IsPositionApproximate { get; protected set; }
+
+        /// <inheritdoc />
+        public bool IsRotationAvailable { get; protected set; }
+
+        /// <inheritdoc />
+        public Vector3 AngularVelocity { get; protected set; } = Vector3.zero;
+
+        /// <inheritdoc />
+        public Vector3 Velocity { get; protected set; } = Vector3.zero;
+
+        /// <inheritdoc />
+        public Vector3 MotionDirection { get; protected set; }
 
         /// <inheritdoc />
         public string Name { get; }
@@ -130,8 +153,6 @@ namespace RealityToolkit.Input.Controllers
 
         /// <inheritdoc />
         public InteractionMapping[] Interactions { get; private set; } = null;
-
-        #endregion IController Implementation
 
         /// <summary>
         /// Updates the current readings for the controller.
