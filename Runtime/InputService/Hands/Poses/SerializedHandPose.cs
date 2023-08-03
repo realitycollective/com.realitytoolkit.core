@@ -21,27 +21,51 @@ namespace RealityToolkit.Input.Hands.Poses
         /// </summary>
         public sealed class SerializedJointPose
         {
+            /// <summary>
+            /// The <see cref="HandJoint"/> the serialized data belongs to.
+            /// </summary>
             [JsonProperty(PropertyName = "joint")]
             public HandJoint Joint { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Vector3.x"/> component of the position.
+            /// </summary>
             [JsonProperty(PropertyName = "rosX")]
             public float PosX { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Vector3.y"/> component of the position.
+            /// </summary>
             [JsonProperty(PropertyName = "rosY")]
             public float PosY { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Vector3.z"/> component of the position.
+            /// </summary>
             [JsonProperty(PropertyName = "rosZ")]
             public float PosZ { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Quaternion.x"/> component of the rotation.
+            /// </summary>
             [JsonProperty(PropertyName = "rotX")]
             public float RotX { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Quaternion.y"/> component of the rotation.
+            /// </summary>
             [JsonProperty(PropertyName = "rotY")]
             public float RotY { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Quaternion.z"/> component of the rotation.
+            /// </summary>
             [JsonProperty(PropertyName = "rotZ")]
             public float RotZ { get; set; }
 
+            /// <summary>
+            /// The <see cref="UnityEngine.Quaternion.w"/> component of the rotation.
+            /// </summary>
             [JsonProperty(PropertyName = "rotW")]
             public float RotW { get; set; }
         }
