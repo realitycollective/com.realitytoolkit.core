@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3076132558849983539}
   - component: {fileID: 2503953793252495176}
   m_Layer: 0
-  m_Name: DefaultLeftHandControllerVisualizer
+  m_Name: TrackedHandControllerVisualizer_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

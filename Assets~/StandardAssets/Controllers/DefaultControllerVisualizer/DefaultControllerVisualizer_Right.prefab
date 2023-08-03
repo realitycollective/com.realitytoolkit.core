@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 4733819526180356}
   - component: {fileID: 114649675710639032}
   m_Layer: 0
-  m_Name: GizmoRight
+  m_Name: DefaultControllerVisualizer_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

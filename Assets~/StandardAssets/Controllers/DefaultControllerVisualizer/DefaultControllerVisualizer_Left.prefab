@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 4607474556101662}
   - component: {fileID: 114960050464514552}
   m_Layer: 0
-  m_Name: GizmoLeft
+  m_Name: DefaultControllerVisualizer_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

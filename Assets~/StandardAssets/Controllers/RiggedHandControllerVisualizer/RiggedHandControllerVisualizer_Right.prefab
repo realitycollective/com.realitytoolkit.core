@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5755866970998503659}
   - component: {fileID: 1565297668729320937}
   m_Layer: 0
-  m_Name: RiggedHandController_Right
+  m_Name: RiggedHandControllerVisualizer_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
