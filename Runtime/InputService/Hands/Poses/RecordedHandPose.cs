@@ -90,16 +90,5 @@ namespace RealityToolkit.Input.Hands.Poses
 
             return new Pose(position, Quaternion.Euler(rotation));
         }
-
-#if UNITY_EDITOR
-        /// <summary>
-        /// Saves the <see cref="RecordedHandPose"/> into an asset file.
-        /// </summary>
-        public void Save()
-        {
-            UnityEditor.AssetDatabase.CreateAsset(this, System.IO.Path.Join("Assets", "RealityToolkit.Generated", $"{nameof(RecordedHandPose)}.asset"));
-            UnityEditor.AssetDatabase.Refresh();
-        }
-#endif
     }
 }

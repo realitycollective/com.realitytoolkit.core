@@ -2,10 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Hands.Poses;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +13,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
     /// Visualizers a controller using a rigged hand mesh.
     /// </summary>
     [System.Runtime.InteropServices.Guid("f7dc4217-86da-4540-a2e4-3e721994e7c8")]
-    public class RiggedHandControllerVisualizer : BaseControllerVisualizer
+    public class RiggedHandControllerVisualizer : BaseHandControllerVisualizer
     {
         [Header("Idle")]
         [SerializeField, Tooltip("The hand pose to take when no input is happening.")]
@@ -40,24 +38,11 @@ namespace RealityToolkit.Input.Hands.Visualizers
         private const float animationDuration = .2f;
         private float previousSingleAxisInputValue;
         private readonly Dictionary<HandJoint, Pose> animationStartPoses = new Dictionary<HandJoint, Pose>();
-        private IHandJointTransformProvider jointTransformProvider;
-        private int jointCount;
 
         /// <summary>
         /// The current <see cref="RecordedHandPose"/> visualized.
         /// </summary>
         public RecordedHandPose CurrentPose { get; private set; }
-
-        private void Awake()
-        {
-            jointCount = Enum.GetNames(typeof(HandJoint)).Length;
-
-            if (!TryGetComponent(out jointTransformProvider))
-            {
-                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(GameObject)}.", this);
-                return;
-            }
-        }
 
         private void Update()
         {
@@ -80,31 +65,31 @@ namespace RealityToolkit.Input.Hands.Visualizers
         {
             base.OnInputDown(eventData);
 
-            if (eventData.InputSource == Controller.InputSource &&
-                eventData.InputAction == selectInputAction)
-            {
-                Transition(selectPose);
-            }
-            else if (eventData.InputSource == Controller.InputSource &&
-                eventData.InputAction == gripInputAction)
-            {
-                Transition(gripPose);
-            }
+            //if (eventData.InputSource == Controller.InputSource &&
+            //    eventData.InputAction == selectInputAction)
+            //{
+            //    Transition(selectPose);
+            //}
+            //else if (eventData.InputSource == Controller.InputSource &&
+            //    eventData.InputAction == gripInputAction)
+            //{
+            //    Transition(gripPose);
+            //}
         }
 
         /// <inheritdoc/>
         public override void OnInputUp(InputEventData eventData)
         {
-            if (eventData.InputSource == Controller.InputSource &&
-                eventData.InputAction == selectInputAction)
-            {
-                Transition(idlePose);
-            }
-            else if (eventData.InputSource == Controller.InputSource &&
-                eventData.InputAction == gripInputAction)
-            {
-                Transition(idlePose);
-            }
+            //if (eventData.InputSource == Controller.InputSource &&
+            //    eventData.InputAction == selectInputAction)
+            //{
+            //    Transition(idlePose);
+            //}
+            //else if (eventData.InputSource == Controller.InputSource &&
+            //    eventData.InputAction == gripInputAction)
+            //{
+            //    Transition(idlePose);
+            //}
 
             base.OnInputUp(eventData);
         }
@@ -136,7 +121,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
                 {
                     Transition(idlePose, 1f - eventData.InputData);
                 }
-                else
+                else if (eventData.InputData > previousSingleAxisInputValue)
                 {
                     Transition(gripPose, eventData.InputData);
                 }
@@ -152,7 +137,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
         /// <param name="animate">If set, the transition will be animated. Defaults to <c>true</c>.</param>
         private void Transition(RecordedHandPose targetPose, bool animate = true)
         {
-            ComputeStartPoses();
+            ComputeStartFrame();
             CurrentPose = targetPose;
 
             if (animate)
@@ -174,12 +159,17 @@ namespace RealityToolkit.Input.Hands.Visualizers
         /// <param name="t">The interpolation frame time between the current pose and the target pose.</param>
         private void Transition(RecordedHandPose targetPose, float t)
         {
-            ComputeStartPoses();
+            ComputeStartFrame();
             CurrentPose = targetPose;
             animating = false;
             Lerp(t);
         }
 
+        /// <summary>
+        /// Linearly interpolates all <see cref="HandJoint"/>s on the rig between the <see cref="animationStartPoses"/>
+        /// and the <see cref="CurrentPose"/>.
+        /// </summary>
+        /// <param name="t">The pose frame to apply. Value in range <c>[0,1]</c> inclusive, where <c>0f</c> is the start frame and <c>1f</c> is the final pose.</param>
         private void Lerp(float t)
         {
             for (int i = 0; i < jointCount; i++)
@@ -195,7 +185,12 @@ namespace RealityToolkit.Input.Hands.Visualizers
             }
         }
 
-        private void ComputeStartPoses()
+        /// <summary>
+        /// Computes a start frame to start animating into a new pose from.
+        /// That way pose transitions can dynamically transition from any given
+        /// state.
+        /// </summary>
+        private void ComputeStartFrame()
         {
             animationStartPoses.Clear();
 
@@ -203,6 +198,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
             {
                 var handJoint = (HandJoint)i;
 
+                // For any given joint on the rig record the current pose as the starting point.
                 if (jointTransformProvider.TryGetTransform(handJoint, out var jointTransform))
                 {
                     animationStartPoses.Add(handJoint, new Pose(jointTransform.localPosition, jointTransform.localRotation));

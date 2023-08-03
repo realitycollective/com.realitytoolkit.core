@@ -4,7 +4,7 @@
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Controllers;
+using RealityToolkit.Input.Hands.Visualizers;
 using RealityToolkit.Input.Interfaces.Modules;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +12,10 @@ using UnityEngine;
 namespace RealityToolkit.Input.Hands
 {
     /// <summary>
-    /// Base hand controller visualizer implementation.
+    /// Default <see cref="IHandController"/> <see cref="Interfaces.Handlers.IControllerVisualizer"/>.
     /// </summary>
     [System.Runtime.InteropServices.Guid("5d844e0b-f913-46b8-bc3b-fa6429e62c60")]
-    public class DefaultHandControllerVisualizer : BaseControllerVisualizer
+    public class TrackedHandControllerVisualizer : BaseHandControllerVisualizer
     {
         [SerializeField]
         [Tooltip("The wrist prefab to use.")]

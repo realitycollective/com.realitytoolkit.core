@@ -1,47 +1,37 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Extensions;
-using RealityToolkit.Input.Controllers;
+using RealityToolkit.Input.Hands;
+using RealityToolkit.Input.Hands.Poses;
+using RealityToolkit.Input.Hands.Visualizers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Hands.Poses
+namespace RealityToolkit.Editor.Input.Hands.Poses
 {
     /// <summary>
-    /// Records a <see cref="RecordedHandPose"/> using a tracked rigged hand mesh and a <see cref="IHandJointTransformProvider"/>.
+    /// A simple recording utility to record <see cref="RecordedHandPose"/>s from any
+    /// <see cref="BaseHandControllerVisualizer"/>.
     /// </summary>
-    [ExecuteInEditMode]
-    [RequireComponent(typeof(BaseControllerVisualizer))]
-    public class RiggedHandPoseRecorder : MonoBehaviour
+    [RequireComponent(typeof(BaseHandControllerVisualizer))]
+    public class HandPoseRecorder : MonoBehaviour
     {
-        private IHandJointTransformProvider jointTransformProvider;
-        private BaseControllerVisualizer visualizer;
+        protected IHandJointTransformProvider jointTransformProvider;
+        protected BaseHandControllerVisualizer visualizer;
 
-        private void Awake()
-        {
-            if (!Application.isEditor)
-            {
-                Debug.LogError($"{GetType().Name} is only meant to be used in the editor.");
-                this.Destroy();
-                return;
-            }
-        }
-
-#if UNITY_EDITOR
         [ContextMenu("Record pose")]
         public void Record()
         {
-            if (!TryGetComponent(out jointTransformProvider))
+            if (!TryGetComponent(out visualizer))
             {
-                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(GameObject)}.", this);
+                Debug.LogError($"{GetType().Name} requires an {nameof(BaseHandControllerVisualizer)} on the {nameof(GameObject)}.", this);
                 return;
             }
 
-            if (!TryGetComponent(out visualizer))
+            if (!TryGetComponent(out jointTransformProvider))
             {
-                Debug.LogError($"{GetType().Name} requires an {nameof(BaseControllerVisualizer)} on the {nameof(GameObject)}.", this);
+                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(GameObject)}.", this);
                 return;
             }
 
@@ -65,8 +55,9 @@ namespace RealityToolkit.Input.Hands.Poses
 
             recordedHandPose.RecordedHandedness = visualizer.Handedness;
             recordedHandPose.Poses = poses;
-            recordedHandPose.Save();
+
+            UnityEditor.AssetDatabase.CreateAsset(recordedHandPose, System.IO.Path.Join("Assets", "RealityToolkit.Generated", $"{nameof(RecordedHandPose)}.asset"));
+            UnityEditor.AssetDatabase.Refresh();
         }
-#endif
     }
 }
