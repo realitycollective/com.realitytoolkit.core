@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,7 +52,8 @@ MonoBehaviour:
     id: 0
     description: None
     axisConstraint: 0
-  jointsModePrefab: {fileID: 9173983480249558903, guid: 081f7848cfd94b34f9c774490cd7e2fb,
-    type: 3}
-  meshModePrefab: {fileID: 1887883006053652, guid: 12df5e0d0c33a444a985de4e29533a24,
-    type: 3}
+  wristPrefab: {fileID: 3141352679402889276, guid: ecbaba8bdbeef32459e87a1ce06bfd36, type: 3}
+  jointPrefab: {fileID: 3141352679402889276, guid: ecbaba8bdbeef32459e87a1ce06bfd36, type: 3}
+  palmPrefab: {fileID: 6797406804172968804, guid: 80997b0aa2ab2d7429bb5e7f1cddbace, type: 3}
+  fingertipPrefab: {fileID: 4719395302953375155, guid: ceff11f7c8b644246b621c521c0ba767, type: 3}
+  indexFingertipColor: {r: 0, g: 1, b: 1, a: 1}

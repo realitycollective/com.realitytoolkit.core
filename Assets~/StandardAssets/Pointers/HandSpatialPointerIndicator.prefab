@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4216859302048453862, guid: 020718e6e118ec3489dbc21ec763a517, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 020718e6e118ec3489dbc21ec763a517, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,7 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 020718e6e118ec3489dbc21ec763a517, type: 3}
       propertyPath: m_Name
-      value: HandSpatialCursor
+      value: HandSpatialPointerIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 020718e6e118ec3489dbc21ec763a517, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

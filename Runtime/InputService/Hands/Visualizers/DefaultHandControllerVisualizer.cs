@@ -17,16 +17,32 @@ namespace RealityToolkit.Input.Hands
     [System.Runtime.InteropServices.Guid("5d844e0b-f913-46b8-bc3b-fa6429e62c60")]
     public class DefaultHandControllerVisualizer : BaseControllerVisualizer
     {
+        [SerializeField]
+        [Tooltip("The wrist prefab to use.")]
+        private GameObject wristPrefab = null;
+
+        [SerializeField]
+        [Tooltip("The joint prefab to use.")]
+        private GameObject jointPrefab = null;
+
+        [SerializeField]
+        [Tooltip("The joint prefab to use for palm.")]
+        private GameObject palmPrefab = null;
+
+        [SerializeField]
+        [Tooltip("The joint prefab to use for the index tip (point of interaction.")]
+        private GameObject fingertipPrefab = null;
+
+        [SerializeField]
+        [Tooltip("Material tint color for index fingertip.")]
+        private Color indexFingertipColor = Color.cyan;
+
         private readonly Dictionary<HandJoint, Transform> jointTransforms = new Dictionary<HandJoint, Transform>();
         private readonly Dictionary<HandJoint, CapsuleCollider> fingerBoundsModeColliders = new Dictionary<HandJoint, CapsuleCollider>();
         private BoxCollider handBoundsModeCollider;
         private const float fingerColliderRadius = .007f;
         private const int capsuleColliderZAxis = 2;
-        private HandControllerJointsVisualizer jointsVisualizer;
-
-        [SerializeField]
-        [Tooltip("Visualization prefab instantiated once joint rendering mode is enabled for the first time.")]
-        private GameObject jointsModePrefab = null;
+        private readonly Dictionary<HandJoint, GameObject> jointVisualizations = new Dictionary<HandJoint, GameObject>();
 
         /// <summary>
         /// If using physics with hand, the actual hand visualization is done
@@ -48,6 +64,28 @@ namespace RealityToolkit.Input.Hands
         /// The active <see cref="IHandControllerServiceModule"/>.
         /// </summary>
         protected IHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IHandControllerServiceModule)Controller.ServiceModule);
+
+        /// <inheritdoc />
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            foreach (var jointVisualization in jointVisualizations)
+            {
+                jointVisualization.Value.SetActive(true);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnDisable()
+        {
+            foreach (var jointVisualization in jointVisualizations)
+            {
+                jointVisualization.Value.SetActive(false);
+            }
+
+            base.OnDisable();
+        }
 
         /// <inheritdoc />
         protected override void OnDestroy()
@@ -324,7 +362,7 @@ namespace RealityToolkit.Input.Hands
         /// </summary>
         /// <param name="handJoint">The hand joint a transform should be returned for.</param>
         /// <returns>Joint transform.</returns>
-        public Transform GetOrCreateJointTransform(HandJoint handJoint)
+        private Transform GetOrCreateJointTransform(HandJoint handJoint)
         {
             if (jointTransforms.TryGetValue(handJoint, out Transform existingJointTransform))
             {
@@ -342,13 +380,57 @@ namespace RealityToolkit.Input.Hands
 
         private void UpdateRendering()
         {
-            if (jointsVisualizer == null)
+            for (int i = 0; i < HandData.JointCount; i++)
             {
-                jointsVisualizer = Instantiate(jointsModePrefab, HandVisualizationGameObject.transform).GetComponent<HandControllerJointsVisualizer>();
+                var joint = (HandJoint)i;
+                CreateJointVisualizerIfNotExists(joint);
+            }
+        }
+
+        private void CreateJointVisualizerIfNotExists(HandJoint handJoint)
+        {
+            if (jointVisualizations.TryGetValue(handJoint, out GameObject jointObject))
+            {
+                jointObject.SetActive(true);
+                return;
             }
 
-            jointsVisualizer.gameObject.SetActive(true);
-            jointsVisualizer.UpdateVisualization(this);
+            var prefab = jointPrefab;
+
+            switch (handJoint)
+            {
+                case HandJoint.Wrist:
+                    prefab = wristPrefab;
+                    break;
+                case HandJoint.Palm:
+                    prefab = palmPrefab;
+                    break;
+                case HandJoint.IndexTip:
+                case HandJoint.MiddleTip:
+                case HandJoint.LittleTip:
+                case HandJoint.RingTip:
+                case HandJoint.ThumbTip:
+                    prefab = fingertipPrefab;
+                    break;
+            }
+
+            if (prefab != null)
+            {
+                var jointVisualization = Instantiate(prefab, GetOrCreateJointTransform(handJoint));
+
+                if (handJoint == HandJoint.IndexTip)
+                {
+                    var indexJointRenderer = jointVisualization.GetComponent<Renderer>();
+                    if (indexJointRenderer != null)
+                    {
+                        var indexMaterial = indexJointRenderer.material;
+                        indexMaterial.color = indexFingertipColor;
+                        indexJointRenderer.material = indexMaterial;
+                    }
+                }
+
+                jointVisualizations.Add(handJoint, jointVisualization);
+            }
         }
     }
 }
