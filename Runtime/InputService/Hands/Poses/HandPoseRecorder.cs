@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Newtonsoft.Json;
+using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityToolkit.Input.Hands.Visualizers;
 using System;
@@ -15,14 +16,15 @@ namespace RealityToolkit.Input.Hands.Poses
     /// A simple recording utility to record <see cref="HandPose"/>s from any
     /// <see cref="BaseHandControllerVisualizer"/>.
     /// </summary>
-    [RequireComponent(typeof(BaseHandControllerVisualizer))]
     public class HandPoseRecorder : MonoBehaviour
     {
+        [SerializeField, Tooltip("The handedness of the hand recorded with.")]
+        private Handedness recordedHandedness = Handedness.Left;
+
         [SerializeField, Tooltip("Assign a serialized pose here and use the Convert context action to convert it to an asset.")]
         private TextAsset serializedPose = null;
 
         protected IHandJointTransformProvider jointTransformProvider;
-        protected BaseHandControllerVisualizer visualizer;
 
         /// <inheritdoc/>
         protected virtual void Awake()
@@ -75,12 +77,6 @@ namespace RealityToolkit.Input.Hands.Poses
         [ContextMenu("Record pose")]
         public void Record()
         {
-            if (!TryGetComponent(out visualizer))
-            {
-                Debug.LogError($"{GetType().Name} requires an {nameof(BaseHandControllerVisualizer)} on the {nameof(GameObject)}.", this);
-                return;
-            }
-
             if (!TryGetComponent(out jointTransformProvider))
             {
                 Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(GameObject)}.", this);
@@ -105,7 +101,7 @@ namespace RealityToolkit.Input.Hands.Poses
                 }
             }
 
-            recordedHandPose.RecordedHandedness = visualizer.Handedness;
+            recordedHandPose.RecordedHandedness = recordedHandedness;
             recordedHandPose.Poses = poses;
 
             if (Application.isPlaying)
