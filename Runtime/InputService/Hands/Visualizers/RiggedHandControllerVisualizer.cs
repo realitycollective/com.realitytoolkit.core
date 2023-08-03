@@ -17,18 +17,18 @@ namespace RealityToolkit.Input.Hands.Visualizers
     {
         [Header("Idle")]
         [SerializeField, Tooltip("The hand pose to take when no input is happening.")]
-        private RecordedHandPose idlePose = null;
+        private HandPose idlePose = null;
 
         [Header("Select")]
         [SerializeField, Tooltip("The hand pose to take when the select input is happeing.")]
-        private RecordedHandPose selectPose = null;
+        private HandPose selectPose = null;
 
         [SerializeField, Tooltip("Input action to listen for to transition to the select pose.")]
         private InputAction selectInputAction = InputAction.None;
 
         [Header("Grip")]
         [SerializeField, Tooltip("The hand pose to take when the grip input is happeing.")]
-        private RecordedHandPose gripPose = null;
+        private HandPose gripPose = null;
 
         [SerializeField, Tooltip("Input action to listen for to transition to the grip pose.")]
         private InputAction gripInputAction = InputAction.None;
@@ -40,9 +40,9 @@ namespace RealityToolkit.Input.Hands.Visualizers
         private readonly Dictionary<HandJoint, Pose> animationStartPoses = new Dictionary<HandJoint, Pose>();
 
         /// <summary>
-        /// The current <see cref="RecordedHandPose"/> visualized.
+        /// The current <see cref="HandPose"/> visualized.
         /// </summary>
-        public RecordedHandPose CurrentPose { get; private set; }
+        public HandPose CurrentPose { get; private set; }
 
         private void Update()
         {
@@ -135,7 +135,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
         /// </summary>
         /// <param name="targetPose">Recorded joint pose information.</param>
         /// <param name="animate">If set, the transition will be animated. Defaults to <c>true</c>.</param>
-        private void Transition(RecordedHandPose targetPose, bool animate = true)
+        private void Transition(HandPose targetPose, bool animate = true)
         {
             ComputeStartFrame();
             CurrentPose = targetPose;
@@ -157,7 +157,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
         /// </summary>
         /// <param name="targetPose">Recorded joint pose information.</param>
         /// <param name="t">The interpolation frame time between the current pose and the target pose.</param>
-        private void Transition(RecordedHandPose targetPose, float t)
+        private void Transition(HandPose targetPose, float t)
         {
             ComputeStartFrame();
             CurrentPose = targetPose;

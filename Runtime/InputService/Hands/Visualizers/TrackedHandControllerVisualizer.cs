@@ -6,6 +6,7 @@ using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Hands.Visualizers;
 using RealityToolkit.Input.Interfaces.Modules;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,25 +67,10 @@ namespace RealityToolkit.Input.Hands
         protected IHandControllerServiceModule HandControllerDataProvider => handControllerDataProvider ?? (handControllerDataProvider = (IHandControllerServiceModule)Controller.ServiceModule);
 
         /// <inheritdoc />
-        protected override void OnEnable()
+        protected override void Awake()
         {
-            base.OnEnable();
-
-            foreach (var jointVisualization in jointVisualizations)
-            {
-                jointVisualization.Value.SetActive(true);
-            }
-        }
-
-        /// <inheritdoc />
-        protected override void OnDisable()
-        {
-            foreach (var jointVisualization in jointVisualizations)
-            {
-                jointVisualization.Value.SetActive(false);
-            }
-
-            base.OnDisable();
+            base.Awake();
+            StartCoroutine(Initialze());
         }
 
         /// <inheritdoc />
@@ -98,6 +84,22 @@ namespace RealityToolkit.Input.Hands
             }
 
             base.OnDestroy();
+        }
+
+        private IEnumerator Initialze()
+        {
+            while (Controller == null)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            for (int i = 0; i < jointCount; i++)
+            {
+                var handJoint = (HandJoint)i;
+                var jointTransform = GetOrCreateJointTransform(handJoint);
+                jointTransformProvider.SetTransform(handJoint, jointTransform);
+                CreateJointVisualizer(handJoint);
+            }
         }
 
         /// <inheritdoc />
@@ -115,10 +117,8 @@ namespace RealityToolkit.Input.Hands
                 // It's important to update physics
                 // configuration first.
                 UpdatePhysicsConfiguration();
-
                 UpdateHandJointTransforms();
                 UpdateHandColliders();
-                UpdateRendering();
             }
         }
 
@@ -126,7 +126,7 @@ namespace RealityToolkit.Input.Hands
         {
             var handController = (IHandController)Controller;
 
-            for (int i = 0; i < HandData.JointCount; i++)
+            for (int i = 0; i < jointCount; i++)
             {
                 var handJoint = (HandJoint)i;
                 if (handController.TryGetJointPose(handJoint, out var jointPose))
@@ -378,23 +378,12 @@ namespace RealityToolkit.Input.Hands
             return jointTransform;
         }
 
-        private void UpdateRendering()
+        /// <summary>
+        /// Creates a visual representation of the <paramref name="handJoint"/>.
+        /// </summary>
+        /// <param name="handJoint">The <see cref="HandJoint"/> to spawn an object for.</param>
+        private void CreateJointVisualizer(HandJoint handJoint)
         {
-            for (int i = 0; i < HandData.JointCount; i++)
-            {
-                var joint = (HandJoint)i;
-                CreateJointVisualizerIfNotExists(joint);
-            }
-        }
-
-        private void CreateJointVisualizerIfNotExists(HandJoint handJoint)
-        {
-            if (jointVisualizations.TryGetValue(handJoint, out GameObject jointObject))
-            {
-                jointObject.SetActive(true);
-                return;
-            }
-
             var prefab = jointPrefab;
 
             switch (handJoint)
@@ -421,7 +410,7 @@ namespace RealityToolkit.Input.Hands
                 if (handJoint == HandJoint.IndexTip)
                 {
                     var indexJointRenderer = jointVisualization.GetComponent<Renderer>();
-                    if (indexJointRenderer != null)
+                    if (indexJointRenderer.IsNotNull())
                     {
                         var indexMaterial = indexJointRenderer.material;
                         indexMaterial.color = indexFingertipColor;

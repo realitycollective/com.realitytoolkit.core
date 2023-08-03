@@ -10,7 +10,7 @@ namespace RealityToolkit.Input.Hands.Poses
     /// Recorded pose information for a specific <see cref="HandJoint"/>
     /// </summary>
     [Serializable]
-    public class RecordedJointPose
+    public class JointPose
     {
         /// <summary>
         /// The recorded <see cref="HandJoint"/>.

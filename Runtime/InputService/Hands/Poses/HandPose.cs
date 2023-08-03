@@ -8,13 +8,13 @@ using UnityEngine;
 namespace RealityToolkit.Input.Hands.Poses
 {
     /// <summary>
-    /// A <see cref="RecordedHandPose"/> stores the bone information for a rigged hand mesh
+    /// A <see cref="HandPose"/> stores the bone information for a rigged hand mesh
     /// and makes it reusable for interactions and such, where the hand rig should apply a specific
     /// pose while grabbing something e.g.
     /// </summary>
-    public class RecordedHandPose : ScriptableObject
+    public class HandPose : ScriptableObject
     {
-        private readonly Dictionary<HandJoint, Pose> recordedPosesDict = new Dictionary<HandJoint, Pose>();
+        private readonly Dictionary<HandJoint, Pose> posesDict = new Dictionary<HandJoint, Pose>();
         private readonly Dictionary<HandJoint, Pose> mirroredPosesDict = new Dictionary<HandJoint, Pose>();
 
         [SerializeField, Tooltip("The handedness the pose was recorded with.")]
@@ -30,12 +30,12 @@ namespace RealityToolkit.Input.Hands.Poses
         }
 
         [SerializeField, Tooltip("Recorded joint poses.")]
-        private List<RecordedJointPose> poses = null;
+        private List<JointPose> poses = null;
 
         /// <summary>
-        /// All recorded <see cref="RecordedJointPose"/>s.
+        /// All recorded <see cref="JointPose"/>s.
         /// </summary>
-        public List<RecordedJointPose> Poses
+        public List<JointPose> Poses
         {
             get => poses;
             set => poses = value;
@@ -43,14 +43,14 @@ namespace RealityToolkit.Input.Hands.Poses
 
         private void OnValidate()
         {
-            recordedPosesDict.Clear();
+            posesDict.Clear();
             mirroredPosesDict.Clear();
 
             if (Poses != null)
             {
                 foreach (var pose in Poses)
                 {
-                    recordedPosesDict.Add(pose.Joint, pose.Pose);
+                    posesDict.Add(pose.Joint, pose.Pose);
                     mirroredPosesDict.Add(pose.Joint, MirrorPose(pose.Pose));
                 }
             }
@@ -67,7 +67,7 @@ namespace RealityToolkit.Input.Hands.Poses
         public bool TryGetPose(Handedness handedness, HandJoint joint, out Pose pose)
         {
             if (RecordedHandedness == handedness &&
-                recordedPosesDict.TryGetValue(joint, out pose))
+                posesDict.TryGetValue(joint, out pose))
             {
                 return true;
             }
@@ -79,6 +79,12 @@ namespace RealityToolkit.Input.Hands.Poses
             return false;
         }
 
+        /// <summary>
+        /// Mirrors the <see cref="Pose"/>. If it was recorded using <see cref="Handedness.Left"/>,
+        /// it will be mirrored to <see cref="Handedness.Right"/> and vice versa.
+        /// </summary>
+        /// <param name="pose">The <see cref="Pose"/> to mirror.</param>
+        /// <returns>Mirrored <see cref="Pose"/> for the opposite <see cref="Handedness"/>.</returns>
         private Pose MirrorPose(Pose pose)
         {
             var position = pose.position;

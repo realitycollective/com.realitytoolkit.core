@@ -23,7 +23,7 @@ namespace RealityToolkit.Input.Hands
         [SerializeField, Tooltip("Map transforms to hand joints here.")]
         private List<JointTransformPair> transforms = null;
 
-        private readonly Dictionary<HandJoint, Transform> pairs = new Dictionary<HandJoint, Transform>();
+        private readonly Dictionary<HandJoint, Transform> cache = new Dictionary<HandJoint, Transform>();
 
         private void UpdateCache()
         {
@@ -32,15 +32,34 @@ namespace RealityToolkit.Input.Hands
                 transforms = new List<JointTransformPair>();
             }
 
-            if (pairs.Count != transforms.Count)
+            if (cache.Count != transforms.Count)
             {
-                pairs.Clear();
+                cache.Clear();
 
                 foreach (var item in transforms)
                 {
-                    pairs.Add(item.Joint, item.Transform);
+                    cache.Add(item.Joint, item.Transform);
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public void SetTransform(HandJoint joint, Transform transform)
+        {
+            if (transforms == null)
+            {
+                transforms = new List<JointTransformPair>();
+            }
+
+            transforms.Add(new JointTransformPair
+            {
+                Joint = joint,
+                Transform = transform
+            });
+
+            // Since we added a new transform, we need to clear the cached
+            // dictionary so it gets regenereated next time a transform is looked up.
+            cache.Clear();
         }
 
         /// <inheritdoc/>
@@ -48,9 +67,9 @@ namespace RealityToolkit.Input.Hands
         {
             UpdateCache();
 
-            if (pairs.ContainsKey(joint))
+            if (cache.ContainsKey(joint))
             {
-                transform = pairs[joint];
+                transform = cache[joint];
                 return true;
             }
 

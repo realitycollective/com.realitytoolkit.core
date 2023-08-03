@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1355368130211572882}
   - component: {fileID: 3076132558849983539}
+  - component: {fileID: 2503953793252495176}
   m_Layer: 0
   m_Name: DefaultLeftHandControllerVisualizer
   m_TagString: Untagged
@@ -57,3 +58,16 @@ MonoBehaviour:
   palmPrefab: {fileID: 6797406804172968804, guid: 80997b0aa2ab2d7429bb5e7f1cddbace, type: 3}
   fingertipPrefab: {fileID: 4719395302953375155, guid: ceff11f7c8b644246b621c521c0ba767, type: 3}
   indexFingertipColor: {r: 0, g: 1, b: 1, a: 1}
+--- !u!114 &2503953793252495176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398244499265140811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827fbadc6cb5e654c8e3e534363941b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transforms: []
