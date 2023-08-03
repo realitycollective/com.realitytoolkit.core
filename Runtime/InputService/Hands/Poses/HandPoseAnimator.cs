@@ -42,7 +42,7 @@ namespace RealityToolkit.Input.Hands.Poses
             }
 
             var t = (Time.time - animationStartTime) / animationDuration;
-            Lerp(t);
+            Slerp(t);
 
             if (t >= 1f)
             {
@@ -57,7 +57,12 @@ namespace RealityToolkit.Input.Hands.Poses
         /// <param name="animate">If set, the transition will be animated. Defaults to <c>true</c>.</param>
         public void Transition(HandPose targetPose, bool animate = true)
         {
-            ComputeStartFrame();
+            if (CurrentPose == targetPose)
+            {
+                return;
+            }
+
+            ComputeStartFrame(targetPose);
             CurrentPose = targetPose;
 
             if (animate)
@@ -68,7 +73,7 @@ namespace RealityToolkit.Input.Hands.Poses
             else
             {
                 animating = false;
-                Lerp(1f);
+                Slerp(1f);
             }
         }
 
@@ -79,10 +84,10 @@ namespace RealityToolkit.Input.Hands.Poses
         /// <param name="t">The interpolation frame time between the current pose and the target pose.</param>
         public void Transition(HandPose targetPose, float t)
         {
-            ComputeStartFrame();
+            ComputeStartFrame(targetPose);
             CurrentPose = targetPose;
             animating = false;
-            Lerp(t);
+            Slerp(t);
         }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace RealityToolkit.Input.Hands.Poses
         /// and the <see cref="CurrentPose"/>.
         /// </summary>
         /// <param name="t">The pose frame to apply. Value in range <c>[0,1]</c> inclusive, where <c>0f</c> is the start frame and <c>1f</c> is the final pose.</param>
-        private void Lerp(float t)
+        private void Slerp(float t)
         {
             for (int i = 0; i < jointCount; i++)
             {
@@ -110,8 +115,14 @@ namespace RealityToolkit.Input.Hands.Poses
         /// That way pose transitions can dynamically transition from any given
         /// state.
         /// </summary>
-        private void ComputeStartFrame()
+        private void ComputeStartFrame(HandPose targetPose)
         {
+            if (targetPose == CurrentPose)
+            {
+                // No need to compute a new start frame if the target pose has not changed.
+                return;
+            }
+
             startFramePoses.Clear();
 
             for (int i = 0; i < jointCount; i++)

@@ -32,7 +32,6 @@ namespace RealityToolkit.Input.Hands.Visualizers
         [SerializeField, Tooltip("Input action to listen for to transition to the grip pose.")]
         private InputAction gripInputAction = InputAction.None;
 
-        private float previousSingleAxisInputValue;
         private HandPoseAnimator poseAnimator;
 
         /// <inheritdoc/>
@@ -95,6 +94,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
             else if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == gripInputAction)
             {
+                Debug.Log(eventData.InputData);
                 OnSingleAxisInputChanged(eventData.InputData, gripPose);
             }
         }
@@ -104,17 +104,10 @@ namespace RealityToolkit.Input.Hands.Visualizers
             if (Mathf.Approximately(0f, value))
             {
                 poseAnimator.Transition(idlePose);
-            }
-            else if (value < previousSingleAxisInputValue)
-            {
-                poseAnimator.Transition(idlePose, 1f - value);
-            }
-            else if (value > previousSingleAxisInputValue)
-            {
-                poseAnimator.Transition(targetPose, value);
+                return;
             }
 
-            previousSingleAxisInputValue = value;
+            poseAnimator.Transition(targetPose, value);
         }
     }
 }
