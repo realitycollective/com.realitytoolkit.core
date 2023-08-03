@@ -38,6 +38,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
         private bool animating;
         private float animationStartTime;
         private const float animationDuration = .2f;
+        private float previousSingleAxisInputValue;
         private readonly Dictionary<HandJoint, Pose> animationStartPoses = new Dictionary<HandJoint, Pose>();
         private IHandJointTransformProvider jointTransformProvider;
         private int jointCount;
@@ -108,14 +109,51 @@ namespace RealityToolkit.Input.Hands.Visualizers
             base.OnInputUp(eventData);
         }
 
+        /// <inheritdoc/>
+        public override void OnInputChanged(InputEventData<float> eventData)
+        {
+            base.OnInputChanged(eventData);
+
+            if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == selectInputAction)
+            {
+                if (Mathf.Approximately(0f, eventData.InputData))
+                {
+                    Transition(idlePose);
+                    return;
+                }
+
+                Transition(selectPose, eventData.InputData);
+            }
+            else if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == gripInputAction)
+            {
+                if (Mathf.Approximately(0f, eventData.InputData))
+                {
+                    Transition(idlePose);
+                }
+                else if (eventData.InputData < previousSingleAxisInputValue)
+                {
+                    Transition(idlePose, 1f - eventData.InputData);
+                }
+                else
+                {
+                    Transition(gripPose, eventData.InputData);
+                }
+
+                previousSingleAxisInputValue = eventData.InputData;
+            }
+        }
+
         /// <summary>
-        /// Transitions the hand into <paramref name="recordedHandPose"/>.
+        /// Transitions the hand into <paramref name="targetPose"/>.
         /// </summary>
-        /// <param name="recordedHandPose">Recorded joint pose information.</param>
-        private void Transition(RecordedHandPose recordedHandPose, bool animate = true)
+        /// <param name="targetPose">Recorded joint pose information.</param>
+        /// <param name="animate">If set, the transition will be animated. Defaults to <c>true</c>.</param>
+        private void Transition(RecordedHandPose targetPose, bool animate = true)
         {
             ComputeStartPoses();
-            CurrentPose = recordedHandPose;
+            CurrentPose = targetPose;
 
             if (animate)
             {
@@ -127,6 +165,19 @@ namespace RealityToolkit.Input.Hands.Visualizers
                 animating = false;
                 Lerp(1f);
             }
+        }
+
+        /// <summary>
+        /// Transitions the hand into <paramref name="targetPose"/> at frame <paramref name="t"/>.
+        /// </summary>
+        /// <param name="targetPose">Recorded joint pose information.</param>
+        /// <param name="t">The interpolation frame time between the current pose and the target pose.</param>
+        private void Transition(RecordedHandPose targetPose, float t)
+        {
+            ComputeStartPoses();
+            CurrentPose = targetPose;
+            animating = false;
+            Lerp(t);
         }
 
         private void Lerp(float t)
