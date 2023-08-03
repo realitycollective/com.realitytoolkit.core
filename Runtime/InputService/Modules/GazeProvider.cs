@@ -165,7 +165,7 @@ namespace RealityToolkit.Input.Modules
             private readonly GazeProvider gazeProvider;
 
             public InternalGazePointer(GazeProvider gazeProvider, string pointerName, IInputSource inputSourceParent, LayerMask[] raycastLayerMasks, float pointerExtent, Transform gazeTransform, BaseRayStabilizer stabilizer)
-                    : base(pointerName, inputSourceParent, InteractionMode.Far)
+                    : base(pointerName, inputSourceParent)
             {
                 this.gazeProvider = gazeProvider;
                 PointerRaycastLayerMasksOverride = raycastLayerMasks;

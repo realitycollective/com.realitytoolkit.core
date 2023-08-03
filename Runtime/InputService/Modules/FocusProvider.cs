@@ -888,8 +888,7 @@ namespace RealityToolkit.Input.Modules
                 switch (pointer.RaycastMode)
                 {
                     case RaycastMode.Simple:
-                        if (Raycaster.RaycastSimplePhysicsStep(pointerRays[i], prioritizedLayerMasks, out var simplePhysicsHit) &&
-                            simplePhysicsHit.collider != pointer.NearInteractionCollider)
+                        if (Raycaster.RaycastSimplePhysicsStep(pointerRays[i], prioritizedLayerMasks, out var simplePhysicsHit))
                         {
                             // Set the pointer source's origin ray to this step
                             UpdatePointerRayOnHit(pointerRays, simplePhysicsHit, i, rayStartDistance, hitResult);
@@ -901,8 +900,7 @@ namespace RealityToolkit.Input.Modules
                         Debug.LogWarning("Box Raycasting Mode not supported for pointers.");
                         break;
                     case RaycastMode.Sphere:
-                        if (Raycaster.RaycastSpherePhysicsStep(pointerRays[i], pointer.SphereCastRadius, prioritizedLayerMasks, out var spherePhysicsHit) &&
-                            spherePhysicsHit.collider != pointer.NearInteractionCollider)
+                        if (Raycaster.RaycastSpherePhysicsStep(pointerRays[i], pointer.SphereCastRadius, prioritizedLayerMasks, out var spherePhysicsHit))
                         {
                             // Set the pointer source's origin ray to this step
                             UpdatePointerRayOnHit(pointerRays, spherePhysicsHit, i, rayStartDistance, hitResult);

@@ -106,12 +106,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
         public bool IsTeleportRequestActive { get; set; } = false;
 
         /// <summary>
-        /// Gets the currently captured near interaction object. Only applicable
-        /// if <see cref="InteractionMode.Both"/> or <see cref="InteractionMode.Near"/>.
-        /// </summary>
-        protected GameObject CapturedNearInteractionObject { get; private set; } = null;
-
-        /// <summary>
         /// The forward direction of the targeting ray
         /// </summary>
         public virtual Vector3 PointerDirection => raycastOrigin != null ? raycastOrigin.forward : transform.forward;
@@ -161,58 +155,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             base.Start();
             SetCursor();
-        }
-
-        /// <inheritdoc/>
-        protected virtual void OnTriggerEnter(Collider other)
-        {
-            if (InteractionMode.HasFlags(InteractionMode.Near) &&
-                nearInteractionCollider != null &&
-                other.IsValidCollision(PointerRaycastLayerMasksOverride ?? InputService.FocusProvider.GlobalPointerRaycastLayerMasks))
-            {
-                CapturedNearInteractionObject = other.gameObject;
-
-                // Force update the focus provider so the focused target
-                // gets updated before raising the event. If we don't update
-                // the focus provider here, the event will not be raised on the
-                // capture near interaction object.
-                InputService.FocusProvider.Update();
-                InputService.RaiseOnInputDown(InputSourceParent, Handedness, pointerAction);
-            }
-        }
-
-        /// <inheritdoc/>
-        protected virtual void OnTriggerStay(Collider other)
-        {
-            if (InteractionMode.HasFlags(InteractionMode.Near) &&
-                nearInteractionCollider != null &&
-                CapturedNearInteractionObject == other.gameObject)
-            {
-                // Force update the focus provider so the focused target
-                // gets updated before raising the event. If we don't update
-                // the focus provider here, the event will not be raised on the
-                // capture near interaction object.
-                InputService.FocusProvider.Update();
-                InputService.RaiseOnInputPressed(InputSourceParent, Handedness, pointerAction);
-            }
-        }
-
-        /// <inheritdoc/>
-        protected virtual void OnTriggerExit(Collider other)
-        {
-            if (InteractionMode.HasFlags(InteractionMode.Near) &&
-                nearInteractionCollider != null &&
-                CapturedNearInteractionObject == other.gameObject)
-            {
-                // Force update the focus provider so the focused target
-                // gets updated before raising the event. If we don't update
-                // the focus provider here, the event will not be raised on the
-                // capture near interaction object.
-                InputService.FocusProvider.Update();
-
-                InputService.RaiseOnInputUp(InputSourceParent, Handedness, pointerAction);
-                CapturedNearInteractionObject = null;
-            }
         }
 
         /// <inheritdoc/>
@@ -297,22 +239,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
                 return cursorModifier;
             }
             set => cursorModifier = value;
-        }
-
-        [SerializeField]
-        private InteractionMode interactionMode = InteractionMode.Both;
-
-        /// <inheritdoc />
-        public virtual InteractionMode InteractionMode => interactionMode;
-
-        [SerializeField]
-        private Collider nearInteractionCollider = null;
-
-        /// <inheritdoc />
-        public Collider NearInteractionCollider
-        {
-            get => nearInteractionCollider;
-            protected set => nearInteractionCollider = value;
         }
 
         /// <inheritdoc />
@@ -618,8 +544,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             base.OnSourceLost(eventData);
 
-            if (eventData.SourceId == InputSourceParent.SourceId &&
-                interactionMode.HasFlags(InteractionMode.Far))
+            if (eventData.SourceId == InputSourceParent.SourceId)
             {
                 if (requiresHoldAction)
                 {
@@ -650,8 +575,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             base.OnInputUp(eventData);
 
-            if (eventData.SourceId == InputSourceParent.SourceId &&
-                interactionMode.HasFlags(InteractionMode.Far))
+            if (eventData.SourceId == InputSourceParent.SourceId)
             {
                 if (requiresHoldAction && eventData.InputAction == activeHoldAction)
                 {
@@ -681,8 +605,7 @@ namespace RealityToolkit.Utilities.UX.Pointers
         {
             base.OnInputDown(eventData);
 
-            if (eventData.SourceId == InputSourceParent.SourceId &&
-                interactionMode.HasFlags(InteractionMode.Far))
+            if (eventData.SourceId == InputSourceParent.SourceId)
             {
                 if (requiresHoldAction && eventData.InputAction == activeHoldAction)
                 {

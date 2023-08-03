@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces;
 using UnityEngine;
@@ -79,9 +78,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
             return null;
         }
-
-        /// <inheritdoc />
-        public override InteractionMode InteractionMode => InteractionMode.Far;
 
         /// <inheritdoc />
         public override void OnInputChanged(InputEventData<Pose> eventData)

@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Physics;
-using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Hands;
 using UnityEngine;
 
@@ -18,9 +15,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
 
         /// <inheritdoc />
         public override bool IsInteractionEnabled => base.IsInteractionEnabled && !HandController.IsPinching;
-
-        /// <inheritdoc />
-        public override InteractionMode InteractionMode => InteractionMode.Near;
 
         /// <summary>
         /// Casted reference to the hand controller driving the pointer.
@@ -37,21 +31,6 @@ namespace RealityToolkit.Utilities.UX.Pointers
             }
 
             return controller;
-        }
-
-        /// <inheritdoc />
-        public override void OnPreRaycast()
-        {
-            if (Rays == null || Rays.Length > 1)
-            {
-                Rays = new RayStep[1];
-            }
-
-            var origin = TryGetPointerPosition(out var pointerPosition) ? pointerPosition : Vector3.zero;
-            var terminus = CapturedNearInteractionObject.IsNull() ? origin + Vector3.forward : origin + CapturedNearInteractionObject.transform.forward;
-
-            Rays[0] = new RayStep();
-            Rays[0].UpdateRayStep(ref origin, ref terminus);
         }
     }
 }

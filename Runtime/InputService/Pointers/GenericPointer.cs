@@ -3,7 +3,6 @@
 
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
-using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
@@ -25,14 +24,13 @@ namespace RealityToolkit.Input.Pointers
         /// <param name="pointerName"></param>
         /// <param name="inputSourceParent"></param>
         /// <param name="interactionMode"></param>
-        public GenericPointer(string pointerName, IInputSource inputSourceParent, InteractionMode interactionMode)
+        public GenericPointer(string pointerName, IInputSource inputSourceParent)
         {
             if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
                 PointerId = inputService.FocusProvider.GenerateNewPointerId();
                 PointerName = pointerName;
                 this.inputSourceParent = inputSourceParent;
-                InteractionMode = interactionMode;
             }
             else
             {
@@ -93,14 +91,8 @@ namespace RealityToolkit.Input.Pointers
             set => cursorModifier = value;
         }
 
-        /// <inheritdoc />
-        public InteractionMode InteractionMode { get; }
-
         /// <inheritdoc/>
         public bool IsTeleportRequestActive { get; set; } = false;
-
-        /// <inheritdoc />
-        public Collider NearInteractionCollider { get; } = null;
 
         /// <inheritdoc />
         public bool IsInteractionEnabled { get; protected set; }

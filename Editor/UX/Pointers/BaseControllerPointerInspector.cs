@@ -3,7 +3,6 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
-using RealityCollective.Extensions;
 using RealityToolkit.Utilities.UX.Pointers;
 using UnityEditor;
 using UnityEngine;
@@ -29,8 +28,6 @@ namespace RealityToolkit.Editor.UX.Pointers
         private SerializedProperty pointerOrientation;
         private SerializedProperty requiresHoldAction;
         private SerializedProperty enablePointerOnStart;
-        private SerializedProperty interactionMode;
-        private SerializedProperty nearInteractionCollider;
         private SerializedProperty useSourcePoseData;
         private SerializedProperty poseAction;
         private SerializedProperty handedness;
@@ -57,8 +54,6 @@ namespace RealityToolkit.Editor.UX.Pointers
             pointerOrientation = serializedObject.FindProperty(nameof(pointerOrientation));
             requiresHoldAction = serializedObject.FindProperty(nameof(requiresHoldAction));
             enablePointerOnStart = serializedObject.FindProperty(nameof(enablePointerOnStart));
-            interactionMode = serializedObject.FindProperty(nameof(interactionMode));
-            nearInteractionCollider = serializedObject.FindProperty(nameof(nearInteractionCollider));
 
             DrawHandednessProperty = false;
         }
@@ -110,21 +105,8 @@ namespace RealityToolkit.Editor.UX.Pointers
                 EditorGUILayout.PropertyField(uiLayerMask);
                 EditorGUILayout.PropertyField(setCursorVisibilityOnSourceDetected);
                 EditorGUILayout.PropertyField(enablePointerOnStart);
-                EditorGUILayout.PropertyField(interactionMode);
-
-                var interactionModeValue = (RealityToolkit.Input.Definitions.InteractionMode)interactionMode.intValue;
-
-                if (interactionModeValue.HasFlags(RealityToolkit.Input.Definitions.InteractionMode.Near))
-                {
-                    EditorGUILayout.PropertyField(nearInteractionCollider);
-                }
-
-                if (interactionModeValue.HasFlags(RealityToolkit.Input.Definitions.InteractionMode.Far))
-                {
-                    EditorGUILayout.PropertyField(raycastOrigin);
-                    EditorGUILayout.PropertyField(defaultPointerExtent);
-                }
-
+                EditorGUILayout.PropertyField(raycastOrigin);
+                EditorGUILayout.PropertyField(defaultPointerExtent);
                 EditorGUILayout.PropertyField(pointerOrientation);
                 EditorGUILayout.PropertyField(pointerAction);
                 EditorGUILayout.PropertyField(grabAction);
