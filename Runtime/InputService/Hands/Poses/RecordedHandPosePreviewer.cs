@@ -18,13 +18,15 @@ namespace RealityToolkit.Input.Hands.Poses
         [SerializeField, Tooltip("The hand pose to preview.")]
         private HandPose handPose = null;
 
+        [SerializeField, Range(0f, 1f)]
+        private float frame = 1f;
+
         private IHandJointTransformProvider jointTransformProvider;
         private HandPoseAnimator poseAnimator;
 
         /// <summary>
         /// Previews the assigned <see cref="handPose"/>.
         /// </summary>
-        [ContextMenu("Preview")]
         public void Preview()
         {
             if (handPose.IsNull())
@@ -44,7 +46,7 @@ namespace RealityToolkit.Input.Hands.Poses
                 poseAnimator = new HandPoseAnimator(jointTransformProvider, previewedHandedness);
             }
 
-            poseAnimator.Transition(handPose, 1f);
+            poseAnimator.Transition(handPose, frame);
         }
     }
 }

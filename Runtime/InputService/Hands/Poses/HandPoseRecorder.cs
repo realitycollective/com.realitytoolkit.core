@@ -42,7 +42,6 @@ namespace RealityToolkit.Input.Hands.Poses
         /// <summary>
         /// Converts a serialized pose to an asset file.
         /// </summary>
-        [ContextMenu("Convert serialized pose")]
         public void Convert()
         {
             if (Application.isPlaying)
@@ -74,7 +73,6 @@ namespace RealityToolkit.Input.Hands.Poses
         /// <summary>
         /// Records the current pose of the <see cref="BaseHandControllerVisualizer"/>.
         /// </summary>
-        [ContextMenu("Record pose")]
         public void Record()
         {
             if (!TryGetComponent(out jointTransformProvider))
