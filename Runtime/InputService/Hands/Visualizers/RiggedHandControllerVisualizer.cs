@@ -28,6 +28,13 @@ namespace RealityToolkit.Input.Hands.Visualizers
         [SerializeField, Tooltip("Input action to listen for to transition to the select pose.")]
         private InputAction selectInputAction = InputAction.None;
 
+        [Header("Grip")]
+        [SerializeField, Tooltip("The hand pose to take when the grip input is happeing.")]
+        private RecordedHandPose gripPose = null;
+
+        [SerializeField, Tooltip("Input action to listen for to transition to the grip pose.")]
+        private InputAction gripInputAction = InputAction.None;
+
         private bool animating;
         private float animationStartTime;
         private const float animationDuration = .2f;
@@ -77,6 +84,11 @@ namespace RealityToolkit.Input.Hands.Visualizers
             {
                 Transition(selectPose);
             }
+            else if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == gripInputAction)
+            {
+                Transition(gripPose);
+            }
         }
 
         /// <inheritdoc/>
@@ -84,6 +96,11 @@ namespace RealityToolkit.Input.Hands.Visualizers
         {
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)
+            {
+                Transition(idlePose);
+            }
+            else if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == gripInputAction)
             {
                 Transition(idlePose);
             }

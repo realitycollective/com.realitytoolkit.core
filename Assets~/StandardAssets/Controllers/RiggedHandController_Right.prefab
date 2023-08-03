@@ -61,6 +61,12 @@ MonoBehaviour:
     id: 1
     description: Select
     axisConstraint: 2
+  gripPose: {fileID: 11400000, guid: a1ac23157de11dd42ada7d592f693490, type: 2}
+  gripInputAction:
+    profileGuid: 399335ccc89c4d12b79f3539ca7771db
+    id: 16
+    description: Grip Press
+    axisConstraint: 2
 --- !u!114 &1565297668729320937
 MonoBehaviour:
   m_ObjectHideFlags: 0
