@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4186140948520772}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00006252681, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4131195074314422}
   m_Father: {fileID: 4013377268125804}
@@ -40,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4111614969388694}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,6 +58,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00006252681, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4013377268125804}
   m_RootOrder: 6
@@ -70,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4109460465459574}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,6 +89,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4680987130549786}
   m_RootOrder: 0
@@ -100,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4013377268125804}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCone6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +120,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.00006252681, y: -0.00025995207, z: 0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4680987130549786}
   - {fileID: 4703719883755212}
@@ -139,7 +143,7 @@ GameObject:
   - component: {fileID: 4391910669484542}
   - component: {fileID: 33867933401133456}
   - component: {fileID: 23816222880568950}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,6 +160,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00000049132336, y: -0.00020047351, z: -0.00035398905}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4607474556101662}
   m_RootOrder: 11
@@ -179,9 +184,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -195,6 +203,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -207,6 +216,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1090134416363156
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4487561386526946}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,6 +243,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000000011920929, y: 0.055, z: -0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4280833947237478}
   m_Father: {fileID: 4607474556101662}
@@ -247,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4131195074314422}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,6 +275,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4186140948520772}
   m_RootOrder: 0
@@ -277,7 +289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4831455789484130}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,6 +306,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.099999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4094156543883328}
   m_Father: {fileID: 4607474556101662}
@@ -308,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4660560217398952}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,6 +338,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0.049999997, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4268802020502070}
   m_Father: {fileID: 4607474556101662}
@@ -339,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459465648329020}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,6 +370,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0000000011920929, y: -0.0000000017881393, z: -0.055}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4020172611768032}
   m_RootOrder: 0
@@ -369,7 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4451406195980762}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,6 +401,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4064998544505022}
   m_RootOrder: 0
@@ -399,7 +415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4854407580125384}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,6 +432,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 1, w: -6.123234e-17}
   m_LocalPosition: {x: -0.00006252681, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4018014694696610}
   m_Father: {fileID: 4013377268125804}
@@ -430,7 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4094156543883328}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,6 +464,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4831455789484130}
   m_RootOrder: 0
@@ -460,7 +478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4869651590292830}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,6 +495,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0.049999997}
   m_LocalScale: {x: 0.5, y: 5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4157925468139474}
   m_Father: {fileID: 4607474556101662}
@@ -492,7 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4607474556101662}
   - component: {fileID: 114960050464514552}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DefaultControllerVisualizer_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,6 +528,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4831455789484130}
   - {fileID: 4487561386526946}
@@ -541,6 +561,7 @@ MonoBehaviour:
   destroyOnSourceLost: 1
   useSourcePoseData: 0
   poseAction:
+    profileGuid: 00000000000000000000000000000000
     id: 4
     description: Pointer Pose
     axisConstraint: 7
@@ -553,7 +574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4140881223239102}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,6 +591,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00006252681, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4087125247616986}
   m_Father: {fileID: 4013377268125804}
@@ -584,7 +606,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4087125247616986}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,6 +623,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4140881223239102}
   m_RootOrder: 0
@@ -614,7 +637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4076801075672242}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,6 +654,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4660288217157578}
   m_RootOrder: 0
@@ -644,7 +668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4456423708130434}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,6 +685,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4703719883755212}
   m_RootOrder: 0
@@ -674,7 +699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4130678677717830}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,6 +716,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.049999997, z: 0}
   m_LocalScale: {x: 0.5, y: 5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4745674140739456}
   m_Father: {fileID: 4607474556101662}
@@ -705,7 +731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4020172611768032}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCone4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,6 +748,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000000011920929, y: 0.0000000017881393, z: 0.055}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4459465648329020}
   m_Father: {fileID: 4607474556101662}
@@ -736,7 +763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4680987130549786}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,6 +780,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00006252681, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4109460465459574}
   m_Father: {fileID: 4013377268125804}
@@ -767,7 +795,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829329165331362}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -784,6 +812,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.055, y: 0.0000000011920929, z: -0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4117671574520176}
   m_Father: {fileID: 4607474556101662}
@@ -798,7 +827,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4745674140739456}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -815,6 +844,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4130678677717830}
   m_RootOrder: 0
@@ -828,7 +858,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4408134395720264}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -845,6 +875,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.055, y: -0.0000000011920929, z: -0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4026616148607812}
   m_Father: {fileID: 4607474556101662}
@@ -859,7 +890,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4117671574520176}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,6 +907,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.055, y: -0.0000000011920929, z: 0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4829329165331362}
   m_RootOrder: 0
@@ -889,7 +921,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4026616148607812}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,6 +938,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.055, y: 0.0000000011920929, z: 0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408134395720264}
   m_RootOrder: 0
@@ -919,7 +952,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4268802020502070}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,6 +969,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4660560217398952}
   m_RootOrder: 0
@@ -949,7 +983,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4703719883755212}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,6 +1000,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00006252681, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4456423708130434}
   m_Father: {fileID: 4013377268125804}
@@ -980,7 +1015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4280833947237478}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -997,6 +1032,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0000000011920929, y: -0.055, z: 0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4487561386526946}
   m_RootOrder: 0
@@ -1010,7 +1046,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4018014694696610}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,6 +1063,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4854407580125384}
   m_RootOrder: 0
@@ -1040,7 +1077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4660288217157578}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCone5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,6 +1094,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0.099999994, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4076801075672242}
   m_Father: {fileID: 4607474556101662}
@@ -1071,7 +1109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4064998544505022}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,6 +1126,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0.099999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4451406195980762}
   m_Father: {fileID: 4607474556101662}
@@ -1102,7 +1141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4157925468139474}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1119,6 +1158,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4869651590292830}
   m_RootOrder: 0
@@ -1132,7 +1172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4834548033309622}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1149,6 +1189,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4060342539979694}
   m_RootOrder: 0
@@ -1162,7 +1203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060342539979694}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1179,6 +1220,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.099937476, y: 0.00025995207, z: -0.000121954334}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4834548033309622}
   m_Father: {fileID: 4013377268125804}

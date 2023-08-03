@@ -53,31 +53,31 @@ namespace RealityToolkit.Input.Hands.Visualizers
         {
             base.OnInputDown(eventData);
 
-            //if (eventData.InputSource == Controller.InputSource &&
-            //    eventData.InputAction == selectInputAction)
-            //{
-            //    Transition(selectPose);
-            //}
-            //else if (eventData.InputSource == Controller.InputSource &&
-            //    eventData.InputAction == gripInputAction)
-            //{
-            //    Transition(gripPose);
-            //}
+            if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == selectInputAction)
+            {
+                poseAnimator.Transition(selectPose);
+            }
+            else if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == gripInputAction)
+            {
+                poseAnimator.Transition(gripPose);
+            }
         }
 
         /// <inheritdoc/>
         public override void OnInputUp(InputEventData eventData)
         {
-            //if (eventData.InputSource == Controller.InputSource &&
-            //    eventData.InputAction == selectInputAction)
-            //{
-            //    Transition(idlePose);
-            //}
-            //else if (eventData.InputSource == Controller.InputSource &&
-            //    eventData.InputAction == gripInputAction)
-            //{
-            //    Transition(idlePose);
-            //}
+            if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == selectInputAction)
+            {
+                poseAnimator.Transition(idlePose);
+            }
+            else if (eventData.InputSource == Controller.InputSource &&
+                eventData.InputAction == gripInputAction)
+            {
+                poseAnimator.Transition(idlePose);
+            }
 
             base.OnInputUp(eventData);
         }
@@ -90,32 +90,31 @@ namespace RealityToolkit.Input.Hands.Visualizers
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)
             {
-                if (Mathf.Approximately(0f, eventData.InputData))
-                {
-                    poseAnimator.Transition(idlePose);
-                    return;
-                }
-
-                poseAnimator.Transition(selectPose, eventData.InputData);
+                OnSingleAxisInputChanged(eventData.InputData, selectPose);
             }
             else if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == gripInputAction)
             {
-                if (Mathf.Approximately(0f, eventData.InputData))
-                {
-                    poseAnimator.Transition(idlePose);
-                }
-                else if (eventData.InputData < previousSingleAxisInputValue)
-                {
-                    poseAnimator.Transition(idlePose, 1f - eventData.InputData);
-                }
-                else if (eventData.InputData > previousSingleAxisInputValue)
-                {
-                    poseAnimator.Transition(gripPose, eventData.InputData);
-                }
-
-                previousSingleAxisInputValue = eventData.InputData;
+                OnSingleAxisInputChanged(eventData.InputData, gripPose);
             }
+        }
+
+        private void OnSingleAxisInputChanged(float value, HandPose targetPose)
+        {
+            if (Mathf.Approximately(0f, value))
+            {
+                poseAnimator.Transition(idlePose);
+            }
+            else if (value < previousSingleAxisInputValue)
+            {
+                poseAnimator.Transition(idlePose, 1f - value);
+            }
+            else if (value > previousSingleAxisInputValue)
+            {
+                poseAnimator.Transition(targetPose, value);
+            }
+
+            previousSingleAxisInputValue = value;
         }
     }
 }
