@@ -22,15 +22,6 @@ namespace RealityToolkit.Input.Definitions
         public float GripThreshold => gripThreshold;
 
         [SerializeField]
-        [Tooltip("Defines what kind of data should be aggregated for the hands rendering.")]
-        private HandRenderingMode renderingMode = HandRenderingMode.Joints;
-
-        /// <summary>
-        /// Defines what kind of data should be aggregated for the hands rendering.
-        /// </summary>
-        public HandRenderingMode RenderingMode => renderingMode;
-
-        [SerializeField]
         [Tooltip("If set, hands will be setup with colliders and a rigidbody to work with Unity's physics system.")]
         private bool handPhysicsEnabled = false;
 

@@ -40,7 +40,6 @@ namespace RealityToolkit.Definitions.Controllers.Hands
             IsPointing = false;
             IsGripping = false;
             TrackedPoseId = null;
-            Mesh = new HandMeshData();
             FingerCurlStrengths = new float[] { 0, 0, 0, 0, 0 };
         }
 
@@ -111,10 +110,5 @@ namespace RealityToolkit.Definitions.Controllers.Hands
         /// Pose information for each hand joint, relative to <see cref="RootPose"/>.
         /// </summary>
         public Pose[] Joints { get; set; }
-
-        /// <summary>
-        /// Mesh information of the hand.
-        /// </summary>
-        public HandMeshData Mesh { get; set; }
     }
 }

@@ -8,11 +8,6 @@ namespace RealityToolkit.Input.Interfaces.Modules
     public interface IHandControllerServiceModule : IControllerServiceModule
     {
         /// <summary>
-        /// Gets the current rendering mode for hand controllers.
-        /// </summary>
-        HandRenderingMode RenderingMode { get; set; }
-
-        /// <summary>
         /// Are hand physics enabled?
         /// </summary>
         bool HandPhysicsEnabled { get; set; }

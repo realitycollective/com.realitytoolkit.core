@@ -25,10 +25,6 @@ namespace RealityToolkit.Input.Controllers.Hands
                 throw new ArgumentException($"Unable to get a valid {nameof(InputServiceProfile)}!");
             }
 
-            RenderingMode = profile.RenderingMode != inputServiceProfile.HandControllerSettings.RenderingMode
-                ? profile.RenderingMode
-                : inputServiceProfile.HandControllerSettings.RenderingMode;
-
             HandPhysicsEnabled = profile.HandPhysicsEnabled != inputServiceProfile.HandControllerSettings.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
                 : inputServiceProfile.HandControllerSettings.HandPhysicsEnabled;
@@ -53,9 +49,6 @@ namespace RealityToolkit.Input.Controllers.Hands
                 TrackedPoses = inputServiceProfile.HandControllerSettings.TrackedPoses;
             }
         }
-
-        /// <inheritdoc />
-        public HandRenderingMode RenderingMode { get; set; }
 
         /// <inheritdoc />
         public bool HandPhysicsEnabled { get; set; }
