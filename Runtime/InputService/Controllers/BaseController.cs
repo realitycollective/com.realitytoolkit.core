@@ -10,7 +10,6 @@ using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Interfaces.Modules;
-using RealityToolkit.Services.Input.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

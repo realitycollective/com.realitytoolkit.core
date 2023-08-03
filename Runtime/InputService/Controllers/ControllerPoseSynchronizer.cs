@@ -11,7 +11,7 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Listeners;
 using UnityEngine;
 
-namespace RealityToolkit.Services.Input.Utilities
+namespace RealityToolkit.Input.Controllers
 {
     /// <summary>
     /// Waits for a controller to be initialized, then synchronizes its transform position to a specified handedness.
