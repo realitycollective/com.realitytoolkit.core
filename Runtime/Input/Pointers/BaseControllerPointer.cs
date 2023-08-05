@@ -15,7 +15,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Pointers
+namespace RealityToolkit.Input.Pointers
 {
     /// <summary>
     /// Base Pointer class for pointers that exist in the scene as GameObjects.

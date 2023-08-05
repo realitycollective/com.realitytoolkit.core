@@ -7,7 +7,7 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Listeners;
-using RealityToolkit.Utilities.UX.Pointers;
+using RealityToolkit.Input.Pointers;
 using UnityEngine;
 
 namespace RealityToolkit.Utilities.UX.Cursors
