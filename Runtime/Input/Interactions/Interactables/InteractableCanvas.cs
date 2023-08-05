@@ -6,18 +6,25 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities
+namespace RealityToolkit.Input.Interactions.Interactables
 {
     /// <summary>
-    /// Utility component for setting up <see cref="UnityEngine.Canvas"/>es for use with the
-    /// <see cref="IInputService"/>.
+    /// A <see cref="Canvas"/> that can be interacted with by <see cref="Interactors.IInteractor"/>s.
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Canvas))]
-    public class CanvasUtility : MonoBehaviour
+    public class InteractableCanvas : MonoBehaviour
     {
-        [SerializeField]
-        private Canvas canvas;
+        [SerializeField, Tooltip("The canvas component.")]
+        private Canvas canvas = null;
+
+        private void OnValidate()
+        {
+            if (canvas.IsNull())
+            {
+                canvas = GetComponent<Canvas>();
+            }
+        }
 
         private void OnEnable()
         {
@@ -26,7 +33,7 @@ namespace RealityToolkit.Utilities
                 canvas = GetComponent<Canvas>();
             }
 
-            Debug.Assert(canvas.IsNotNull(), $"The {nameof(CanvasUtility)} requires a {nameof(Canvas)} component on the game object.");
+            Debug.Assert(canvas.IsNotNull(), $"The {nameof(InteractableCanvas)} requires a {nameof(Canvas)} component on the game object.");
 
             if (ServiceManager.IsActiveAndInitialized &&
                 ServiceManager.Instance.TryGetService<IInputService>(out var inputService) &&

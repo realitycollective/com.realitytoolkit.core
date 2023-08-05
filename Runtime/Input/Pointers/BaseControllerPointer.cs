@@ -18,7 +18,7 @@ using UnityEngine;
 namespace RealityToolkit.Input.Pointers
 {
     /// <summary>
-    /// Base Pointer class for pointers that exist in the scene as GameObjects.
+    /// Base Pointer class for pointers that are <see cref="IController"/> driven and exist as <see cref="GameObject"/>s in the scene.
     /// </summary>
     [DisallowMultipleComponent]
     public abstract class BaseControllerPointer : ControllerPoseSynchronizer, IPointer
