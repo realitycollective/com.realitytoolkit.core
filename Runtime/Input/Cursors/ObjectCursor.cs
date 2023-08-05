@@ -5,7 +5,7 @@ using RealityToolkit.Input.Definitions;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Cursors
+namespace RealityToolkit.Input.Cursors
 {
     /// <summary>
     /// The object cursor can switch between different game objects based on its state.

@@ -10,7 +10,7 @@ using RealityToolkit.Input.Listeners;
 using RealityToolkit.Input.Pointers;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Cursors
+namespace RealityToolkit.Input.Cursors
 {
     /// <summary>
     /// Object that represents a cursor in 3D space controlled by gaze.

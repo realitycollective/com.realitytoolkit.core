@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RealityToolkit.Utilities.UX.Cursors
+namespace RealityToolkit.Input.Cursors
 {
     /// <summary>
     /// Object that represents a cursor in 3D space controlled by gaze.

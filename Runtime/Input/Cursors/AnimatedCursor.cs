@@ -6,7 +6,7 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Cursors
+namespace RealityToolkit.Input.Cursors
 {
     /// <summary>
     /// Animated cursor is a cursor driven using an animator to inject state information

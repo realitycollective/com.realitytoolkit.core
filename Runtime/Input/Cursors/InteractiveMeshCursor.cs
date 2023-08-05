@@ -4,7 +4,7 @@
 using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Cursors
+namespace RealityToolkit.Input.Cursors
 {
     /// <summary>
     /// A cursor that looks and acts more like the shell cursor.

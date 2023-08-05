@@ -8,7 +8,7 @@ using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
-namespace RealityToolkit.Utilities.UX.Cursors
+namespace RealityToolkit.Input.Cursors
 {
     /// <summary>
     /// Component that can be added to any <see cref="GameObject"/> with a <see cref="Collider"/> to Modifies either the <see cref="ICursor"/> reacts when focused by a <see cref="IPointer"/>.
