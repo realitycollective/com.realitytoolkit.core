@@ -2,10 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactions;
+using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
@@ -21,7 +24,9 @@ namespace RealityToolkit.Input.Pointers
     /// Base Pointer class for pointers that are <see cref="IController"/> driven and exist as <see cref="GameObject"/>s in the scene.
     /// </summary>
     [DisallowMultipleComponent]
-    public abstract class BaseControllerPointer : ControllerPoseSynchronizer, IPointer
+    public abstract class BaseControllerPointer : ControllerPoseSynchronizer,
+        IPointer,
+        IControllerInteractor
     {
         [SerializeField]
         private GameObject cursorPrefab = null;
@@ -158,6 +163,13 @@ namespace RealityToolkit.Input.Pointers
         }
 
         /// <inheritdoc/>
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            ServiceManager.Instance.GetService<IInteractionServiceModule>().Add(this);
+        }
+
+        /// <inheritdoc/>
         protected override void OnDisable()
         {
             if (IsSelectPressed || IsGrabPressed)
@@ -176,6 +188,8 @@ namespace RealityToolkit.Input.Pointers
             {
                 BaseCursor.IsVisible = false;
             }
+
+            ServiceManager.Instance.GetService<IInteractionServiceModule>().Remove(this);
         }
 
         #endregion MonoBehaviour Implementation
@@ -189,7 +203,7 @@ namespace RealityToolkit.Input.Pointers
             set
             {
                 base.Controller = value;
-                InputSourceParent = base.Controller.InputSource;
+                InputSource = base.Controller.InputSource;
             }
         }
 
@@ -217,7 +231,7 @@ namespace RealityToolkit.Input.Pointers
         }
 
         /// <inheritdoc />
-        public IInputSource InputSourceParent { get; protected set; }
+        public IInputSource InputSource { get; protected set; }
 
         /// <inheritdoc />
         public ICursor BaseCursor { get; set; }
@@ -544,7 +558,7 @@ namespace RealityToolkit.Input.Pointers
         {
             base.OnSourceLost(eventData);
 
-            if (eventData.SourceId == InputSourceParent.SourceId)
+            if (eventData.SourceId == InputSource.SourceId)
             {
                 if (requiresHoldAction)
                 {
@@ -575,7 +589,7 @@ namespace RealityToolkit.Input.Pointers
         {
             base.OnInputUp(eventData);
 
-            if (eventData.SourceId == InputSourceParent.SourceId)
+            if (eventData.SourceId == InputSource.SourceId)
             {
                 if (requiresHoldAction && eventData.InputAction == activeHoldAction)
                 {
@@ -605,7 +619,7 @@ namespace RealityToolkit.Input.Pointers
         {
             base.OnInputDown(eventData);
 
-            if (eventData.SourceId == InputSourceParent.SourceId)
+            if (eventData.SourceId == InputSource.SourceId)
             {
                 if (requiresHoldAction && eventData.InputAction == activeHoldAction)
                 {

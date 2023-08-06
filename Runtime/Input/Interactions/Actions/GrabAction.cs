@@ -3,7 +3,7 @@
 
 namespace RealityToolkit.Input.Interactions.Actions
 {
-    public class GrabAction : Action
+    public class GrabAction : BaseInteractionAction
     {
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)

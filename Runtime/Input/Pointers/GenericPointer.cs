@@ -61,7 +61,7 @@ namespace RealityToolkit.Input.Pointers
         public bool IsOverUI { get; } = false;
 
         /// <inheritdoc />
-        public virtual IInputSource InputSourceParent
+        public virtual IInputSource InputSource
         {
             get => inputSourceParent;
             protected set => inputSourceParent = value;

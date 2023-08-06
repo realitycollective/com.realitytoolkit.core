@@ -181,7 +181,7 @@ namespace RealityToolkit.Input.Modules
             public override IController Controller { get; set; }
 
             /// <inheritdoc />
-            public override IInputSource InputSourceParent { get; protected set; }
+            public override IInputSource InputSource { get; protected set; }
 
             private float pointerExtent;
 
@@ -198,7 +198,7 @@ namespace RealityToolkit.Input.Modules
             /// <param name="gazeInputSource"></param>
             internal void SetGazeInputSourceParent(IInputSource gazeInputSource)
             {
-                InputSourceParent = gazeInputSource;
+                InputSource = gazeInputSource;
             }
 
             /// <inheritdoc />

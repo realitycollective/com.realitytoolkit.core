@@ -9,7 +9,7 @@ namespace RealityToolkit.Input.Interactions.Actions
     /// <summary>
     /// Base implementation for <see cref="IInteractionAction"/>s.
     /// </summary>
-    public abstract class Action : MonoBehaviour, IInteractionAction
+    public abstract class BaseInteractionAction : MonoBehaviour, IInteractionAction
     {
         /// <inheritdoc/>
         public IInteractable Interactable { get; private set; }

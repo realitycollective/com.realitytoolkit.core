@@ -9,7 +9,7 @@ namespace RealityToolkit.Input.Interactions.Actions
     /// This <see cref="IInteractionAction"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>
     /// object depending on its <see cref="InteractionState"/>.
     /// </summary>
-    public class UpdateRigidbodyAction : Action
+    public class UpdateRigidbodyAction : BaseInteractionAction
     {
         private new Rigidbody rigidbody;
         private bool isKinematic;

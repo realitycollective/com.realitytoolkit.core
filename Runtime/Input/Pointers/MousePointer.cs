@@ -72,7 +72,7 @@ namespace RealityToolkit.Input.Pointers
             set
             {
                 controller = value;
-                InputSourceParent = value.InputSource;
+                InputSource = value.InputSource;
                 RaycastOrigin = Camera.main.transform;
                 Handedness = value.ControllerHandedness;
                 gameObject.name = "Spatial Mouse Pointer";

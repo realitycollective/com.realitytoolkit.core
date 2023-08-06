@@ -15,6 +15,8 @@ namespace RealityToolkit.Input.Interactions.Interactables
     /// <summary>
     /// An <see cref="Interactable"/> marks an object that can be interacted with.
     /// </summary>
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Collider))]
     public class Interactable : MonoBehaviour, IInteractable
     {
         [SerializeField]

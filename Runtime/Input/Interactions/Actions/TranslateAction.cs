@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Input.Interactions.Actions
 {
-    public class TranslateAction : Action
+    public class TranslateAction : BaseInteractionAction
     {
         private Vector3? previousInteractorPosition;
         private IControllerInteractor primaryInteractor;

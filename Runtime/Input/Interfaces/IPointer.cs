@@ -39,7 +39,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <summary>
         /// This pointer's input source parent.
         /// </summary>
-        IInputSource InputSourceParent { get; }
+        IInputSource InputSource { get; }
 
         /// <summary>
         /// The pointer's cursor.

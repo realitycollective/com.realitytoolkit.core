@@ -9,7 +9,7 @@ namespace RealityToolkit.Input.Interactions.Actions
     /// This <see cref="IInteractionAction"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>
     /// depending on its <see cref="InteractionState"/>.
     /// </summary>
-    public class ChangeMaterialAction : Action
+    public class ChangeMaterialAction : BaseInteractionAction
     {
         [SerializeField]
         private Material normalMaterial = null;

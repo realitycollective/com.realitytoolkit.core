@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1413344354526434233}
-  - component: {fileID: 8409787998364899054}
+  - component: {fileID: 8645221618910233817}
+  - component: {fileID: 3487613484555030544}
   m_Layer: 0
   m_Name: NearPointer
   m_TagString: Untagged
@@ -32,7 +33,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8409787998364899054
+--- !u!135 &8645221618910233817
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265328619236338900}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3487613484555030544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,3 +66,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284499735dfc20c42b157a0cf9d6a6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handedness: 1
+  destroyOnSourceLost: 1
+  useSourcePoseData: 1
+  poseAction:
+    profileGuid: 00000000000000000000000000000000
+    id: 0
+    description: None
+    axisConstraint: 0
+  cursorPrefab: {fileID: 0}
+  disableCursorOnStart: 0
+  uiLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  setCursorVisibilityOnSourceDetected: 0
+  raycastOrigin: {fileID: 0}
+  activeHoldAction:
+    profileGuid: 00000000000000000000000000000000
+    id: 0
+    description: None
+    axisConstraint: 0
+  pointerAction:
+    profileGuid: 00000000000000000000000000000000
+    id: 0
+    description: None
+    axisConstraint: 0
+  grabAction:
+    profileGuid: 00000000000000000000000000000000
+    id: 0
+    description: None
+    axisConstraint: 0
+  requiresHoldAction: 0
+  enablePointerOnStart: 0
+  overrideGlobalPointerExtent: 0
+  defaultPointerExtent: 0.2
+  pointerOrientation: 0

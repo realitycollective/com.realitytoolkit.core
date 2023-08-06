@@ -7,7 +7,7 @@ namespace RealityToolkit.Input.Interactions.Actions
     /// This <see cref="IInteractionAction"/> will focus lock <see cref="Input.Interfaces.IPointer"/>s on the <see cref="Interactables.IInteractable"/>
     /// object depending on its <see cref="InteractionState"/>.
     /// </summary>
-    public class FocusLockAction : Action
+    public class FocusLockAction : BaseInteractionAction
     {
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)

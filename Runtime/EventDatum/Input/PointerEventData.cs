@@ -28,7 +28,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputSource"></param>
         public void Initialize(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
         {
-            BaseInitialize(inputSource ?? pointer.InputSourceParent, inputAction);
+            BaseInitialize(inputSource ?? pointer.InputSource, inputAction);
             Pointer = pointer;
         }
     }
