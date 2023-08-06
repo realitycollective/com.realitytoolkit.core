@@ -47,6 +47,13 @@ MonoBehaviour:
     platformEntries:
       runtimePlatforms:
       - reference: 91d05795-d44e-4a4d-8055-e770b592137f
+  - instancedType:
+      reference: RealityToolkit.Input.Interactions.InteractionServiceModule, RealityToolkit
+    name: Interaction Service Module
+    priority: 3
+    profile: {fileID: 0}
+    platformEntries:
+      runtimePlatforms: []
   gazeProviderBehaviour: 0
   gazeProviderType:
     reference: bed2c9a4-48c5-49d2-bca4-3d351153ba75

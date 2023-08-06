@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.Input.Interactions.Interactables;
 using RealityToolkit.Input.Interactions.Interactors;
@@ -14,6 +16,8 @@ namespace RealityToolkit.Input.Interactions
     /// <summary>
     /// Default <see cref="IInteractionServiceModule"/> implementation.
     /// </summary>
+    [RuntimePlatform(typeof(AllPlatforms))]
+    [System.Runtime.InteropServices.Guid("a25b0eb5-95f9-45ef-8645-3d19838b01ff")]
     public class InteractionServiceModule : BaseServiceModule, IInteractionServiceModule
     {
         /// <inheritdoc />

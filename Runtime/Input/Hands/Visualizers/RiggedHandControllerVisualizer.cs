@@ -94,7 +94,6 @@ namespace RealityToolkit.Input.Hands.Visualizers
             else if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == gripInputAction)
             {
-                Debug.Log(eventData.InputData);
                 OnSingleAxisInputChanged(eventData.InputData, gripPose);
             }
         }

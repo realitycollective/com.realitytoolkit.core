@@ -1,6 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Input.Interactions.Interactables;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Pointers
@@ -31,7 +32,10 @@ namespace RealityToolkit.Input.Pointers
         /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
         protected virtual void OnTriggerEnter(Collider other)
         {
-
+            if (other.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.OnFocused(this);
+            }
         }
 
         /// <summary>
@@ -49,7 +53,10 @@ namespace RealityToolkit.Input.Pointers
         /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
         protected virtual void OnTriggerExit(Collider other)
         {
-
+            if (other.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.OnUnfocused(this);
+            }
         }
     }
 }
