@@ -5,7 +5,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interactions;
 using RealityToolkit.Input.Interactions.Interactors;
@@ -24,7 +23,7 @@ namespace RealityToolkit.Input.Pointers
     /// Base Pointer class for pointers that are <see cref="IController"/> driven and exist as <see cref="GameObject"/>s in the scene.
     /// </summary>
     [DisallowMultipleComponent]
-    public abstract class BaseControllerPointer : ControllerPoseSynchronizer,
+    public abstract class BaseControllerPointer : BasePointer,
         IPointer,
         IControllerInteractor
     {
