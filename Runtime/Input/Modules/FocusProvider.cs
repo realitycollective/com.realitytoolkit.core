@@ -769,6 +769,22 @@ namespace RealityToolkit.Input.Modules
 
         private void UpdatePointer(PointerData pointer)
         {
+            if (pointer.Pointer.IsFarInteractor)
+            {
+                UpdateFarPointer(pointer);
+                return;
+            }
+
+            UpdateNearPointer(pointer);
+        }
+
+        private void UpdateNearPointer(PointerData pointer)
+        {
+
+        }
+
+        private void UpdateFarPointer(PointerData pointer)
+        {
             // Call the pointer's OnPreRaycast function
             // This will give it a chance to prepare itself for raycasts
             // eg, by building its Rays array
