@@ -32,7 +32,8 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
         protected virtual void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<IInteractable>(out var interactable))
+            if (other.TryGetComponent<IInteractable>(out var interactable) &&
+                interactable.IsValid)
             {
                 interactable.OnFocused(this);
             }

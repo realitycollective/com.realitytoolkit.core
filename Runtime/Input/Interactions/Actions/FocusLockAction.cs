@@ -12,8 +12,7 @@ namespace RealityToolkit.Input.Interactions.Actions
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
-            if (!Interactable.IsValid ||
-                Interactable.PrimaryInteractor == null)
+            if (Interactable.PrimaryInteractor == null)
             {
                 return;
             }

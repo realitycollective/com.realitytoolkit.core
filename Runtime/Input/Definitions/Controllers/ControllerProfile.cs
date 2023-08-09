@@ -5,6 +5,7 @@ using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Input.Controllers;
+using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
@@ -64,6 +65,18 @@ namespace RealityToolkit.Definitions.Controllers
         {
             get => interactionMappingProfiles;
             set => interactionMappingProfiles = value;
+        }
+
+        [SerializeField, Tooltip("Interactors created for this controller.")]
+        private BaseControllerInteractor[] controllerInteractors = null;
+
+        /// <summary>
+        /// The <see cref="IControllerInteractor"/>s that will be created for this <see cref="IController"/>.
+        /// </summary>
+        public BaseControllerInteractor[] ControllerInteractors
+        {
+            get => controllerInteractors;
+            internal set => controllerInteractors = value;
         }
 
         #region Fields hidden in non-debug inspector

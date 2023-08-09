@@ -3,7 +3,6 @@
 
 using RealityCollective.ServiceFramework.Definitions;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
@@ -17,18 +16,6 @@ namespace RealityToolkit.Definitions.Controllers
         {
             get => interactionMapping;
             internal set => interactionMapping = value;
-        }
-
-        [SerializeField]
-        private PointerProfile[] pointerProfiles = null;
-
-        /// <summary>
-        /// The pointer profiles for this interaction if the interaction is 3 or 6 Dof
-        /// </summary>
-        public PointerProfile[] PointerProfiles
-        {
-            get => pointerProfiles;
-            internal set => pointerProfiles = value;
         }
     }
 }

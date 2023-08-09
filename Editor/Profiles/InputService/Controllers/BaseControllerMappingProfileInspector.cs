@@ -4,6 +4,7 @@
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
+using RealityToolkit.Input.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -18,13 +19,16 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
         private SerializedProperty controllerType;
         private SerializedProperty handedness;
         private SerializedProperty controllerPrefab;
+        private SerializedProperty controllerInteractors;
         private SerializedProperty useCustomInteractions;
         private SerializedProperty interactionMappingProfiles;
 
         private ControllerProfile controllerMappingProfile;
 
         private ReorderableList interactionsList;
+        private ReorderableList interactorsList;
         private int currentlySelectedElement;
+        private int selectedInteractorIndex;
 
         protected override void OnEnable()
         {
@@ -33,6 +37,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             controllerType = serializedObject.FindProperty(nameof(controllerType));
             handedness = serializedObject.FindProperty(nameof(handedness));
             controllerPrefab = serializedObject.FindProperty(nameof(controllerPrefab));
+            controllerInteractors = serializedObject.FindProperty(nameof(controllerInteractors));
             useCustomInteractions = serializedObject.FindProperty(nameof(useCustomInteractions));
             interactionMappingProfiles = serializedObject.FindProperty(nameof(interactionMappingProfiles));
 
@@ -47,6 +52,14 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             interactionsList.drawElementCallback += DrawConfigurationOptionElement;
             interactionsList.onAddCallback += OnConfigurationOptionAdded;
             interactionsList.onRemoveCallback += OnConfigurationOptionRemoved;
+
+            interactorsList = new ReorderableList(serializedObject, controllerInteractors, true, false, true, true)
+            {
+                elementHeight = EditorGUIUtility.singleLineHeight * 1.5f
+            };
+            interactorsList.drawElementCallback += DrawInteractorConfigurationOptionElement;
+            interactorsList.onAddCallback += OnInteractorConfigurationOptionAdded;
+            interactorsList.onRemoveCallback += OnInteractorConfigurationOptionRemoved;
         }
 
         public override void OnInspectorGUI()
@@ -67,6 +80,10 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
 
             EditorGUILayout.Space();
             interactionsList.DoLayoutList();
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Interactors", EditorStyles.boldLabel);
+            interactorsList.DoLayoutList();
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -104,6 +121,37 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawInteractorConfigurationOptionElement(Rect rect, int index, bool isActive, bool isFocused)
+        {
+            if (isFocused)
+            {
+                selectedInteractorIndex = index;
+            }
+
+            rect.height = EditorGUIUtility.singleLineHeight;
+            rect.y += 3;
+            var mappingProfileProperty = controllerInteractors.GetArrayElementAtIndex(index);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(PointerProfile);
+            EditorGUI.PropertyField(rect, mappingProfileProperty, GUIContent.none);
+        }
+
+        private void OnInteractorConfigurationOptionAdded(ReorderableList list)
+        {
+            controllerInteractors.arraySize += 1;
+            var index = controllerInteractors.arraySize - 1;
+
+            var mappingProfileProperty = controllerInteractors.GetArrayElementAtIndex(index);
+            mappingProfileProperty.objectReferenceValue = null;
+        }
+
+        private void OnInteractorConfigurationOptionRemoved(ReorderableList list)
+        {
+            if (selectedInteractorIndex >= 0)
+            {
+                controllerInteractors.DeleteArrayElementAtIndex(selectedInteractorIndex);
+            }
         }
     }
 }

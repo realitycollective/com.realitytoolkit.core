@@ -38,10 +38,16 @@ namespace RealityToolkit.Input.Interactions.Interactables
         private UnityEvent<InteractionState> stateChanged = null;
 
         private InteractionState currentState;
-        private IInputService inputService;
         private readonly Dictionary<uint, IInteractor> focusingInteractors = new Dictionary<uint, IInteractor>();
         private readonly Dictionary<uint, IInteractor> selectingInteractors = new Dictionary<uint, IInteractor>();
         private readonly List<IInteractionAction> actions = new List<IInteractionAction>();
+
+        private IInputService inputService = null;
+        /// <summary>
+        /// The active <see cref="IInputService"/>.
+        /// </summary>
+        protected IInputService InputService
+            => inputService ?? (inputService = ServiceManager.Instance.GetService<IInputService>());
 
         /// <inheritdoc/>
         public string Label
@@ -54,10 +60,10 @@ namespace RealityToolkit.Input.Interactions.Interactables
         public bool IsValid => isActiveAndEnabled && (NearInteractionEnabled || FarInteractionEnabled);
 
         /// <inheritdoc/>
-        public bool NearInteractionEnabled => inputService.NearInteractionEnabled && nearInteraction;
+        public bool NearInteractionEnabled => InputService.NearInteractionEnabled && nearInteraction;
 
         /// <inheritdoc/>
-        public bool FarInteractionEnabled => inputService.FarInteractionEnabled && farInteraction;
+        public bool FarInteractionEnabled => InputService.FarInteractionEnabled && farInteraction;
 
         /// <inheritdoc/>
         public InteractionState State
@@ -82,17 +88,7 @@ namespace RealityToolkit.Input.Interactions.Interactables
         /// </summary>
         private async void Awake()
         {
-            try
-            {
-                await ServiceManager.WaitUntilInitializedAsync();
-                inputService = await ServiceManager.Instance.GetServiceAsync<IInputService>();
-            }
-            catch (System.Exception)
-            {
-                Debug.LogError($"{nameof(Interactable)} requires the {nameof(IInputService)} to work.");
-                this.Destroy();
-                return;
-            }
+            await ServiceManager.WaitUntilInitializedAsync();
 
             if (this.IsNull())
             {
@@ -100,7 +96,7 @@ namespace RealityToolkit.Input.Interactions.Interactables
                 return;
             }
 
-            inputService.Add(this);
+            InputService.Add(this);
         }
 
         /// <summary>
@@ -116,12 +112,12 @@ namespace RealityToolkit.Input.Interactions.Interactables
         /// </summary>
         private void OnDestroy()
         {
-            if (inputService == null)
+            if (InputService == null)
             {
                 return;
             }
 
-            inputService.Remove(this);
+            InputService.Remove(this);
         }
 
         /// <summary>

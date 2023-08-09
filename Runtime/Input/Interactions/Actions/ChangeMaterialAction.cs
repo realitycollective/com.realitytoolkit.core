@@ -26,11 +26,6 @@ namespace RealityToolkit.Input.Interactions.Actions
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
-            if (!Interactable.IsValid)
-            {
-                return;
-            }
-
             switch (state)
             {
                 case InteractionState.Normal:

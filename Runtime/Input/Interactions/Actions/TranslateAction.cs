@@ -25,8 +25,7 @@ namespace RealityToolkit.Input.Interactions.Actions
         public override void OnStateChanged(InteractionState state)
         {
             // This action only supports controller interactors.
-            if (!Interactable.IsValid ||
-                Interactable.PrimaryInteractor == null ||
+            if (Interactable.PrimaryInteractor == null ||
                 Interactable.PrimaryInteractor is not IControllerInteractor primaryInteractor)
             {
                 return;

@@ -34,8 +34,8 @@ namespace RealityToolkit.Input.Controllers
         /// <param name="controllerDataProvider">The <see cref="IControllerServiceModule"/> this controller belongs to.</param>
         /// <param name="trackingState">The initial tracking state of this controller.</param>
         /// <param name="controllerHandedness">The controller's handedness.</param>
-        /// <param name="controllerMappingProfile"></param>
-        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
+        /// <param name="controllerProfile">The <see cref="ControllerProfile"/> used to configure the <see cref="IController"/>.</param>
+        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerProfile)
         {
             ServiceModule = controllerDataProvider;
             TrackingState = trackingState;
@@ -51,34 +51,26 @@ namespace RealityToolkit.Input.Controllers
 
             Name = $"{handednessPrefix}{GetType().Name}";
 
-            if (controllerMappingProfile.IsNull())
+            if (controllerProfile.IsNull())
             {
-                throw new Exception($"{nameof(controllerMappingProfile)} cannot be null for {Name}");
+                throw new Exception($"{nameof(controllerProfile)} cannot be null for {Name}");
             }
 
-            controllerPrefab = controllerMappingProfile.ControllerPrefab;
-            var pointers = AssignControllerMappings(controllerMappingProfile.InteractionMappingProfiles);
+            controllerPrefab = controllerProfile.ControllerPrefab;
+            controllerInteractors = controllerProfile.ControllerInteractors;
+
+            AssignControllerMappings(controllerProfile.InteractionMappingProfiles);
 
             // If no controller mappings found, warn the user.  Does not stop the project from running.
             if (Interactions == null || Interactions.Length < 1)
             {
-                throw new Exception($"No Controller interaction mappings found for {controllerMappingProfile.name}!");
+                throw new Exception($"No Controller interaction mappings found for {controllerProfile.name}!");
             }
 
             if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
                 Debug.Assert(ReferenceEquals(inputService, controllerDataProvider.ParentService));
                 InputService = inputService;
-                InputSource = InputService.RequestNewGenericInputSource(Name, pointers);
-
-                for (int i = 0; i < InputSource?.Pointers?.Length; i++)
-                {
-                    var interactor = InputSource.Pointers[i];
-                    if (interactor is IControllerInteractor controllerInteractor)
-                    {
-                        controllerInteractor.Controller = this;
-                    }
-                }
             }
 
             IsPositionAvailable = false;
@@ -90,6 +82,7 @@ namespace RealityToolkit.Input.Controllers
 
         private Vector3 previousPosition;
         private readonly ControllerPoseSynchronizer controllerPrefab;
+        private readonly IReadOnlyList<BaseControllerInteractor> controllerInteractors;
 
         /// <summary>
         /// The <see cref="IInputService"/> the <see cref="IController"/>'s <see cref="ServiceModule"/> is registered with.
@@ -186,38 +179,17 @@ namespace RealityToolkit.Input.Controllers
         /// </summary>
         protected void AssignControllerMappings(InteractionMapping[] mappings) => Interactions = mappings;
 
-        private IInteractor[] AssignControllerMappings(InteractionMappingProfile[] interactionMappingProfiles)
+        private void AssignControllerMappings(InteractionMappingProfile[] interactionMappingProfiles)
         {
-            var pointers = new List<IInteractor>();
             var interactions = new InteractionMapping[interactionMappingProfiles.Length];
 
             for (int i = 0; i < interactions.Length; i++)
             {
                 var interactionProfile = interactionMappingProfiles[i];
-
-                for (int j = 0; j < interactionProfile.PointerProfiles.Length; j++)
-                {
-                    var pointerProfile = interactionProfile.PointerProfiles[j];
-                    var rigTransform = Camera.main.transform.parent;
-                    var pointerObject = Object.Instantiate(pointerProfile.PointerPrefab, rigTransform);
-                    var pointer = pointerObject.GetComponent<IInteractor>();
-
-                    if (pointer != null)
-                    {
-                        pointers.Add(pointer);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Failed to attach {pointerProfile.PointerPrefab.name} to {GetType().Name} {ControllerHandedness}.");
-                    }
-                }
-
                 interactions[i] = interactionProfile.InteractionMapping;
             }
 
             AssignControllerMappings(interactions);
-
-            return pointers.Count > 0 ? pointers.ToArray() : null;
         }
 
         /// <inheritdoc />
@@ -239,6 +211,37 @@ namespace RealityToolkit.Input.Controllers
             if (Visualizer != null)
             {
                 Visualizer.Controller = this;
+
+                var interactors = new List<IInteractor>();
+                for (int j = 0; j < controllerInteractors.Count; j++)
+                {
+                    var interactorPrefab = controllerInteractors[j];
+                    var pointerObject = Object.Instantiate(interactorPrefab, rigTransform);
+                    var pointer = pointerObject.GetComponent<IControllerInteractor>();
+
+                    if (pointer != null)
+                    {
+                        interactors.Add(pointer);
+                    }
+                    else
+                    {
+                        Debug.LogError($"{interactorPrefab.name} prefab must have a {nameof(IControllerInteractor)} component attached.");
+                    }
+
+                    if (interactors.Count > 0)
+                    {
+                        InputSource = InputService.RequestNewGenericInputSource(Name, interactors.ToArray());
+
+                        for (int i = 0; i < InputSource?.Pointers?.Length; i++)
+                        {
+                            var interactor = InputSource.Pointers[i];
+                            if (interactor is IControllerInteractor controllerInteractor)
+                            {
+                                controllerInteractor.Controller = this;
+                            }
+                        }
+                    }
+                }
             }
             else
             {
