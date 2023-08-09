@@ -13,6 +13,6 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// <summary>
         /// The <see cref="IController"/> driving the <see cref="IInteractor"/>.
         /// </summary>
-        IController Controller { get; }
+        IController Controller { get; set; }
     }
 }

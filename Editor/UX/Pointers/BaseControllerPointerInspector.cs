@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.UX.Pointers
 {
-    [CustomEditor(typeof(BaseControllerPointer), true, isFallback = true)]
+    [CustomEditor(typeof(BaseControllerInteractor), true, isFallback = true)]
     public class BaseControllerPointerInspector : UnityEditor.Editor
     {
         private readonly GUIContent basePointerFoldoutHeader = new GUIContent("Base Pointer Settings");

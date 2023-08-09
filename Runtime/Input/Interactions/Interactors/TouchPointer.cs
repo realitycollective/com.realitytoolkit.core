@@ -11,7 +11,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
     /// <summary>
     /// Touch Pointer Implementation.
     /// </summary>
-    public class TouchPointer : BaseControllerPointer, ITouchPointer
+    public class TouchPointer : BaseControllerInteractor, ITouchPointer
     {
         private bool isInteractionEnabled = false;
 

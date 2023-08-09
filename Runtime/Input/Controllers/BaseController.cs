@@ -73,7 +73,11 @@ namespace RealityToolkit.Input.Controllers
 
                 for (int i = 0; i < InputSource?.Pointers?.Length; i++)
                 {
-                    InputSource.Pointers[i].Controller = this;
+                    var interactor = InputSource.Pointers[i];
+                    if (interactor is IControllerInteractor controllerInteractor)
+                    {
+                        controllerInteractor.Controller = this;
+                    }
                 }
             }
 

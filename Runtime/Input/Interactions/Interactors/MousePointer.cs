@@ -12,7 +12,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
     /// <summary>
     /// Default Mouse Pointer Implementation.
     /// </summary>
-    public class MousePointer : BaseControllerPointer, IMousePointer
+    public class MousePointer : BaseControllerInteractor, IMousePointer
     {
         private float lastUpdateTime = 0.0f;
 

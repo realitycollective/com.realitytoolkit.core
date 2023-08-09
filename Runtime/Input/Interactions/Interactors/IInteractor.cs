@@ -4,7 +4,6 @@
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
 using System.Collections;
@@ -31,11 +30,6 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// Is the pointer currently over an UI object?
         /// </summary>
         bool IsOverUI { get; }
-
-        /// <summary>
-        /// The pointer's current controller reference.
-        /// </summary>
-        IController Controller { get; set; }
 
         /// <summary>
         /// This pointer's input source parent.
