@@ -22,7 +22,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
     /// </summary>
     [DisallowMultipleComponent]
     public abstract class BaseControllerPointer : BasePointer,
-        IPointer,
+        IInteractor,
         IControllerInteractor
     {
         [SerializeField]
@@ -113,7 +113,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
         public virtual Vector3 PointerDirection => raycastOrigin != null ? raycastOrigin.forward : transform.forward;
 
         /// <summary>
-        /// Set a new cursor for this <see cref="IPointer"/>
+        /// Set a new cursor for this <see cref="IInteractor"/>
         /// </summary>
         /// <remarks>This <see cref="GameObject"/> must have a <see cref="ICursor"/> attached to it.</remarks>
         /// <param name="newCursor">The new cursor</param>
@@ -518,10 +518,10 @@ namespace RealityToolkit.Input.Interactions.Interactors
             if (obj is null) { return false; }
             if (this == null) { return false; }
             if (ReferenceEquals(this, obj)) { return true; }
-            return obj.GetType() == GetType() && Equals((IPointer)obj);
+            return obj.GetType() == GetType() && Equals((IInteractor)obj);
         }
 
-        private bool Equals(IPointer other)
+        private bool Equals(IInteractor other)
         {
             return other != null && PointerId == other.PointerId && string.Equals(PointerName, other.PointerName);
         }

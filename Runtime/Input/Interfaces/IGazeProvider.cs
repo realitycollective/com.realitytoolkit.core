@@ -24,7 +24,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <summary>
         /// The Gaze Pointer for the provider.
         /// </summary>
-        IPointer GazePointer { get; }
+        IInteractor GazePointer { get; }
 
         /// <summary>
         /// The Gaze Cursor for the provider.

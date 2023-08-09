@@ -9,7 +9,7 @@ namespace RealityToolkit.Input.Interfaces
     /// <summary>
     /// Interface for handling touch pointers.
     /// </summary>
-    public interface ITouchPointer : IPointer
+    public interface ITouchPointer : IInteractor
     {
         /// <summary>
         /// Current finger id of the touch.

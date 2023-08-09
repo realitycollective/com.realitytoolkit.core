@@ -124,7 +124,7 @@ namespace RealityToolkit.Input.Cursors
         #region ICursor Implementation
 
         /// <inheritdoc />
-        public virtual IPointer Pointer
+        public virtual IInteractor Pointer
         {
             get => pointer;
             set
@@ -135,7 +135,7 @@ namespace RealityToolkit.Input.Cursors
             }
         }
 
-        private IPointer pointer;
+        private IInteractor pointer;
 
         /// <inheritdoc />
         public virtual Vector3 Position => transform.position;

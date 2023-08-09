@@ -627,7 +627,7 @@ namespace RealityToolkit.Input
         }
 
         /// <inheritdoc />
-        public IInputSource RequestNewGenericInputSource(string name, IPointer[] pointers = null) => new BaseGenericInputSource(name, pointers);
+        public IInputSource RequestNewGenericInputSource(string name, IInteractor[] pointers = null) => new BaseGenericInputSource(name, pointers);
 
         #region Input Source State Events
 
@@ -738,7 +738,7 @@ namespace RealityToolkit.Input
         #region Focus Events
 
         /// <inheritdoc />
-        public void RaisePreFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
+        public void RaisePreFocusChanged(IInteractor pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
         {
             focusEventData.Initialize(pointer, oldFocusedObject, newFocusedObject);
 
@@ -770,7 +770,7 @@ namespace RealityToolkit.Input
         }
 
         /// <inheritdoc />
-        public void RaiseFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
+        public void RaiseFocusChanged(IInteractor pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
         {
             focusEventData.Initialize(pointer, oldFocusedObject, newFocusedObject);
 
@@ -802,7 +802,7 @@ namespace RealityToolkit.Input
         }
 
         /// <inheritdoc />
-        public void RaiseFocusEnter(IPointer pointer, GameObject focusedObject)
+        public void RaiseFocusEnter(IInteractor pointer, GameObject focusedObject)
         {
             focusEventData.Initialize(pointer);
 
@@ -816,7 +816,7 @@ namespace RealityToolkit.Input
         }
 
         /// <inheritdoc />
-        public void RaiseFocusExit(IPointer pointer, GameObject unfocusedObject)
+        public void RaiseFocusExit(IInteractor pointer, GameObject unfocusedObject)
         {
             focusEventData.Initialize(pointer);
 
@@ -836,7 +836,7 @@ namespace RealityToolkit.Input
         #region Pointer Down
 
         /// <inheritdoc />
-        public void RaisePointerDown(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
+        public void RaisePointerDown(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             // Create input event
             pointerEventData.Initialize(pointer, inputAction, inputSource);
@@ -859,7 +859,7 @@ namespace RealityToolkit.Input
         #region Pointer Click
 
         /// <inheritdoc />
-        public void RaisePointerClicked(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
+        public void RaisePointerClicked(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             // Create input event
             pointerEventData.Initialize(pointer, inputAction, inputSource);
@@ -875,7 +875,7 @@ namespace RealityToolkit.Input
         #region Pointer Up
 
         /// <inheritdoc />
-        public void RaisePointerUp(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
+        public void RaisePointerUp(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             // Create input event
             pointerEventData.Initialize(pointer, inputAction);
@@ -898,7 +898,7 @@ namespace RealityToolkit.Input
         #endregion Pointer Up
 
         /// <inheritdoc />
-        public void RaisePointerScroll(IPointer pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null)
+        public void RaisePointerScroll(IInteractor pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null)
         {
             pointerScrollEventData.Initialize(pointer, scrollAction, scrollDelta);
 
@@ -917,7 +917,7 @@ namespace RealityToolkit.Input
         #region Pointer Dragging
 
         /// <inheritdoc />
-        public void RaisePointerDragBegin(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
+        public void RaisePointerDragBegin(IInteractor pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
@@ -936,7 +936,7 @@ namespace RealityToolkit.Input
         }
 
         /// <inheritdoc />
-        public void RaisePointerDrag(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
+        public void RaisePointerDrag(IInteractor pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 
@@ -952,7 +952,7 @@ namespace RealityToolkit.Input
         }
 
         /// <inheritdoc />
-        public void RaisePointerDragEnd(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
+        public void RaisePointerDragEnd(IInteractor pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             pointerDragEventData.Initialize(pointer, draggedAction, dragDelta);
 

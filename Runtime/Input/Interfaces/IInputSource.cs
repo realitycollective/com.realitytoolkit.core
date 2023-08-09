@@ -15,6 +15,6 @@ namespace RealityToolkit.Input.Interfaces
         /// <summary>
         /// Array of pointers associated with this input source.
         /// </summary>
-        IPointer[] Pointers { get; }
+        IInteractor[] Pointers { get; }
     }
 }

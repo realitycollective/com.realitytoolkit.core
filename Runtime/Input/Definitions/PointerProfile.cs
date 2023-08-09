@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.Definitions
     public class PointerProfile : BaseProfile
     {
         [SerializeField]
-        [Prefab(typeof(IPointer))]
+        [Prefab(typeof(IInteractor))]
         private GameObject pointerPrefab = null;
 
         public GameObject PointerPrefab => pointerPrefab;

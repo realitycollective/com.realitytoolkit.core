@@ -163,7 +163,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="name"></param>
         /// <param name="pointers"></param>
         /// <returns></returns>
-        IInputSource RequestNewGenericInputSource(string name, IPointer[] pointers = null);
+        IInputSource RequestNewGenericInputSource(string name, IInteractor[] pointers = null);
 
         /// <summary>
         /// Raise the event that the Input Source was detected.
@@ -230,7 +230,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="pointer">The pointer that the focus change event is raised on.</param>
         /// <param name="oldFocusedObject">The old focused object.</param>
         /// <param name="newFocusedObject">The new focused object.</param>
-        void RaisePreFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
+        void RaisePreFocusChanged(IInteractor pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
 
         /// <summary>
         /// Raise the focus changed event.
@@ -238,21 +238,21 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="pointer">The pointer that the focus change event is raised on.</param>
         /// <param name="oldFocusedObject">The old focused object.</param>
         /// <param name="newFocusedObject">The new focused object.</param>
-        void RaiseFocusChanged(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
+        void RaiseFocusChanged(IInteractor pointer, GameObject oldFocusedObject, GameObject newFocusedObject);
 
         /// <summary>
         /// Raise the focus enter event.
         /// </summary>
         /// <param name="pointer">The pointer that has focus.</param>
         /// <param name="focusedObject">The <see cref="GameObject"/> that the pointer has entered focus on.</param>
-        void RaiseFocusEnter(IPointer pointer, GameObject focusedObject);
+        void RaiseFocusEnter(IInteractor pointer, GameObject focusedObject);
 
         /// <summary>
         /// Raise the focus exit event.
         /// </summary>
         /// <param name="pointer">The pointer that has lost focus.</param>
         /// <param name="unfocusedObject">The <see cref="GameObject"/> that the pointer has exited focus on.</param>
-        void RaiseFocusExit(IPointer pointer, GameObject unfocusedObject);
+        void RaiseFocusExit(IInteractor pointer, GameObject unfocusedObject);
 
         #endregion Focus Events
 
@@ -266,7 +266,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="pointer">The pointer where the event originates.</param>
         /// <param name="inputAction">The action associated with this event.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDown(IPointer pointer, InputAction inputAction, IInputSource inputSource = null);
+        void RaisePointerDown(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null);
 
         #endregion Pointer Down
 
@@ -278,7 +278,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="pointer">The pointer where the event originates.</param>
         /// <param name="inputAction">The action associated with this event.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerClicked(IPointer pointer, InputAction inputAction, IInputSource inputSource = null);
+        void RaisePointerClicked(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null);
 
         #endregion Pointer Click
 
@@ -290,7 +290,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="pointer">The pointer where the event originates.</param>
         /// <param name="inputAction">The action associated with this event.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerUp(IPointer pointer, InputAction inputAction, IInputSource inputSource = null);
+        void RaisePointerUp(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null);
 
         #endregion Pointer Up
 
@@ -301,7 +301,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="scrollAction">The action associated with this event.</param>
         /// <param name="scrollDelta">The distance this pointer has scrolled since the scroll event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerScroll(IPointer pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null);
+        void RaisePointerScroll(IInteractor pointer, InputAction scrollAction, Vector2 scrollDelta, IInputSource inputSource = null);
 
         #region Pointer Dragging
 
@@ -312,7 +312,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="draggedAction">The action associated with this event.</param>
         /// <param name="dragDelta">The distance this pointer has been moved since the last time the dragged event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDragBegin(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
+        void RaisePointerDragBegin(IInteractor pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
 
         /// <summary>
         /// Raise the pointer drag event.
@@ -321,7 +321,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="draggedAction">The action associated with this event.</param>
         /// <param name="dragDelta">The distance this pointer has been moved since the last time the dragged event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDrag(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
+        void RaisePointerDrag(IInteractor pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
 
         /// <summary>
         /// Raise the pointer drag end event.
@@ -330,7 +330,7 @@ namespace RealityToolkit.Input.Interfaces
         /// <param name="draggedAction">The action associated with this event.</param>
         /// <param name="dragDelta">The distance this pointer has been moved since the last time the dragged event was last raised.</param>
         /// <param name="inputSource">The input source this event is associated to, if null, the pointer's parent input source is used.</param>
-        void RaisePointerDragEnd(IPointer pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
+        void RaisePointerDragEnd(IInteractor pointer, InputAction draggedAction, Vector3 dragDelta, IInputSource inputSource = null);
 
         #endregion Pointer Dragging
 

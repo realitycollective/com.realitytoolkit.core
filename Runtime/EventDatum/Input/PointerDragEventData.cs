@@ -29,7 +29,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputAction"></param>
         /// <param name="dragDelta"></param>
         /// <param name="inputSource"></param>
-        public void Initialize(IPointer pointer, InputAction inputAction, Vector3 dragDelta, IInputSource inputSource = null)
+        public void Initialize(IInteractor pointer, InputAction inputAction, Vector3 dragDelta, IInputSource inputSource = null)
         {
             Initialize(pointer, inputAction, inputSource);
             DragDelta = dragDelta;

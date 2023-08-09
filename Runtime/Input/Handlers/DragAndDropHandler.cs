@@ -68,7 +68,7 @@ namespace RealityToolkit.Input.Handlers
         private Rigidbody hostRigidbody;
         private bool hostRigidbodyWasKinematic;
 
-        private IPointer currentPointer;
+        private IInteractor currentPointer;
         private IInputSource currentInputSource;
 
         #region MonoBehaviour Implementation

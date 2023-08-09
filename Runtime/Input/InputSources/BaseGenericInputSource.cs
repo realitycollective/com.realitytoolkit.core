@@ -21,7 +21,7 @@ namespace RealityToolkit.Input.InputSources
         /// </summary>
         /// <param name="name"></param>
         /// <param name="pointers"></param>
-        public BaseGenericInputSource(string name, IPointer[] pointers = null)
+        public BaseGenericInputSource(string name, IInteractor[] pointers = null)
         {
             if (ServiceManager.Instance.TryGetService<IInputService>(out var inputService))
             {
@@ -47,7 +47,7 @@ namespace RealityToolkit.Input.InputSources
         public string SourceName { get; }
 
         /// <inheritdoc />
-        public virtual IPointer[] Pointers { get; }
+        public virtual IInteractor[] Pointers { get; }
 
         #region IEquality Implementation
 

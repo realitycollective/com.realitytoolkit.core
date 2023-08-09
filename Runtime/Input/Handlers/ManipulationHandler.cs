@@ -516,7 +516,7 @@ namespace RealityToolkit.Input.Handlers
         /// <summary>
         /// The captured primary pointer for the current active hold.
         /// </summary>
-        public IPointer PrimaryPointer { get; private set; }
+        public IInteractor PrimaryPointer { get; private set; }
 
         /// <summary>
         /// The <see cref="BoundingBox"/> associated to this <see cref="GameObject"/>.
@@ -969,7 +969,7 @@ namespace RealityToolkit.Input.Handlers
             return prevExtent + nudgeAmount * (nudgeFactor < 0f ? -1 : 1);
         }
 
-        private static float GetCurrentExtent(IPointer pointer)
+        private static float GetCurrentExtent(IInteractor pointer)
         {
             var extent = pointer.PointerExtent;
             var currentRaycastDistance = pointer.Result.RayDistance;

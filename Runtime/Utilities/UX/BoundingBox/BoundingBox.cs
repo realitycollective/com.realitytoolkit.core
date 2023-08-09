@@ -525,7 +525,7 @@ namespace RealityToolkit.Utilities.UX
 
         private bool isManipulationEnabled;
 
-        private IPointer currentPointer;
+        private IInteractor currentPointer;
         private IInputSource currentInputSource;
 
         private IInputService inputService = null;

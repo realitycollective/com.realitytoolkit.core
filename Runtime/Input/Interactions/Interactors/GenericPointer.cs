@@ -16,7 +16,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
     /// <summary>
     /// Base Class for pointers that don't inherit from MonoBehaviour.
     /// </summary>
-    public class GenericPointer : IPointer
+    public class GenericPointer : IInteractor
     {
         /// <summary>
         /// Constructor.
@@ -250,10 +250,10 @@ namespace RealityToolkit.Input.Interactions.Interactors
         {
             if (obj is null) { return false; }
             if (ReferenceEquals(this, obj)) { return true; }
-            return obj.GetType() == GetType() && Equals((IPointer)obj);
+            return obj.GetType() == GetType() && Equals((IInteractor)obj);
         }
 
-        private bool Equals(IPointer other)
+        private bool Equals(IInteractor other)
         {
             return other != null && PointerId == other.PointerId && string.Equals(PointerName, other.PointerName);
         }

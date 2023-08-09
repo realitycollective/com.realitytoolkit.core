@@ -99,7 +99,7 @@ namespace RealityToolkit.Input.Modules
         private BaseGenericInputSource gazeInputSource;
 
         /// <inheritdoc />
-        public IPointer GazePointer => gazePointer ?? InitializeGazePointer();
+        public IInteractor GazePointer => gazePointer ?? InitializeGazePointer();
         private InternalGazePointer gazePointer = null;
 
         /// <inheritdoc />
@@ -432,7 +432,7 @@ namespace RealityToolkit.Input.Modules
 
         #region Utilities
 
-        private IPointer InitializeGazePointer()
+        private IInteractor InitializeGazePointer()
         {
             if (InputService == null) { return null; }
 

@@ -44,16 +44,16 @@ namespace RealityToolkit.Input.Handlers
             => focusProvider ?? (focusProvider = InputService?.FocusProvider);
 
         /// <summary>
-        /// Does this object currently have focus by any <see cref="IPointer"/>?
+        /// Does this object currently have focus by any <see cref="IInteractor"/>?
         /// </summary>
         public virtual bool HasFocus => FocusEnabled && ActivePointers.Count > 0;
 
         /// <summary>
-        /// The list of <see cref="IPointer"/>s that are currently focused on this <see cref="GameObject"/>
+        /// The list of <see cref="IInteractor"/>s that are currently focused on this <see cref="GameObject"/>
         /// </summary>
-        public IReadOnlyList<IPointer> ActivePointers => activePointers;
+        public IReadOnlyList<IInteractor> ActivePointers => activePointers;
 
-        private readonly List<IPointer> activePointers = new List<IPointer>(0);
+        private readonly List<IInteractor> activePointers = new List<IInteractor>(0);
 
         /// <inheritdoc />
         public virtual void OnFocusEnter(FocusEventData eventData) { }

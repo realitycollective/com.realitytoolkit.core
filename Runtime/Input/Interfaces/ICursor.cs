@@ -13,9 +13,9 @@ namespace RealityToolkit.Input.Interfaces
     public interface ICursor : IFocusChangedHandler, ISourceStateHandler, IPointerHandler
     {
         /// <summary>
-        /// The <see cref="IPointer"/> this <see cref="ICursor"/> is associated with.
+        /// The <see cref="IInteractor"/> this <see cref="ICursor"/> is associated with.
         /// </summary>
-        IPointer Pointer { get; set; }
+        IInteractor Pointer { get; set; }
 
         /// <summary>
         /// Surface distance to place the cursor off of the surface at

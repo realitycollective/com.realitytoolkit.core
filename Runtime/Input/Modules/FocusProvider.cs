@@ -113,7 +113,7 @@ namespace RealityToolkit.Input.Modules
         {
             private const int IGNORE_RAYCAST_LAYER = 2;
 
-            public readonly IPointer Pointer;
+            public readonly IInteractor Pointer;
 
             private FocusDetails focusDetails;
 
@@ -191,7 +191,7 @@ namespace RealityToolkit.Input.Modules
             /// Constructor.
             /// </summary>
             /// <param name="pointer"></param>
-            public PointerData(IPointer pointer)
+            public PointerData(IInteractor pointer)
             {
                 focusDetails = new FocusDetails();
                 Pointer = pointer;
@@ -508,7 +508,7 @@ namespace RealityToolkit.Input.Modules
         #region Focus Details by IPointer
 
         /// <inheritdoc />
-        public GameObject GetFocusedObject(IPointer pointingSource)
+        public GameObject GetFocusedObject(IInteractor pointingSource)
         {
             if (pointingSource == null)
             {
@@ -520,7 +520,7 @@ namespace RealityToolkit.Input.Modules
         }
 
         /// <inheritdoc />
-        public bool TryGetFocusDetails(IPointer pointer, out IPointerResult focusDetails)
+        public bool TryGetFocusDetails(IInteractor pointer, out IPointerResult focusDetails)
         {
             if (TryGetPointerData(pointer, out var pointerData))
             {
@@ -533,7 +533,7 @@ namespace RealityToolkit.Input.Modules
         }
 
         /// <inheritdoc />
-        public bool TryGetSpecificPointerGraphicEventData(IPointer pointer, out GraphicInputEventData graphicInputEventData)
+        public bool TryGetSpecificPointerGraphicEventData(IInteractor pointer, out GraphicInputEventData graphicInputEventData)
         {
             if (TryGetPointerData(pointer, out var pointerData))
             {
@@ -643,14 +643,14 @@ namespace RealityToolkit.Input.Modules
         }
 
         /// <inheritdoc />
-        public bool IsPointerRegistered(IPointer pointer)
+        public bool IsPointerRegistered(IInteractor pointer)
         {
             Debug.Assert(pointer.PointerId != 0, $"{pointer} does not have a valid pointer id!");
             return TryGetPointerData(pointer, out _);
         }
 
         /// <inheritdoc />
-        public bool RegisterPointer(IPointer pointer)
+        public bool RegisterPointer(IInteractor pointer)
         {
             Debug.Assert(pointer.PointerId != 0, $"{pointer} does not have a valid pointer id!");
 
@@ -684,7 +684,7 @@ namespace RealityToolkit.Input.Modules
         }
 
         /// <inheritdoc />
-        public bool UnregisterPointer(IPointer pointer)
+        public bool UnregisterPointer(IInteractor pointer)
         {
             Debug.Assert(pointer.PointerId != 0, $"{pointer} does not have a valid pointer id!");
 
@@ -725,7 +725,7 @@ namespace RealityToolkit.Input.Modules
         /// <param name="pointer">the pointer who's data we're looking for</param>
         /// <param name="data">The data associated to the pointer</param>
         /// <returns>Pointer Data if the pointing source is registered.</returns>
-        private bool TryGetPointerData(IPointer pointer, out PointerData data)
+        private bool TryGetPointerData(IInteractor pointer, out PointerData data)
         {
             foreach (var pointerData in pointers)
             {
@@ -866,7 +866,7 @@ namespace RealityToolkit.Input.Modules
         /// <param name="pointer"></param>
         /// <param name="prioritizedLayerMasks"></param>
         /// <param name="hitResult"></param>
-        private static void RaycastPhysics(IPointer pointer, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
+        private static void RaycastPhysics(IInteractor pointer, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             float rayStartDistance = 0;
             var pointerRays = pointer.Rays;
@@ -937,7 +937,7 @@ namespace RealityToolkit.Input.Modules
         /// <param name="graphicEventData"></param>
         /// <param name="prioritizedLayerMasks"></param>
         /// <param name="hitResult"></param>
-        private void RaycastGraphics(IPointer pointer, UnityEvents.PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
+        private void RaycastGraphics(IInteractor pointer, UnityEvents.PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             Debug.Assert(UIRaycastCamera != null, "Missing UIRaycastCamera!");
             Debug.Assert(UIRaycastCamera.nearClipPlane == 0, "Near plane must be zero for raycast distances to be correct");

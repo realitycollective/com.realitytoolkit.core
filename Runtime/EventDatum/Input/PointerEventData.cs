@@ -16,7 +16,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <summary>
         /// Pointer for the Input Event
         /// </summary>
-        public IPointer Pointer { get; private set; }
+        public IInteractor Pointer { get; private set; }
 
         /// <inheritdoc />
         public PointerEventData(UnityEvents.EventSystem eventSystem) : base(eventSystem) { }
@@ -27,7 +27,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="pointer"></param>
         /// <param name="inputAction"></param>
         /// <param name="inputSource"></param>
-        public void Initialize(IPointer pointer, InputAction inputAction, IInputSource inputSource = null)
+        public void Initialize(IInteractor pointer, InputAction inputAction, IInputSource inputSource = null)
         {
             BaseInitialize(inputSource ?? pointer.InputSource, inputAction);
             Pointer = pointer;

@@ -15,7 +15,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <summary>
         /// The pointer associated with this event.
         /// </summary>
-        public IPointer Pointer { get; private set; }
+        public IInteractor Pointer { get; private set; }
 
         /// <summary>
         /// The old focused object.
@@ -34,7 +34,7 @@ namespace RealityToolkit.EventDatum.Input
         /// Used to initialize/reset the event and populate the data.
         /// </summary>
         /// <param name="pointer"></param>
-        public void Initialize(IPointer pointer)
+        public void Initialize(IInteractor pointer)
         {
             Reset();
             Pointer = pointer;
@@ -46,7 +46,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="pointer"></param>
         /// <param name="oldFocusedObject"></param>
         /// <param name="newFocusedObject"></param>
-        public void Initialize(IPointer pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
+        public void Initialize(IInteractor pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
         {
             Reset();
             Pointer = pointer;

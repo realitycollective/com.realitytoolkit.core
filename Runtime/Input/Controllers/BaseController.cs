@@ -182,9 +182,9 @@ namespace RealityToolkit.Input.Controllers
         /// </summary>
         protected void AssignControllerMappings(InteractionMapping[] mappings) => Interactions = mappings;
 
-        private IPointer[] AssignControllerMappings(InteractionMappingProfile[] interactionMappingProfiles)
+        private IInteractor[] AssignControllerMappings(InteractionMappingProfile[] interactionMappingProfiles)
         {
-            var pointers = new List<IPointer>();
+            var pointers = new List<IInteractor>();
             var interactions = new InteractionMapping[interactionMappingProfiles.Length];
 
             for (int i = 0; i < interactions.Length; i++)
@@ -196,7 +196,7 @@ namespace RealityToolkit.Input.Controllers
                     var pointerProfile = interactionProfile.PointerProfiles[j];
                     var rigTransform = Camera.main.transform.parent;
                     var pointerObject = Object.Instantiate(pointerProfile.PointerPrefab, rigTransform);
-                    var pointer = pointerObject.GetComponent<IPointer>();
+                    var pointer = pointerObject.GetComponent<IInteractor>();
 
                     if (pointer != null)
                     {
