@@ -6,6 +6,7 @@ using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactions.Interactables;
 using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces.Controllers;
 using System;
@@ -31,6 +32,16 @@ namespace RealityToolkit.Input.Interfaces
         event Action InputDisabled;
 
         /// <summary>
+        /// Gets or sets whether near interaction should work or not.
+        /// </summary>
+        bool NearInteractionEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether far interaction should work or not.
+        /// </summary>
+        bool FarInteractionEnabled { get; set; }
+
+        /// <summary>
         /// List of the Interaction Input Sources as detected by the input manager like hands or motion controllers.
         /// </summary>
         IReadOnlyCollection<IInputSource> DetectedInputSources { get; }
@@ -42,6 +53,16 @@ namespace RealityToolkit.Input.Interfaces
         /// This property is similar to <see cref="DetectedInputSources"/>, as this is a subset of those <see cref="IInputSource"/>s in that list.
         /// </remarks>
         IReadOnlyCollection<IController> DetectedControllers { get; }
+
+        /// <summary>
+        /// Available <see cref="IInteractor"/>s in the scene.
+        /// </summary>
+        IReadOnlyList<IInteractor> Interactors { get; }
+
+        /// <summary>
+        /// Available <see cref="IInteractable"/>s in the scene.
+        /// </summary>
+        IReadOnlyList<IInteractable> Interactables { get; }
 
         /// <summary>
         /// The current Focus Provider that's been implemented by this Input System.
@@ -124,6 +145,46 @@ namespace RealityToolkit.Input.Interfaces
         /// </summary>
         /// <param name="gazeProviderBehaviour">The new <see cref="GazeProviderBehaviour"/>.</param>
         void SetGazeProviderBehaviour(GazeProviderBehaviour gazeProviderBehaviour);
+
+        /// <summary>
+        /// Adds an <see cref="IInteractor"/> to the service's registry.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> to add.</param>
+        void Add(IInteractor interactor);
+
+        /// <summary>
+        /// Removes an <see cref="IInteractor"/> from the service's registry.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> to remove.</param>
+        void Remove(IInteractor interactor);
+
+        /// <summary>
+        /// Adds an <see cref="IInteractable"/> to the service's registry.
+        /// </summary>
+        /// <param name="interactable">The <see cref="IInteractable"/> to add.</param>
+        void Add(IInteractable interactable);
+
+        /// <summary>
+        /// Removes an <see cref="IInteractable"/> from the service's registry.
+        /// </summary>
+        /// <param name="interactable">The <see cref="IInteractable"/> to remove.</param>
+        void Remove(IInteractable interactable);
+
+        /// <summary>
+        /// Gets all known <see cref="IInteractable"/>s that have the <paramref name="label"/> provided.
+        /// </summary>
+        /// <param name="label">The label to look for.</param>
+        /// <param name="interactables">Collection of <see cref="IInteractable"/>s with the requested label.</param>
+        /// <returns><c>true, if any <see cref="IInteractable"/>s were found.</c></returns>
+        bool TryGetInteractablesByLabel(string label, out IEnumerable<IInteractable> interactables);
+
+        /// <summary>
+        /// Gets the <see cref="IInteractor"/>s for the <paramref name="inputSource"/>.
+        /// </summary>
+        /// <param name="inputSource">The <see cref="IInputSource"/> to find the <see cref="IInteractor"/>s for.</param>
+        /// <param name="interactors">The <see cref="IInteractor"/>s found.</param>
+        /// <returns><c>true</c>, if <see cref="IInteractor"/>s were found.</returns>
+        bool TryGetInteractors(IInputSource inputSource, out IReadOnlyList<IInteractor> interactors);
 
         #region IController Utilities
 

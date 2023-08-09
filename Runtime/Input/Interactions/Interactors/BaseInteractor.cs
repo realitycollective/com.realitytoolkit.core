@@ -315,6 +315,39 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// </summary>
         public virtual Vector3 PointerDirection => raycastOrigin != null ? raycastOrigin.forward : transform.forward;
 
+        /// <inheritdoc/>
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            InputService.Add(this);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnDisable()
+        {
+            if (IsSelectPressed || IsGrabPressed)
+            {
+                InputService.RaisePointerUp(this, pointerAction);
+            }
+
+            base.OnDisable();
+
+            IsHoldPressed = false;
+            IsSelectPressed = false;
+            IsGrabPressed = false;
+            HasSelectPressedOnce = false;
+
+            if (BaseCursor != null)
+            {
+                BaseCursor.IsVisible = false;
+            }
+
+            if (InputService != null)
+            {
+                InputService.Remove(this);
+            }
+        }
+
         /// <inheritdoc />
         public virtual void OnPreRaycast() { }
 

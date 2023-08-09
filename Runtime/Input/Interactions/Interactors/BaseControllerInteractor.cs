@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
@@ -77,48 +76,12 @@ namespace RealityToolkit.Input.Interactions.Interactors
             }
         }
 
-        #region MonoBehaviour Implementation
-
         /// <inheritdoc/>
         protected override void Start()
         {
             base.Start();
             SetCursor();
         }
-
-        /// <inheritdoc/>
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            ServiceManager.Instance.GetService<IInteractionServiceModule>().Add(this);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnDisable()
-        {
-            if (IsSelectPressed || IsGrabPressed)
-            {
-                InputService.RaisePointerUp(this, pointerAction);
-            }
-
-            base.OnDisable();
-
-            IsHoldPressed = false;
-            IsSelectPressed = false;
-            IsGrabPressed = false;
-            HasSelectPressedOnce = false;
-
-            if (BaseCursor != null)
-            {
-                BaseCursor.IsVisible = false;
-            }
-
-            ServiceManager.Instance.GetService<IInteractionServiceModule>().Remove(this);
-        }
-
-        #endregion MonoBehaviour Implementation
-
-        #region ISourcePoseHandler Implementation
 
         /// <inheritdoc />
         public override void OnSourceLost(SourceStateEventData eventData)
@@ -146,10 +109,6 @@ namespace RealityToolkit.Input.Interactions.Interactors
                 IsGrabPressed = false;
             }
         }
-
-        #endregion ISourcePoseHandler Implementation
-
-        #region IInputHandler Implementation
 
         /// <inheritdoc />
         public override void OnInputUp(InputEventData eventData)
@@ -209,7 +168,5 @@ namespace RealityToolkit.Input.Interactions.Interactors
                 }
             }
         }
-
-        #endregion  IInputHandler Implementation
     }
 }

@@ -18,6 +18,24 @@ namespace RealityToolkit.Input.Definitions
         #region Global Input System Options
 
         [SerializeField]
+        [Tooltip("Should near interaction be enabled at startup?")]
+        private bool nearInteraction = true;
+
+        /// <summary>
+        /// Should near interaction be enabled at startup?
+        /// </summary>
+        public bool NearInteraction => nearInteraction;
+
+        [SerializeField]
+        [Tooltip("Should far interaction be enabled at startup?")]
+        private bool farInteraction = true;
+
+        /// <summary>
+        /// Should far interaction be enabled at startup?
+        /// </summary>
+        public bool FarInteraction => farInteraction;
+
+        [SerializeField]
         [Tooltip("How should the gaze provider behave by default?")]
         private GazeProviderBehaviour gazeProviderBehaviour = GazeProviderBehaviour.Auto;
 

@@ -11,11 +11,13 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Handlers;
 using RealityToolkit.Input.InputSources;
+using RealityToolkit.Input.Interactions.Interactables;
 using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEvents = UnityEngine.EventSystems;
 
@@ -44,13 +46,26 @@ namespace RealityToolkit.Input
 
             gazeProviderBehaviour = profile.GazeProviderBehaviour;
             gazeProviderType = profile.GazeProviderType.Type;
+            interactors = new List<IInteractor>();
+            interactables = new List<IInteractable>();
+            NearInteractionEnabled = profile.NearInteraction;
+            FarInteractionEnabled = profile.FarInteraction;
         }
+
+        private readonly List<IInteractor> interactors;
+        private readonly List<IInteractable> interactables;
 
         /// <inheritdoc />
         public event Action InputEnabled;
 
         /// <inheritdoc />
         public event Action InputDisabled;
+
+        /// <inheritdoc/>
+        public bool NearInteractionEnabled { get; set; }
+
+        /// <inheritdoc/>
+        public bool FarInteractionEnabled { get; set; }
 
         private readonly HashSet<IInputSource> detectedInputSources = new HashSet<IInputSource>();
 
@@ -61,6 +76,12 @@ namespace RealityToolkit.Input
 
         /// <inheritdoc />
         public IReadOnlyCollection<IController> DetectedControllers => detectedControllers;
+
+        /// <inheritdoc/>
+        public IReadOnlyList<IInteractor> Interactors => interactors;
+
+        /// <inheritdoc/>
+        public IReadOnlyList<IInteractable> Interactables => interactables;
 
         /// <inheritdoc />
         public IFocusProvider FocusProvider { get; private set; }
@@ -121,6 +142,39 @@ namespace RealityToolkit.Input
 
             inputSource = null;
             return false;
+        }
+
+        /// <inheritdoc/>
+        public void Add(IInteractor interactor) => interactors.EnsureListItem(interactor);
+
+        /// <inheritdoc/>
+        public void Remove(IInteractor interactor) => interactors.SafeRemoveListItem(interactor);
+
+        /// <inheritdoc/>
+        public void Add(IInteractable interactable) => interactables.EnsureListItem(interactable);
+
+        /// <inheritdoc/>
+        public void Remove(IInteractable interactable) => interactables.SafeRemoveListItem(interactable);
+
+        /// <inheritdoc/>
+        public bool TryGetInteractablesByLabel(string label, out IEnumerable<IInteractable> interactables)
+        {
+            var results = this.interactables.Where(i => !string.IsNullOrWhiteSpace(label) && string.Equals(i.Label, label));
+            if (results.Any())
+            {
+                interactables = results;
+                return true;
+            }
+
+            interactables = null;
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetInteractors(IInputSource inputSource, out IReadOnlyList<IInteractor> interactors)
+        {
+            interactors = this.interactors.Where(i => i.InputSource == inputSource).ToList();
+            return interactors != null && interactors.Count > 0;
         }
 
         #region IGazeProvider options
