@@ -1,6 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Hands.Poses;
@@ -33,6 +34,27 @@ namespace RealityToolkit.Input.Hands.Visualizers
         private InputAction gripInputAction = InputAction.None;
 
         private HandPoseAnimator poseAnimator;
+        private HandPose overridePose;
+
+        /// <summary>
+        /// Override pose is applied to the visualizer regardless of the input state.
+        /// </summary>
+        public HandPose OverridePose
+        {
+            get => overridePose;
+            set
+            {
+                if (value.IsNull())
+                {
+                    overridePose = null;
+                    poseAnimator.Transition(idlePose);
+                    return;
+                }
+
+                overridePose = value;
+                poseAnimator.Transition(overridePose);
+            }
+        }
 
         /// <inheritdoc/>
         protected override void Awake()

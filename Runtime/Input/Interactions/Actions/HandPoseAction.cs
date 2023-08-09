@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Input.Hands.Poses;
+using RealityToolkit.Input.Hands.Visualizers;
+using RealityToolkit.Input.Interactions.Interactors;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Interactions.Actions
@@ -14,7 +16,14 @@ namespace RealityToolkit.Input.Interactions.Actions
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
+            if (Interactable.PrimaryInteractor == null ||
+                Interactable.PrimaryInteractor is not IControllerInteractor controllerInteractor ||
+                controllerInteractor.Controller.Visualizer is not RiggedHandControllerVisualizer riggedHandControllerVisualizer)
+            {
+                return;
+            }
 
+            riggedHandControllerVisualizer.OverridePose = handPose;
         }
     }
 }
