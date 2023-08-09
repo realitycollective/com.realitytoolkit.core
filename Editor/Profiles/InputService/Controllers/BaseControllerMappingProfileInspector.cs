@@ -4,7 +4,6 @@
 using RealityCollective.ServiceFramework.Editor.Profiles;
 using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Input.Definitions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -133,7 +132,6 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             rect.height = EditorGUIUtility.singleLineHeight;
             rect.y += 3;
             var mappingProfileProperty = controllerInteractors.GetArrayElementAtIndex(index);
-            ProfilePropertyDrawer.ProfileTypeOverride = typeof(PointerProfile);
             EditorGUI.PropertyField(rect, mappingProfileProperty, GUIContent.none);
         }
 
