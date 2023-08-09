@@ -7,7 +7,7 @@ using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Pointers
+namespace RealityToolkit.Input.Interactions.Interactors
 {
     /// <summary>
     /// Default Mouse Pointer Implementation.

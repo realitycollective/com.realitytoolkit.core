@@ -11,6 +11,7 @@ using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Handlers;
 using RealityToolkit.Input.InputSources;
+using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using System;

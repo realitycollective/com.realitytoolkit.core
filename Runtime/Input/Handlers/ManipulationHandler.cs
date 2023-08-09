@@ -6,6 +6,7 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.SpatialAwareness.Definitions;

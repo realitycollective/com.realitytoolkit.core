@@ -4,7 +4,7 @@
 using RealityToolkit.Input.Controllers;
 using UnityEngine;
 
-namespace RealityToolkit
+namespace RealityToolkit.Input.Interactions.Interactors
 {
     [DisallowMultipleComponent]
     public abstract class BasePointer : ControllerPoseSynchronizer

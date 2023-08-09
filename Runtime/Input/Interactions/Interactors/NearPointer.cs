@@ -4,7 +4,7 @@
 using RealityToolkit.Input.Interactions.Interactables;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Pointers
+namespace RealityToolkit.Input.Interactions.Interactors
 {
     /// <summary>
     /// <see cref="Interfaces.IPointer"/> used for directly interacting with interactables that are touching.

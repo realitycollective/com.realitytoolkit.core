@@ -6,6 +6,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;

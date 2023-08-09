@@ -7,7 +7,7 @@ using RealityToolkit.Utilities.Lines.Renderers;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RealityToolkit.Input.Pointers
+namespace RealityToolkit.Input.Interactions.Interactors
 {
     /// <summary>
     /// A simple line pointer for drawing lines from the input source origin to the current pointer position.

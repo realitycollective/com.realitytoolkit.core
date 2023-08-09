@@ -6,6 +6,7 @@ using RealityCollective.ServiceFramework.Interfaces;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces.Controllers;
 using System;
 using System.Collections.Generic;

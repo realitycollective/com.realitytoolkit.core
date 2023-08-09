@@ -3,13 +3,14 @@
 
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Interfaces.Physics;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interfaces
+namespace RealityToolkit.Input.Interactions.Interactors
 {
     /// <summary>
     /// Interface for handling pointers.

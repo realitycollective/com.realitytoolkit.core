@@ -6,8 +6,6 @@ using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Physics;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
-using RealityToolkit.Input.Interactions;
-using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
@@ -17,7 +15,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Pointers
+namespace RealityToolkit.Input.Interactions.Interactors
 {
     /// <summary>
     /// Base Pointer class for pointers that are <see cref="IController"/> driven and exist as <see cref="GameObject"/>s in the scene.

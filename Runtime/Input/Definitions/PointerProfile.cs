@@ -3,7 +3,7 @@
 
 using RealityCollective.Attributes;
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interactions.Interactors;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Definitions
