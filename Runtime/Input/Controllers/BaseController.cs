@@ -35,7 +35,7 @@ namespace RealityToolkit.Input.Controllers
         /// <param name="trackingState">The initial tracking state of this controller.</param>
         /// <param name="controllerHandedness">The controller's handedness.</param>
         /// <param name="controllerMappingProfile"></param>
-        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
         {
             ServiceModule = controllerDataProvider;
             TrackingState = trackingState;

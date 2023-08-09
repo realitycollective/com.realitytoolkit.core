@@ -20,9 +20,9 @@ namespace RealityToolkit.Definitions.Controllers
         protected bool HasSetupDefaults => hasSetupDefaults;
 
         [SerializeField]
-        private ControllerMappingProfile[] controllerMappingProfiles = new ControllerMappingProfile[0];
+        private ControllerProfile[] controllerMappingProfiles = new ControllerProfile[0];
 
-        public ControllerMappingProfile[] ControllerMappingProfiles
+        public ControllerProfile[] ControllerMappingProfiles
         {
             get => controllerMappingProfiles;
             internal set => controllerMappingProfiles = value;

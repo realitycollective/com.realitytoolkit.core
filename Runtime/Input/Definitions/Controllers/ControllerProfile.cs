@@ -10,7 +10,10 @@ using UnityEngine;
 
 namespace RealityToolkit.Definitions.Controllers
 {
-    public class ControllerMappingProfile : BaseProfile
+    /// <summary>
+    /// Configuration profile for configuring a supported <see cref="IController"/> in the application.
+    /// </summary>
+    public class ControllerProfile : BaseProfile
     {
         [SerializeField]
         [Implements(typeof(IController), TypeGrouping.ByNamespaceFlat)]

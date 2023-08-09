@@ -21,7 +21,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
         public XboxController() { }
 
         /// <inheritdoc />
-        public XboxController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        public XboxController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

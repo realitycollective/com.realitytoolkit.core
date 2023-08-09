@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.Input.Controllers
 {
-    [CustomEditor(typeof(ControllerMappingProfile))]
+    [CustomEditor(typeof(ControllerProfile))]
     public class BaseControllerMappingProfileInspector : BaseProfileInspector
     {
         private static readonly GUIContent EditButtonContent = new GUIContent("Edit Button Mappings");
@@ -21,7 +21,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
         private SerializedProperty useCustomInteractions;
         private SerializedProperty interactionMappingProfiles;
 
-        private ControllerMappingProfile controllerMappingProfile;
+        private ControllerProfile controllerMappingProfile;
 
         private ReorderableList interactionsList;
         private int currentlySelectedElement;
@@ -36,7 +36,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             useCustomInteractions = serializedObject.FindProperty(nameof(useCustomInteractions));
             interactionMappingProfiles = serializedObject.FindProperty(nameof(interactionMappingProfiles));
 
-            controllerMappingProfile = target as ControllerMappingProfile;
+            controllerMappingProfile = target as ControllerProfile;
 
             var showButtons = useCustomInteractions.boolValue;
 

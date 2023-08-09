@@ -25,7 +25,7 @@ namespace RealityToolkit.Input.Controllers.Hands
         public HandController() : base() { }
 
         /// <inheritdoc />
-        public HandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        public HandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }

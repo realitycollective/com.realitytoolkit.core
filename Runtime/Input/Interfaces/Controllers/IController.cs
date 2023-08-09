@@ -98,7 +98,7 @@ namespace RealityToolkit.Input.Interfaces.Controllers
         /// </summary>
         Vector3 MotionDirection { get; }
 
-        /// Attempts to load the <see cref="IController"/> model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerMappingProfile"/>
+        /// Attempts to load the <see cref="IController"/> model specified in the <see cref="RealityToolkit.Definitions.Controllers.ControllerProfile"/>
         /// to render the controllers in the scene.
         /// </summary>
         /// <returns>True, if controller model is being properly rendered.</returns>

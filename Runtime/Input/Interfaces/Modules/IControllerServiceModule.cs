@@ -24,20 +24,20 @@ namespace RealityToolkit.Input.Interfaces.Modules
         /// </summary>
         /// <param name="controllerType">The type of the <see cref="IController"/> to lookup the profile for.</param>
         /// <param name="handedness">The <see cref="Handedness"/> the profile should be configured for.</param>
-        /// <returns><see cref="ControllerMappingProfile"/> or <c>null</c>.</returns>
+        /// <returns><see cref="ControllerProfile"/> or <c>null</c>.</returns>
         /// <remarks>
         /// Currently you can register more than one controller type and handedness into the
         /// <see cref="BaseControllerServiceModuleProfile"/>, but this method will only return the first one found.
         /// </remarks>
-        ControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness);
+        ControllerProfile GetControllerMappingProfile(Type controllerType, Handedness handedness);
 
         /// <summary>
-        /// Gets the <see cref="ControllerMappingProfile"/> for <paramref name="controllerType"/>, if it exists.
+        /// Gets the <see cref="ControllerProfile"/> for <paramref name="controllerType"/>, if it exists.
         /// </summary>
         /// <param name="controllerType">The type of the <see cref="IController"/> to lookup the profile for.</param>
         /// <param name="handedness">The <see cref="Handedness"/> the profile should be configured for.</param>
-        /// <param name="controllerMappingProfile">The found <see cref="ControllerMappingProfile"/>.</param>
+        /// <param name="controllerMappingProfile">The found <see cref="ControllerProfile"/>.</param>
         /// <returns><c>true</c>, if found, otherwise <c>false</c>.</returns>
-        bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out ControllerMappingProfile controllerMappingProfile);
+        bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out ControllerProfile controllerMappingProfile);
     }
 }

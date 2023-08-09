@@ -41,7 +41,7 @@ namespace RealityToolkit.Input.Controllers
 
         protected readonly IInputService InputService;
 
-        private readonly ControllerMappingProfile[] controllerMappingProfiles;
+        private readonly ControllerProfile[] controllerMappingProfiles;
 
         private readonly List<IController> activeControllers = new List<IController>();
 
@@ -49,7 +49,7 @@ namespace RealityToolkit.Input.Controllers
         public IReadOnlyList<IController> ActiveControllers => activeControllers;
 
         /// <inheritdoc />
-        public ControllerMappingProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)
+        public ControllerProfile GetControllerMappingProfile(Type controllerType, Handedness handedness)
         {
             if (TryGetControllerMappingProfile(controllerType, handedness, out var controllerMappingProfile))
             {
@@ -61,7 +61,7 @@ namespace RealityToolkit.Input.Controllers
         }
 
         /// <inheritdoc />
-        public bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out ControllerMappingProfile controllerMappingProfile)
+        public bool TryGetControllerMappingProfile(Type controllerType, Handedness handedness, out ControllerProfile controllerMappingProfile)
         {
             if (controllerType == null)
             {

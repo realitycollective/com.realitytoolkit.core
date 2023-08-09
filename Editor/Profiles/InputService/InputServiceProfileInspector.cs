@@ -37,7 +37,7 @@ namespace RealityToolkit.Editor.Profiles.Input
 
         private bool showAggregatedSimpleControllerMappingProfiles;
 
-        private Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>> controllerMappingProfiles;
+        private Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerProfile>> controllerMappingProfiles;
 
         protected override void OnEnable()
         {
@@ -54,7 +54,7 @@ namespace RealityToolkit.Editor.Profiles.Input
             gesturesProfile = serializedObject.FindProperty(nameof(gesturesProfile));
             speechCommandsProfile = serializedObject.FindProperty(nameof(speechCommandsProfile));
 
-            controllerMappingProfiles = new Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>>();
+            controllerMappingProfiles = new Dictionary<string, Tuple<BaseControllerServiceModuleProfile, ControllerProfile>>();
 
             for (int i = 0; i < Configurations?.arraySize; i++)
             {
@@ -78,7 +78,7 @@ namespace RealityToolkit.Editor.Profiles.Input
 
                         if (!controllerMappingProfiles.ContainsKey(guid))
                         {
-                            controllerMappingProfiles.Add(guid, new Tuple<BaseControllerServiceModuleProfile, ControllerMappingProfile>(controllerDataProviderProfile, mappingProfile));
+                            controllerMappingProfiles.Add(guid, new Tuple<BaseControllerServiceModuleProfile, ControllerProfile>(controllerDataProviderProfile, mappingProfile));
                         }
                     }
                 }

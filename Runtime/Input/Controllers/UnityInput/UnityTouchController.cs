@@ -16,7 +16,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
         public UnityTouchController() { }
 
         /// <inheritdoc />
-        public UnityTouchController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        public UnityTouchController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
