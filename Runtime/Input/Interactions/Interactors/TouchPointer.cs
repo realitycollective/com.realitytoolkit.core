@@ -18,6 +18,9 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// <inheritdoc />
         public override bool IsInteractionEnabled => isInteractionEnabled;
 
+        /// <inheritdoc />
+        public override bool IsFarInteractor => true;
+
         private int fingerId = -1;
 
         /// <inheritdoc />

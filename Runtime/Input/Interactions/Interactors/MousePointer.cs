@@ -63,6 +63,9 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// <inheritdoc />
         public override bool IsInteractionEnabled => isInteractionEnabled;
 
+        /// <inheritdoc />
+        public override bool IsFarInteractor => true;
+
         private IController controller;
 
         /// <inheritdoc />

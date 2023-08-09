@@ -55,6 +55,9 @@ namespace RealityToolkit.Input.Interactions.Interactors
         public uint PointerId { get; }
 
         /// <inheritdoc />
+        public bool IsFarInteractor => true;
+
+        /// <inheritdoc />
         public string PointerName { get; set; }
 
         /// <inheritdoc/>

@@ -14,6 +14,9 @@ namespace RealityToolkit.Input.Interactions.Interactors
     {
         private SphereCollider sphereCollider;
 
+        /// <inheritdoc />
+        public override bool IsFarInteractor => false;
+
         private void Awake()
         {
             ConfigureTriggerCollider();

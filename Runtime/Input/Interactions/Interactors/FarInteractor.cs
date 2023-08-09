@@ -100,6 +100,9 @@ namespace RealityToolkit.Input.Interactions.Interactors
             set => lineRenderers = value;
         }
 
+        /// <inheritdoc />
+        public override bool IsFarInteractor => true;
+
         private void CheckInitialization()
         {
             if (lineBase == null)

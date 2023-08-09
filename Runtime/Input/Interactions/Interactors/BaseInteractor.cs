@@ -87,6 +87,9 @@ namespace RealityToolkit.Input.Interactions.Interactors
         }
 
         /// <inheritdoc />
+        public abstract bool IsFarInteractor { get; }
+
+        /// <inheritdoc />
         public string PointerName
         {
             get => gameObject.name;

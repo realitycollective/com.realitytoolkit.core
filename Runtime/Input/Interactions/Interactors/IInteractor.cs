@@ -32,6 +32,11 @@ namespace RealityToolkit.Input.Interactions.Interactors
         bool IsOverUI { get; }
 
         /// <summary>
+        /// Is this <see cref="IInteractor"/> being used for interaction from a distance?
+        /// </summary>
+        bool IsFarInteractor { get; }
+
+        /// <summary>
         /// This pointer's input source parent.
         /// </summary>
         IInputSource InputSource { get; }
