@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8645221618910233817}
   - component: {fileID: 3487613484555030544}
   m_Layer: 0
-  m_Name: NearPointer
+  m_Name: NearInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

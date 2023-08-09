@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3080660041806603478}
   - component: {fileID: 1526809385130449531}
   m_Layer: 0
-  m_Name: LinePointer
+  m_Name: FarInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

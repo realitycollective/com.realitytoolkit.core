@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.UX.Pointers
 {
-    [CustomEditor(typeof(LinePointer), true, isFallback = true)]
+    [CustomEditor(typeof(FarInteractor), true, isFallback = true)]
     public class LinePointerInspector : BaseControllerPointerInspector
     {
         private const int MAX_RECOMMENDED_LINECAST_RESOLUTION = 20;

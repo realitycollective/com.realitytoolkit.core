@@ -10,7 +10,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
     /// <see cref="Interfaces.IPointer"/> used for directly interacting with interactables that are touching.
     /// </summary>
     [RequireComponent(typeof(SphereCollider))]
-    public class NearPointer : BaseControllerInteractor
+    public class NearInteractor : BaseControllerInteractor
     {
         private SphereCollider sphereCollider;
 

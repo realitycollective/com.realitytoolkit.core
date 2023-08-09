@@ -12,7 +12,7 @@ namespace RealityToolkit.Input.Interactions.Interactors
     /// <summary>
     /// A simple line pointer for drawing lines from the input source origin to the current pointer position.
     /// </summary>
-    public class LinePointer : BaseControllerInteractor
+    public class FarInteractor : BaseControllerInteractor
     {
         [SerializeField]
         [FormerlySerializedAs("LineColorSelected")]
