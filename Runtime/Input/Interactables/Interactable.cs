@@ -45,7 +45,7 @@ namespace RealityToolkit.Input.Interactables
         private InteractionState currentState;
         private readonly Dictionary<uint, IInteractor> focusingInteractors = new Dictionary<uint, IInteractor>();
         private readonly Dictionary<uint, IInteractor> selectingInteractors = new Dictionary<uint, IInteractor>();
-        private readonly List<IInteractionAction> actions = new List<IInteractionAction>();
+        private List<IInteractionAction> actions = new List<IInteractionAction>();
 
         private IInputService inputService = null;
         /// <summary>
@@ -200,7 +200,11 @@ namespace RealityToolkit.Input.Interactables
         }
 
         /// <inheritdoc/>
-        public void Add(IInteractionAction action) => actions.EnsureListItem(action);
+        public void Add(IInteractionAction action)
+        {
+            actions.EnsureListItem(action);
+            actions = actions.OrderBy(a => a.SortingOrder).ToList();
+        }
 
         /// <inheritdoc/>
         public void Remove(IInteractionAction action) => actions.SafeRemoveListItem(action);

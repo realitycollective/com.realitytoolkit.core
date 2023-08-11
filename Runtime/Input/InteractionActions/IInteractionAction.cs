@@ -12,6 +12,13 @@ namespace RealityToolkit.Input.InteractionActions
     public interface IInteractionAction
     {
         /// <summary>
+        /// When comparing <see cref="IInteractionAction"/>s on the same <see cref="IInteractable"/>,
+        /// the one with a higher <see cref="SortingOrder"/> will always be executed after the one with a lower <see cref="SortingOrder"/>.
+        /// </summary>
+        /// <remarks>Internally the value is stored as a signed 16 bit integer (short) and so is limited to the range -32,768 to 32,767.</remarks>
+        short SortingOrder { get; }
+
+        /// <summary>
         /// The <see cref="IInteractable"/> the <see cref="IInteractionAction"/> is attached to.
         /// </summary>
         IInteractable Interactable { get; }
