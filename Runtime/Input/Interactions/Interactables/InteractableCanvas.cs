@@ -13,11 +13,14 @@ namespace RealityToolkit.Input.Interactions.Interactables
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Canvas))]
-    public class InteractableCanvas : MonoBehaviour
+    public class InteractableCanvas : Interactable
     {
         [SerializeField, Tooltip("The canvas component.")]
         private Canvas canvas = null;
 
+        /// <summary>
+        /// <see cref="MonoBehaviour"/>.
+        /// </summary>
         private void OnValidate()
         {
             if (canvas.IsNull())
@@ -26,7 +29,8 @@ namespace RealityToolkit.Input.Interactions.Interactables
             }
         }
 
-        private void OnEnable()
+        /// <inheritdoc/>
+        protected override void OnEnable()
         {
             if (canvas.IsNull())
             {
@@ -41,6 +45,34 @@ namespace RealityToolkit.Input.Interactions.Interactables
             {
                 canvas.worldCamera = inputService.FocusProvider.UIRaycastCamera;
             }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnFocused(Interactors.IInteractor interactor)
+        {
+            // Override base behaviour and do nothing.
+            // At this time we do not want this type of interactable handle these state changes.
+        }
+
+        /// <inheritdoc/>
+        protected override void OnUnfocused(Interactors.IInteractor interactor)
+        {
+            // Override base behaviour and do nothing.
+            // At this time we do not want this type of interactable handle these state changes.
+        }
+
+        /// <inheritdoc/>
+        public override void OnSelected(Interactors.IInteractor interactor)
+        {
+            // Override base behaviour and do nothing.
+            // At this time we do not want this type of interactable handle these state changes.
+        }
+
+        /// <inheritdoc/>
+        public override void OnDeselected(Interactors.IInteractor interactor)
+        {
+            // Override base behaviour and do nothing.
+            // At this time we do not want this type of interactable handle these state changes.
         }
     }
 }

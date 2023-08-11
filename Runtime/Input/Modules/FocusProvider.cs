@@ -769,26 +769,13 @@ namespace RealityToolkit.Input.Modules
 
         private void UpdatePointer(PointerData pointer)
         {
-            if (pointer.Pointer.IsFarInteractor)
-            {
-                UpdateFarPointer(pointer);
-                return;
-            }
-
-            UpdateNearPointer(pointer);
-        }
-
-        private void UpdateNearPointer(PointerData pointer)
-        {
-
-        }
-
-        private void UpdateFarPointer(PointerData pointer)
-        {
             // Call the pointer's OnPreRaycast function
             // This will give it a chance to prepare itself for raycasts
             // eg, by building its Rays array
-            pointer.Pointer.OnPreRaycast();
+            if (pointer.Pointer.IsFarInteractor)
+            {
+                pointer.Pointer.OnPreRaycast();
+            }
 
             // If pointer interaction isn't enabled, clear its result object and return
             if (!pointer.Pointer.IsInteractionEnabled)
@@ -847,7 +834,10 @@ namespace RealityToolkit.Input.Modules
             // Call the pointer's OnPostRaycast function
             // This will give it a chance to respond to raycast results
             // eg by updating its appearance
-            pointer.Pointer.OnPostRaycast();
+            if (pointer.Pointer.IsFarInteractor)
+            {
+                pointer.Pointer.OnPostRaycast();
+            }
         }
 
         #region Physics Raycasting
@@ -884,6 +874,13 @@ namespace RealityToolkit.Input.Modules
         /// <param name="hitResult"></param>
         private static void RaycastPhysics(IInteractor pointer, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
+            if (pointer is NearInteractor nearInteractor)
+            {
+                hitResult.Set(nearInteractor.PhysicsHit, Vector3.zero, Vector4.zero,
+                    new RayStep(new Ray(nearInteractor.transform.position, nearInteractor.PhysicsHitDirection), nearInteractor.PhysicsHitDistance), 0, 0);
+                return;
+            }
+
             float rayStartDistance = 0;
             var pointerRays = pointer.Rays;
 

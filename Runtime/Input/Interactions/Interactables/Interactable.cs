@@ -3,9 +3,11 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Interactions.Actions;
 using RealityToolkit.Input.Interactions.Interactors;
 using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Handlers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,7 +20,9 @@ namespace RealityToolkit.Input.Interactions.Interactables
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
-    public class Interactable : MonoBehaviour, IInteractable
+    public class Interactable : MonoBehaviour,
+        IInteractable,
+        IFocusHandler
     {
         [SerializeField]
         [Tooltip("Optional label that may be used to identify the interactable or categorize it.")]
@@ -86,7 +90,7 @@ namespace RealityToolkit.Input.Interactions.Interactables
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        private async void Awake()
+        protected virtual async void Awake()
         {
             await ServiceManager.WaitUntilInitializedAsync();
 
@@ -102,7 +106,7 @@ namespace RealityToolkit.Input.Interactions.Interactables
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             OnReset();
         }
@@ -110,7 +114,7 @@ namespace RealityToolkit.Input.Interactions.Interactables
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (InputService == null)
             {
@@ -141,8 +145,11 @@ namespace RealityToolkit.Input.Interactions.Interactables
             }
         }
 
-        /// <inheritdoc/>
-        public virtual void OnFocused(IInteractor interactor)
+        /// <summary>
+        /// The <see cref="IInteractable"/> is focused by <paramref name="interactor"/>.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> focusing the object.</param>
+        protected virtual void OnFocused(IInteractor interactor)
         {
             focusingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
             if (State != InteractionState.Selected)
@@ -151,8 +158,11 @@ namespace RealityToolkit.Input.Interactions.Interactables
             }
         }
 
-        /// <inheritdoc/>
-        public virtual void OnUnfocused(IInteractor interactor)
+        /// <summary>
+        /// The <see cref="IInteractable"/> was unfocused by <paramref name="interactor"/>.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> that unfocused the object.</param>
+        protected virtual void OnUnfocused(IInteractor interactor)
         {
             if (focusingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId) &&
                 focusingInteractors.Count == 0 &&
@@ -193,5 +203,11 @@ namespace RealityToolkit.Input.Interactions.Interactables
 
         /// <inheritdoc/>
         public void Remove(IInteractionAction action) => actions.SafeRemoveListItem(action);
+
+        /// <inheritdoc/>
+        public void OnFocusEnter(FocusEventData eventData) => OnFocused(eventData.Pointer);
+
+        /// <inheritdoc/>
+        public void OnFocusExit(FocusEventData eventData) => OnUnfocused(eventData.Pointer);
     }
 }

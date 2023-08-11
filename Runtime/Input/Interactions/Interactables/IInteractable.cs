@@ -57,18 +57,6 @@ namespace RealityToolkit.Input.Interactions.Interactables
         void OnSelected(IInteractor interactor);
 
         /// <summary>
-        /// The <see cref="IInteractable"/> is focused by <paramref name="interactor"/>.
-        /// </summary>
-        /// <param name="interactor">The <see cref="IInteractor"/> focusing the object.</param>
-        void OnFocused(IInteractor interactor);
-
-        /// <summary>
-        /// The <see cref="IInteractable"/> was unfocused by <paramref name="interactor"/>.
-        /// </summary>
-        /// <param name="interactor">The <see cref="IInteractor"/> that unfocused the object.</param>
-        void OnUnfocused(IInteractor interactor);
-
-        /// <summary>
         /// The <see cref="IInteractable"/> is no longer selected by <paramref name="interactor"/>.
         /// </summary>
         void OnDeselected(IInteractor interactor);

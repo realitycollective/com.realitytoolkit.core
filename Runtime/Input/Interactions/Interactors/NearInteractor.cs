@@ -17,6 +17,15 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// <inheritdoc />
         public override bool IsFarInteractor => false;
 
+        /// <summary>
+        /// Scene <see cref="GameObject"/> with a collider that is currently being hit, if any.
+        /// </summary>
+        public GameObject PhysicsHit { get; private set; }
+
+        public float PhysicsHitDistance { get; private set; }
+
+        public Vector3 PhysicsHitDirection { get; private set; }
+
         private void Awake()
         {
             ConfigureTriggerCollider();
@@ -33,33 +42,12 @@ namespace RealityToolkit.Input.Interactions.Interactors
         /// <see cref="MonoBehaviour"/>.
         /// </summary>
         /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
-        protected virtual void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerStay(Collider other)
         {
             if (other.TryGetComponent<IInteractable>(out var interactable) &&
                 interactable.IsValid)
             {
-                interactable.OnFocused(this);
-            }
-        }
-
-        /// <summary>
-        /// <see cref="MonoBehaviour"/>.
-        /// </summary>
-        /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
-        protected virtual void OnTriggerStay(Collider other)
-        {
-
-        }
-
-        /// <summary>
-        /// <see cref="MonoBehaviour"/>.
-        /// </summary>
-        /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
-        protected virtual void OnTriggerExit(Collider other)
-        {
-            if (other.TryGetComponent<IInteractable>(out var interactable))
-            {
-                interactable.OnUnfocused(this);
+                PhysicsHit = other.gameObject;
             }
         }
     }
