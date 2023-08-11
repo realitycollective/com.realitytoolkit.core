@@ -1,7 +1,8 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Interactions.Interactables;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactables;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Interactions.Actions

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace RealityToolkit.Input.Interactions
+namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Possible interaction states for <see cref="Interactables.IInteractable"/>s.

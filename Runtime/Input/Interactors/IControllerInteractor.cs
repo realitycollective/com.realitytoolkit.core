@@ -3,7 +3,7 @@
 
 using RealityToolkit.Input.Interfaces.Controllers;
 
-namespace RealityToolkit.Input.Interactions.Interactors
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
     /// An <see cref="IInteractor"/> that is driven by a <see cref="IController"/>.

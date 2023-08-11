@@ -1,9 +1,10 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Hands.Poses;
 using RealityToolkit.Input.Hands.Visualizers;
-using RealityToolkit.Input.Interactions.Interactors;
+using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Interactions.Actions

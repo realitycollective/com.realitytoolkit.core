@@ -8,7 +8,7 @@ using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Interactors
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
     /// Abstract base implementation for new <see cref="IControllerInteractor"/>s.

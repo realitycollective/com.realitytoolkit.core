@@ -11,7 +11,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Interactors
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
     /// Base Class for pointers that don't inherit from MonoBehaviour.

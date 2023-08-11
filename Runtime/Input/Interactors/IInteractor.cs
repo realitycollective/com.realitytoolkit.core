@@ -9,7 +9,7 @@ using RealityToolkit.Interfaces.Physics;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Interactors
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
     /// An <see cref="IInteractor"/> marks an object that can interact with <see cref="Interactables.IInteractable"/>s.

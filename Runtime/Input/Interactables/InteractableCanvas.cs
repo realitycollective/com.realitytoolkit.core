@@ -3,10 +3,11 @@
 
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
+using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Interactables
+namespace RealityToolkit.Input.Interactables
 {
     /// <summary>
     /// A <see cref="Canvas"/> that can be interacted with by <see cref="Interactors.IInteractor"/>s.
@@ -48,28 +49,28 @@ namespace RealityToolkit.Input.Interactions.Interactables
         }
 
         /// <inheritdoc/>
-        protected override void OnFocused(Interactors.IInteractor interactor)
+        protected override void OnFocused(IInteractor interactor)
         {
             // Override base behaviour and do nothing.
             // At this time we do not want this type of interactable handle these state changes.
         }
 
         /// <inheritdoc/>
-        protected override void OnUnfocused(Interactors.IInteractor interactor)
+        protected override void OnUnfocused(IInteractor interactor)
         {
             // Override base behaviour and do nothing.
             // At this time we do not want this type of interactable handle these state changes.
         }
 
         /// <inheritdoc/>
-        public override void OnSelected(Interactors.IInteractor interactor)
+        public override void OnSelected(IInteractor interactor)
         {
             // Override base behaviour and do nothing.
             // At this time we do not want this type of interactable handle these state changes.
         }
 
         /// <inheritdoc/>
-        public override void OnDeselected(Interactors.IInteractor interactor)
+        public override void OnDeselected(IInteractor interactor)
         {
             // Override base behaviour and do nothing.
             // At this time we do not want this type of interactable handle these state changes.

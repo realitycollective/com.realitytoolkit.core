@@ -6,7 +6,7 @@ using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Interactors
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
     /// Touch Pointer Implementation.

@@ -4,8 +4,9 @@
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interactions.Actions;
-using RealityToolkit.Input.Interactions.Interactors;
+using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RealityToolkit.Input.Interactions.Interactables
+namespace RealityToolkit.Input.Interactables
 {
     /// <summary>
     /// An <see cref="Interactable"/> marks an object that can be interacted with.

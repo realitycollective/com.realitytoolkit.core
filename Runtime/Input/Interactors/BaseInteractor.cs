@@ -13,7 +13,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Interactors
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
     /// Abstract base implementation for new <see cref="IInteractor"/>s.
