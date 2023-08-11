@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Input.Definitions;
-using RealityToolkit.Input.Interactions.Actions;
+using RealityToolkit.Input.InteractionActions;
 using RealityToolkit.Input.Interactors;
 using System.Collections.Generic;
 

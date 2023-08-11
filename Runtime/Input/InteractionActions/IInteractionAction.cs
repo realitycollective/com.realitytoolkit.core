@@ -4,7 +4,7 @@
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interactables;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// A <see cref="IInteractionAction"/> is an action performed when the <see cref="IInteractable"/> it is attached to is changing state.

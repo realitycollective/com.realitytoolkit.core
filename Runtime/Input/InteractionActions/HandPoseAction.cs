@@ -7,7 +7,7 @@ using RealityToolkit.Input.Hands.Visualizers;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     public class HandPoseAction : BaseInteractionAction
     {

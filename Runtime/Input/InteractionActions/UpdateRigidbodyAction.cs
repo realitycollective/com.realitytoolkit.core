@@ -4,7 +4,7 @@
 using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// This <see cref="IInteractionAction"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>

@@ -5,7 +5,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
-using RealityToolkit.Input.Interactions.Actions;
+using RealityToolkit.Input.InteractionActions;
 using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;

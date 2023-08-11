@@ -5,7 +5,7 @@ using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interactables;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// Base implementation for <see cref="IInteractionAction"/>s.

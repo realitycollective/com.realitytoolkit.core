@@ -3,7 +3,7 @@
 
 using RealityToolkit.Input.Definitions;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// This <see cref="IInteractionAction"/> will focus lock <see cref="Input.Interfaces.IPointer"/>s on the <see cref="Interactables.IInteractable"/>

@@ -4,7 +4,7 @@
 using RealityToolkit.Input.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// This <see cref="IInteractionAction"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>

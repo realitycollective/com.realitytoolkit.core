@@ -3,7 +3,7 @@
 
 using RealityToolkit.Input.Definitions;
 
-namespace RealityToolkit.Input.Interactions.Actions
+namespace RealityToolkit.Input.InteractionActions
 {
     public class GrabAction : BaseInteractionAction
     {
