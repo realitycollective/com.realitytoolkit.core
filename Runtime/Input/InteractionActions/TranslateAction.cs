@@ -16,26 +16,62 @@ namespace RealityToolkit.Input.InteractionActions
         protected override void Update()
         {
             base.Update();
-            //var interactorPosition = primaryInteractor.InputSource.InteractingPointer.Result.EndPoint;
-            //var delta = interactorPosition - previousInteractorPosition.Value;
-            //transform.Translate(delta);
-            //previousInteractorPosition = interactorPosition;
+
+            if (primaryInteractor == null)
+            {
+                return;
+            }
+
+            if (primaryInteractor is IDirectInteractor directInteractor)
+            {
+                UpdateDirect(directInteractor);
+                return;
+            }
+
+            UpdateFar(primaryInteractor);
+        }
+
+        private void UpdateDirect(IDirectInteractor directInteractor)
+        {
+            var interactorPosition = directInteractor.GameObject.transform.position;
+            var delta = interactorPosition - previousInteractorPosition.Value;
+            transform.Translate(delta);
+            previousInteractorPosition = interactorPosition;
+        }
+
+        private void UpdateFar(IControllerInteractor controllerInteractor)
+        {
+            var interactorPosition = controllerInteractor.Result.EndPoint;
+            var delta = interactorPosition - previousInteractorPosition.Value;
+            transform.Translate(delta);
+            previousInteractorPosition = interactorPosition;
         }
 
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
             // This action only supports controller interactors.
-            if (Interactable.PrimaryInteractor == null ||
-                Interactable.PrimaryInteractor is not IControllerInteractor primaryInteractor)
+            if (Interactable.PrimaryInteractor is not IControllerInteractor primaryInteractor)
             {
+                this.primaryInteractor = null;
                 return;
             }
 
             if (state == InteractionState.Selected)
             {
                 this.primaryInteractor = primaryInteractor;
-                //previousInteractorPosition = primaryInteractor.InputSource.InteractingPointer.Result.EndPoint;
+
+                if (primaryInteractor is IDirectInteractor directInteractor)
+                {
+                    previousInteractorPosition = directInteractor.GameObject.transform.position;
+                    return;
+                }
+
+                previousInteractorPosition = primaryInteractor.Result.EndPoint;
+            }
+            else
+            {
+                this.primaryInteractor = null;
             }
         }
     }
