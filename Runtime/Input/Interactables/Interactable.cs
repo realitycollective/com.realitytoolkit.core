@@ -23,7 +23,8 @@ namespace RealityToolkit.Input.Interactables
     public class Interactable : MonoBehaviour,
         IInteractable,
         IFocusHandler,
-        IPointerHandler
+        IPointerHandler,
+        ISourceStateHandler
     {
         [SerializeField]
         [Tooltip("Optional label that may be used to identify the interactable or categorize it.")]
@@ -240,11 +241,25 @@ namespace RealityToolkit.Input.Interactables
         /// <inheritdoc/>
         public void Remove(IInteractionAction action) => actions.SafeRemoveListItem(action);
 
-        /// <inheritdoc/>
-        public void OnFocusEnter(FocusEventData eventData) => OnFocused(eventData.Pointer);
+        #region IFocusHandler
 
         /// <inheritdoc/>
-        public void OnFocusExit(FocusEventData eventData) => OnUnfocused(eventData.Pointer);
+        public void OnFocusEnter(FocusEventData eventData)
+        {
+            OnFocused(eventData.Pointer);
+            eventData.Use();
+        }
+
+        /// <inheritdoc/>
+        public void OnFocusExit(FocusEventData eventData)
+        {
+            OnUnfocused(eventData.Pointer);
+            eventData.Use();
+        }
+
+        #endregion
+
+        #region IPointerHandler
 
         /// <inheritdoc/>
         public void OnPointerDown(PointerEventData eventData)
@@ -252,6 +267,7 @@ namespace RealityToolkit.Input.Interactables
             if (eventData.InputAction == selectAction)
             {
                 OnSelected(eventData.Pointer);
+                eventData.Use();
             }
         }
 
@@ -260,14 +276,50 @@ namespace RealityToolkit.Input.Interactables
         {
             if (eventData.InputAction == selectAction)
             {
-                OnDeselected(eventData.Pointer);
+                foreach (var interactor in selectingInteractors)
+                {
+                    if (interactor.Key == eventData.SourceId)
+                    {
+                        OnDeselected(interactor.Value);
+                        eventData.Use();
+                        return;
+                    }
+                }
             }
         }
 
         /// <inheritdoc/>
-        public void OnPointerClicked(PointerEventData eventData)
-        {
+        public void OnPointerClicked(PointerEventData eventData) { }
 
+        #endregion IPointerHandler
+
+        #region ISourceStateHandler
+
+        /// <inheritdoc/>
+        public void OnSourceDetected(SourceStateEventData eventData) { }
+
+        /// <inheritdoc/>
+        public void OnSourceLost(SourceStateEventData eventData)
+        {
+            // When an input source is lost, we have to check if any
+            // of our interactors is gone as well.
+            foreach (var interactor in focusingInteractors)
+            {
+                if (interactor.Key == eventData.SourceId)
+                {
+                    OnUnfocused(interactor.Value);
+                }
+            }
+
+            foreach (var interactor in selectingInteractors)
+            {
+                if (interactor.Key == eventData.SourceId)
+                {
+                    OnDeselected(interactor.Value);
+                }
+            }
         }
+
+        #endregion
     }
 }
