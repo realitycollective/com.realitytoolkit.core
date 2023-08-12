@@ -27,6 +27,23 @@ namespace RealityToolkit.Input.Interactors
             ConfigureTriggerCollider();
         }
 
+        private void ToggleFarInteractors(bool enabled)
+        {
+            if (!InputService.TryGetInteractors(InputSource, out var interactors))
+            {
+                return;
+            }
+
+            for (var i = 0; i < interactors.Count; i++)
+            {
+                var interactor = interactors[i];
+                if (interactor.IsFarInteractor)
+                {
+                    interactor.IsOverriden = !enabled;
+                }
+            }
+        }
+
         private void ConfigureTriggerCollider()
         {
             sphereCollider = GetComponent<SphereCollider>();
@@ -45,6 +62,7 @@ namespace RealityToolkit.Input.Interactors
             {
                 stayingColliderHit = other.gameObject;
                 directResult.UpdateHit(this, other.gameObject);
+                ToggleFarInteractors(false);
             }
         }
 
@@ -58,6 +76,7 @@ namespace RealityToolkit.Input.Interactors
             {
                 stayingColliderHit = null;
                 directResult.Clear();
+                ToggleFarInteractors(true);
             }
         }
     }

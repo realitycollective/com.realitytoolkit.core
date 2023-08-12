@@ -98,6 +98,9 @@ namespace RealityToolkit.Input.Interactors
         public bool IsTeleportRequestActive { get; set; } = false;
 
         /// <inheritdoc />
+        public bool IsOverriden { get; set; }
+
+        /// <inheritdoc />
         public bool IsInteractionEnabled { get; protected set; }
 
         private bool isFocusLocked = false;
