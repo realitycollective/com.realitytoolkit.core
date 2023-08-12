@@ -17,14 +17,17 @@ namespace RealityToolkit.Input.InteractionActions
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
-            if (Interactable.PrimaryInteractor == null ||
-                Interactable.PrimaryInteractor is not IControllerInteractor controllerInteractor ||
-                controllerInteractor.Controller.Visualizer is not RiggedHandControllerVisualizer riggedHandControllerVisualizer)
+            if (Interactable.PrimaryInteractor is IControllerInteractor controllerInteractor &&
+                controllerInteractor.Controller.Visualizer is RiggedHandControllerVisualizer riggedHandControllerVisualizer)
             {
-                return;
-            }
+                if (state == InteractionState.Selected)
+                {
+                    riggedHandControllerVisualizer.OverridePose = handPose;
+                    return;
+                }
 
-            riggedHandControllerVisualizer.OverridePose = handPose;
+                riggedHandControllerVisualizer.OverridePose = null;
+            }
         }
     }
 }

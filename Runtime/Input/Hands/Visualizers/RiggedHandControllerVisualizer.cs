@@ -74,6 +74,11 @@ namespace RealityToolkit.Input.Hands.Visualizers
         {
             base.OnInputDown(eventData);
 
+            if (OverridePose.IsNotNull())
+            {
+                return;
+            }
+
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)
             {
@@ -89,6 +94,11 @@ namespace RealityToolkit.Input.Hands.Visualizers
         /// <inheritdoc/>
         public override void OnInputUp(InputEventData eventData)
         {
+            if (OverridePose.IsNotNull())
+            {
+                return;
+            }
+
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)
             {
@@ -107,6 +117,11 @@ namespace RealityToolkit.Input.Hands.Visualizers
         public override void OnInputChanged(InputEventData<float> eventData)
         {
             base.OnInputChanged(eventData);
+
+            if (OverridePose.IsNotNull())
+            {
+                return;
+            }
 
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)

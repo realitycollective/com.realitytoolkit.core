@@ -163,6 +163,11 @@ namespace RealityToolkit.Input.Interactables
         /// <param name="interactor">The <see cref="IInteractor"/> focusing the object.</param>
         protected virtual void OnFocused(IInteractor interactor)
         {
+            if (!IsValidInteractor(interactor))
+            {
+                return;
+            }
+
             focusingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
             if (State != InteractionState.Selected)
             {
@@ -176,6 +181,11 @@ namespace RealityToolkit.Input.Interactables
         /// <param name="interactor">The <see cref="IInteractor"/> that unfocused the object.</param>
         protected virtual void OnUnfocused(IInteractor interactor)
         {
+            if (!IsValidInteractor(interactor))
+            {
+                return;
+            }
+
             if (focusingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId) &&
                 focusingInteractors.Count == 0 &&
                 State == InteractionState.Focused)
@@ -196,6 +206,11 @@ namespace RealityToolkit.Input.Interactables
         /// </summary>
         protected virtual void OnSelected(IInteractor interactor)
         {
+            if (!IsValidInteractor(interactor))
+            {
+                return;
+            }
+
             selectingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
             State = InteractionState.Selected;
         }
@@ -205,6 +220,11 @@ namespace RealityToolkit.Input.Interactables
         /// </summary>
         protected virtual void OnDeselected(IInteractor interactor)
         {
+            if (!IsValidInteractor(interactor))
+            {
+                return;
+            }
+
             selectingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
             if (selectingInteractors.Count > 0)
             {
@@ -213,6 +233,9 @@ namespace RealityToolkit.Input.Interactables
 
             State = focusingInteractors.Count == 0 ? InteractionState.Normal : InteractionState.Focused;
         }
+
+        private bool IsValidInteractor(IInteractor interactor) =>
+            (interactor.IsFarInteractor && FarInteractionEnabled) || (!interactor.IsFarInteractor && NearInteractionEnabled);
 
         /// <inheritdoc/>
         public void Add(IInteractionAction action)

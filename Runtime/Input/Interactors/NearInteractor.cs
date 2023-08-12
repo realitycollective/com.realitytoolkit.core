@@ -57,8 +57,7 @@ namespace RealityToolkit.Input.Interactors
         /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
         protected virtual void OnTriggerStay(Collider other)
         {
-            if (other.TryGetComponent<IInteractable>(out var interactable) &&
-                interactable.IsValid)
+            if (other.TryGetComponent<IInteractable>(out _))
             {
                 stayingColliderHit = other.gameObject;
                 directResult.UpdateHit(this, other.gameObject);
