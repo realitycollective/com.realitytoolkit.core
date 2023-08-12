@@ -10,17 +10,13 @@ namespace RealityToolkit.Input.Interactors
     /// <see cref="Interfaces.IPointer"/> used for directly interacting with interactables that are touching.
     /// </summary>
     [RequireComponent(typeof(SphereCollider))]
-    public class NearInteractor : BaseControllerInteractor, IDirectInteractor
+    public class NearInteractor : BaseDirectInteractor
     {
         private SphereCollider sphereCollider;
-        private readonly DirectInteractorResult directResult = new DirectInteractorResult();
         private GameObject stayingColliderHit;
 
         /// <inheritdoc />
         public override bool IsFarInteractor => false;
-
-        /// <inheritdoc />
-        public IDirectInteractorResult DirectResult => directResult;
 
         private void Awake()
         {

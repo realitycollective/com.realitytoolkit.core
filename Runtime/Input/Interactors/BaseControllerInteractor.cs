@@ -159,16 +159,29 @@ namespace RealityToolkit.Input.Interactors
                     eventData.InputAction == grabAction)
                 {
                     IsGrabPressed = true;
-
-                    InputService.RaisePointerDown(this, grabAction);
+                    OnRaisePointerDown(grabAction);
                 }
 
                 if (eventData.InputAction == pointerAction)
                 {
                     IsSelectPressed = true;
                     HasSelectPressedOnce = true;
-                    InputService.RaisePointerDown(this, pointerAction);
+                    OnRaisePointerDown(pointerAction);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Invoked just before the <see cref="IInteractor"/> is going to
+        /// raise <see cref="InputService.RaisePointerDown"/>. Use this hook
+        /// in inheriting implementations to add onw logic, if needed.
+        /// </summary>
+        /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
+        protected virtual void OnRaisePointerDown(InputAction inputAction)
+        {
+            if (Result.CurrentPointerTarget.IsNotNull())
+            {
+                InputService.RaisePointerDown(this, inputAction);
             }
         }
     }
