@@ -225,7 +225,6 @@ namespace RealityToolkit.Input.InteractionActions
 
             if (state == InteractionState.Selected)
             {
-                currentInputSource = primaryInteractor.InputSource;
                 currentPointer = primaryInteractor;
 
                 var initialDraggingPosition = primaryInteractor is IDirectInteractor ?
