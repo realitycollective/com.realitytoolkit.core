@@ -24,7 +24,7 @@ namespace RealityToolkit.Input.Interactors
         /// <summary>
         /// This pointer's name.
         /// </summary>
-        string PointerName { get; set; }
+        string PointerName { get; }
 
         /// <summary>
         /// Is the pointer currently over an UI object?

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114052612917089170}
   - component: {fileID: 114405004987074356}
   m_Layer: 0
-  m_Name: TouchPointer
+  m_Name: TouchInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

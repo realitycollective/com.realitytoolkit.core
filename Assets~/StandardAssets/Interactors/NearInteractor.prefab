@@ -74,12 +74,9 @@ MonoBehaviour:
     id: 0
     description: None
     axisConstraint: 0
-  cursorPrefab: {fileID: 0}
-  disableCursorOnStart: 0
   uiLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  setCursorVisibilityOnSourceDetected: 0
   raycastOrigin: {fileID: 0}
   activeHoldAction:
     profileGuid: 00000000000000000000000000000000
@@ -87,17 +84,20 @@ MonoBehaviour:
     description: None
     axisConstraint: 0
   pointerAction:
-    profileGuid: 00000000000000000000000000000000
-    id: 0
-    description: None
-    axisConstraint: 0
+    profileGuid: 399335ccc89c4d12b79f3539ca7771db
+    id: 1
+    description: Select
+    axisConstraint: 2
   grabAction:
-    profileGuid: 00000000000000000000000000000000
-    id: 0
-    description: None
-    axisConstraint: 0
+    profileGuid: 399335ccc89c4d12b79f3539ca7771db
+    id: 16
+    description: Grip Press
+    axisConstraint: 2
   requiresHoldAction: 0
   enablePointerOnStart: 0
-  overrideGlobalPointerExtent: 0
   defaultPointerExtent: 0.2
+  overrideGlobalPointerExtent: 0
   pointerOrientation: 0
+  cursorPrefab: {fileID: 0}
+  disableCursorOnStart: 0
+  setCursorVisibilityOnSourceDetected: 0

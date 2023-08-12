@@ -90,11 +90,7 @@ namespace RealityToolkit.Input.Interactors
         public abstract bool IsFarInteractor { get; }
 
         /// <inheritdoc />
-        public string PointerName
-        {
-            get => gameObject.name;
-            set => gameObject.name = value;
-        }
+        public string PointerName => gameObject.name;
 
         /// <summary>
         /// True if select is pressed right now
