@@ -12,7 +12,6 @@ using RealityToolkit.Input.Interfaces.Handlers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RealityToolkit.Input.Interactables
 {
@@ -47,11 +46,6 @@ namespace RealityToolkit.Input.Interactables
         [SerializeField]
         [Tooltip("The action that will grab this interactable, if focused by an interactor.")]
         protected InputAction grabAction = InputAction.None;
-
-        [Space]
-        [SerializeField]
-        [Tooltip("Event raised whenever the interactable's state has changed.")]
-        private UnityEvent<InteractionState> stateChanged = null;
 
         private InteractionState currentState;
         private readonly Dictionary<uint, IInteractor> focusingInteractors = new Dictionary<uint, IInteractor>();
@@ -88,7 +82,6 @@ namespace RealityToolkit.Input.Interactables
             private set
             {
                 currentState = value;
-                stateChanged?.Invoke(currentState);
                 UpdateActions();
             }
         }
