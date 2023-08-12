@@ -4,8 +4,8 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers.UnityInput.Profiles;
 using RealityToolkit.Definitions.Devices;
+using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

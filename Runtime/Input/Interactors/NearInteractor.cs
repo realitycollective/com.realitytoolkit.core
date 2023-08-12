@@ -10,21 +10,17 @@ namespace RealityToolkit.Input.Interactors
     /// <see cref="Interfaces.IPointer"/> used for directly interacting with interactables that are touching.
     /// </summary>
     [RequireComponent(typeof(SphereCollider))]
-    public class NearInteractor : BaseControllerInteractor
+    public class NearInteractor : BaseControllerInteractor, IDirectInteractor
     {
         private SphereCollider sphereCollider;
+        private readonly DirectInteractorResult directResult = new DirectInteractorResult();
+        private GameObject stayingColliderHit;
 
         /// <inheritdoc />
         public override bool IsFarInteractor => false;
 
-        /// <summary>
-        /// Scene <see cref="GameObject"/> with a collider that is currently being hit, if any.
-        /// </summary>
-        public GameObject PhysicsHit { get; private set; }
-
-        public float PhysicsHitDistance { get; private set; }
-
-        public Vector3 PhysicsHitDirection { get; private set; }
+        /// <inheritdoc />
+        public IDirectInteractorResult DirectResult => directResult;
 
         private void Awake()
         {
@@ -47,7 +43,21 @@ namespace RealityToolkit.Input.Interactors
             if (other.TryGetComponent<IInteractable>(out var interactable) &&
                 interactable.IsValid)
             {
-                PhysicsHit = other.gameObject;
+                stayingColliderHit = other.gameObject;
+                directResult.UpdateHit(this, other.gameObject);
+            }
+        }
+
+        /// <summary>
+        /// <see cref="MonoBehaviour"/>.
+        /// </summary>
+        /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
+        protected virtual void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject == stayingColliderHit)
+            {
+                stayingColliderHit = null;
+                directResult.Clear();
             }
         }
     }

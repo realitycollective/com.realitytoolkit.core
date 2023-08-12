@@ -40,6 +40,9 @@ namespace RealityToolkit.Input.Interactors
             }
         }
 
+        /// <inheritdoc/>
+        public GameObject GameObject => gameObject;
+
         /// <summary>
         /// Set a new cursor for this <see cref="IInteractor"/>
         /// </summary>

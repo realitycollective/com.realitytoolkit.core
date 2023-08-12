@@ -874,10 +874,10 @@ namespace RealityToolkit.Input.Modules
         /// <param name="hitResult"></param>
         private static void RaycastPhysics(IInteractor pointer, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
-            if (pointer is NearInteractor nearInteractor)
+            if (pointer is IDirectInteractor directInteractor)
             {
-                hitResult.Set(nearInteractor.PhysicsHit, Vector3.zero, Vector4.zero,
-                    new RayStep(new Ray(nearInteractor.transform.position, nearInteractor.PhysicsHitDirection), nearInteractor.PhysicsHitDistance), 0, 0);
+                hitResult.Set(directInteractor.DirectResult.CurrentTarget, Vector3.zero, Vector4.zero,
+                    new RayStep(new Ray(directInteractor.GameObject.transform.position, directInteractor.DirectResult.Direction), directInteractor.DirectResult.Distance), 0, 0);
                 return;
             }
 
