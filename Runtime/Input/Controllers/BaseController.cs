@@ -104,12 +104,6 @@ namespace RealityToolkit.Input.Controllers
         /// </summary>
         public virtual InteractionMapping[] DefaultRightHandedInteractions { get; } = new InteractionMapping[0];
 
-        /// <summary>
-        /// Local offset from the controller position defining where the grip pose is.
-        /// The grip pose may be used to attach things to the controller when grabbing objects.
-        /// </summary>
-        protected virtual Pose GripPoseOffset => Pose.identity;
-
         /// <inheritdoc />
         public Pose Pose { get; protected set; } = Pose.identity;
 
