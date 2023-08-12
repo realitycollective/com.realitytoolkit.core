@@ -53,16 +53,6 @@ namespace RealityToolkit.Input.Interactables
         IReadOnlyList<IInteractor> Interactors { get; }
 
         /// <summary>
-        /// The <see cref="IInteractable"/> is now selected by <paramref name="interactor"/>.
-        /// </summary>
-        void OnSelected(IInteractor interactor);
-
-        /// <summary>
-        /// The <see cref="IInteractable"/> is no longer selected by <paramref name="interactor"/>.
-        /// </summary>
-        void OnDeselected(IInteractor interactor);
-
-        /// <summary>
         /// Adds the <paramref name="action"/> to the <see cref="IInteractable"/>.
         /// </summary>
         /// <param name="action">The <see cref="IInteractionAction"/>.</param>

@@ -1,14 +1,11 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-
 namespace RealityToolkit.Input.Definitions
 {
     /// <summary>
     /// Possible interaction states for <see cref="Interactables.IInteractable"/>s.
     /// </summary>
-    [Flags]
     public enum InteractionState
     {
         /// <summary>

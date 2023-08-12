@@ -10,7 +10,7 @@ using UnityEngine;
 namespace RealityToolkit.Input.Interactables
 {
     /// <summary>
-    /// A <see cref="Canvas"/> that can be interacted with by <see cref="Interactors.IInteractor"/>s.
+    /// A <see cref="Canvas"/> that can be interacted with by <see cref="IInteractor"/>s.
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Canvas))]
@@ -63,14 +63,14 @@ namespace RealityToolkit.Input.Interactables
         }
 
         /// <inheritdoc/>
-        public override void OnSelected(IInteractor interactor)
+        protected override void OnSelected(IInteractor interactor)
         {
             // Override base behaviour and do nothing.
             // At this time we do not want this type of interactable handle these state changes.
         }
 
         /// <inheritdoc/>
-        public override void OnDeselected(IInteractor interactor)
+        protected override void OnDeselected(IInteractor interactor)
         {
             // Override base behaviour and do nothing.
             // At this time we do not want this type of interactable handle these state changes.

@@ -23,12 +23,14 @@ namespace RealityToolkit.Input.Interactables
     [RequireComponent(typeof(Collider))]
     public class Interactable : MonoBehaviour,
         IInteractable,
-        IFocusHandler
+        IFocusHandler,
+        IInputHandler
     {
         [SerializeField]
         [Tooltip("Optional label that may be used to identify the interactable or categorize it.")]
         private string label = null;
 
+        [Space]
         [SerializeField]
         [Tooltip("Should near interaction be enabled at startup?")]
         private bool nearInteraction = true;
@@ -36,6 +38,15 @@ namespace RealityToolkit.Input.Interactables
         [SerializeField]
         [Tooltip("Should far interaction be enabled at startup?")]
         private bool farInteraction = true;
+
+        [Space]
+        [SerializeField]
+        [Tooltip("The action that will select this interactable, if focused by an interactor.")]
+        protected InputAction selectAction = InputAction.None;
+
+        [SerializeField]
+        [Tooltip("The action that will grab this interactable, if focused by an interactor.")]
+        protected InputAction grabAction = InputAction.None;
 
         [Space]
         [SerializeField]
@@ -180,15 +191,19 @@ namespace RealityToolkit.Input.Interactables
             }
         }
 
-        /// <inheritdoc/>
-        public virtual void OnSelected(IInteractor interactor)
+        /// <summary>
+        /// The <see cref="IInteractable"/> is now selected by <paramref name="interactor"/>.
+        /// </summary>
+        protected virtual void OnSelected(IInteractor interactor)
         {
             selectingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
             State = InteractionState.Selected;
         }
 
-        /// <inheritdoc/>
-        public virtual void OnDeselected(IInteractor interactor)
+        /// <summary>
+        /// The <see cref="IInteractable"/> is no longer selected by <paramref name="interactor"/>.
+        /// </summary>
+        protected virtual void OnDeselected(IInteractor interactor)
         {
             selectingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
             if (selectingInteractors.Count > 0)
@@ -214,5 +229,23 @@ namespace RealityToolkit.Input.Interactables
 
         /// <inheritdoc/>
         public void OnFocusExit(FocusEventData eventData) => OnUnfocused(eventData.Pointer);
+
+        /// <inheritdoc/>
+        public void OnInputDown(InputEventData eventData)
+        {
+            if (eventData.InputAction == selectAction)
+            {
+
+            }
+        }
+
+        /// <inheritdoc/>
+        public void OnInputUp(InputEventData eventData)
+        {
+            if (eventData.InputAction == selectAction)
+            {
+
+            }
+        }
     }
 }

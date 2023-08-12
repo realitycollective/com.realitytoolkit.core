@@ -12,16 +12,16 @@ namespace RealityToolkit.Input.Interfaces.Handlers
     public interface IInputHandler : IEventSystemHandler
     {
         /// <summary>
-        /// Input Up updates from Interactions, Keys, or any other simple UnityEngine.Input.
-        /// </summary>
-        /// <param name="eventData"></param>
-        void OnInputUp(InputEventData eventData);
-
-        /// <summary>
         /// Input Down updates from Interactions, Keys, or any other simple UnityEngine.Input.
         /// </summary>
         /// <param name="eventData"></param>
         void OnInputDown(InputEventData eventData);
+
+        /// <summary>
+        /// Input Up updates from Interactions, Keys, or any other simple UnityEngine.Input.
+        /// </summary>
+        /// <param name="eventData"></param>
+        void OnInputUp(InputEventData eventData);
     }
 
     /// <summary>
