@@ -24,7 +24,7 @@ namespace RealityToolkit.Input.Interactables
     public class Interactable : MonoBehaviour,
         IInteractable,
         IFocusHandler,
-        IInputHandler
+        IPointerHandler
     {
         [SerializeField]
         [Tooltip("Optional label that may be used to identify the interactable or categorize it.")]
@@ -231,21 +231,27 @@ namespace RealityToolkit.Input.Interactables
         public void OnFocusExit(FocusEventData eventData) => OnUnfocused(eventData.Pointer);
 
         /// <inheritdoc/>
-        public void OnInputDown(InputEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.InputAction == selectAction)
             {
-
+                OnSelected(eventData.Pointer);
             }
         }
 
         /// <inheritdoc/>
-        public void OnInputUp(InputEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
             if (eventData.InputAction == selectAction)
             {
-
+                OnDeselected(eventData.Pointer);
             }
+        }
+
+        /// <inheritdoc/>
+        public void OnPointerClicked(PointerEventData eventData)
+        {
+
         }
     }
 }
