@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactors;
 
 namespace RealityToolkit.Input.InteractionActions
 {
@@ -11,17 +12,20 @@ namespace RealityToolkit.Input.InteractionActions
     /// </summary>
     public class FocusLockAction : BaseInteractionAction
     {
+        private IInteractor currentInteractor;
+
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
-            if (Interactable.PrimaryInteractor == null)
+            if (state == InteractionState.Selected)
             {
-                return;
+                currentInteractor = Interactable.PrimaryInteractor;
+                currentInteractor.IsFocusLocked = true;
             }
-
-            for (var i = 0; i < Interactable.PrimaryInteractor.InputSource.Pointers.Length; i++)
+            else if (currentInteractor != null)
             {
-                Interactable.PrimaryInteractor.InputSource.Pointers[i].IsFocusLocked = state == InteractionState.Selected;
+                currentInteractor.IsFocusLocked = false;
+                currentInteractor = null;
             }
         }
     }

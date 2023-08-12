@@ -39,7 +39,7 @@ namespace RealityToolkit.Input.InteractionActions
             OrientTowardUserAndKeepUpright
         }
 
-        private IInteractor currentPointer;
+        private IInteractor currentInteractor;
         private bool isDragging;
         private bool isDraggingEnabled = true;
         private float handRefDistance;
@@ -92,7 +92,7 @@ namespace RealityToolkit.Input.InteractionActions
 
             var cameraTransform = Camera.main.transform;
 
-            currentPointer.TryGetPointerPosition(out Vector3 inputPosition);
+            currentInteractor.TryGetPointerPosition(out Vector3 inputPosition);
 
             var pivotPosition = GetHandPivotPosition(cameraTransform);
             handRefDistance = Vector3.Magnitude(inputPosition - pivotPosition);
@@ -128,7 +128,7 @@ namespace RealityToolkit.Input.InteractionActions
         {
             var cameraTransform = Camera.main.transform;
 
-            currentPointer.TryGetPointerPosition(out Vector3 inputPosition);
+            currentInteractor.TryGetPointerPosition(out Vector3 inputPosition);
 
             var pivotPosition = GetHandPivotPosition(cameraTransform);
             var newHandDirection = Vector3.Normalize(inputPosition - pivotPosition);
@@ -169,7 +169,7 @@ namespace RealityToolkit.Input.InteractionActions
             var newPosition = Vector3.Lerp(transform.position, draggingPosition + cameraTransform.TransformDirection(objectReferenceGrabPoint), positionLerpSpeed);
             if (rigidbody.IsNull())
             {
-                rigidbody.position = newPosition;
+                transform.position = newPosition;
             }
             else
             {
@@ -180,7 +180,7 @@ namespace RealityToolkit.Input.InteractionActions
             var newRotation = Quaternion.Lerp(transform.rotation, draggingRotation, rotationLerpSpeed);
             if (rigidbody.IsNull())
             {
-                rigidbody.rotation = newRotation;
+                transform.rotation = newRotation;
             }
             else
             {
@@ -225,7 +225,7 @@ namespace RealityToolkit.Input.InteractionActions
 
             if (state == InteractionState.Selected)
             {
-                currentPointer = primaryInteractor;
+                currentInteractor = primaryInteractor;
 
                 var initialDraggingPosition = primaryInteractor is IDirectInteractor ?
                     transform.position :
