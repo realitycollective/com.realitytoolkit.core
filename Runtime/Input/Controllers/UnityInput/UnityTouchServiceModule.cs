@@ -91,7 +91,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
 
                 for (int i = 0; i < controller.InputSource?.Pointers.Length; i++)
                 {
-                    var touchPointer = (ITouchPointer)controller.InputSource.Pointers[i];
+                    var touchPointer = (ITouchInteractor)controller.InputSource.Pointers[i];
                     touchPointer.TouchRay = ray;
                     touchPointer.FingerId = touch.fingerId;
                 }
@@ -114,7 +114,7 @@ namespace RealityToolkit.Input.Controllers.UnityInput
             }
 
             controller.TouchData = touch;
-            var pointer = (ITouchPointer)controller.InputSource.Pointers[0];
+            var pointer = (ITouchInteractor)controller.InputSource.Pointers[0];
             controller.ScreenPointRay = pointer.TouchRay = ray;
             controller.Update();
         }

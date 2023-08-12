@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace RealityToolkit.Input.Interactors
     /// <summary>
     /// Touch Pointer Implementation.
     /// </summary>
-    public class TouchPointer : BaseControllerInteractor, ITouchPointer
+    public class TouchInteractor : BaseControllerInteractor, ITouchInteractor
     {
         private bool isInteractionEnabled = false;
 

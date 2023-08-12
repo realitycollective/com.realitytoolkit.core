@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace RealityToolkit.Input.Interactors
     /// <summary>
     /// Default Mouse Pointer Implementation.
     /// </summary>
-    public class MousePointer : BaseControllerInteractor, IMousePointer
+    public class MouseInteractor : BaseControllerInteractor, IMouseInteractor
     {
         private float lastUpdateTime = 0.0f;
 
@@ -31,7 +30,7 @@ namespace RealityToolkit.Input.Interactors
         private bool hideCursorWhenInactive = true;
 
         /// <inheritdoc />
-        bool IMousePointer.HideCursorWhenInactive => hideCursorWhenInactive;
+        bool IMouseInteractor.HideCursorWhenInactive => hideCursorWhenInactive;
 
         [SerializeField]
         [Range(0.01f, 1f)]
@@ -39,7 +38,7 @@ namespace RealityToolkit.Input.Interactors
         private float movementThresholdToUnHide = 0.1f;
 
         /// <inheritdoc />
-        float IMousePointer.MovementThresholdToUnHide => movementThresholdToUnHide;
+        float IMouseInteractor.MovementThresholdToUnHide => movementThresholdToUnHide;
 
         [SerializeField]
         [Range(0f, 10f)]
@@ -47,14 +46,14 @@ namespace RealityToolkit.Input.Interactors
         private float hideTimeout = 3.0f;
 
         /// <inheritdoc />
-        float IMousePointer.HideTimeout => hideTimeout;
+        float IMouseInteractor.HideTimeout => hideTimeout;
 
         [SerializeField]
         [Range(0.1f, 1f)]
         [Tooltip("Mouse cursor speed that gets applied to the mouse delta.")]
         private float speed = 0.25f;
 
-        float IMousePointer.Speed => speed;
+        float IMouseInteractor.Speed => speed;
 
         #endregion IMousePointer Implementation
 

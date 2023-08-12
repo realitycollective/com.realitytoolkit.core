@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Editor.UX.Pointers
 {
-    [CustomEditor(typeof(MousePointer))]
+    [CustomEditor(typeof(MouseInteractor))]
     public class MousePointerInspector : BaseControllerPointerInspector
     {
         private readonly GUIContent mousePointerFoldoutContent = new GUIContent("Mouse Pointer Settings");

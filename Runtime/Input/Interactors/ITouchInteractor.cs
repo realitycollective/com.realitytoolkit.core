@@ -6,9 +6,9 @@ using UnityEngine;
 namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
-    /// Interface for handling touch pointers.
+    /// Interface for touch <see cref="IInteractor"/>s.
     /// </summary>
-    public interface ITouchPointer : IInteractor
+    public interface ITouchInteractor : IInteractor
     {
         /// <summary>
         /// Current finger id of the touch.
