@@ -39,9 +39,9 @@ namespace RealityToolkit.Input.InteractionActions
             OrientTowardUserAndKeepUpright
         }
 
-        private IInteractor currentInteractor;
+        private IControllerInteractor currentInteractor;
         private bool isDragging;
-        private bool isDraggingEnabled = true;
+        private bool isFar;
         private float handRefDistance;
         private float objectReferenceDistance;
         private Vector3 draggingPosition;
@@ -54,9 +54,13 @@ namespace RealityToolkit.Input.InteractionActions
         /// <inheritdoc/>
         protected override void Update()
         {
-            if (isDraggingEnabled && isDragging)
+            if (isDragging && isFar)
             {
-                UpdateDragging();
+                UpdateFarDragging();
+            }
+            else if (isDragging && !isFar)
+            {
+                UpdateDirectDragging();
             }
         }
 
@@ -69,27 +73,89 @@ namespace RealityToolkit.Input.InteractionActions
             }
         }
 
-        /// <summary>
-        /// Gets the pivot position for the hand, which is approximated to the base of the neck.
-        /// </summary>
-        /// <returns>Pivot position for the hand.</returns>
-        private static Vector3 GetHandPivotPosition(Transform cameraTransform)
+        /// <inheritdoc/>
+        public override void OnStateChanged(InteractionState state)
         {
-            return cameraTransform.position + new Vector3(0, -0.2f, 0) - cameraTransform.forward * 0.2f; // a bit lower and behind
+            // This action only supports controller interactors.
+            if (Interactable.PrimaryInteractor is not IControllerInteractor primaryInteractor)
+            {
+                StopDragging();
+                return;
+            }
+
+            if (isDragging)
+            {
+                // We're already handling drag input, so we can't start a new drag operation.
+                return;
+            }
+
+            if (state == InteractionState.Selected)
+            {
+                currentInteractor = primaryInteractor;
+                isFar = primaryInteractor is not IDirectInteractor;
+
+                var initialDraggingPosition = isFar ?
+                    primaryInteractor.Result.EndPoint :
+                    primaryInteractor.Controller.Visualizer.GripPose.position;
+
+                StartDragging(initialDraggingPosition);
+            }
+            else
+            {
+                StopDragging();
+            }
         }
 
-        /// <summary>
-        /// Starts dragging the object.
-        /// </summary>
         private void StartDragging(Vector3 initialDraggingPosition)
         {
-            if (!isDraggingEnabled || isDragging)
+            if (isDragging)
             {
                 return;
             }
 
             isDragging = true;
 
+            if (isFar)
+            {
+                StartFarDragging(initialDraggingPosition);
+            }
+            else
+            {
+                StartDirectDragging(initialDraggingPosition);
+            }
+        }
+
+        private void StopDragging()
+        {
+            if (!isDragging)
+            {
+                return;
+            }
+
+            isDragging = false;
+        }
+
+        #region Direct Interactor
+
+        private void StartDirectDragging(Vector3 initialDraggingPosition)
+        {
+            transform.position = initialDraggingPosition;
+        }
+
+        private void UpdateDirectDragging()
+        {
+            transform.position = currentInteractor.Controller.Visualizer.GripPose.transform.position;
+        }
+
+        #endregion
+
+        #region Far Interactor
+
+        /// <summary>
+        /// Starts dragging the object.
+        /// </summary>
+        private void StartFarDragging(Vector3 initialDraggingPosition)
+        {
             var cameraTransform = Camera.main.transform;
 
             currentInteractor.TryGetPointerPosition(out Vector3 inputPosition);
@@ -124,7 +190,7 @@ namespace RealityToolkit.Input.InteractionActions
         /// <summary>
         /// Update the position of the object being dragged.
         /// </summary>
-        private void UpdateDragging()
+        private void UpdateFarDragging()
         {
             var cameraTransform = Camera.main.transform;
 
@@ -195,48 +261,14 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <summary>
-        /// Stops dragging the object.
+        /// Gets the pivot position for the hand, which is approximated to the base of the neck.
         /// </summary>
-        private void StopDragging()
+        /// <returns>Pivot position for the hand.</returns>
+        private static Vector3 GetHandPivotPosition(Transform cameraTransform)
         {
-            if (!isDragging)
-            {
-                return;
-            }
-
-            isDragging = false;
+            return cameraTransform.position + new Vector3(0, -0.2f, 0) - cameraTransform.forward * 0.2f; // a bit lower and behind
         }
 
-        /// <inheritdoc/>
-        public override void OnStateChanged(InteractionState state)
-        {
-            // This action only supports controller interactors.
-            if (Interactable.PrimaryInteractor is not IControllerInteractor primaryInteractor)
-            {
-                StopDragging();
-                return;
-            }
-
-            if (isDragging)
-            {
-                // We're already handling drag input, so we can't start a new drag operation.
-                return;
-            }
-
-            if (state == InteractionState.Selected)
-            {
-                currentInteractor = primaryInteractor;
-
-                var initialDraggingPosition = primaryInteractor is IDirectInteractor ?
-                    transform.position :
-                    primaryInteractor.Result.EndPoint;
-
-                StartDragging(initialDraggingPosition);
-            }
-            else
-            {
-                StopDragging();
-            }
-        }
+        #endregion Far Interactor
     }
 }

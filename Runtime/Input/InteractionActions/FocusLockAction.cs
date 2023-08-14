@@ -17,6 +17,12 @@ namespace RealityToolkit.Input.InteractionActions
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
+            if (Interactable.PrimaryInteractor is IDirectInteractor)
+            {
+                // This action is not for direct interactors.
+                return;
+            }
+
             if (state == InteractionState.Selected)
             {
                 currentInteractor = Interactable.PrimaryInteractor;
