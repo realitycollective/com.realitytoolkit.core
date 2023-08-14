@@ -7,7 +7,7 @@ using RealityToolkit.Input.Interactors;
 namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
-    /// This <see cref="IInteractionAction"/> will focus lock <see cref="Input.Interfaces.IPointer"/>s on the <see cref="Interactables.IInteractable"/>
+    /// This <see cref="IInteractionAction"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>
     /// object depending on its <see cref="InteractionState"/>.
     /// </summary>
     public class FocusLockAction : BaseInteractionAction
