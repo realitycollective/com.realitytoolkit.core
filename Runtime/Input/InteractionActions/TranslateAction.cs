@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
+    [DisallowMultipleComponent]
     public class TranslateAction : BaseInteractionAction
     {
         [SerializeField]

@@ -10,6 +10,7 @@ namespace RealityToolkit.Input.InteractionActions
     /// This <see cref="IInteractionAction"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>
     /// object depending on its <see cref="InteractionState"/>.
     /// </summary>
+    [DisallowMultipleComponent]
     public class UpdateRigidbodyAction : BaseInteractionAction
     {
         private new Rigidbody rigidbody;

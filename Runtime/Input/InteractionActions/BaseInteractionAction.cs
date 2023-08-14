@@ -10,6 +10,7 @@ namespace RealityToolkit.Input.InteractionActions
     /// <summary>
     /// Base implementation for <see cref="IInteractionAction"/>s.
     /// </summary>
+    [RequireComponent(typeof(Interactable))]
     public abstract class BaseInteractionAction : MonoBehaviour, IInteractionAction
     {
         [SerializeField, Tooltip("Actions with a higher sorting order will always be executed after the ones with a lower sorting order.")]

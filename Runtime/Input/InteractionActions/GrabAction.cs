@@ -2,9 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Input.Definitions;
+using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
+    [DisallowMultipleComponent]
     public class GrabAction : BaseInteractionAction
     {
         /// <inheritdoc/>

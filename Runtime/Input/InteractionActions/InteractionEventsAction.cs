@@ -12,6 +12,7 @@ namespace RealityToolkit.Input.InteractionActions
     /// interaction on the <see cref="Interactables.IInteractable"/> that you can use to hook up
     /// events in the inspector or via code.
     /// </summary>
+    [DisallowMultipleComponent]
     public class InteractionEventsAction : BaseInteractionAction
     {
         [Space]

@@ -3,6 +3,7 @@
 
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interactors;
+using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
@@ -10,6 +11,7 @@ namespace RealityToolkit.Input.InteractionActions
     /// This <see cref="IInteractionAction"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>
     /// object depending on its <see cref="InteractionState"/>.
     /// </summary>
+    [DisallowMultipleComponent]
     public class FocusLockAction : BaseInteractionAction
     {
         private IInteractor currentInteractor;
