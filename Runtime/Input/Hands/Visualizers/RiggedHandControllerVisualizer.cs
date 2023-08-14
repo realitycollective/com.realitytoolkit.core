@@ -21,14 +21,14 @@ namespace RealityToolkit.Input.Hands.Visualizers
 
         [Header("Select")]
         [SerializeField, Tooltip("The hand pose to take when the select input is happeing.")]
-        private HandPose selectPose = null;
+        private HandPose selectHandPose = null;
 
         [SerializeField, Tooltip("Input action to listen for to transition to the select pose.")]
         private InputAction selectInputAction = InputAction.None;
 
         [Header("Grip")]
         [SerializeField, Tooltip("The hand pose to take when the grip input is happeing.")]
-        private HandPose gripPose = null;
+        private HandPose gripHandPose = null;
 
         [SerializeField, Tooltip("Input action to listen for to transition to the grip pose.")]
         private InputAction gripInputAction = InputAction.None;
@@ -82,12 +82,12 @@ namespace RealityToolkit.Input.Hands.Visualizers
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)
             {
-                poseAnimator.Transition(selectPose);
+                poseAnimator.Transition(selectHandPose);
             }
             else if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == gripInputAction)
             {
-                poseAnimator.Transition(gripPose);
+                poseAnimator.Transition(gripHandPose);
             }
         }
 
@@ -126,12 +126,12 @@ namespace RealityToolkit.Input.Hands.Visualizers
             if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == selectInputAction)
             {
-                OnSingleAxisInputChanged(eventData.InputData, selectPose);
+                OnSingleAxisInputChanged(eventData.InputData, selectHandPose);
             }
             else if (eventData.InputSource == Controller.InputSource &&
                 eventData.InputAction == gripInputAction)
             {
-                OnSingleAxisInputChanged(eventData.InputData, gripPose);
+                OnSingleAxisInputChanged(eventData.InputData, gripHandPose);
             }
         }
 

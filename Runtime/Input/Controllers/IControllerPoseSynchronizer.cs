@@ -3,10 +3,10 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Input.Definitions;
-using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interfaces.Handlers
+namespace RealityToolkit.Input.Controllers
 {
     /// <summary>
     /// Basic interface for synchronizing to a controller pose.

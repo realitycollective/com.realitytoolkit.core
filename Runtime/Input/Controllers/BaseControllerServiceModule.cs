@@ -6,7 +6,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Modules;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;

@@ -8,8 +8,6 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers;
-using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;

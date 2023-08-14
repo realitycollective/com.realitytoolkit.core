@@ -4,8 +4,8 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interfaces.Handlers
+namespace RealityToolkit.Input.Controllers
 {
     /// <summary>
     /// Interface for configuring controller visualization.
@@ -17,5 +17,11 @@ namespace RealityToolkit.Input.Interfaces.Handlers
         /// This reference may not always be available when called.
         /// </remarks>
         GameObject GameObject { get; }
+
+        /// <summary>
+        /// The <see cref="Transform"/> defining the <see cref="IControllerVisualizer"/>s grip pose.
+        /// That is the pose where objects are attached to when gripped.
+        /// </summary>
+        Transform GripPose { get; }
     }
 }

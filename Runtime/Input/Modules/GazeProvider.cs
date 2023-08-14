@@ -4,11 +4,11 @@
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.InputSources;
 using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers;
 using RealityToolkit.Input.Interfaces.Handlers;
 using RealityToolkit.Utilities.Physics;
 using System;

@@ -1,6 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Input.Interfaces.Handlers;
 using UnityEngine;
 
@@ -11,20 +12,13 @@ namespace RealityToolkit.Input.Controllers
     /// </summary>
     public abstract class BaseControllerVisualizer : ControllerPoseSynchronizer, IControllerVisualizer
     {
+        [SerializeField, Tooltip("Defines the pose to attach to when held. Defaults to the visualizers root transform, if not set.")]
+        private Transform gripPose = null;
+
         /// <inheritdoc />
-        public GameObject GameObject
-        {
-            get
-            {
-                try
-                {
-                    return gameObject;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
+        public GameObject GameObject => gameObject;
+
+        /// <inheritdoc />
+        public Transform GripPose => gripPose.IsNotNull() ? gripPose : transform;
     }
 }

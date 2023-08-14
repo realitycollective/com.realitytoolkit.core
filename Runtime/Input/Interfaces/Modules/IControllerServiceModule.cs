@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Controllers;
 using System;
 using System.Collections.Generic;
 

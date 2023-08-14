@@ -3,9 +3,9 @@
 
 using RealityCollective.Extensions;
 using RealityToolkit.EventDatum.Input;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Interactors

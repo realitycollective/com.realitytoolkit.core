@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Interfaces.Controllers;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Utilities.Physics;
 using UnityEngine;
 

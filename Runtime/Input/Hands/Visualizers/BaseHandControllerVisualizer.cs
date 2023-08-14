@@ -8,8 +8,7 @@ using UnityEngine;
 namespace RealityToolkit.Input.Hands.Visualizers
 {
     /// <summary>
-    /// Base <see cref="Interfaces.Handlers.IControllerVisualizer"/> for <see cref="Interfaces.Controllers.IController"/>
-    /// visualizations that resemble a hand-like appearance.
+    /// Base <see cref="IControllerVisualizer"/> for <see cref="IController"/> visualizations that resemble a hand-like appearance.
     /// </summary>
     public abstract class BaseHandControllerVisualizer : BaseControllerVisualizer
     {

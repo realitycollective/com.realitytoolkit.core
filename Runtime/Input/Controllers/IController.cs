@@ -3,11 +3,11 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Interfaces.Handlers;
+using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Interfaces.Controllers
+namespace RealityToolkit.Input.Controllers
 {
     /// <summary>
     /// A <see cref="IController"/> is an input device used to raise <see cref="Definitions.InputAction"/>s.
