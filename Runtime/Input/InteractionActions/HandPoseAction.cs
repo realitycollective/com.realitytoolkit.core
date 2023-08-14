@@ -10,6 +10,11 @@ using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
+    /// <summary>
+    /// The <see cref="HandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
+    /// into the assigned <see cref="handPose"/>, when the <see cref="Interactables.IInteractable"/>
+    /// is grabbed.
+    /// </summary>
     public class HandPoseAction : BaseInteractionAction
     {
         [SerializeField, Tooltip("Hand pose applied when grabbing the interactable.")]
@@ -20,6 +25,12 @@ namespace RealityToolkit.Input.InteractionActions
         /// <inheritdoc/>
         public override void OnStateChanged(InteractionState state)
         {
+            if (Interactable.PrimaryInteractor is not IDirectInteractor)
+            {
+                // This action is only for direct interaction.
+                return;
+            }
+
             if (state == InteractionState.Selected &&
                 Interactable.PrimaryInteractor is IControllerInteractor controllerInteractor &&
                 controllerInteractor.Controller.Visualizer is RiggedHandControllerVisualizer riggedHandControllerVisualizer)
