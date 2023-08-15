@@ -10,6 +10,14 @@ namespace RealityToolkit.Input.Interactors
     /// </summary>
     public class PokeInteractor : NearInteractor, IPokeInteractor
     {
+        private void Update()
+        {
+            if (Controller == null || Controller.Visualizer == null)
+            {
+                return;
+            }
 
+            transform.SetPositionAndRotation(Controller.Visualizer.PokePose.position, Controller.Visualizer.PokePose.rotation);
+        }
     }
 }

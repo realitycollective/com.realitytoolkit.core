@@ -54,6 +54,7 @@ MonoBehaviour:
     id: 0
     description: None
     axisConstraint: 0
+  pokePose: {fileID: 3702604046292662753}
   gripPose: {fileID: 998377744026015638}
   idlePose: {fileID: 11400000, guid: f4ee4f055d04ac745ba8acb96d0837de, type: 2}
   selectHandPose: {fileID: 11400000, guid: 42e5fadc57407fd4ba590e7297704ce2, type: 2}
