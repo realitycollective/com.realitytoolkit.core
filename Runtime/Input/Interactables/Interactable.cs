@@ -48,9 +48,13 @@ namespace RealityToolkit.Input.Interactables
         [Tooltip("The action that will grab this interactable, if focused by an interactor.")]
         protected InputAction grabAction = InputAction.None;
 
-        private InteractionState currentState;
+        [Space]
+        [SerializeField, Tooltip("The focus mode for this interactable.")]
+        private InteractableFocusMode focusMode = InteractableFocusMode.Single;
+
         private readonly Dictionary<uint, IInteractor> focusingInteractors = new Dictionary<uint, IInteractor>();
         private readonly Dictionary<uint, IInteractor> selectingInteractors = new Dictionary<uint, IInteractor>();
+        private readonly Dictionary<uint, IInteractor> grabbingInteractors = new Dictionary<uint, IInteractor>();
         private List<IInteractionAction> actions = new List<IInteractionAction>();
 
         private IInputService inputService = null;
@@ -71,21 +75,13 @@ namespace RealityToolkit.Input.Interactables
         public bool IsValid => isActiveAndEnabled && (NearInteractionEnabled || FarInteractionEnabled);
 
         /// <inheritdoc/>
+        public InteractableFocusMode FocusMode => focusMode;
+
+        /// <inheritdoc/>
         public bool NearInteractionEnabled => InputService.NearInteractionEnabled && nearInteraction;
 
         /// <inheritdoc/>
         public bool FarInteractionEnabled => InputService.FarInteractionEnabled && farInteraction;
-
-        /// <inheritdoc/>
-        public InteractionState State
-        {
-            get => currentState;
-            private set
-            {
-                currentState = value;
-                UpdateActions();
-            }
-        }
 
         /// <inheritdoc/>
         public IInteractor PrimaryInteractor => selectingInteractors.Values.FirstOrDefault();
@@ -137,18 +133,6 @@ namespace RealityToolkit.Input.Interactables
         {
             focusingInteractors.Clear();
             selectingInteractors.Clear();
-            State = InteractionState.Normal;
-        }
-
-        /// <summary>
-        /// Updates all <see cref="IInteractionAction"/>s on the <see cref="IInteractable"/>.
-        /// </summary>
-        private void UpdateActions()
-        {
-            for (var i = 0; i < actions.Count; i++)
-            {
-                actions[i].OnStateChanged(currentState);
-            }
         }
 
         /// <summary>
@@ -162,10 +146,29 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            focusingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
-            if (State != InteractionState.Selected)
+            var isFirst = focusingInteractors.Count == 0;
+            var added = focusingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
+
+            if (!added)
             {
-                State = InteractionState.Focused;
+                return;
+            }
+
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor
+                };
+
+                if (isFirst)
+                {
+                    action.OnFirstFocusEntered(eventArgs);
+                }
+
+                action.OnFocusEntered(eventArgs);
             }
         }
 
@@ -173,25 +176,38 @@ namespace RealityToolkit.Input.Interactables
         /// The <see cref="IInteractable"/> was unfocused by <paramref name="interactor"/>.
         /// </summary>
         /// <param name="interactor">The <see cref="IInteractor"/> that unfocused the object.</param>
-        protected virtual void OnUnfocused(IInteractor interactor)
+        /// <param name="isCanceled">Was the focus canceled? Defaults to <c>false</c>.</param>
+        protected virtual void OnUnfocused(IInteractor interactor, bool isCanceled = false)
         {
             if (!IsValidInteractor(interactor))
             {
                 return;
             }
 
-            if (focusingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId) &&
-                focusingInteractors.Count == 0 &&
-                State == InteractionState.Focused)
+            var isLast = focusingInteractors.Count == 1;
+            var removed = focusingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
+
+            if (!removed)
             {
-                State = InteractionState.Normal;
+                return;
             }
 
-            if (selectingInteractors.TryGetValue(interactor.InputSource.SourceId, out _))
+            for (var i = 0; i < actions.Count; i++)
             {
-                // If an interactor that was interacting with the object has lost focus to it,
-                // then that is the same as ending the interaction.
-                OnDeselected(interactor);
+                var action = actions[i];
+                var eventArgs = new Events.InteractionExitEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor,
+                    IsCanceled = isCanceled
+                };
+
+                if (isLast)
+                {
+                    action.OnLastFocusExited(eventArgs);
+                }
+
+                action.OnFocusExited(eventArgs);
             }
         }
 
@@ -205,31 +221,145 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            selectingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
-            State = InteractionState.Selected;
+            var isFirst = selectingInteractors.Count == 0;
+            var added = selectingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
+
+            if (!added)
+            {
+                return;
+            }
+
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor
+                };
+
+                if (isFirst)
+                {
+                    action.OnFirstSelectEntered(eventArgs);
+                }
+
+                action.OnSelectEntered(eventArgs);
+            }
         }
 
         /// <summary>
         /// The <see cref="IInteractable"/> is no longer selected by <paramref name="interactor"/>.
         /// </summary>
-        protected virtual void OnDeselected(IInteractor interactor)
+        /// <param name="interactor">The <see cref="IInteractor"/> that stopped selecting the object.</param>
+        /// <param name="isCanceled">Was the selection canceled? Defaults to <c>false</c>.</param>
+        protected virtual void OnDeselected(IInteractor interactor, bool isCanceled = false)
         {
             if (!IsValidInteractor(interactor))
             {
                 return;
             }
 
-            selectingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
-            if (selectingInteractors.Count > 0)
+            var isLast = selectingInteractors.Count == 1;
+            var removed = selectingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
+
+            if (!removed)
             {
                 return;
             }
 
-            State = focusingInteractors.Count == 0 ? InteractionState.Normal : InteractionState.Focused;
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionExitEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor,
+                    IsCanceled = isCanceled
+                };
+
+                if (isLast)
+                {
+                    action.OnLastSelectExited(eventArgs);
+                }
+
+                action.OnSelectExited(eventArgs);
+            }
         }
 
-        private bool IsValidInteractor(IInteractor interactor) =>
-            (interactor.IsFarInteractor && FarInteractionEnabled) || (!interactor.IsFarInteractor && NearInteractionEnabled);
+        /// <summary>
+        /// The <see cref="IInteractable"/> is now grabbed by <paramref name="interactor"/>.
+        /// </summary>
+        protected virtual void OnGrabbed(IInteractor interactor)
+        {
+            if (!IsValidInteractor(interactor))
+            {
+                return;
+            }
+
+            var isFirst = grabbingInteractors.Count == 0;
+            var added = grabbingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
+
+            if (!added)
+            {
+                return;
+            }
+
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor
+                };
+
+                if (isFirst)
+                {
+                    action.OnFirstGrabEntered(eventArgs);
+                }
+
+                action.OnGrabEntered(eventArgs);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="IInteractable"/> is no longer grabbed by <paramref name="interactor"/>.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> that stopped grabbing the object.</param>
+        /// <param name="isCanceled">Was the grab canceled? Defaults to <c>false</c>.</param>
+        protected virtual void OnDropped(IInteractor interactor, bool isCanceled = false)
+        {
+            if (!IsValidInteractor(interactor))
+            {
+                return;
+            }
+
+            var isLast = grabbingInteractors.Count == 1;
+            var removed = grabbingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
+
+            if (!removed)
+            {
+                return;
+            }
+
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionExitEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor,
+                    IsCanceled = isCanceled
+                };
+
+                if (isLast)
+                {
+                    action.OnLastGrabExited(eventArgs);
+                }
+
+                action.OnGrabExited(eventArgs);
+            }
+        }
 
         /// <inheritdoc/>
         public void Add(IInteractionAction action)
@@ -240,6 +370,9 @@ namespace RealityToolkit.Input.Interactables
 
         /// <inheritdoc/>
         public void Remove(IInteractionAction action) => actions.SafeRemoveListItem(action);
+
+        private bool IsValidInteractor(IInteractor interactor) =>
+            (interactor.IsFarInteractor && FarInteractionEnabled) || (!interactor.IsFarInteractor && NearInteractionEnabled);
 
         #region IFocusHandler
 
@@ -269,6 +402,11 @@ namespace RealityToolkit.Input.Interactables
                 OnSelected(eventData.Pointer);
                 eventData.Use();
             }
+            else if (eventData.InputAction == grabAction)
+            {
+                OnGrabbed(eventData.Pointer);
+                eventData.Use();
+            }
         }
 
         /// <inheritdoc/>
@@ -276,15 +414,13 @@ namespace RealityToolkit.Input.Interactables
         {
             if (eventData.InputAction == selectAction)
             {
-                foreach (var interactor in selectingInteractors)
-                {
-                    if (interactor.Key == eventData.SourceId)
-                    {
-                        OnDeselected(interactor.Value);
-                        eventData.Use();
-                        return;
-                    }
-                }
+                OnDeselected(eventData.Pointer);
+                eventData.Use();
+            }
+            else if (eventData.InputAction == grabAction)
+            {
+                OnDropped(eventData.Pointer);
+                eventData.Use();
             }
         }
 
@@ -307,7 +443,7 @@ namespace RealityToolkit.Input.Interactables
             {
                 if (interactor.Key == eventData.SourceId)
                 {
-                    OnUnfocused(interactor.Value);
+                    OnUnfocused(interactor.Value, true);
                 }
             }
 
@@ -315,7 +451,15 @@ namespace RealityToolkit.Input.Interactables
             {
                 if (interactor.Key == eventData.SourceId)
                 {
-                    OnDeselected(interactor.Value);
+                    OnDeselected(interactor.Value, true);
+                }
+            }
+
+            foreach (var interactor in grabbingInteractors)
+            {
+                if (interactor.Key == eventData.SourceId)
+                {
+                    OnDropped(interactor.Value, true);
                 }
             }
         }

@@ -1,7 +1,6 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.InteractionActions;
 using RealityToolkit.Input.Interactors;
 using System.Collections.Generic;
@@ -25,6 +24,11 @@ namespace RealityToolkit.Input.Interactables
         bool IsValid { get; }
 
         /// <summary>
+        /// The <see cref="IInteractable"/>'s focus mode.
+        /// </summary>
+        InteractableFocusMode FocusMode { get; }
+
+        /// <summary>
         /// Does the <see cref="IInteractable"/> allow near interaction?
         /// </summary>
         bool NearInteractionEnabled { get; }
@@ -33,11 +37,6 @@ namespace RealityToolkit.Input.Interactables
         /// Does the <see cref="IInteractable"/> allow interaction from a distance?
         /// </summary>
         bool FarInteractionEnabled { get; }
-
-        /// <summary>
-        /// The current <see cref="InteractionState"/> of the <see cref="IInteractable"/>.
-        /// </summary>
-        InteractionState State { get; }
 
         /// <summary>
         /// Gets the primary <see cref="IInteractor"/>. That is the first one

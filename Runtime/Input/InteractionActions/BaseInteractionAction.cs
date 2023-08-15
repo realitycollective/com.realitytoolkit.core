@@ -1,7 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactables;
 using UnityEngine;
 
@@ -58,6 +58,39 @@ namespace RealityToolkit.Input.InteractionActions
         protected virtual void OnDestroy() { }
 
         /// <inheritdoc/>
-        public abstract void OnStateChanged(InteractionState state);
+        public virtual void OnFirstFocusEntered(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnFocusEntered(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnFocusExited(InteractionExitEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnLastFocusExited(InteractionExitEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnFirstSelectEntered(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnSelectEntered(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnSelectExited(InteractionExitEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnLastSelectExited(InteractionExitEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnFirstGrabEntered(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnGrabEntered(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnGrabExited(InteractionExitEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnLastGrabExited(InteractionExitEventArgs eventArgs) { }
     }
 }
