@@ -1,7 +1,6 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Events;
 using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
@@ -24,27 +23,20 @@ namespace RealityToolkit.Input.InteractionActions
         private MeshRenderer meshRenderer = null;
 
         /// <inheritdoc/>
-        public override void OnFirstFocusEntered(InteractionEventArgs eventArgs)
+        protected override void Update()
         {
-            meshRenderer.material = focusedMaterial;
-        }
-
-        /// <inheritdoc/>
-        public override void OnLastFocusExited(InteractionExitEventArgs eventArgs)
-        {
-            meshRenderer.material = normalMaterial;
-        }
-
-        /// <inheritdoc/>
-        public override void OnFirstSelectEntered(InteractionEventArgs eventArgs)
-        {
-            meshRenderer.material = selectedMaterial;
-        }
-
-        /// <inheritdoc/>
-        public override void OnLastSelectExited(InteractionExitEventArgs eventArgs)
-        {
-            meshRenderer.material = normalMaterial;
+            if (Interactable.IsSelected || Interactable.IsGrabbed)
+            {
+                meshRenderer.material = selectedMaterial;
+            }
+            else if (Interactable.IsFocused)
+            {
+                meshRenderer.material = focusedMaterial;
+            }
+            else
+            {
+                meshRenderer.material = normalMaterial;
+            }
         }
     }
 }
