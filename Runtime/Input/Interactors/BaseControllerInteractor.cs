@@ -100,12 +100,12 @@ namespace RealityToolkit.Input.Interactors
 
                 if (IsSelectPressed)
                 {
-                    InputService.RaisePointerUp(this, pointerAction);
+                    OnRaisePointerUp(pointerAction);
                 }
 
                 if (IsGrabPressed)
                 {
-                    InputService.RaisePointerUp(this, grabAction);
+                    OnRaisePointerUp(grabAction);
                 }
 
                 IsSelectPressed = false;
@@ -130,15 +130,15 @@ namespace RealityToolkit.Input.Interactors
                 {
                     IsGrabPressed = false;
 
-                    InputService.RaisePointerClicked(this, grabAction);
-                    InputService.RaisePointerUp(this, grabAction);
+                    OnRaisePointerClicked(grabAction);
+                    OnRaisePointerUp(grabAction);
                 }
 
                 if (eventData.InputAction == pointerAction)
                 {
                     IsSelectPressed = false;
-                    InputService.RaisePointerClicked(this, pointerAction);
-                    InputService.RaisePointerUp(this, pointerAction);
+                    OnRaisePointerClicked(pointerAction);
+                    OnRaisePointerUp(pointerAction);
                 }
             }
         }
@@ -173,13 +173,38 @@ namespace RealityToolkit.Input.Interactors
 
         /// <summary>
         /// Invoked just before the <see cref="IInteractor"/> is going to
-        /// raise <see cref="InputService.RaisePointerDown"/>. Use this hook
+        /// raise <see cref="InputService.RaisePointerClicked(IInteractor, InputAction, IInputSource)"/>. Use this hook
+        /// in inheriting implementations to add onw logic, if needed.
+        /// </summary>
+        /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
+        protected virtual void OnRaisePointerClicked(InputAction inputAction)
+        {
+            if (Result.CurrentPointerTarget.IsNotNull() && IsInteractionEnabled)
+            {
+                InputService.RaisePointerClicked(this, inputAction);
+            }
+        }
+
+        /// <summary>
+        /// Invoked just before the <see cref="IInteractor"/> is going to
+        /// raise <see cref="InputService.RaisePointerUp(IInteractor, InputAction, IInputSource)"/>. Use this hook
+        /// in inheriting implementations to add onw logic, if needed.
+        /// </summary>
+        /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
+        protected virtual void OnRaisePointerUp(InputAction inputAction)
+        {
+            InputService.RaisePointerUp(this, inputAction);
+        }
+
+        /// <summary>
+        /// Invoked just before the <see cref="IInteractor"/> is going to
+        /// raise <see cref="InputService.RaisePointerDown(IInteractor, InputAction, IInputSource)"/>. Use this hook
         /// in inheriting implementations to add onw logic, if needed.
         /// </summary>
         /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
         protected virtual void OnRaisePointerDown(InputAction inputAction)
         {
-            if (Result.CurrentPointerTarget.IsNotNull())
+            if (Result.CurrentPointerTarget.IsNotNull() && IsInteractionEnabled)
             {
                 InputService.RaisePointerDown(this, inputAction);
             }
