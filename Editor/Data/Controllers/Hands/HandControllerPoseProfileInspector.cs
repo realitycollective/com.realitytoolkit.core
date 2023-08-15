@@ -4,9 +4,9 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Editor.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
-using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Input.Controllers.Hands;
-using RealityToolkit.Input.Extensions;
+using RealityToolkit.Input.Hands;
+using RealityToolkit.Input.Hands.Extensions;
+using RealityToolkit.Input.Hands.Poses;
 using UnityEditor;
 using UnityEngine;
 

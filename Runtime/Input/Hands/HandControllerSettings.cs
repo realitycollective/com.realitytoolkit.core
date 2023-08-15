@@ -2,13 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Definitions;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Input.Hands.Poses;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Definitions
+namespace RealityToolkit.Input.Hands
 {
-    [CreateAssetMenu(menuName = "DINO/Test", fileName = "test")]
     public class HandControllerSettings : BaseProfile
     {
         [SerializeField]

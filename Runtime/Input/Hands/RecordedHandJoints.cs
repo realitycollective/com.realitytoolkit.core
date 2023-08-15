@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// Wrapper definition around <see cref="RecordedHandJoint"/> for storing an array of <see cref="RecordedHandJoint"/>s,

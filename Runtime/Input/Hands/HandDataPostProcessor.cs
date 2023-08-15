@@ -3,13 +3,12 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Hands;
+using RealityToolkit.Input.Hands.Poses;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// The hand data post processor updates <see cref="HandData"/> provided

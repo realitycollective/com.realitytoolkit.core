@@ -4,7 +4,7 @@
 using RealityCollective.ServiceFramework.Definitions;
 using UnityEngine;
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.Input.Hands.Poses
 {
     /// <summary>
     /// A hand controller pose definition with recorded hand joint data.

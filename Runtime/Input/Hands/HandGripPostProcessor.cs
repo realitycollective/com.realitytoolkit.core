@@ -2,12 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Hands;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// The <see cref="HandGripPostProcessor"/> processes <see cref="HandData"/>

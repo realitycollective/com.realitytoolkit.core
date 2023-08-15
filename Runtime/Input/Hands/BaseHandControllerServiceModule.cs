@@ -2,14 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Hands.Poses;
 using RealityToolkit.Input.Interfaces;
-using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 
-namespace RealityToolkit.Input.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// Base controller service module to inherit from when implementing <see cref="IHandController"/>s.

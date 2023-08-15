@@ -2,11 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Hands;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.Definitions.Controllers.Hands
+namespace RealityToolkit.Input.Hands
 {
     /// <summary>
     /// An <see cref="IHandController"/>'s data

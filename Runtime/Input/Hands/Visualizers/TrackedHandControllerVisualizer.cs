@@ -2,15 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.EventDatum.Input;
-using RealityToolkit.Input.Hands.Visualizers;
-using RealityToolkit.Input.Interfaces.Modules;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Hands
+namespace RealityToolkit.Input.Hands.Visualizers
 {
     /// <summary>
     /// Default <see cref="IHandController"/> <see cref="Interfaces.Handlers.IControllerVisualizer"/>.

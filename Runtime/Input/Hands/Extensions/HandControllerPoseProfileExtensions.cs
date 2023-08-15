@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Input.Hands.Poses;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.Input.Extensions
+namespace RealityToolkit.Input.Hands.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="HandControllerPoseProfile"/>

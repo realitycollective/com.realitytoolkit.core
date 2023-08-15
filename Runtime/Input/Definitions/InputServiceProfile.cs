@@ -4,6 +4,7 @@
 using RealityCollective.Attributes;
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Definitions;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
