@@ -52,6 +52,9 @@ namespace RealityToolkit.Input.Interactables
         [SerializeField, Tooltip("The focus mode for this interactable.")]
         private InteractableFocusMode focusMode = InteractableFocusMode.Single;
 
+        [SerializeField, Tooltip("The activation mode for this interactable.")]
+        private InteractableActivationMode activationMode = InteractableActivationMode.Button;
+
         private readonly HashSet<IInteractor> focusingInteractors = new HashSet<IInteractor>();
         private readonly HashSet<IInteractor> selectingInteractors = new HashSet<IInteractor>();
         private readonly HashSet<IInteractor> grabbingInteractors = new HashSet<IInteractor>();
@@ -75,6 +78,9 @@ namespace RealityToolkit.Input.Interactables
         public bool IsValid => isActiveAndEnabled && (NearInteractionEnabled || FarInteractionEnabled);
 
         /// <inheritdoc/>
+        public bool IsActivated { get; private set; }
+
+        /// <inheritdoc/>
         public bool IsFocused => focusingInteractors.Count > 0;
 
         /// <inheritdoc/>
@@ -85,6 +91,9 @@ namespace RealityToolkit.Input.Interactables
 
         /// <inheritdoc/>
         public InteractableFocusMode FocusMode => focusMode;
+
+        /// <inheritdoc/>
+        public InteractableActivationMode ActivationMode => activationMode;
 
         /// <inheritdoc/>
         public bool NearInteractionEnabled => InputService.NearInteractionEnabled && nearInteraction;
@@ -136,6 +145,59 @@ namespace RealityToolkit.Input.Interactables
         {
             focusingInteractors.Clear();
             selectingInteractors.Clear();
+        }
+
+        /// <summary>
+        /// The <see cref="IInteractable"/> was activated by <paramref name="interactor"/>.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> causing the activation.</param>
+        protected virtual void OnActivated(IInteractor interactor)
+        {
+            if (IsActivated || ActivationMode == InteractableActivationMode.None)
+            {
+                return;
+            }
+
+            IsActivated = ActivationMode == InteractableActivationMode.Toggle;
+
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor
+                };
+
+                action.OnActivated(eventArgs);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="IInteractable"/> was deactivated by <paramref name="interactor"/>.
+        /// </summary>
+        /// <param name="interactor">The <see cref="IInteractor"/> causing the deactivation.</param>
+        protected virtual void OnDeactivated(IInteractor interactor)
+        {
+            if (!IsActivated || ActivationMode == InteractableActivationMode.None)
+            {
+                return;
+            }
+
+            IsActivated = false;
+
+            for (var i = 0; i < actions.Count; i++)
+            {
+                var action = actions[i];
+                var eventArgs = new Events.InteractionExitEventArgs
+                {
+                    Interactable = this,
+                    Interactor = interactor,
+                    IsCanceled = false
+                };
+
+                action.OnDeactivated(eventArgs);
+            }
         }
 
         /// <summary>
@@ -430,7 +492,16 @@ namespace RealityToolkit.Input.Interactables
         }
 
         /// <inheritdoc/>
-        public void OnPointerClicked(PointerEventData eventData) { }
+        public void OnPointerClicked(PointerEventData eventData)
+        {
+            if (IsActivated)
+            {
+                OnDeactivated(eventData.Pointer);
+                return;
+            }
+
+            OnActivated(eventData.Pointer);
+        }
 
         #endregion IPointerHandler
 

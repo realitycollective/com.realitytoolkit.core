@@ -58,6 +58,12 @@ namespace RealityToolkit.Input.InteractionActions
         protected virtual void OnDestroy() { }
 
         /// <inheritdoc/>
+        public virtual void OnActivated(InteractionEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
+        public virtual void OnDeactivated(InteractionExitEventArgs eventArgs) { }
+
+        /// <inheritdoc/>
         public virtual void OnFirstFocusEntered(InteractionEventArgs eventArgs) { }
 
         /// <inheritdoc/>

@@ -23,6 +23,22 @@ namespace RealityToolkit.Input.InteractionActions
         /// </summary>
         IInteractable Interactable { get; }
 
+        #region Activate
+
+        /// <summary>
+        /// The <see cref="IInteractable"/> was activated.
+        /// </summary>
+        /// <param name="eventArgs"><see cref="InteractionEventArgs"/>.</param>
+        void OnActivated(InteractionEventArgs eventArgs);
+
+        /// <summary>
+        /// The <see cref="IInteractable"/> was deactivated.
+        /// </summary>
+        /// <param name="eventArgs"><see cref="InteractionExitEventArgs"/>.</param>
+        void OnDeactivated(InteractionExitEventArgs eventArgs);
+
+        #endregion Activate
+
         #region Focus
 
         /// <summary>

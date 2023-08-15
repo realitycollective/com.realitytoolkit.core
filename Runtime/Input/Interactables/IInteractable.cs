@@ -23,6 +23,11 @@ namespace RealityToolkit.Input.Interactables
         bool IsValid { get; }
 
         /// <summary>
+        /// Is the <see cref="IInteractable"/> currently considered activated?
+        /// </summary>
+        bool IsActivated { get; }
+
+        /// <summary>
         /// Is the <see cref="IInteractable"/> currently focused by an <see cref="IInteractor"/>?
         /// </summary>
         bool IsFocused { get; }
@@ -41,6 +46,12 @@ namespace RealityToolkit.Input.Interactables
         /// The <see cref="IInteractable"/>'s focus mode.
         /// </summary>
         InteractableFocusMode FocusMode { get; }
+
+        /// <summary>
+        /// The <see cref="IInteractable"/>'s activation mode determines how <see cref="IInteractionAction.OnActivated(Events.InteractionEventArgs)"/>
+        /// and <see cref="IInteractionAction.OnDeactivated(Events.InteractionExitEventArgs)"/> are raised.
+        /// </summary>
+        InteractableActivationMode ActivationMode { get; }
 
         /// <summary>
         /// Does the <see cref="IInteractable"/> allow near interaction?

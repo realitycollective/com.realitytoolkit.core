@@ -16,6 +16,13 @@ namespace RealityToolkit.Input.InteractionActions
     {
         [Space]
         [SerializeField]
+        private InteractionEvent Activated = null;
+
+        [SerializeField]
+        private InteractionExitEvent Deactivated = null;
+
+        [Space]
+        [SerializeField]
         private InteractionEvent FirstFocusEntered = null;
 
         [SerializeField]
@@ -52,6 +59,12 @@ namespace RealityToolkit.Input.InteractionActions
 
         [SerializeField]
         private InteractionExitEvent LastGrabExited = null;
+
+        /// <inheritdoc/>
+        public override void OnActivated(InteractionEventArgs eventArgs) => Activated?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnDeactivated(InteractionExitEventArgs eventArgs) => Deactivated?.Invoke(eventArgs);
 
         /// <inheritdoc/>
         public override void OnFirstFocusEntered(InteractionEventArgs eventArgs) => FirstFocusEntered?.Invoke(eventArgs);

@@ -4,7 +4,7 @@
 namespace RealityToolkit.Input.Interactables
 {
     /// <summary>
-    /// Options for how an <see cref="IInteractable"/> may be focused by <see cref="Interactors.IInteractor"/>.
+    /// Options for how an <see cref="IInteractable"/> may be focused by <see cref="Interactors.IInteractor"/>s.
     /// </summary>
     public enum InteractableFocusMode
     {
