@@ -52,9 +52,9 @@ namespace RealityToolkit.Input.Interactables
         [SerializeField, Tooltip("The focus mode for this interactable.")]
         private InteractableFocusMode focusMode = InteractableFocusMode.Single;
 
-        private readonly Dictionary<uint, IInteractor> focusingInteractors = new Dictionary<uint, IInteractor>();
-        private readonly Dictionary<uint, IInteractor> selectingInteractors = new Dictionary<uint, IInteractor>();
-        private readonly Dictionary<uint, IInteractor> grabbingInteractors = new Dictionary<uint, IInteractor>();
+        private readonly HashSet<IInteractor> focusingInteractors = new HashSet<IInteractor>();
+        private readonly HashSet<IInteractor> selectingInteractors = new HashSet<IInteractor>();
+        private readonly HashSet<IInteractor> grabbingInteractors = new HashSet<IInteractor>();
         private List<IInteractionAction> actions = new List<IInteractionAction>();
 
         private IInputService inputService = null;
@@ -91,12 +91,6 @@ namespace RealityToolkit.Input.Interactables
 
         /// <inheritdoc/>
         public bool FarInteractionEnabled => InputService.FarInteractionEnabled && farInteraction;
-
-        /// <inheritdoc/>
-        public IInteractor PrimaryInteractor => selectingInteractors.Values.FirstOrDefault();
-
-        /// <inheritdoc/>
-        public IReadOnlyList<IInteractor> Interactors => selectingInteractors.Values.ToList();
 
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
@@ -160,13 +154,11 @@ namespace RealityToolkit.Input.Interactables
 
             if (!isFirst && FocusMode == InteractableFocusMode.Single)
             {
-                OnUnfocused(focusingInteractors.First().Value);
+                OnUnfocused(focusingInteractors.First());
                 isFirst = true;
             }
 
-            var added = focusingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
-
-            if (!added)
+            if (!focusingInteractors.Add(interactor))
             {
                 return;
             }
@@ -203,9 +195,8 @@ namespace RealityToolkit.Input.Interactables
             }
 
             var isLast = focusingInteractors.Count == 1;
-            var removed = focusingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
 
-            if (!removed)
+            if (!focusingInteractors.Remove(interactor))
             {
                 return;
             }
@@ -240,9 +231,8 @@ namespace RealityToolkit.Input.Interactables
             }
 
             var isFirst = selectingInteractors.Count == 0;
-            var added = selectingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
 
-            if (!added)
+            if (!selectingInteractors.Add(interactor))
             {
                 return;
             }
@@ -278,9 +268,8 @@ namespace RealityToolkit.Input.Interactables
             }
 
             var isLast = selectingInteractors.Count == 1;
-            var removed = selectingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
 
-            if (!removed)
+            if (!selectingInteractors.Remove(interactor))
             {
                 return;
             }
@@ -315,9 +304,8 @@ namespace RealityToolkit.Input.Interactables
             }
 
             var isFirst = grabbingInteractors.Count == 0;
-            var added = grabbingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
 
-            if (!added)
+            if (!grabbingInteractors.Add(interactor))
             {
                 return;
             }
@@ -353,9 +341,8 @@ namespace RealityToolkit.Input.Interactables
             }
 
             var isLast = grabbingInteractors.Count == 1;
-            var removed = grabbingInteractors.TrySafeRemoveDictionaryItem(interactor.InputSource.SourceId);
 
-            if (!removed)
+            if (!grabbingInteractors.Remove(interactor))
             {
                 return;
             }
@@ -459,25 +446,25 @@ namespace RealityToolkit.Input.Interactables
             // of our interactors is gone as well.
             foreach (var interactor in focusingInteractors)
             {
-                if (interactor.Key == eventData.SourceId)
+                if (interactor.InputSource.SourceId == eventData.SourceId)
                 {
-                    OnUnfocused(interactor.Value, true);
+                    OnUnfocused(interactor, true);
                 }
             }
 
             foreach (var interactor in selectingInteractors)
             {
-                if (interactor.Key == eventData.SourceId)
+                if (interactor.InputSource.SourceId == eventData.SourceId)
                 {
-                    OnDeselected(interactor.Value, true);
+                    OnDeselected(interactor, true);
                 }
             }
 
             foreach (var interactor in grabbingInteractors)
             {
-                if (interactor.Key == eventData.SourceId)
+                if (interactor.InputSource.SourceId == eventData.SourceId)
                 {
-                    OnDropped(interactor.Value, true);
+                    OnDropped(interactor, true);
                 }
             }
         }

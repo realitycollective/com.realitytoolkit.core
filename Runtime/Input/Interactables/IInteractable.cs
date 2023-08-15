@@ -3,7 +3,6 @@
 
 using RealityToolkit.Input.InteractionActions;
 using RealityToolkit.Input.Interactors;
-using System.Collections.Generic;
 
 namespace RealityToolkit.Input.Interactables
 {
@@ -52,19 +51,6 @@ namespace RealityToolkit.Input.Interactables
         /// Does the <see cref="IInteractable"/> allow interaction from a distance?
         /// </summary>
         bool FarInteractionEnabled { get; }
-
-        /// <summary>
-        /// Gets the primary <see cref="IInteractor"/>. That is the first one
-        /// to start interaction with the <see cref="IInteractable"/>.
-        /// </summary>
-        /// <remarks><c>null</c> if not interacted with.</remarks>
-        IInteractor PrimaryInteractor { get; }
-
-        /// <summary>
-        /// Gets all <see cref="IInteractor"/>s currently interacting with the <see cref="IInteractable"/>.
-        /// </summary>
-        /// <remarks>Empty if not interacted with.</remarks>
-        IReadOnlyList<IInteractor> Interactors { get; }
 
         /// <summary>
         /// Adds the <paramref name="action"/> to the <see cref="IInteractable"/>.
