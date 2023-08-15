@@ -15,6 +15,12 @@ namespace RealityToolkit.Input.InteractionActions
     [DisallowMultipleComponent]
     public class GrabAction : BaseInteractionAction
     {
+        [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
+        private Vector3 grabPoseLocalOffset = Vector3.zero;
+
+        [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
+        private Vector3 grabPoseLocalRotationOffset = Vector3.zero;
+
         private IDirectInteractor grabbingInteractor;
 
         /// <inheritdoc/>
@@ -22,7 +28,7 @@ namespace RealityToolkit.Input.InteractionActions
         {
             if (grabbingInteractor != null)
             {
-                transform.position = grabbingInteractor.Controller.Visualizer.GripPose.transform.position;
+                transform.SetPositionAndRotation(GetGrabPosition(), GetGrabRotation());
             }
         }
 
@@ -32,8 +38,7 @@ namespace RealityToolkit.Input.InteractionActions
             if (eventArgs.Interactor is IDirectInteractor directInteractor)
             {
                 grabbingInteractor = directInteractor;
-                var initialDraggingPosition = directInteractor.Controller.Visualizer.GripPose.position;
-                transform.position = initialDraggingPosition;
+                transform.SetPositionAndRotation(GetGrabPosition(), GetGrabRotation());
             }
         }
 
@@ -45,5 +50,9 @@ namespace RealityToolkit.Input.InteractionActions
                 grabbingInteractor = null;
             }
         }
+
+        private Vector3 GetGrabPosition() => grabbingInteractor.Controller.Visualizer.GripPose.transform.position + transform.TransformDirection(grabPoseLocalOffset);
+
+        private Quaternion GetGrabRotation() => grabbingInteractor.Controller.Visualizer.GripPose.transform.rotation * Quaternion.Euler(grabPoseLocalRotationOffset);
     }
 }
