@@ -1,9 +1,8 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RealityToolkit.Input.InteractionActions
 {
@@ -17,28 +16,77 @@ namespace RealityToolkit.Input.InteractionActions
     {
         [Space]
         [SerializeField]
-        [Tooltip("Event raised whenever the interactable's state has changed to focused.")]
-        private UnityEvent focused = null;
+        private InteractionEvent FirstFocusEntered = null;
+
+        [SerializeField]
+        private InteractionEvent FocusEntered = null;
+
+        [SerializeField]
+        private InteractionExitEvent FocusExited = null;
+
+        [SerializeField]
+        private InteractionExitEvent LastFocusExited = null;
 
         [Space]
         [SerializeField]
-        [Tooltip("Event raised whenever the interactable's state has changed to unfocused.")]
-        private UnityEvent unfocused = null;
+        private InteractionEvent FirstSelectEntered = null;
+
+        [SerializeField]
+        private InteractionEvent SelectEntered = null;
+
+        [SerializeField]
+        private InteractionExitEvent SelectExited = null;
+
+        [SerializeField]
+        private InteractionExitEvent LastSelectExited = null;
 
         [Space]
         [SerializeField]
-        [Tooltip("Event raised whenever the interactable's state has changed to selected.")]
-        private UnityEvent selected = null;
+        private InteractionEvent FirstGrabEntered = null;
 
-        [Space]
         [SerializeField]
-        [Tooltip("Event raised whenever the interactable's state has changed to deselected.")]
-        private UnityEvent deselected = null;
+        private InteractionEvent GrabEntered = null;
+
+        [SerializeField]
+        private InteractionExitEvent GrabExited = null;
+
+        [SerializeField]
+        private InteractionExitEvent LastGrabExited = null;
 
         /// <inheritdoc/>
-        public override void OnStateChanged(InteractionState state)
-        {
+        public override void OnFirstFocusEntered(InteractionEventArgs eventArgs) => FirstFocusEntered?.Invoke(eventArgs);
 
-        }
+        /// <inheritdoc/>
+        public override void OnFocusEntered(InteractionEventArgs eventArgs) => FocusEntered?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnFocusExited(InteractionExitEventArgs eventArgs) => FocusExited?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnLastFocusExited(InteractionExitEventArgs eventArgs) => LastFocusExited?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnFirstSelectEntered(InteractionEventArgs eventArgs) => FirstSelectEntered?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnSelectEntered(InteractionEventArgs eventArgs) => SelectEntered?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnSelectExited(InteractionExitEventArgs eventArgs) => SelectExited?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnLastSelectExited(InteractionExitEventArgs eventArgs) => LastSelectExited?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnFirstGrabEntered(InteractionEventArgs eventArgs) => FirstGrabEntered?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnGrabEntered(InteractionEventArgs eventArgs) => GrabEntered?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnGrabExited(InteractionExitEventArgs eventArgs) => GrabExited?.Invoke(eventArgs);
+
+        /// <inheritdoc/>
+        public override void OnLastGrabExited(InteractionExitEventArgs eventArgs) => LastGrabExited?.Invoke(eventArgs);
     }
 }

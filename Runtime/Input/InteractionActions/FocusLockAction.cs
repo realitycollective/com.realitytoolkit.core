@@ -1,7 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
@@ -14,27 +14,26 @@ namespace RealityToolkit.Input.InteractionActions
     [DisallowMultipleComponent]
     public class FocusLockAction : BaseInteractionAction
     {
-        private IInteractor currentInteractor;
-
         /// <inheritdoc/>
-        public override void OnStateChanged(InteractionState state)
+        public override void OnFocusEntered(InteractionEventArgs eventArgs)
         {
-            if (Interactable.PrimaryInteractor is IDirectInteractor)
+            if (eventArgs.Interactor is IDirectInteractor)
             {
-                // This action is not for direct interactors.
                 return;
             }
 
-            if (state == InteractionState.Selected)
+            eventArgs.Interactor.IsFocusLocked = true;
+        }
+
+        /// <inheritdoc/>
+        public override void OnFocusExited(InteractionExitEventArgs eventArgs)
+        {
+            if (eventArgs.Interactor is IDirectInteractor)
             {
-                currentInteractor = Interactable.PrimaryInteractor;
-                currentInteractor.IsFocusLocked = true;
+                return;
             }
-            else if (currentInteractor != null)
-            {
-                currentInteractor.IsFocusLocked = false;
-                currentInteractor = null;
-            }
+
+            eventArgs.Interactor.IsFocusLocked = false;
         }
     }
 }

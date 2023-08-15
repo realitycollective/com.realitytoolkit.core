@@ -1,14 +1,14 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Events;
 using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// This <see cref="IInteractionAction"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>
-    /// object depending on its <see cref="InteractionState"/>.
+    /// when interacted with.
     /// </summary>
     [DisallowMultipleComponent]
     public class UpdateRigidbodyAction : BaseInteractionAction
@@ -27,18 +27,17 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnStateChanged(InteractionState state)
+        public override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
         {
-            if (state == InteractionState.Selected)
-            {
-                rigidbody.isKinematic = true;
-                rigidbody.useGravity = false;
-            }
-            else
-            {
-                rigidbody.isKinematic = isKinematic;
-                rigidbody.useGravity = useGravity;
-            }
+            rigidbody.isKinematic = true;
+            rigidbody.useGravity = false;
+        }
+
+        /// <inheritdoc/>
+        public override void OnLastGrabExited(InteractionExitEventArgs eventArgs)
+        {
+            rigidbody.isKinematic = isKinematic;
+            rigidbody.useGravity = useGravity;
         }
     }
 }

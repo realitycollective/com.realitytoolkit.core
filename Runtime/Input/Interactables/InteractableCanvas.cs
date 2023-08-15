@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.Interactables
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Canvas))]
-    public class InteractableCanvas : Interactable
+    public class InteractableCanvas : MonoBehaviour
     {
         [SerializeField, Tooltip("The canvas component.")]
         private Canvas canvas = null;
@@ -30,8 +30,10 @@ namespace RealityToolkit.Input.Interactables
             }
         }
 
-        /// <inheritdoc/>
-        protected override void OnEnable()
+        /// <summary>
+        /// <see cref="MonoBehaviour"/>.
+        /// </summary>
+        private void OnEnable()
         {
             if (canvas.IsNull())
             {
@@ -46,34 +48,6 @@ namespace RealityToolkit.Input.Interactables
             {
                 canvas.worldCamera = inputService.FocusProvider.UIRaycastCamera;
             }
-        }
-
-        /// <inheritdoc/>
-        protected override void OnFocused(IInteractor interactor)
-        {
-            // Override base behaviour and do nothing.
-            // At this time we do not want this type of interactable handle these state changes.
-        }
-
-        /// <inheritdoc/>
-        protected override void OnUnfocused(IInteractor interactor)
-        {
-            // Override base behaviour and do nothing.
-            // At this time we do not want this type of interactable handle these state changes.
-        }
-
-        /// <inheritdoc/>
-        protected override void OnSelected(IInteractor interactor)
-        {
-            // Override base behaviour and do nothing.
-            // At this time we do not want this type of interactable handle these state changes.
-        }
-
-        /// <inheritdoc/>
-        protected override void OnDeselected(IInteractor interactor)
-        {
-            // Override base behaviour and do nothing.
-            // At this time we do not want this type of interactable handle these state changes.
         }
     }
 }

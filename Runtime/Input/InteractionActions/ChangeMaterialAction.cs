@@ -1,14 +1,13 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Events;
 using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
-    /// This <see cref="IInteractionAction"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>
-    /// depending on its <see cref="InteractionState"/>.
+    /// This <see cref="IInteractionAction"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>.
     /// </summary>
     public class ChangeMaterialAction : BaseInteractionAction
     {
@@ -25,20 +24,27 @@ namespace RealityToolkit.Input.InteractionActions
         private MeshRenderer meshRenderer = null;
 
         /// <inheritdoc/>
-        public override void OnStateChanged(InteractionState state)
+        public override void OnFirstFocusEntered(InteractionEventArgs eventArgs)
         {
-            switch (state)
-            {
-                case InteractionState.Normal:
-                    meshRenderer.material = normalMaterial;
-                    break;
-                case InteractionState.Focused:
-                    meshRenderer.material = focusedMaterial;
-                    break;
-                case InteractionState.Selected:
-                    meshRenderer.material = selectedMaterial;
-                    break;
-            }
+            meshRenderer.material = focusedMaterial;
+        }
+
+        /// <inheritdoc/>
+        public override void OnLastFocusExited(InteractionExitEventArgs eventArgs)
+        {
+            meshRenderer.material = normalMaterial;
+        }
+
+        /// <inheritdoc/>
+        public override void OnFirstSelectEntered(InteractionEventArgs eventArgs)
+        {
+            meshRenderer.material = selectedMaterial;
+        }
+
+        /// <inheritdoc/>
+        public override void OnLastSelectExited(InteractionExitEventArgs eventArgs)
+        {
+            meshRenderer.material = normalMaterial;
         }
     }
 }

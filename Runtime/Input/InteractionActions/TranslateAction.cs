@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Extensions;
-using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
@@ -75,10 +75,10 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnStateChanged(InteractionState state)
+        public override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
             // This action only supports controller interactors.
-            if (Interactable.PrimaryInteractor is not IControllerInteractor primaryInteractor)
+            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
             {
                 StopDragging();
                 return;
@@ -90,21 +90,20 @@ namespace RealityToolkit.Input.InteractionActions
                 return;
             }
 
-            if (state == InteractionState.Selected)
-            {
-                currentInteractor = primaryInteractor;
-                isFar = primaryInteractor is not IDirectInteractor;
+            currentInteractor = controllerInteractor;
+            isFar = controllerInteractor is not IDirectInteractor;
 
-                var initialDraggingPosition = isFar ?
-                    primaryInteractor.Result.EndPoint :
-                    primaryInteractor.Controller.Visualizer.GripPose.position;
+            var initialDraggingPosition = isFar ?
+                controllerInteractor.Result.EndPoint :
+                controllerInteractor.Controller.Visualizer.GripPose.position;
 
-                StartDragging(initialDraggingPosition);
-            }
-            else
-            {
-                StopDragging();
-            }
+            StartDragging(initialDraggingPosition);
+        }
+
+        /// <inheritdoc/>
+        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        {
+            StopDragging();
         }
 
         private void StartDragging(Vector3 initialDraggingPosition)
