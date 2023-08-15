@@ -42,7 +42,6 @@ namespace RealityToolkit.Input.InteractionActions
 
         private IControllerInteractor currentInteractor;
         private bool isDragging;
-        private bool isFar;
         private float handRefDistance;
         private float objectReferenceDistance;
         private Vector3 draggingPosition;
@@ -55,13 +54,9 @@ namespace RealityToolkit.Input.InteractionActions
         /// <inheritdoc/>
         protected override void Update()
         {
-            if (isDragging && isFar)
+            if (isDragging)
             {
-                UpdateFarDragging();
-            }
-            else if (isDragging && !isFar)
-            {
-                UpdateDirectDragging();
+                UpdateDragging();
             }
         }
 
@@ -77,8 +72,9 @@ namespace RealityToolkit.Input.InteractionActions
         /// <inheritdoc/>
         public override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
-            // This action only supports controller interactors.
-            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
+            // This action is not for use with direct interactors.
+            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor ||
+                eventArgs.Interactor is IDirectInteractor)
             {
                 StopDragging();
                 return;
@@ -91,12 +87,8 @@ namespace RealityToolkit.Input.InteractionActions
             }
 
             currentInteractor = controllerInteractor;
-            isFar = controllerInteractor is not IDirectInteractor;
 
-            var initialDraggingPosition = isFar ?
-                controllerInteractor.Result.EndPoint :
-                controllerInteractor.Controller.Visualizer.GripPose.position;
-
+            var initialDraggingPosition = controllerInteractor.Result.EndPoint;
             StartDragging(initialDraggingPosition);
         }
 
@@ -115,47 +107,6 @@ namespace RealityToolkit.Input.InteractionActions
 
             isDragging = true;
 
-            if (isFar)
-            {
-                StartFarDragging(initialDraggingPosition);
-            }
-            else
-            {
-                StartDirectDragging(initialDraggingPosition);
-            }
-        }
-
-        private void StopDragging()
-        {
-            if (!isDragging)
-            {
-                return;
-            }
-
-            isDragging = false;
-        }
-
-        #region Direct Interactor
-
-        private void StartDirectDragging(Vector3 initialDraggingPosition)
-        {
-            transform.position = initialDraggingPosition;
-        }
-
-        private void UpdateDirectDragging()
-        {
-            transform.position = currentInteractor.Controller.Visualizer.GripPose.transform.position;
-        }
-
-        #endregion
-
-        #region Far Interactor
-
-        /// <summary>
-        /// Starts dragging the object.
-        /// </summary>
-        private void StartFarDragging(Vector3 initialDraggingPosition)
-        {
             var cameraTransform = Camera.main.transform;
 
             currentInteractor.TryGetPointerPosition(out Vector3 inputPosition);
@@ -187,10 +138,20 @@ namespace RealityToolkit.Input.InteractionActions
             draggingPosition = initialDraggingPosition;
         }
 
+        private void StopDragging()
+        {
+            if (!isDragging)
+            {
+                return;
+            }
+
+            isDragging = false;
+        }
+
         /// <summary>
         /// Update the position of the object being dragged.
         /// </summary>
-        private void UpdateFarDragging()
+        private void UpdateDragging()
         {
             var cameraTransform = Camera.main.transform;
 
@@ -268,7 +229,5 @@ namespace RealityToolkit.Input.InteractionActions
         {
             return cameraTransform.position + new Vector3(0, -0.2f, 0) - cameraTransform.forward * 0.2f; // a bit lower and behind
         }
-
-        #endregion Far Interactor
     }
 }

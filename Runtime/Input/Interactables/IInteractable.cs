@@ -24,6 +24,21 @@ namespace RealityToolkit.Input.Interactables
         bool IsValid { get; }
 
         /// <summary>
+        /// Is the <see cref="IInteractable"/> currently focused by an <see cref="IInteractor"/>?
+        /// </summary>
+        bool IsFocused { get; }
+
+        /// <summary>
+        /// Is the <see cref="IInteractable"/> currently selected by an <see cref="IInteractor"/>?
+        /// </summary>
+        bool IsSelected { get; }
+
+        /// <summary>
+        /// Is the <see cref="IInteractable"/> currently grabbed by an <see cref="IInteractor"/>?
+        /// </summary>
+        bool IsGrabbed { get; }
+
+        /// <summary>
         /// The <see cref="IInteractable"/>'s focus mode.
         /// </summary>
         InteractableFocusMode FocusMode { get; }

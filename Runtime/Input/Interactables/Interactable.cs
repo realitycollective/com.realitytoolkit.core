@@ -75,6 +75,15 @@ namespace RealityToolkit.Input.Interactables
         public bool IsValid => isActiveAndEnabled && (NearInteractionEnabled || FarInteractionEnabled);
 
         /// <inheritdoc/>
+        public bool IsFocused => focusingInteractors.Count > 0;
+
+        /// <inheritdoc/>
+        public bool IsSelected => selectingInteractors.Count > 0;
+
+        /// <inheritdoc/>
+        public bool IsGrabbed => grabbingInteractors.Count > 0;
+
+        /// <inheritdoc/>
         public InteractableFocusMode FocusMode => focusMode;
 
         /// <inheritdoc/>
