@@ -141,12 +141,20 @@ namespace RealityToolkit.Input.Interactables
         /// <param name="interactor">The <see cref="IInteractor"/> focusing the object.</param>
         protected virtual void OnFocused(IInteractor interactor)
         {
-            if (!IsValidInteractor(interactor))
+            if (FocusMode == InteractableFocusMode.None ||
+                !IsValidInteractor(interactor))
             {
                 return;
             }
 
             var isFirst = focusingInteractors.Count == 0;
+
+            if (!isFirst && FocusMode == InteractableFocusMode.Single)
+            {
+                OnUnfocused(focusingInteractors.First().Value);
+                isFirst = true;
+            }
+
             var added = focusingInteractors.EnsureDictionaryItem(interactor.InputSource.SourceId, interactor, true);
 
             if (!added)
@@ -179,7 +187,8 @@ namespace RealityToolkit.Input.Interactables
         /// <param name="isCanceled">Was the focus canceled? Defaults to <c>false</c>.</param>
         protected virtual void OnUnfocused(IInteractor interactor, bool isCanceled = false)
         {
-            if (!IsValidInteractor(interactor))
+            if (FocusMode == InteractableFocusMode.None ||
+                !IsValidInteractor(interactor))
             {
                 return;
             }
