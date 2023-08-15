@@ -54,9 +54,9 @@ namespace RealityToolkit.Input.Interactables
         InteractableActivationMode ActivationMode { get; }
 
         /// <summary>
-        /// Does the <see cref="IInteractable"/> allow near interaction?
+        /// Does the <see cref="IInteractable"/> allow direct interaction?
         /// </summary>
-        bool NearInteractionEnabled { get; }
+        bool DirectInteractionEnabled { get; }
 
         /// <summary>
         /// Does the <see cref="IInteractable"/> allow interaction from a distance?

@@ -32,12 +32,12 @@ namespace RealityToolkit.Input.Interfaces
         event Action InputDisabled;
 
         /// <summary>
-        /// Gets or sets whether near interaction should work or not.
+        /// Gets or sets whether direct interaction using <see cref="IDirectInteractor"/>s is enabled.
         /// </summary>
-        bool NearInteractionEnabled { get; set; }
+        bool DirectInteractionEnabled { get; set; }
 
         /// <summary>
-        /// Gets or sets whether far interaction should work or not.
+        /// Gets or sets whether far interaction using <see cref="IInteractor"/>s is enabled.
         /// </summary>
         bool FarInteractionEnabled { get; set; }
 

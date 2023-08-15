@@ -23,7 +23,7 @@ namespace RealityToolkit.Editor.Profiles.Input
         private static readonly GUIContent GazeCursorPrefabContent = new GUIContent("Gaze Cursor Prefab");
         private static readonly GUIContent ShowControllerMappingsContent = new GUIContent("Controller Action Mappings");
 
-        private SerializedProperty nearInteraction;
+        private SerializedProperty directInteraction;
         private SerializedProperty farInteraction;
         private SerializedProperty gazeProviderBehaviour;
         private SerializedProperty gazeProviderType;
@@ -43,7 +43,7 @@ namespace RealityToolkit.Editor.Profiles.Input
         {
             base.OnEnable();
 
-            nearInteraction = serializedObject.FindProperty(nameof(nearInteraction));
+            directInteraction = serializedObject.FindProperty(nameof(directInteraction));
             farInteraction = serializedObject.FindProperty(nameof(farInteraction));
             gazeProviderBehaviour = serializedObject.FindProperty(nameof(gazeProviderBehaviour));
             gazeProviderType = serializedObject.FindProperty(nameof(gazeProviderType));
@@ -92,7 +92,7 @@ namespace RealityToolkit.Editor.Profiles.Input
             serializedObject.Update();
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PropertyField(nearInteraction);
+            EditorGUILayout.PropertyField(directInteraction);
             EditorGUILayout.PropertyField(farInteraction);
             EditorGUILayout.PropertyField(gazeProviderBehaviour, GazeProviderBehaviourContent);
             EditorGUILayout.PropertyField(gazeProviderType, GazeProviderContent);

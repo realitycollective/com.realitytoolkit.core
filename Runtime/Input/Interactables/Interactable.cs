@@ -32,8 +32,8 @@ namespace RealityToolkit.Input.Interactables
 
         [Space]
         [SerializeField]
-        [Tooltip("Should near interaction be enabled at startup?")]
-        private bool nearInteraction = true;
+        [Tooltip("Should direct interaction be enabled at startup?")]
+        private bool directInteraction = true;
 
         [SerializeField]
         [Tooltip("Should far interaction be enabled at startup?")]
@@ -75,7 +75,7 @@ namespace RealityToolkit.Input.Interactables
         }
 
         /// <inheritdoc/>
-        public bool IsValid => isActiveAndEnabled && (NearInteractionEnabled || FarInteractionEnabled);
+        public bool IsValid => isActiveAndEnabled && (DirectInteractionEnabled || FarInteractionEnabled);
 
         /// <inheritdoc/>
         public bool IsActivated { get; private set; }
@@ -96,7 +96,7 @@ namespace RealityToolkit.Input.Interactables
         public InteractableActivationMode ActivationMode => activationMode;
 
         /// <inheritdoc/>
-        public bool NearInteractionEnabled => InputService.NearInteractionEnabled && nearInteraction;
+        public bool DirectInteractionEnabled => InputService.DirectInteractionEnabled && directInteraction;
 
         /// <inheritdoc/>
         public bool FarInteractionEnabled => InputService.FarInteractionEnabled && farInteraction;
@@ -439,7 +439,7 @@ namespace RealityToolkit.Input.Interactables
         public void Remove(IInteractionAction action) => actions.SafeRemoveListItem(action);
 
         private bool IsValidInteractor(IInteractor interactor) =>
-            (interactor.IsFarInteractor && FarInteractionEnabled) || (!interactor.IsFarInteractor && NearInteractionEnabled);
+            (interactor.IsFarInteractor && FarInteractionEnabled) || (!interactor.IsFarInteractor && DirectInteractionEnabled);
 
         #region IFocusHandler
 

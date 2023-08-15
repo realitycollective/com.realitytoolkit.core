@@ -14,6 +14,9 @@ namespace RealityToolkit.Input.Interactors
         protected readonly DirectInteractorResult directResult = new DirectInteractorResult();
 
         /// <inheritdoc />
+        public override bool IsFarInteractor => false;
+
+        /// <inheritdoc />
         public IDirectInteractorResult DirectResult => directResult;
 
         /// <inheritdoc />

@@ -48,7 +48,7 @@ namespace RealityToolkit.Input
             gazeProviderType = profile.GazeProviderType.Type;
             interactors = new List<IInteractor>();
             interactables = new List<IInteractable>();
-            NearInteractionEnabled = profile.NearInteraction;
+            DirectInteractionEnabled = profile.DirectInteraction;
             FarInteractionEnabled = profile.FarInteraction;
         }
 
@@ -62,7 +62,7 @@ namespace RealityToolkit.Input
         public event Action InputDisabled;
 
         /// <inheritdoc/>
-        public bool NearInteractionEnabled { get; set; }
+        public bool DirectInteractionEnabled { get; set; }
 
         /// <inheritdoc/>
         public bool FarInteractionEnabled { get; set; }

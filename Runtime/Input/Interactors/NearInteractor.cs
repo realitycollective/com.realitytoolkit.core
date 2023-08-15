@@ -7,16 +7,13 @@ using UnityEngine;
 namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
-    /// <see cref="Interfaces.IPointer"/> used for directly interacting with interactables that are touching.
+    /// <see cref="IDirectInteractor"/> that interacts with <see cref="IInteractable"/>s that are nearby.
     /// </summary>
     [RequireComponent(typeof(SphereCollider))]
     public class NearInteractor : BaseDirectInteractor
     {
         private SphereCollider sphereCollider;
         private GameObject stayingColliderHit;
-
-        /// <inheritdoc />
-        public override bool IsFarInteractor => false;
 
         private void Awake()
         {

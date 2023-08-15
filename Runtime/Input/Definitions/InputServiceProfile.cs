@@ -20,12 +20,12 @@ namespace RealityToolkit.Input.Definitions
 
         [SerializeField]
         [Tooltip("Should near interaction be enabled at startup?")]
-        private bool nearInteraction = true;
+        private bool directInteraction = true;
 
         /// <summary>
-        /// Should near interaction be enabled at startup?
+        /// Should direct interaction be enabled at startup?
         /// </summary>
-        public bool NearInteraction => nearInteraction;
+        public bool DirectInteraction => directInteraction;
 
         [SerializeField]
         [Tooltip("Should far interaction be enabled at startup?")]
