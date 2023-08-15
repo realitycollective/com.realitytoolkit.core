@@ -19,6 +19,12 @@ namespace RealityToolkit.Input.Controllers
         GameObject GameObject { get; }
 
         /// <summary>
+        /// The <see cref="Transform"/> defining where <see cref="Interactors.IPokeInteractor"/>s
+        /// attached to the <see cref="IController"/> should be located at.
+        /// </summary>
+        Transform PokePose { get; }
+
+        /// <summary>
         /// The <see cref="Transform"/> defining the <see cref="IControllerVisualizer"/>s grip pose.
         /// That is the pose where objects are attached to when gripped.
         /// </summary>
