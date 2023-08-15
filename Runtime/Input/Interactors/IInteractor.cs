@@ -105,11 +105,6 @@ namespace RealityToolkit.Input.Interactors
         IFocusHandler FocusHandler { get; set; }
 
         /// <summary>
-        /// The currently targeted input handler.
-        /// </summary>
-        IInputHandler InputHandler { get; set; }
-
-        /// <summary>
         /// The combined physics and graphics raycast pointer result.
         /// </summary>
         IPointerResult Result { get; set; }
