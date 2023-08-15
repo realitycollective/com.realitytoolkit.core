@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8432135464014371632
 MonoBehaviour:
@@ -95,7 +95,7 @@ MonoBehaviour:
     axisConstraint: 0
   requiresHoldAction: 0
   enablePointerOnStart: 1
-  defaultPointerExtent: 0.05
+  defaultPointerExtent: 0.01
   overrideGlobalPointerExtent: 0
   pointerOrientation: 0
   cursorPrefab: {fileID: 0}
