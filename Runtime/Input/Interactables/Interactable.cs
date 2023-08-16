@@ -494,6 +494,8 @@ namespace RealityToolkit.Input.Interactables
         /// <inheritdoc/>
         public void OnPointerClicked(PointerEventData eventData)
         {
+            eventData.Use();
+
             if (IsActivated)
             {
                 OnDeactivated(eventData.Pointer);
