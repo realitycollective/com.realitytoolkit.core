@@ -9,7 +9,7 @@ namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// The <see cref="GrabAction"/> is an <see cref="IInteractionAction"/> for use with
-    /// <see cref="Interactors.IDirectInteractor"/>s. It allows to "pick up" the <see cref="Interactables.IInteractable"/>
+    /// <see cref="IDirectInteractor"/>s. It allows to "pick up" the <see cref="Interactables.IInteractable"/>
     /// and carry it around.
     /// </summary>
     [DisallowMultipleComponent]

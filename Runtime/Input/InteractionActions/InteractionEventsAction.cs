@@ -11,54 +11,99 @@ namespace RealityToolkit.Input.InteractionActions
     /// interaction on the <see cref="Interactables.IInteractable"/> that you can use to hook up
     /// events in the inspector or via code.
     /// </summary>
+    /// <remarks>
+    /// Consider implementing a custom <see cref="BaseInteractionAction"/> instead.
+    /// </remarks>
     [DisallowMultipleComponent]
     public class InteractionEventsAction : BaseInteractionAction
     {
         [Space]
         [SerializeField]
-        private InteractionEvent Activated = null;
+        private InteractionEvent activated = null;
 
         [SerializeField]
-        private InteractionExitEvent Deactivated = null;
-
-        [Space]
-        [SerializeField]
-        private InteractionEvent FirstFocusEntered = null;
-
-        [SerializeField]
-        private InteractionEvent FocusEntered = null;
-
-        [SerializeField]
-        private InteractionExitEvent FocusExited = null;
-
-        [SerializeField]
-        private InteractionExitEvent LastFocusExited = null;
+        private InteractionExitEvent deactivated = null;
 
         [Space]
         [SerializeField]
-        private InteractionEvent FirstSelectEntered = null;
+        private InteractionEvent firstFocusEntered = null;
 
         [SerializeField]
-        private InteractionEvent SelectEntered = null;
+        private InteractionEvent focusEntered = null;
 
         [SerializeField]
-        private InteractionExitEvent SelectExited = null;
+        private InteractionExitEvent focusExited = null;
 
         [SerializeField]
-        private InteractionExitEvent LastSelectExited = null;
+        private InteractionExitEvent lastFocusExited = null;
 
         [Space]
         [SerializeField]
-        private InteractionEvent FirstGrabEntered = null;
+        private InteractionEvent firstSelectEntered = null;
 
         [SerializeField]
-        private InteractionEvent GrabEntered = null;
+        private InteractionEvent selectEntered = null;
 
         [SerializeField]
-        private InteractionExitEvent GrabExited = null;
+        private InteractionExitEvent selectExited = null;
 
         [SerializeField]
-        private InteractionExitEvent LastGrabExited = null;
+        private InteractionExitEvent lastSelectExited = null;
+
+        [Space]
+        [SerializeField]
+        private InteractionEvent firstGrabEntered = null;
+
+        [SerializeField]
+        private InteractionEvent grabEntered = null;
+
+        [SerializeField]
+        private InteractionExitEvent grabExited = null;
+
+        [SerializeField]
+        private InteractionExitEvent lastGrabExited = null;
+
+        /// <inheritdoc cref="OnActivated(InteractionEventArgs)"/>
+        public InteractionEvent Activated => activated;
+
+        /// <inheritdoc cref="OnDeactivated(InteractionExitEventArgs)"/>
+        public InteractionExitEvent Deactivated => deactivated;
+
+        /// <inheritdoc cref="OnFirstFocusEntered(InteractionEventArgs)"/>
+        public InteractionEvent FirstFocusEntered => firstFocusEntered;
+
+        /// <inheritdoc cref="OnFocusEntered(InteractionEventArgs)"/>
+        public InteractionEvent FocusEntered => focusEntered;
+
+        /// <inheritdoc cref="OnFocusExited(InteractionExitEventArgs)"/>
+        public InteractionExitEvent FocusExited => focusExited;
+
+        /// <inheritdoc cref="OnLastFocusExited(InteractionExitEventArgs)"/>
+        public InteractionExitEvent LastFocusExited => lastFocusExited;
+
+        /// <inheritdoc cref="OnFirstSelectEntered(InteractionEventArgs)"/>
+        public InteractionEvent FirstSelectEntered => firstSelectEntered;
+
+        /// <inheritdoc cref="OnSelectEntered(InteractionEventArgs)"/>
+        public InteractionEvent SelectEntered => selectEntered;
+
+        /// <inheritdoc cref="OnSelectExited(InteractionExitEventArgs)"/>
+        public InteractionExitEvent SelectExited => selectExited;
+
+        /// <inheritdoc cref="OnLastSelectExited(InteractionExitEventArgs)"/>
+        public InteractionExitEvent LastSelectExited => lastSelectExited;
+
+        /// <inheritdoc cref="OnFirstGrabEntered(InteractionEventArgs)"/>
+        public InteractionEvent FirstGrabEntered => firstGrabEntered;
+
+        /// <inheritdoc cref="OnGrabEntered(InteractionEventArgs)"/>
+        public InteractionEvent GrabEntered => grabEntered;
+
+        /// <inheritdoc cref="OnGrabExited(InteractionExitEventArgs)"/>
+        public InteractionExitEvent GrabExited => grabExited;
+
+        /// <inheritdoc cref="OnLastGrabExited(InteractionExitEventArgs)"/>
+        public InteractionExitEvent LastGrabExited => lastGrabExited;
 
         /// <inheritdoc/>
         public override void OnActivated(InteractionEventArgs eventArgs) => Activated?.Invoke(eventArgs);

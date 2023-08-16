@@ -8,14 +8,14 @@ using UnityEngine;
 namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
-    /// This <see cref="IInteractionAction"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>
-    /// object depending on its <see cref="InteractionState"/>.
+    /// This <see cref="IInteractionAction"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>,
+    /// when the <see cref="Interactables.IInteractable.IsSelected"/> or <see cref="Interactables.IInteractable.IsGrabbed"/>.
     /// </summary>
     [DisallowMultipleComponent]
     public class FocusLockAction : BaseInteractionAction
     {
         /// <inheritdoc/>
-        public override void OnFocusEntered(InteractionEventArgs eventArgs)
+        public override void OnSelectEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -26,14 +26,36 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnFocusExited(InteractionExitEventArgs eventArgs)
+        public override void OnSelectExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
                 return;
             }
 
-            eventArgs.Interactor.IsFocusLocked = false;
+            eventArgs.Interactor.IsFocusLocked = Interactable.IsGrabbed;
+        }
+
+        /// <inheritdoc/>
+        public override void OnGrabEntered(InteractionEventArgs eventArgs)
+        {
+            if (eventArgs.Interactor is IDirectInteractor)
+            {
+                return;
+            }
+
+            eventArgs.Interactor.IsFocusLocked = true;
+        }
+
+        /// <inheritdoc/>
+        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        {
+            if (eventArgs.Interactor is IDirectInteractor)
+            {
+                return;
+            }
+
+            eventArgs.Interactor.IsFocusLocked = Interactable.IsSelected;
         }
     }
 }
