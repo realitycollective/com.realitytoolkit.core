@@ -1,6 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interactables;
 using UnityEngine;
 
@@ -13,7 +14,6 @@ namespace RealityToolkit.Input.Interactors
     public class PokeInteractor : BaseDirectInteractor, IPokeInteractor
     {
         private SphereCollider sphereCollider;
-        private GameObject stayingColliderHit;
         private IInteractable current;
 
         private void Awake()
@@ -21,7 +21,7 @@ namespace RealityToolkit.Input.Interactors
             ConfigureTriggerCollider();
         }
 
-        private void ToggleFarInteractors(bool enabled)
+        private void UpdateInteractorPrivilege(bool enabled)
         {
             if (!InputService.TryGetInteractors(InputSource, out var interactors))
             {
@@ -31,9 +31,19 @@ namespace RealityToolkit.Input.Interactors
             for (var i = 0; i < interactors.Count; i++)
             {
                 var interactor = interactors[i];
-                if (interactor.IsFarInteractor)
+                if ((IInteractor)this == interactor)
                 {
-                    interactor.IsOverriden = !enabled;
+                    continue;
+                }
+
+                if (interactor is IControllerInteractor controllerInteractor)
+                {
+                    controllerInteractor.DirectPrivilege = !enabled;
+                }
+
+                if (interactor is IDirectInteractor directInteractor)
+                {
+                    directInteractor.PokePrivilege = !enabled;
                 }
             }
         }
@@ -55,6 +65,28 @@ namespace RealityToolkit.Input.Interactors
             transform.SetPositionAndRotation(Controller.Visualizer.PokePose.position, Controller.Visualizer.PokePose.rotation);
         }
 
+        /// <inheritdoc/>
+        /// <remarks><see cref="IPokeInteractor"/>s should not raise <see cref="Interfaces.IInputService.RaisePointerDown(IInteractor, InputAction, Interfaces.IInputSource)"/>.</remarks>
+        protected override void OnRaisePointerDown(InputAction inputAction) { }
+
+        /// <inheritdoc/>
+        /// <remarks><see cref="IPokeInteractor"/>s should not raise <see cref="Interfaces.IInputService.RaisePointerUp(IInteractor, InputAction, Interfaces.IInputSource)"/>.</remarks>
+        protected override void OnRaisePointerUp(InputAction inputAction) { }
+
+        /// <inheritdoc/>
+        /// <remarks>
+        /// Whenever the <see cref="IPokeInteractor"/> has completed a poke it has to perform clean up.
+        /// It also has to assign temporarily poke privilege to all <see cref="IInteractor"/>s.
+        /// </remarks>
+        protected override void OnRaisePointerClicked(InputAction inputAction)
+        {
+            UpdateInteractorPrivilege(false);
+            base.OnRaisePointerClicked(inputAction);
+            current = null;
+            directResult.Clear();
+            UpdateInteractorPrivilege(true);
+        }
+
         /// <summary>
         /// <see cref="MonoBehaviour"/>.
         /// </summary>
@@ -63,23 +95,7 @@ namespace RealityToolkit.Input.Interactors
         {
             if (other.TryGetComponent(out current))
             {
-                stayingColliderHit = other.gameObject;
                 directResult.UpdateHit(this, other.gameObject);
-                ToggleFarInteractors(false);
-            }
-        }
-
-        /// <summary>
-        /// <see cref="MonoBehaviour"/>.
-        /// </summary>
-        /// <param name="other">The other <see cref="Collider"/> involved in this collision.</param>
-        protected virtual void OnTriggerStay(Collider other)
-        {
-            if (other.TryGetComponent<IInteractable>(out _))
-            {
-                stayingColliderHit = other.gameObject;
-                directResult.UpdateHit(this, other.gameObject);
-                ToggleFarInteractors(false);
             }
         }
 
@@ -93,13 +109,6 @@ namespace RealityToolkit.Input.Interactors
                 current == exitInteractable)
             {
                 OnRaisePointerClicked(pointerAction);
-            }
-
-            if (other.gameObject == stayingColliderHit)
-            {
-                stayingColliderHit = null;
-                directResult.Clear();
-                ToggleFarInteractors(true);
             }
         }
     }

@@ -9,6 +9,11 @@ namespace RealityToolkit.Input.Interactors
     public interface IDirectInteractor : IControllerInteractor
     {
         /// <summary>
+        /// If set, this <see cref="IDirectInteractor"/> is giving input privilege to <see cref="IPokeInteractor"/>s.
+        /// </summary>
+        bool PokePrivilege { get; set; }
+
+        /// <summary>
         /// The combined physics and graphics raycast pointer result for
         /// the <see cref="IDirectInteractor"/>.
         /// </summary>

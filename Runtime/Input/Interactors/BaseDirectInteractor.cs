@@ -20,6 +20,34 @@ namespace RealityToolkit.Input.Interactors
         public IDirectInteractorResult DirectResult => directResult;
 
         /// <inheritdoc />
+        /// <remarks>
+        /// All <see cref="BaseDirectInteractor"/>s cannot give privilege to <see cref="IDirectInteractor"/>s,
+        /// since they are a <see cref="IDirectInteractor"/> themselves.
+        /// </remarks>
+        public override bool DirectPrivilege
+        {
+            get => false;
+            set { }
+        }
+
+        /// <inheritdoc />
+        public bool PokePrivilege { get; set; }
+
+        /// <inheritdoc />
+        public override bool IsInteractionEnabled
+        {
+            get
+            {
+                if (PokePrivilege)
+                {
+                    return false;
+                }
+
+                return base.IsInteractionEnabled;
+            }
+        }
+
+        /// <inheritdoc />
         protected override void OnRaisePointerDown(InputAction inputAction)
         {
             // Only if we have a target, we want to raise input down.

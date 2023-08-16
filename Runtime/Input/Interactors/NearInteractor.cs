@@ -20,7 +20,7 @@ namespace RealityToolkit.Input.Interactors
             ConfigureTriggerCollider();
         }
 
-        private void ToggleFarInteractors(bool enabled)
+        private void UpdateInteractorPrivilege(bool enabled)
         {
             if (!InputService.TryGetInteractors(InputSource, out var interactors))
             {
@@ -30,9 +30,14 @@ namespace RealityToolkit.Input.Interactors
             for (var i = 0; i < interactors.Count; i++)
             {
                 var interactor = interactors[i];
-                if (interactor.IsFarInteractor)
+                if ((IInteractor)this == interactor)
                 {
-                    interactor.IsOverriden = !enabled;
+                    continue;
+                }
+
+                if (interactor is IControllerInteractor controllerInteractor)
+                {
+                    controllerInteractor.DirectPrivilege = !enabled;
                 }
             }
         }
@@ -54,7 +59,7 @@ namespace RealityToolkit.Input.Interactors
             {
                 stayingColliderHit = other.gameObject;
                 directResult.UpdateHit(this, other.gameObject);
-                ToggleFarInteractors(false);
+                UpdateInteractorPrivilege(false);
             }
         }
 
@@ -68,7 +73,7 @@ namespace RealityToolkit.Input.Interactors
             {
                 stayingColliderHit = null;
                 directResult.Clear();
-                ToggleFarInteractors(true);
+                UpdateInteractorPrivilege(true);
             }
         }
     }
