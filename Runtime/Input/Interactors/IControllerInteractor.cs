@@ -17,6 +17,11 @@ namespace RealityToolkit.Input.Interactors
         GameObject GameObject { get; }
 
         /// <summary>
+        /// If set, this <see cref="IControllerInteractor"/> is giving input privilege to <see cref="IDirectInteractor"/>s.
+        /// </summary>
+        bool DirectPrivilege { get; set; }
+
+        /// <summary>
         /// The <see cref="IController"/> driving the <see cref="IInteractor"/>.
         /// </summary>
         IController Controller { get; set; }

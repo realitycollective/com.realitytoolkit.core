@@ -43,6 +43,23 @@ namespace RealityToolkit.Input.Interactors
         /// <inheritdoc/>
         public GameObject GameObject => gameObject;
 
+        /// <inheritdoc />
+        public virtual bool DirectPrivilege { get; set; }
+
+        /// <inheritdoc />
+        public override bool IsInteractionEnabled
+        {
+            get
+            {
+                if (DirectPrivilege)
+                {
+                    return false;
+                }
+
+                return base.IsInteractionEnabled;
+            }
+        }
+
         /// <summary>
         /// Set a new cursor for this <see cref="IInteractor"/>
         /// </summary>

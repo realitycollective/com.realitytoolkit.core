@@ -58,12 +58,6 @@ namespace RealityToolkit.Input.Interactors
         bool IsTeleportRequestActive { get; set; }
 
         /// <summary>
-        /// If <c>true</c>, this <see cref="IInteractor"/> is not <see cref="IsInteractionEnabled"/>,
-        /// due to another <see cref="IInteractor"/> taking precedence.
-        /// </summary>
-        bool IsOverriden { get; set; }
-
-        /// <summary>
         /// Has the conditions been satisfied to enable the interaction of this pointer?
         /// </summary>
         bool IsInteractionEnabled { get; }

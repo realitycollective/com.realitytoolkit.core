@@ -143,18 +143,10 @@ namespace RealityToolkit.Input.Interactors
         }
 
         /// <inheritdoc />
-        public bool IsOverriden { get; set; }
-
-        /// <inheritdoc />
         public virtual bool IsInteractionEnabled
         {
             get
             {
-                if (IsOverriden)
-                {
-                    return false;
-                }
-
                 if (IsTeleportRequestActive)
                 {
                     return false;
