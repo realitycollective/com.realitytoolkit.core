@@ -316,10 +316,10 @@ namespace RealityToolkit.Input
         private void EnsureInputModuleSetup()
         {
             var inputModules = UnityEngine.Object.FindObjectsOfType(InputModuleType);
+            var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<UnityEvents.EventSystem>();
 
             if (inputModules.Length == 0)
             {
-                var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<UnityEvents.EventSystem>();
                 if (eventSystemGameObject.IsNotNull())
                 {
                     eventSystemGameObject.gameObject.EnsureComponent(InputModuleType);
@@ -339,6 +339,20 @@ namespace RealityToolkit.Input
             else if (inputModules.Length > 1)
             {
                 Debug.LogError($"There is more than one {InputModuleType.Name} active in the scene. Please make sure only one instance of it exists as it may cause errors.");
+            }
+
+            // Clean up functionality for projects switching between input systems, as the Event system needs to be pure to avoid slowdowns or impacts.
+            // If the input module type is not the Standalone Input Module, remove the Standalone Input Module if it exists.
+            if (InputModuleType != typeof(UnityEngine.EventSystems.StandaloneInputModule) && eventSystemGameObject.gameObject.TryGetComponent<UnityEngine.EventSystems.StandaloneInputModule>(out var oldInputModule))
+            {
+                oldInputModule.Destroy();
+            }
+            else
+            {
+#if UNITY_EDITOR
+                // In case the new Input System Input Module was previously on the Event System, remove any MonoBehaviours with missing scripts, to keep the event system object clean.
+                UnityEditor.GameObjectUtility.RemoveMonoBehavioursWithMissingScript(eventSystemGameObject.gameObject);
+#endif
             }
         }
 
