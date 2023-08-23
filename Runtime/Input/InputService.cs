@@ -89,7 +89,7 @@ namespace RealityToolkit.Input
         /// <inheritdoc />
         public IGazeProvider GazeProvider { get; private set; }
 
-#if ENABLE_INPUT_SYSTEM
+#if INPUT_SYSTEM_INSTALLED
         private Type InputModuleType => typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule);
 #else
         private Type InputModuleType => typeof(UnityEngine.EventSystems.StandaloneInputModule);
