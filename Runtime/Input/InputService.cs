@@ -39,9 +39,13 @@ namespace RealityToolkit.Input
         public InputService(string name, uint priority, InputServiceProfile profile)
             : base(name, priority, profile)
         {
+            if (profile.IsNull())
+            {
+                throw new Exception($"The {nameof(InputService)} requires a profile to be configured!");
+            }
             if (profile.GazeProviderType?.Type == null)
             {
-                throw new Exception($"The {nameof(IInputService)} is missing the required {nameof(profile.GazeProviderType)}!");
+                throw new Exception($"The {nameof(InputService)} is missing the required {nameof(profile.GazeProviderType)}!");
             }
 
             gazeProviderBehaviour = profile.GazeProviderBehaviour;
