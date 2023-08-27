@@ -21,9 +21,17 @@ namespace RealityToolkit.Input.Controllers
         public GameObject GameObject => gameObject;
 
         /// <inheritdoc />
-        public Transform PokePose => pokePose.IsNotNull() ? pokePose : transform;
+        public Transform PokePose
+        {
+            get => pokePose.IsNotNull() ? pokePose : transform;
+            protected set => pokePose = value;
+        }
 
         /// <inheritdoc />
-        public Transform GripPose => gripPose.IsNotNull() ? gripPose : transform;
+        public Transform GripPose
+        {
+            get => gripPose.IsNotNull() ? gripPose : transform;
+            protected set => gripPose = value;
+        }
     }
 }

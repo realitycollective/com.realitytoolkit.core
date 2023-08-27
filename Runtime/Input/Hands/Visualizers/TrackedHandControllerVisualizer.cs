@@ -95,6 +95,12 @@ namespace RealityToolkit.Input.Hands.Visualizers
                 var handJoint = (HandJoint)i;
                 var jointTransform = GetOrCreateJointTransform(handJoint);
                 jointTransformProvider.SetTransform(handJoint, jointTransform);
+
+                if (handJoint == HandJoint.IndexTip)
+                {
+                    PokePose = jointTransform;
+                }
+
                 CreateJointVisualizer(handJoint);
             }
         }
