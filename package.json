@@ -25,10 +25,10 @@
     "url": "https://github.com/realitycollective"
   },
   "dependencies": {
-    "com.unity.xr.management": "4.2.1",
+    "com.unity.xr.management": "4.4.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.textmeshpro": "3.0.6",
-    "com.realitycollective.service-framework": "1.0.0",
-    "com.unity.nuget.newtonsoft-json": "3.0.1"
+    "com.realitycollective.service-framework": "1.0.3-pre.5",
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
   }
 }
