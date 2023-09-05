@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Utilities.UX.Pointers;
+using RealityToolkit.Input.Interactors;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.UX.Pointers
 {
-    [CustomEditor(typeof(MousePointer))]
+    [CustomEditor(typeof(MouseInteractor))]
     public class MousePointerInspector : BaseControllerPointerInspector
     {
         private readonly GUIContent mousePointerFoldoutContent = new GUIContent("Mouse Pointer Settings");

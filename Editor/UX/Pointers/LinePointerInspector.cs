@@ -2,13 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.﻿
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Utilities.UX.Pointers;
+using RealityToolkit.Input.Interactors;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.UX.Pointers
 {
-    [CustomEditor(typeof(LinePointer), true, isFallback = true)]
+    [CustomEditor(typeof(FarInteractor), true, isFallback = true)]
     public class LinePointerInspector : BaseControllerPointerInspector
     {
         private const int MAX_RECOMMENDED_LINECAST_RESOLUTION = 20;

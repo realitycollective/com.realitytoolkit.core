@@ -75,7 +75,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
                 {
                     var defaultControllerOption = defaultControllerOptions[i];
 
-                    var controllerMappingAsset = CreateInstance(nameof(ControllerMappingProfile)).CreateAsset($"{profileRootPath}/", $"{defaultControllerOption.Description}Profile", false) as ControllerMappingProfile;
+                    var controllerMappingAsset = CreateInstance(nameof(ControllerProfile)).CreateAsset($"{profileRootPath}/", $"{defaultControllerOption.Description}Profile", false) as ControllerProfile;
 
                     Debug.Assert(controllerMappingAsset != null);
 
@@ -233,7 +233,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             for (int i = 0; i < controllerMappingProfiles.arraySize; i++)
             {
                 var targetObjectReference = controllerMappingProfiles.GetArrayElementAtIndex(i).objectReferenceValue;
-                var controllerMappingProfile = (ControllerMappingProfile)targetObjectReference;
+                var controllerMappingProfile = (ControllerProfile)targetObjectReference;
 
                 // In advanced mode new profile entries might have been created
                 // but not assigned, which leads to null entries in the mapping profiles list.
@@ -267,7 +267,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
 
         private static int layoutIndex;
 
-        internal void RenderControllerMappingButton(ControllerMappingProfile controllerMappingProfile)
+        internal void RenderControllerMappingButton(ControllerProfile controllerMappingProfile)
         {
             var controllerType = controllerMappingProfile.ControllerType.Type;
 
@@ -314,7 +314,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             position.height = EditorGUIUtility.singleLineHeight;
             position.y += 3;
             var mappingProfileProperty = controllerMappingProfiles.GetArrayElementAtIndex(index);
-            ProfilePropertyDrawer.ProfileTypeOverride = typeof(ControllerMappingProfile);
+            ProfilePropertyDrawer.ProfileTypeOverride = typeof(ControllerProfile);
             EditorGUI.PropertyField(position, mappingProfileProperty, GUIContent.none);
         }
 

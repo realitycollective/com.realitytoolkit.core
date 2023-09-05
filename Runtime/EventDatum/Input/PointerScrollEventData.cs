@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,7 +29,7 @@ namespace RealityToolkit.EventDatum.Input
         /// <param name="inputAction"></param>
         /// <param name="scrollDelta"></param>
         /// <param name="inputSource"></param>
-        public void Initialize(IPointer pointer, InputAction inputAction, Vector2 scrollDelta, IInputSource inputSource = null)
+        public void Initialize(IInteractor pointer, InputAction inputAction, Vector2 scrollDelta, IInputSource inputSource = null)
         {
             Initialize(pointer, inputAction, inputSource);
             ScrollDelta = scrollDelta;

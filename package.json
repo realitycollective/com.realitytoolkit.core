@@ -9,7 +9,7 @@
     "Mixed Reality"
   ],
   "version": "1.0.0-pre.16",
-  "unity": "2020.3",
+  "unity": "2021.3",
   "homepage": "https://github.com/realitycollective",
   "bugs": {
     "url": "https://github.com/realitycollective/realitytoolkit.dev/issues"
@@ -28,6 +28,7 @@
     "com.unity.xr.management": "4.2.1",
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.textmeshpro": "3.0.6",
-    "com.realitycollective.service-framework": "1.0.0"
+    "com.realitycollective.service-framework": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.0.1"
   }
 }
