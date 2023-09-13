@@ -30,7 +30,7 @@ namespace RealityToolkit.Input.InteractionActions
         public ButtonClickEvent Click => click;
 
         /// <inheritdoc/>
-        public override void OnActivated(InteractionEventArgs eventArgs)
+        protected override void OnActivated(InteractionEventArgs eventArgs)
         {
             Click?.Invoke();
         }

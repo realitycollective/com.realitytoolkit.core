@@ -35,13 +35,13 @@ namespace RealityToolkit.Input.InteractionActions
         public bool IsOn => Interactable.IsActivated;
 
         /// <inheritdoc/>
-        public override void OnActivated(InteractionEventArgs eventArgs)
+        protected override void OnActivated(InteractionEventArgs eventArgs)
         {
             ValueChanged?.Invoke(IsOn);
         }
 
         /// <inheritdoc/>
-        public override void OnDeactivated(InteractionExitEventArgs eventArgs)
+        protected override void OnDeactivated(InteractionExitEventArgs eventArgs)
         {
             ValueChanged?.Invoke(IsOn);
         }

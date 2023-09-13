@@ -27,14 +27,14 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
         {
             rigidbody.isKinematic = true;
             rigidbody.useGravity = false;
         }
 
         /// <inheritdoc/>
-        public override void OnLastGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnLastGrabExited(InteractionExitEventArgs eventArgs)
         {
             rigidbody.isKinematic = isKinematic;
             rigidbody.useGravity = useGravity;

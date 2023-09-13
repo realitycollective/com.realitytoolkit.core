@@ -15,7 +15,7 @@ namespace RealityToolkit.Input.InteractionActions
     public class FocusLockAction : BaseInteractionAction
     {
         /// <inheritdoc/>
-        public override void OnSelectEntered(InteractionEventArgs eventArgs)
+        protected override void OnSelectEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -26,7 +26,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnSelectExited(InteractionExitEventArgs eventArgs)
+        protected override void OnSelectExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -37,7 +37,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -48,7 +48,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {

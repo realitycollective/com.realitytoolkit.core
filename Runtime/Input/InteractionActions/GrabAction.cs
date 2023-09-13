@@ -1,6 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
@@ -16,10 +17,10 @@ namespace RealityToolkit.Input.InteractionActions
     public class GrabAction : BaseInteractionAction
     {
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
-        private Vector3 grabPoseLocalOffset = Vector3.zero;
+        private Vector3 poseLocalPositionOffset = Vector3.zero;
 
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
-        private Vector3 grabPoseLocalRotationOffset = Vector3.zero;
+        private Vector3 poseLocalRotationOffset = Vector3.zero;
 
         private IDirectInteractor grabbingInteractor;
 
@@ -28,22 +29,24 @@ namespace RealityToolkit.Input.InteractionActions
         {
             if (grabbingInteractor != null)
             {
-                transform.SetPositionAndRotation(GetGrabPosition(), GetGrabRotation());
+                var pose = GetGrabPose();
+                transform.SetPositionAndRotation(pose.position, pose.rotation);
             }
         }
 
         /// <inheritdoc/>
-        public override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor directInteractor)
             {
                 grabbingInteractor = directInteractor;
-                transform.SetPositionAndRotation(GetGrabPosition(), GetGrabRotation());
+                var pose = GetGrabPose();
+                transform.SetPositionAndRotation(pose.position, pose.rotation);
             }
         }
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor == grabbingInteractor)
             {
@@ -51,8 +54,35 @@ namespace RealityToolkit.Input.InteractionActions
             }
         }
 
-        private Vector3 GetGrabPosition() => grabbingInteractor.Controller.Visualizer.GripPose.transform.position + transform.TransformDirection(grabPoseLocalOffset);
+        private Pose GetGrabPose()
+        {
+            return new Pose(
+                GetGrabPosition(),
+                GetGrabRotation());
+        }
 
-        private Quaternion GetGrabRotation() => grabbingInteractor.Controller.Visualizer.GripPose.transform.rotation * Quaternion.Euler(grabPoseLocalRotationOffset);
+        private Vector3 GetGrabPosition()
+        {
+            // Move the controller to the interactable's attachment point.
+            var worldAttachmentPosition = transform.TransformPoint(poseLocalPositionOffset);
+
+            // Adjust controller's position based on its own grab pose offset.
+            var localControllerOffset = grabbingInteractor.Controller.Visualizer.PoseDriver.TransformPoint(grabbingInteractor.Controller.Visualizer.GripPose.localPosition) -
+                grabbingInteractor.Controller.Visualizer.PoseDriver.position;
+
+            // Combine.
+            worldAttachmentPosition += localControllerOffset;
+
+            return worldAttachmentPosition;
+        }
+
+        private Quaternion GetGrabRotation()
+        {
+            var worldAttachmentRotation = grabbingInteractor.Controller.ControllerHandedness == RealityCollective.Definitions.Utilities.Handedness.Right ?
+                Quaternion.Euler(poseLocalRotationOffset) :
+                Quaternion.Euler(poseLocalRotationOffset.Mul(new Vector3(-1f, -1f, -1f)));
+            var localControllerOffset = grabbingInteractor.Controller.Visualizer.GripPose.localRotation;
+            return transform.rotation * worldAttachmentRotation * localControllerOffset;
+        }
     }
 }

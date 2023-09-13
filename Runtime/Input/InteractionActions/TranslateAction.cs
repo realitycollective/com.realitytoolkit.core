@@ -70,7 +70,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
             // This action is not for use with direct interactors.
             if (eventArgs.Interactor is not IControllerInteractor controllerInteractor ||
@@ -93,7 +93,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
             StopDragging();
         }

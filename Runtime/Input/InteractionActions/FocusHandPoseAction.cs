@@ -19,7 +19,7 @@ namespace RealityToolkit.Input.InteractionActions
         private HandPose focusPose = null;
 
         /// <inheritdoc/>
-        public override void OnFirstFocusEntered(InteractionEventArgs eventArgs)
+        protected override void OnFirstFocusEntered(InteractionEventArgs eventArgs)
         {
             if (Interactable.IsSelected || Interactable.IsGrabbed)
             {
@@ -34,7 +34,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnLastFocusExited(InteractionExitEventArgs eventArgs)
+        protected override void OnLastFocusExited(InteractionExitEventArgs eventArgs)
         {
             if (Interactable.IsSelected || Interactable.IsGrabbed)
             {

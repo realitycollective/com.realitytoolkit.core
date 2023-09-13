@@ -11,7 +11,7 @@ namespace RealityToolkit.Input.InteractionActions
 {
     /// <summary>
     /// Attaches the <see cref="IControllerInteractor"/>'s <see cref="Controllers.IControllerVisualizer"/>
-    /// to the <see cref="Interactables.IInteractable"/>.
+    /// to the <see cref="Interactables.IInteractable"/> pose.
     /// </summary>
     public class AttachControllerVisualizerAction : BaseInteractionAction
     {
@@ -29,15 +29,14 @@ namespace RealityToolkit.Input.InteractionActions
             for (int i = 0; i < interactors.Count; i++)
             {
                 var interactor = interactors[i];
-                var position = GetGrabPosition(interactor);
-                var rotation = GetGrabRotation(interactor);
+                var pose = GetGrabPose(interactor);
 
-                interactor.Controller.Visualizer.PoseDriver.SetPositionAndRotation(position, rotation);
+                interactor.Controller.Visualizer.PoseDriver.SetPositionAndRotation(pose.position, pose.rotation);
             }
         }
 
         /// <inheritdoc/>
-        public override void OnSelectEntered(InteractionEventArgs eventArgs)
+        protected override void OnSelectEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
             {
@@ -48,7 +47,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnSelectExited(InteractionExitEventArgs eventArgs)
+        protected override void OnSelectExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
             {
@@ -59,7 +58,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
             {
@@ -70,7 +69,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
             {
@@ -92,20 +91,33 @@ namespace RealityToolkit.Input.InteractionActions
             currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = null;
         }
 
+        private Pose GetGrabPose(IControllerInteractor controllerInteractor)
+        {
+            return new Pose(GetGrabPosition(controllerInteractor), GetGrabRotation(controllerInteractor));
+        }
+
         private Vector3 GetGrabPosition(IControllerInteractor currentInteractor)
         {
-            var interactablePosition = transform.position;
-            var controllerGripPoseOffset = currentInteractor.Controller.Visualizer.GripPose.localPosition;
+            // Move the controller to the interactable's attachment point.
+            var worldAttachmentPosition = transform.TransformPoint(poseLocalPositionOffset);
 
-            return interactablePosition + controllerGripPoseOffset + poseLocalPositionOffset;
+            // Adjust controller's position based on its own grab pose offset.
+            var localControllerOffset = currentInteractor.Controller.Visualizer.PoseDriver.TransformPoint(currentInteractor.Controller.Visualizer.GripPose.localPosition) -
+                currentInteractor.Controller.Visualizer.PoseDriver.position;
+
+            // Combine.
+            worldAttachmentPosition += localControllerOffset;
+
+            return worldAttachmentPosition;
         }
 
         private Quaternion GetGrabRotation(IControllerInteractor currentInteractor)
         {
-            var interactableRotation = transform.rotation;
-            var controllerGripPoseOffset = currentInteractor.Controller.Visualizer.GripPose.localRotation;
-
-            return interactableRotation * Quaternion.Euler(poseLocalRotationOffset) * controllerGripPoseOffset;
+            var worldAttachmentRotation = currentInteractor.Controller.ControllerHandedness == RealityCollective.Definitions.Utilities.Handedness.Right ?
+                Quaternion.Euler(poseLocalRotationOffset) :
+                Quaternion.Euler(poseLocalRotationOffset.Mul(new Vector3(-1f, -1f, -1f)));
+            var localControllerOffset = currentInteractor.Controller.Visualizer.GripPose.localRotation;
+            return transform.rotation * worldAttachmentRotation * localControllerOffset;
         }
     }
 }
