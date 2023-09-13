@@ -13,7 +13,6 @@ namespace RealityToolkit.Input.InteractionActions
     /// <see cref="IDirectInteractor"/>s. It allows to "pick up" the <see cref="Interactables.IInteractable"/>
     /// and carry it around.
     /// </summary>
-    [DisallowMultipleComponent]
     public class GrabAction : BaseInteractionAction
     {
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]

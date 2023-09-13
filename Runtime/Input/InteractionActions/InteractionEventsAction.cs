@@ -14,7 +14,6 @@ namespace RealityToolkit.Input.InteractionActions
     /// <remarks>
     /// Consider implementing a custom <see cref="BaseInteractionAction"/> instead.
     /// </remarks>
-    [DisallowMultipleComponent]
     public class InteractionEventsAction : BaseInteractionAction
     {
         [Space]

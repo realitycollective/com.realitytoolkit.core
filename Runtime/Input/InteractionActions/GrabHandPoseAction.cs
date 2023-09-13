@@ -12,7 +12,6 @@ namespace RealityToolkit.Input.InteractionActions
     /// <summary>
     /// The <see cref="GrabHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="grabPose"/>, when the <see cref="Interactables.IInteractable"/> is grabbed.
-    [DisallowMultipleComponent]
     public class GrabHandPoseAction : BaseInteractionAction
     {
         [SerializeField, Tooltip("Hand pose applied when grabbing the interactable.")]
