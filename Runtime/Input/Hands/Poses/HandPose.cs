@@ -4,6 +4,11 @@
 using RealityCollective.Definitions.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
+using RealityCollective.Extensions;
+
+#if UNITY_EDITOR
+using System.Linq;
+#endif
 
 namespace RealityToolkit.Input.Hands.Poses
 {
@@ -96,5 +101,43 @@ namespace RealityToolkit.Input.Hands.Poses
 
             return new Pose(position, Quaternion.Euler(rotation));
         }
+
+#if UNITY_EDITOR
+
+        /// <summary>
+        /// Creates a mirrored version of the hand pose asset.
+        /// </summary>
+        public void Mirror()
+        {
+            if (Application.isPlaying)
+            {
+                Debug.LogError($"Cannot create asset while in play mode.", this);
+                return;
+            }
+
+            var mirroredHandPose = CreateInstance<HandPose>();
+            mirroredHandPose.RecordedHandedness = RecordedHandedness == Handedness.Left ?
+                Handedness.Right :
+                Handedness.Left;
+
+            mirroredHandPose.Poses = Poses.Select(p => new JointPose()
+            {
+                Joint = p.Joint,
+                Pose = new Pose(p.Pose.position.Mul(new Vector3(-1f, 0f, -1f)),
+                p.Pose.rotation)
+            }).ToList();
+
+            mirroredHandPose.Save();
+        }
+
+        /// <summary>
+        /// Saves the <see cref="HandPose"/> to an asset file.
+        /// </summary>
+        public void Save()
+        {
+            UnityEditor.AssetDatabase.CreateAsset(this, System.IO.Path.Join("Assets", "RealityToolkit.Generated", $"{nameof(HandPose)}_{RecordedHandedness}.asset"));
+            UnityEditor.AssetDatabase.Refresh();
+        }
+#endif
     }
 }
