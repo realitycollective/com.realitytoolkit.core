@@ -33,12 +33,6 @@ namespace RealityToolkit.Input.Controllers
         Handedness Handedness { get; }
 
         /// <summary>
-        /// Should this <see cref="GameObject"/> clean itself up when it's controller is lost?
-        /// </summary>
-        /// <remarks>It's up to the implementation to properly destroy the <see cref="GameObject"/>'s this interface will implement.</remarks>
-        bool DestroyOnSourceLost { get; set; }
-
-        /// <summary>
         /// The current controller reference.
         /// </summary>
         IController Controller { get; set; }

@@ -53,7 +53,10 @@ namespace RealityToolkit.Input.Controllers
         [Tooltip("Should this GameObject clean itself up when it's controller is lost?")]
         private bool destroyOnSourceLost = true;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Should this <see cref="GameObject"/> clean itself up when it's controller is lost?
+        /// </summary>
+        /// <remarks>It's up to the implementation to properly destroy the <see cref="GameObject"/>'s this interface will implement.</remarks>
         public bool DestroyOnSourceLost
         {
             get => destroyOnSourceLost;
