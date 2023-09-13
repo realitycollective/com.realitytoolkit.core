@@ -25,7 +25,7 @@ namespace RealityToolkit.Input.Controllers
         /// <remarks>
         /// Defaults to the <see cref="Transform"/> that this component is attached to.
         /// </remarks>
-        Transform PoseDriver { get; set; }
+        Transform PoseDriver { get; }
 
         /// <summary>
         /// The controller handedness to synchronize with.
