@@ -19,6 +19,13 @@ namespace RealityToolkit.Input.Controllers
         GameObject GameObject { get; }
 
         /// <summary>
+        /// If set, the <see cref="IControllerVisualizer"/>'s <see cref="GameObject"/>
+        /// pose in the scene will be synced with the assigned <see cref="Transform"/>
+        /// instead of synchronizing with the actual source pose data.
+        /// </summary>
+        Transform VisualizerPoseOverrideSource { get; set; }
+
+        /// <summary>
         /// The <see cref="Transform"/> defining where <see cref="Interactors.IPokeInteractor"/>s
         /// attached to the <see cref="IController"/> should be located at.
         /// </summary>

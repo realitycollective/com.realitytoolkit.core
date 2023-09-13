@@ -24,17 +24,7 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public Transform PoseDriver
         {
-            get
-            {
-                try
-                {
-                    return poseDriver;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
+            get => poseDriver;
             set => poseDriver = value;
         }
 
@@ -74,7 +64,7 @@ namespace RealityToolkit.Input.Controllers
                 controller = value;
                 gameObject.name = $"{handedness}_{gameObject.name}";
 
-                if (PoseDriver == null)
+                if (PoseDriver.IsNull())
                 {
                     PoseDriver = transform;
                 }
