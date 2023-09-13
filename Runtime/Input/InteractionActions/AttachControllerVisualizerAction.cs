@@ -1,8 +1,11 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using RealityCollective.Extensions;
 using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
@@ -12,6 +15,27 @@ namespace RealityToolkit.Input.InteractionActions
     /// </summary>
     public class AttachControllerVisualizerAction : BaseInteractionAction
     {
+        [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
+        private Vector3 poseLocalPositionOffset = Vector3.zero;
+
+        [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
+        private Vector3 poseLocalRotationOffset = Vector3.zero;
+
+        private readonly List<IControllerInteractor> interactors = new List<IControllerInteractor>();
+
+        /// <inheritdoc/>
+        protected override void Update()
+        {
+            for (int i = 0; i < interactors.Count; i++)
+            {
+                var interactor = interactors[i];
+                var position = GetGrabPosition(interactor);
+                var rotation = GetGrabRotation(interactor);
+
+                interactor.Controller.Visualizer.PoseDriver.SetPositionAndRotation(position, rotation);
+            }
+        }
+
         /// <inheritdoc/>
         public override void OnSelectEntered(InteractionEventArgs eventArgs)
         {
@@ -56,8 +80,32 @@ namespace RealityToolkit.Input.InteractionActions
             Detach(controllerInteractor);
         }
 
-        private void Attach(IControllerInteractor currentInteractor) => currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = transform;
+        private void Attach(IControllerInteractor currentInteractor)
+        {
+            interactors.EnsureListItem(currentInteractor);
+            currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = transform;
+        }
 
-        private void Detach(IControllerInteractor currentInteractor) => currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = null;
+        private void Detach(IControllerInteractor currentInteractor)
+        {
+            interactors.SafeRemoveListItem(currentInteractor);
+            currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = null;
+        }
+
+        private Vector3 GetGrabPosition(IControllerInteractor currentInteractor)
+        {
+            var interactablePosition = transform.position;
+            var controllerGripPoseOffset = currentInteractor.Controller.Visualizer.GripPose.localPosition;
+
+            return interactablePosition + controllerGripPoseOffset + poseLocalPositionOffset;
+        }
+
+        private Quaternion GetGrabRotation(IControllerInteractor currentInteractor)
+        {
+            var interactableRotation = transform.rotation;
+            var controllerGripPoseOffset = currentInteractor.Controller.Visualizer.GripPose.localRotation;
+
+            return interactableRotation * Quaternion.Euler(poseLocalRotationOffset) * controllerGripPoseOffset;
+        }
     }
 }

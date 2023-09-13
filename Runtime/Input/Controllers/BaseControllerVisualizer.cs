@@ -38,19 +38,6 @@ namespace RealityToolkit.Input.Controllers
             protected set => gripPose = value;
         }
 
-        /// <summary>
-        /// See <see cref="MonoBehaviour"/>.
-        /// </summary>
-        protected virtual void Update()
-        {
-            if (VisualizerPoseOverrideSource.IsNull())
-            {
-                return;
-            }
-
-            PoseDriver.SetPositionAndRotation(VisualizerPoseOverrideSource.position, VisualizerPoseOverrideSource.rotation);
-        }
-
         /// <inheritdoc />
         public override void OnSourcePoseChanged(SourcePoseEventData<Pose> eventData)
         {
