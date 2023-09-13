@@ -37,15 +37,11 @@ namespace RealityToolkit.Input.Hands.Poses
 
             if (!TryGetComponent(out jointTransformProvider))
             {
-                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(UnityEngine.GameObject)}.", this);
+                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(GameObject)}.", this);
                 return;
             }
 
-            if (poseAnimator == null)
-            {
-                poseAnimator = new HandPoseAnimator(jointTransformProvider, previewedHandedness);
-            }
-
+            poseAnimator ??= new HandPoseAnimator(jointTransformProvider);
             poseAnimator.Transition(handPose, frame);
         }
     }

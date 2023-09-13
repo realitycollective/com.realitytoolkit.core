@@ -60,7 +60,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
         protected override void Awake()
         {
             base.Awake();
-            poseAnimator = new HandPoseAnimator(jointTransformProvider, Handedness);
+            poseAnimator = new HandPoseAnimator(jointTransformProvider);
         }
 
         /// <inheritdoc/>
