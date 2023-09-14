@@ -1,7 +1,6 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using UnityEngine;
 
@@ -12,9 +11,6 @@ namespace RealityToolkit.Input.Hands.Poses
     /// </summary>
     public class RecordedHandPosePreviewer : MonoBehaviour
     {
-        [SerializeField, Tooltip("The handedness to preview the pose with.")]
-        private Handedness previewedHandedness = Handedness.Left;
-
         [SerializeField, Tooltip("The hand pose to preview.")]
         private HandPose handPose = null;
 
