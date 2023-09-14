@@ -103,13 +103,12 @@ namespace RealityToolkit.Input.Hands.Poses
         /// <returns>Mirrored <see cref="Pose"/> for the opposite <see cref="Handedness"/>.</returns>
         private Pose MirrorPose(Pose pose)
         {
-            var position = pose.position.Mul(new Vector3(1f, 1f, 1f));
-
-            var rotation = pose.rotation;
-            rotation.x = -rotation.x;
+            var position = pose.position.Mul(new Vector3(-1f, 1f, 1f));
+            var rotation = pose.rotation.eulerAngles;
             rotation.y = -rotation.y;
+            rotation.z = -rotation.z;
 
-            return new Pose(position, rotation);
+            return new Pose(position, Quaternion.Euler(rotation));
         }
 
         /// <summary>
