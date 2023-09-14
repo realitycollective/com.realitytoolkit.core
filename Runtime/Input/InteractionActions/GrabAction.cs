@@ -1,7 +1,6 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Extensions;
 using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
@@ -77,9 +76,7 @@ namespace RealityToolkit.Input.InteractionActions
 
         private Quaternion GetGrabRotation()
         {
-            var worldAttachmentRotation = grabbingInteractor.Controller.ControllerHandedness == RealityCollective.Definitions.Utilities.Handedness.Right ?
-                Quaternion.Euler(poseLocalRotationOffset) :
-                Quaternion.Euler(poseLocalRotationOffset.Mul(new Vector3(-1f, -1f, -1f)));
+            var worldAttachmentRotation = Quaternion.Euler(poseLocalRotationOffset);
             var localControllerOffset = grabbingInteractor.Controller.Visualizer.GripPose.localRotation;
             return transform.rotation * worldAttachmentRotation * localControllerOffset;
         }

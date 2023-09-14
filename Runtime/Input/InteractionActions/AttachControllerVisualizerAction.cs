@@ -113,9 +113,7 @@ namespace RealityToolkit.Input.InteractionActions
 
         private Quaternion GetGrabRotation(IControllerInteractor currentInteractor)
         {
-            var worldAttachmentRotation = currentInteractor.Controller.ControllerHandedness == RealityCollective.Definitions.Utilities.Handedness.Right ?
-                Quaternion.Euler(poseLocalRotationOffset) :
-                Quaternion.Euler(poseLocalRotationOffset.Mul(new Vector3(-1f, -1f, -1f)));
+            var worldAttachmentRotation = Quaternion.Euler(poseLocalRotationOffset);
             var localControllerOffset = currentInteractor.Controller.Visualizer.GripPose.localRotation;
             return transform.rotation * worldAttachmentRotation * localControllerOffset;
         }
