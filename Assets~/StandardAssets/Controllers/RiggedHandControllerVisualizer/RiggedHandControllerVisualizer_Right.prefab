@@ -56,14 +56,14 @@ MonoBehaviour:
     axisConstraint: 0
   pokePose: {fileID: 8928930919155290121}
   gripPose: {fileID: 7236114645579945335}
-  idlePose: {fileID: 11400000, guid: f4ee4f055d04ac745ba8acb96d0837de, type: 2}
-  selectHandPose: {fileID: 11400000, guid: 42e5fadc57407fd4ba590e7297704ce2, type: 2}
+  idlePose: {fileID: 11400000, guid: 545c878a0e78b3247ae911b490a264df, type: 2}
+  selectHandPose: {fileID: 11400000, guid: b69208338fcb9184388db739f1eb2e0a, type: 2}
   selectInputAction:
     profileGuid: 399335ccc89c4d12b79f3539ca7771db
     id: 1
     description: Select
     axisConstraint: 2
-  gripHandPose: {fileID: 11400000, guid: a1ac23157de11dd42ada7d592f693490, type: 2}
+  gripHandPose: {fileID: 11400000, guid: e985a76454d325141986d1984f957d4e, type: 2}
   gripInputAction:
     profileGuid: 399335ccc89c4d12b79f3539ca7771db
     id: 7

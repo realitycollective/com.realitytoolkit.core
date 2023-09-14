@@ -28,7 +28,9 @@ namespace RealityToolkit.Editor.Input.Hands.Poses
             {
                 bindingPath = "poses",
                 virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight,
-                reorderable = false
+                reorderable = false,
+                showFoldoutHeader = true,
+                headerTitle = "Recorded Joint Poses"
             };
             posesListView.style.flexGrow = 1;
 
