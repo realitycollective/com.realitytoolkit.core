@@ -12,14 +12,13 @@ namespace RealityToolkit.Input.InteractionActions
     /// <summary>
     /// The <see cref="GrabHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="grabPose"/>, when the <see cref="Interactables.IInteractable"/> is grabbed.
-    [DisallowMultipleComponent]
     public class GrabHandPoseAction : BaseInteractionAction
     {
         [SerializeField, Tooltip("Hand pose applied when grabbing the interactable.")]
         private HandPose grabPose = null;
 
         /// <inheritdoc/>
-        public override void OnGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor directInteractor &&
                 directInteractor.Controller.Visualizer is RiggedHandControllerVisualizer riggedHandControllerVisualizer)
@@ -29,7 +28,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor directInteractor &&
                 directInteractor.Controller.Visualizer is RiggedHandControllerVisualizer riggedHandControllerVisualizer)

@@ -1,4 +1,3 @@
-using RealityCollective.Definitions.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +9,13 @@ namespace RealityToolkit.Input.Hands.Poses
     /// </summary>
     public class HandPoseAnimator
     {
-        public HandPoseAnimator(IHandJointTransformProvider jointTransformProvider, Handedness handedness)
+        public HandPoseAnimator(IHandJointTransformProvider jointTransformProvider)
         {
             jointCount = Enum.GetNames(typeof(HandJoint)).Length;
             this.jointTransformProvider = jointTransformProvider;
-            this.handedness = handedness;
         }
 
         private readonly int jointCount;
-        private readonly Handedness handedness;
         private readonly IHandJointTransformProvider jointTransformProvider;
         private readonly Dictionary<HandJoint, Pose> startFramePoses = new Dictionary<HandJoint, Pose>();
         private bool animating;
@@ -103,7 +100,7 @@ namespace RealityToolkit.Input.Hands.Poses
 
                 if (jointTransformProvider.TryGetTransform(handJoint, out var jointTransform) &&
                     startFramePoses.TryGetValue(handJoint, out var startPose) &&
-                    CurrentPose.TryGetPose(handedness, handJoint, out var targetJointPose))
+                    CurrentPose.TryGetPose(handJoint, out var targetJointPose))
                 {
                     jointTransform.SetLocalPositionAndRotation(Vector3.Slerp(startPose.position, targetJointPose.position, t), Quaternion.Slerp(startPose.rotation, targetJointPose.rotation, t));
                 }
@@ -117,9 +114,12 @@ namespace RealityToolkit.Input.Hands.Poses
         /// </summary>
         private void ComputeStartFrame(HandPose targetPose)
         {
-            if (targetPose == CurrentPose)
+            if (targetPose == CurrentPose &&
+                !Application.isEditor)
             {
-                // No need to compute a new start frame if the target pose has not changed.
+                // No need to compute a new start frame if the target pose has not changed,
+                // unless we are in the editor. For pose accurate pose recording we always want to make sure,
+                // we are working with up-to-date poses.
                 return;
             }
 

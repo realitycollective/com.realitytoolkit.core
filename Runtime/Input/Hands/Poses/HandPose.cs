@@ -4,6 +4,11 @@
 using RealityCollective.Definitions.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
+using RealityCollective.Extensions;
+
+#if UNITY_EDITOR
+using System.Linq;
+#endif
 
 namespace RealityToolkit.Input.Hands.Poses
 {
@@ -15,7 +20,6 @@ namespace RealityToolkit.Input.Hands.Poses
     public class HandPose : ScriptableObject
     {
         private readonly Dictionary<HandJoint, Pose> posesDict = new Dictionary<HandJoint, Pose>();
-        private readonly Dictionary<HandJoint, Pose> mirroredPosesDict = new Dictionary<HandJoint, Pose>();
 
         [SerializeField, Tooltip("The handedness the pose was recorded with.")]
         private Handedness recordedHandedness = Handedness.Left;
@@ -41,42 +45,54 @@ namespace RealityToolkit.Input.Hands.Poses
             set => poses = value;
         }
 
-        private void OnValidate()
-        {
-            posesDict.Clear();
-            mirroredPosesDict.Clear();
-
-            if (Poses != null)
-            {
-                foreach (var pose in Poses)
-                {
-                    posesDict.Add(pose.Joint, pose.Pose);
-                    mirroredPosesDict.Add(pose.Joint, MirrorPose(pose.Pose));
-                }
-            }
-        }
-
         /// <summary>
         /// Gets the recorded <see cref="Pose"/> for <paramref name="joint"/>,
         /// if it exists in the recording.
         /// </summary>
-        /// <param name="handedness">The <see cref="Handedness"/> to get the pose for.</param>
         /// <param name="joint">The <see cref="HandJoint"/> to lookup the <see cref="Pose"/> for.</param>
         /// <param name="pose">The found <see cref="Pose"/>, if any.</param>
         /// <returns><c>true</c>, if found.</returns>
-        public bool TryGetPose(Handedness handedness, HandJoint joint, out Pose pose)
+        public bool TryGetPose(HandJoint joint, out Pose pose)
         {
-            if (RecordedHandedness == handedness &&
-                posesDict.TryGetValue(joint, out pose))
+            if (Poses != null &&
+                Poses.Count != posesDict.Count)
             {
-                return true;
-            }
-            else if (mirroredPosesDict.TryGetValue(joint, out pose))
-            {
-                return true;
+                posesDict.Clear();
+
+                foreach (var jointPose in Poses)
+                {
+                    posesDict.Add(jointPose.Joint, jointPose.Pose);
+                }
             }
 
-            return false;
+            return posesDict.TryGetValue(joint, out pose);
+        }
+
+#if UNITY_EDITOR
+
+        /// <summary>
+        /// Creates a mirrored version of the hand pose asset.
+        /// </summary>
+        public void Mirror()
+        {
+            if (Application.isPlaying)
+            {
+                Debug.LogError($"Cannot create asset while in play mode.", this);
+                return;
+            }
+
+            var mirroredHandPose = CreateInstance<HandPose>();
+            mirroredHandPose.RecordedHandedness = RecordedHandedness == Handedness.Left ?
+                Handedness.Right :
+                Handedness.Left;
+
+            mirroredHandPose.Poses = Poses.Select(p => new JointPose()
+            {
+                Joint = p.Joint,
+                Pose = MirrorPose(p.Pose)
+            }).ToList();
+
+            mirroredHandPose.Save($"{name}_Mirrored");
         }
 
         /// <summary>
@@ -87,14 +103,28 @@ namespace RealityToolkit.Input.Hands.Poses
         /// <returns>Mirrored <see cref="Pose"/> for the opposite <see cref="Handedness"/>.</returns>
         private Pose MirrorPose(Pose pose)
         {
-            var position = pose.position;
-            position.x *= -1f;
-
+            var position = pose.position.Mul(new Vector3(-1f, 1f, 1f));
             var rotation = pose.rotation.eulerAngles;
             rotation.y = -rotation.y;
             rotation.z = -rotation.z;
 
             return new Pose(position, Quaternion.Euler(rotation));
         }
+
+        /// <summary>
+        /// Saves the <see cref="HandPose"/> to an asset file.
+        /// </summary>
+        public void Save(string fileName = null)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                fileName = $"{nameof(HandPose)}_{RecordedHandedness}";
+            }
+
+            UnityEditor.AssetDatabase.CreateAsset(this, System.IO.Path.Join("Assets", "RealityToolkit.Generated", $"{fileName}.asset"));
+            UnityEditor.AssetDatabase.Refresh();
+        }
+
+#endif
     }
 }

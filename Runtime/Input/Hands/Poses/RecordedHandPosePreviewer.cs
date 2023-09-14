@@ -1,7 +1,6 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using UnityEngine;
 
@@ -12,9 +11,6 @@ namespace RealityToolkit.Input.Hands.Poses
     /// </summary>
     public class RecordedHandPosePreviewer : MonoBehaviour
     {
-        [SerializeField, Tooltip("The handedness to preview the pose with.")]
-        private Handedness previewedHandedness = Handedness.Left;
-
         [SerializeField, Tooltip("The hand pose to preview.")]
         private HandPose handPose = null;
 
@@ -37,15 +33,11 @@ namespace RealityToolkit.Input.Hands.Poses
 
             if (!TryGetComponent(out jointTransformProvider))
             {
-                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(UnityEngine.GameObject)}.", this);
+                Debug.LogError($"{GetType().Name} requires an {nameof(IHandJointTransformProvider)} on the {nameof(GameObject)}.", this);
                 return;
             }
 
-            if (poseAnimator == null)
-            {
-                poseAnimator = new HandPoseAnimator(jointTransformProvider, previewedHandedness);
-            }
-
+            poseAnimator ??= new HandPoseAnimator(jointTransformProvider);
             poseAnimator.Transition(handPose, frame);
         }
     }

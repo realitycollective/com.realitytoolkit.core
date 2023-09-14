@@ -14,7 +14,6 @@ namespace RealityToolkit.Input.InteractionActions
     /// <remarks>
     /// Consider implementing a custom <see cref="BaseInteractionAction"/> instead.
     /// </remarks>
-    [DisallowMultipleComponent]
     public class InteractionEventsAction : BaseInteractionAction
     {
         [Space]
@@ -106,45 +105,45 @@ namespace RealityToolkit.Input.InteractionActions
         public InteractionExitEvent LastGrabExited => lastGrabExited;
 
         /// <inheritdoc/>
-        public override void OnActivated(InteractionEventArgs eventArgs) => Activated?.Invoke(eventArgs);
+        protected override void OnActivated(InteractionEventArgs eventArgs) => Activated?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnDeactivated(InteractionExitEventArgs eventArgs) => Deactivated?.Invoke(eventArgs);
+        protected override void OnDeactivated(InteractionExitEventArgs eventArgs) => Deactivated?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnFirstFocusEntered(InteractionEventArgs eventArgs) => FirstFocusEntered?.Invoke(eventArgs);
+        protected override void OnFirstFocusEntered(InteractionEventArgs eventArgs) => FirstFocusEntered?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnFocusEntered(InteractionEventArgs eventArgs) => FocusEntered?.Invoke(eventArgs);
+        protected override void OnFocusEntered(InteractionEventArgs eventArgs) => FocusEntered?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnFocusExited(InteractionExitEventArgs eventArgs) => FocusExited?.Invoke(eventArgs);
+        protected override void OnFocusExited(InteractionExitEventArgs eventArgs) => FocusExited?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnLastFocusExited(InteractionExitEventArgs eventArgs) => LastFocusExited?.Invoke(eventArgs);
+        protected override void OnLastFocusExited(InteractionExitEventArgs eventArgs) => LastFocusExited?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnFirstSelectEntered(InteractionEventArgs eventArgs) => FirstSelectEntered?.Invoke(eventArgs);
+        protected override void OnFirstSelectEntered(InteractionEventArgs eventArgs) => FirstSelectEntered?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnSelectEntered(InteractionEventArgs eventArgs) => SelectEntered?.Invoke(eventArgs);
+        protected override void OnSelectEntered(InteractionEventArgs eventArgs) => SelectEntered?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnSelectExited(InteractionExitEventArgs eventArgs) => SelectExited?.Invoke(eventArgs);
+        protected override void OnSelectExited(InteractionExitEventArgs eventArgs) => SelectExited?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnLastSelectExited(InteractionExitEventArgs eventArgs) => LastSelectExited?.Invoke(eventArgs);
+        protected override void OnLastSelectExited(InteractionExitEventArgs eventArgs) => LastSelectExited?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnFirstGrabEntered(InteractionEventArgs eventArgs) => FirstGrabEntered?.Invoke(eventArgs);
+        protected override void OnFirstGrabEntered(InteractionEventArgs eventArgs) => FirstGrabEntered?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnGrabEntered(InteractionEventArgs eventArgs) => GrabEntered?.Invoke(eventArgs);
+        protected override void OnGrabEntered(InteractionEventArgs eventArgs) => GrabEntered?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs) => GrabExited?.Invoke(eventArgs);
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs) => GrabExited?.Invoke(eventArgs);
 
         /// <inheritdoc/>
-        public override void OnLastGrabExited(InteractionExitEventArgs eventArgs) => LastGrabExited?.Invoke(eventArgs);
+        protected override void OnLastGrabExited(InteractionExitEventArgs eventArgs) => LastGrabExited?.Invoke(eventArgs);
     }
 }

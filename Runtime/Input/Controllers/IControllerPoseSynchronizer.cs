@@ -25,18 +25,12 @@ namespace RealityToolkit.Input.Controllers
         /// <remarks>
         /// Defaults to the <see cref="Transform"/> that this component is attached to.
         /// </remarks>
-        Transform PoseDriver { get; set; }
+        Transform PoseDriver { get; }
 
         /// <summary>
         /// The controller handedness to synchronize with.
         /// </summary>
         Handedness Handedness { get; }
-
-        /// <summary>
-        /// Should this <see cref="GameObject"/> clean itself up when it's controller is lost?
-        /// </summary>
-        /// <remarks>It's up to the implementation to properly destroy the <see cref="GameObject"/>'s this interface will implement.</remarks>
-        bool DestroyOnSourceLost { get; set; }
 
         /// <summary>
         /// The current controller reference.

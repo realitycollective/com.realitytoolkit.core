@@ -65,7 +65,7 @@ namespace RealityToolkit.Input.Hands.Poses
                 Pose = new Pose(new Vector3(p.PosX, p.PosY, p.PosZ), new Quaternion(p.RotX, p.RotY, p.RotZ, p.RotW))
             }).ToList();
 
-            Save(recordedHandPose);
+            recordedHandPose.Save();
             UnityEditor.AssetDatabase.DeleteAsset(UnityEditor.AssetDatabase.GetAssetPath(serializedPose));
             serializedPose = null;
         }
@@ -125,17 +125,7 @@ namespace RealityToolkit.Input.Hands.Poses
             }
 
             // When not playing, we can directly save the asset.
-            Save(recordedHandPose);
-        }
-
-        /// <summary>
-        /// Saves the <paramref name="handPose"/> to an asset file.
-        /// </summary>
-        /// <param name="handPose">The <see cref="HandPose"/>.</param>
-        private void Save(HandPose handPose)
-        {
-            UnityEditor.AssetDatabase.CreateAsset(handPose, System.IO.Path.Join("Assets", "RealityToolkit.Generated", $"{nameof(HandPose)}.asset"));
-            UnityEditor.AssetDatabase.Refresh();
+            recordedHandPose.Save();
         }
 #endif
     }

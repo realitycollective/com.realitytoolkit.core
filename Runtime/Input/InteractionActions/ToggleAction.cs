@@ -11,7 +11,6 @@ namespace RealityToolkit.Input.InteractionActions
     /// <summary>
     /// A <see cref="IInteractionAction"/> for creating <see cref="Interactables.IInteractable"/>s that mimick toggle button behaviour.
     /// </summary>
-    [DisallowMultipleComponent]
     public class ToggleAction : BaseInteractionAction
     {
         /// <summary>
@@ -35,13 +34,13 @@ namespace RealityToolkit.Input.InteractionActions
         public bool IsOn => Interactable.IsActivated;
 
         /// <inheritdoc/>
-        public override void OnActivated(InteractionEventArgs eventArgs)
+        protected override void OnActivated(InteractionEventArgs eventArgs)
         {
             ValueChanged?.Invoke(IsOn);
         }
 
         /// <inheritdoc/>
-        public override void OnDeactivated(InteractionExitEventArgs eventArgs)
+        protected override void OnDeactivated(InteractionExitEventArgs eventArgs)
         {
             ValueChanged?.Invoke(IsOn);
         }

@@ -3,7 +3,6 @@
 
 using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
-using UnityEngine;
 
 namespace RealityToolkit.Input.InteractionActions
 {
@@ -11,11 +10,10 @@ namespace RealityToolkit.Input.InteractionActions
     /// This <see cref="IInteractionAction"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>,
     /// when the <see cref="Interactables.IInteractable.IsSelected"/> or <see cref="Interactables.IInteractable.IsGrabbed"/>.
     /// </summary>
-    [DisallowMultipleComponent]
     public class FocusLockAction : BaseInteractionAction
     {
         /// <inheritdoc/>
-        public override void OnSelectEntered(InteractionEventArgs eventArgs)
+        protected override void OnSelectEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -26,7 +24,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnSelectExited(InteractionExitEventArgs eventArgs)
+        protected override void OnSelectExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -37,7 +35,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {
@@ -48,7 +46,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
             if (eventArgs.Interactor is IDirectInteractor)
             {

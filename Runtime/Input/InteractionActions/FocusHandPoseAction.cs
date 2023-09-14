@@ -12,14 +12,13 @@ namespace RealityToolkit.Input.InteractionActions
     /// <summary>
     /// The <see cref="FocusHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="focusPose"/>, when the <see cref="Interactables.IInteractable"/> is focused.
-    [DisallowMultipleComponent]
     public class FocusHandPoseAction : BaseInteractionAction
     {
         [SerializeField, Tooltip("Hand pose applied when focusing the interactable.")]
         private HandPose focusPose = null;
 
         /// <inheritdoc/>
-        public override void OnFirstFocusEntered(InteractionEventArgs eventArgs)
+        protected override void OnFirstFocusEntered(InteractionEventArgs eventArgs)
         {
             if (Interactable.IsSelected || Interactable.IsGrabbed)
             {
@@ -34,7 +33,7 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnLastFocusExited(InteractionExitEventArgs eventArgs)
+        protected override void OnLastFocusExited(InteractionExitEventArgs eventArgs)
         {
             if (Interactable.IsSelected || Interactable.IsGrabbed)
             {

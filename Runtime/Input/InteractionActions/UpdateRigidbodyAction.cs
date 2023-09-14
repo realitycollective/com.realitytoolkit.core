@@ -10,7 +10,6 @@ namespace RealityToolkit.Input.InteractionActions
     /// This <see cref="IInteractionAction"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>
     /// when interacted with.
     /// </summary>
-    [DisallowMultipleComponent]
     public class UpdateRigidbodyAction : BaseInteractionAction
     {
         private new Rigidbody rigidbody;
@@ -27,14 +26,14 @@ namespace RealityToolkit.Input.InteractionActions
         }
 
         /// <inheritdoc/>
-        public override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
+        protected override void OnFirstGrabEntered(InteractionEventArgs eventArgs)
         {
             rigidbody.isKinematic = true;
             rigidbody.useGravity = false;
         }
 
         /// <inheritdoc/>
-        public override void OnLastGrabExited(InteractionExitEventArgs eventArgs)
+        protected override void OnLastGrabExited(InteractionExitEventArgs eventArgs)
         {
             rigidbody.isKinematic = isKinematic;
             rigidbody.useGravity = useGravity;
