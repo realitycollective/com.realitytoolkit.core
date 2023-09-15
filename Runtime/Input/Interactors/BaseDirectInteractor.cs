@@ -48,12 +48,28 @@ namespace RealityToolkit.Input.Interactors
         }
 
         /// <inheritdoc />
+        /// <remarks>
+        /// For direct interactors we must check for the direct interaction result.
+        /// Base implementation will only check for raycast based results.
+        /// </remarks>
         protected override void OnRaisePointerDown(InputAction inputAction)
         {
-            // Only if we have a target, we want to raise input down.
-            if (DirectResult.CurrentTarget.IsNotNull())
+            if (DirectResult.CurrentTarget.IsNotNull() && IsInteractionEnabled)
             {
-                base.OnRaisePointerDown(inputAction);
+                InputService.RaisePointerDown(this, inputAction);
+            }
+        }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// For direct interactors we must check for the direct interaction result.
+        /// Base implementation will only check for raycast based results.
+        /// </remarks>
+        protected override void OnRaisePointerClicked(InputAction inputAction)
+        {
+            if (DirectResult.CurrentTarget.IsNotNull() && IsInteractionEnabled)
+            {
+                InputService.RaisePointerClicked(this, inputAction);
             }
         }
     }

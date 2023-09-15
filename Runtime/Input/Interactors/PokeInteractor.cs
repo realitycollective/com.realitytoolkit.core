@@ -66,12 +66,20 @@ namespace RealityToolkit.Input.Interactors
         }
 
         /// <inheritdoc/>
-        /// <remarks><see cref="IPokeInteractor"/>s should not raise <see cref="Interfaces.IInputService.RaisePointerDown(IInteractor, InputAction, Interfaces.IInputSource)"/>.</remarks>
-        protected override void OnRaisePointerDown(InputAction inputAction) { }
+        protected override void OnRaisePointerDown(InputAction inputAction)
+        {
+            UpdateInteractorPrivilege(false);
+            base.OnRaisePointerDown(inputAction);
+            UpdateInteractorPrivilege(true);
+        }
 
         /// <inheritdoc/>
-        /// <remarks><see cref="IPokeInteractor"/>s should not raise <see cref="Interfaces.IInputService.RaisePointerUp(IInteractor, InputAction, Interfaces.IInputSource)"/>.</remarks>
-        protected override void OnRaisePointerUp(InputAction inputAction) { }
+        protected override void OnRaisePointerUp(InputAction inputAction)
+        {
+            UpdateInteractorPrivilege(false);
+            base.OnRaisePointerUp(inputAction);
+            UpdateInteractorPrivilege(true);
+        }
 
         /// <inheritdoc/>
         /// <remarks>
@@ -96,6 +104,7 @@ namespace RealityToolkit.Input.Interactors
             if (other.TryGetComponent(out current))
             {
                 directResult.UpdateHit(this, other.gameObject);
+                OnRaisePointerDown(pointerAction);
             }
         }
 
@@ -108,6 +117,7 @@ namespace RealityToolkit.Input.Interactors
             if (other.TryGetComponent<IInteractable>(out var exitInteractable) &&
                 current == exitInteractable)
             {
+                OnRaisePointerUp(pointerAction);
                 OnRaisePointerClicked(pointerAction);
             }
         }
