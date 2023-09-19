@@ -7,13 +7,13 @@ using RealityToolkit.Input.Interactors;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
     /// Attaches the <see cref="IControllerInteractor"/>'s <see cref="Controllers.IControllerVisualizer"/>
     /// to the <see cref="Interactables.IInteractable"/> pose.
     /// </summary>
-    public class AttachControllerVisualizerAction : BaseInteractionAction
+    public class AttachControllerVisualizerAction : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
         private Vector3 poseLocalPositionOffset = Vector3.zero;

@@ -5,7 +5,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Definitions;
-using RealityToolkit.Input.InteractionActions;
+using RealityToolkit.Input.InteractionBehaviours;
 using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;
@@ -58,7 +58,7 @@ namespace RealityToolkit.Input.Interactables
         private readonly HashSet<IInteractor> focusingInteractors = new HashSet<IInteractor>();
         private readonly HashSet<IInteractor> selectingInteractors = new HashSet<IInteractor>();
         private readonly HashSet<IInteractor> grabbingInteractors = new HashSet<IInteractor>();
-        private List<IInteractionAction> actions = new List<IInteractionAction>();
+        private List<IInteractionBehaviour> behaviours = new List<IInteractionBehaviour>();
 
         private IInputService inputService = null;
         /// <summary>
@@ -160,16 +160,16 @@ namespace RealityToolkit.Input.Interactables
 
             IsActivated = ActivationMode == InteractableActivationMode.Toggle;
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionEventArgs
                 {
                     Interactable = this,
                     Interactor = interactor
                 };
 
-                action.OnActivated(eventArgs);
+                behaviour.OnActivated(eventArgs);
             }
         }
 
@@ -186,9 +186,9 @@ namespace RealityToolkit.Input.Interactables
 
             IsActivated = false;
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionExitEventArgs
                 {
                     Interactable = this,
@@ -196,7 +196,7 @@ namespace RealityToolkit.Input.Interactables
                     IsCanceled = false
                 };
 
-                action.OnDeactivated(eventArgs);
+                behaviour.OnDeactivated(eventArgs);
             }
         }
 
@@ -225,9 +225,9 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionEventArgs
                 {
                     Interactable = this,
@@ -236,10 +236,10 @@ namespace RealityToolkit.Input.Interactables
 
                 if (isFirst)
                 {
-                    action.OnFirstFocusEntered(eventArgs);
+                    behaviour.OnFirstFocusEntered(eventArgs);
                 }
 
-                action.OnFocusEntered(eventArgs);
+                behaviour.OnFocusEntered(eventArgs);
             }
         }
 
@@ -263,9 +263,9 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionExitEventArgs
                 {
                     Interactable = this,
@@ -275,10 +275,10 @@ namespace RealityToolkit.Input.Interactables
 
                 if (isLast)
                 {
-                    action.OnLastFocusExited(eventArgs);
+                    behaviour.OnLastFocusExited(eventArgs);
                 }
 
-                action.OnFocusExited(eventArgs);
+                behaviour.OnFocusExited(eventArgs);
             }
         }
 
@@ -299,9 +299,9 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionEventArgs
                 {
                     Interactable = this,
@@ -310,10 +310,10 @@ namespace RealityToolkit.Input.Interactables
 
                 if (isFirst)
                 {
-                    action.OnFirstSelectEntered(eventArgs);
+                    behaviour.OnFirstSelectEntered(eventArgs);
                 }
 
-                action.OnSelectEntered(eventArgs);
+                behaviour.OnSelectEntered(eventArgs);
             }
         }
 
@@ -336,9 +336,9 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionExitEventArgs
                 {
                     Interactable = this,
@@ -348,10 +348,10 @@ namespace RealityToolkit.Input.Interactables
 
                 if (isLast)
                 {
-                    action.OnLastSelectExited(eventArgs);
+                    behaviour.OnLastSelectExited(eventArgs);
                 }
 
-                action.OnSelectExited(eventArgs);
+                behaviour.OnSelectExited(eventArgs);
             }
         }
 
@@ -372,9 +372,9 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionEventArgs
                 {
                     Interactable = this,
@@ -383,10 +383,10 @@ namespace RealityToolkit.Input.Interactables
 
                 if (isFirst)
                 {
-                    action.OnFirstGrabEntered(eventArgs);
+                    behaviour.OnFirstGrabEntered(eventArgs);
                 }
 
-                action.OnGrabEntered(eventArgs);
+                behaviour.OnGrabEntered(eventArgs);
             }
         }
 
@@ -409,9 +409,9 @@ namespace RealityToolkit.Input.Interactables
                 return;
             }
 
-            for (var i = 0; i < actions.Count; i++)
+            for (var i = 0; i < behaviours.Count; i++)
             {
-                var action = actions[i];
+                var behaviour = behaviours[i];
                 var eventArgs = new Events.InteractionExitEventArgs
                 {
                     Interactable = this,
@@ -421,22 +421,22 @@ namespace RealityToolkit.Input.Interactables
 
                 if (isLast)
                 {
-                    action.OnLastGrabExited(eventArgs);
+                    behaviour.OnLastGrabExited(eventArgs);
                 }
 
-                action.OnGrabExited(eventArgs);
+                behaviour.OnGrabExited(eventArgs);
             }
         }
 
         /// <inheritdoc/>
-        public void Add(IInteractionAction action)
+        public void Add(IInteractionBehaviour behaviour)
         {
-            actions.EnsureListItem(action);
-            actions = actions.OrderBy(a => a.SortingOrder).ToList();
+            behaviours.EnsureListItem(behaviour);
+            behaviours = behaviours.OrderBy(a => a.SortingOrder).ToList();
         }
 
         /// <inheritdoc/>
-        public void Remove(IInteractionAction action) => actions.SafeRemoveListItem(action);
+        public void Remove(IInteractionBehaviour behaviour) => behaviours.SafeRemoveListItem(behaviour);
 
         private bool IsValidInteractor(IInteractor interactor) =>
             (interactor.IsFarInteractor && FarInteractionEnabled) || (!interactor.IsFarInteractor && DirectInteractionEnabled);

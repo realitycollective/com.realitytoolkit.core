@@ -6,12 +6,12 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// A <see cref="IInteractionAction"/> for creating <see cref="Interactables.IInteractable"/>s that mimick toggle button behaviour.
+    /// A <see cref="IInteractionBehaviour"/> for creating <see cref="Interactables.IInteractable"/>s that mimick toggle button behaviour.
     /// </summary>
-    public class ToggleAction : BaseInteractionAction
+    public class ToggleAction : BaseInteractionBehaviour
     {
         /// <summary>
         /// <see cref="UnityEvent"/> for when a toggle is toggled.

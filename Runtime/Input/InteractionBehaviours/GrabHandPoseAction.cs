@@ -7,12 +7,12 @@ using RealityToolkit.Input.Hands.Visualizers;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
     /// The <see cref="GrabHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="grabPose"/>, when the <see cref="Interactables.IInteractable"/> is grabbed.
-    public class GrabHandPoseAction : BaseInteractionAction
+    public class GrabHandPoseAction : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Hand pose applied when grabbing the interactable.")]
         private HandPose grabPose = null;

@@ -3,12 +3,12 @@
 
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// This <see cref="IInteractionAction"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>.
+    /// This <see cref="IInteractionBehaviour"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>.
     /// </summary>
-    public class ChangeMaterialAction : BaseInteractionAction
+    public class ChangeMaterialAction : BaseInteractionBehaviour
     {
         [SerializeField]
         private Material normalMaterial = null;

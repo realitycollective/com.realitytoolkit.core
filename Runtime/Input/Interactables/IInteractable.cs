@@ -1,7 +1,7 @@
 // Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.Input.InteractionActions;
+using RealityToolkit.Input.InteractionBehaviours;
 using RealityToolkit.Input.Interactors;
 
 namespace RealityToolkit.Input.Interactables
@@ -48,8 +48,8 @@ namespace RealityToolkit.Input.Interactables
         InteractableFocusMode FocusMode { get; }
 
         /// <summary>
-        /// The <see cref="IInteractable"/>'s activation mode determines how <see cref="IInteractionAction.OnActivated(Events.InteractionEventArgs)"/>
-        /// and <see cref="IInteractionAction.OnDeactivated(Events.InteractionExitEventArgs)"/> are raised.
+        /// The <see cref="IInteractable"/>'s activation mode determines how <see cref="IInteractionBehaviour.OnActivated(Events.InteractionEventArgs)"/>
+        /// and <see cref="IInteractionBehaviour.OnDeactivated(Events.InteractionExitEventArgs)"/> are raised.
         /// </summary>
         InteractableActivationMode ActivationMode { get; }
 
@@ -64,15 +64,15 @@ namespace RealityToolkit.Input.Interactables
         bool FarInteractionEnabled { get; }
 
         /// <summary>
-        /// Adds the <paramref name="action"/> to the <see cref="IInteractable"/>.
+        /// Adds the <paramref name="behaviour"/> to the <see cref="IInteractable"/>.
         /// </summary>
-        /// <param name="action">The <see cref="IInteractionAction"/>.</param>
-        void Add(IInteractionAction action);
+        /// <param name="behaviour">The <see cref="IInteractionBehaviour"/>.</param>
+        void Add(IInteractionBehaviour behaviour);
 
         /// <summary>
-        /// Removes the <paramref name="action"/> from the <see cref="IInteractable"/>.
+        /// Removes the <paramref name="behaviour"/> from the <see cref="IInteractable"/>.
         /// </summary>
-        /// <param name="action">The <see cref="IInteractionAction"/>.</param>
-        void Remove(IInteractionAction action);
+        /// <param name="behaviour">The <see cref="IInteractionBehaviour"/>.</param>
+        void Remove(IInteractionBehaviour behaviour);
     }
 }
