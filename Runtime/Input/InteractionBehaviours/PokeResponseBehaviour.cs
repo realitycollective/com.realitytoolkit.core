@@ -13,7 +13,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
     /// A <see cref="IInteractionBehaviour"/> that will translate a given <see cref="Transform"/>
     /// in response to being poked by a <see cref="IPokeInteractor"/>.
     /// </summary>
-    public class PokeResponseAction : BaseInteractionBehaviour
+    public class PokeResponseBehaviour : BaseInteractionBehaviour
     {
         [Serializable]
         private struct PokeResponseLimits

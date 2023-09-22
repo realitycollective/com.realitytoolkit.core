@@ -11,7 +11,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
     /// <summary>
     /// A <see cref="IInteractionBehaviour"/> for creating <see cref="Interactables.IInteractable"/>s that mimick toggle button behaviour.
     /// </summary>
-    public class ToggleAction : BaseInteractionBehaviour
+    public class ToggleBehaviour : BaseInteractionBehaviour
     {
         /// <summary>
         /// <see cref="UnityEvent"/> for when a toggle is toggled.

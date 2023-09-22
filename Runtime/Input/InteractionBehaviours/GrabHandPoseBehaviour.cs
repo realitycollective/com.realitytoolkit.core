@@ -10,9 +10,9 @@ using UnityEngine;
 namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// The <see cref="GrabHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
+    /// The <see cref="GrabHandPoseBehaviour"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="grabPose"/>, when the <see cref="Interactables.IInteractable"/> is grabbed.
-    public class GrabHandPoseAction : BaseInteractionBehaviour
+    public class GrabHandPoseBehaviour : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Hand pose applied when grabbing the interactable.")]
         private HandPose grabPose = null;

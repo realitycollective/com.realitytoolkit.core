@@ -8,11 +8,11 @@ using UnityEngine;
 namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// The <see cref="GrabAction"/> is an <see cref="IInteractionBehaviour"/> for use with
+    /// The <see cref="GrabBehaviour"/> is an <see cref="IInteractionBehaviour"/> for use with
     /// <see cref="IDirectInteractor"/>s. It allows to "pick up" the <see cref="Interactables.IInteractable"/>
     /// and carry it around.
     /// </summary>
-    public class GrabAction : BaseInteractionBehaviour
+    public class GrabBehaviour : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
         private Vector3 poseLocalPositionOffset = Vector3.zero;

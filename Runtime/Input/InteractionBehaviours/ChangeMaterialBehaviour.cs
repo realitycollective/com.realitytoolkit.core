@@ -8,7 +8,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
     /// <summary>
     /// This <see cref="IInteractionBehaviour"/> will change the main material used on a <see cref="MeshRenderer"/> on the <see cref="Interactables.IInteractable"/>.
     /// </summary>
-    public class ChangeMaterialAction : BaseInteractionBehaviour
+    public class ChangeMaterialBehaviour : BaseInteractionBehaviour
     {
         [SerializeField]
         private Material normalMaterial = null;

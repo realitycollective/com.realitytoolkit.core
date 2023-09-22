@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
     /// <remarks>
     /// Consider implementing a custom <see cref="BaseInteractionBehaviour"/> instead.
     /// </remarks>
-    public class InteractionEventsAction : BaseInteractionBehaviour
+    public class InteractionEventsBehaviour : BaseInteractionBehaviour
     {
         [Space]
         [SerializeField]

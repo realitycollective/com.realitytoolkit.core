@@ -10,9 +10,9 @@ using UnityEngine;
 namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// The <see cref="FocusHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
+    /// The <see cref="FocusHandPoseBehaviour"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="focusPose"/>, when the <see cref="Interactables.IInteractable"/> is focused.
-    public class FocusHandPoseAction : BaseInteractionBehaviour
+    public class FocusHandPoseBehaviour : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Hand pose applied when focusing the interactable.")]
         private HandPose focusPose = null;

@@ -11,7 +11,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
     /// <summary>
     /// A <see cref="IInteractionBehaviour"/> for creating <see cref="Interactables.IInteractable"/>s that mimick button behaviour.
     /// </summary>
-    public class ButtonAction : BaseInteractionBehaviour
+    public class ButtonBehaviour : BaseInteractionBehaviour
     {
         /// <summary>
         /// <see cref="UnityEvent"/> for when a button is clicked.
