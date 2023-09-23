@@ -4,22 +4,22 @@
 using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactables;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// A <see cref="IInteractionAction"/> is an action performed when the <see cref="IInteractable"/> it is attached to is changing state.
+    /// A <see cref="IInteractionBehaviour"/> is any behaviour performed on a <see cref="IInteractable"/> when being interacted with.
     /// </summary>
-    public interface IInteractionAction
+    public interface IInteractionBehaviour
     {
         /// <summary>
-        /// When comparing <see cref="IInteractionAction"/>s on the same <see cref="IInteractable"/>,
+        /// When comparing <see cref="IInteractionBehaviour"/>s on the same <see cref="IInteractable"/>,
         /// the one with a higher <see cref="SortingOrder"/> will always be executed after the one with a lower <see cref="SortingOrder"/>.
         /// </summary>
         /// <remarks>Internally the value is stored as a signed 16 bit integer (short) and so is limited to the range -32,768 to 32,767.</remarks>
         short SortingOrder { get; }
 
         /// <summary>
-        /// The <see cref="IInteractable"/> the <see cref="IInteractionAction"/> is attached to.
+        /// The <see cref="IInteractable"/> the <see cref="IInteractionBehaviour"/> is attached to.
         /// </summary>
         IInteractable Interactable { get; }
 

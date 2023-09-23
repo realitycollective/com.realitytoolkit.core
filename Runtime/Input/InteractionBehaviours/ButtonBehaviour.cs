@@ -6,12 +6,12 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// A <see cref="IInteractionAction"/> for creating <see cref="Interactables.IInteractable"/>s that mimick button behaviour.
+    /// A <see cref="IInteractionBehaviour"/> for creating <see cref="Interactables.IInteractable"/>s that mimick button behaviour.
     /// </summary>
-    public class ButtonAction : BaseInteractionAction
+    public class ButtonBehaviour : BaseInteractionBehaviour
     {
         /// <summary>
         /// <see cref="UnityEvent"/> for when a button is clicked.

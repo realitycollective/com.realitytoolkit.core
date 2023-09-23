@@ -7,13 +7,13 @@ using RealityToolkit.Input.Interactors;
 using System;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// A <see cref="IInteractionAction"/> that will translate a given <see cref="Transform"/>
+    /// A <see cref="IInteractionBehaviour"/> that will translate a given <see cref="Transform"/>
     /// in response to being poked by a <see cref="IPokeInteractor"/>.
     /// </summary>
-    public class PokeResponseAction : BaseInteractionAction
+    public class PokeResponseBehaviour : BaseInteractionBehaviour
     {
         [Serializable]
         private struct PokeResponseLimits

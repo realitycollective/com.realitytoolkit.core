@@ -4,13 +4,13 @@
 using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// This <see cref="IInteractionAction"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>,
+    /// This <see cref="IInteractionBehaviour"/> will focus lock <see cref="IInteractor"/>s on the <see cref="Interactables.IInteractable"/>,
     /// when the <see cref="Interactables.IInteractable.IsSelected"/> or <see cref="Interactables.IInteractable.IsGrabbed"/>.
     /// </summary>
-    public class FocusLockAction : BaseInteractionAction
+    public class FocusLockBehaviour : BaseInteractionBehaviour
     {
         /// <inheritdoc/>
         protected override void OnSelectEntered(InteractionEventArgs eventArgs)

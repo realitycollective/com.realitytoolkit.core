@@ -6,9 +6,9 @@ using RealityToolkit.Input.Events;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
-    public class TranslateAction : BaseInteractionAction
+    public class TranslateBehaviour : BaseInteractionBehaviour
     {
         [SerializeField]
         [Tooltip("How should the transform be rotated while being dragged?")]

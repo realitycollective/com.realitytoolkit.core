@@ -7,12 +7,12 @@ using RealityToolkit.Input.Hands.Visualizers;
 using RealityToolkit.Input.Interactors;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// The <see cref="FocusHandPoseAction"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
+    /// The <see cref="FocusHandPoseBehaviour"/> will animate the <see cref="RiggedHandControllerVisualizer"/>
     /// into the assigned <see cref="focusPose"/>, when the <see cref="Interactables.IInteractable"/> is focused.
-    public class FocusHandPoseAction : BaseInteractionAction
+    public class FocusHandPoseBehaviour : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Hand pose applied when focusing the interactable.")]
         private HandPose focusPose = null;

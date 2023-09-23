@@ -4,17 +4,17 @@
 using RealityToolkit.Input.Events;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// A utility <see cref="IInteractionAction"/> that provides events for each kind of
+    /// A utility <see cref="IInteractionBehaviour"/> that provides events for each kind of
     /// interaction on the <see cref="Interactables.IInteractable"/> that you can use to hook up
     /// events in the inspector or via code.
     /// </summary>
     /// <remarks>
-    /// Consider implementing a custom <see cref="BaseInteractionAction"/> instead.
+    /// Consider implementing a custom <see cref="BaseInteractionBehaviour"/> instead.
     /// </remarks>
-    public class InteractionEventsAction : BaseInteractionAction
+    public class InteractionEventsBehaviour : BaseInteractionBehaviour
     {
         [Space]
         [SerializeField]

@@ -4,13 +4,13 @@
 using RealityToolkit.Input.Events;
 using UnityEngine;
 
-namespace RealityToolkit.Input.InteractionActions
+namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
-    /// This <see cref="IInteractionAction"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>
+    /// This <see cref="IInteractionBehaviour"/> will update the <see cref="Rigidbody"/> on the <see cref="Interactables.IInteractable"/>
     /// when interacted with.
     /// </summary>
-    public class UpdateRigidbodyAction : BaseInteractionAction
+    public class UpdateRigidbodyBehaviour : BaseInteractionBehaviour
     {
         private new Rigidbody rigidbody;
         private bool isKinematic;
@@ -20,7 +20,7 @@ namespace RealityToolkit.Input.InteractionActions
         protected override void Awake()
         {
             base.Awake();
-            rigidbody = GetComponentInChildren<Rigidbody>();
+            rigidbody = GetComponent<Rigidbody>();
             isKinematic = rigidbody.isKinematic;
             useGravity = rigidbody.useGravity;
         }
