@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Input.Interactors;
@@ -40,14 +41,31 @@ namespace RealityToolkit.Input.Interactables
                 canvas = GetComponent<Canvas>();
             }
 
-            Debug.Assert(canvas.IsNotNull(), $"The {nameof(InteractableCanvas)} requires a {nameof(Canvas)} component on the game object.");
+            if (!ServiceManager.IsActiveAndInitialized)
+            {
+                ServiceManager.Initialized += OnServiceManagerInitialized;
+                return;
+            }
 
+            AssignWorldCanvasCamera();
+        }
+
+        private void OnServiceManagerInitialized(ServiceManager manager)
+        {
+            ServiceManager.Initialized -= OnServiceManagerInitialized;
+            AssignWorldCanvasCamera();
+        }
+        
+        private void AssignWorldCanvasCamera()
+        {
             if (ServiceManager.IsActiveAndInitialized &&
                 ServiceManager.Instance.TryGetService<IInputService>(out var inputService) &&
                 canvas.isRootCanvas && canvas.renderMode == RenderMode.WorldSpace)
             {
                 canvas.worldCamera = inputService.FocusProvider.UIRaycastCamera;
             }
+
+            Debug.Assert(canvas.IsNotNull(), $"The {nameof(InteractableCanvas)} requires a {nameof(Canvas)} component on the game object.");
         }
     }
 }
