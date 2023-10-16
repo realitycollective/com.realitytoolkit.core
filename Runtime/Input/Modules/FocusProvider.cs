@@ -16,7 +16,6 @@ using RealityToolkit.Utilities.Physics;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Management;
 using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.Input.Modules
@@ -77,8 +76,6 @@ namespace RealityToolkit.Input.Modules
         public LayerMask[] GlobalPointerRaycastLayerMasks => focusLayerMasks;
 
         private Camera uiRaycastCamera = null;
-
-        private bool xrEnabledAndInitialized => XRGeneralSettings.Instance?.Manager?.activeLoader != null;
 
         /// <inheritdoc />
         public Camera UIRaycastCamera
@@ -584,44 +581,7 @@ namespace RealityToolkit.Input.Modules
                 return;
             }
 
-            if (xrEnabledAndInitialized)
-            {
-                uiRaycastCamera = Camera.main;
-                return;
-            }
-
-            GameObject cameraObject;
-
-            var existingUiRaycastCameraObject = GameObject.Find(uiRayCastCameraName);
-            if (existingUiRaycastCameraObject != null)
-            {
-                cameraObject = existingUiRaycastCameraObject;
-            }
-            else
-            {
-                cameraObject = new GameObject { name = uiRayCastCameraName };
-                cameraObject.transform.SetParent(Camera.main.transform, false);
-                didCreateUIRaycastCamera = true;
-            }
-
-            uiRaycastCamera = cameraObject.EnsureComponent<Camera>();
-            uiRaycastCamera.enabled = false;
-            uiRaycastCamera.clearFlags = CameraClearFlags.Color;
-            uiRaycastCamera.backgroundColor = new Color(0, 0, 0, 1);
-            uiRaycastCamera.orthographic = true;
-            uiRaycastCamera.orthographicSize = 0.5f;
-            uiRaycastCamera.nearClipPlane = 0.0f;
-            uiRaycastCamera.farClipPlane = 1000f;
-            uiRaycastCamera.rect = new Rect(0, 0, 1, 1);
-            uiRaycastCamera.depth = 0;
-            uiRaycastCamera.renderingPath = RenderingPath.UsePlayerSettings;
-            uiRaycastCamera.useOcclusionCulling = false;
-            uiRaycastCamera.allowHDR = false;
-            uiRaycastCamera.allowMSAA = false;
-            uiRaycastCamera.allowDynamicResolution = false;
-            uiRaycastCamera.targetDisplay = 0;
-            uiRaycastCamera.stereoTargetEye = StereoTargetEyeMask.Both;
-            uiRaycastCamera.cullingMask = Camera.main.cullingMask;
+            uiRaycastCamera = Camera.main;
         }
 
         private void CleanUpUiRaycastCamera()
