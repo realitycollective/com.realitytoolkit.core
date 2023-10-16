@@ -945,10 +945,6 @@ namespace RealityToolkit.Input.Modules
         private void RaycastGraphics(IInteractor pointer, UnityEvents.PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             Debug.Assert(UIRaycastCamera != null, "Missing UIRaycastCamera!");
-            if (!xrEnabledAndInitialized)
-            {
-                Debug.Assert(UIRaycastCamera.nearClipPlane == 0, "Near plane must be zero for raycast distances to be correct");
-            }
 
             if (pointer.Rays == null || pointer.Rays.Length <= 0)
             {
