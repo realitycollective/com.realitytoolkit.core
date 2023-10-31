@@ -50,6 +50,7 @@ namespace RealityToolkit.Input.Modules
         private readonly PointerHitResult physicsHitResult = new PointerHitResult();
         private readonly PointerHitResult graphicsHitResult = new PointerHitResult();
         private readonly Color[] debugPointingRayColors;
+        private RenderTexture uiRaycastCameraTargetTexture;
         private bool didCreateUIRaycastCamera;
 
         private IInputService inputService = null;
@@ -575,17 +576,64 @@ namespace RealityToolkit.Input.Modules
 
             if (Camera.main.IsNull())
             {
-                // The main camera is not available yet, so we cannot init the raycast camera
+                // The main camera is not available yet, so we cannot init the raycat camera
                 // at this time. The get-accessor of the UIRaycastCamera property will ensure
                 // it is set up at a later time when accessed.
                 return;
             }
 
-            uiRaycastCamera = Camera.main;
+            GameObject cameraObject;
+
+            var existingUiRaycastCameraObject = GameObject.Find(uiRayCastCameraName);
+            if (existingUiRaycastCameraObject != null)
+            {
+                cameraObject = existingUiRaycastCameraObject;
+            }
+            else
+            {
+                cameraObject = new GameObject { name = uiRayCastCameraName };
+                cameraObject.transform.SetParent(Camera.main.transform, false);
+                didCreateUIRaycastCamera = true;
+            }
+
+            uiRaycastCamera = cameraObject.EnsureComponent<Camera>();
+            uiRaycastCamera.enabled = false;
+            uiRaycastCamera.clearFlags = CameraClearFlags.Color;
+            uiRaycastCamera.backgroundColor = new Color(0, 0, 0, 1);
+            uiRaycastCamera.orthographic = true;
+            uiRaycastCamera.orthographicSize = 0.5f;
+            uiRaycastCamera.nearClipPlane = 0.0f;
+            uiRaycastCamera.farClipPlane = 1000f;
+            uiRaycastCamera.rect = new Rect(0, 0, 1, 1);
+            uiRaycastCamera.depth = 0;
+            uiRaycastCamera.renderingPath = RenderingPath.UsePlayerSettings;
+            uiRaycastCamera.useOcclusionCulling = false;
+            uiRaycastCamera.allowHDR = false;
+            uiRaycastCamera.allowMSAA = false;
+            uiRaycastCamera.allowDynamicResolution = false;
+            uiRaycastCamera.targetDisplay = 0;
+            uiRaycastCamera.stereoTargetEye = StereoTargetEyeMask.Both;
+            uiRaycastCamera.cullingMask = Camera.main.cullingMask;
+
+            if (uiRaycastCameraTargetTexture == null)
+            {
+                // Set target texture to specific pixel size so that drag thresholds are treated the same regardless of underlying
+                // device display resolution.
+                uiRaycastCameraTargetTexture = new RenderTexture(128, 128, 0);
+            }
+
+            uiRaycastCamera.targetTexture = uiRaycastCameraTargetTexture;
         }
 
         private void CleanUpUiRaycastCamera()
         {
+            if (uiRaycastCameraTargetTexture != null)
+            {
+                uiRaycastCameraTargetTexture.Destroy();
+            }
+
+            uiRaycastCameraTargetTexture = null;
+
             if (didCreateUIRaycastCamera && UIRaycastCamera.gameObject.IsNotNull())
             {
                 UIRaycastCamera.gameObject.Destroy();
@@ -905,6 +953,7 @@ namespace RealityToolkit.Input.Modules
         private void RaycastGraphics(IInteractor pointer, UnityEvents.PointerEventData graphicEventData, LayerMask[] prioritizedLayerMasks, PointerHitResult hitResult)
         {
             Debug.Assert(UIRaycastCamera != null, "Missing UIRaycastCamera!");
+            Debug.Assert(UIRaycastCamera.nearClipPlane == 0, "Near plane must be zero for raycast distances to be correct");
 
             if (pointer.Rays == null || pointer.Rays.Length <= 0)
             {
