@@ -64,7 +64,7 @@ namespace RealityToolkit.Input.Hands.Visualizers
         }
 
         /// <inheritdoc/>
-        protected void Update()
+        protected virtual void Update()
         {
             poseAnimator.Update();
         }
