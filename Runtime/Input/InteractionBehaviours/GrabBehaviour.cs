@@ -15,10 +15,10 @@ namespace RealityToolkit.Input.InteractionBehaviours
     public class GrabBehaviour : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
-        private Vector3 poseLocalPositionOffset = Vector3.zero;
+        private Vector3 grabPoseLocalOffset = Vector3.zero;
 
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
-        private Vector3 poseLocalRotationOffset = Vector3.zero;
+        private Vector3 grabPoseLocalRotationOffset = Vector3.zero;
 
         private IDirectInteractor grabbingInteractor;
 
@@ -27,8 +27,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
         {
             if (grabbingInteractor != null)
             {
-                var pose = GetGrabPose();
-                transform.SetPositionAndRotation(pose.position, pose.rotation);
+                transform.SetPositionAndRotation(GetGrabPosition(), GetGrabRotation());
             }
         }
 
@@ -38,8 +37,7 @@ namespace RealityToolkit.Input.InteractionBehaviours
             if (eventArgs.Interactor is IDirectInteractor directInteractor)
             {
                 grabbingInteractor = directInteractor;
-                var pose = GetGrabPose();
-                transform.SetPositionAndRotation(pose.position, pose.rotation);
+                transform.SetPositionAndRotation(GetGrabPosition(), GetGrabRotation());
             }
         }
 
@@ -52,33 +50,8 @@ namespace RealityToolkit.Input.InteractionBehaviours
             }
         }
 
-        private Pose GetGrabPose()
-        {
-            return new Pose(
-                GetGrabPosition(),
-                GetGrabRotation());
-        }
+        private Vector3 GetGrabPosition() => grabbingInteractor.Controller.Visualizer.GripPose.transform.position + transform.TransformDirection(grabPoseLocalOffset);
 
-        private Vector3 GetGrabPosition()
-        {
-            // Move the controller to the interactable's attachment point.
-            var worldAttachmentPosition = transform.TransformPoint(poseLocalPositionOffset);
-
-            // Adjust controller's position based on its own grab pose offset.
-            var localControllerOffset = grabbingInteractor.Controller.Visualizer.PoseDriver.TransformPoint(grabbingInteractor.Controller.Visualizer.GripPose.localPosition) -
-                grabbingInteractor.Controller.Visualizer.PoseDriver.position;
-
-            // Combine.
-            worldAttachmentPosition += localControllerOffset;
-
-            return worldAttachmentPosition;
-        }
-
-        private Quaternion GetGrabRotation()
-        {
-            var worldAttachmentRotation = Quaternion.Euler(poseLocalRotationOffset);
-            var localControllerOffset = grabbingInteractor.Controller.Visualizer.GripPose.localRotation;
-            return transform.rotation * worldAttachmentRotation * localControllerOffset;
-        }
+        private Quaternion GetGrabRotation() => grabbingInteractor.Controller.Visualizer.GripPose.transform.rotation * Quaternion.Euler(grabPoseLocalRotationOffset);
     }
 }
