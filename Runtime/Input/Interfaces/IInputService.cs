@@ -19,7 +19,7 @@ namespace RealityToolkit.Input.Interfaces
     /// Manager interface for a Input system in the Reality Toolkit
     /// All replacement systems for providing Input System functionality should derive from this interface
     /// </summary>
-    public interface IInputService : IEventService
+    public interface IInputService : IEventService, IRealityToolkitService
     {
         /// <summary>
         /// Event that's raised when the Input is enabled.

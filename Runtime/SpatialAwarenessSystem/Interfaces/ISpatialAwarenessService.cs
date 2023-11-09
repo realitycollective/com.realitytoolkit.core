@@ -13,7 +13,7 @@ namespace RealityToolkit.SpatialAwareness.Interfaces
     /// <summary>
     /// The interface definition for Spatial Awareness features in the Reality Toolkit.
     /// </summary>
-    public interface ISpatialAwarenessService : IEventService
+    public interface ISpatialAwarenessService : IEventService, IRealityToolkitService
     {
         /// <summary>
         /// Parent <see cref="GameObject"/> which will encapsulate all of the spatial awareness system created scene objects.

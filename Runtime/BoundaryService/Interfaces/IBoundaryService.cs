@@ -13,7 +13,7 @@ namespace RealityToolkit.Boundary.Interfaces
     /// The interface for a Boundary system in the Reality Toolkit
     /// All systems for providing Boundary functionality should derive from this interface
     /// </summary>
-    public interface IBoundaryService : IService
+    public interface IBoundaryService : IRealityToolkitService
     {
         /// <summary>
         /// Event raised when a tracked object nears, or crosses the boundary.
