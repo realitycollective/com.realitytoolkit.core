@@ -28,7 +28,7 @@
     "com.unity.xr.management": "4.4.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.textmeshpro": "3.0.6",
-    "com.realitycollective.service-framework": "1.0.3-pre.6",
+    "com.realitycollective.service-framework": "1.0.3",
     "com.unity.nuget.newtonsoft-json": "3.2.1"
   }
 }
