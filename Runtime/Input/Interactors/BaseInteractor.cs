@@ -98,6 +98,11 @@ namespace RealityToolkit.Input.Interactors
         protected bool IsSelectPressed { get; set; } = false;
 
         /// <summary>
+        /// <c>true</c>, if any <see cref="InputAction"/> is down on this <see cref="IInteractor"/>.
+        /// </summary>
+        protected bool IsInputDown { get; set; } = false;
+
+        /// <summary>
         /// True if select has been pressed once since this component was enabled
         /// </summary>
         protected bool HasSelectPressedOnce { get; set; } = false;
