@@ -78,7 +78,7 @@ namespace RealityToolkit.Input.Interactors
         RayStep[] Rays { get; }
 
         /// <summary>
-        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IInteractorResult.CurrentPointerTarget"/> when raycasting.
+        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IInteractorResult.CurrentTarget"/> when raycasting.
         /// </summary>
         /// <remarks>
         /// If set, will override the <see cref="InputServiceProfile.PointerRaycastLayerMasks"/>'s default raycasting layer mask array.
@@ -104,20 +104,20 @@ namespace RealityToolkit.Input.Interactors
         IInteractorResult Result { get; set; }
 
         /// <summary>
-        /// Is the focus currently locked to the current <see cref="IInteractorResult.CurrentPointerTarget"/>?
+        /// Is the focus currently locked to the current <see cref="IInteractorResult.CurrentTarget"/>?
         /// </summary>
         /// <remarks>
-        /// This effectively means that the focused <see cref="IInteractorResult.CurrentPointerTarget"/> result cannot be changed,
-        /// even though the focus data may return hit information that is not the <see cref="IInteractorResult.CurrentPointerTarget"/>.
+        /// This effectively means that the focused <see cref="IInteractorResult.CurrentTarget"/> result cannot be changed,
+        /// even though the focus data may return hit information that is not the <see cref="IInteractorResult.CurrentTarget"/>.
         /// </remarks>
         bool IsFocusLocked { get; set; }
 
         /// <summary>
-        /// Is the <see cref="IInteractorResult.CurrentPointerTarget"/>'s position is locked in sync with the <see cref="Result"/> position?
+        /// Is the <see cref="IInteractorResult.CurrentTarget"/>'s position is locked in sync with the <see cref="Result"/> position?
         /// </summary>
         /// <remarks>
-        /// When true, the <see cref="IInteractorResult.CurrentPointerTarget"/>s position will also be updated to move in sync with the <see cref="Result"/> position.
-        /// This position is calculated using the offset of the offset between the <see cref="IInteractorResult.CurrentPointerTarget"/> position and the <see cref="Result"/> position.
+        /// When true, the <see cref="IInteractorResult.CurrentTarget"/>s position will also be updated to move in sync with the <see cref="Result"/> position.
+        /// This position is calculated using the offset of the offset between the <see cref="IInteractorResult.CurrentTarget"/> position and the <see cref="Result"/> position.
         /// </remarks>
         GameObject SyncedTarget { get; set; }
 

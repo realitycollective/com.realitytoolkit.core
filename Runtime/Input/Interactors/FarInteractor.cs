@@ -162,7 +162,7 @@ namespace RealityToolkit.Input.Interactors
             // Set our first and last points
             lineBase.FirstPoint = pointerPosition;
 
-            if (IsFocusLocked && Result.CurrentPointerTarget != null)
+            if (IsFocusLocked && Result.CurrentTarget != null)
             {
                 if (SyncedTarget != null)
                 {
@@ -231,7 +231,7 @@ namespace RealityToolkit.Input.Interactors
             float cursorOffsetWorldLength = BaseCursor?.SurfaceCursorDistance ?? 0f;
 
             // If we hit something
-            if (Result?.CurrentPointerTarget != null)
+            if (Result?.CurrentTarget != null)
             {
                 clearWorldLength = Result.RayDistance;
                 lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorValid;
@@ -260,7 +260,7 @@ namespace RealityToolkit.Input.Interactors
 
             // If focus is locked, we're sticking to the target
             // So don't clamp the world length
-            if (IsFocusLocked && Result.CurrentPointerTarget != null)
+            if (IsFocusLocked && Result.CurrentTarget != null)
             {
                 if (SyncedTarget != null)
                 {

@@ -916,7 +916,7 @@ namespace RealityToolkit.Input
             // Pass handler through HandleEvent to perform modal/fallback logic
             HandleEvent(pointerEventData, InputServiceEventHandlers.OnPointerDownEventHandler);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
             if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
@@ -955,7 +955,7 @@ namespace RealityToolkit.Input
             // Pass handler through HandleEvent to perform modal/fallback logic
             HandleEvent(pointerEventData, InputServiceEventHandlers.OnPointerUpEventHandler);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
             if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
@@ -976,7 +976,7 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerScrollEventData, InputServiceEventHandlers.OnPointerScroll);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
             if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
@@ -995,7 +995,7 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDragBegin);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
             if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
@@ -1014,7 +1014,7 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDrag);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
             if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
@@ -1030,7 +1030,7 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDragEnd);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
             if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))

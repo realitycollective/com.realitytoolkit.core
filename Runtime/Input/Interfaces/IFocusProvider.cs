@@ -20,7 +20,7 @@ namespace RealityToolkit.Input.Interfaces
         float GlobalPointingExtent { get; }
 
         /// <summary>
-        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IInteractorResult.CurrentPointerTarget"/> when raycasting.
+        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IInteractorResult.CurrentTarget"/> when raycasting.
         /// </summary>
         LayerMask[] GlobalPointerRaycastLayerMasks { get; }
 

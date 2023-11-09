@@ -132,9 +132,9 @@ namespace RealityToolkit.Input.Interactors
             {
                 if (value && syncedTarget == null)
                 {
-                    if (Result.CurrentPointerTarget != null)
+                    if (Result.CurrentTarget != null)
                     {
-                        syncedTarget = Result.CurrentPointerTarget;
+                        syncedTarget = Result.CurrentTarget;
                     }
                     else
                     {

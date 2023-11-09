@@ -196,7 +196,7 @@ namespace RealityToolkit.Input.Interactors
         /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
         protected virtual void OnRaisePointerClicked(InputAction inputAction)
         {
-            if (Result.CurrentPointerTarget.IsNotNull() && IsInteractionEnabled)
+            if (Result.CurrentTarget.IsNotNull() && IsInteractionEnabled)
             {
                 InputService.RaisePointerClicked(this, inputAction);
             }
@@ -221,7 +221,7 @@ namespace RealityToolkit.Input.Interactors
         /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
         protected virtual void OnRaisePointerDown(InputAction inputAction)
         {
-            if (Result.CurrentPointerTarget.IsNotNull() && IsInteractionEnabled)
+            if (Result.CurrentTarget.IsNotNull() && IsInteractionEnabled)
             {
                 InputService.RaisePointerDown(this, inputAction);
             }

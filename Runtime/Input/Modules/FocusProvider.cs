@@ -127,12 +127,12 @@ namespace RealityToolkit.Input.Modules
             public Vector3 EndPointLocalSpace => focusDetails.EndPointLocalSpace;
 
             /// <inheritdoc />
-            public GameObject CurrentPointerTarget { get; private set; }
+            public GameObject CurrentTarget { get; private set; }
 
             private GameObject syncedPointerTarget;
 
             /// <inheritdoc />
-            public GameObject PreviousPointerTarget { get; private set; }
+            public GameObject PreviousTarget { get; private set; }
 
             /// <inheritdoc />
             public GameObject LastHitObject => focusDetails.HitObject;
@@ -239,38 +239,38 @@ namespace RealityToolkit.Input.Modules
 
                 if (syncTarget != null)
                 {
-                    if (syncedPointerTarget == null && CurrentPointerTarget != null && CurrentPointerTarget == syncTarget)
+                    if (syncedPointerTarget == null && CurrentTarget != null && CurrentTarget == syncTarget)
                     {
-                        Debug.Assert(CurrentPointerTarget != null, "No Sync Target Set!");
+                        Debug.Assert(CurrentTarget != null, "No Sync Target Set!");
 
-                        syncedPointerTarget = CurrentPointerTarget;
+                        syncedPointerTarget = CurrentTarget;
 
-                        prevPhysicsLayer = CurrentPointerTarget.layer;
+                        prevPhysicsLayer = CurrentTarget.layer;
                         Debug.Assert(prevPhysicsLayer != IGNORE_RAYCAST_LAYER, $"Failed to get a valid raycast layer for {syncedPointerTarget.name}: {LayerMask.LayerToName(prevPhysicsLayer)}");
-                        CurrentPointerTarget.SetLayerRecursively(IGNORE_RAYCAST_LAYER);
+                        CurrentTarget.SetLayerRecursively(IGNORE_RAYCAST_LAYER);
 
                         var grabPoint = Pointer.OverrideGrabPoint ?? focusDetails.EndPoint;
 
                         if (grabPoint == Vector3.zero)
                         {
-                            GrabPoint = CurrentPointerTarget.transform.TransformPoint(grabPoint);
-                            GrabPointLocalSpace = CurrentPointerTarget.transform.InverseTransformPoint(GrabPoint);
+                            GrabPoint = CurrentTarget.transform.TransformPoint(grabPoint);
+                            GrabPointLocalSpace = CurrentTarget.transform.InverseTransformPoint(GrabPoint);
                         }
                         else
                         {
                             GrabPoint = grabPoint;
-                            GrabPointLocalSpace = CurrentPointerTarget.transform.InverseTransformPoint(GrabPoint);
+                            GrabPointLocalSpace = CurrentTarget.transform.InverseTransformPoint(GrabPoint);
                         }
                     }
-                    else if (syncTarget != CurrentPointerTarget)
+                    else if (syncTarget != CurrentTarget)
                     {
                         GetCurrentTarget();
                     }
 
                     if (syncedPointerTarget != null)
                     {
-                        GrabPoint = CurrentPointerTarget.transform.TransformPoint(GrabPointLocalSpace);
-                        GrabPointLocalSpace = CurrentPointerTarget.transform.InverseTransformPoint(GrabPoint);
+                        GrabPoint = CurrentTarget.transform.TransformPoint(GrabPointLocalSpace);
+                        GrabPointLocalSpace = CurrentTarget.transform.InverseTransformPoint(GrabPoint);
 
                         // Visualize the relevant points and their relation
                         if (Application.isEditor && Raycaster.DebugEnabled)
@@ -280,7 +280,7 @@ namespace RealityToolkit.Input.Modules
 
                             Debug.DrawLine(focusDetails.EndPoint, GrabPoint, Color.magenta);
 
-                            var currentPosition = CurrentPointerTarget.transform.position;
+                            var currentPosition = CurrentTarget.transform.position;
                             var targetPosition = (focusDetails.EndPoint + currentPosition) - GrabPoint;
 
                             Debug.DrawLine(GrabPoint, currentPosition, Color.magenta);
@@ -305,17 +305,17 @@ namespace RealityToolkit.Input.Modules
                         syncedPointerTarget = null;
                     }
 
-                    PreviousPointerTarget = CurrentPointerTarget;
-                    CurrentPointerTarget = focusDetails.HitObject;
+                    PreviousTarget = CurrentTarget;
+                    CurrentTarget = focusDetails.HitObject;
                     Pointer.OverrideGrabPoint = null;
                     GrabPoint = Vector3.zero;
                     GrabPointLocalSpace = Vector3.zero;
                 }
 
-                if (CurrentPointerTarget != null)
+                if (CurrentTarget != null)
                 {
-                    focusDetails.EndPointLocalSpace = CurrentPointerTarget.transform.InverseTransformPoint(focusDetails.EndPoint);
-                    focusDetails.NormalLocalSpace = CurrentPointerTarget.transform.InverseTransformDirection(focusDetails.Normal);
+                    focusDetails.EndPointLocalSpace = CurrentTarget.transform.InverseTransformPoint(focusDetails.EndPoint);
+                    focusDetails.NormalLocalSpace = CurrentTarget.transform.InverseTransformDirection(focusDetails.Normal);
                 }
                 else
                 {
@@ -359,7 +359,7 @@ namespace RealityToolkit.Input.Modules
             /// <param name="clearPreviousObject">Optional flag to choose not to clear the previous object.</param>
             public void ResetFocusedObjects(bool clearPreviousObject = true)
             {
-                PreviousPointerTarget = clearPreviousObject ? null : CurrentPointerTarget;
+                PreviousTarget = clearPreviousObject ? null : CurrentTarget;
 
                 focusDetails.EndPoint = focusDetails.EndPoint;
                 focusDetails.EndPointLocalSpace = focusDetails.EndPointLocalSpace;
@@ -516,7 +516,7 @@ namespace RealityToolkit.Input.Modules
                 return null;
             }
 
-            return !TryGetFocusDetails(pointingSource, out var focusDetails) ? null : focusDetails.CurrentPointerTarget;
+            return !TryGetFocusDetails(pointingSource, out var focusDetails) ? null : focusDetails.CurrentTarget;
         }
 
         /// <inheritdoc />
@@ -691,15 +691,15 @@ namespace RealityToolkit.Input.Modules
             if (!TryGetPointerData(pointer, out var pointerData)) { return false; }
 
             // Raise focus events if needed.
-            if (pointerData.CurrentPointerTarget != null)
+            if (pointerData.CurrentTarget != null)
             {
-                var unfocusedObject = pointerData.CurrentPointerTarget;
+                var unfocusedObject = pointerData.CurrentTarget;
                 var objectIsStillFocusedByOtherPointer = false;
 
                 foreach (var otherPointer in pointers)
                 {
                     if (otherPointer.Pointer.PointerId != pointer.PointerId &&
-                        otherPointer.CurrentPointerTarget == unfocusedObject)
+                        otherPointer.CurrentTarget == unfocusedObject)
                     {
                         objectIsStillFocusedByOtherPointer = true;
                         break;
@@ -1050,29 +1050,29 @@ namespace RealityToolkit.Input.Modules
 
             foreach (var pointer in pointers)
             {
-                if (pointer.PreviousPointerTarget != pointer.CurrentPointerTarget)
+                if (pointer.PreviousTarget != pointer.CurrentTarget)
                 {
                     pendingPointerSpecificFocusChange.Add(pointer);
 
                     // Initially, we assume all pointer-specific focus changes will
                     // also result in an overall focus change...
 
-                    if (pointer.PreviousPointerTarget != null)
+                    if (pointer.PreviousTarget != null)
                     {
                         int numExits;
-                        if (pendingOverallFocusExitSet.TryGetValue(pointer.PreviousPointerTarget, out numExits))
+                        if (pendingOverallFocusExitSet.TryGetValue(pointer.PreviousTarget, out numExits))
                         {
-                            pendingOverallFocusExitSet[pointer.PreviousPointerTarget] = numExits + 1;
+                            pendingOverallFocusExitSet[pointer.PreviousTarget] = numExits + 1;
                         }
                         else
                         {
-                            pendingOverallFocusExitSet.Add(pointer.PreviousPointerTarget, 1);
+                            pendingOverallFocusExitSet.Add(pointer.PreviousTarget, 1);
                         }
                     }
 
-                    if (pointer.CurrentPointerTarget != null)
+                    if (pointer.CurrentTarget != null)
                     {
-                        pendingOverallFocusEnterSet.Add(pointer.CurrentPointerTarget);
+                        pendingOverallFocusEnterSet.Add(pointer.CurrentTarget);
                     }
                 }
             }
@@ -1087,19 +1087,19 @@ namespace RealityToolkit.Input.Modules
 
             foreach (var pointer in pointers)
             {
-                if (pointer.CurrentPointerTarget != null)
+                if (pointer.CurrentTarget != null)
                 {
-                    pendingOverallFocusExitSet.Remove(pointer.CurrentPointerTarget);
+                    pendingOverallFocusExitSet.Remove(pointer.CurrentTarget);
                 }
-                pendingOverallFocusEnterSet.Remove(pointer.PreviousPointerTarget);
+                pendingOverallFocusEnterSet.Remove(pointer.PreviousTarget);
             }
 
             // Now we raise the events:
             for (int iChange = 0; iChange < pendingPointerSpecificFocusChange.Count; iChange++)
             {
                 PointerData change = pendingPointerSpecificFocusChange[iChange];
-                GameObject pendingUnfocusObject = change.PreviousPointerTarget;
-                GameObject pendingFocusObject = change.CurrentPointerTarget;
+                GameObject pendingUnfocusObject = change.PreviousTarget;
+                GameObject pendingFocusObject = change.CurrentTarget;
 
                 InputService?.RaisePreFocusChanged(change.Pointer, pendingUnfocusObject, pendingFocusObject);
 

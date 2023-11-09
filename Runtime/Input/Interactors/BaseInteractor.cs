@@ -64,8 +64,8 @@ namespace RealityToolkit.Input.Interactors
 
         /// <inheritdoc/>
         public bool IsOverUI => Result != null &&
-                    Result.CurrentPointerTarget.IsNotNull() &&
-                    uiLayerMask == (uiLayerMask | (1 << Result.CurrentPointerTarget.layer));
+                    Result.CurrentTarget.IsNotNull() &&
+                    uiLayerMask == (uiLayerMask | (1 << Result.CurrentTarget.layer));
 
         /// <inheritdoc/>
         public bool IsTeleportRequestActive { get; set; } = false;
@@ -198,9 +198,9 @@ namespace RealityToolkit.Input.Interactors
             {
                 if (value && syncedTarget == null)
                 {
-                    if (Result.CurrentPointerTarget != null)
+                    if (Result.CurrentTarget != null)
                     {
-                        syncedTarget = Result.CurrentPointerTarget;
+                        syncedTarget = Result.CurrentTarget;
                     }
                     else
                     {
