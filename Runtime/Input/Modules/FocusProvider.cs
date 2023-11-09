@@ -109,7 +109,7 @@ namespace RealityToolkit.Input.Modules
         private Vector3 newUiRaycastPosition = Vector3.zero;
 
         [Serializable]
-        private class PointerData : IPointerResult, IEquatable<PointerData>
+        private class PointerData : IInteractorResult, IEquatable<PointerData>
         {
             private const int IGNORE_RAYCAST_LAYER = 2;
 
@@ -520,7 +520,7 @@ namespace RealityToolkit.Input.Modules
         }
 
         /// <inheritdoc />
-        public bool TryGetFocusDetails(IInteractor pointer, out IPointerResult focusDetails)
+        public bool TryGetFocusDetails(IInteractor pointer, out IInteractorResult focusDetails)
         {
             if (TryGetPointerData(pointer, out var pointerData))
             {

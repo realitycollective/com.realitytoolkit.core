@@ -184,7 +184,7 @@ namespace RealityToolkit.Input.Interactors
         public IFocusHandler FocusHandler { get; set; }
 
         /// <inheritdoc />
-        public IPointerResult Result { get; set; }
+        public IInteractorResult Result { get; set; }
 
         /// <inheritdoc />
         public IBaseRayStabilizer RayStabilizer { get; set; }

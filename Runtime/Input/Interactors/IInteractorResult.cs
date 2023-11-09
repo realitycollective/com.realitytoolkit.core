@@ -4,12 +4,12 @@
 using UnityEngine;
 using UnityEvents = UnityEngine.EventSystems;
 
-namespace RealityToolkit.Input.Interfaces
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
-    /// Interface defining a pointer result.
+    /// A <see cref="IInteractor"/> interaction result.
     /// </summary>
-    public interface IPointerResult
+    public interface IInteractorResult
     {
         /// <summary>
         /// The starting point of the Pointer RaySteps.

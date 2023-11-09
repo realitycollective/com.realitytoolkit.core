@@ -20,7 +20,7 @@ namespace RealityToolkit.Input.Interfaces
         float GlobalPointingExtent { get; }
 
         /// <summary>
-        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IPointerResult.CurrentPointerTarget"/> when raycasting.
+        /// The Physics Layers, in prioritized order, that are used to determine the <see cref="IInteractorResult.CurrentPointerTarget"/> when raycasting.
         /// </summary>
         LayerMask[] GlobalPointerRaycastLayerMasks { get; }
 
@@ -43,7 +43,7 @@ namespace RealityToolkit.Input.Interfaces
         /// </summary>
         /// <param name="pointer"></param>
         /// <param name="focusDetails"></param>
-        bool TryGetFocusDetails(IInteractor pointer, out IPointerResult focusDetails);
+        bool TryGetFocusDetails(IInteractor pointer, out IInteractorResult focusDetails);
 
         /// <summary>
         /// Get the Graphic Event Data for the specified pointing source.

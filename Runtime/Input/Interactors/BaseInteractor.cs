@@ -277,7 +277,7 @@ namespace RealityToolkit.Input.Interactors
         public IFocusHandler FocusHandler { get; set; }
 
         /// <inheritdoc />
-        public IPointerResult Result { get; set; }
+        public IInteractorResult Result { get; set; }
 
         /// <inheritdoc />
         public IBaseRayStabilizer RayStabilizer { get; set; } = new GenericStabilizer();
@@ -451,15 +451,6 @@ namespace RealityToolkit.Input.Interactors
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = 0;
-                hashCode = (hashCode * 397) ^ (int)PointerId;
-                hashCode = (hashCode * 397) ^ (PointerName != null ? PointerName.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
+        public override int GetHashCode() => HashCode.Combine(PointerId, PointerName);
     }
 }
