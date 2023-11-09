@@ -15,53 +15,21 @@ namespace RealityToolkit.Input.Interactors
     public class FarInteractor : BaseControllerInteractor
     {
         [SerializeField]
-        [FormerlySerializedAs("LineColorSelected")]
-        private Gradient lineColorSelected = new Gradient();
+        private Gradient defaultLineColor = new Gradient();
 
-        protected Gradient LineColorSelected
+        protected Gradient DefaultLineColor
         {
-            get => lineColorSelected;
-            set => lineColorSelected = value;
+            get => defaultLineColor;
+            set => defaultLineColor = value;
         }
 
         [SerializeField]
-        [FormerlySerializedAs("LineColorValid")]
-        private Gradient lineColorValid = new Gradient();
+        private Gradient lineColorInputDown = new Gradient();
 
-        protected Gradient LineColorValid
+        protected Gradient LineColorInputDown
         {
-            get => lineColorValid;
-            set => lineColorValid = value;
-        }
-
-        [SerializeField]
-        [FormerlySerializedAs("LineColorInvalid")]
-        private Gradient lineColorInvalid = new Gradient();
-
-        protected Gradient LineColorInvalid
-        {
-            get => lineColorInvalid;
-            set => lineColorInvalid = value;
-        }
-
-        [SerializeField]
-        [FormerlySerializedAs("LineColorNoTarget")]
-        private Gradient lineColorNoTarget = new Gradient();
-
-        protected Gradient LineColorNoTarget
-        {
-            get => lineColorNoTarget;
-            set => lineColorNoTarget = value;
-        }
-
-        [SerializeField]
-        [FormerlySerializedAs("LineColorLockFocus")]
-        private Gradient lineColorLockFocus = new Gradient();
-
-        protected Gradient LineColorLockFocus
-        {
-            get => lineColorLockFocus;
-            set => lineColorLockFocus = value;
+            get => lineColorInputDown;
+            set => lineColorInputDown = value;
         }
 
         [Range(2, 50)]
@@ -234,17 +202,12 @@ namespace RealityToolkit.Input.Interactors
             if (Result?.CurrentTarget != null)
             {
                 clearWorldLength = Result.RayDistance;
-                lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorValid;
+                lineColor = DefaultLineColor;
             }
             else
             {
                 clearWorldLength = PointerExtent;
-                lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorNoTarget;
-            }
-
-            if (IsFocusLocked)
-            {
-                lineColor = lineColorLockFocus;
+                lineColor = DefaultLineColor;
             }
 
             int maxClampLineSteps = lineCastResolution;
