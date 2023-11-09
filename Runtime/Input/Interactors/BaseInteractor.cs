@@ -397,6 +397,17 @@ namespace RealityToolkit.Input.Interactors
             base.OnInputDown(eventData);
         }
 
+        /// <inheritdoc />
+        public override void OnSourceLost(SourceStateEventData eventData)
+        {
+            if (eventData.SourceId == InputSource.SourceId)
+            {
+                inputDownActions.Clear();
+            }
+
+            base.OnSourceLost(eventData);
+        }
+
         private void DragHandler(InputAction action)
         {
             if (IsDragging)
