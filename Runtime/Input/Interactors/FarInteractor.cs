@@ -191,24 +191,14 @@ namespace RealityToolkit.Input.Interactors
                 BaseCursor.IsVisible = true;
             }
 
-            // The distance the ray travels through the world before it hits something.
-            // Measured in world-units (as opposed to normalized distance).
-            float clearWorldLength;
-
             // Used to ensure the line doesn't extend beyond the cursor
             float cursorOffsetWorldLength = BaseCursor?.SurfaceCursorDistance ?? 0f;
 
-            // If we hit something
-            if (Result?.CurrentTarget != null)
-            {
-                clearWorldLength = Result.RayDistance;
-                lineColor = DefaultLineColor;
-            }
-            else
-            {
-                clearWorldLength = PointerExtent;
-                lineColor = DefaultLineColor;
-            }
+            // The distance the ray travels through the world before it hits something.
+            // Measured in world-units (as opposed to normalized distance).
+            var clearWorldLength = (Result?.CurrentTarget != null) ? Result.RayDistance : PointerExtent;
+
+            lineColor = IsInputDown ? LineColorInputDown : DefaultLineColor;
 
             int maxClampLineSteps = lineCastResolution;
 

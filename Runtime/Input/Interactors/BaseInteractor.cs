@@ -3,6 +3,7 @@
 
 using RealityCollective.Extensions;
 using RealityToolkit.Definitions.Physics;
+using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Interfaces;
@@ -11,6 +12,7 @@ using RealityToolkit.Interfaces.Physics;
 using RealityToolkit.Utilities.Physics;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RealityToolkit.Input.Interactors
@@ -61,6 +63,7 @@ namespace RealityToolkit.Input.Interactors
         protected float pointerOrientation = 0f;
 
         private Vector3 lastPointerPosition = Vector3.zero;
+        private readonly List<InputAction> inputDownActions = new List<InputAction>();
 
         /// <inheritdoc/>
         public bool IsOverUI => Result != null &&
@@ -100,7 +103,7 @@ namespace RealityToolkit.Input.Interactors
         /// <summary>
         /// <c>true</c>, if any <see cref="InputAction"/> is down on this <see cref="IInteractor"/>.
         /// </summary>
-        protected bool IsInputDown { get; set; } = false;
+        protected bool IsInputDown => inputDownActions.Count > 0;
 
         /// <summary>
         /// True if select has been pressed once since this component was enabled
@@ -370,6 +373,28 @@ namespace RealityToolkit.Input.Interactors
 
                 }
             }
+        }
+
+        /// <inheritdoc />
+        public override void OnInputDown(InputEventData eventData)
+        {
+            if (eventData.SourceId == InputSource.SourceId)
+            {
+                inputDownActions.EnsureListItem(eventData.InputAction);
+            }
+
+            base.OnInputDown(eventData);
+        }
+
+        /// <inheritdoc />
+        public override void OnInputUp(InputEventData eventData)
+        {
+            if (eventData.SourceId == InputSource.SourceId)
+            {
+                inputDownActions.SafeRemoveListItem(eventData.InputAction);
+            }
+
+            base.OnInputDown(eventData);
         }
 
         private void DragHandler(InputAction action)
