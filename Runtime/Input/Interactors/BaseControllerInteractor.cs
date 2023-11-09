@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEvents = UnityEngine.EventSystems;
 
 namespace RealityToolkit.Input.Interactors
 {
@@ -76,6 +77,7 @@ namespace RealityToolkit.Input.Interactors
         private GameObject cursorInstance = null;
         private Vector3 lastPointerPosition = Vector3.zero;
         private readonly List<InputAction> inputDownActions = new List<InputAction>();
+        private readonly Dictionary<uint, List<GameObject>> inputDownTrackingDictionary = new Dictionary<uint, List<GameObject>>();
 
         /// <inheritdoc/>
         public bool IsOverUI => Result != null &&
@@ -621,6 +623,7 @@ namespace RealityToolkit.Input.Interactors
         /// <param name="inputAction">The <see cref="InputAction"/> about to be raised.</param>
         protected virtual void OnRaisePointerUp(InputAction inputAction)
         {
+            ResolveInputDown(inputAction);
             InputService.RaisePointerUp(this, inputAction);
         }
 
@@ -634,8 +637,58 @@ namespace RealityToolkit.Input.Interactors
         {
             if (Result.CurrentTarget.IsNotNull() && IsInteractionEnabled)
             {
+                TrackInputDown(inputAction, Result.CurrentTarget);
                 InputService.RaisePointerDown(this, inputAction);
             }
+        }
+
+        /// <summary>
+        /// Records the input down on the <paramref name="target"/> with <paramref name="inputAction"/>,
+        /// so that we can ensure input up is raised on the <paramref name="target"/> even without focus.
+        /// </summary>
+        /// <param name="inputAction">The <see cref="InputAction"/>.</param>
+        /// <param name="target">The input down target <see cref="UnityEngine.GameObject"/>.</param>
+        protected void TrackInputDown(InputAction inputAction, GameObject target)
+        {
+            if (inputDownTrackingDictionary.TryGetValue(inputAction.Id, out var targets))
+            {
+                targets.EnsureListItem(target);
+                return;
+            }
+
+            inputDownTrackingDictionary.Add(inputAction.Id, new List<GameObject> { target });
+        }
+
+        /// <summary>
+        /// Raises input up for <paramref name="inputAction"/> on any previously tracked
+        /// <see cref="UnityEngine.GameObject"/>s using <see cref="TrackInputDown(InputAction, GameObject)"/>.
+        /// </summary>
+        /// <param name="inputAction">The <see cref="InputAction"/> to resolve.</param>
+        protected void ResolveInputDown(InputAction inputAction)
+        {
+            if (!inputDownTrackingDictionary.TryGetValue(inputAction.Id, out var targets))
+            {
+                return;
+            }
+
+            for (var i = 0; i < targets.Count; i++)
+            {
+                var target = targets[i];
+                var handlers = target.GetComponents<IPointerHandler>();
+
+                if (handlers != null)
+                {
+                    var eventData = new PointerEventData(UnityEvents.EventSystem.current);
+                    eventData.Initialize(this, inputAction);
+
+                    for (var j = 0; j < handlers.Length; j++)
+                    {
+                        handlers[j].OnPointerUp(eventData);
+                    }
+                }
+            }
+
+            inputDownTrackingDictionary.Remove(inputAction.Id);
         }
 
         /// <inheritdoc />
