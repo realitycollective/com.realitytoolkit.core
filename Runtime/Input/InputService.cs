@@ -451,7 +451,7 @@ namespace RealityToolkit.Input
                         modalEventHandled = true;
 
                         // If there is a focused object in the hierarchy of the modal handler, start the event bubble there
-                        if (focusedObject != null && focusedObject.transform.IsChildOf(modalInput.transform))
+                        if (focusedObject.IsNotNull() && focusedObject.transform.IsChildOf(modalInput.transform))
                         {
                             InputServiceEventHandlers.Execute(focusedObject, baseInputEventData, eventHandler);
 
@@ -478,7 +478,7 @@ namespace RealityToolkit.Input
                 }
 
                 // If event was not handled by modal, pass it on to the current focused object
-                if (focusedObject != null)
+                if (focusedObject.IsNotNull())
                 {
                     InputServiceEventHandlers.Execute(focusedObject, baseInputEventData, eventHandler);
 
@@ -815,12 +815,12 @@ namespace RealityToolkit.Input
             focusEventData.Initialize(pointer, oldFocusedObject, newFocusedObject);
 
             // Raise Focus Events on the old and new focused objects.
-            if (oldFocusedObject != null)
+            if (oldFocusedObject.IsNotNull())
             {
                 InputServiceEventHandlers.Execute(oldFocusedObject, focusEventData, InputServiceEventHandlers.OnPreFocusChangedHandler);
             }
 
-            if (newFocusedObject != null)
+            if (newFocusedObject.IsNotNull())
             {
                 InputServiceEventHandlers.Execute(newFocusedObject, focusEventData, InputServiceEventHandlers.OnPreFocusChangedHandler);
             }
@@ -847,12 +847,12 @@ namespace RealityToolkit.Input
             focusEventData.Initialize(pointer, oldFocusedObject, newFocusedObject);
 
             // Raise Focus Events on the old and new focused objects.
-            if (oldFocusedObject != null)
+            if (oldFocusedObject.IsNotNull())
             {
                 InputServiceEventHandlers.Execute(oldFocusedObject, focusEventData, InputServiceEventHandlers.OnFocusChangedHandler);
             }
 
-            if (newFocusedObject != null)
+            if (newFocusedObject.IsNotNull())
             {
                 InputServiceEventHandlers.Execute(newFocusedObject, focusEventData, InputServiceEventHandlers.OnFocusChangedHandler);
             }
@@ -916,9 +916,9 @@ namespace RealityToolkit.Input
             // Pass handler through HandleEvent to perform modal/fallback logic
             HandleEvent(pointerEventData, InputServiceEventHandlers.OnPointerDownEventHandler);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
-            if (focusedObject != null &&
+            if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.pointerDownHandler);
@@ -955,9 +955,9 @@ namespace RealityToolkit.Input
             // Pass handler through HandleEvent to perform modal/fallback logic
             HandleEvent(pointerEventData, InputServiceEventHandlers.OnPointerUpEventHandler);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
-            if (focusedObject != null &&
+            if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.pointerUpHandler);
@@ -976,9 +976,9 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerScrollEventData, InputServiceEventHandlers.OnPointerScroll);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
-            if (focusedObject != null &&
+            if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 graphicInputEventData.scrollDelta = scrollDelta;
@@ -995,9 +995,9 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDragBegin);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
-            if (focusedObject != null &&
+            if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 graphicInputEventData.pointerDrag = focusedObject;
@@ -1014,9 +1014,9 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDrag);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
-            if (focusedObject != null &&
+            if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 InputServiceEventHandlers.Execute(focusedObject, graphicInputEventData, UnityEvents.ExecuteEvents.dragHandler);
@@ -1030,9 +1030,9 @@ namespace RealityToolkit.Input
 
             HandleEvent(pointerDragEventData, InputServiceEventHandlers.OnPointerDragEnd);
 
-            var focusedObject = pointer.Result.CurrentPointerTarget;
+            var focusedObject = pointer.Result.CurrentTarget;
 
-            if (focusedObject != null &&
+            if (focusedObject.IsNotNull() &&
                 FocusProvider.TryGetSpecificPointerGraphicEventData(pointer, out var graphicInputEventData))
             {
                 graphicInputEventData.dragging = false;

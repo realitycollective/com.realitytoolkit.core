@@ -15,53 +15,21 @@ namespace RealityToolkit.Input.Interactors
     public class FarInteractor : BaseControllerInteractor
     {
         [SerializeField]
-        [FormerlySerializedAs("LineColorSelected")]
-        private Gradient lineColorSelected = new Gradient();
+        private Gradient defaultLineColor = new Gradient();
 
-        protected Gradient LineColorSelected
+        protected Gradient DefaultLineColor
         {
-            get => lineColorSelected;
-            set => lineColorSelected = value;
+            get => defaultLineColor;
+            set => defaultLineColor = value;
         }
 
         [SerializeField]
-        [FormerlySerializedAs("LineColorValid")]
-        private Gradient lineColorValid = new Gradient();
+        private Gradient lineColorInputDown = new Gradient();
 
-        protected Gradient LineColorValid
+        protected Gradient LineColorInputDown
         {
-            get => lineColorValid;
-            set => lineColorValid = value;
-        }
-
-        [SerializeField]
-        [FormerlySerializedAs("LineColorInvalid")]
-        private Gradient lineColorInvalid = new Gradient();
-
-        protected Gradient LineColorInvalid
-        {
-            get => lineColorInvalid;
-            set => lineColorInvalid = value;
-        }
-
-        [SerializeField]
-        [FormerlySerializedAs("LineColorNoTarget")]
-        private Gradient lineColorNoTarget = new Gradient();
-
-        protected Gradient LineColorNoTarget
-        {
-            get => lineColorNoTarget;
-            set => lineColorNoTarget = value;
-        }
-
-        [SerializeField]
-        [FormerlySerializedAs("LineColorLockFocus")]
-        private Gradient lineColorLockFocus = new Gradient();
-
-        protected Gradient LineColorLockFocus
-        {
-            get => lineColorLockFocus;
-            set => lineColorLockFocus = value;
+            get => lineColorInputDown;
+            set => lineColorInputDown = value;
         }
 
         [Range(2, 50)]
@@ -162,7 +130,7 @@ namespace RealityToolkit.Input.Interactors
             // Set our first and last points
             lineBase.FirstPoint = pointerPosition;
 
-            if (IsFocusLocked && Result.CurrentPointerTarget != null)
+            if (IsFocusLocked && Result.CurrentTarget != null)
             {
                 if (SyncedTarget != null)
                 {
@@ -223,29 +191,14 @@ namespace RealityToolkit.Input.Interactors
                 BaseCursor.IsVisible = true;
             }
 
-            // The distance the ray travels through the world before it hits something.
-            // Measured in world-units (as opposed to normalized distance).
-            float clearWorldLength;
-
             // Used to ensure the line doesn't extend beyond the cursor
             float cursorOffsetWorldLength = BaseCursor?.SurfaceCursorDistance ?? 0f;
 
-            // If we hit something
-            if (Result?.CurrentPointerTarget != null)
-            {
-                clearWorldLength = Result.RayDistance;
-                lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorValid;
-            }
-            else
-            {
-                clearWorldLength = PointerExtent;
-                lineColor = IsSelectPressed || IsGrabPressed ? lineColorSelected : lineColorNoTarget;
-            }
+            // The distance the ray travels through the world before it hits something.
+            // Measured in world-units (as opposed to normalized distance).
+            var clearWorldLength = (Result?.CurrentTarget != null) ? Result.RayDistance : PointerExtent;
 
-            if (IsFocusLocked)
-            {
-                lineColor = lineColorLockFocus;
-            }
+            lineColor = IsInputDown ? LineColorInputDown : DefaultLineColor;
 
             int maxClampLineSteps = lineCastResolution;
 
@@ -260,7 +213,7 @@ namespace RealityToolkit.Input.Interactors
 
             // If focus is locked, we're sticking to the target
             // So don't clamp the world length
-            if (IsFocusLocked && Result.CurrentPointerTarget != null)
+            if (IsFocusLocked && Result.CurrentTarget != null)
             {
                 if (SyncedTarget != null)
                 {

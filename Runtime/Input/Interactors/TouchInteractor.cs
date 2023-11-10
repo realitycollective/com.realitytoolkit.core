@@ -70,7 +70,7 @@ namespace RealityToolkit.Input.Interactors
             if (fingerId < 0) { return false; }
 
             var playerCamera = Camera.main;
-            position = Result.CurrentPointerTarget != null
+            position = Result.CurrentTarget != null
                 ? Result.EndPoint
                 : playerCamera.ScreenPointToRay(UnityEngine.Input.GetTouch(FingerId).position).GetPoint(PointerExtent);
             return true;

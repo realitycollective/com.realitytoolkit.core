@@ -132,9 +132,9 @@ namespace RealityToolkit.Input.Interactors
             {
                 if (value && syncedTarget == null)
                 {
-                    if (Result.CurrentPointerTarget != null)
+                    if (Result.CurrentTarget != null)
                     {
-                        syncedTarget = Result.CurrentPointerTarget;
+                        syncedTarget = Result.CurrentTarget;
                     }
                     else
                     {
@@ -184,7 +184,7 @@ namespace RealityToolkit.Input.Interactors
         public IFocusHandler FocusHandler { get; set; }
 
         /// <inheritdoc />
-        public IPointerResult Result { get; set; }
+        public IInteractorResult Result { get; set; }
 
         /// <inheritdoc />
         public IBaseRayStabilizer RayStabilizer { get; set; }

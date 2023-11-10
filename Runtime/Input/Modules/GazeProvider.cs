@@ -234,9 +234,9 @@ namespace RealityToolkit.Input.Modules
             public override void OnPostRaycast()
             {
                 gazeProvider.HitInfo = Result.LastRaycastHit;
-                gazeProvider.GazeTarget = Result.CurrentPointerTarget;
+                gazeProvider.GazeTarget = Result.CurrentTarget;
 
-                if (Result.CurrentPointerTarget != null)
+                if (Result.CurrentTarget != null)
                 {
                     gazeProvider.lastHitDistance = (Result.EndPoint - Rays[0].Origin).magnitude;
                     gazeProvider.HitPosition = Rays[0].Origin + (gazeProvider.lastHitDistance * Rays[0].Direction);

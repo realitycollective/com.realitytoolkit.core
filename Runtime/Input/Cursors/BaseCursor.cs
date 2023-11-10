@@ -407,7 +407,7 @@ namespace RealityToolkit.Input.Cursors
             // Use the lerp times to blend the position to the target position
             var cachedTransform = transform;
 
-            if (Pointer.IsFocusLocked && focusDetails.CurrentPointerTarget != null)
+            if (Pointer.IsFocusLocked && focusDetails.CurrentTarget != null)
             {
                 if (Pointer.SyncedTarget == null)
                 {

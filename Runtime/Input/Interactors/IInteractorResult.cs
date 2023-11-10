@@ -4,12 +4,12 @@
 using UnityEngine;
 using UnityEvents = UnityEngine.EventSystems;
 
-namespace RealityToolkit.Input.Interfaces
+namespace RealityToolkit.Input.Interactors
 {
     /// <summary>
-    /// Interface defining a pointer result.
+    /// A <see cref="IInteractor"/> interaction result.
     /// </summary>
-    public interface IPointerResult
+    public interface IInteractorResult
     {
         /// <summary>
         /// The starting point of the Pointer RaySteps.
@@ -27,20 +27,20 @@ namespace RealityToolkit.Input.Interfaces
         Vector3 EndPointLocalSpace { get; }
 
         /// <summary>
-        /// The current pointer's target <see cref="GameObject"/>
+        /// The current target <see cref="GameObject"/>
         /// </summary>
-        GameObject CurrentPointerTarget { get; }
+        GameObject CurrentTarget { get; }
 
         /// <summary>
-        /// The previous pointer target.
+        /// The previous target <see cref="GameObject"/>, before <see cref="CurrentTarget"/>.
         /// </summary>
-        GameObject PreviousPointerTarget { get; }
+        GameObject PreviousTarget { get; }
 
         /// <summary>
         /// The last <see cref="GameObject"/> hit by the raycast.
         /// </summary>
         /// <remarks>
-        /// This may be different from the <see cref="CurrentPointerTarget"/> if the pointer is locked or synced.
+        /// This may be different from the <see cref="CurrentTarget"/> if the pointer is locked or synced.
         /// </remarks>
         GameObject LastHitObject { get; }
 
@@ -80,12 +80,12 @@ namespace RealityToolkit.Input.Interfaces
         UnityEvents.RaycastResult LastGraphicsRaycastResult { get; }
 
         /// <summary>
-        /// The current grab position of the <see cref="CurrentPointerTarget"/> in world space.
+        /// The current grab position of the <see cref="CurrentTarget"/> in world space.
         /// </summary>
         Vector3 GrabPoint { get; }
 
         /// <summary>
-        /// The current grab position of the <see cref="CurrentPointerTarget"/> in local space.
+        /// The current grab position of the <see cref="CurrentTarget"/> in local space.
         /// </summary>
         Vector3 GrabPointLocalSpace { get; }
     }

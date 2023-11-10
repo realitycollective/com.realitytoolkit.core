@@ -56,6 +56,7 @@ namespace RealityToolkit.Input.Interactors
         {
             if (DirectResult.CurrentTarget.IsNotNull() && IsInteractionEnabled)
             {
+                TrackInputDown(inputAction, DirectResult.CurrentTarget);
                 InputService.RaisePointerDown(this, inputAction);
             }
         }
