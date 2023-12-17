@@ -61,6 +61,12 @@ namespace RealityToolkit.Input.Hands.Visualizers
         {
             base.Awake();
             poseAnimator = new HandPoseAnimator(jointTransformProvider);
+
+            // If an idle pose is configured, instantly apply it.
+            if (idlePose.IsNotNull())
+            {
+                poseAnimator.Transition(idlePose, false);
+            }
         }
 
         /// <inheritdoc/>
