@@ -11,8 +11,12 @@ namespace RealityToolkit.Input.InteractionBehaviours
 {
     /// <summary>
     /// Attaches the <see cref="IControllerInteractor"/>'s <see cref="Controllers.IControllerVisualizer"/>
-    /// to the <see cref="Interactables.IInteractable"/> pose.
+    /// to the <see cref="Interactables.IInteractable"/> pose and keeps them in sync until input is released.
     /// </summary>
+    /// <remarks>
+    /// Only supports <see cref="IControllerInteractor"/>s.
+    /// Does not support <see cref="IPokeInteractor"/>s and will ignore them.
+    /// </remarks>
     public class AttachControllerVisualizerBehaviour : BaseInteractionBehaviour
     {
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
@@ -21,14 +25,14 @@ namespace RealityToolkit.Input.InteractionBehaviours
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
         private Vector3 poseLocalRotationOffset = Vector3.zero;
 
-        private readonly List<IControllerInteractor> interactors = new List<IControllerInteractor>();
+        private readonly List<IControllerInteractor> attachedInteractors = new List<IControllerInteractor>();
 
         /// <inheritdoc/>
         protected override void Update()
         {
-            for (int i = 0; i < interactors.Count; i++)
+            for (int i = 0; i < attachedInteractors.Count; i++)
             {
-                var interactor = interactors[i];
+                var interactor = attachedInteractors[i];
                 var pose = GetGrabPose(interactor);
 
                 interactor.Controller.Visualizer.PoseDriver.SetPositionAndRotation(pose.position, pose.rotation);
@@ -38,63 +42,64 @@ namespace RealityToolkit.Input.InteractionBehaviours
         /// <inheritdoc/>
         protected override void OnSelectEntered(InteractionEventArgs eventArgs)
         {
-            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
+            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor ||
+                eventArgs.Interactor is IPokeInteractor)
             {
                 return;
             }
 
-            Attach(controllerInteractor);
+            AttachVisualizer(controllerInteractor);
         }
 
         /// <inheritdoc/>
         protected override void OnSelectExited(InteractionExitEventArgs eventArgs)
         {
-            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
+            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor ||
+                eventArgs.Interactor is IPokeInteractor)
             {
                 return;
             }
 
-            Detach(controllerInteractor);
+            DetachVisualizer(controllerInteractor);
         }
 
         /// <inheritdoc/>
         protected override void OnGrabEntered(InteractionEventArgs eventArgs)
         {
-            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
+            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor ||
+                eventArgs.Interactor is IPokeInteractor)
             {
                 return;
             }
 
-            Attach(controllerInteractor);
+            AttachVisualizer(controllerInteractor);
         }
 
         /// <inheritdoc/>
         protected override void OnGrabExited(InteractionExitEventArgs eventArgs)
         {
-            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor)
+            if (eventArgs.Interactor is not IControllerInteractor controllerInteractor ||
+                eventArgs.Interactor is IPokeInteractor)
             {
                 return;
             }
 
-            Detach(controllerInteractor);
+            DetachVisualizer(controllerInteractor);
         }
 
-        private void Attach(IControllerInteractor currentInteractor)
+        private void AttachVisualizer(IControllerInteractor currentInteractor)
         {
-            interactors.EnsureListItem(currentInteractor);
+            attachedInteractors.EnsureListItem(currentInteractor);
             currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = transform;
         }
 
-        private void Detach(IControllerInteractor currentInteractor)
+        private void DetachVisualizer(IControllerInteractor currentInteractor)
         {
-            interactors.SafeRemoveListItem(currentInteractor);
+            attachedInteractors.SafeRemoveListItem(currentInteractor);
             currentInteractor.Controller.Visualizer.VisualizerPoseOverrideSource = null;
         }
 
-        private Pose GetGrabPose(IControllerInteractor controllerInteractor)
-        {
-            return new Pose(GetGrabPosition(controllerInteractor), GetGrabRotation(controllerInteractor));
-        }
+        private Pose GetGrabPose(IControllerInteractor controllerInteractor) => new Pose(GetGrabPosition(controllerInteractor), GetGrabRotation(controllerInteractor));
 
         private Vector3 GetGrabPosition(IControllerInteractor currentInteractor)
         {
@@ -111,10 +116,10 @@ namespace RealityToolkit.Input.InteractionBehaviours
             return worldAttachmentPosition;
         }
 
-        private Quaternion GetGrabRotation(IControllerInteractor currentInteractor)
+        private Quaternion GetGrabRotation(IControllerInteractor interactor)
         {
             var worldAttachmentRotation = Quaternion.Euler(poseLocalRotationOffset);
-            var localControllerOffset = currentInteractor.Controller.Visualizer.GripPose.localRotation;
+            var localControllerOffset = interactor.Controller.Visualizer.GripPose.localRotation;
             return transform.rotation * worldAttachmentRotation * localControllerOffset;
         }
     }
