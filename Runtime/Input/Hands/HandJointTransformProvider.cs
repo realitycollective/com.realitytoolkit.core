@@ -49,6 +49,20 @@ namespace RealityToolkit.Input.Hands
         private void InvalidateCache() => Cache.Clear();
 
         /// <inheritdoc/>
+        public void Copy(IHandJointTransformProvider sourceProvider)
+        {
+            var jointCount = Enum.GetNames(typeof(HandJoint)).Length;
+            for (var i = 0; i < jointCount; i++)
+            {
+                var joint = (HandJoint)i;
+                if (sourceProvider.TryGetTransform(joint, out var transform))
+                {
+                    SetTransform(joint, transform);
+                }
+            }
+        }
+
+        /// <inheritdoc/>
         public void SetTransform(HandJoint joint, Transform transform)
         {
             if (transforms == null)

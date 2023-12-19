@@ -19,6 +19,12 @@ namespace RealityToolkit.Input.Hands
         event Action JointTransformsChanged;
 
         /// <summary>
+        /// Copies all joint <see cref="Transform"/> information from the <paramref name="sourceProvider"/>.
+        /// </summary>
+        /// <param name="sourceProvider">The <see cref="IHandJointTransformProvider"/> to copy from.</param>
+        void Copy(IHandJointTransformProvider sourceProvider);
+
+        /// <summary>
         /// Sets the <see cref="Transform"/> for a given <see cref="HandJoint"/>.
         /// </summary>
         /// <param name="joint">The <see cref="HandJoint"/> to set the <see cref="Transform"/> for.</param>
