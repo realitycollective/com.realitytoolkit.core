@@ -9,10 +9,26 @@ namespace RealityToolkit.Input.Hands.Poses
     /// </summary>
     public class HandPoseAnimator
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="jointTransformProvider">The <see cref="IHandJointTransformProvider"/> used to access joints.</param>
         public HandPoseAnimator(IHandJointTransformProvider jointTransformProvider)
         {
             jointCount = Enum.GetNames(typeof(HandJoint)).Length;
             this.jointTransformProvider = jointTransformProvider;
+            this.jointTransformProvider.JointTransformsChanged += JointTransformProvider_JointTransformsChanged;
+        }
+
+        /// <summary>
+        /// Destructor.
+        /// </summary>
+        ~HandPoseAnimator()
+        {
+            if (jointTransformProvider != null)
+            {
+                jointTransformProvider.JointTransformsChanged -= JointTransformProvider_JointTransformsChanged;
+            }
         }
 
         private readonly int jointCount;
@@ -135,6 +151,16 @@ namespace RealityToolkit.Input.Hands.Poses
                     startFramePoses.Add(handJoint, new Pose(jointTransform.localPosition, jointTransform.localRotation));
                 }
             }
+        }
+
+        private void JointTransformProvider_JointTransformsChanged()
+        {
+            // Whenever the joint providers joints have changed, we must
+            // invalidate the current pose and re-transition to make sure we are working
+            // with latest data.
+            var currentPose = CurrentPose;
+            CurrentPose = null;
+            Transition(currentPose, false);
         }
     }
 }

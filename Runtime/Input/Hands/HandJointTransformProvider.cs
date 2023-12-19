@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.Hands
     public class HandJointTransformProvider : MonoBehaviour, IHandJointTransformProvider
     {
         [Serializable]
-        public class JointTransformPair
+        private class JointTransformPair
         {
             public HandJoint Joint;
             public Transform Transform;
@@ -23,7 +23,10 @@ namespace RealityToolkit.Input.Hands
         [SerializeField, Tooltip("Map transforms to hand joints here.")]
         private List<JointTransformPair> transforms = null;
 
-        private readonly Dictionary<HandJoint, Transform> cache = new Dictionary<HandJoint, Transform>();
+        private Dictionary<HandJoint, Transform> Cache { get; } = new Dictionary<HandJoint, Transform>();
+
+        /// <inheritdoc/>
+        public event Action JointTransformsChanged;
 
         private void UpdateCache()
         {
@@ -32,16 +35,18 @@ namespace RealityToolkit.Input.Hands
                 transforms = new List<JointTransformPair>();
             }
 
-            if (cache.Count != transforms.Count)
+            if (Cache.Count != transforms.Count)
             {
-                cache.Clear();
+                Cache.Clear();
 
                 foreach (var item in transforms)
                 {
-                    cache.Add(item.Joint, item.Transform);
+                    Cache.Add(item.Joint, item.Transform);
                 }
             }
         }
+
+        private void InvalidateCache() => Cache.Clear();
 
         /// <inheritdoc/>
         public void SetTransform(HandJoint joint, Transform transform)
@@ -59,7 +64,9 @@ namespace RealityToolkit.Input.Hands
 
             // Since we added a new transform, we need to clear the cached
             // dictionary so it gets regenereated next time a transform is looked up.
-            cache.Clear();
+            InvalidateCache();
+
+            JointTransformsChanged?.Invoke();
         }
 
         /// <inheritdoc/>
@@ -67,9 +74,9 @@ namespace RealityToolkit.Input.Hands
         {
             UpdateCache();
 
-            if (cache.ContainsKey(joint))
+            if (Cache.ContainsKey(joint))
             {
-                transform = cache[joint];
+                transform = Cache[joint];
                 return true;
             }
 
