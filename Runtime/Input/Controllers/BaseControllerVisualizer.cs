@@ -22,7 +22,7 @@ namespace RealityToolkit.Input.Controllers
         public GameObject GameObject => gameObject;
 
         /// <inheritdoc />
-        public Transform VisualizerPoseOverrideSource { get; set; }
+        public bool OverrideSourcePose { get; set; }
 
         /// <inheritdoc />
         public Transform PokePose
@@ -41,7 +41,7 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public override void OnSourcePoseChanged(SourcePoseEventData<Pose> eventData)
         {
-            if (VisualizerPoseOverrideSource.IsNotNull())
+            if (OverrideSourcePose)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public override void OnSourcePoseChanged(SourcePoseEventData<Quaternion> eventData)
         {
-            if (VisualizerPoseOverrideSource.IsNotNull())
+            if (OverrideSourcePose)
             {
                 return;
             }
@@ -63,7 +63,7 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public override void OnSourcePoseChanged(SourcePoseEventData<Vector2> eventData)
         {
-            if (VisualizerPoseOverrideSource.IsNotNull())
+            if (OverrideSourcePose)
             {
                 return;
             }
@@ -74,7 +74,7 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public override void OnSourcePoseChanged(SourcePoseEventData<Vector3> eventData)
         {
-            if (VisualizerPoseOverrideSource.IsNotNull())
+            if (OverrideSourcePose)
             {
                 return;
             }
