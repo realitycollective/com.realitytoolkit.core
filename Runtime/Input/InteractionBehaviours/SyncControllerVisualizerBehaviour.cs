@@ -25,7 +25,17 @@ namespace RealityToolkit.Input.InteractionBehaviours
         [SerializeField, Tooltip("Optional local offset from the object's pivot.")]
         private Vector3 poseLocalRotationOffset = Vector3.zero;
 
+        [SerializeField, Tooltip("If set, the controller visualizer will snap to the interactable instead of a smooth transition.")]
+        private bool snapToInteractable = false;
+
+        [SerializeField, Tooltip("Speed applied to smoothly move to the interactable position."), Min(1f)]
+        private float syncPositionSpeed = 2f;
+
+        [SerializeField, Tooltip("Speed applied to smoothly rotate to the interactable rotation."), Min(1f)]
+        private float syncRotationSpeed = 360f;
+
         private readonly List<IControllerInteractor> syncedVisualizers = new List<IControllerInteractor>();
+        private const float snapPoseEpsilon = .0001f;
 
         /// <inheritdoc/>
         protected override void Update()
@@ -35,6 +45,14 @@ namespace RealityToolkit.Input.InteractionBehaviours
             for (int i = 0; i < syncedVisualizers.Count; i++)
             {
                 var interactor = syncedVisualizers[i];
+                var shouldSnap = snapToInteractable || HasReachedSnapPose(interactor, syncPose);
+
+                if (!shouldSnap)
+                {
+                    syncPose.position = Vector3.MoveTowards(interactor.Controller.Visualizer.PoseDriver.position, syncPose.position, syncPositionSpeed * Time.deltaTime);
+                    syncPose.rotation = Quaternion.RotateTowards(interactor.Controller.Visualizer.PoseDriver.rotation, syncPose.rotation, syncRotationSpeed * Time.deltaTime);
+                }
+
                 interactor.Controller.Visualizer.PoseDriver.SetPositionAndRotation(syncPose.position, syncPose.rotation);
             }
         }
@@ -100,5 +118,15 @@ namespace RealityToolkit.Input.InteractionBehaviours
         }
 
         private Pose GetSyncPose() => new Pose(transform.TransformPoint(poseLocalPositionOffset), transform.rotation * Quaternion.Euler(poseLocalRotationOffset));
+
+        private bool HasReachedSnapPose(IControllerInteractor interactor, Pose snapPose)
+        {
+            var currentPose = new Pose(
+                interactor.Controller.Visualizer.PoseDriver.position,
+                interactor.Controller.Visualizer.PoseDriver.rotation);
+
+            return Vector3.SqrMagnitude(snapPose.position - currentPose.position) <= snapPoseEpsilon &&
+                Quaternion.Angle(snapPose.rotation, currentPose.rotation) <= snapPoseEpsilon;
+        }
     }
 }
