@@ -24,11 +24,3 @@ MonoBehaviour:
     platformEntries:
       runtimePlatforms:
       - reference: 9869b29e-43bb-44cc-ae49-eb5c913263f9
-  - instancedType:
-      reference: 05ef9ddc-13c2-47d4-84c5-1c9cb6cc5c1c
-    name: Spatial Awareness Service
-    priority: 1
-    profile: {fileID: 11400000, guid: 41ce31a4954544c58d16f6b3c4c88f4b, type: 2}
-    platformEntries:
-      runtimePlatforms:
-      - reference: 9869b29e-43bb-44cc-ae49-eb5c913263f9
