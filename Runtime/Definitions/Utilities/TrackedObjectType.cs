@@ -6,7 +6,7 @@ namespace RealityToolkit.Definitions.Utilities
     public enum TrackedObjectType
     {
         /// <summary>
-        /// Calculates position and orientation based on the <see cref="PlayerService.Interfaces.ICameraRig.CameraTransform"/>.
+        /// Calculates position and orientation based on the <see cref="PlayerService.Interfaces.IPlayerRig.CameraTransform"/>.
         /// </summary>
         Head = 0,
         /// <summary>
@@ -18,7 +18,7 @@ namespace RealityToolkit.Definitions.Utilities
         /// </summary>
         RightHandOrController,
         /// <summary>
-        /// Calculates position and orientation based on the <see cref="PlayerService.Interfaces.ICameraRig.RigTransform"/>
+        /// Calculates position and orientation based on the <see cref="PlayerService.Interfaces.IPlayerRig.RigTransform"/>
         /// </summary>
         Rig
     }

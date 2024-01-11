@@ -118,17 +118,17 @@ namespace RealityToolkit.Input.Hands
         public string TrackedPoseId { get; private set; }
 
         /// <summary>
-        /// The hand's pointer pose in the camera rig's local coordinate space.
+        /// The hand's pointer pose in the player's rig local coordinate space.
         /// </summary>
         private Pose SpatialPointerPose { get; set; }
 
         /// <summary>
-        /// The hand's index finger tip pose in the camera rig's local coordinate space.
+        /// The hand's index finger tip pose in the player's rig local coordinate space.
         /// </summary>
         private Pose IndexFingerTipPose { get; set; }
 
         /// <summary>
-        /// The hand's grip pose in the camera rig's local coordinate space.
+        /// The hand's grip pose in the player's rig local coordinate space.
         /// </summary>
         private Pose GripPose { get; set; }
 
