@@ -13,8 +13,7 @@ using UnityEditor;
 namespace RealityToolkit.Editor
 {
     /// <summary>
-    /// Installs <see cref="IS"/>s coming from a third party package
-    /// into the <see cref="PlayerServiceProfile"/> in the <see cref="ServiceManager.ActiveProfile"/>.
+    /// Installs the spatial awareness package modules in the <see cref="ServiceManager.ActiveProfile"/>.
     /// </summary>
     [InitializeOnLoad]
     public sealed class SpatialAwarenessPackageModulesInstaller : IPackageModulesInstaller
