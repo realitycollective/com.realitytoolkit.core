@@ -7,7 +7,6 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Interfaces;
 using RealityCollective.ServiceFramework.Services;
-using RealityCollective.Utilities.Editor;
 using RealityToolkit.Editor.Utilities.SymbolicLinks;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace RealityToolkit.Editor
 {
     public static class RealityToolkitPreferences
     {
-        public const string Editor_Menu_Keyword = ToolkitPreferences.Editor_Menu_Keyword + "/Reality Toolkit";
+        public const string Editor_Menu_Keyword = "Tools/Reality Toolkit";
 
         private static readonly string[] Package_Keywords = { "Reality", "Toolkit", "Mixed", "Augmented", "Virtual" };
 
