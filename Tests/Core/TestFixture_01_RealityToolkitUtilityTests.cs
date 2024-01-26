@@ -29,7 +29,7 @@ namespace RealityToolkit.Tests.Core
         [Test]
         public void Test_02_ConfirmGenereicControllerTextureExists()
         {
-            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerMappingProfile>();
+            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             // Right / Any hand textures
@@ -46,7 +46,7 @@ namespace RealityToolkit.Tests.Core
         [Test]
         public void Test_03_ConfirmGenereicControllerTextureDoesNotExist()
         {
-            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerMappingProfile>();
+            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             // Right / Any hand textures
@@ -64,7 +64,7 @@ namespace RealityToolkit.Tests.Core
         [Test]
         public void Test_04_ConfirmProfileControllerTextureUsed()
         {
-            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerMappingProfile>();
+            var controllerMappingProfile = ScriptableObject.CreateInstance<ControllerProfile>();
             controllerMappingProfile.ControllerType = typeof(GenericJoystickController);
 
             var dummyTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);

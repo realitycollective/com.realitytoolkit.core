@@ -4,14 +4,11 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Editor.Profiles;
-using RealityCollective.ServiceFramework.Editor.PropertyDrawers;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.PropertyDrawers;
-using RealityToolkit.Input.Definitions;
 using RealityToolkit.Input.Processors;
 using System;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace RealityToolkit.Editor.Profiles.Input.Controllers
@@ -22,7 +19,6 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
         private readonly InputActionDropdown inputActionDropdown = new InputActionDropdown();
 
         private SerializedProperty interactionMapping;
-        private SerializedProperty pointerProfiles;
         private SerializedProperty description;
         private SerializedProperty stateChangeType;
         private SerializedProperty axisType;
@@ -34,7 +30,7 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
         private SerializedProperty axisCodeY;
         private SerializedProperty inputProcessors;
 
-        private ReorderableList profileList;
+
         private int selectedPointerIndex;
 
         protected override void OnEnable()
@@ -53,16 +49,6 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             axisCodeX = interactionMapping.FindPropertyRelative(nameof(axisCodeX));
             axisCodeY = interactionMapping.FindPropertyRelative(nameof(axisCodeY));
             inputProcessors = interactionMapping.FindPropertyRelative(nameof(inputProcessors));
-
-            pointerProfiles = serializedObject.FindProperty(nameof(pointerProfiles));
-
-            profileList = new ReorderableList(serializedObject, pointerProfiles, true, false, true, true)
-            {
-                elementHeight = EditorGUIUtility.singleLineHeight * 1.5f
-            };
-            profileList.drawElementCallback += DrawConfigurationOptionElement;
-            profileList.onAddCallback += OnConfigurationOptionAdded;
-            profileList.onRemoveCallback += OnConfigurationOptionRemoved;
         }
 
         public override void OnInspectorGUI()
@@ -97,19 +83,6 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
                 currentAxisType != AxisType.None)
             {
                 RenderInputProcessors(inputProcessors, currentAxisType);
-            }
-
-            if (currentAxisType == AxisType.SixDof || currentAxisType == AxisType.ThreeDofPosition)
-            {
-                EditorGUILayout.LabelField("Registered Pointers", EditorStyles.boldLabel);
-                profileList.DoLayoutList();
-            }
-            else
-            {
-                if (pointerProfiles.arraySize > 0)
-                {
-                    pointerProfiles.ClearArray();
-                }
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -204,38 +177,6 @@ namespace RealityToolkit.Editor.Profiles.Input.Controllers
             }
 
             EditorGUI.indentLevel--;
-            EditorGUILayout.Space();
-        }
-
-        private void DrawConfigurationOptionElement(Rect rect, int index, bool isActive, bool isFocused)
-        {
-            if (isFocused)
-            {
-                selectedPointerIndex = index;
-            }
-
-            rect.height = EditorGUIUtility.singleLineHeight;
-            rect.y += 3;
-            var mappingProfileProperty = pointerProfiles.GetArrayElementAtIndex(index);
-            ProfilePropertyDrawer.ProfileTypeOverride = typeof(PointerProfile);
-            EditorGUI.PropertyField(rect, mappingProfileProperty, GUIContent.none);
-        }
-
-        private void OnConfigurationOptionAdded(ReorderableList list)
-        {
-            pointerProfiles.arraySize += 1;
-            var index = pointerProfiles.arraySize - 1;
-
-            var mappingProfileProperty = pointerProfiles.GetArrayElementAtIndex(index);
-            mappingProfileProperty.objectReferenceValue = null;
-        }
-
-        private void OnConfigurationOptionRemoved(ReorderableList list)
-        {
-            if (selectedPointerIndex >= 0)
-            {
-                pointerProfiles.DeleteArrayElementAtIndex(selectedPointerIndex);
-            }
         }
     }
 }

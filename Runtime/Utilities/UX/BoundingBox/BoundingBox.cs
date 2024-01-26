@@ -7,6 +7,7 @@ using RealityCollective.Extensions;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.EventDatum.Input;
 using RealityToolkit.Input.Handlers;
+using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Handlers;
 using System;
@@ -524,7 +525,7 @@ namespace RealityToolkit.Utilities.UX
 
         private bool isManipulationEnabled;
 
-        private IPointer currentPointer;
+        private IInteractor currentPointer;
         private IInputSource currentInputSource;
 
         private IInputService inputService = null;

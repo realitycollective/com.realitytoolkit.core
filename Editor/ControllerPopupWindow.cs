@@ -9,7 +9,7 @@ using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;
 using RealityToolkit.Editor.Utilities;
 using RealityToolkit.Input.Controllers.UnityInput;
-using RealityToolkit.Input.Interfaces.Controllers.Hands;
+using RealityToolkit.Input.Hands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -85,7 +85,7 @@ namespace RealityToolkit.Editor
         private Texture2D currentControllerTexture;
         private ControllerInputActionOption currentControllerOption;
 
-        private ControllerMappingProfile controllerDataProviderProfile;
+        private ControllerProfile controllerDataProviderProfile;
         private string currentControllerName;
 
         private Type ControllerType => controllerDataProviderProfile.ControllerType;
@@ -111,7 +111,7 @@ namespace RealityToolkit.Editor
         /// </summary>
         /// <param name="profile"></param>
         /// <param name="interactionMappingProfiles"></param>
-        public static void Show(ControllerMappingProfile profile, SerializedProperty interactionMappingProfiles)
+        public static void Show(ControllerProfile profile, SerializedProperty interactionMappingProfiles)
         {
             var handednessTitleText = profile.Handedness != Handedness.None ? $"{profile.Handedness} Hand " : string.Empty;
 
