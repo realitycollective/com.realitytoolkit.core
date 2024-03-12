@@ -3,7 +3,6 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityCollective.ServiceFramework.Editor.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Editor.Data;
 using RealityToolkit.Editor.PropertyDrawers;

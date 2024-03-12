@@ -2,8 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Attributes;
-using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework;
+using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions;
+using RealityCollective.ServiceFramework.Definitions.Utilities;
 using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Modules;
