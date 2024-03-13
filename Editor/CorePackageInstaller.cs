@@ -93,7 +93,7 @@ namespace RealityToolkit.Editor
 
             if (serviceManagerInstance.Manager == null)
             {
-                serviceManagerInstance.InitialiseServiceManager();
+                serviceManagerInstance.InitializeServiceManager();
             }
 
             if (serviceManagerInstance.Manager.ActiveProfile.IsNull())
