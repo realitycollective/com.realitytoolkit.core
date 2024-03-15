@@ -457,7 +457,7 @@ namespace RealityToolkit.Editor.Utilities.SymbolicLinks
                 $"mklink /D \"{link.TargetAbsolutePath}\" \"{relativePath}\"";
 #else
                 //ln -s "../relative/path/to/source" "/path/to/symlink"
-                $"ln -s \"{relativePath}\" \"{link.TargetAbsolutePath}\"";
+                $"ln -s '{relativePath}' '{link.TargetAbsolutePath}'";
 #endif
 
             if (!new Process().Run(symlinkCommand, out var error))
