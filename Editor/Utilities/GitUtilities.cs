@@ -52,17 +52,7 @@ namespace RealityToolkit.Editor.Utilities
             {
                 if (!string.IsNullOrEmpty(projectRootDir)) { return projectRootDir; }
 
-                if (!IsGitInstalled)
-                {
-                    projectRootDir = Directory.GetParent(Directory.GetParent(EditorPreferences.ApplicationDataPath).FullName).FullName;
-                }
-                else
-                {
-                    if (new Process().Run($@"cd ""{Application.dataPath}"" && git rev-parse --show-toplevel", out var rootDir))
-                    {
-                        projectRootDir = rootDir.ForwardSlashes().Replace("\n", string.Empty);
-                    }
-                }
+                projectRootDir = Directory.GetParent(EditorPreferences.ApplicationDataPath).FullName;
 
                 return projectRootDir;
             }
