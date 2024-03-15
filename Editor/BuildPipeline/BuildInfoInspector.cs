@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEditor;
+using UnityEditor.Build;
 
 namespace RealityToolkit.Editor.BuildPipeline
 {
@@ -34,7 +35,12 @@ namespace RealityToolkit.Editor.BuildPipeline
             if (EditorGUI.EndChangeCheck())
             {
                 var buildTargetGroup = UnityEditor.BuildPipeline.GetBuildTargetGroup(buildInfo.BuildTarget);
+#if UNITY_2023_1_OR_NEWER
+                var namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup);
+                PlayerSettings.SetApplicationIdentifier(namedBuildTarget, bundleIdentifier.stringValue);
+#else
                 PlayerSettings.SetApplicationIdentifier(buildTargetGroup, bundleIdentifier.stringValue);
+#endif
             }
 
             EditorGUILayout.PropertyField(autoIncrement);

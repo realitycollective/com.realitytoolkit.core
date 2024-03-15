@@ -315,8 +315,13 @@ namespace RealityToolkit.Input
 
         private void EnsureInputModuleSetup()
         {
+#if UNITY_2023_1_OR_NEWER
+            var inputModules = UnityEngine.Object.FindObjectsByType(InputModuleType, FindObjectsSortMode.None);
+            var eventSystemGameObject = UnityEngine.Object.FindFirstObjectByType<UnityEvents.EventSystem>();
+#else
             var inputModules = UnityEngine.Object.FindObjectsOfType(InputModuleType);
             var eventSystemGameObject = UnityEngine.Object.FindObjectOfType<UnityEvents.EventSystem>();
+#endif
 
             if (inputModules.Length == 0)
             {
@@ -381,7 +386,11 @@ namespace RealityToolkit.Input
             {
                 RemoveGazeProvider();
 
+#if UNITY_2023_1_OR_NEWER
+                var inputModule = UnityEngine.Object.FindFirstObjectByType(InputModuleType);
+#else
                 var inputModule = UnityEngine.Object.FindObjectOfType(InputModuleType);
+#endif
                 if (inputModule.IsNotNull())
                 {
                     inputModule.Destroy();
@@ -389,7 +398,7 @@ namespace RealityToolkit.Input
             }
         }
 
-        #endregion IService Implementation
+#endregion IService Implementation
 
         #region IEventSystemManager Implementation
 
