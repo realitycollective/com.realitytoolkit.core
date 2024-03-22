@@ -66,8 +66,11 @@ namespace RealityToolkit.Editor.BuildPipeline
                                 return null;
                             }
 
+#if UNITY_2023_1_OR_NEWER
+                            var buildInfos = Object.FindObjectsByType(type, FindObjectsSortMode.None);
+#else
                             var buildInfos = Object.FindObjectsOfType(type);
-
+#endif
                             foreach (var info in buildInfos)
                             {
                                 var assetPath = AssetDatabase.GetAssetPath(info);
@@ -203,6 +206,17 @@ namespace RealityToolkit.Editor.BuildPipeline
             PlayerSettings.WSA.packageVersion = new Version(version.Major, version.Minor, version.Build, 0);
 
             var buildTargetGroup = UnityEditor.BuildPipeline.GetBuildTargetGroup(buildInfo.BuildTarget);
+#if UNITY_2023_1_OR_NEWER
+            var namedTarget = NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup);
+            var oldBuildIdentifier = PlayerSettings.GetApplicationIdentifier(namedTarget);
+
+            if (!string.IsNullOrWhiteSpace(buildInfo.BundleIdentifier))
+            {
+                PlayerSettings.SetApplicationIdentifier(namedTarget, buildInfo.BundleIdentifier);
+            }
+
+            var playerBuildSymbols = PlayerSettings.GetScriptingDefineSymbols(namedTarget);
+#else
             var oldBuildIdentifier = PlayerSettings.GetApplicationIdentifier(buildTargetGroup);
 
             if (!string.IsNullOrWhiteSpace(buildInfo.BundleIdentifier))
@@ -211,7 +225,7 @@ namespace RealityToolkit.Editor.BuildPipeline
             }
 
             var playerBuildSymbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup);
-
+#endif
             if (!string.IsNullOrEmpty(playerBuildSymbols))
             {
                 if (buildInfo.HasConfigurationSymbol())
@@ -226,7 +240,11 @@ namespace RealityToolkit.Editor.BuildPipeline
 
             if (!string.IsNullOrEmpty(buildInfo.BuildSymbols))
             {
+#if UNITY_2023_1_OR_NEWER
+                PlayerSettings.SetScriptingDefineSymbols(namedTarget, buildInfo.BuildSymbols);
+#else
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, buildInfo.BuildSymbols);
+#endif
             }
 
             if ((buildInfo.BuildOptions & BuildOptions.Development) == BuildOptions.Development &&
@@ -291,10 +309,17 @@ namespace RealityToolkit.Editor.BuildPipeline
                 Debug.LogError(e);
             }
 
+#if UNITY_2023_1_OR_NEWER
+            if (PlayerSettings.GetApplicationIdentifier(namedTarget) != oldBuildIdentifier)
+            {
+                PlayerSettings.SetApplicationIdentifier(namedTarget, oldBuildIdentifier);
+            }
+#else
             if (PlayerSettings.GetApplicationIdentifier(buildTargetGroup) != oldBuildIdentifier)
             {
                 PlayerSettings.SetApplicationIdentifier(buildTargetGroup, oldBuildIdentifier);
             }
+#endif
 
             PlayerSettings.colorSpace = oldColorSpace;
 

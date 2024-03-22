@@ -76,7 +76,11 @@ namespace RealityToolkit.Editor
 
         private static ServiceManagerInstance SetupServiceManager()
         {
+#if UNITY_2023_1_OR_NEWER
+            var serviceManagerInstance = Object.FindFirstObjectByType<ServiceManagerInstance>();
+#else
             var serviceManagerInstance = Object.FindObjectOfType<ServiceManagerInstance>();
+#endif
             if (serviceManagerInstance.IsNotNull() &&
                 serviceManagerInstance.Manager != null &&
                 serviceManagerInstance.Manager.ActiveProfile.IsNotNull() &&
