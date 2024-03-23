@@ -8,7 +8,7 @@
     "XR",
     "Mixed Reality"
   ],
-  "version": "1.0.0-pre.42",
+  "version": "1.0.0-pre.43",
   "unity": "2022.3",
   "homepage": "https://github.com/realitycollective",
   "bugs": {
@@ -27,7 +27,7 @@
   "dependencies": {
     "com.unity.xr.management": "4.4.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
-    "com.realitycollective.service-framework": "1.0.6",
+    "com.realitycollective.service-framework": "v1.0.7-pre.1",
     "com.realitycollective.utilities": "1.0.9",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0"
