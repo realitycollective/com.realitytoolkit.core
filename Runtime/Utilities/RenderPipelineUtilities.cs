@@ -18,26 +18,19 @@ namespace RealityToolkit.Utilities
         /// <returns>The <see cref="UnityRenderPipeline"/> used by the project.</returns>
         public static UnityRenderPipeline GetActiveRenderingPipeline()
         {
-#if UNITY_6000_0_OR_NEWER
-            var renderPipelineAsset = GraphicsSettings.defaultRenderPipeline;
-#else
-            var renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
-#endif
+            var renderPipelineAsset = GraphicsSettings.currentRenderPipeline;
 
             if (renderPipelineAsset.IsNull())
             {
                 return UnityRenderPipeline.Legacy;
             }
 
-            switch (renderPipelineAsset.GetType().Name)
+            return renderPipelineAsset.GetType().Name switch
             {
-                case urpAssetTypeName:
-                    return UnityRenderPipeline.UniversalRenderPipeline;
-                case hdrpAssetTypeName:
-                    return UnityRenderPipeline.HighDefinitionRenderPipeline;
-            }
-
-            return UnityRenderPipeline.Custom;
+                urpAssetTypeName => UnityRenderPipeline.UniversalRenderPipeline,
+                hdrpAssetTypeName => UnityRenderPipeline.HighDefinitionRenderPipeline,
+                _ => UnityRenderPipeline.Custom,
+            };
         }
     }
 }
