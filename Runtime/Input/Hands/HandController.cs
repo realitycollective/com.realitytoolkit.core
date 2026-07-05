@@ -11,6 +11,7 @@ using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace RealityToolkit.Input.Hands
 {
@@ -24,8 +25,8 @@ namespace RealityToolkit.Input.Hands
         public HandController() : base() { }
 
         /// <inheritdoc />
-        public HandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
-            : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
+        public HandController(IControllerServiceModule controllerDataProvider, InputDevice inputDevice, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
+            : base(controllerDataProvider, inputDevice, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
 

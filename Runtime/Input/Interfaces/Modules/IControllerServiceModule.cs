@@ -5,7 +5,6 @@ using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Input.Controllers;
 using RealityToolkit.Input.Definitions;
 using System;
-using System.Collections.Generic;
 
 namespace RealityToolkit.Input.Interfaces.Modules
 {
@@ -14,11 +13,6 @@ namespace RealityToolkit.Input.Interfaces.Modules
     /// </summary>
     public interface IControllerServiceModule : IInputServiceModule
     {
-        /// <summary>
-        /// Retrieve all controllers currently registered with this device at runtime (if direct access is required).
-        /// </summary>
-        IReadOnlyList<IController> ActiveControllers { get; }
-
         /// <summary>
         /// Gets the registered controller mapping profile for the provided <see cref="IController"/>
         /// </summary>

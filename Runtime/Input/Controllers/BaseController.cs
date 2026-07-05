@@ -6,12 +6,14 @@ using RealityCollective.Utilities.Extensions;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Extensions;
 using RealityToolkit.Input.Interactors;
 using RealityToolkit.Input.Interfaces;
 using RealityToolkit.Input.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using Object = UnityEngine.Object;
 
 namespace RealityToolkit.Input.Controllers
@@ -30,14 +32,16 @@ namespace RealityToolkit.Input.Controllers
         /// Creates a new instance of a controller.
         /// </summary>
         /// <param name="controllerDataProvider">The <see cref="IControllerServiceModule"/> this controller belongs to.</param>
+        /// <param name="inputDevice">The <see cref="InputDevice"/> associated with this controller.</param>
         /// <param name="trackingState">The initial tracking state of this controller.</param>
         /// <param name="controllerHandedness">The controller's handedness.</param>
         /// <param name="controllerProfile">The <see cref="ControllerProfile"/> used to configure the <see cref="IController"/>.</param>
-        protected BaseController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerProfile)
+        protected BaseController(IControllerServiceModule controllerDataProvider, InputDevice inputDevice, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerProfile)
         {
             ServiceModule = controllerDataProvider;
             TrackingState = trackingState;
             ControllerHandedness = controllerHandedness;
+            InputDevice = inputDevice;
 
             var handednessPrefix = string.Empty;
 
@@ -85,9 +89,37 @@ namespace RealityToolkit.Input.Controllers
         private readonly IReadOnlyList<BaseControllerInteractor> controllerInteractors;
 
         /// <summary>
+        /// This dictionary contains <see cref="AxisType.Digital"/> mappings to their respective <see cref="InputFeatureUsage"/> equivalent
+        /// used to read the buttons state.
+        /// </summary>
+        protected virtual IReadOnlyDictionary<string, InputFeatureUsage<bool>> DigitalInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<bool>>();
+
+        /// <summary>
+        /// This dictionary contains <see cref="AxisType.SingleAxis"/> mappings to their respective <see cref="InputFeatureUsage"/> equivalent
+        /// used to read the buttons state.
+        /// </summary>
+        protected virtual IReadOnlyDictionary<string, InputFeatureUsage<float>> SingleAxisInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<float>>();
+
+        /// <summary>
+        /// This dictionary contains <see cref="AxisType.DualAxis"/> mappings to their respective <see cref="InputFeatureUsage"/> equivalent
+        /// used to read the buttons state.
+        /// </summary>
+        protected virtual IReadOnlyDictionary<string, InputFeatureUsage<Vector2>> DualAxisInputFeatureUsageMap { get; set; } = new Dictionary<string, InputFeatureUsage<Vector2>>();
+
+        /// <summary>
+        /// The controller's pointer pose in world space.
+        /// </summary>
+        protected Pose SpatialPointerPose { get; set; }
+
+        /// <summary>
         /// The <see cref="IInputService"/> the <see cref="IController"/>'s <see cref="ServiceModule"/> is registered with.
         /// </summary>
         protected IInputService InputService { get; }
+
+        /// <summary>
+        /// The <see cref="InputDevice"/> associated with this controller.
+        /// </summary>
+        protected InputDevice InputDevice { get; }
 
         /// <summary>
         /// The default interactions for this controller.
@@ -149,15 +181,18 @@ namespace RealityToolkit.Input.Controllers
         /// <inheritdoc />
         public InteractionMapping[] Interactions { get; private set; } = null;
 
-        /// <summary>
-        /// Updates the current readings for the controller.
-        /// </summary>
+        /// <inheritdoc />
         public virtual void UpdateController()
         {
             if (!Enabled)
             {
                 return;
             }
+
+            UpdateTrackingState();
+            UpdateControllerPose();
+            UpdateSpatialPointerPose();
+            UpdateInteractionMappings();
 
             if (TrackingState == TrackingState.Tracked)
             {
@@ -169,9 +204,157 @@ namespace RealityToolkit.Input.Controllers
         }
 
         /// <summary>
-        /// Load the Interaction mappings for this controller from the configured Controller Mapping profile
+        /// Updates the controller's <see cref="TrackingState"/>.
         /// </summary>
-        protected void AssignControllerMappings(InteractionMapping[] mappings) => Interactions = mappings;
+        protected virtual void UpdateTrackingState()
+        {
+            var currentTrackingState = TrackingState;
+            if (InputDevice.TryGetFeatureValue(CommonUsages.isTracked, out var isTracked))
+            {
+                TrackingState = isTracked ? TrackingState.Tracked : TrackingState.NotTracked;
+            }
+
+            if (TrackingState != currentTrackingState)
+            {
+                InputService?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
+            }
+        }
+
+        /// <summary>
+        /// Updates the controller's pose.
+        /// </summary>
+        protected virtual void UpdateControllerPose()
+        {
+            if (TrackingState != TrackingState.Tracked)
+            {
+                IsPositionAvailable = false;
+                IsPositionApproximate = false;
+                IsRotationAvailable = false;
+                return;
+            }
+
+            IsPositionAvailable = InputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out var position);
+            IsRotationAvailable = InputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out var rotation);
+            IsPositionApproximate = false;
+
+            var updatedControllerPose = new Pose(position, rotation);
+            if (updatedControllerPose != Pose)
+            {
+                Pose = updatedControllerPose;
+                InputService?.RaiseSourcePoseChanged(InputSource, this, Pose);
+            }
+        }
+
+        /// <summary>
+        /// Updates the controller's spatial pointer pose.
+        /// </summary>
+        protected virtual void UpdateSpatialPointerPose()
+        {
+            SpatialPointerPose = Pose;
+        }
+
+        /// <summary>
+        /// Updates the controller's <see cref="DeviceInputType.ButtonPress"/> mappings.
+        /// </summary>
+        /// <param name="interactionMapping">The <see cref="InteractionMapping"/> to update.</param>
+        /// <param name="inputDevice">The <see cref="InputDevice"/> data is read from.</param>
+        protected virtual void UpdateDigitalInteractionMapping(InteractionMapping interactionMapping, InputDevice inputDevice)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.Digital);
+
+            if (!DigitalInputFeatureUsageMap.ContainsKey(interactionMapping.InputName))
+            {
+                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                return;
+            }
+
+            interactionMapping.BoolData = inputDevice.TryGetFeatureValue(DigitalInputFeatureUsageMap[interactionMapping.InputName], out bool value) && value;
+        }
+
+        /// <summary>
+        /// Updates the controller's <see cref="DeviceInputType.ThumbStick"/> mappings.
+        /// </summary>
+        /// <param name="interactionMapping">The <see cref="InteractionMapping"/> to update.</param>
+        /// <param name="inputDevice">The <see cref="InputDevice"/> data is read from.</param>
+        protected virtual void UpdateSingleAxisInteractionMapping(InteractionMapping interactionMapping, InputDevice inputDevice)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SingleAxis);
+
+            if (!SingleAxisInputFeatureUsageMap.ContainsKey(interactionMapping.InputName))
+            {
+                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                return;
+            }
+
+            if (inputDevice.TryGetFeatureValue(SingleAxisInputFeatureUsageMap[interactionMapping.InputName], out float value))
+            {
+                interactionMapping.FloatData = value;
+            }
+        }
+
+        /// <summary>
+        /// Updates the controller's <see cref="DeviceInputType.ThumbStick"/> mappings.
+        /// </summary>
+        /// <param name="interactionMapping">The <see cref="InteractionMapping"/> to update.</param>
+        /// <param name="inputDevice">The <see cref="InputDevice"/> data is read from.</param>
+        protected virtual void UpdateDualAxisInteractionMapping(InteractionMapping interactionMapping, InputDevice inputDevice)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.DualAxis);
+
+            if (!DualAxisInputFeatureUsageMap.ContainsKey(interactionMapping.InputName))
+            {
+                Debug.LogError($"Interaction mapping {interactionMapping.InputName} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                return;
+            }
+
+            if (inputDevice.TryGetFeatureValue(DualAxisInputFeatureUsageMap[interactionMapping.InputName], out Vector2 value))
+            {
+                interactionMapping.Vector2Data = value;
+            }
+        }
+
+        /// <summary>
+        /// Updates the spatial pointer pose interaction mapping value.
+        /// </summary>
+        /// <param name="interactionMapping">The spatial pointer pose mapping.</param>
+        protected void UpdateSpatialPointer(InteractionMapping interactionMapping)
+        {
+            Debug.Assert(interactionMapping.AxisType == AxisType.SixDof);
+            interactionMapping.PoseData = SpatialPointerPose;
+        }
+
+        /// <summary>
+        /// Reads controller input and updates mappings.
+        /// </summary>
+        protected virtual void UpdateInteractionMappings()
+        {
+            Debug.Assert(Interactions != null && Interactions.Length > 0, $"Interaction mappings must be defined for {GetType().Name} - {ControllerHandedness}.");
+
+            for (var i = 0; i < Interactions.Length; i++)
+            {
+                var interactionMapping = Interactions[i];
+                switch (interactionMapping.InputType)
+                {
+                    case DeviceInputType.Trigger:
+                        UpdateSingleAxisInteractionMapping(interactionMapping, InputDevice);
+                        break;
+                    case DeviceInputType.ButtonPress:
+                        UpdateDigitalInteractionMapping(interactionMapping, InputDevice);
+                        break;
+                    case DeviceInputType.ThumbStick:
+                        UpdateDualAxisInteractionMapping(interactionMapping, InputDevice);
+                        break;
+                    case DeviceInputType.SpatialPointer:
+                        UpdateSpatialPointer(interactionMapping);
+                        break;
+                    default:
+                        Debug.LogError($"Input {interactionMapping.InputType} is not handled for controller {GetType().Name} - {ControllerHandedness}.");
+                        break;
+                }
+
+                interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
+            }
+        }
 
         private void AssignControllerMappings(InteractionMappingProfile[] interactionMappingProfiles)
         {
@@ -183,7 +366,7 @@ namespace RealityToolkit.Input.Controllers
                 interactions[i] = interactionProfile.InteractionMapping;
             }
 
-            AssignControllerMappings(interactions);
+            Interactions = interactions;
         }
 
         /// <inheritdoc />

@@ -14,7 +14,7 @@ namespace RealityToolkit.Input.Hands
     /// <summary>
     /// Base controller service module to inherit from when implementing <see cref="IHandController"/>s.
     /// </summary>
-    public abstract class BaseHandControllerServiceModule : BaseControllerServiceModule, IHandControllerServiceModule
+    public abstract class BaseHandControllerServiceModule<T> : BaseControllerServiceModule<T>, IHandControllerServiceModule where T : BaseController
     {
         /// <inheritdoc />
         protected BaseHandControllerServiceModule(string name, uint priority, BaseHandControllerServiceModuleProfile profile, IInputService parentService)
